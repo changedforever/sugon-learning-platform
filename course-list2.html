@@ -13,12 +13,14 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
-            background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+            background: #FFFFFF;
+            color: #333333;
         }
 
         .glass-card {
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(14px);
+            border: 1px solid #e5e7eb;
         }
 
         .no-scrollbar::-webkit-scrollbar {
@@ -30,27 +32,25 @@
             scrollbar-width: none;
         }
 
+        /* 激活筛选 Chip：B01F24 边框+文字，浅色底 */
         .filter-chip-active {
-            border-color: rgb(129 140 248 / 1);
-            /* indigo-400 */
-            color: rgb(191 219 254 / 1);
-            /* blue-100-ish */
-            background: rgba(15, 23, 42, 0.9);
+            border-color: rgb(176 31 36 / 1);
+            color: rgb(176 31 36);
+            background: rgba(255, 255, 255, 0.9);
         }
 
         .course-card-img {
             border-radius: 0.75rem;
-            /* 和卡片圆角协调 */
             overflow: hidden;
             width: 100%;
         }
     </style>
 </head>
 
-<body class="bg-slate-950 text-slate-50">
+<body class="bg-white text-gray-800">
 
     <!-- 顶部导航（简版），与首页风格统一 -->
-    <header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+    <header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
         <div class="max-w-7xl mx-auto px-4 lg:px-6">
             <div class="flex items-center justify-between h-14">
                 <!-- 左侧：LOGO + 返回首页 -->
@@ -61,26 +61,25 @@
                             <i class="fa fa-network-wired text-white text-lg"></i>
                         </div>
                         <div class="hidden sm:block">
-                            <div class="text-xs uppercase tracking-widest text-slate-400">SUGON</div>
-                            <div class="text-sm font-semibold group-hover:text-indigo-300">合作伙伴赋能平台 · 在线学习 <span class="text-[11px] text-slate-400"> 为伙伴提供系统化学习路径</span></div>
+                            <div class="text-xs uppercase tracking-widest text-white">SUGON</div>
+                            <div class="text-sm font-semibold text-white group-hover:text-gray-100">
+                                合作伙伴赋能平台 · 在线学习
+                                <span class="text-[11px] text-gray-100/80">
+                                    为伙伴提供系统化学习路径
+                                </span>
+                            </div>
                         </div>
                     </a>
                 </div>
 
-                <!-- 中间：本页标题 + 简要统计 >
-                <div class="hidden md:flex items-center space-x-3">
-                    <h1 class="text-sm font-semibold">在线学习 · 全部课程</h1>
-                    <span class="text-[11px] text-slate-400">为伙伴提供系统化学习路径</span>
-                </div-->
-
                 <!-- 右侧：简单入口 -->
                 <div class="flex items-center space-x-2 text-xs">
                     <a href="personal-center.html"
-                        class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 hover:border-indigo-500 transition">
+                        class="px-3 py-1.5 rounded-full bg-gray-200 border border-gray-400 hover:bg-gray-300 transition text-gray-800">
                         个人中心
                     </a>
                     <a href="#"
-                        class="px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white font-medium">
+                        class="px-3 py-1.5 rounded-full bg-[#B01F24] text-white font-medium hover:opacity-90 transition">
                         登录
                     </a>
                 </div>
@@ -95,24 +94,24 @@
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
                 <div>
                     <h2 class="text-lg font-semibold flex items-center gap-2">
-                        <span class="inline-flex h-6 w-1 rounded-full bg-indigo-500"></span>
+                        <span class="inline-flex h-6 w-1 rounded-full bg-[#B01F24]"></span>
                         课程列表
                     </h2>
                 </div>
 
-                <!-- 顶部搜索 + 排序 + 简易分页控制（页码在下方还有完整展示） -->
+                <!-- 顶部搜索 + 排序 + 简易分页控制 -->
                 <div class="flex flex-wrap items-center gap-2 justify-end">
                     <!-- 搜索 -->
                     <div class="relative">
-                        <i class="fa fa-search text-slate-400 absolute left-2 top-2.5 text-xs"></i>
+                        <i class="fa fa-search text-gray-500 absolute left-2 top-2.5 text-xs"></i>
                         <input id="search-input" type="text" placeholder="搜索课程名称 / 发布来源 / 标签"
-                            class="w-52 md:w-64 rounded-full bg-slate-900/80 border border-slate-700 pl-7 pr-3 py-1.5 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                            class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]" />
                     </div>
                     <!-- 排序 -->
                     <div class="flex items-center gap-1 text-xs">
-                        <span class="text-slate-400">排序：</span>
+                        <span class="text-gray-600">排序：</span>
                         <select id="sort-select"
-                            class="rounded-full bg-slate-900/80 border border-slate-700 px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                            class="rounded-full bg-white/80 border border-gray-300 px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-[#B01F24]">
                             <option value="newest">最新发布</option>
                             <option value="most-popular">最热学习</option>
                         </select>
@@ -123,13 +122,11 @@
 
         <!-- 高级筛选区：类别 / 岗位 / 赛道 -->
         <section class="max-w-7xl mx-auto px-4 lg:px-6 mb-6">
-            <div class="glass-card rounded-3xl border border-slate-800 p-4 space-y-3">
+            <div class="glass-card rounded-3xl p-4 space-y-3">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                        <!--i class="fa fa-filter text-indigo-400 text-sm"></i>
-                        <span class="text-sm font-medium">高级筛选</span-->
                     </div>
-                    <span id="active-filter-text" class="text-[11px] text-slate-400">
+                    <span id="active-filter-text" class="text-[11px] text-gray-600">
                         已选条件：全部
                     </span>
                 </div>
@@ -137,27 +134,27 @@
                 <div class="grid md:grid-cols-3 gap-3 text-xs">
                     <!-- 类别 -->
                     <div>
-                        <div class="text-slate-400 mb-1 flex items-center justify-between">
+                        <div class="text-gray-600 mb-1 flex items-center justify-between">
                             <span>类别</span>
                         </div>
                         <div class="flex flex-wrap gap-1">
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px]"
+                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-gray-800"
                                 data-filter="category" data-value="all">
                                 全部
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-indigo-300"
+                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#B01F24]"
                                 data-filter="category" data-value="云基础设施">
                                 云基础设施
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-emerald-300"
+                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#B01F24]"
                                 data-filter="category" data-value="AI与数据智能">
                                 AI 与数据智能
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-amber-300"
+                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#B01F24]"
                                 data-filter="category" data-value="解决方案">
                                 解决方案
                             </button>
@@ -166,27 +163,27 @@
 
                     <!-- 岗位 -->
                     <div>
-                        <div class="text-slate-400 mb-1 flex items-center justify-between">
+                        <div class="text-gray-600 mb-1 flex items-center justify-between">
                             <span>岗位</span>
                         </div>
                         <div class="flex flex-wrap gap-1">
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px]"
+                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-gray-800"
                                 data-filter="role" data-value="all">
                                 全部
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-sky-300"
+                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#B01F24]"
                                 data-filter="role" data-value="云架构师">
                                 云架构师
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-pink-300"
+                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#B01F24]"
                                 data-filter="role" data-value="解决方案顾问">
                                 解决方案顾问
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-rose-300"
+                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#B01F24]"
                                 data-filter="role" data-value="销售">
                                 销售
                             </button>
@@ -195,27 +192,27 @@
 
                     <!-- 赛道 -->
                     <div>
-                        <div class="text-slate-400 mb-1 flex items-center justify-between">
+                        <div class="text-gray-600 mb-1 flex items-center justify-between">
                             <span>赛道</span>
                         </div>
                         <div class="flex flex-wrap gap-1">
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px]"
+                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-gray-800"
                                 data-filter="track" data-value="all">
                                 全部
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-emerald-300"
+                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#B01F24]"
                                 data-filter="track" data-value="DevOps">
                                 DevOps
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-purple-300"
+                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#B01F24]"
                                 data-filter="track" data-value="AI">
                                 AI 赛道
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-amber-300"
+                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#B01F24]"
                                 data-filter="track" data-value="业务运营">
                                 业务运营
                             </button>
@@ -229,19 +226,19 @@
         <section class="max-w-7xl mx-auto px-4 lg:px-6">
             <!-- 统计 + 分页信息 -->
             <div
-                class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 text-[11px] text-slate-400 gap-2">
+                class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 text-[11px] text-gray-600 gap-2">
                 <div>
                     共 <span id="total-count">0</span> 门课程，当前显示
                     <span id="current-range">0–0</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <button id="prev-btn"
-                        class="px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800">
+                        class="px-2.5 py-1 rounded-full bg白/80 border border-gray-300 hover:bg-gray-200 transition text-gray-800">
                         上一页
                     </button>
                     <span id="page-info">1 / 1</span>
                     <button id="next-btn"
-                        class="px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800">
+                        class="px-2.5 py-1 rounded-full bg白/80 border border-gray-300 hover:bg-gray-200 transition text-gray-800">
                         下一页
                     </button>
                 </div>
@@ -255,9 +252,9 @@
     </main>
 
     <!-- 简洁页脚 -->
-    <footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
+    <footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
         <div
-            class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-600 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div>© 2026 合作伙伴赋能平台 · 在线学习中心</div>
             <div class="flex flex-wrap gap-3">
                 <span>隐私政策</span>
@@ -398,19 +395,19 @@
             const pageData = filteredCourses.slice(startIndex, endIndex);
             pageData.forEach(course => {
                 const card = document.createElement('article');
-                card.className = 'glass-card rounded-3xl border border-slate-800 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-indigo-500/80 transition cursor-pointer';
+                card.className = 'glass-card rounded-3xl p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#B01F24]/80 transition cursor-pointer';
 
                 card.innerHTML = `
   <!-- 顶部：来源 + 热度 -->
   <div class="flex items-center justify-between mb-2">
-    <span class="text-[11px] text-slate-400 truncate max-w-[120px]">${course.source}</span>
-    <span class="text-[11px] text-amber-300 flex items-center gap-1">
+    <span class="text-[11px] text-gray-600 truncate max-w-[120px]">${course.source}</span>
+    <span class="text-[11px] text-[#B01F24] flex items-center gap-1">
       <i class="fa fa-fire text-[10px]"></i>
       ${(course.learners / 1000).toFixed(1)}k 在学
     </span>
   </div>
   <!-- 标题 -->
-  <h3 class="text-sm font-semibold line-clamp-2 mb-2 text-left">
+  <h3 class="text-sm font-semibold line-clamp-2 mb-2 text-left text-gray-800">
     ${course.name}
   </h3>
 
@@ -425,29 +422,29 @@
     </a>
   </div>
   <!-- 底部：左侧时间+人数，中间标签，右侧报名按钮 -->
-  <div class="mt-2 flex flex-col gap-2 text-[11px] text-slate-400">
+  <div class="mt-2 flex flex-col gap-2 text-[11px] text-gray-600">
     <!-- 上架时间 & 学习人数 -->
     <div class="flex items-center justify-between">
       <div class="space-y-0.5">
-        <div><i class="fa fa-clock mr-1 text-[9px] text-slate-500"></i>上架时间：${course.date}</div>
-        <div><i class="fa fa-users mr-1 text-[9px] text-slate-500"></i>学习人数：${course.learners.toLocaleString()}</div>
+        <div><i class="fa fa-clock mr-1 text-[9px] text-gray-400"></i>上架时间：${course.date}</div>
+        <div><i class="fa fa-users mr-1 text-[9px] text-gray-400"></i>学习人数：${course.learners.toLocaleString()}</div>
       </div>
     </div>
     <!-- 标签区域，与时间/人数同级 -->
     <div class="flex flex-wrap justify-start gap-1">
-      <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-slate-900/80 border border-slate-800">
-        <i class="fa fa-layer-group mr-1 text-[9px] text-indigo-400"></i>${course.category}
+      <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg白/80 border border-gray-300">
+        <i class="fa fa-layer-group mr-1 text-[9px] text-[#B01F24]"></i>${course.category}
       </span>
-      <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-slate-900/80 border border-slate-800">
-        <i class="fa fa-user-tie mr-1 text-[9px] text-emerald-400"></i>${course.role}
+      <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg白/80 border border-gray-300">
+        <i class="fa fa-user-tie mr-1 text-[9px] text-[#B01F24]"></i>${course.role}
       </span>
-      <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-slate-900/80 border border-slate-800">
-        <i class="fa fa-road mr-1 text-[9px] text-sky-400"></i>${course.track}
+      <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg白/80 border border-gray-300">
+        <i class="fa fa-road mr-1 text-[9px] text-[#B01F24]"></i>${course.track}
       </span>
     </div>
-    <!-- 报名按钮 -->
+    <!-- 报名按钮：底色 B01F24 + 白字 -->
     <div class="flex justify-end">
-      <button class="enroll-btn px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white text-[11px] font-medium hover:opacity-90"
+      <button class="enroll-btn px-3 py-1.5 rounded-full bg-[#B01F24] text-white text-[11px] font-medium hover:opacity-90"
               data-id="${course.id}">
         立即报名
       </button>
@@ -473,7 +470,6 @@
                     e.stopPropagation();
                     const id = btn.dataset.id;
                     const course = allCourses.find(c => c.id == id);
-                    // 这里可替换为实际跳转或调用报名接口
                     alert(`已报名课程：「${course.name}」，即将跳转到课程详情页。`);
                 });
             });

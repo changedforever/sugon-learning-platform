@@ -13,52 +13,54 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body {
-      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+      background-color: #FFFFFF;
+      color: #333333;
     }
     .glass-card {
-      background: rgba(15,23,42,0.85);
+      background: rgba(255,255,255,0.85);
       backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
     }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
     /* 选中文本浮窗样式 */
     #selection-overlay {
-      box-shadow: 0 0 12px rgba(0,0,0,0.55);
+      box-shadow: 0 0 12px rgba(0,0,0,0.2);
     }
     #selection-overlay button {
       pointer-events: auto;
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-50">
+<body class="bg-white text-gray-800">
 
-<!-- 顶部导航（可替换为你现有课程详情页的导航） -->
-<header class="fixed top-0 inset-x-0 z-40 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+<!-- 顶部导航（浅色+B01F24主题） -->
+<header class="fixed top-0 inset-x-0 z-40 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <div class="flex items-center space-x-3">
         <a href="course-list.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
-            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-[#B01F24] border border-white flex items-center justify-center group-hover:border-indigo-500">
+            <i class="fa fa-chevron-left text-white text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-indigo-300">
+            <div class="text-[11px] uppercase tracking-widest text-white">SUGON</div>
+            <div class="text-sm font-semibold text-white">
               学习中心 · 课程详情
             </div>
           </div>
         </a>
       </div>
       <div class="hidden md:flex flex-col items-center">
-        <span class="text-[11px] text-slate-400">当前课程</span>
-        <span class="text-sm font-medium line-clamp-1 max-w-xs">
+        <span class="text-[11px] text-white/90">当前课程</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs text-white">
           云原生架构设计实战
         </span>
       </div>
       <div class="flex items-center space-x-2 text-xs">
         <a href="personal-center.html"
-           class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 hover:border-indigo-500 transition">
+           class="px-3 py-1.5 rounded-full bg-white border border-gray-300 hover:border-indigo-500 transition text-gray-800">
           个人中心
         </a>
         <a href="#"
@@ -70,18 +72,18 @@
   </div>
 </header>
 
-<!-- 主体内容（示例的课程详情区） -->
+<!-- 主体内容（课程详情示例） -->
 <main class="pt-16 lg:pt-20 pb-10">
   <section class="max-w-7xl mx-auto px-4 lg:px-6 space-y-4">
     <!-- 课程信息卡片 -->
-    <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6 mt-2">
-      <h1 class="text-xl md:text-2xl font-semibold mb-2">云原生架构设计实战</h1>
-      <div class="flex flex-wrap items-center gap-3 text-xs text-slate-400 mb-3">
-        <span><i class="fa fa-book mr-1 text-indigo-300"></i>课程编号：C-2026-001</span>
-        <span><i class="fa fa-clock mr-1 text-emerald-300"></i>时长：180 分钟</span>
-        <span><i class="fa fa-layer-group mr-1 text-sky-300"></i>云基础设施 · DevOps 赛道</span>
+    <article class="glass-card rounded-3xl p-4 md:p-6 mt-2">
+      <h1 class="text-xl md:text-2xl font-semibold mb-2 text-gray-900">云原生架构设计实战</h1>
+      <div class="flex flex-wrap items-center gap-3 text-xs text-gray-700 mb-3">
+        <span><i class="fa fa-book mr-1 text-[#B01F24]"></i>课程编号：C-2026-001</span>
+        <span><i class="fa fa-clock mr-1 text-[#B01F24]"></i>时长：180 分钟</span>
+        <span><i class="fa fa-layer-group mr-1 text-[#B01F24]"></i>云基础设施 · DevOps 赛道</span>
       </div>
-      <p class="text-xs md:text-sm text-slate-300 leading-6">
+      <p class="text-xs md:text-sm text-gray-700 leading-6">
         本课程将系统讲解云原生架构设计理念、服务拆分策略、容器与 Kubernetes 编排实践，以及典型行业落地案例。
         在学习过程中，学员可以通过页面右下角的「AI 智能客服」咨询课程、考试认证与账号使用问题；
         也可以在课程正文中选中关键词或段落，使用「边看边搜」功能快速获取补充资料和智能解读。
@@ -89,11 +91,11 @@
     </article>
 
     <!-- 课程正文（边看边搜主要针对这里的文字） -->
-    <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6">
-      <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2">
-        <i class="fa fa-book-open text-indigo-300"></i> 课程正文示例（请在此区域尝试选中文本）
+    <article class="glass-card rounded-3xl p-4 md:p-6">
+      <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2 text-gray-900">
+        <i class="fa fa-book-open text-[#B01F24]"></i> 课程正文示例（请在此区域尝试选中文本）
       </h2>
-      <div class="text-xs md:text-sm text-slate-300 leading-6 space-y-2">
+      <div class="text-xs md:text-sm text-gray-700 leading-6 space-y-2">
         <p>
           云原生架构强调以容器、微服务、服务网格、不可变基础设施和声明式 API 为核心特征，
           帮助应用在云环境中实现高弹性、高可用和快速交付。
@@ -122,48 +124,48 @@
 
 <!-- ================== 智能客服聊天侧边栏 ================== -->
 <div id="ai-chat-panel"
-     class="fixed right-0 top-0 w-full sm:w-80 h-full glass-card border-l border-slate-800 shadow-2xl
+     class="fixed right-0 top-0 w-full sm:w-80 h-full glass-card border-l border-gray-300 shadow-2xl
             transform translate-x-full transition-transform duration-300 z-50"
      style="display:none;">
   <div class="flex flex-col h-full">
     <!-- 头部 -->
-    <div class="flex items-center justify-between bg-slate-900/90 border-b border-slate-800 px-3 py-2">
+    <div class="flex items-center justify-between bg-white/90 border-b border-gray-300 px-3 py-2">
       <div class="text-xs">
-        <div class="font-semibold flex items-center gap-1">
-          <i class="fa fa-robot text-indigo-300"></i>
+        <div class="font-semibold flex items-center gap-1 text-gray-900">
+          <i class="fa fa-robot text-[#B01F24]"></i>
           AI 智能客服
         </div>
-        <div class="text-[11px] text-slate-400">
+        <div class="text-[11px] text-gray-700">
           覆盖课程学习 / 考试认证 / 账号使用等常见问题
         </div>
       </div>
-      <button id="ai-chat-close" class="text-slate-400 hover:text-slate-100">
+      <button id="ai-chat-close" class="text-gray-700 hover:text-gray-900">
         <i class="fa fa-times text-sm"></i>
       </button>
     </div>
     <!-- 对话区 -->
-    <div id="chat-messages" class="flex-1 overflow-y-auto p-3 space-y-2 no-scrollbar text-xs text-slate-300">
+    <div id="chat-messages" class="flex-1 overflow-y-auto p-3 space-y-2 no-scrollbar text-xs text-gray-700">
       <div class="flex items-start space-x-2">
-        <div class="w-7 h-7 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-300">
+        <div class="w-7 h-7 rounded-full bg-[#B01F24]/15 flex items-center justify-center text-[#B01F24]">
           <i class="fa fa-robot"></i>
         </div>
-        <div class="bg-slate-900/80 border border-slate-700 rounded-2xl px-3 py-2">
+        <div class="bg-white/90 border border-gray-300 rounded-2xl px-3 py-2">
           你好，我是 SUGON AI 客服助手。可以为你解答课程内容、考试认证和账号使用等问题，也可以配合「边看边搜」帮你查资料。
         </div>
       </div>
     </div>
     <!-- 输入区 -->
-    <div class="border-t border-slate-800 p-2">
+    <div class="border-t border-gray-300 p-2">
       <div class="flex items-center gap-2">
         <input id="chat-input" type="text" placeholder="例如：云原生认证考试如何报名？"
-               class="flex-1 px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-xs placeholder:text-slate-500
-                      focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+               class="flex-1 px-3 py-1.5 rounded-full bg-white/80 border border-gray-300 text-xs placeholder:text-gray-500
+                      focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
         <button id="chat-send"
-                class="px-3 py-1.5 rounded-full bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-medium">
+                class="px-3 py-1.5 rounded-full bg-[#B01F24] hover:bg-gray-300 text-white text-xs font-medium">
           发送
         </button>
       </div>
-      <div class="mt-1 text-[10px] text-slate-500">
+      <div class="mt-1 text-[10px] text-gray-600">
         提示：你也可以直接粘贴选中的「边看边搜」内容，让我帮你做更深入的分析。
       </div>
     </div>
@@ -172,22 +174,22 @@
 
 <!-- ================== 边看边搜：选中文本浮窗 ================== -->
 <div id="selection-overlay"
-     class="fixed bg-slate-900/95 border border-slate-800 rounded-full px-2 py-0.5 text-xs text-slate-300
+     class="fixed bg-white/95 border border-gray-300 rounded-full px-2 py-0.5 text-xs text-gray-700
             pointer-events-none opacity-0 transition-opacity duration-150 z-40">
   <div class="flex items-center space-x-1">
-    <button class="p-1 text-sky-300 hover:text-white"    data-action="search"   title="搜索">
+    <button class="p-1 text-[#B01F24] hover:text-white bg-transparent"    data-action="search"   title="搜索">
       <i class="fa fa-search text-[11px]"></i>
     </button>
-    <button class="p-1 text-indigo-300 hover:text-white" data-action="copy"     title="复制">
+    <button class="p-1 text-[#B01F24] hover:text-white bg-transparent" data-action="copy"     title="复制">
       <i class="fa fa-copy text-[11px]"></i>
     </button>
-    <button class="p-1 text-emerald-300 hover:text-white" data-action="translate" title="翻译">
+    <button class="p-1 text-[#B01F24] hover:text-white bg-transparent" data-action="translate" title="翻译">
       <i class="fa fa-language text-[11px]"></i>
     </button>
-    <button class="p-1 text-amber-300 hover:text-white"  data-action="read"     title="朗读">
+    <button class="p-1 text-[#B01F24] hover:text-white bg-transparent"  data-action="read"     title="朗读">
       <i class="fa fa-volume-high text-[11px]"></i>
     </button>
-    <button class="p-1 text-slate-200 hover:text-white"  data-action="more"     title="更多">
+    <button class="p-1 text-[#B01F24] hover:text-white bg-transparent"  data-action="more"     title="更多">
       <i class="fa fa-ellipsis text-[11px]"></i>
     </button>
   </div>
@@ -195,29 +197,29 @@
 
 <!-- ================== 边看边搜：搜索弹窗 ================== -->
 <div id="search-dialog"
-     class="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center px-4 hidden z-50">
-  <div class="relative glass-card rounded-3xl border border-slate-800 w-full max-w-md p-5 space-y-4">
+     class="fixed inset-0 bg-white/80 backdrop-blur-md flex items-center justify-center px-4 hidden z-50">
+  <div class="relative glass-card rounded-3xl border border-gray-300 w-full max-w-md p-5 space-y-4">
     <button id="search-dialog-close"
-            class="absolute right-3 top-3 text-slate-400 hover:text-slate-100">
+            class="absolute right-3 top-3 text-gray-700 hover:text-gray-900">
       <i class="fa fa-times text-sm"></i>
     </button>
-    <h3 class="text-base md:text-lg font-semibold flex items-center gap-2">
-      <i class="fa fa-magnifying-glass-chart text-indigo-300"></i>
+    <h3 class="text-base md:text-lg font-semibold flex items-center gap-2 text-[#B01F24]">
+      <i class="fa fa-magnifying-glass-chart"></i>
       边看边搜 · 智能解读
     </h3>
-    <div class="text-xs text-slate-400">
+    <div class="text-xs text-gray-700">
       已自动填写你刚才选中的文字，可直接点击「搜索」调用 AI Agent 进行智能解读和资料补充。
     </div>
     <textarea id="search-input"
               rows="3"
-              class="w-full px-3 py-2 rounded-2xl bg-slate-900/80 border border-slate-700 text-xs md:text-sm text-slate-100
-                     placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
-    <div class="flex items-center justify-between text-[11px] text-slate-500">
+              class="w-full px-3 py-2 rounded-2xl bg-white/80 border border-gray-300 text-xs md:text-sm text-gray-800
+                     placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]"></textarea>
+    <div class="flex items-center justify-between text-[11px] text-gray-600">
       <span>提示：可以用自然语言提问，例如「帮我解释一下上面的概念并给出一个案例」。</span>
     </div>
     <div class="flex justify-end gap-2">
       <button id="search-btn"
-              class="px-4 py-1.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white text-xs font-medium">
+              class="px-4 py-1.5 rounded-full bg-[#B01F24] hover:bg-gray-300 text-white text-xs font-medium">
         搜索并解读
       </button>
     </div>
@@ -253,19 +255,19 @@
     if (role === 'user') {
       wrap.className = 'flex items-end justify-end space-x-2';
       wrap.innerHTML = `
-        <div class="bg-indigo-500/20 border border-indigo-500/40 px-3 py-2 rounded-2xl max-w-[80%]">
+        <div class="bg-[#B01F24]/10 border border-[#B01F24]/40 px-3 py-2 rounded-2xl max-w-[80%] text-gray-800">
           ${content}
         </div>
-        <div class="w-7 h-7 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-300">
+        <div class="w-7 h-7 rounded-full bg-white/60 flex items-center justify-center text-[#B01F24]">
           <i class="fa fa-user"></i>
         </div>`;
     } else {
       wrap.className = 'flex items-start space-x-2';
       wrap.innerHTML = `
-        <div class="w-7 h-7 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-300">
+        <div class="w-7 h-7 rounded-full bg-[#B01F24]/15 flex items-center justify-center text-[#B01F24]">
           <i class="fa fa-robot"></i>
         </div>
-        <div class="bg-slate-900/80 border border-slate-700 px-3 py-2 rounded-2xl max-w-[80%]">
+        <div class="bg-white/90 border border-gray-300 px-3 py-2 rounded-2xl max-w-[80%] text-gray-800">
           ${content}
         </div>`;
     }
@@ -367,7 +369,6 @@
 
     if (action === 'translate') {
       if (!selectedText) return;
-      // TODO：接入翻译 API，例如 /api/ai/translate
       alert('示例：将选中文本发送到翻译接口，返回多语言结果。');
     }
 
@@ -407,8 +408,7 @@
     // 将搜索问题同步到右侧 AI 聊天窗口，形成一体化体验
     appendChatBubble('【边看边搜】' + query, 'user');
 
-    // TODO：正式接入时，这里调用 AI Agent 搜索/解读接口
-    // 示例：仅给出占位回复
+    // 示例占位回复
     setTimeout(() => {
       appendChatBubble(
         '这是对你选中文本的示例解读：\n' +

@@ -77,11 +77,11 @@
       <div class="flex items-center space-x-2 text-xs">
         <span id="answered-info"
               class="inline-flex items-center px-2 py-1 rounded-full bg-white/20 border border-white/30 text-white">
-          已答 <span id="answered-count" class="mx-1 text-emerald-600">0</span>/<span id="total-count">0</span>
+          已答 <span id="answered-count" class="mx-1 text-emerald-300">0</span>/<span id="total-count">0</span>
         </span>
         <span id="time-info"
               class="inline-flex items-center px-2 py-1 rounded-full bg-white/20 border border-white/30 text-white">
-          剩余时间：<span id="timer" class="ml-1 text-amber-600">--:--</span>
+          剩余时间：<span id="timer" class="ml-1 text-amber-300">--:--</span>
         </span>
       </div>
     </div>
@@ -92,29 +92,29 @@
   <!-- “考生须知”弹窗 -->
   <div id="notice-modal"
        class="fixed inset-0 z-40 hidden overlay backdrop-blur-md flex items-center justify-center p-4">
-    <div class="glass-card rounded-3xl border border-gray-300 w-full max-w-md p-6 max-h-[80vh] overflow-y-auto no-scrollbar">
-      <h2 class="text-lg font-semibold mb-3 text-gray-800">考生须知</h2>
-      <p class="text-xs text-gray-600 leading-5 mb-3">
+    <div class="glass-card rounded-3xl border border-slate-800 w-full max-w-md p-6 max-h-[80vh] overflow-y-auto no-scrollbar">
+      <h2 class="text-lg font-semibold mb-3">考生须知</h2>
+      <p class="text-xs text-slate-300 leading-5 mb-3">
         请仔细阅读以下考试注意事项：
       </p>
-      <ul class="text-xs text-gray-600 space-y-1 mb-4 list-disc pl-4">
+      <ul class="text-xs text-slate-300 space-y-1 mb-4 list-disc pl-4">
         <li>本次考试为线上闭卷考试，请独立完成答题，不得与他人交流。</li>
-        <li>考试限时 <span class="text-amber-600">60 分钟</span>，时间到系统将自动交卷。</li>
+        <li>考试限时 <span class="text-amber-300">60 分钟</span>，时间到系统将自动交卷。</li>
         <li>考试过程中请勿频繁切换浏览器或屏幕，系统将记录切屏行为。</li>
-        <li>若检测到 <span class="text-amber-600">5 次</span>及以上切屏/截图复制行为，本次成绩将视为无效。</li>
+        <li>若检测到 <span class="text-amber-300">5 次</span>及以上切屏/截图复制行为，本次成绩将视为无效。</li>
         <li>支持单选、多选、判断题，可将暂不确定的题目标记为“存疑”。</li>
         <li>可开启“自动跳转下一题”，答完当前题目后自动进入下一题。</li>
       </ul>
-      <div class="text-[11px] text-gray-500 mb-4">
+      <div class="text-[11px] text-slate-400 mb-4">
         点击“我已知晓并开始考试”视为同意以上规则。
       </div>
       <div class="flex gap-3">
         <button id="notice-cancel"
-                class="flex-1 py-2 rounded-full bg-white border border-gray-300 hover:bg-gray-100 text-xs">
+                class="flex-1 py-2 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 text-xs">
           取消
         </button>
         <button id="notice-confirm"
-                class="flex-1 py-2 rounded-full bg-[#B01F24] text-xs font-medium text-white hover:opacity-90">
+                class="flex-1 py-2 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-xs font-medium hover:opacity-90">
           我已知晓并开始考试
         </button>
       </div>
@@ -192,18 +192,18 @@
         <div id="question-area" class="hidden">
           <div class="flex items-start justify-between gap-3 mb-3">
             <div>
-              <div id="question-meta" class="text-[11px] text-gray-500 mb-1">
+              <div id="question-meta" class="text-[11px] text-slate-400 mb-1">
                 <!-- 题型 & 序号 -->
               </div>
               <h1 id="question-text" class="text-sm md:text-base font-semibold leading-6">
                 <!-- 题干 -->
               </h1>
             </div>
-            <div class="text-[11px] text-right text-gray-500">
+            <div class="text-[11px] text-right text-slate-400">
               <div>当前题：<span id="current-index">1</span>/<span id="total-index">1</span></div>
               <div class="mt-1 flex items-center gap-1">
                 <span>本题状态：</span>
-                <span id="current-status" class="text-amber-600">未作答</span>
+                <span id="current-status" class="text-amber-300">未作答</span>
               </div>
             </div>
           </div>
@@ -217,16 +217,16 @@
           <div class="mt-5 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
             <div class="flex items-center gap-2 text-xs">
               <button id="prev-btn"
-                      class="px-3 py-1.5 rounded-full bg-white border border-gray-300 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed">
+                      class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed">
                 <i class="fa fa-chevron-left mr-1 text-[10px]"></i> 上一题
               </button>
               <button id="next-btn"
-                      class="px-3 py-1.5 rounded-full bg-white border border-gray-300 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed">
+                      class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed">
                 下一题 <i class="fa fa-chevron-right ml-1 text-[10px]"></i>
               </button>
             </div>
             <div class="flex-1 md:max-w-xs md:ml-auto">
-              <div class="flex items-center justify-between text-[11px] text-gray-500 mb-1">
+              <div class="flex items-center justify-between text-[11px] text-slate-400 mb-1">
                 <span>考试整体进度</span>
                 <span id="overall-progress-text">0%</span>
               </div>
@@ -241,10 +241,10 @@
 
         <!-- 提示占位：未开始考试 -->
         <div id="placeholder-area"
-             class="flex flex-col items-center justify-center h-64 bg-gray-100 rounded-2xl text-gray-500 text-xs space-y-2">
+             class="flex flex-col items-center justify-center h-64 bg-slate-900/30 rounded-2xl text-slate-400 text-xs space-y-2">
           <i class="fa fa-clipboard-question text-2xl"></i>
           <div>点击上方“开始考试”按钮后，将自动进入第一题。</div>
-          <div class="text-[11px] text-gray-600">
+          <div class="text-[11px] text-slate-500">
             考试过程中请保持网络稳定，避免频繁切换页面。
           </div>
         </div>
@@ -384,7 +384,7 @@
         : !!ans;
       const isFlagged = flags[q.id];
 
-      let baseCls = 'w-full text-left rounded-2xl border border-gray-300 px-3 py-2 text-xs hover:bg-white transition flex flex-col gap-1';
+      let baseCls = 'w-full text-left rounded-2xl border border-slate-800 px-3 py-2 text-xs hover:bg-slate-900/80 transition flex flex-col gap-1';
       if (isAnswered) baseCls += ' question-nav-item-answered';
       if (isFlagged) baseCls += ' question-nav-item-flagged';
       if (index === currentIndex && started && !finished) baseCls += ' question-nav-item-active';
@@ -396,12 +396,12 @@
       navBtn.innerHTML = `
         <div class="flex items-center justify-between">
           <div class="flex-1">
-            <div class="text-[11px] text-gray-500 mb-0.5">第 ${index + 1} 题 · ${typeLabel}</div>
+            <div class="text-[11px] text-slate-400 mb-0.5">第 ${index + 1} 题 · ${typeLabel}</div>
             <div class="line-clamp-1">${q.text}</div>
           </div>
-          <div class="ml-2 flex flex-col items-end text-[11px] text-gray-500">
-            <span>${isAnswered ? '<span class="text-emerald-600">已答</span>' : '未答'}</span>
-            ${isFlagged ? '<span class="text-amber-600 mt-0.5"><i class="fa fa-flag text-[9px] mr-1"></i>存疑</span>' : ''}
+          <div class="ml-2 flex flex-col items-end text-[11px] text-slate-400">
+            <span>${isAnswered ? '<span class="text-emerald-300">已答</span>' : '未答'}</span>
+            ${isFlagged ? '<span class="text-amber-300 mt-0.5"><i class="fa fa-flag text-[9px] mr-1"></i>存疑</span>' : ''}
           </div>
         </div>
       `;
@@ -436,7 +436,7 @@
     const isFlagged = !!flags[q.id];
 
     currentStatusEl.textContent = isAnswered ? (isFlagged ? '已答（存疑）' : '已答') : (isFlagged ? '未答（存疑）' : '未作答');
-    currentStatusEl.className = 'text-[11px] ' + (isAnswered ? 'text-emerald-600' : (isFlagged ? 'text-amber-600' : 'text-gray-500'));
+    currentStatusEl.className = 'text-[11px] ' + (isAnswered ? 'text-emerald-300' : (isFlagged ? 'text-amber-300' : 'text-slate-400'));
 
     // 选项
     optionsAreaEl.innerHTML = '';
@@ -446,13 +446,13 @@
         ? Array.isArray(ans) && ans.includes(opt.id)
         : ans === opt.id;
       btn.className = `w-full text-left rounded-2xl border px-3 py-2 flex items-center gap-2 text-xs
-                       ${selected ? 'border-[#B01F24] bg-[#B01F24]/10' : 'border-gray-300 bg-gray-100'}
-                       hover:bg-gray-100 transition`;
+                       ${selected ? 'border-indigo-400 bg-indigo-500/10' : 'border-slate-800 bg-slate-900/60'}
+                       hover:bg-slate-800 transition`;
       btn.dataset.option = opt.id;
       btn.innerHTML = `
         <span class="inline-flex h-5 w-5 items-center justify-center rounded-full border
-          ${selected ? 'border-[#B01F24] bg-[#B01F24]/30' : 'border-gray-300 bg-gray-200'}">
-          ${selected ? '<i class="fa fa-check text-[10px] text-[#B01F24]"></i>' : ''}
+          ${selected ? 'border-indigo-400 bg-indigo-500/30' : 'border-slate-700 bg-slate-900'}">
+          ${selected ? '<i class="fa fa-check text-[10px] text-indigo-300"></i>' : ''}
         </span>
         <span class="flex-1">${opt.id}、${opt.text}</span>
       `;
@@ -621,17 +621,13 @@
     if (!started || finished) return;
     autoNext = !autoNext;
     if (autoNext) {
-      autoNextToggle.classList.remove('bg-gray-200');
-      autoNextToggle.classList.add('bg-[#B01F24]');
+      autoNextToggle.classList.remove('bg-slate-800');
+      autoNextToggle.classList.add('bg-indigo-500');
       autoNextThumb.style.transform = 'translateX(16px)';
-      autoNextThumb.style.backgroundColor = '#FFFFFF';
-      autoNextToggle.style.borderColor = '#FFFFFF';
     } else {
-      autoNextToggle.classList.add('bg-gray-200');
-      autoNextToggle.classList.remove('bg-[#B01F24]');
+      autoNextToggle.classList.add('bg-slate-800');
+      autoNextToggle.classList.remove('bg-indigo-500');
       autoNextThumb.style.transform = 'translateX(0)';
-      autoNextThumb.style.backgroundColor = '';
-      autoNextToggle.style.borderColor = '#9ca3af'; /* gray-400 */
     }
   });
 
