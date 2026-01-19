@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>活动详情 - SUGON 合作伙伴赋能平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标库 -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+    }
+    .glass-card {
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(14px);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .status-badge-upcoming {
+      background: rgba(56,189,248,0.12);
+      color: rgb(125,211,252);
+      border-color: rgba(56,189,248,0.5);
+    }
+    .status-badge-live {
+      background: rgba(248,113,113,0.15);
+      color: rgb(252,165,165);
+      border-color: rgba(248,113,113,0.7);
+    }
+    .status-badge-ended {
+      background: rgba(148,163,184,0.15);
+      color: rgb(148,163,184);
+      border-color: rgba(148,163,184,0.7);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-50">
+
+<!-- 顶部导航：SUGON 品牌 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14">
+      <!-- 左侧：返回活动列表 -->
+      <div class="flex items-center space-x-3">
+        <a href="activity-list.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
+            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-indigo-300">
+              活动中心 · 活动详情
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 中间：活动标题（简略） -->
+      <div class="hidden md:flex flex-col items-center">
+        <span class="text-[11px] text-slate-400">当前活动</span>
+        <span id="header-title" class="text-sm font-medium line-clamp-1 max-w-xs">
+          云原生架构设计实战工作坊
+        </span>
+      </div>
+
+      <!-- 右侧：我的活动 / 报名状态 -->
+      <div class="flex items-center space-x-2 text-xs">
+        <span id="my-activity-badge"
+              class="inline-flex items-center px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px] text-slate-300">
+          <i class="fa fa-list-check mr-1 text-[10px]"></i>
+          我的活动
+        </span>
+        <span id="header-status"
+              class="inline-flex items-center px-2 py-1 rounded-full bg-slate-900/80 text-emerald-300 border border-emerald-500/30 text-[11px]">
+          <i class="fa fa-circle mr-1 text-[8px]"></i>
+          可报名
+        </span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="grid lg:grid-cols-3 gap-6 items-start">
+
+      <!-- 左侧：封面 + 介绍/内容/目标 + 日程 + 关联课程 -->
+      <div class="lg:col-span-2 space-y-4">
+        <!-- 封面区域 -->
+        <div class="relative overflow-hidden rounded-3xl border border-slate-800 glass-card">
+          <div class="relative h-48 md:h-60 lg:h-72">
+            <img
+              id="cover-img"
+              src="https://images.unsplash.com/photo-1551650978-c5cdeb03b4a2?auto=format&fit=crop&w=1600&q=80"
+              alt="活动封面"
+              class="w-full h-full object-cover opacity-70">
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/20 to-slate-900/80"></div>
+
+            <div class="absolute inset-0 flex flex-col justify-center px-5 md:px-8 lg:px-10 space-y-3 z-10">
+              <div class="flex flex-wrap items-center gap-2 text-[11px]">
+                <span id="tag-type"
+                      class="inline-flex items-center px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-indigo-300">
+                  <i class="fa fa-wifi mr-1 text-[10px]"></i>
+                  线上活动
+                </span>
+                <span id="tag-status"
+                      class="inline-flex items-center px-2 py-1 rounded-full border text-sky-300 status-badge-upcoming">
+                  <i class="fa fa-hourglass-half mr-1 text-[10px]"></i>
+                  倒计时
+                </span>
+              </div>
+              <h1 id="activity-title" class="text-xl md:text-2xl lg:text-3xl font-semibold leading-snug line-clamp-2">
+                云原生架构设计实战工作坊
+              </h1>
+              <p id="activity-desc" class="text-xs md:text-sm text-slate-300 max-w-2xl">
+                本次工作坊将深入讲解云原生架构设计理念、微服务拆分原则、容器编排最佳实践，并结合真实项目 DEMO 演示，帮助伙伴快速掌握云原生落地方法。
+              </p>
+              <div class="flex flex-wrap items-center gap-3 text-[11px] text-slate-300">
+                <span id="date-text">
+                  <i class="fa fa-calendar mr-1 text-emerald-400"></i>
+                  2026-01-20
+                </span>
+                <span id="time-text">
+                  <i class="fa fa-clock mr-1 text-emerald-400"></i>
+                  19:00–21:00
+                </span>
+                <span id="location">
+                  <i class="fa fa-location-dot mr-1 text-sky-400"></i>
+                  线上 · 直播间
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 活动介绍（内容） -->
+        <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6">
+          <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2">
+            <i class="fa fa-book-open mr-1 text-slate-400"></i> 活动介绍与内容
+          </h2>
+          <p class="text-xs text-slate-300 leading-6">
+            本工作坊面向 SUGON 合作伙伴生态中的云架构师、解决方案顾问和 DevOps 工程师，
+            通过讲解 + Demo + 互动问答三种形式，帮助参会伙伴系统梳理云原生架构设计方法论，
+            并在真实业务场景中学会如何落地。
+          </p>
+          <ul class="mt-3 text-xs text-slate-300 space-y-1 list-disc pl-5">
+            <li>云原生核心概念与典型架构模式</li>
+            <li>从单体到微服务的拆分思路与迁移路径</li>
+            <li>Kubernetes / Service Mesh 在生产环境中的实践要点</li>
+            <li>典型项目案例拆解与经验分享</li>
+          </ul>
+        </article>
+
+        <!-- 活动目标 -->
+        <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6">
+          <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2">
+            <i class="fa fa-bullseye mr-1 text-emerald-400"></i> 活动目标
+          </h2>
+          <ul class="text-xs text-slate-300 space-y-1">
+            <li>理解云原生架构设计的关键原则与常见误区</li>
+            <li>能够为自身项目选择合适的架构演进路径</li>
+            <li>掌握在 SUGON 云平台上落地云原生架构的最佳实践</li>
+            <li>为后续参加相关认证（如 P-Cloud Architect）打下基础</li>
+          </ul>
+        </article>
+
+        <!-- 日程表 -->
+        <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6">
+          <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2">
+            <i class="fa fa-calendar-check mr-1 text-indigo-400"></i> 日程表
+          </h2>
+          <ul id="schedule-list" class="text-xs text-slate-300 space-y-2">
+            <!-- JS 注入 -->
+          </ul>
+          <p class="mt-3 text-[11px] text-slate-400">
+            * 实际议程可能根据现场互动情况略有调整，以现场主持公布为准。
+          </p>
+        </article>
+
+        <!-- 相关线上课程链接 -->
+        <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6">
+          <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2">
+            <i class="fa fa-graduation-cap mr-1 text-indigo-500"></i> 相关线上课程
+          </h2>
+          <p class="text-[11px] text-slate-400 mb-2">
+            建议在参加活动前后，结合以下在线课程系统学习，可在「学习中心」中继续学习。
+          </p>
+          <div class="grid md:grid-cols-2 gap-2 text-xs">
+            <a href="course-detail.html?id=course-123"
+               class="rounded-2xl bg-slate-900/80 border border-slate-700 px-3 py-2 hover:bg-slate-800 transition flex items-center justify-between">
+              <div class="flex-1">
+                <div class="font-medium">云基础设施基础教程</div>
+                <div class="text-[11px] text-slate-400">云计算核心概念与产品</div>
+              </div>
+              <i class="fa fa-chevron-right text-[11px] text-slate-400"></i>
+            </a>
+            <a href="course-detail.html?id=course-456"
+               class="rounded-2xl bg-slate-900/80 border border-slate-700 px-3 py-2 hover:bg-slate-800 transition flex items-center justify-between">
+              <div class="flex-1">
+                <div class="font-medium">Kubernetes 入门实战</div>
+                <div class="text-[11px] text-slate-400">容器编排与应用部署</div>
+              </div>
+              <i class="fa fa-chevron-right text-[11px] text-slate-400"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <!-- 右侧：关键信息 + 报名与签到签退 -->
+      <aside class="lg:col-span-1 space-y-4">
+        <div class="glass-card rounded-3xl border border-slate-800 p-4 md:p-5 space-y-3 text-xs text-slate-300">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-slate-400">活动状态</span>
+            <span id="side-status"
+                  class="inline-flex items-center px-2 py-0.5 rounded-full border status-badge-upcoming text-[11px]">
+              <i class="fa fa-hourglass-half mr-1 text-[9px]"></i> 倒计时
+            </span>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">形式</span>
+            <span id="side-type" class="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700 text-emerald-300">
+              <i class="fa fa-wifi mr-1 text-[9px]"></i> 线上
+            </span>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">时长</span>
+            <span id="side-duration">120 分钟</span>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">报名人数</span>
+            <span id="side-attendees">1,234 人</span>
+          </div>
+
+          <div class="mt-2 pt-2 border-t border-slate-800 space-y-2">
+            <div class="text-[11px] text-slate-400">活动报名</div>
+            <button id="enroll-btn"
+                    class="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white text-sm font-medium hover:opacity-90 flex items-center justify-center gap-2">
+              <i class="fa fa-pen-to-square mr-1 text-[13px]"></i>
+              报名参加
+            </button>
+            <button id="cancel-enroll-btn"
+                    class="hidden w-full py-2.5 rounded-xl bg-slate-900/80 text-sm text-slate-200 border border-slate-700 hover:border-rose-400 flex items-center justify-center gap-2">
+              <i class="fa fa-xmark mr-1 text-[13px]"></i>
+              取消报名
+            </button>
+            <p class="text-[11px] text-slate-400">
+              报名成功后，可在「我的活动」中查看报名记录，活动开始前 15 分钟会通过站内消息 / 邮件 / APP 推送进行提醒。
+            </p>
+          </div>
+
+          <div class="mt-3 pt-2 border-t border-slate-800 space-y-2">
+            <div class="text-[11px] text-slate-400">活动签到与签退</div>
+            <div class="flex items-center gap-2">
+              <button id="check-in-btn"
+                      class="hidden flex-1 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-400 text-white text-xs font-medium hover:opacity-90">
+                <i class="fa fa-sign-in-alt mr-1 text-[10px]"></i> 签到
+              </button>
+              <button id="check-out-btn"
+                      class="hidden flex-1 py-2 rounded-xl bg-slate-900/80 text-xs text-emerald-300 border border-emerald-400 hover:bg-slate-800">
+                <i class="fa fa-sign-out-alt mr-1 text-[10px]"></i> 签退
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400">
+              仅已报名用户可在活动开始后进行签到，结束前进行签退，用于统计出勤与发放学习证明。
+            </p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 SUGON 合作伙伴赋能平台 · 活动中心</div>
+    <div class="flex flex-wrap gap-3">
+      <span>隐私政策</span>
+      <span>法律声明</span>
+      <span>版权信息</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 交互脚本：报名 / 取消报名 / 签到 / 签退 / 日程渲染 -->
+<script>
+  // ===== 1. 模拟活动数据（正式环境替换为接口数据） =====
+  const activity = {
+    id: 'act-2026-001',
+    title: '云原生架构设计实战工作坊',
+    start: '2026-01-20 19:00',
+    end: '2026-01-20 21:00',
+    place: '线上 · 直播间',
+    type: 'online', // online / offline
+    status: 'upcoming', // upcoming / live / ended
+    durationMinutes: 120,
+    attendees: 1234,
+    schedule: [
+      { time: '19:00–19:15', title: '开场介绍与云原生背景' },
+      { time: '19:15–20:00', title: '架构设计方法论与典型模板' },
+      { time: '20:00–20:40', title: '现场 Demo：从单体到云原生' },
+      { time: '20:40–21:00', title: 'Q&A 与资料说明' }
+    ]
+  };
+
+  // ===== 2. 本地报名/签到状态（可替换为后端接口） =====
+  const KEY_ENROLL = 'sugon_activity_enrolled_ids';
+  const KEY_CHECKIN = 'sugon_activity_checkin_ids';
+
+  function loadIds(key) {
+    try {
+      const raw = localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  }
+  function saveIds(key, list) {
+    localStorage.setItem(key, JSON.stringify(list));
+  }
+
+  let enrolledIds = loadIds(KEY_ENROLL);
+  let checkedInIds = loadIds(KEY_CHECKIN);
+
+  function isEnrolled() {
+    return enrolledIds.includes(activity.id);
+  }
+  function isCheckedIn() {
+    return checkedInIds.includes(activity.id);
+  }
+
+  // ===== 3. DOM 获取 =====
+  const headerTitle = document.getElementById('header-title');
+  const activityTitle = document.getElementById('activity-title');
+  const dateText = document.getElementById('date-text');
+  const timeText = document.getElementById('time-text');
+  const locationEl = document.getElementById('location');
+  const tagType = document.getElementById('tag-type');
+  const tagStatus = document.getElementById('tag-status');
+  const sideStatus = document.getElementById('side-status');
+  const sideType = document.getElementById('side-type');
+  const sideDuration = document.getElementById('side-duration');
+  const sideAttendees = document.getElementById('side-attendees');
+  const enrollBtn = document.getElementById('enroll-btn');
+  const cancelEnrollBtn = document.getElementById('cancel-enroll-btn');
+  const checkInBtn = document.getElementById('check-in-btn');
+  const checkOutBtn = document.getElementById('check-out-btn');
+  const headerStatus = document.getElementById('header-status');
+  const scheduleList = document.getElementById('schedule-list');
+
+  // ===== 4. 渲染静态信息 =====
+  function renderBaseInfo() {
+    headerTitle.textContent = activity.title;
+    activityTitle.textContent = activity.title;
+
+    const [datePart, timePart] = activity.start.split(' ');
+    const endTime = activity.end.split(' ')[1];
+
+    dateText.innerHTML = '<i class="fa fa-calendar mr-1 text-emerald-400"></i>' + datePart;
+    timeText.innerHTML = '<i class="fa fa-clock mr-1 text-emerald-400"></i>' + timePart + '–' + endTime;
+    locationEl.innerHTML = '<i class="fa fa-location-dot mr-1 text-sky-400"></i>' + activity.place;
+
+    // 类型
+    if (activity.type === 'online') {
+      tagType.innerHTML = '<i class="fa fa-wifi mr-1 text-[10px]"></i> 线上活动';
+      sideType.innerHTML = '<i class="fa fa-wifi mr-1 text-[9px]"></i> 线上';
+    } else {
+      tagType.innerHTML = '<i class="fa fa-building mr-1 text-[10px]"></i> 线下活动';
+      sideType.innerHTML = '<i class="fa fa-building mr-1 text-[9px]"></i> 线下';
+    }
+
+    sideDuration.textContent = activity.durationMinutes + ' 分钟';
+    sideAttendees.textContent = activity.attendees.toLocaleString() + ' 人';
+
+    // 日程
+    scheduleList.innerHTML = '';
+    activity.schedule.forEach(item => {
+      const li = document.createElement('li');
+      li.className = 'flex items-start gap-2';
+      li.innerHTML = `
+        <span class="font-semibold text-emerald-300 min-w-[80px]">${item.time}</span>
+        <span class="flex-1">${item.title}</span>
+      `;
+      scheduleList.appendChild(li);
+    });
+  }
+
+  // ===== 5. 根据状态更新 UI（报名/签到） =====
+  function updateStatusUI() {
+    const cfgMap = {
+      upcoming: { text: '倒计时', cls: 'status-badge-upcoming', icon: 'fa-hourglass-half' },
+      live:     { text: '活动中', cls: 'status-badge-live',     icon: 'fa-signal' },
+      ended:    { text: '已结束', cls: 'status-badge-ended',    icon: 'fa-circle-check' }
+    };
+    const cfg = cfgMap[activity.status] || cfgMap.upcoming;
+
+    sideStatus.className = 'inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] ' + cfg.cls;
+    sideStatus.innerHTML = `<i class="fa ${cfg.icon} mr-1 text-[9px]"></i>${cfg.text}`;
+    tagStatus.className = 'inline-flex items-center px-2 py-1 rounded-full border text-sky-300 ' + cfg.cls;
+    tagStatus.innerHTML = `<i class="fa ${cfg.icon} mr-1 text-[10px]"></i>${cfg.text}`;
+
+    const enrolled = isEnrolled();
+    const checked = isCheckedIn();
+
+    // 顶部状态文案
+    if (activity.status === 'ended') {
+      headerStatus.textContent = '已结束';
+    } else if (activity.status === 'live') {
+      headerStatus.textContent = checked ? '已签到' : (enrolled ? '进行中（已报名）' : '进行中');
+    } else {
+      headerStatus.textContent = enrolled ? '已报名' : '可报名';
+    }
+
+    // 报名按钮逻辑
+    if (activity.status === 'ended') {
+      enrollBtn.classList.add('hidden');
+      cancelEnrollBtn.classList.add('hidden');
+    } else {
+      if (enrolled) {
+        enrollBtn.classList.add('hidden');
+        cancelEnrollBtn.classList.remove('hidden');
+      } else {
+        enrollBtn.classList.remove('hidden');
+        cancelEnrollBtn.classList.add('hidden');
+      }
+    }
+
+    // 签到按钮逻辑：仅活动中可见，且需已报名
+    if (activity.status === 'live' && enrolled) {
+      if (checked) {
+        checkInBtn.classList.add('hidden');
+        checkOutBtn.classList.remove('hidden');
+      } else {
+        checkInBtn.classList.remove('hidden');
+        checkOutBtn.classList.add('hidden');
+      }
+    } else {
+      checkInBtn.classList.add('hidden');
+      checkOutBtn.classList.add('hidden');
+    }
+  }
+
+  // ===== 6. 事件绑定：报名 / 取消报名 =====
+  enrollBtn.addEventListener('click', () => {
+    if (activity.status === 'ended') {
+      alert('活动已结束，无法报名。');
+      return;
+    }
+    if (!enrolledIds.includes(activity.id)) {
+      enrolledIds.push(activity.id);
+      saveIds(KEY_ENROLL, enrolledIds);
+    }
+    alert('报名成功，可在「我的活动」中查看。');
+    updateStatusUI();
+  });
+
+  cancelEnrollBtn.addEventListener('click', () => {
+    if (!confirm('确认取消该活动的报名吗？')) return;
+    enrolledIds = enrolledIds.filter(id => id !== activity.id);
+    saveIds(KEY_ENROLL, enrolledIds);
+    // 若取消报名则清理签到状态
+    checkedInIds = checkedInIds.filter(id => id !== activity.id);
+    saveIds(KEY_CHECKIN, checkedInIds);
+    alert('已取消报名。');
+    updateStatusUI();
+  });
+
+  // ===== 7. 事件绑定：签到 / 签退 =====
+  checkInBtn.addEventListener('click', () => {
+    if (!isEnrolled()) {
+      alert('请先报名再进行签到。');
+      return;
+    }
+    if (!checkedInIds.includes(activity.id)) {
+      checkedInIds.push(activity.id);
+      saveIds(KEY_CHECKIN, checkedInIds);
+    }
+    alert('签到成功，祝你活动收获满满！');
+    updateStatusUI();
+  });
+
+  checkOutBtn.addEventListener('click', () => {
+    if (!isCheckedIn()) {
+      alert('尚未签到，无法签退。');
+      return;
+    }
+    if (!confirm('确认签退吗？')) return;
+    checkedInIds = checkedInIds.filter(id => id !== activity.id);
+    saveIds(KEY_CHECKIN, checkedInIds);
+    alert('签退成功，本次出勤已记录。');
+    updateStatusUI();
+  });
+
+  // ===== 8. 初始化 =====
+  renderBaseInfo();
+  updateStatusUI();
+</script>
+
+</body>
+</html>

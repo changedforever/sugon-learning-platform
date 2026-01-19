@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>认证体系 - SUGON 合作伙伴赋能平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标库 -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+    }
+    .glass-card {
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(14px);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .cert-tab-active {
+      border-color: rgb(129 140 248);
+      color: rgb(191 219 254);
+      background: rgba(15,23,42,0.9);
+    }
+    .cert-tab {
+      background: rgba(15,23,42,0.9);
+      border-color: rgb(51 65 85);
+    }
+    .process-step {
+      transition: all 0.2s ease;
+    }
+    .process-step:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px -1px rgba(10, 14, 19, 0.4), 0 2px 4px -1px rgba(10, 14, 19, 0.3);
+    }
+    .icon-box {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 0.75rem;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-50">
+
+<!-- 顶部导航：SUGON 品牌 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14">
+      <!-- 左侧：返回首页 -->
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
+            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-indigo-300">
+              合作伙伴赋能平台 · 认证中心
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 中间：标题 >
+      <div class="hidden md:flex flex-col items-center">
+        <span class="text-[11px] text-slate-400">认证中心</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs">
+          认证体系与流程
+        </span>
+      </div-->
+
+      <!-- 右侧：入口 -->
+      <div class="flex items-center space-x-2 text-xs">
+        <a href="personal-center.html"
+           class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 hover:border-indigo-500 transition">
+          个人中心
+        </a>
+        <a href="#"
+           class="px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white font-medium">
+          登录
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6 space-y-8">
+
+    <!-- 顶部简介 -->
+    <section class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div>
+          <h1 class="text-lg md:text-xl font-semibold flex items-center gap-2">
+            <span class="inline-flex h-7 w-1 rounded-full bg-indigo-500"></span>
+            SUGON 合作伙伴认证体系
+          </h1>
+          <p class="mt-2 text-xs md:text-sm text-slate-300 max-w-2xl">
+            通过专业认证与职业认证两大体系，为合作伙伴构建统一的能力标准，打通
+            <span class="text-indigo-300">学习 → 考试 → 认证 → 能力成长</span> 全链路。
+          </p>
+        </div>
+        <div class="text-[11px] text-slate-400 space-y-1 lg:text-right">
+          <div>当前认证状态：<span class="text-emerald-300">已获得 2 项认证</span></div>
+          <div>建议下一步：<span class="text-sky-300">参加「P-Cloud Architect 高级认证」</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 栏：体系总览 / 流程与规则 / 其他认证信息 -->
+    <div class="flex flex-wrap gap-2 text-xs">
+      <button class="cert-tab cert-tab-active px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+              data-target="tab-overview">
+        <i class="fa fa-diagram-project mr-1 text-[11px] text-indigo-300"></i> 认证体系总览
+      </button>
+      <button class="cert-tab px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+              data-target="tab-process">
+        <i class="fa fa-road mr-1 text-[11px] text-emerald-300"></i> 认证流程与规则
+      </button>
+      <button class="cert-tab px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+              data-target="tab-other">
+        <i class="fa fa-bullhorn mr-1 text-[11px] text-sky-300"></i> 其他认证信息
+      </button>
+    </div>
+
+    <!-- ================= 1. 认证体系总览 ================= -->
+    <section id="tab-overview" class="cert-panel">
+      <div class="grid lg:grid-cols-3 gap-6 items-start mt-4">
+        <!-- 左：专业认证 / 职业认证 对比 -->
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex flex-col md:flex-row md:gap-4 space-y-4 md:space-y-0">
+            <!-- 专业认证 -->
+            <article class="flex-1 glass-card rounded-3xl border border-slate-800 p-5">
+              <h2 class="text-lg font-semibold mb-3 flex items-center gap-2">
+                <span class="inline-flex h-6 w-1 rounded-full bg-indigo-500"></span>
+                专业认证（技术向）
+              </h2>
+              <p class="text-xs text-slate-300 leading-6 mb-4">
+                面向云架构师、开发者、运维工程师、数据分析师等技术岗位，
+                聚焦技术深度和实践能力，强调在某一技术领域的系统掌握与落地经验。
+              </p>
+              <ul class="text-xs text-slate-300 space-y-1 mb-3">
+                <li><i class="fa fa-check-circle text-indigo-300 mr-1"></i> 典型级别：Associate / Professional / Expert</li>
+                <li><i class="fa fa-check-circle text-indigo-300 mr-1"></i> 方向：云基础设施、AI 与数据智能、DevOps、安全等</li>
+                <li><i class="fa fa-check-circle text-indigo-300 mr-1"></i> 适合人群：1–8 年技术从业者</li>
+                <li><i class="fa fa-check-circle text-indigo-300 mr-1"></i> 与项目交付、技术支持能力直接挂钩</li>
+              </ul>
+              <a href="#"
+                 class="inline-flex items-center px-3 py-1.5 rounded-full bg-indigo-500 text-white text-xs font-medium hover:opacity-90">
+                查看全部专业认证路径
+                <i class="fa fa-arrow-right ml-1 text-[10px]"></i>
+              </a>
+            </article>
+
+            <!-- 职业认证 -->
+            <article class="flex-1 glass-card rounded-3xl border border-slate-800 p-5">
+              <h2 class="text-lg font-semibold mb-3 flex items-center gap-2">
+                <span class="inline-flex h-6 w-1 rounded-full bg-sky-500"></span>
+                职业认证（岗位向）
+              </h2>
+              <p class="text-xs text-slate-300 leading-6 mb-4">
+                面向售前顾问、销售、市场与运营等岗位，
+                更关注业务洞察、方案输出、客户沟通和项目运营等综合能力。
+              </p>
+              <ul class="text-xs text-slate-300 space-y-1 mb-3">
+                <li><i class="fa fa-check-circle text-sky-300 mr-1"></i> 典型级别：初级 / 中级 / 高级</li>
+                <li><i class="fa fa-check-circle text-sky-300 mr-1"></i> 方向：解决方案、行业销售、渠道运营等</li>
+                <li><i class="fa fa-check-circle text-sky-300 mr-1"></i> 适合人群：1–10 年业务从业者</li>
+                <li><i class="fa fa-check-circle text-sky-300 mr-1"></i> 与激励政策和伙伴等级强相关</li>
+              </ul>
+              <a href="#"
+                 class="inline-flex items-center px-3 py-1.5 rounded-full bg-sky-500 text-white text-xs font-medium hover:opacity-90">
+                查看全部职业认证路径
+                <i class="fa fa-arrow-right ml-1 text-[10px]"></i>
+              </a>
+            </article>
+          </div>
+
+          <!-- 体系结构示意 -->
+          <article class="glass-card rounded-3xl border border-slate-800 p-5">
+            <h3 class="text-sm font-semibold mb-2 text-slate-200">认证体系结构示意</h3>
+            <p class="text-xs text-slate-400 mb-3">
+              认证由「基础层 → 进阶层 → 高阶层 → 领袖层」逐级构成，可在同一方向纵向深造，
+              也可以在不同方向之间横向扩展，形成完整的能力矩阵。
+            </p>
+            <div class="grid md:grid-cols-4 gap-3 text-xs">
+              <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3">
+                <div class="text-[11px] text-slate-400 mb-1">基础层</div>
+                <div class="font-medium mb-1">Associate</div>
+                <p class="text-slate-400 text-[11px]">掌握基础概念与核心产品能力，适合新人和转岗人群。</p>
+              </div>
+              <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3">
+                <div class="text-[11px] text-slate-400 mb-1">进阶层</div>
+                <div class="font-medium mb-1">Professional</div>
+                <p class="text-slate-400 text-[11px]">具备独立方案设计与项目交付能力，是主力骨干。</p>
+              </div>
+              <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3">
+                <div class="text-[11px] text-slate-400 mb-1">高阶层</div>
+                <div class="font-medium mb-1">Expert</div>
+                <p class="text-slate-400 text-[11px]">能主导复杂项目和技术规划，是团队核心专家。</p>
+              </div>
+              <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3">
+                <div class="text-[11px] text-slate-400 mb-1">领袖层</div>
+                <div class="font-medium mb-1">Leader</div>
+                <p class="text-slate-400 text-[11px]">在生态内具备影响力，可参与产品共创与技术顾问。</p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- 右：对应人群 / 推荐路径 -->
+        <aside class="lg:col-span-1 space-y-4">
+          <!-- 对应人群标签 -->
+          <div class="glass-card rounded-3xl border border-slate-800 p-4">
+            <h3 class="text-sm font-semibold mb-3">典型对应人群</h3>
+            <div class="flex flex-wrap gap-2 text-[11px]">
+              <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-indigo-300">云架构师</span>
+              <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-sky-300">解决方案顾问</span>
+              <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-emerald-300">DevOps 工程师</span>
+              <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-amber-300">行业销售</span>
+              <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-purple-300">运营经理</span>
+              <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-pink-300">交付经理</span>
+            </div>
+          </div>
+
+          <!-- 推荐认证路径 -->
+          <div class="glass-card rounded-3xl border border-slate-800 p-4 text-xs">
+            <h3 class="text-sm font-semibold mb-2">推荐认证路径</h3>
+            <p class="text-slate-400 mb-2">基于你的当前角色（示例：云架构师）推荐：</p>
+            <ol class="list-decimal list-inside space-y-1 text-slate-300">
+              <li>云计算基础认证（Associate）</li>
+              <li>伙伴云架构工程师（P-Cloud Architect · Professional）</li>
+              <li>云原生高级架构设计（Expert）</li>
+            </ol>
+            <a href="exam-list.html"
+               class="inline-flex items-center mt-3 px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-indigo-500">
+              前往考试列表
+              <i class="fa fa-arrow-right ml-1 text-[10px]"></i>
+            </a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ================= 2. 认证流程与规则 ================= -->
+    <section id="tab-process" class="cert-panel hidden">
+      <div class="mt-4 space-y-4">
+        <!-- 流程标题 -->
+        <div class="flex items-center justify-between">
+          <h2 class="text-sm md:text-base font-semibold flex items-center gap-2">
+            <span class="inline-flex h-6 w-1 rounded-full bg-emerald-500"></span>
+            认证流程
+          </h2>
+          <a href="exam-list.html"
+             class="text-[11px] text-sky-300 inline-flex items-center">
+            查看可预约考试
+            <i class="fa fa-arrow-right ml-1 text-[9px]"></i>
+          </a>
+        </div>
+
+        <!-- 四步流程 -->
+        <div class="grid md:grid-cols-2 gap-4">
+          <!-- Step 1 选择认证 & 学习准备 -->
+          <article class="process-step glass-card rounded-3xl border border-slate-800 p-4 md:p-5">
+            <div class="flex items-start gap-3">
+              <div class="icon-box bg-gradient-to-br from-indigo-500 via-purple-500 to-cyan-400 flex items-center justify-center text-white">
+                <span class="font-semibold text-sm">1</span>
+              </div>
+              <div class="flex-1 text-xs text-slate-300">
+                <h3 class="text-sm font-semibold mb-1">选择认证 & 学习准备</h3>
+                <p class="mb-2">
+                  在「认证中心」中选择目标认证，系统会推荐对应课程与学习路径，帮助你完成考前准备。
+                </p>
+                <ul class="list-disc list-inside space-y-1 text-slate-400">
+                  <li>查看认证说明和通过标准</li>
+                  <li>查看推荐课程 / 培训班</li>
+                  <li>评估自身当前能力与差距</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 2 考试预约 -->
+          <article class="process-step glass-card rounded-3xl border border-slate-800 p-4 md:p-5">
+            <div class="flex items-start gap-3">
+              <div class="icon-box bg-gradient-to-br from-emerald-500 via-green-500 to-lime-400 flex items-center justify-center text-white">
+                <span class="font-semibold text-sm">2</span>
+              </div>
+              <div class="flex-1 text-xs text-slate-300">
+                <h3 class="text-sm font-semibold mb-1">考试预约</h3>
+                <p class="mb-2">
+                  在「考试列表」中选择合适的考试场次，在线完成预约。
+                </p>
+                <ul class="list-disc list-inside space-y-1 text-slate-400">
+                  <li>支持按时间 / 语言 / 地区筛选场次</li>
+                  <li>在线完成报名与费用支付（如有）</li>
+                  <li>预约成功后生成考试凭证和日历提醒</li>
+                </ul>
+                <a href="exam-list.html"
+                   class="mt-2 inline-flex items-center px-3 py-1.5 rounded-full bg-emerald-500 text-white text-[11px] hover:bg-emerald-400">
+                  前往预约考试
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 3 参加考试 & 实践评估 -->
+          <article class="process-step glass-card rounded-3xl border border-slate-800 p-4 md:p-5">
+            <div class="flex items-start gap-3">
+              <div class="icon-box bg-gradient-to-br from-sky-500 via-blue-500 to-indigo-500 flex items-center justify-center text-white">
+                <span class="font-semibold text-sm">3</span>
+              </div>
+              <div class="flex-1 text-xs text-slate-300">
+                <h3 class="text-sm font-semibold mb-1">参加考试 & 实践评估</h3>
+                <p class="mb-2">
+                  到达考试时间后，在「考试详情」页面进入在线考试，完成客观题和（可选）实践题。
+                </p>
+                <ul class="list-disc list-inside space-y-1 text-slate-400">
+                  <li>系统自动记录切屏与复制行为</li>
+                  <li>客观题实时判分，场景题由官方评审</li>
+                  <li>支持查看历史考试记录与成绩</li>
+                </ul>
+                <a href="exam-online.html"
+                   class="mt-2 inline-flex items-center px-3 py-1.5 rounded-full bg-sky-500 text-white text-[11px] hover:bg-sky-400">
+                  体验在线考试页（示例）
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 4 获取证书 & 验证 & 重认证 -->
+          <article class="process-step glass-card rounded-3xl border border-slate-800 p-4 md:p-5">
+            <div class="flex items-start gap-3">
+              <div class="icon-box bg-gradient-to-br from-amber-400 via-yellow-400 to-red-400 flex items-center justify-center text-white">
+                <span class="font-semibold text-sm">4</span>
+              </div>
+              <div class="flex-1 text-xs text-slate-300">
+                <h3 class="text-sm font-semibold mb-1">获取证书 & 验证 & 重认证</h3>
+                <p class="mb-2">
+                  通过考试后，系统自动生成电子证书，伙伴可以下载、分享，也可在客户侧进行在线验证。
+                </p>
+                <ul class="list-disc list-inside space-y-1 text-slate-400">
+                  <li>「我的证书」可查看所有历史证书及有效期</li>
+                  <li>支持证书验证链接 / 二维码验证</li>
+                  <li>证书到期前提供重认证提醒和一键续期入口</li>
+                </ul>
+                <div class="mt-2 flex flex-wrap gap-2">
+                  <a href="#"
+                     class="inline-flex items-center px-3 py-1.5 rounded-full bg-amber-500 text-white text-[11px] hover:bg-amber-400">
+                    查看我的证书
+                  </a>
+                  <a href="#"
+                     class="inline-flex items-center px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-purple-400 text-[11px]">
+                    证书验证入口
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- 重认证规则说明 -->
+        <section class="glass-card rounded-3xl border border-slate-800 p-4 md:p-5 text-xs mt-4">
+          <h3 class="text-sm font-semibold mb-2 flex items-center gap-2">
+            <i class="fa fa-rotate mr-1 text-purple-300"></i> 重认证规则（示例策略）
+          </h3>
+          <div class="grid md:grid-cols-3 gap-3">
+            <div>
+              <div class="text-[11px] text-slate-400 mb-1">有效期</div>
+              <p class="text-slate-300">
+                大部分专业 / 职业认证有效期为 <span class="text-emerald-300">2 年</span>。
+                有效期内证书一直处于「有效」状态。
+              </p>
+            </div>
+            <div>
+              <div class="text-[11px] text-slate-400 mb-1">重认证方式</div>
+              <p class="text-slate-300">
+                支持「重新参加考试」或「完成规定培训 + 简化测评」，具体方式视认证等级而定。
+              </p>
+            </div>
+            <div>
+              <div class="text-[11px] text-slate-400 mb-1">到期处理</div>
+              <p class="text-slate-300">
+                到期未重认证的证书会进入「过期」状态，不再计入伙伴等级考核，
+                但历史记录仍可查询。
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ================= 3. 其他认证信息 ================= -->
+    <section id="tab-other" class="cert-panel hidden">
+      <div class="mt-4 grid lg:grid-cols-3 gap-6 items-start">
+        <!-- 左：培训 & 在线学习入口 -->
+        <article class="lg:col-span-2 glass-card rounded-3xl border border-slate-800 p-5 space-y-4">
+          <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2">
+            <span class="inline-flex h-6 w-1 rounded-full bg-indigo-500"></span>
+            培训与在线学习入口
+          </h2>
+          <p class="text-xs text-slate-400 mb-2">
+            针对不同认证方向，平台提供系统化的培训课程与学习路径，帮助你高效备考。
+          </p>
+
+          <div class="grid md:grid-cols-3 gap-3 text-xs">
+            <a href="course-list.html"
+               class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3 hover:border-indigo-500 hover:-translate-y-0.5 transition flex flex-col justify-between">
+              <div class="flex items-center gap-2 mb-2">
+                <div class="h-8 w-8 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-400">
+                  <i class="fa fa-cloud"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-slate-100">云架构方向备考</div>
+                  <div class="text-slate-400 text-[11px]">匹配 P-Cloud 系列认证</div>
+                </div>
+              </div>
+              <p class="text-slate-300 text-[11px]">
+                云基础 / 容器编排 / CI/CD / 可观测性全链路课程。
+              </p>
+            </a>
+
+            <a href="course-list.html"
+               class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3 hover:border-sky-500 hover:-translate-y-0.5 transition flex flex-col justify-between">
+              <div class="flex items-center gap-2 mb-2">
+                <div class="h-8 w-8 rounded-full bg-sky-500/10 flex items-center justify-center text-sky-400">
+                  <i class="fa fa-brain"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-slate-100">AI 与数据智能方向</div>
+                  <div class="text-slate-400 text-[11px]">匹配 AI / Data 系列认证</div>
+                </div>
+              </div>
+              <p class="text-slate-300 text-[11px]">
+                数据分析、机器学习、AIGC 实战等系列学习路径。
+              </p>
+            </a>
+
+            <a href="course-list.html"
+               class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3 hover:border-emerald-500 hover:-translate-y-0.5 transition flex flex-col justify-between">
+              <div class="flex items-center gap-2 mb-2">
+                <div class="h-8 w-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                  <i class="fa fa-handshake"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-slate-100">解决方案与职业方向</div>
+                  <div class="text-slate-400 text-[11px]">匹配售前 / 销售 / 运营认证</div>
+                </div>
+              </div>
+              <p class="text-slate-300 text-[11px]">
+                行业方案、客户沟通、投标与运营课程组合。
+              </p>
+            </a>
+          </div>
+
+          <div class="flex flex-wrap gap-2 text-[11px] mt-2">
+            <a href="course-list.html"
+               class="inline-flex items-center px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-indigo-500">
+              <i class="fa fa-layer-group mr-1 text-[10px] text-indigo-300"></i>
+              前往全部课程
+            </a>
+            <a href="#"
+               class="inline-flex items-center px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-sky-500">
+              <i class="fa fa-diagram-project mr-1 text-[10px] text-sky-300"></i>
+              查看我的认证学习路径
+            </a>
+          </div>
+        </article>
+
+        <!-- 右：认证资讯 -->
+        <aside class="lg:col-span-1 glass-card rounded-3xl border border-slate-800 p-5 space-y-4">
+          <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2">
+            <span class="inline-flex h-6 w-1 rounded-full bg-sky-500"></span>
+            认证资讯
+          </h2>
+          <div class="space-y-3 text-xs">
+            <article class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3 hover:bg-slate-800 transition">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-[11px] text-indigo-300">
+                  <i class="fa fa-bullhorn mr-1 text-[10px]"></i>体系升级
+                </span>
+                <span class="text-[11px] text-slate-400">2026-01-10</span>
+              </div>
+              <h3 class="text-sm font-medium mb-1">2026 SUGON 合作伙伴认证体系升级公告</h3>
+              <p class="text-slate-300 text-[11px]">
+                新增云原生高级架构师与 AI 解决方案专家认证，完善技术与业务双通道体系。
+              </p>
+            </article>
+
+            <article class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3 hover:bg-slate-800 transition">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-[11px] text-emerald-300">
+                  <i class="fa fa-calendar-check mr-1 text-[10px]"></i>考试安排
+                </span>
+                <span class="text-[11px] text-slate-400">2025-12-20</span>
+              </div>
+              <h3 class="text-sm font-medium mb-1">2026 Q1 认证考试场次发布</h3>
+              <p class="text-slate-300 text-[11px]">
+                发布云架构、AI 与数据智能、解决方案等方向的季度考试计划，可提前预约。
+              </p>
+            </article>
+
+            <article class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3 hover:bg-slate-800 transition">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-[11px] text-amber-300">
+                  <i class="fa fa-star mr-1 text-[10px]"></i>优秀伙伴
+                </span>
+                <span class="text-[11px] text-slate-400">2025-11-30</span>
+              </div>
+              <h3 class="text-sm font-medium mb-1">年度认证之星评选启动</h3>
+              <p class="text-slate-300 text-[11px]">
+                面向通过高级认证的伙伴开放申报，将在年度大会上进行表彰。
+              </p>
+            </article>
+          </div>
+
+          <a href="#"
+             class="inline-flex items-center px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-sky-400 text-[11px]">
+            查看全部认证资讯
+            <i class="fa fa-arrow-right ml-1 text-[9px]"></i>
+          </a>
+        </aside>
+      </div>
+    </section>
+
+  </section>
+</main>
+
+<!-- 底部 -->
+<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 SUGON 合作伙伴赋能平台 · 认证中心</div>
+    <div class="flex flex-wrap gap-3">
+      <span>隐私政策</span>
+      <span>法律声明</span>
+      <span>版权信息</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 交互：Tab 切换 -->
+<script>
+  const tabs = document.querySelectorAll('.cert-tab');
+  const panels = document.querySelectorAll('.cert-panel');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('cert-tab-active'));
+      tab.classList.add('cert-tab-active');
+      panels.forEach(p => p.classList.add('hidden'));
+      const target = tab.dataset.target;
+      document.getElementById(target).classList.remove('hidden');
+    });
+  });
+</script>
+
+</body>
+</html>
