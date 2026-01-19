@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>考试结果 - SUGON 合作伙伴赋能平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标库 -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+    }
+    .glass-card {
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(14px);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .tab-btn-active {
+      background: rgba(37,99,235,0.25);
+      border-color: rgb(129 140 248);
+      color: rgb(191 219 254);
+    }
+    .tab-btn {
+      background: rgba(15,23,42,0.9);
+      border-color: rgb(51 65 85);
+    }
+    .result-badge-pass {
+      background: rgba(16,185,129,0.12);
+      color: rgb(52,211,153);
+      border-color: rgba(52,211,153,0.6);
+    }
+    .result-badge-fail {
+      background: rgba(248,113,113,0.12);
+      color: rgb(252,165,165);
+      border-color: rgba(252,165,165,0.6);
+    }
+    .skill-radar {
+      max-width: 260px;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-50">
+
+<!-- 顶部导航：SUGON Logo 区 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14">
+      <!-- 左侧：返回考试详情 -->
+      <div class="flex items-center space-x-3">
+        <a href="exam-detail.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
+            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-indigo-300">
+              考试中心 · 考试结果
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 中间：考试名称 -->
+      <div class="hidden md:flex flex-col items-center">
+        <span class="text-[11px] text-slate-400">当前考试</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs">
+          伙伴云架构工程师（P-Cloud Architect）认证考试
+        </span>
+      </div>
+
+      <!-- 右侧：通过状态 -->
+      <div class="flex items-center space-x-2 text-xs">
+        <span id="header-pass-badge"
+              class="inline-flex items-center px-3 py-1 rounded-full border result-badge-pass">
+          <i class="fa fa-check-circle mr-1 text-[11px]"></i> 已通过
+        </span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6 space-y-6">
+
+    <!-- 顶部整体结果卡片 -->
+    <section class="glass-card rounded-3xl border border-slate-800 p-5 md:p-6">
+      <div class="grid md:grid-cols-3 gap-4 items-center">
+        <!-- 左：分数+通过状态 -->
+        <div class="text-center space-y-3 md:border-r md:border-slate-800 md:pr-4">
+          <div class="text-xs text-slate-400">本次考试得分</div>
+          <div id="score-text" class="text-5xl md:text-6xl font-bold text-amber-300">
+            85
+          </div>
+          <div class="text-xs text-slate-400">总分：100 · 及格线：60</div>
+          <div id="main-pass-badge"
+               class="inline-flex items-center px-3 py-1 rounded-full border result-badge-pass text-xs font-medium">
+            <i class="fa fa-check mr-1 text-[10px]"></i> 已通过
+          </div>
+        </div>
+
+        <!-- 中：考试概要 -->
+        <div class="space-y-2 md:px-4 text-xs text-slate-300">
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">考试用时</span>
+            <span>48 分钟 12 秒 / 60 分钟</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">答题完成度</span>
+            <span>100%（共 50 题，已作答 50 题）</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">正确率</span>
+            <span>85%（正确 42 题，错误 8 题）</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">通过规则</span>
+            <span>得分 ≥ 60 分且非作弊判定</span>
+          </div>
+        </div>
+
+        <!-- 右：操作按钮 -->
+        <div class="flex flex-col gap-2 md:items-end">
+          <button id="btn-retake"
+                  class="w-full md:w-auto px-5 py-2 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white text-sm font-medium hover:opacity-90 flex items-center justify-center gap-2">
+            <i class="fa fa-rotate-right text-[12px]"></i>
+            再考一次
+          </button>
+          <button id="btn-view-detail"
+                  class="w-full md:w-auto px-5 py-2 rounded-full bg-slate-900/80 border border-slate-700 hover:border-emerald-400 text-xs flex items-center justify-center gap-2">
+            <i class="fa fa-list-check text-[11px] text-emerald-300"></i>
+            查看答题详情
+          </button>
+          <button id="btn-view-report"
+                  class="w-full md:w-auto px-5 py-2 rounded-full bg-slate-900/80 border border-slate-700 hover:border-sky-400 text-xs flex items-center justify-center gap-2">
+            <i class="fa fa-file-waveform text-[11px] text-sky-300"></i>
+            查看考试报告
+          </button>
+          <div class="text-[11px] text-slate-500 mt-1 md:text-right">
+            温馨提示：考试结果已自动保存，可在「考试中心 - 历史考试」中查看。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 下部：tab 切换 —— 答题详情 / 考试报告 -->
+    <section class="grid lg:grid-cols-5 gap-4 items-start">
+      <!-- 左侧 Tab 菜单 -->
+      <aside class="lg:col-span-1 glass-card rounded-3xl border border-slate-800 p-4 space-y-3">
+        <h3 class="text-sm font-semibold mb-1">结果查看</h3>
+        <button
+          id="tab-btn-detail"
+          class="tab-btn-active tab-btn w-full text-left px-3 py-2 rounded-2xl border text-xs flex items-center justify-between">
+          <span>
+            <i class="fa fa-list-check mr-2 text-emerald-300 text-[11px]"></i> 答题详情
+          </span>
+          <i class="fa fa-chevron-right text-[10px] text-slate-400"></i>
+        </button>
+        <button
+          id="tab-btn-report"
+          class="tab-btn w-full text-left px-3 py-2 rounded-2xl border text-xs flex items-center justify-between">
+          <span>
+            <i class="fa fa-file-waveform mr-2 text-sky-300 text-[11px]"></i> 考试报告
+          </span>
+          <i class="fa fa-chevron-right text-[10px] text-slate-400"></i>
+        </button>
+      </aside>
+
+      <!-- 右侧内容区 -->
+      <section class="lg:col-span-4 space-y-4">
+
+        <!-- 答题详情 Panel -->
+        <div id="panel-detail" class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <span class="h-6 w-1 rounded-full bg-emerald-500"></span>
+              <h2 class="text-sm font-semibold">答题详情</h2>
+            </div>
+            <span class="text-[11px] text-slate-400">
+              展示每道题的作答情况（绿色为正确，红色为错误）
+            </span>
+          </div>
+
+          <!-- 题目摘要条（横向可滚动） -->
+          <div class="flex gap-2 overflow-x-auto no-scrollbar mb-4 text-[11px]">
+            <!-- 示例：根据题目结果渲染颜色 -->
+            <span class="inline-flex items-center justify-center h-7 w-7 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/60">
+              1
+            </span>
+            <span class="inline-flex items-center justify-center h-7 w-7 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/60">
+              2
+            </span>
+            <span class="inline-flex items-center justify-center h-7 w-7 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/60">
+              3
+            </span>
+            <span class="inline-flex items-center justify-center h-7 w-7 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/60">
+              4
+            </span>
+            <span class="inline-flex items-center justify-center h-7 w-7 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/60">
+              5
+            </span>
+            <!-- ... 可继续渲染更多题号 -->
+          </div>
+
+          <!-- 具体题目列表（示例） -->
+          <div class="space-y-4 text-xs">
+            <!-- 题 1 -->
+            <article class="rounded-2xl bg-slate-900/70 border border-slate-800 p-3">
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <div class="text-[11px] text-slate-400 mb-0.5">第 1 题 · 判断题</div>
+                  <div class="font-medium">
+                    Kubernetes 的 Pod 是调度的最小单元。
+                  </div>
+                </div>
+                <span class="inline-flex items-center px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/60 text-[11px]">
+                  正确
+                </span>
+              </div>
+              <div class="mt-2 space-y-1 text-slate-300">
+                <div>你的答案：正确</div>
+                <div>正确答案：正确</div>
+              </div>
+            </article>
+
+            <!-- 题 2 -->
+            <article class="rounded-2xl bg-slate-900/70 border border-slate-800 p-3">
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <div class="text-[11px] text-slate-400 mb-0.5">第 2 题 · 单选题</div>
+                  <div class="font-medium">
+                    以下哪项是 Kubernetes 中用于服务发现的组件？
+                  </div>
+                </div>
+                <span class="inline-flex items-center px-2 py-1 rounded-full bg-rose-500/10 text-rose-300 border border-rose-500/60 text-[11px]">
+                  错误
+                </span>
+              </div>
+              <div class="mt-2 space-y-1 text-slate-300">
+                <div>你的答案：B. ZooKeeper</div>
+                <div>正确答案：A. CoreDNS</div>
+              </div>
+            </article>
+
+            <!-- 题 3 -->
+            <article class="rounded-2xl bg-slate-900/70 border border-slate-800 p-3">
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <div class="text-[11px] text-slate-400 mb-0.5">第 3 题 · 多选题</div>
+                  <div class="font-medium">
+                    Kubernetes 中用于配置管理的对象包括：
+                  </div>
+                </div>
+                <span class="inline-flex items-center px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/60 text-[11px]">
+                  部分正确
+                </span>
+              </div>
+              <div class="mt-2 space-y-1 text-slate-300">
+                <div>你的答案：A. ConfigMap；B. Secret</div>
+                <div>标准答案：A. ConfigMap；B. Secret；（C / D 非必须项，示例填充）</div>
+              </div>
+            </article>
+
+            <!-- 可按实际题目循环渲染 -->
+          </div>
+        </div>
+
+        <!-- 考试报告 Panel -->
+        <div id="panel-report" class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6 hidden">
+          <!-- 顶部：考生信息 + 考试信息 -->
+          <div class="grid md:grid-cols-2 gap-4 mb-4 text-xs text-slate-300">
+            <div class="space-y-1">
+              <h3 class="text-[11px] text-slate-400 mb-1">考生信息</h3>
+              <p>姓名：张合作</p>
+              <p>伙伴等级：金牌伙伴</p>
+              <p>用户 ID：SUGON-2026-001</p>
+              <p>所属机构：XX 生态合作伙伴公司</p>
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-[11px] text-slate-400 mb-1">考试信息</h3>
+              <p>考试名称：伙伴云架构工程师（P-Cloud Architect）认证考试</p>
+              <p>考试时间：2026-01-15 14:00-15:00</p>
+              <p>实际用时：48 分钟 12 秒</p>
+              <p>考试形式：线上闭卷 · 单人作答</p>
+            </div>
+          </div>
+
+          <!-- 设备 & 环境 -->
+          <div class="grid md:grid-cols-2 gap-4 mb-4 text-xs text-slate-300">
+            <div class="space-y-1">
+              <h3 class="text-[11px] text-slate-400 mb-1">答题设备</h3>
+              <p>设备类型：桌面端</p>
+              <p>操作系统：Windows 10</p>
+              <p>浏览器：Chrome 121</p>
+              <p>IP 地址：118.86.xxx.xxx（中国 · 北京）</p>
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-[11px] text-slate-400 mb-1">考试行为</h3>
+              <p>切屏次数：1 次（未达到 5 次阈值）</p>
+              <p>复制 / 截图检测：0 次</p>
+              <p>是否异常：否</p>
+              <p>成绩状态：有效</p>
+            </div>
+          </div>
+
+          <!-- 分题型答题情况 -->
+          <div class="mb-4">
+            <h3 class="text-[11px] text-slate-400 mb-2">分题型答题情况</h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex flex-col">
+                  <span class="font-medium">判断题</span>
+                  <span class="text-slate-400 mt-0.5">共 10 题 · 正确 9 题（90%）</span>
+                </div>
+                <div class="flex-1 h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                  <div class="h-full bg-emerald-500" style="width:90%"></div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex flex-col">
+                  <span class="font-medium">单选题</span>
+                  <span class="text-slate-400 mt-0.5">共 25 题 · 正确 20 题（80%）</span>
+                </div>
+                <div class="flex-1 h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                  <div class="h-full bg-indigo-500" style="width:80%"></div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex flex-col">
+                  <span class="font-medium">多选题</span>
+                  <span class="text-slate-400 mt-0.5">共 15 题 · 正确 13 题（86%）</span>
+                </div>
+                <div class="flex-1 h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                  <div class="h-full bg-purple-500" style="width:86%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 技能图谱（雷达图示意） -->
+          <div class="mb-4">
+            <h3 class="text-[11px] text-slate-400 mb-2">技能图谱</h3>
+            <div class="flex flex-col md:flex-row md:items-center gap-4">
+              <!-- 简易雷达图（用 SVG 示意，可后续接入图表库） -->
+              <div class="skill-radar mx-auto md:mx-0">
+                <svg viewBox="0 0 200 200" class="w-full h-auto">
+                  <!-- 雷达网格 -->
+                  <polygon points="100,20 176,60 176,140 100,180 24,140 24,60"
+                           fill="none" stroke="#1f2937" stroke-width="1" />
+                  <polygon points="100,40 160,72 160,128 100,160 40,128 40,72"
+                           fill="none" stroke="#1f2937" stroke-width="1" />
+                  <polygon points="100,60 144,84 144,116 100,140 56,116 56,84"
+                           fill="none" stroke="#1f2937" stroke-width="1" />
+                  <!-- 能力区域（示例数据） -->
+                  <polygon
+                    points="100,40 160,80 150,130 100,150 60,120 40,80"
+                    fill="rgba(56,189,248,0.25)"
+                    stroke="#38bdf8" stroke-width="2" />
+                  <!-- 维度标签 -->
+                  <text x="100" y="14" fill="#9ca3af" font-size="9" text-anchor="middle">云架构设计</text>
+                  <text x="184" y="64" fill="#9ca3af" font-size="9" text-anchor="start">容器编排</text>
+                  <text x="184" y="144" fill="#9ca3af" font-size="9" text-anchor="start">CI/CD 工具链</text>
+                  <text x="100" y="192" fill="#9ca3af" font-size="9" text-anchor="middle">可观测性</text>
+                  <text x="16" y="144" fill="#9ca3af" font-size="9" text-anchor="end">安全合规</text>
+                  <text x="16" y="64" fill="#9ca3af" font-size="9" text-anchor="end">云成本优化</text>
+                </svg>
+              </div>
+
+              <!-- 文本说明 -->
+              <div class="flex-1 text-xs text-slate-300 space-y-1">
+                <p>云架构设计：<span class="text-emerald-300 font-medium">88 分</span></p>
+                <p>容器编排与服务治理：<span class="text-emerald-300 font-medium">82 分</span></p>
+                <p>CI/CD 工具链：<span class="text-emerald-300 font-medium">78 分</span></p>
+                <p>可观测性体系：<span class="text-emerald-300 font-medium">80 分</span></p>
+                <p>安全合规：<span class="text-amber-300 font-medium">70 分</span>（建议重点提升）</p>
+                <p>云成本优化 / FinOps：<span class="text-amber-300 font-medium">72 分</span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 建议与下一步动作 -->
+          <div class="mt-4 text-xs text-slate-300 space-y-1">
+            <h3 class="text-[11px] text-slate-400 mb-1">学习建议</h3>
+            <p>· 建议优先复盘错题中的「服务发现」「安全策略」相关内容，巩固基础概念。</p>
+            <p>· 推荐学习路径：「云安全与零信任架构」「云成本优化与 FinOps」课程。</p>
+            <p>· 可在「学习中心 - 为你推荐」中查看根据本次考试自动生成的学习计划。</p>
+          </div>
+
+          <!-- 下载/分享报告 -->
+          <div class="mt-4 flex flex-wrap gap-2 justify-end text-xs">
+            <button class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-indigo-400 flex items-center gap-1">
+              <i class="fa fa-download text-[10px] text-indigo-300"></i> 下载 PDF 报告
+            </button>
+            <button class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-emerald-400 flex items-center gap-1">
+              <i class="fa fa-share-nodes text-[10px] text-emerald-300"></i> 分享给管理员
+            </button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+  </section>
+</main>
+
+<!-- 底部 -->
+<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 SUGON 合作伙伴赋能平台 · 考试中心</div>
+    <div class="flex flex-wrap gap-3">
+      <span>隐私政策</span>
+      <span>法律声明</span>
+      <span>版权信息</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 交互脚本：Tab 切换 & 按钮模拟 -->
+<script>
+  const tabBtnDetail = document.getElementById('tab-btn-detail');
+  const tabBtnReport = document.getElementById('tab-btn-report');
+  const panelDetail = document.getElementById('panel-detail');
+  const panelReport = document.getElementById('panel-report');
+
+  function activeDetail() {
+    tabBtnDetail.classList.add('tab-btn-active');
+    tabBtnReport.classList.remove('tab-btn-active');
+    panelDetail.classList.remove('hidden');
+    panelReport.classList.add('hidden');
+  }
+  function activeReport() {
+    tabBtnReport.classList.add('tab-btn-active');
+    tabBtnDetail.classList.remove('tab-btn-active');
+    panelReport.classList.remove('hidden');
+    panelDetail.classList.add('hidden');
+  }
+
+  tabBtnDetail.addEventListener('click', activeDetail);
+  tabBtnReport.addEventListener('click', activeReport);
+
+  // 顶部按钮与左侧 Tab 联动
+  document.getElementById('btn-view-detail').addEventListener('click', activeDetail);
+  document.getElementById('btn-view-report').addEventListener('click', activeReport);
+
+  // 再考一次：这里做示例跳转，你可以替换为真实路由
+  document.getElementById('btn-retake').addEventListener('click', () => {
+    if (confirm('确定要再次参加本场考试吗？')) {
+      // 示例：跳到在线考试页
+      window.location.href = 'exam-online.html?id=exam-cloud-architect';
+    }
+  });
+</script>
+
+</body>
+</html>

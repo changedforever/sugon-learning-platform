@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>平台架构图 - SUGON 合作伙伴赋能平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+    }
+    .glass-card {
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(14px);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* 优化 mermaid 图表展示尺寸 */
+    .mermaid-wrapper {
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-height: 80vh; /* 限制最大高度 */
+    }
+    .mermaid {
+      min-width: 1200px; /* 增加最小宽度，让图表更好展开 */
+      width: 100%;
+      height: auto;
+    }
+
+    /* 优化 mermaid 图表内部样式 */
+    .mermaid svg {
+      max-width: none !important;
+      height: auto !important;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-50">
+
+<!-- 顶部导航 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14">
+      <!-- 左侧：返回首页 -->
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
+            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-indigo-300">
+              合作伙伴赋能平台 · 平台架构图
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 中间：标题 -->
+      <div class="hidden md:flex flex-col items-center">
+        <span class="text-[11px] text-slate-400">项目建设视角</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs">
+          整体业务 & 技术架构
+        </span>
+      </div>
+
+      <!-- 右侧：预留入口，可按需修改 -->
+      <div class="flex items-center space-x-2 text-xs">
+        <a href="index.html"
+           class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 hover:border-indigo-500 transition">
+          返回演示
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <section class="max-w-full mx-auto px-4 lg:px-6 space-y-4">
+    <!-- 文本说明 -->
+    <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6 max-w-7xl mx-auto">
+      <h1 class="text-lg md:text-2xl font-semibold flex items-center gap-2 mb-2">
+        <span class="inline-flex h-6 w-1 rounded-full bg-indigo-500"></span>
+        SUGON 合作伙伴赋能平台整体架构图
+      </h1>
+      <p class="text-xs md:text-sm text-slate-300 leading-6">
+        本架构图从产品经理视角，对 SUGON 合作伙伴赋能平台进行分层和业务域拆分，清晰展示：
+        体验层（各前端入口）、业务域层（学习、考试、认证、内容、用户与伙伴、资源、搜索、AI、通知等），
+        以及下方的平台通用服务层与数据/外部集成层，帮助项目干系人快速理解平台整体建设范围与演进路径。
+      </p>
+    </article>
+
+    <!-- 架构图容器 - 使用全宽布局 -->
+    <article class="glass-card rounded-3xl border border-slate-800 p-3 md:p-5">
+      <div class="flex items-center justify-between mb-4 max-w-7xl mx-auto">
+        <h2 class="text-sm md:text-base font-semibold flex items-center gap-2">
+          <i class="fa fa-diagram-project text-indigo-300"></i>
+          平台分层与业务域关系图
+        </h2>
+        <span class="text-[11px] text-slate-400">
+          说明：可左右拖动查看全部节点（Mermaid · 深色主题）
+        </span>
+      </div>
+
+      <div class="mermaid-wrapper border border-slate-800 rounded-2xl bg-slate-950/40 p-4">
+        <div class="mermaid" id="architecture-diagram">
+flowchart TD
+    %% ===== 顶层：用户入口 =====
+    subgraph UI["体验层 · 前端入口"]
+      Home["首页 / 搜索入口"]
+      Learn["学习中心\n课程列表/详情，直播，活动"]
+      ExamCenter["考试中心\n考试列表/考试详情"]
+      CertCenter["认证中心\n认证路径/证书详情"]
+      NewsCenter["资讯中心\n资讯/公告列表+详情"]
+      Personal["个人中心\n资料/学习/证书/直播/活动/收藏/消息"]
+      Resource["资源中心\n技术工具库 / 技术文档库 / 案例库"]
+      AuthPage["统一账号登录 / 注册 / 密码找回"]
+      AIWidget["AI 智能客服悬浮入口\n+ 边看边搜浮窗"]
+    end
+
+    %% ===== 中层：业务域服务 =====
+    subgraph Domain["业务域层 · 业务能力"]
+      subgraph LearnDomain["学习域"]
+        CourseSvc["课程服务\n课程管理 / 报名 / 学习进度"]
+        LiveSvc["直播服务\n预约 / 开播提醒 / 回放记录"]
+        EventSvc["活动服务\n线上/线下活动报名与记录"]
+        InlineSearch["边看边搜服务\n选中文本 → 搜索/解读"]
+      end
+
+      subgraph ExamDomain["考试域"]
+        ExamSvc["考试服务\n考试列表 / 状态 / 成绩"]
+      end
+
+      subgraph CertDomain["认证域"]
+        CertSvc["认证服务\n认证体系 / 认证路径"]
+        CertManage["证书管理\n证书列表 / 详情 / 下载"]
+      end
+
+      subgraph ContentDomain["内容资讯域"]
+        InfoSvc["资讯服务\n行业动态 / 政策流程 / 平台新闻"]
+        AnnounceSvc["公告服务\n平台及认证重要公告"]
+        MessageCenter["消息中心\n系统通知 / 已读管理"]
+      end
+
+      subgraph UserDomain["用户与伙伴域"]
+        AccountProfile["账号与个人资料\n姓名/联系方式/岗位角色"]
+        RealNameAuth["账号认证\n姓名+手机验证码"]
+        PartnerAssoc["关联公司\n伙伴公司申请与审批状态"]
+      end
+
+      subgraph ResourceDomain["资源域"]
+        ToolLib["技术工具库\n支持工具列表+下载/在线入口"]
+        DocLib["技术文档库\n白皮书/手册/培训资料预览与下载"]
+        CaseLib["案例库\n成功案例/方案集锦分类展示"]
+      end
+
+      subgraph SearchDomain["搜索与推荐域"]
+        GlobalSearch["统一搜索\n课程/考试/认证/资讯聚合结果"]
+      end
+
+      subgraph AIDomain["AI 服务域"]
+        AIAgent["AI 智能客服\n7x24 在线问答 + 工单引导"]
+        AILearnAssist["学习助手\n边看边搜智能解读/补充资料"]
+      end
+
+      subgraph NotifyDomain["通知域"]
+        NotifySvc["通知服务\n课程报名结果/直播提醒/\n活动审核结果/考试安排"]
+      end
+    end
+
+    %% ===== 底层：平台通用服务 =====
+    AuthSvc["统一身份认证\n平台账号 + 光合官网账号 + 光圈 SSO"]
+    RBAC["权限与角色\n伙伴公司权限 / 个人权限"]
+    FileSvc["文件与媒体服务\n视频/文档/工具/证书存储"]
+    SearchEngine["搜索引擎\n全文索引 + 结果排序"]
+    MsgBus["消息总线\n站内信/站外通知分发"]
+    LogMonitor["日志与监控\n行为日志 / 性能监控"]
+
+    subgraph Platform["平台服务层 · 通用服务"]
+      AuthSvc
+      RBAC
+      FileSvc
+      SearchEngine
+      MsgBus
+      LogMonitor
+    end
+
+    %% ===== 数据与集成层 =====
+    subgraph Data["数据与集成层 · 持久化与外部系统"]
+      BIZDB["业务数据库\n用户/课程/考试/认证/\n资讯/资源/伙伴公司等"]
+      FILEStore["对象存储\n课程视频/文档/工具包/证书PDF/案例素材"]
+      IDXStore["搜索索引库\n课程/考试/证书/资讯索引"]
+      ExtSSO["光圈 / 光合官网\n单点登录与统一账号"]
+      SMSMail["短信/邮件服务\n验证码 / 消息推送"]
+      PartnerBackend["伙伴后台系统\n伙伴公司信息与审批结果"]
+    end
+
+    %% ===== 连接：UI → 业务域 =====
+    Home --> GlobalSearch
+    Home --> LearnDomain
+    Home --> ExamDomain
+    Home --> CertDomain
+    Home --> ContentDomain
+    Home --> ResourceDomain
+    Home --> Personal
+    Home --> AuthPage
+
+    Learn --> LearnDomain
+
+    ExamCenter --> ExamDomain
+    CertCenter --> CertDomain
+
+    NewsCenter --> ContentDomain
+
+    Personal --> UserDomain
+    Personal --> LearnDomain
+    Personal --> ExamDomain
+    Personal --> CertDomain
+    Personal --> ResourceDomain
+
+    Resource --> ResourceDomain
+
+    AuthPage --> AuthSvc
+
+    AIWidget --> AIDomain
+
+    %% ===== 业务域 → 平台服务 =====
+    LearnDomain --> FileSvc
+    LearnDomain --> AuthSvc
+    LearnDomain --> RBAC
+    LearnDomain --> NotifySvc
+
+    ExamDomain --> AuthSvc
+    ExamDomain --> NotifySvc
+
+    CertDomain --> RBAC
+    CertDomain --> FileSvc
+
+    ContentDomain --> SearchEngine
+
+    SearchDomain --> SearchEngine
+
+    AIDomain --> SearchEngine
+    AIDomain --> FileSvc
+
+    NotifyDomain --> MsgBus
+
+    UserDomain --> AuthSvc
+    UserDomain --> RBAC
+
+    ResourceDomain --> FileSvc
+    ResourceDomain --> SearchEngine
+
+    %% ===== 平台服务 → 数据/外部集成 =====
+    AuthSvc --> BIZDB
+    AuthSvc --> ExtSSO
+    RBAC --> BIZDB
+
+    FileSvc --> FILEStore
+    SearchEngine --> IDXStore
+
+    LearnDomain --> BIZDB
+    ExamDomain --> BIZDB
+    CertDomain --> BIZDB
+    ContentDomain --> BIZDB
+    ResourceDomain --> BIZDB
+    UserDomain --> BIZDB
+    NotifyDomain --> BIZDB
+
+    NotifySvc --> SMSMail
+    PartnerAssoc --> PartnerBackend
+
+    LogMonitor --> FILEStore
+        </div>
+      </div>
+    </article>
+  </section>
+</main>
+
+<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 SUGON 合作伙伴赋能平台 · 平台架构图</div>
+    <div class="flex flex-wrap gap-3">
+      <span>隐私政策</span>
+      <span>法律声明</span>
+      <span>版权信息</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Mermaid 渲染脚本 -->
+<script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
+<script>
+  // 初始化 Mermaid，使用深色主题并优化配置
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    flowchart: {
+      useMaxWidth: false,
+      htmlLabels: true,
+      curve: 'basis'
+    },
+    themeVariables: {
+      darkMode: true,
+      background: '#0f172a',
+      primaryColor: '#6366f1',
+      primaryTextColor: '#f1f5f9',
+      primaryBorderColor: '#4f46e5',
+      lineColor: '#64748b',
+      secondaryColor: '#1e293b',
+      tertiaryColor: '#334155'
+    }
+  });
+</script>
+
+</body>
+</html>

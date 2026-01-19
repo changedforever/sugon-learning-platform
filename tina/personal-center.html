@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>个人中心 - SUGON 合作伙伴赋能平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+    }
+    .glass-card {
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(14px);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .profile-avatar {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #4f46e5, #06b6d4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+    }
+
+    .main-tab-active {
+      border-color: rgb(129 140 248);
+      color: rgb(191 219 254);
+      background: rgba(15,23,42,0.9);
+    }
+    .main-tab {
+      background: rgba(15,23,42,0.9);
+      border-color: rgb(51 65 85);
+    }
+
+    .badge-verified {
+      background: rgba(16,185,129,0.12);
+      color: rgb(110,231,183);
+      border-color: rgba(16,185,129,0.5);
+    }
+    .badge-unverified {
+      background: rgba(248,113,113,0.12);
+      color: rgb(252,165,165);
+      border-color: rgba(248,113,113,0.5);
+    }
+
+    .status-upcoming {
+      background: rgba(56,189,248,0.12);
+      color: rgb(125,211,252);
+      border-color: rgba(56,189,248,0.5);
+    }
+    .status-live {
+      background: rgba(248,113,113,0.12);
+      color: rgb(252,165,165);
+      border-color: rgba(248,113,113,0.5);
+    }
+    .status-ended {
+      background: rgba(148,163,184,0.15);
+      color: rgb(148,163,184);
+      border-color: rgba(148,163,184,0.7);
+    }
+    .status-pass {
+      background: rgba(16,185,129,0.12);
+      color: rgb(110,231,183);
+      border-color: rgba(16,185,129,0.5);
+    }
+    .status-fail {
+      background: rgba(248,113,113,0.12);
+      color: rgb(252,165,165);
+      border-color: rgba(248,113,113,0.5);
+    }
+    .status-wait {
+      background: rgba(251,191,36,0.12);
+      color: rgb(252,211,77);
+      border-color: rgba(251,191,36,0.5);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-50">
+
+<!-- 顶部导航 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14">
+      <!-- 左侧：返回首页 -->
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
+            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-indigo-300">
+              合作伙伴赋能平台 · 个人中心
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 中间：标题 -->
+      <div class="hidden md:flex flex-col items-center">
+        <!--span class="text-[11px] text-slate-400">我的工作台</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs">个人中心首页</span-->
+      </div>
+
+      <!-- 右侧：设置入口 -->
+      <div class="flex items-center space-x-2 text-xs">
+        <button id="account-settings-btn" class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 hover:border-indigo-500 transition">
+          <i class="fa fa-gear text-xs mr-1"></i> 账号设置
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6 space-y-6">
+
+    <!-- 顶部个人信息总览 -->
+    <section class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="profile-avatar" id="profile-avatar">
+            <span id="profile-avatar-text">U</span>
+          </div>
+          <div class="space-y-1 text-xs">
+            <div class="flex items-center gap-2">
+              <span id="profile-name-display" class="text-sm font-semibold">未命名用户</span>
+              <span id="auth-badge"
+                    class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] badge-unverified">
+                <i class="fa fa-circle-exclamation mr-1 text-[9px]"></i> 未认证
+              </span>
+               <button id="start-auth-btn"
+                    class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-indigo-500 text-[11px]">
+              立即认证
+            </button>
+            <button id="apply-assoc-btn"
+                    class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-sky-400 text-[11px]">
+              关联公司
+            </button>
+            </div>
+            <div class="text-slate-400 flex flex-wrap gap-3">
+              <span id="profile-role-display">岗位角色未填写</span>
+              <span class="text-slate-500">·</span>
+              <span id="profile-company-display">公司未填写</span>
+            </div>
+          </div>
+        </div>
+        <div class="text-[11px] text-slate-400 space-y-1 lg:text-right">
+          <div>在学课程：<span class="text-indigo-300" id="summary-learning">0</span> 门</div>
+          <div>已获证书：<span class="text-emerald-300" id="summary-cert">0</span> 张</div>
+          <div>待考试/活动：<span class="text-amber-300" id="summary-todo">0</span> 项</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 第二行：学习概览 / 能力概览 -->
+    <section class="grid gap-6 md:grid-cols-2">
+      <!-- 学习概览 -->
+      <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-5 space-y-3">
+        <div class="flex items-center justify-between mb-1">
+          <h2 class="text-sm md:text-base font-semibold flex items-center gap-2">
+            <i class="fa fa-chart-line text-indigo-300"></i> 学习概览
+          </h2>
+        </div>
+        <div class="grid grid-cols-2 gap-3 text-xs">
+          <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3">
+            <div class="text-slate-400 mb-1">在学课程</div>
+            <div id="overview-learning" class="text-lg font-semibold text-indigo-300">0</div>
+          </div>
+          <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3">
+            <div class="text-slate-400 mb-1">已完成课程</div>
+            <div id="overview-completed" class="text-lg font-semibold text-emerald-300">0</div>
+          </div>
+          <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3">
+            <div class="text-slate-400 mb-1">待参加考试/活动</div>
+            <div id="overview-exams-events" class="text-lg font-semibold text-amber-300">0</div>
+          </div>
+          <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3">
+            <div class="text-slate-400 mb-1">近期直播预约</div>
+            <div id="overview-live" class="text-lg font-semibold text-sky-300">0</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 能力概览 -->
+      <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-5 space-y-3">
+        <div class="flex items-center justify-between mb-1">
+          <h2 class="text-sm md:text-base font-semibold flex items-center gap-2">
+            <i class="fa fa-award text-emerald-300"></i> 能力概览
+          </h2>
+          <button id="add-target-cert-btn"
+                  class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-emerald-400 text-[11px]">
+            添加目标证书
+          </button>
+        </div>
+        <ul id="ability-cert-list" class="text-xs text-slate-300 space-y-2">
+          <!-- JS 注入已获得 & 目标证书 -->
+        </ul>
+      </article>
+    </section>
+
+    <!-- Tab：我的学习 / 我的证书 / 我的直播 / 我的活动 / 我的收藏 / 消息中心 -->
+    <section class="space-y-4">
+      <div class="flex flex-wrap gap-2 text-xs">
+        <button class="main-tab main-tab-active px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+                data-target="tab-learning">
+          <i class="fa fa-book-open mr-1 text-[11px] text-indigo-300"></i> 我的学习
+        </button>
+        <button class="main-tab px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+                data-target="tab-exams">
+          <i class="fa fa-file-pen mr-1 text-[11px] text-amber-300"></i> 考试列表
+        </button>
+        <button class="main-tab px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+                data-target="tab-certificates">
+          <i class="fa fa-certificate mr-1 text-[11px] text-emerald-300"></i> 我的证书
+        </button>
+        <button class="main-tab px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+                data-target="tab-live">
+          <i class="fa fa-video mr-1 text-[11px] text-sky-300"></i> 我的直播
+        </button>
+        <button class="main-tab px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+                data-target="tab-events">
+          <i class="fa fa-calendar-check mr-1 text-[11px] text-purple-300"></i> 我的活动
+        </button>
+        <button class="main-tab px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+                data-target="tab-favorites">
+          <i class="fa fa-heart mr-1 text-[11px] text-rose-300"></i> 我的收藏
+        </button>
+        <button class="main-tab px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+                data-target="tab-messages">
+          <i class="fa fa-bell mr-1 text-[11px] text-amber-300"></i> 消息中心
+        </button>
+      </div>
+
+      <!-- 我的学习：课程列表 + 进度 -->
+      <section id="tab-learning" class="main-panel">
+        <div id="learning-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </section>
+
+      <!-- 考试列表 -->
+      <section id="tab-exams" class="main-panel hidden">
+        <div id="exam-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </section>
+
+      <!-- 我的证书 -->
+      <section id="tab-certificates" class="main-panel hidden">
+        <div id="certificate-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </section>
+
+      <!-- 我的直播 -->
+      <section id="tab-live" class="main-panel hidden">
+        <div id="live-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </section>
+
+      <!-- 我的活动 -->
+      <section id="tab-events" class="main-panel hidden">
+        <div id="activity-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </section>
+
+      <!-- 我的收藏 -->
+      <section id="tab-favorites" class="main-panel hidden">
+        <div id="favorite-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </section>
+
+      <!-- 消息中心 -->
+      <section id="tab-messages" class="main-panel hidden">
+        <div class="flex items-center justify-between text-xs mb-2">
+          <span class="text-slate-400">系统通知 · 支持已读/未读管理</span>
+          <button id="mark-all-read"
+                  class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-emerald-400">
+            标记全部已读
+          </button>
+        </div>
+        <ul id="message-list" class="space-y-2 text-xs">
+          <!-- JS 注入 -->
+        </ul>
+      </section>
+    </section>
+
+  </section>
+</main>
+
+<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 SUGON 合作伙伴赋能平台 · 个人中心</div>
+    <div class="flex flex-wrap gap-3">
+      <span>隐私政策</span>
+      <span>法律声明</span>
+      <span>版权信息</span>
+    </div>
+  </div>
+</footer>
+
+<!-- =============== 认证 Modal（姓名+手机） =============== -->
+<div id="auth-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center px-4">
+  <div class="glass-card rounded-3xl border border-slate-800 w-full max-w-md p-5 space-y-3 relative">
+    <button id="auth-modal-close" class="absolute right-3 top-3 text-slate-400 hover:text-slate-100">
+      <i class="fa fa-times text-xs"></i>
+    </button>
+    <h3 class="text-sm font-semibold mb-1 flex items-center gap-2">
+      <i class="fa fa-shield-halved text-emerald-300"></i> 实名认证
+    </h3>
+    <p class="text-[11px] text-slate-400">
+      请确认姓名与手机号，用于认证与安全校验。示例中不做真实校验，实际环境可对接短信验证码服务。
+    </p>
+    <div class="space-y-2 text-xs">
+      <div>
+        <label class="block text-slate-400 mb-1">姓名</label>
+        <input id="auth-name" type="text" placeholder="请填写真实姓名"
+               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs">
+      </div>
+      <div>
+        <label class="block text-slate-400 mb-1">手机号码</label>
+        <input id="auth-phone" type="tel" placeholder="请填写手机号"
+               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs">
+      </div>
+      <div class="flex gap-2">
+        <input id="auth-code" type="text" placeholder="输入验证码"
+               class="flex-1 px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs">
+        <button id="auth-send-code"
+                class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-indigo-400 text-[11px]">
+          获取验证码
+        </button>
+      </div>
+    </div>
+    <button id="auth-submit"
+            class="w-full mt-2 py-2 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-400 text-white text-xs font-medium hover:opacity-90">
+      提交认证
+    </button>
+  </div>
+</div>
+
+<!-- =============== 关联公司 Modal =============== -->
+<div id="assoc-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center px-4">
+  <div class="glass-card rounded-3xl border border-slate-800 w-full max-w-md p-5 space-y-3 relative">
+    <button id="assoc-modal-close" class="absolute right-3 top-3 text-slate-400 hover:text-slate-100">
+      <i class="fa fa-times text-xs"></i>
+    </button>
+    <h3 class="text-sm font-semibold mb-1 flex items-center gap-2">
+      <i class="fa fa-handshake-angle text-sky-300"></i> 申请关联合作伙伴公司
+    </h3>
+    <p class="text-[11px] text-slate-400">
+      输入公司名称，提交后由该公司管理员在合作伙伴后台审批。
+    </p>
+    <div class="space-y-2 text-xs">
+      <div>
+        <label class="block text-slate-400 mb-1">公司名称</label>
+        <input id="assoc-company-name" type="text" placeholder="如：北京某某信息技术有限公司"
+               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs">
+      </div>
+      <div>
+        <label class="block text-slate-400 mb-1">您的岗位角色（选填）</label>
+        <input id="assoc-role" type="text" placeholder="销售 / 云架构师 / 运维 等"
+               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs">
+      </div>
+    </div>
+    <button id="assoc-submit"
+            class="w-full mt-2 py-2 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white text-xs font-medium hover:opacity-90">
+      提交关联申请
+    </button>
+  </div>
+</div>
+
+<!-- =============== 目标证书 Modal =============== -->
+<div id="target-cert-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center px-4">
+  <div class="glass-card rounded-3xl border border-slate-800 w-full max-w-md p-5 space-y-3 relative">
+    <button id="target-cert-close" class="absolute right-3 top-3 text-slate-400 hover:text-slate-100">
+      <i class="fa fa-times text-xs"></i>
+    </button>
+    <h3 class="text-sm font-semibold mb-1 flex items-center gap-2">
+      <i class="fa fa-bullseye text-emerald-300"></i> 选择目标证书
+    </h3>
+    <p class="text-[11px] text-slate-400">
+      选择你希望在一年内达成的认证目标，系统会为你推荐学习路径和考试安排。
+    </p>
+    <ul id="target-cert-list" class="space-y-1 text-xs text-slate-300">
+      <!-- JS 注入 -->
+    </ul>
+  </div>
+</div>
+
+<!-- =============== 个人资料设置 Modal =============== -->
+<div id="profile-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center px-4">
+  <div class="glass-card rounded-3xl border border-slate-800 w-full max-w-md p-5 space-y-3 relative">
+    <button id="profile-modal-close" class="absolute right-3 top-3 text-slate-400 hover:text-slate-100">
+      <i class="fa fa-times text-xs"></i>
+    </button>
+    <h3 class="text-sm font-semibold mb-1 flex items-center gap-2">
+      <i class="fa fa-id-card text-indigo-300"></i> 个人资料及设置
+    </h3>
+    <p class="text-[11px] text-slate-400">
+      基本资料维护，完善个人信息以获得更好的服务体验。
+    </p>
+    <div class="space-y-2 text-xs">
+      <div>
+        <label class="block text-slate-400 mb-1">姓名</label>
+        <input id="profile-name" type="text" placeholder="请输入姓名"
+               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+      </div>
+      <div>
+        <label class="block text-slate-400 mb-1">联系方式（手机）</label>
+        <input id="profile-phone" type="tel" placeholder="请输入手机号"
+               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+      </div>
+      <div>
+        <label class="block text-slate-400 mb-1">邮箱</label>
+        <input id="profile-email" type="email" placeholder="用于通知与密码找回"
+               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+      </div>
+      <div>
+        <label class="block text-slate-400 mb-1">所在公司</label>
+        <input id="profile-company" type="text" placeholder="请输入公司名称"
+               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+      </div>
+      <div>
+        <label class="block text-slate-400 mb-1">岗位角色</label>
+        <input id="profile-role" type="text" placeholder="云架构师 / 解决方案顾问 等"
+               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+      </div>
+    </div>
+    <button id="save-profile-btn"
+            class="w-full py-2 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white text-xs font-medium hover:opacity-90">
+      保存资料
+    </button>
+  </div>
+</div>
+
+<script>
+  // =============== 一些简单的本地存储 key ===============
+  const KEY_PROFILE = 'sugon_profile';
+  const KEY_AUTH = 'sugon_auth_verified';
+  const KEY_ASSOC = 'sugon_assoc_companies';
+  const KEY_TARGET_CERT = 'sugon_target_certs';
+  const KEY_MESSAGES = 'sugon_messages';
+
+  // =============== 工具函数 ===============
+  function $(id){ return document.getElementById(id); }
+
+  function loadJSON(key, def){
+    try{
+      const v = localStorage.getItem(key);
+      return v ? JSON.parse(v) : def;
+    }catch(e){ return def; }
+  }
+  function saveJSON(key, val){
+    localStorage.setItem(key, JSON.stringify(val));
+  }
+
+  // =============== 加载/保存 个人资料 ===============
+  function loadProfile(){
+    const p = loadJSON(KEY_PROFILE, {});
+    $('profile-name').value = p.name || '';
+    $('profile-phone').value = p.phone || '';
+    $('profile-email').value = p.email || '';
+    $('profile-company').value = p.company || '';
+    $('profile-role').value = p.role || '';
+
+    $('profile-name-display').textContent = p.name || '未命名用户';
+    $('profile-role-display').textContent = p.role || '岗位角色未填写';
+    $('profile-company-display').textContent = p.company || '公司未填写';
+
+    const first = (p.name || 'U').trim()[0] || 'U';
+    $('profile-avatar-text').textContent = first.toUpperCase();
+  }
+
+  function saveProfile(){
+    const p = {
+      name: $('profile-name').value.trim(),
+      phone: $('profile-phone').value.trim(),
+      email: $('profile-email').value.trim(),
+      company: $('profile-company').value.trim(),
+      role: $('profile-role').value.trim()
+    };
+    saveJSON(KEY_PROFILE, p);
+    loadProfile();
+    alert('个人资料已保存');
+  }
+
+  // =============== 账号认证 ===============
+  function refreshAuthStatus(){
+    const verified = localStorage.getItem(KEY_AUTH) === 'true';
+    const badge = $('auth-badge');
+    if(verified){
+      badge.innerHTML = '<i class="fa fa-circle-check mr-1 text-[9px]"></i> 已认证';
+      badge.className = 'inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] badge-verified';
+    }else{
+      badge.innerHTML = '<i class="fa fa-circle-exclamation mr-1 text-[9px]"></i> 未认证';
+      badge.className = 'inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] badge-unverified';
+    }
+  }
+
+  // =============== 关联公司 ===============
+  function renderAssocList(){
+    // 这个函数现在不需要了，因为关联公司模块已被移除
+  }
+
+  // =============== 能力概览：证书 + 目标证书 ===============
+  function renderAbility(){
+    const got = [
+      {title:'SUGON 云架构师（Professional）', type:'已获得'},
+      {title:'SUGON AI 与数据智能（Associate）', type:'已获得'}
+    ];
+    const targets = loadJSON(KEY_TARGET_CERT, []);
+    const ul = $('ability-cert-list');
+    ul.innerHTML = '';
+    got.forEach(c=>{
+      const li = document.createElement('li');
+      li.className = 'flex items-center justify-between py-1.5 px-2 rounded-lg bg-slate-900/80';
+      li.innerHTML = `
+        <span>${c.title}</span>
+        <span class="text-[11px] text-emerald-300">${c.type}</span>
+      `;
+      ul.appendChild(li);
+    });
+    targets.forEach(c=>{
+      const li = document.createElement('li');
+      li.className = 'flex items-center justify-between py-1.5 px-2 rounded-lg bg-slate-900/80';
+      li.innerHTML = `
+        <span>${c}</span>
+        <span class="text-[11px] text-indigo-300">目标证书</span>
+      `;
+      ul.appendChild(li);
+    });
+  }
+
+  function renderTargetCertOptions(){
+    const candidates = [
+      'SUGON 云原生架构师（Expert）',
+      'SUGON 数据智能专家（Professional）',
+      'SUGON 解决方案顾问（高级）'
+    ];
+    const ul = $('target-cert-list');
+    ul.innerHTML = '';
+    const existing = loadJSON(KEY_TARGET_CERT, []);
+    candidates.forEach(c=>{
+      const li = document.createElement('li');
+      li.className = 'cursor-pointer hover:bg-slate-900/70 p-2 rounded-lg flex items-center justify-between';
+      const added = existing.includes(c);
+      li.innerHTML = `
+        <span>${c}</span>
+        <span class="text-[11px] ${added?'text-emerald-300':'text-slate-500'}">${added?'已添加':'点击添加'}</span>
+      `;
+      li.addEventListener('click', ()=>{
+        if(!added){
+          existing.push(c);
+          saveJSON(KEY_TARGET_CERT, existing);
+          renderAbility();
+          renderTargetCertOptions();
+        }
+      });
+      ul.appendChild(li);
+    });
+  }
+
+  // =============== 学习 / 考试 / 直播 / 活动 / 收藏 / 消息 列表模拟 ===============
+  function initListsAndOverview(){
+    // 我的学习
+    const learn = [
+      {title:'云基础设施入门', progress:80, status:'进行中', completed:false},
+      {title:'Kubernetes 进阶', progress:100, status:'已完成', completed:true, completeTime:'2026-01-12'},
+      {title:'AI 与数据智能基础', progress:40, status:'进行中', completed:false}
+    ];
+    const learnWrap = $('learning-list');
+    learnWrap.innerHTML = '';
+    learn.forEach(c=>{
+      const card = document.createElement('article');
+      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 space-y-2 hover:-translate-y-1 hover:border-indigo-500/80 transition';
+      card.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div class="text-sm font-medium">${c.title}</div>
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700">
+            ${c.status}
+          </span>
+        </div>
+        <div class="w-full h-1.5 rounded-full bg-slate-900/80 overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" style="width:${c.progress}%"></div>
+        </div>
+        <div class="text-[11px] text-slate-400">
+          ${c.completed ? '完成时间：'+c.completeTime+' · 支持复学/回看' : '学习进度：'+c.progress+'%'}
+        </div>
+      `;
+      learnWrap.appendChild(card);
+    });
+
+    // 考试
+    const exams = [
+      {title:'云架构师（Professional）认证考试', time:'2026-03-10', status:'未考试'},
+      {title:'AI 与数据智能（Associate）认证考试', time:'2025-12-15', status:'已通过'},
+      {title:'解决方案顾问（中级）考试', time:'2025-11-20', status:'未通过'}
+    ];
+    const examWrap = $('exam-list');
+    examWrap.innerHTML = '';
+    exams.forEach(e=>{
+      const card = document.createElement('article');
+      let statusCls='status-wait';
+      let statusText=e.status;
+      if(e.status==='已通过') statusCls='status-pass';
+      if(e.status==='未通过') statusCls='status-fail';
+      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 space-y-2 hover:-translate-y-1 hover:border-indigo-500/80 transition';
+      card.innerHTML = `
+        <div class="text-sm font-medium">${e.title}</div>
+        <div class="text-[11px] text-slate-400">考试日期：${e.time}</div>
+        <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] ${statusCls}">
+          ${statusText}
+        </span>
+        <button class="w-full mt-2 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 text-[11px]">
+          查看考试详情
+        </button>
+      `;
+      examWrap.appendChild(card);
+    });
+
+    // 我的证书
+    const certs = [
+      {name:'SUGON 云架构师（Professional）', no:'SUG-2025-001', start:'2025-12-20', end:'2027-12-20'},
+      {name:'AI 与数据智能（Associate）', no:'SUG-2025-010', start:'2025-11-10', end:'2027-11-10'}
+    ];
+    const certWrap = $('certificate-list');
+    certWrap.innerHTML = '';
+    certs.forEach(c=>{
+      const card = document.createElement('article');
+      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 space-y-2 hover:-translate-y-1 hover:border-emerald-400/80 transition';
+      card.innerHTML = `
+        <div class="text-sm font-semibold">${c.name}</div>
+        <div class="text-[11px] text-slate-400">证书编号：${c.no}</div>
+        <div class="text-[11px] text-slate-400">生效时间：${c.start}</div>
+        <div class="text-[11px] text-slate-400">到期时间：${c.end}</div>
+        <div class="flex gap-2 mt-1">
+          <button class="flex-1 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 text-[11px]">
+            查看详情
+          </button>
+          <button class="flex-1 py-1.5 rounded-full bg-emerald-500 text-[11px] text-white hover:bg-emerald-400">
+            下载证书
+          </button>
+        </div>
+      `;
+      certWrap.appendChild(card);
+    });
+
+    // 我的直播
+    const lives = [
+      {title:'云原生架构设计实战分享', time:'2026-02-01 19:00', status:'未开始', replay:false},
+      {title:'AI 与数据智能技术沙龙', time:'2025-12-20 14:00', status:'已结束', replay:true}
+    ];
+    const liveWrap = $('live-list');
+    liveWrap.innerHTML = '';
+    lives.forEach(l=>{
+      let cls = 'status-upcoming';
+      if(l.status==='已结束') cls='status-ended';
+      if(l.status==='直播中') cls='status-live';
+      const card = document.createElement('article');
+      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 space-y-2 hover:-translate-y-1 hover:border-sky-400/80 transition';
+      card.innerHTML = `
+        <div class="text-sm font-medium">${l.title}</div>
+        <div class="text-[11px] text-slate-400">开播时间：${l.time}</div>
+        <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] ${cls}">
+          ${l.status}
+        </span>
+        ${l.replay?'<button class="w-full mt-2 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 text-[11px]">继续观看/回放</button>':''}
+      `;
+      liveWrap.appendChild(card);
+    });
+
+    // 我的活动
+    const acts = [
+      {title:'云原生生态技术峰会（北京）', time:'2026-03-05', place:'线下 · 北京', status:'未开始'},
+      {title:'线上 DevOps 工具链体验营', time:'2026-01-15', place:'线上', status:'已结束'}
+    ];
+    const actWrap = $('activity-list');
+    actWrap.innerHTML = '';
+    acts.forEach(a=>{
+      let cls='status-upcoming';
+      if(a.status==='已结束') cls='status-ended';
+      if(a.status==='进行中') cls='status-live';
+      const card = document.createElement('article');
+      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 space-y-2 hover:-translate-y-1 hover:border-purple-400/80 transition';
+      card.innerHTML = `
+        <div class="text-sm font-medium">${a.title}</div>
+        <div class="text-[11px] text-slate-400">${a.time} · ${a.place}</div>
+        <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] ${cls}">
+          ${a.status}
+        </span>
+        <button class="w-full mt-2 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 text-[11px]">
+          查看活动详情 / 资料
+        </button>
+      `;
+      actWrap.appendChild(card);
+    });
+
+    // 我的收藏
+    const favs = [
+      {title:'课程：Kubernetes 入门实战', type:'课程'},
+      {title:'直播：云成本优化与 FinOps', type:'直播'},
+      {title:'资讯：2026 认证体系升级公告', type:'资讯'}
+    ];
+    const favWrap = $('favorite-list');
+    favWrap.innerHTML = '';
+    favs.forEach(f=>{
+      const card = document.createElement('article');
+      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 space-y-2 hover:-translate-y-1 hover:border-rose-400/80 transition';
+      card.innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-medium">${f.title}</span>
+          <span class="text-[11px] text-slate-400">${f.type}</span>
+        </div>
+        <button class="w-full mt-1 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 text-[11px]">
+          进入查看
+        </button>
+      `;
+      favWrap.appendChild(card);
+    });
+
+    // 消息中心
+    let msgs = loadJSON(KEY_MESSAGES, null);
+    if(!msgs){
+      msgs = [
+        {id:1, title:'课程报名成功：Kubernetes 进阶', time:'2026-01-10 10:00', read:false},
+        {id:2, title:'直播开播提醒：云原生架构设计实战分享', time:'2026-02-01 18:45', read:false},
+        {id:3, title:'活动审核结果：云原生生态技术峰会', time:'2026-01-05 09:30', read:true},
+        {id:4, title:'考试安排通知：云架构师（Professional）', time:'2026-03-01 09:00', read:false}
+      ];
+      saveJSON(KEY_MESSAGES, msgs);
+    }
+    const msgWrap = $('message-list');
+    msgWrap.innerHTML = '';
+    msgs.forEach((m, idx)=>{
+      const li = document.createElement('li');
+      li.className = 'glass-card rounded-2xl border border-slate-800 p-3 text-xs flex items-start justify-between gap-2';
+      li.innerHTML = `
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-medium ${m.read?'text-slate-200':'text-emerald-300'}">${m.title}</span>
+            <span class="text-[10px] inline-flex items-center px-1.5 py-0.5 rounded-full border ${m.read?'badge-verified':'badge-unverified'}">
+              ${m.read?'已读':'未读'}
+            </span>
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1">${m.time}</div>
+        </div>
+        <button class="text-[11px] text-slate-400 hover:text-indigo-300">详情</button>
+      `;
+      li.addEventListener('click', ()=>{
+        if(!m.read){
+          msgs[idx].read = true;
+          saveJSON(KEY_MESSAGES, msgs);
+          initListsAndOverview(); // 重新渲染消息区
+        }
+      });
+      msgWrap.appendChild(li);
+    });
+
+    // 概览统计（简单基于上面的假数据统计）
+    $('overview-learning').textContent = learn.filter(c=>!c.completed).length;
+    $('overview-completed').textContent = learn.filter(c=>c.completed).length;
+    $('overview-exams-events').textContent = exams.length + acts.filter(a=>a.status!=='已结束').length;
+    $('overview-live').textContent = lives.filter(l=>l.status!=='已结束').length;
+
+    $('summary-learning').textContent = learn.length;
+    $('summary-cert').textContent = certs.length;
+    $('summary-todo').textContent = exams.length + acts.filter(a=>a.status!=='已结束').length;
+  }
+
+  // =============== Tab 切换 ===============
+  document.querySelectorAll('.main-tab').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.main-tab').forEach(b=>b.classList.remove('main-tab-active'));
+      btn.classList.add('main-tab-active');
+      const target = btn.dataset.target;
+      document.querySelectorAll('.main-panel').forEach(p=>{
+        p.classList.toggle('hidden', p.id !== target);
+      });
+    });
+  });
+
+  // =============== 事件绑定 ===============
+  $('save-profile-btn').addEventListener('click', saveProfile);
+
+  // 账号设置按钮点击事件
+  $('account-settings-btn').addEventListener('click', ()=>{
+    $('profile-modal').classList.remove('hidden');
+  });
+  $('profile-modal-close').addEventListener('click', ()=> $('profile-modal').classList.add('hidden'));
+
+  $('start-auth-btn').addEventListener('click', ()=>{
+    $('auth-modal').classList.remove('hidden');
+    const p = loadJSON(KEY_PROFILE, {});
+    $('auth-name').value = p.name || '';
+    $('auth-phone').value = p.phone || '';
+  });
+
+  $('apply-assoc-btn').addEventListener('click', ()=> $('assoc-modal').classList.remove('hidden'));
+
+  $('auth-modal-close').addEventListener('click', ()=> $('auth-modal').classList.add('hidden'));
+  $('auth-send-code').addEventListener('click', ()=> alert('验证码已发送（示例）'));
+  $('auth-submit').addEventListener('click', ()=>{
+    if(!$('auth-name').value.trim() || !$('auth-phone').value.trim()){
+      alert('姓名和手机不能为空');
+      return;
+    }
+    if(!$('auth-code').value.trim()){
+      alert('请输入验证码（示例不做真实校验）');
+      return;
+    }
+    localStorage.setItem(KEY_AUTH, 'true');
+    refreshAuthStatus();
+    alert('认证成功');
+    $('auth-modal').classList.add('hidden');
+  });
+
+  $('assoc-modal-close').addEventListener('click', ()=> $('assoc-modal').classList.add('hidden'));
+  $('assoc-submit').addEventListener('click', ()=>{
+    const name = $('assoc-company-name').value.trim();
+    if(!name){ alert('公司名称不能为空'); return; }
+    const list = loadJSON(KEY_ASSOC, []);
+    list.push({name, status:'待审批'});
+    saveJSON(KEY_ASSOC, list);
+    alert('已提交关联申请，等待公司管理员审批');
+    $('assoc-modal').classList.add('hidden');
+  });
+
+  $('add-target-cert-btn').addEventListener('click', ()=>{
+    renderTargetCertOptions();
+    $('target-cert-modal').classList.remove('hidden');
+  });
+  $('target-cert-close').addEventListener('click', ()=> $('target-cert-modal').classList.add('hidden'));
+
+  $('mark-all-read').addEventListener('click', ()=>{
+    const msgs = loadJSON(KEY_MESSAGES, []);
+    msgs.forEach(m=>m.read = true);
+    saveJSON(KEY_MESSAGES, msgs);
+    initListsAndOverview();
+  });
+
+  // =============== 初始化 ===============
+  loadProfile();
+  refreshAuthStatus();
+  renderAbility();
+  initListsAndOverview();
+</script>
+
+</body>
+</html>

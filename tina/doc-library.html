@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>技术文档库 - SUGON 合作伙伴赋能平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+    }
+    .glass-card {
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(14px);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .doc-type-whitepaper  { background: rgba(56,189,248,0.12); color: rgb(125,211,252); border-color: rgba(56,189,248,0.5); }
+    .doc-type-manual      { background: rgba(248,113,113,0.12); color: rgb(252,165,165); border-color: rgba(248,113,113,0.5); }
+    .doc-type-guide       { background: rgba(139,92,246,0.12); color: rgb(191,154,255); border-color: rgba(139,92,246,0.5); }
+    .doc-type-training    { background: rgba(16,185,129,0.12); color: rgb(110,231,183); border-color: rgba(16,185,129,0.5); }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-50">
+
+<!-- 顶部导航 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14">
+      <!-- 左侧：返回资源中心 -->
+      <div class="flex items-center space-x-3">
+        <a href="resource-center.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
+            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-indigo-300">
+              资源中心 · 技术文档库
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 中间：标题 -->
+      <div class="hidden md:flex flex-col items-center">
+        <span class="text-[11px] text-slate-400">资源中心</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs">
+          技术文档库
+        </span>
+      </div>
+
+      <!-- 右侧：资源中心其他入口 -->
+      <div class="flex items-center space-x-2 text-xs">
+        <a href="tech-tool-library.html"
+           class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 hover:border-indigo-500 transition">
+          技术工具库
+        </a>
+        <a href="case-library.html"
+           class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 hover:border-emerald-500 transition">
+          案例库
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6 space-y-6">
+
+    <!-- 顶部说明 -->
+    <div class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <h1 class="text-lg md:text-xl font-semibold flex items-center gap-2">
+            <span class="inline-flex h-7 w-1 rounded-full bg-indigo-500"></span>
+            技术文档库
+          </h1>
+          <p class="mt-2 text-xs md:text-sm text-slate-300 max-w-2xl">
+            集中展示平台提供的可下载技术资料，包括技术白皮书、产品手册、解决方案指南、培训资料等。
+            支持在线预览或下载，帮助合作伙伴快速查阅和留存关键技术文档。
+          </p>
+        </div>
+        <div class="text-xs text-slate-400 space-y-1 md:text-right">
+          <div>当前文档数量：<span id="doc-count" class="text-indigo-300 font-medium">0</span> 份</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 文档列表 -->
+    <section>
+      <div id="doc-grid"
+           class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <!-- JS 注入卡片 -->
+      </div>
+    </section>
+
+  </section>
+</main>
+
+<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 SUGON 合作伙伴赋能平台 · 资源中心 · 技术文档库</div>
+    <div class="flex flex-wrap gap-3">
+      <span>隐私政策</span>
+      <span>法律声明</span>
+      <span>版权信息</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 交互脚本：模拟文档数据并渲染 -->
+<script>
+  // 模拟文档数据（正式环境换成接口）
+  const documents = [
+    {
+      id: 1,
+      title: "云原生架构设计白皮书",
+      desc: "SUGON 云原生架构设计最佳实践与方法论，涵盖微服务、服务网格、CI/CD 等核心内容。",
+      type: "白皮书",
+      category: "技术白皮书",
+      previewUrl: "https://example.com/docs/whitepaper1.pdf",
+      downloadUrl: "https://example.com/docs/whitepaper1.zip",
+      createdAt: "2026-01-10"
+    },
+    {
+      id: 2,
+      title: "SUGON 云平台产品手册",
+      desc: "覆盖云基础设施平台主要产品的特性、配置项及典型使用场景说明。",
+      type: "手册",
+      category: "产品手册",
+      previewUrl: "https://example.com/docs/product_manual.pdf",
+      downloadUrl: "https://example.com/docs/product_manual.zip",
+      createdAt: "2025-12-22"
+    },
+    {
+      id: 3,
+      title: "金融行业解决方案指南",
+      desc: "面向金融行业的云原生上云架构、合规要求与典型落地案例。",
+      type: "指南",
+      category: "解决方案指南",
+      previewUrl: "https://example.com/docs/solution_finance.pdf",
+      downloadUrl: "https://example.com/docs/solution_finance.zip",
+      createdAt: "2025-12-15"
+    },
+    {
+      id: 4,
+      title: "培训资料包：云架构师基础课程",
+      desc: "配套云架构师入门课程的课件、实验手册和练习题。",
+      type: "培训资料",
+      category: "培训资料",
+      previewUrl: "https://example.com/docs/training_architect.pdf",
+      downloadUrl: "https://example.com/docs/training_architect.zip",
+      createdAt: "2025-12-01"
+    },
+    {
+      id: 5,
+      title: "Kubernetes 运维手册",
+      desc: "Kubernetes 日常运维操作、常见问题与排障指引。",
+      type: "手册",
+      category: "产品手册",
+      previewUrl: "https://example.com/docs/k8s_ops_manual.pdf",
+      downloadUrl: "https://example.com/docs/k8s_ops_manual.zip",
+      createdAt: "2025-11-20"
+    }
+  ];
+
+  const grid = document.getElementById('doc-grid');
+  const countEl = document.getElementById('doc-count');
+  countEl.textContent = documents.length;
+
+  // 渲染文档卡片
+  documents.forEach(doc => {
+    const card = document.createElement('article');
+    card.className = "glass-card rounded-3xl border border-slate-800 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-indigo-500/80 transition";
+
+    const typeClass =
+      doc.type === "白皮书" ? "doc-type-whitepaper" :
+      doc.type === "手册"    ? "doc-type-manual" :
+      doc.type === "指南"    ? "doc-type-guide" :
+                               "doc-type-training";
+
+    const typeTag = `
+      <span class="inline-flex items-center px-2 py-0.5 rounded-full border ${typeClass} text-[10px]">
+        <i class="fa fa-file-contract mr-1 text-[9px]"></i>${doc.type}
+      </span>`;
+
+    const dateObj = new Date(doc.createdAt);
+    const formattedDate = dateObj.toLocaleDateString('zh-CN', {
+      year: 'numeric', month: '2-digit', day: '2-digit'
+    });
+
+    card.innerHTML = `
+      <div class="flex flex-col h-full">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-sm font-semibold line-clamp-2 pr-1">${doc.title}</h3>
+          ${typeTag}
+        </div>
+        <p class="text-xs text-slate-300 line-clamp-3">
+          ${doc.desc}
+        </p>
+        <div class="mt-2 flex flex-wrap gap-1 text-[11px] text-slate-400">
+          <span><i class="fa fa-calendar mr-1 text-[10px]"></i>${formattedDate}</span>
+          <span><i class="fa fa-folder-open mr-1 text-[10px]"></i>${doc.category}</span>
+        </div>
+        <div class="mt-auto flex gap-2 pt-2">
+          <button
+            class="flex-1 py-2 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 text-xs text-slate-100"
+            data-preview="${doc.previewUrl}">
+            <i class="fa fa-file text-[11px]"></i> 在线预览
+          </button>
+          <a href="${doc.downloadUrl}" target="_blank"
+             class="flex-1 py-2 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-400 text-white text-xs font-medium hover:opacity-90 text-center">
+            <i class="fa fa-download text-[11px]"></i> 下载
+          </a>
+        </div>
+      </div>
+    `;
+
+    // 预览按钮事件：新标签页打开 PDF（实际可替换为内嵌预览）
+    card.querySelector('button[data-preview]').addEventListener('click', (e) => {
+      e.stopPropagation();
+      const url = e.currentTarget.dataset.preview;
+      if (!url) return;
+      window.open(url, '_blank');
+    });
+
+    grid.appendChild(card);
+  });
+</script>
+
+</body>
+</html>

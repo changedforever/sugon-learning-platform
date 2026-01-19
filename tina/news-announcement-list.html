@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>资讯/公告列表 - SUGON 合作伙伴赋能平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标库 -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+    }
+    .glass-card {
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(14px);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .filter-chip-active {
+      border-color: rgb(129 140 248 / 1); /* indigo-400 */
+      color: rgb(191 219 254 / 1);
+      background: rgba(15,23,42,0.9);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-50">
+
+<!-- 顶部导航 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14">
+      <!-- 左：返回首页 -->
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
+            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-indigo-300">
+              合作伙伴赋能平台 · 资讯中心
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 中：标题 >
+      <div class="hidden md:flex flex-col items-center">
+        <span class="text-[11px] text-slate-400">资讯中心</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs">
+          资讯 / 公告列表
+        </span>
+      </div-->
+
+      <!-- 右：快捷入口 -->
+      <div class="flex items-center space-x-2 text-xs">
+        <a href="personal-center.html"
+           class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 hover:border-indigo-500 transition">
+          个人中心
+        </a>
+        <a href="#"
+           class="px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white font-medium">
+          登录
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6">
+
+    <!-- 顶部说明 + 搜索 -->
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-6">
+      <div>
+        <h2 class="text-lg font-semibold flex items-center gap-2">
+          <span class="inline-flex h-6 w-1 rounded-full bg-indigo-500"></span>
+          资讯 / 公告列表
+        </h2>
+
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 justify-end">
+        <!-- 搜索 -->
+        <div class="relative">
+          <i class="fa fa-search text-slate-400 absolute left-2 top-2.5 text-xs"></i>
+          <input id="search-input"
+                 type="text"
+                 placeholder="搜索标题 / 来源 / 关键词"
+                 class="w-52 md:w-64 rounded-full bg-slate-900/80 border border-slate-700 pl-7 pr-3 py-1.5 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 顶部筛选：类型 + 分类 -->
+    <section class="mb-6 glass-card rounded-3xl border border-slate-800 p-4">
+      <!-- 类型：全部 / 资讯 / 公告 -->
+      <div class="flex flex-wrap items-center gap-2 text-xs mb-2">
+        <span class="text-slate-400">类型：</span>
+        <button id="type-all"
+                class="filter-chip px-3 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px] text-slate-400 hover:border-indigo-500"
+                data-type="all">
+          全部
+        </button>
+        <button id="type-news"
+                class="filter-chip px-3 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px] text-indigo-300 hover:border-indigo-500"
+                data-type="news">
+          仅看资讯
+        </button>
+        <button id="type-announcement"
+                class="filter-chip px-3 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px] text-emerald-300 hover:border-emerald-500"
+                data-type="announcement">
+          仅看公告
+        </button>
+      </div>
+
+      <!-- 资讯分类：行业动态 / 政策流程 / 平台新闻 -->
+      <div id="category-filter" class="flex flex-wrap items-center gap-2 mt-1 text-xs hidden">
+        <span class="text-slate-400">资讯分类：</span>
+        <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px]"
+                data-category="all">
+          全部
+        </button>
+        <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-sky-300"
+                data-category="industry">
+          行业动态
+        </button>
+        <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-emerald-300"
+                data-category="policy">
+          政策流程
+        </button>
+        <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-amber-300"
+                data-category="platform">
+          平台新闻
+        </button>
+      </div>
+
+      <!-- 排序（按时间） -->
+      <div class="mt-3 flex items-center justify-between text-[11px] text-slate-400">
+        <div id="active-filter-text">当前视图：按时间倒序 · 全部类型</div>
+        <div class="flex items-center gap-1">
+          <span>排序：</span>
+          <select id="sort-select"
+                  class="rounded-full bg-slate-900/80 border border-slate-700 px-2 py-1 text-[11px] focus:outline-none focus:ring-1 focus:ring-indigo-500">
+            <option value="time-desc">按时间从新到旧</option>
+            <option value="read-desc">按阅读量从高到低</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- 列表 + 分页 -->
+    <section>
+      <!-- 列表 -->
+      <div id="list-container"
+           class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-6">
+        <!-- JS 渲染卡片 -->
+      </div>
+
+      <!-- 分页 -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 text-xs text-slate-400 gap-2">
+        <div>
+          共 <span id="total-count">0</span> 条，当前显示
+          <span id="current-range">0–0</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="prev-btn"
+                  class="px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800">
+            上一页
+          </button>
+          <span id="page-info">1 / 1</span>
+          <button id="next-btn"
+                  class="px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800">
+            下一页
+          </button>
+        </div>
+      </div>
+    </section>
+  </section>
+</main>
+
+<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 SUGON 合作伙伴赋能平台 · 资讯中心</div>
+    <div class="flex flex-wrap gap-3">
+      <span>隐私政策</span>
+      <span>法律声明</span>
+      <span>版权信息</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 交互脚本：筛选 / 排序 / 分页 / 渲染 -->
+<script>
+  // ====== 示例数据（实际使用时换成接口返回） ======
+  const articles = [
+    // 资讯
+    { id: 1, type: 'news', category: 'industry', title: '云原生架构设计最佳实践与行业动态', source: '云基础设施学院', date: '2026-01-15 09:30', readCount: 1845 },
+    { id: 2, type: 'news', category: 'policy', title: '2026 年云原生安全政策调整解读', source: '云安全中心', date: '2026-01-14 14:20', readCount: 1230 },
+    { id: 3, type: 'news', category: 'platform', title: 'SUGON 合作伙伴赋能平台 2.0 正式上线', source: '平台开发团队', date: '2026-01-13 16:10', readCount: 1987 },
+    { id: 4, type: 'news', category: 'industry', title: 'AI 与数据智能生态合作新趋势', source: 'AI 与数据智能学院', date: '2026-01-12 10:45', readCount: 1560 },
+    { id: 5, type: 'news', category: 'platform', title: '新增「直播中心」与「活动中心」能力说明', source: '平台运营团队', date: '2025-12-30 09:15', readCount: 980 },
+
+    // 公告
+    { id: 6, type: 'announcement', category: 'none', title: '合作伙伴认证体系 2026 升级公告', source: '认证中心', date: '2026-01-10 09:00', readCount: 2560 },
+    { id: 7, type: 'announcement', category: 'none', title: '2026 Q1 考试预约与重认证规则更新', source: '认证中心', date: '2026-01-09 11:30', readCount: 1890 },
+    { id: 8, type: 'announcement', category: 'none', title: '关于平台计划维护的服务中断通知', source: '运维中心', date: '2025-12-28 15:10', readCount: 1400 },
+    { id: 9, type: 'announcement', category: 'none', title: '隐私政策与用户协议更新说明', source: '法务与合规部', date: '2025-12-20 17:00', readCount: 1100 }
+  ];
+
+  const pageSize = 8;
+  let currentPage = 1;
+  let filteredArticles = [...articles];
+
+  const filters = {
+    type: 'all',       // all / news / announcement
+    category: 'all',   // all / industry / policy / platform
+    search: '',
+    sort: 'time-desc'  // time-desc / read-desc
+  };
+
+  // DOM 引用
+  const searchInput = document.getElementById('search-input');
+  const listContainer = document.getElementById('list-container');
+  const totalCountEl = document.getElementById('total-count');
+  const currentRangeEl = document.getElementById('current-range');
+  const pageInfoEl = document.getElementById('page-info');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+
+  const typeAllBtn = document.getElementById('type-all');
+  const typeNewsBtn = document.getElementById('type-news');
+  const typeAnnouncementBtn = document.getElementById('type-announcement');
+  const categoryFilter = document.getElementById('category-filter');
+  const categoryChips = categoryFilter.querySelectorAll('.filter-chip');
+  const sortSelect = document.getElementById('sort-select');
+  const activeFilterText = document.getElementById('active-filter-text');
+
+  // ========== 工具函数 ==========
+  function updateTypeButtonClass(btn, active) {
+    if (active) {
+      btn.classList.add('filter-chip-active');
+    } else {
+      btn.classList.remove('filter-chip-active');
+    }
+  }
+
+  function updateCategoryDisplay() {
+    if (filters.type === 'news') {
+      categoryFilter.classList.remove('hidden');
+    } else {
+      categoryFilter.classList.add('hidden');
+    }
+  }
+
+  function updateActiveFilterText() {
+    const parts = [];
+    if (filters.type === 'news') parts.push('仅看资讯');
+    else if (filters.type === 'announcement') parts.push('仅看公告');
+    else parts.push('全部类型');
+
+    if (filters.type === 'news' && filters.category !== 'all') {
+      const map = { industry: '行业动态', policy: '政策流程', platform: '平台新闻' };
+      parts.push('分类：' + (map[filters.category] || '全部'));
+    }
+
+    if (filters.sort === 'time-desc') {
+      parts.push('按时间倒序');
+    } else {
+      parts.push('按阅读量倒序');
+    }
+
+    activeFilterText.textContent = '当前视图：' + parts.join(' · ');
+  }
+
+  // ========== 事件绑定 ==========
+  // 类型切换
+  typeAllBtn.addEventListener('click', () => {
+    filters.type = 'all';
+    updateTypeButtonClass(typeAllBtn, true);
+    updateTypeButtonClass(typeNewsBtn, false);
+    updateTypeButtonClass(typeAnnouncementBtn, false);
+    updateCategoryDisplay();
+    applyFiltersAndRender();
+  });
+
+  typeNewsBtn.addEventListener('click', () => {
+    filters.type = 'news';
+    updateTypeButtonClass(typeAllBtn, false);
+    updateTypeButtonClass(typeNewsBtn, true);
+    updateTypeButtonClass(typeAnnouncementBtn, false);
+    updateCategoryDisplay();
+    applyFiltersAndRender();
+  });
+
+  typeAnnouncementBtn.addEventListener('click', () => {
+    filters.type = 'announcement';
+    updateTypeButtonClass(typeAllBtn, false);
+    updateTypeButtonClass(typeNewsBtn, false);
+    updateTypeButtonClass(typeAnnouncementBtn, true);
+    updateCategoryDisplay();
+    applyFiltersAndRender();
+  });
+
+  // 分类切换
+  categoryChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const cat = chip.dataset.category;
+      categoryChips.forEach(c => c.classList.remove('filter-chip-active'));
+      chip.classList.add('filter-chip-active');
+      filters.category = cat;
+      applyFiltersAndRender();
+    });
+  });
+
+  // 搜索
+  searchInput.addEventListener('input', () => {
+    filters.search = searchInput.value.trim().toLowerCase();
+    applyFiltersAndRender();
+  });
+
+  // 排序
+  sortSelect.addEventListener('change', () => {
+    filters.sort = sortSelect.value;
+    applyFiltersAndRender();
+  });
+
+  // 分页
+  prevBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderList();
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    const totalPages = Math.ceil(filteredArticles.length / pageSize) || 1;
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderList();
+    }
+  });
+
+  // ========== 筛选 + 排序 =============
+  function applyFiltersAndRender() {
+    filteredArticles = articles.filter(a => {
+      const matchType = filters.type === 'all' || a.type === filters.type;
+      const matchCategory =
+        filters.type === 'news'
+          ? (filters.category === 'all' || a.category === filters.category)
+          : true;
+
+      const kw = filters.search;
+      const matchSearch = !kw ||
+        a.title.toLowerCase().includes(kw) ||
+        a.source.toLowerCase().includes(kw);
+
+      return matchType && matchCategory && matchSearch;
+    });
+
+    // 排序
+    if (filters.sort === 'time-desc') {
+      filteredArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else {
+      filteredArticles.sort((a, b) => b.readCount - a.readCount);
+    }
+
+    currentPage = 1;
+    updateActiveFilterText();
+    renderList();
+  }
+
+  // ========== 渲染列表 ==========
+  function renderList() {
+    listContainer.innerHTML = '';
+    const total = filteredArticles.length;
+    const totalPages = Math.ceil(total / pageSize) || 1;
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = Math.min(startIndex + pageSize, total);
+
+    const pageData = filteredArticles.slice(startIndex, endIndex);
+
+    pageData.forEach(article => {
+      const card = document.createElement('article');
+      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-indigo-500/80 transition cursor-pointer';
+
+      // 类型标签
+      const typeTag = article.type === 'news'
+        ? '<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/60 text-[10px]"><i class="fa fa-newspaper mr-1 text-[9px]"></i>资讯</span>'
+        : '<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/60 text-[10px]"><i class="fa fa-bullhorn mr-1 text-[9px]"></i>公告</span>';
+
+      // 分类标签（仅资讯）
+      let categoryTag = '';
+      if (article.type === 'news') {
+        const cmap = {
+          industry: { text: '行业动态', cls: 'text-sky-300' },
+          policy:   { text: '政策流程', cls: 'text-emerald-300' },
+          platform: { text: '平台新闻', cls: 'text-amber-300' }
+        };
+        const cfg = cmap[article.category];
+        if (cfg) {
+          categoryTag = `<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700 text-[10px] ${cfg.cls}">${cfg.text}</span>`;
+        }
+      }
+
+      const dateObj = new Date(article.date.replace(/-/g, '/'));
+      const formattedDate = dateObj.toLocaleString('zh-CN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      });
+
+      card.innerHTML = `
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            ${typeTag}
+            ${categoryTag}
+          </div>
+
+          <h3 class="text-sm font-semibold line-clamp-2 mb-2">${article.title}</h3>
+
+          <div class="space-y-1 text-xs text-slate-400 mb-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="flex items-center gap-1 truncate max-w-[140px]">
+                <i class="fa fa-building text-[10px] text-slate-300"></i>
+                ${article.source}
+              </span>
+              <span class="flex items-center gap-1">
+                <i class="fa fa-clock text-[10px] text-slate-300"></i>
+                ${formattedDate}
+              </span>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between text-[11px] text-slate-400">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700">
+              <i class="fa fa-eye mr-1 text-[9px] text-slate-300"></i>${article.readCount}
+            </span>
+            <span class="text-indigo-300 flex items-center gap-1">
+              查看详情
+              <i class="fa fa-arrow-right text-[9px]"></i>
+            </span>
+          </div>
+        </div>
+      `;
+
+      // 点击整卡跳转详情页（示例路由，可按需替换）
+      card.addEventListener('click', () => {
+        const base = article.type === 'news' ? 'news-detail.html' : 'announcement-detail.html';
+        window.location.href = `${base}?id=${article.id}`;
+      });
+
+      listContainer.appendChild(card);
+    });
+
+    totalCountEl.textContent = total;
+    currentRangeEl.textContent = total ? `${startIndex + 1}–${endIndex}` : '0–0';
+    pageInfoEl.textContent = `${currentPage} / ${totalPages}`;
+
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+    prevBtn.classList.toggle('opacity-50', prevBtn.disabled);
+    nextBtn.classList.toggle('opacity-50', nextBtn.disabled);
+  }
+
+  // 初始化：默认激活「全部类型」「全部分类」
+  updateTypeButtonClass(typeAllBtn, true);
+  categoryChips.forEach(chip => {
+    if (chip.dataset.category === 'all') chip.classList.add('filter-chip-active');
+  });
+  applyFiltersAndRender();
+</script>
+
+</body>
+</html>

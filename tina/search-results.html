@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>搜索结果 - SUGON 合作伙伴赋能平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+    }
+    .glass-card {
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(14px);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .tab-btn {
+      border-color: rgb(51 65 85);
+      color: rgb(148 163 184);
+      background: rgba(15,23,42,0.9);
+    }
+    .tab-btn-active {
+      border-color: rgb(129 140 248);
+      color: rgb(191 219 254);
+      background: rgba(15,23,42,1);
+    }
+
+    .badge-course {
+      background: rgba(56,189,248,0.12);
+      color: rgb(125,211,252);
+      border-color: rgba(56,189,248,0.5);
+    }
+    .badge-exam {
+      background: rgba(248,113,113,0.12);
+      color: rgb(252,165,165);
+      border-color: rgba(248,113,113,0.5);
+    }
+    .badge-cert {
+      background: rgba(139,92,246,0.12);
+      color: rgb(196,181,253);
+      border-color: rgba(139,92,246,0.5);
+    }
+    .badge-news {
+      background: rgba(16,185,129,0.12);
+      color: rgb(110,231,183);
+      border-color: rgba(16,185,129,0.5);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-50">
+
+<!-- 顶部导航 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14">
+      <!-- 左侧：返回首页 -->
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
+            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-indigo-300">
+              搜索中心
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 中间：搜索框 -->
+      <div class="flex-1 flex justify-center px-2">
+        <div class="relative w-full max-w-md">
+          <i class="fa fa-search text-slate-400 absolute left-2 top-2.5 text-xs"></i>
+          <input
+            id="search-input"
+            type="text"
+            class="w-full pl-7 pr-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="请输入关键词（示例：大数据）"
+            value="大数据"
+          />
+        </div>
+      </div>
+
+      <!-- 右侧：搜索按钮 -->
+      <div class="flex items-center space-x-2 text-xs">
+        <button
+          id="search-btn"
+          class="px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white text-sm font-medium hover:opacity-90">
+          搜索
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6 space-y-5">
+    <!-- 搜索说明 -->
+    <div class="flex items-center justify-between mt-2">
+      <div>
+        <h1 class="text-lg font-semibold flex items-center gap-2">
+          <span class="inline-flex h-6 w-1 rounded-full bg-indigo-500"></span>
+          搜索结果
+        </h1>
+        <p class="text-xs text-slate-400 mt-1">
+          当前关键词：<span id="current-keyword" class="text-indigo-300 font-medium">大数据</span>
+          ，为你在课程、考试、认证、资讯中查找相关内容。
+        </p>
+      </div>
+      <div class="text-[11px] text-slate-400 hidden sm:block">
+        共 <span id="total-count" class="text-indigo-300">0</span> 条结果
+      </div>
+    </div>
+
+    <!-- 顶部 Tab：全部 / 课程 / 考试 / 认证 / 资讯 -->
+    <div class="glass-card rounded-3xl border border-slate-800 p-3 flex flex-wrap items-center gap-2 text-xs">
+      <span class="text-slate-400 mr-1">结果类型：</span>
+      <button class="tab-btn tab-btn-active px-3 py-1.5 rounded-full border" data-target="all">
+        全部
+      </button>
+      <button class="tab-btn px-3 py-1.5 rounded-full border" data-target="course">
+        <i class="fa fa-book-open mr-1 text-[11px] text-sky-300"></i> 课程
+        (<span id="count-course">0</span>)
+      </button>
+      <button class="tab-btn px-3 py-1.5 rounded-full border" data-target="exam">
+        <i class="fa fa-file-pen mr-1 text-[11px] text-amber-300"></i> 考试
+        (<span id="count-exam">0</span>)
+      </button>
+      <button class="tab-btn px-3 py-1.5 rounded-full border" data-target="cert">
+        <i class="fa fa-certificate mr-1 text-[11px] text-emerald-300"></i> 认证
+        (<span id="count-cert">0</span>)
+      </button>
+      <button class="tab-btn px-3 py-1.5 rounded-full border" data-target="news">
+        <i class="fa fa-newspaper mr-1 text-[11px] text-purple-300"></i> 资讯
+        (<span id="count-news">0</span>)
+      </button>
+    </div>
+
+    <!-- 结果列表 -->
+    <section id="results-wrapper">
+      <!-- 全部结果 -->
+      <div id="panel-all" class="result-panel">
+        <h2 class="text-xs text-slate-400 mb-2">综合结果</h2>
+        <div id="grid-all" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </div>
+
+      <!-- 课程 -->
+      <div id="panel-course" class="result-panel hidden">
+        <h2 class="text-xs text-slate-400 mb-2">课程</h2>
+        <div id="grid-course" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </div>
+
+      <!-- 考试 -->
+      <div id="panel-exam" class="result-panel hidden">
+        <h2 class="text-xs text-slate-400 mb-2">考试</h2>
+        <div id="grid-exam" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </div>
+
+      <!-- 认证 -->
+      <div id="panel-cert" class="result-panel hidden">
+        <h2 class="text-xs text-slate-400 mb-2">认证</h2>
+        <div id="grid-cert" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </div>
+
+      <!-- 资讯 -->
+      <div id="panel-news" class="result-panel hidden">
+        <h2 class="text-xs text-slate-400 mb-2">资讯</h2>
+        <div id="grid-news" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 无结果状态 -->
+    <div id="empty-state" class="glass-card rounded-3xl border border-slate-800 p-6 text-center hidden">
+      <i class="fa fa-search-minus text-3xl text-slate-500 mb-2"></i>
+      <p class="text-sm text-slate-300 mb-1">未找到相关内容</p>
+      <p class="text-[11px] text-slate-500">
+        尝试修改搜索关键词，或缩短关键词重新搜索。
+      </p>
+    </div>
+
+  </section>
+</main>
+
+<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 SUGON 合作伙伴赋能平台 · 搜索中心</div>
+    <div class="flex flex-wrap gap-3">
+      <span>隐私政策</span>
+      <span>法律声明</span>
+      <span>版权信息</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 交互脚本：模拟“大数据”搜索结果 & Tab 切换 -->
+<script>
+  // ===== 1. 模拟“大数据”搜索结果数据 =====
+  const searchResults = {
+    course: [
+      {
+        id: 101,
+        title: "大数据基础与平台概览",
+        desc: "从零梳理大数据概念、典型架构与 SUGON 大数据平台产品全景。",
+        date: "2026-01-08",
+        duration: "180 分钟"
+      },
+      {
+        id: 102,
+        title: "大数据采集与存储实战",
+        desc: "覆盖日志采集、ETL、数据湖与数据仓库建模实践。",
+        date: "2025-12-22",
+        duration: "240 分钟"
+      },
+      {
+        id: 103,
+        title: "Spark / Flink 在大数据分析中的应用",
+        desc: "讲解批流一体的技术路线与常见分析场景案例。",
+        date: "2025-12-10",
+        duration: "210 分钟"
+      }
+    ],
+    exam: [
+      {
+        id: 201,
+        title: "SUGON 大数据工程师认证考试",
+        desc: "检验学员在数据采集、存储、计算与调优方面的综合能力。",
+        date: "2026-03-15",
+        status: "可预约"
+      },
+      {
+        id: 202,
+        title: "大数据解决方案架构师评估",
+        desc: "面向架构与方案设计方向的高级考试。",
+        date: "2026-04-10",
+        status: "筹备中"
+      }
+    ],
+    cert: [
+      {
+        id: 301,
+        title: "SUGON 认证 · 大数据工程师（Professional）",
+        desc: "面向实施与运维人员，完成课程 + 实战 + 考试后获得。",
+        date: "2025-12-20",
+        level: "Professional"
+      },
+      {
+        id: 302,
+        title: "SUGON 认证 · 大数据解决方案专家（Expert）",
+        desc: "聚焦行业方案与架构设计的专家级认证。",
+        date: "2025-12-01",
+        level: "Expert"
+      }
+    ],
+    news: [
+      {
+        id: 401,
+        title: "SUGON 发布新一代大数据平台能力升级公告",
+        desc: "新增数据湖、流批一体和智能运维套件，全面提升大数据平台能力。",
+        date: "2026-01-12",
+        source: "平台产品部"
+      },
+      {
+        id: 402,
+        title: "2026 大数据与 AI 生态合作计划正式启动",
+        desc: "面向合作伙伴开放联合解决方案与市场计划。",
+        date: "2026-01-05",
+        source: "生态合作部"
+      }
+    ]
+  };
+
+  // ===== 2. DOM 引用 =====
+  const keywordEl = document.getElementById('current-keyword');
+  const totalCountEl = document.getElementById('total-count');
+  const countCourseEl = document.getElementById('count-course');
+  const countExamEl = document.getElementById('count-exam');
+  const countCertEl = document.getElementById('count-cert');
+  const countNewsEl = document.getElementById('count-news');
+
+  const gridAll = document.getElementById('grid-all');
+  const gridCourse = document.getElementById('grid-course');
+  const gridExam = document.getElementById('grid-exam');
+  const gridCert = document.getElementById('grid-cert');
+  const gridNews = document.getElementById('grid-news');
+
+  const panels = {
+    all: document.getElementById('panel-all'),
+    course: document.getElementById('panel-course'),
+    exam: document.getElementById('panel-exam'),
+    cert: document.getElementById('panel-cert'),
+    news: document.getElementById('panel-news')
+  };
+  const emptyState = document.getElementById('empty-state');
+
+  // ===== 3. 工具函数：创建卡片 =====
+  function createCourseCard(item) {
+    const card = document.createElement('article');
+    card.className = 'glass-card rounded-3xl border border-slate-800 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-indigo-500/80 transition cursor-pointer';
+    card.innerHTML = `
+      <div>
+        <div class="flex items-center justify-between mb-1">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full border badge-course text-[10px]">
+            <i class="fa fa-book-open mr-1 text-[9px]"></i>课程
+          </span>
+          <span class="text-[11px] text-slate-400">
+            <i class="fa fa-clock mr-1 text-[9px]"></i>${item.duration}
+          </span>
+        </div>
+        <h3 class="text-sm font-semibold line-clamp-2 mb-1">${item.title}</h3>
+        <p class="text-xs text-slate-300 line-clamp-2 mb-2">${item.desc}</p>
+      </div>
+      <div class="flex items-center justify-between text-[11px] text-slate-400">
+        <span><i class="fa fa-calendar mr-1 text-[9px]"></i>${item.date}</span>
+        <span class="text-indigo-300 flex items-center gap-1">
+          查看课程
+          <i class="fa fa-arrow-right text-[9px]"></i>
+        </span>
+      </div>
+    `;
+    card.addEventListener('click', () => {
+      window.location.href = `course-detail.html?id=${item.id}`;
+    });
+    return card;
+  }
+
+  function createExamCard(item) {
+    const card = document.createElement('article');
+    card.className = 'glass-card rounded-3xl border border-slate-800 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-amber-400/80 transition cursor-pointer';
+    card.innerHTML = `
+      <div>
+        <div class="flex items-center justify-between mb-1">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full border badge-exam text-[10px]">
+            <i class="fa fa-file-pen mr-1 text-[9px]"></i>考试
+          </span>
+          <span class="text-[11px] text-amber-300">
+            ${item.status}
+          </span>
+        </div>
+        <h3 class="text-sm font-semibold line-clamp-2 mb-1">${item.title}</h3>
+        <p class="text-xs text-slate-300 line-clamp-2 mb-2">${item.desc}</p>
+      </div>
+      <div class="flex items-center justify-between text-[11px] text-slate-400">
+        <span><i class="fa fa-calendar mr-1 text-[9px]"></i>${item.date}</span>
+        <span class="text-amber-300 flex items-center gap-1">
+          查看考试
+          <i class="fa fa-arrow-right text-[9px]"></i>
+        </span>
+      </div>
+    `;
+    card.addEventListener('click', () => {
+      window.location.href = `exam-detail.html?id=${item.id}`;
+    });
+    return card;
+  }
+
+  function createCertCard(item) {
+    const card = document.createElement('article');
+    card.className = 'glass-card rounded-3xl border border-slate-800 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-purple-400/80 transition cursor-pointer';
+    card.innerHTML = `
+      <div>
+        <div class="flex items-center justify-between mb-1">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full border badge-cert text-[10px]">
+            <i class="fa fa-certificate mr-1 text-[9px]"></i>认证
+          </span>
+          <span class="text-[11px] text-purple-200">
+            ${item.level}
+          </span>
+        </div>
+        <h3 class="text-sm font-semibold line-clamp-2 mb-1">${item.title}</h3>
+        <p class="text-xs text-slate-300 line-clamp-2 mb-2">${item.desc}</p>
+      </div>
+      <div class="flex items-center justify-between text-[11px] text-slate-400">
+        <span><i class="fa fa-calendar mr-1 text-[9px]"></i>${item.date}</span>
+        <span class="text-purple-300 flex items-center gap-1">
+          查看认证
+          <i class="fa fa-arrow-right text-[9px]"></i>
+        </span>
+      </div>
+    `;
+    card.addEventListener('click', () => {
+      window.location.href = `cert-detail.html?id=${item.id}`;
+    });
+    return card;
+  }
+
+  function createNewsCard(item) {
+    const card = document.createElement('article');
+    card.className = 'glass-card rounded-3xl border border-slate-800 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-emerald-400/80 transition cursor-pointer';
+    card.innerHTML = `
+      <div>
+        <div class="flex items-center justify-between mb-1">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full border badge-news text-[10px]">
+            <i class="fa fa-newspaper mr-1 text-[9px]"></i>资讯
+          </span>
+          <span class="text-[11px] text-slate-400 line-clamp-1 max-w-[120px]" title="${item.source}">
+            <i class="fa fa-building mr-1 text-[9px]"></i>${item.source}
+          </span>
+        </div>
+        <h3 class="text-sm font-semibold line-clamp-2 mb-1">${item.title}</h3>
+        <p class="text-xs text-slate-300 line-clamp-2 mb-2">${item.desc}</p>
+      </div>
+      <div class="flex items-center justify-between text-[11px] text-slate-400">
+        <span><i class="fa fa-calendar mr-1 text-[9px]"></i>${item.date}</span>
+        <span class="text-emerald-300 flex items-center gap-1">
+          查看详情
+          <i class="fa fa-arrow-right text-[9px]"></i>
+        </span>
+      </div>
+    `;
+    card.addEventListener('click', () => {
+      window.location.href = `news-detail.html?id=${item.id}`;
+    });
+    return card;
+  }
+
+  // ===== 4. 渲染结果 =====
+  function renderAllPanels() {
+    // 清空
+    gridAll.innerHTML = '';
+    gridCourse.innerHTML = '';
+    gridExam.innerHTML = '';
+    gridCert.innerHTML = '';
+    gridNews.innerHTML = '';
+
+    // 课程
+    searchResults.course.forEach(item => {
+      const card = createCourseCard(item);
+      gridCourse.appendChild(card);
+      gridAll.appendChild(card.cloneNode(true)); // 简单 clone 用于综合区
+    });
+
+    // 考试
+    searchResults.exam.forEach(item => {
+      const card = createExamCard(item);
+      gridExam.appendChild(card);
+      gridAll.appendChild(card.cloneNode(true));
+    });
+
+    // 认证
+    searchResults.cert.forEach(item => {
+      const card = createCertCard(item);
+      gridCert.appendChild(card);
+      gridAll.appendChild(card.cloneNode(true));
+    });
+
+    // 资讯
+    searchResults.news.forEach(item => {
+      const card = createNewsCard(item);
+      gridNews.appendChild(card);
+      gridAll.appendChild(card.cloneNode(true));
+    });
+
+    const total = searchResults.course.length + searchResults.exam.length +
+                  searchResults.cert.length + searchResults.news.length;
+
+    countCourseEl.textContent = searchResults.course.length;
+    countExamEl.textContent = searchResults.exam.length;
+    countCertEl.textContent = searchResults.cert.length;
+    countNewsEl.textContent = searchResults.news.length;
+    totalCountEl.textContent = total;
+
+    emptyState.classList.toggle('hidden', total > 0);
+  }
+
+  // ===== 5. Tab 切换 =====
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.target;
+      // 激活样式
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+      btn.classList.add('tab-btn-active');
+
+      // 面板显示
+      Object.keys(panels).forEach(key => {
+        panels[key].classList.toggle('hidden', key !== target);
+      });
+
+      // 如果是全部
+      if (target === 'all') {
+        panels.all.classList.remove('hidden');
+      }
+    });
+  });
+
+  // ===== 6. 搜索按钮（示例：只更新关键词显示，不改数据） =====
+  const searchInput = document.getElementById('search-input');
+  document.getElementById('search-btn').addEventListener('click', () => {
+    const kw = searchInput.value.trim() || '大数据';
+    keywordEl.textContent = kw;
+    // 示例页不改变数据，真实环境应根据 kw 调后端接口刷新 searchResults 再调用 renderAllPanels()
+    alert('当前为“大数据”模拟结果示例，实际环境请根据关键字调用搜索接口刷新数据。');
+  });
+
+  searchInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      document.getElementById('search-btn').click();
+    }
+  });
+
+  // ===== 7. 初始化渲染 =====
+  renderAllPanels();
+</script>
+
+</body>
+</html>

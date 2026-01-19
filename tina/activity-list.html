@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head> 
+  <meta charset="UTF-8" />
+  <title>活动列表 - SUGON 合作伙伴赋能平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标库 -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+    }
+    .glass-card {
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(14px);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .status-badge-upcoming {
+      background: rgba(56,189,248,0.12);
+      color: rgb(125,211,252);
+      border-color: rgba(56,189,248,0.5);
+    }
+    .status-badge-live {
+      background: rgba(248,113,113,0.15);
+      color: rgb(252,165,165);
+      border-color: rgba(248,113,113,0.7);
+    }
+    .status-badge-ended {
+      background: rgba(148,163,184,0.15);
+      color: rgb(148,163,184);
+      border-color: rgba(148,163,184,0.7);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-50">
+
+<!-- 顶部导航：SUGON 品牌 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14">
+      <!-- 左侧：返回首页 -->
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
+            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-indigo-300">
+              合作伙伴赋能平台 · 活动中心
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 中间：标题 >
+      <div class="hidden md:flex flex-col items-center">
+        <span class="text-[11px] text-slate-400">活动中心</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs">
+          活动列表
+        </span>
+      </div-->
+
+      <!-- 右侧：入口 -->
+      <div class="flex items-center space-x-2 text-xs">
+        <a href="personal-center.html"
+           class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 hover:border-indigo-500 transition">
+          个人中心
+        </a>
+        <a href="#"
+           class="px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white font-medium">
+          登录
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6">
+    <!-- 顶部说明 + 搜索 -->
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-6">
+      <div>
+        <h2 class="text-lg font-semibold flex items-center gap-2">
+          <span class="inline-flex h-6 w-1 rounded-full bg-indigo-500"></span>
+          活动列表
+        </h2>
+
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 justify-end">
+        <!-- 搜索框 -->
+        <div class="relative">
+          <i class="fa fa-search text-slate-400 absolute left-2 top-2.5 text-xs"></i>
+          <input id="search-input"
+                 type="text"
+                 placeholder="搜索活动名称 / 地点"
+                 class="w-52 md:w-64 rounded-full bg-slate-900/80 border border-slate-700 pl-7 pr-3 py-1.5 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 活动网格卡片 -->
+    <section id="activity-grid"
+             class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <!-- 卡片由 JS 注入 -->
+    </section>
+  </section>
+</main>
+
+<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 SUGON 合作伙伴赋能平台 · 活动中心</div>
+    <div class="flex flex-wrap gap-3">
+      <span>隐私政策</span>
+      <span>法律声明</span>
+      <span>版权信息</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 交互脚本：模拟数据、状态渲染、报名/取消报名 -->
+<script>
+  // ========== 1. 模拟活动数据（实际对接接口时替换） ==========
+  const activities = [
+    {
+      id: 1,
+      title: "云原生架构设计实战工作坊",
+      datetime: "2026-01-20 19:00-21:00",
+      place: "线上 · 直播间",
+      type: "online",
+      status: "upcoming", // upcoming: 倒计时, live: 活动中, ended: 已结束
+      attendees: 1234
+    },
+    {
+      id: 2,
+      title: "AI 与数据智能技术沙龙",
+      datetime: "2026-01-18 14:00-17:30",
+      place: "北京 · 中关村创新中心 3F",
+      type: "offline",
+      status: "live",
+      attendees: 856
+    },
+    {
+      id: 3,
+      title: "行业解决方案深度交流会（金融专场）",
+      datetime: "2025-12-30 13:30-17:00",
+      place: "上海 · 陆家嘴 XX 大厦 18F",
+      type: "offline",
+      status: "ended",
+      attendees: 620
+    },
+    {
+      id: 4,
+      title: "DevOps 工具链与实践体验营",
+      datetime: "2026-02-05 09:00-17:00",
+      place: "杭州 · 云栖小镇会议中心",
+      type: "offline",
+      status: "upcoming",
+      attendees: 432
+    },
+    {
+      id: 5,
+      title: "生态技术领袖闭门交流会",
+      datetime: "2025-12-25 18:30-21:00",
+      place: "线上 · 专属会议室",
+      type: "online",
+      status: "ended",
+      attendees: 210
+    },
+    {
+      id: 6,
+      title: "伙伴销售能力提升训练营",
+      datetime: "2026-01-22 09:30-17:30",
+      place: "深圳 · 科技园会议中心",
+      type: "offline",
+      status: "upcoming",
+      attendees: 980
+    }
+  ];
+
+  // ========== 2. 本地报名状态（localStorage 模拟） ==========
+  const STORAGE_KEY = 'sugon_activity_enrolled_ids';
+
+  function loadEnrolledIds() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveEnrolledIds(ids) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+  }
+
+  let enrolledIds = loadEnrolledIds();
+
+  function isEnrolled(id) {
+    return enrolledIds.includes(id);
+  }
+
+  function toggleEnroll(id, status) {
+    if (status === 'ended') {
+      alert('该活动已结束，无法报名。');
+      return;
+    }
+
+    if (isEnrolled(id)) {
+      if (!confirm('确认取消该活动的报名吗？')) return;
+      enrolledIds = enrolledIds.filter(x => x !== id);
+      alert('已取消报名。');
+    } else {
+      enrolledIds.push(id);
+      alert('报名成功，可在「我的活动」中查看。');
+    }
+    saveEnrolledIds(enrolledIds);
+    renderActivities();
+  }
+
+  // ========== 3. 渲染活动卡片 ==========
+  const gridEl = document.getElementById('activity-grid');
+  const searchInput = document.getElementById('search-input');
+
+  function renderActivities() {
+    gridEl.innerHTML = '';
+
+    const keyword = searchInput.value.trim().toLowerCase();
+    const list = activities.filter(act => {
+      if (!keyword) return true;
+      return (
+        act.title.toLowerCase().includes(keyword) ||
+        act.place.toLowerCase().includes(keyword)
+      );
+    });
+
+    list.forEach(act => {
+      const card = document.createElement('article');
+      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-indigo-500/80 transition cursor-pointer';
+
+      const isOnline = act.type === 'online';
+      const statusCfg = {
+        upcoming: { text: '倒计时', cls: 'status-badge-upcoming', icon: 'fa-hourglass-half' },
+        live: { text: '活动中', cls: 'status-badge-live', icon: 'fa-signal' },
+        ended: { text: '已结束', cls: 'status-badge-ended', icon: 'fa-circle-check' }
+      }[act.status] || { text: '倒计时', cls: 'status-badge-upcoming', icon: 'fa-hourglass-half' };
+
+      const enrolled = isEnrolled(act.id);
+
+      card.innerHTML = `
+        <div class="flex flex-col h-full justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[11px] inline-flex items-center px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700 ${
+                isOnline ? 'text-sky-300' : 'text-emerald-300'
+              }">
+                <i class="fa ${isOnline ? 'fa-wifi' : 'fa-building'} mr-1 text-[9px]"></i>
+                ${isOnline ? '线上活动' : '线下活动'}
+              </span>
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] ${statusCfg.cls}">
+                <i class="fa ${statusCfg.icon} mr-1 text-[9px]"></i>${statusCfg.text}
+              </span>
+            </div>
+
+            <h3 class="text-sm font-semibold line-clamp-2 mb-2">${act.title}</h3>
+
+            <div class="space-y-1 text-xs text-slate-300 mb-2">
+              <div class="flex items-center gap-1">
+                <i class="fa fa-clock text-[10px] text-emerald-400"></i>
+                <span>${act.datetime}</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <i class="fa fa-location-dot text-[10px] text-sky-400"></i>
+                <span class="line-clamp-1">${act.place}</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between text-[11px] text-slate-400 mt-1">
+              <span>报名人数</span>
+              <span class="text-amber-300">
+                <i class="fa fa-users mr-1 text-[9px]"></i>${act.attendees.toLocaleString()}
+              </span>
+            </div>
+          </div>
+
+          <div class="mt-3 flex items-center justify-between text-[11px]">
+            <button
+              class="enroll-btn px-3 py-1.5 rounded-full font-medium
+                     ${act.status === 'ended'
+                        ? 'bg-slate-800 text-slate-400 border border-slate-700 cursor-not-allowed opacity-60'
+                        : (enrolled
+                            ? 'bg-slate-900/80 text-slate-100 border border-emerald-400 hover:border-rose-400'
+                            : 'bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white hover:opacity-90')}"
+              data-id="${act.id}"
+              data-status="${act.status}"
+              ${act.status === 'ended' ? 'disabled' : ''}
+            >
+              ${
+                act.status === 'ended'
+                  ? '已结束'
+                  : (enrolled ? '取消报名' : '报名参加')
+              }
+            </button>
+          </div>
+        </div>
+      `;
+
+      gridEl.appendChild(card);
+    });
+
+    // 绑定报名/取消报名事件
+    document.querySelectorAll('.enroll-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const id = parseInt(btn.dataset.id, 10);
+        const status = btn.dataset.status;
+        toggleEnroll(id, status);
+      });
+    });
+  }
+
+  // 搜索联动
+  searchInput.addEventListener('input', () => {
+    renderActivities();
+  });
+
+  // 初始渲染
+  renderActivities();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>课程学习 - 合作伙伴赋能平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标库 -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+    }
+    .glass-card {
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(14px);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .chapter-active {
+      background: rgba(37, 99, 235, 0.35);
+      border: 1px solid rgba(129, 140, 248, 0.8);
+    }
+    .chapter-completed {
+      border-left: 3px solid #22c55e;
+    }
+    .progress-bar-track {
+      background: #020617;
+    }
+    .progress-bar-fill {
+      background: linear-gradient(to right, #6366f1, #22d3ee);
+    }
+    /* 自定义视频控件容器 */
+    .video-shell {
+      position: relative;
+      background: #020617;
+      border-radius: 0.75rem;
+      overflow: hidden;
+    }
+    .video-shell video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-50">
+
+<!-- 顶部导航：返回课程详情页 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14">
+      <!-- 左侧：返回按钮 + 文案 -->
+      <div class="flex items-center space-x-3">
+        <a href="course-detail.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
+            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-indigo-300">
+              课程学习 · 云原生解决方案实战 | 中级
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 中间：课程标题（简略） -->
+      <div class="hidden md:flex flex-col items-center">
+        <span class="text-[11px] text-slate-400">当前课程</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs">
+          云原生解决方案实战 | 中级
+        </span>
+      </div>
+
+      <!-- 右侧：报名状态 + 总进度 -->
+      <div class="flex items-center space-x-2 text-xs">
+        <span class="inline-flex items-center px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-300">
+          <i class="fa fa-check-circle mr-1 text-[11px]"></i> 已报名
+        </span>
+        <span id="course-progress-summary" class="hidden md:inline-flex items-center px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px] text-slate-300">
+          课程进度：0%
+        </span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="grid lg:grid-cols-3 gap-6 items-start">
+      <!-- 左侧：章节目录 -->
+      <aside class="lg:col-span-1 space-y-3">
+        <div class="glass-card rounded-3xl border border-slate-800 p-4">
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="text-sm font-semibold flex items-center gap-2">
+              <span class="h-6 w-1 rounded-full bg-indigo-500"></span>
+              课程目录
+            </h2>
+            <span class="text-[11px] text-slate-400" id="course-progress-text">进度：0%</span>
+          </div>
+
+          <div id="chapter-list" class="space-y-2 text-xs max-h-[560px] overflow-y-auto no-scrollbar">
+            <!-- 章节列表由 JS 注入 -->
+          </div>
+        </div>
+      </aside>
+
+      <!-- 右侧：学习内容 -->
+      <section class="lg:col-span-2 glass-card rounded-3xl border border-slate-800 p-4 md:p-6">
+        <!-- 顶部：当前章节标题 + 类型 + 单章进度 -->
+        <div id="chapter-header" class="mb-4 hidden">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+            <div>
+              <div class="text-xs text-slate-400 mb-1" id="chapter-type-label"></div>
+              <h1 id="chapter-title" class="text-base md:text-lg font-semibold"></h1>
+            </div>
+            <div class="text-[11px] text-slate-400 flex flex-col items-end gap-1">
+              <div>
+                当前章节进度：<span id="chapter-progress-value" class="text-indigo-300">0%</span>
+              </div>
+              <div class="w-40 h-1.5 rounded-full overflow-hidden progress-bar-track">
+                <div id="chapter-progress-bar" class="h-full progress-bar-fill" style="width:0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 内容区：初始占位 -->
+        <div id="content-placeholder" class="flex flex-col items-center justify-center h-72 bg-slate-900/30 rounded-2xl text-slate-400 text-xs space-y-2">
+          <i class="fa fa-circle-play text-2xl"></i>
+          <div>请选择左侧任意章节开始学习</div>
+          <div class="text-[11px] text-slate-500">
+            文本章节支持在线预览 PDF / 下载；视频章节支持在线播放并记录进度。
+          </div>
+        </div>
+
+        <!-- 实际章节内容容器 -->
+        <div id="chapter-content" class="hidden"></div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 合作伙伴赋能平台 · 在线学习中心</div>
+    <div class="flex flex-wrap gap-3">
+      <span>隐私政策</span>
+      <span>法律声明</span>
+      <span>版权信息</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 交互逻辑：章节渲染、PDF/视频学习、进度记录、阻止视频首次拖拽 -->
+<script>
+  // ====== 1. 模拟课程与章节数据（实际对接时用接口替换） ======
+  const course = {
+    id: 'course-cloud-native-001',
+    title: '云原生解决方案实战 | 中级',
+    chapters: [
+      {
+        id: 'chap-1',
+        name: '模块一：云原生基础与整体架构（讲义）',
+        type: 'text',
+        pdfUrl: 'https://example.com/course/001/chap1.pdf',
+      },
+      {
+        id: 'chap-2',
+        name: '模块二：容器编排与服务治理（视频）',
+        type: 'video',
+        videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4', // demo
+        duration: 120 // 秒，用于模拟进度（实际可从后端或 metadata 获取）
+      },
+      {
+        id: 'chap-3',
+        name: '模块三：CI/CD 与可观测性（讲义）',
+        type: 'text',
+        pdfUrl: 'https://example.com/course/001/chap3.pdf',
+      },
+      {
+        id: 'chap-4',
+        name: '模块四：项目实战案例拆解（视频）',
+        type: 'video',
+        videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+        duration: 180
+      }
+    ]
+  };
+
+  // 存储 key：按课程维度存每个章节进度（0~100）
+  const STORAGE_KEY = 'learning_progress_' + course.id;
+
+  function loadProgress() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveProgress(map) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(map));
+  }
+
+  let progressMap = loadProgress(); // { chapId: percent }
+
+  function getChapterProgress(chapId) {
+    return progressMap[chapId] ?? 0;
+  }
+
+  function setChapterProgress(chapId, percent) {
+    const v = Math.max(0, Math.min(100, Math.round(percent)));
+    progressMap[chapId] = v;
+    saveProgress(progressMap);
+    renderChapterList();
+    renderCourseProgressSummary();
+  }
+
+  function renderCourseProgressSummary() {
+    const summaryEl = document.getElementById('course-progress-summary');
+    const textEl = document.getElementById('course-progress-text');
+    const chapters = course.chapters;
+    if (!chapters.length) return;
+    let sum = 0;
+    chapters.forEach(ch => { sum += getChapterProgress(ch.id); });
+    const avg = Math.round(sum / chapters.length);
+    if (summaryEl) {
+      summaryEl.textContent = '课程进度：' + avg + '%';
+    }
+    if (textEl) {
+      textEl.textContent = '进度：' + avg + '%';
+    }
+  }
+
+  // ====== 2. 渲染左侧章节列表 ======
+  function renderChapterList() {
+    const listEl = document.getElementById('chapter-list');
+    listEl.innerHTML = '';
+
+    course.chapters.forEach((chap, index) => {
+      const p = getChapterProgress(chap.id);
+      const item = document.createElement('button');
+      item.className = `w-full text-left rounded-2xl border border-slate-800 px-3 py-2 hover:bg-slate-900/70 transition flex flex-col gap-1 ${p === 100 ? 'chapter-completed' : ''}`;
+      item.dataset.chapterId = chap.id;
+
+      const typeLabel = chap.type === 'text' ? '文本课 · PDF' : '视频课 · MP4';
+
+      item.innerHTML = `
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex-1">
+            <div class="text-[11px] text-slate-400 mb-0.5">第 ${index + 1} 章 · ${typeLabel}</div>
+            <div class="text-xs font-medium line-clamp-1">${chap.name}</div>
+          </div>
+          <div class="flex flex-col items-end text-[11px] text-slate-400">
+            <span>${p === 100 ? '<span class="text-emerald-300 flex items-center"><i class="fa fa-check mr-1 text-[10px]"></i>已完成</span>' : (p > 0 ? p + '%': '未开始')}</span>
+            ${chap.type === 'video' && chap.duration ? `<span class="mt-0.5 text-[10px] text-slate-500"><i class="fa fa-clock mr-1 text-[9px]"></i>${Math.round(chap.duration/60)} 分钟</span>` : ''}
+          </div>
+        </div>
+        <div class="mt-1 w-full h-1.5 rounded-full overflow-hidden bg-slate-900">
+          <div class="h-full ${p>0 ? 'progress-bar-fill' : 'bg-slate-800'}" style="width:${p}%"></div>
+        </div>
+      `;
+
+      item.addEventListener('click', () => {
+        document.querySelectorAll('#chapter-list button').forEach(btn => btn.classList.remove('chapter-active'));
+        item.classList.add('chapter-active');
+        renderChapterContent(chap);
+      });
+
+      listEl.appendChild(item);
+    });
+  }
+
+  // ====== 3. 渲染右侧章节内容 ======
+  function renderChapterContent(chap) {
+    const header = document.getElementById('chapter-header');
+    const placeholder = document.getElementById('content-placeholder');
+    const content = document.getElementById('chapter-content');
+
+    header.classList.remove('hidden');
+    placeholder.classList.add('hidden');
+    content.classList.remove('hidden');
+    content.innerHTML = '';
+
+    // 顶部信息
+    const typeLabel = chap.type === 'text' ? '文本课程 · PDF 讲义' : '视频课程 · MP4 播放';
+    const p = getChapterProgress(chap.id);
+    document.getElementById('chapter-title').textContent = chap.name;
+    document.getElementById('chapter-type-label').textContent = typeLabel;
+    document.getElementById('chapter-progress-value').textContent = p + '%';
+    document.getElementById('chapter-progress-bar').style.width = p + '%';
+
+    if (chap.type === 'text') {
+      renderTextChapter(chap, content);
+    } else {
+      renderVideoChapter(chap, content);
+    }
+  }
+
+  // 文本课：PDF 在线预览 + 下载 + 标记完成
+  function renderTextChapter(chap, container) {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = `
+      <div class="flex items-center justify-between text-xs text-slate-400 mb-3">
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">
+            <i class="fa fa-file-pdf mr-1 text-red-400 text-[11px]"></i> PDF 讲义
+          </span>
+          <span>可在线预览或下载保存</span>
+        </div>
+        <a href="${chap.pdfUrl}" target="_blank"
+           class="inline-flex items-center px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-indigo-500 text-[11px]">
+          <i class="fa fa-download mr-1 text-[10px]"></i>下载 PDF
+        </a>
+      </div>
+      <div class="rounded-2xl overflow-hidden border border-slate-800 bg-slate-950/80">
+        <iframe
+          src="https://docs.google.com/gview?url=${encodeURIComponent(chap.pdfUrl)}&embedded=true"
+          class="w-full h-[420px] border-0"
+        ></iframe>
+      </div>
+      <div class="mt-4 flex items-center justify-between text-[11px] text-slate-400">
+        <span>浏览完本章节后，可手动标记为已完成。</span>
+        <button id="mark-complete-${chap.id}"
+                class="px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white font-medium hover:opacity-90">
+          本章节已学完
+        </button>
+      </div>
+    `;
+    container.appendChild(wrapper);
+
+    document.getElementById(`mark-complete-${chap.id}`).addEventListener('click', () => {
+      setChapterProgress(chap.id, 100);
+      renderChapterContent(chap);
+    });
+  }
+
+  // 视频课：自定义播放器（禁止首次拖拽）
+  function renderVideoChapter(chap, container) {
+    const hasCompletedOnce = getChapterProgress(chap.id) === 100;
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = `
+      <div class="flex items-center justify-between text-xs text-slate-400 mb-3">
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">
+            <i class="fa fa-video mr-1 text-sky-400 text-[11px]"></i> 视频课程
+          </span>
+          <span>${hasCompletedOnce ? '你已完成本视频，可自由拖动进度。' : '首次学习不支持拖拽进度，请按顺序完整观看。'}</span>
+        </div>
+      </div>
+      <div class="video-shell mb-3">
+        <video id="video-${chap.id}">
+          <source src="${chap.videoUrl}" type="video/mp4">
+          您的浏览器不支持 HTML5 视频。
+        </video>
+        <!-- 自定义控制条 -->
+        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/95 via-slate-950/80 to-transparent px-3 pb-3 pt-4">
+          <div class="flex items-center justify-between text-[10px] text-slate-300 mb-1">
+            <div class="flex items-center gap-2">
+              <button id="btn-play-${chap.id}"
+                      class="h-7 w-7 rounded-full bg-slate-900/80 border border-slate-700 flex items-center justify-center hover:border-indigo-400">
+                <i class="fa fa-play text-[11px]"></i>
+              </button>
+              <span id="time-label-${chap.id}">00:00 / 00:00</span>
+            </div>
+            <span class="text-slate-400">${Math.round((chap.duration || 0)/60)} min</span>
+          </div>
+          <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden cursor-pointer" id="progress-track-${chap.id}">
+            <div id="progress-fill-${chap.id}" class="h-full progress-bar-fill" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between text-[11px] text-slate-400 mt-2">
+        <span>视频播放进度会自动记录，可在「学习中心」中继续。</span>
+        <button id="mark-complete-${chap.id}"
+                class="px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white font-medium hover:opacity-90">
+          本章节已学完
+        </button>
+      </div>
+    `;
+    container.appendChild(wrapper);
+
+    const video = document.getElementById(`video-${chap.id}`);
+    const btnPlay = document.getElementById(`btn-play-${chap.id}`);
+    const timeLabel = document.getElementById(`time-label-${chap.id}`);
+    const progressTrack = document.getElementById(`progress-track-${chap.id}`);
+    const progressFill = document.getElementById(`progress-fill-${chap.id}`);
+    const markBtn = document.getElementById(`mark-complete-${chap.id}`);
+
+    let userCanSeek = hasCompletedOnce; // 已完成过的章节允许随意拖拽
+    let duration = chap.duration || 0;
+
+    video.addEventListener('loadedmetadata', () => {
+      duration = video.duration || duration;
+      updateTimeLabel(0, duration, timeLabel);
+    });
+
+    btnPlay.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+        btnPlay.innerHTML = '<i class="fa fa-pause text-[11px]"></i>';
+      } else {
+        video.pause();
+        btnPlay.innerHTML = '<i class="fa fa-play text-[11px]"></i>';
+      }
+    });
+
+    video.addEventListener('timeupdate', () => {
+      const current = video.currentTime;
+      const d = duration || video.duration || 1;
+      const percent = (current / d) * 100;
+      progressFill.style.width = percent + '%';
+      updateTimeLabel(current, d, timeLabel);
+
+      // 自动记录进度（上限 99，避免用户刚好没看完最后一秒就被判完成）
+      if (percent < 99) {
+        setChapterProgress(chap.id, percent);
+        document.getElementById('chapter-progress-value').textContent = Math.round(percent) + '%';
+        document.getElementById('chapter-progress-bar').style.width = percent + '%';
+      }
+    });
+
+    video.addEventListener('ended', () => {
+      setChapterProgress(chap.id, 100);
+      document.getElementById('chapter-progress-value').textContent = '100%';
+      document.getElementById('chapter-progress-bar').style.width = '100%';
+      userCanSeek = true; // 完成一次后允许拖拽
+      btnPlay.innerHTML = '<i class="fa fa-play text-[11px]"></i>';
+    });
+
+    // 禁止首次学习拖拽进度条：自定义进度条点击时控制
+    progressTrack.addEventListener('click', (e) => {
+      if (!userCanSeek) {
+        // 首次学习，不允许点进度条
+        return;
+      }
+      const rect = progressTrack.getBoundingClientRect();
+      const ratio = (e.clientX - rect.left) / rect.width;
+      const t = (duration || video.duration || 1) * ratio;
+      video.currentTime = t;
+    });
+
+    // 原生 seek 也禁止（某些浏览器仍可能支持键盘 seek）
+    video.addEventListener('seeking', (e) => {
+      if (!userCanSeek && Math.abs(video.currentTime - (video._lastTime || 0)) > 1) {
+        e.preventDefault();
+        video.currentTime = video._lastTime || 0;
+      }
+    });
+    video.addEventListener('timeupdate', () => {
+      video._lastTime = video.currentTime;
+    });
+
+    // 手动标记完成
+    markBtn.addEventListener('click', () => {
+      setChapterProgress(chap.id, 100);
+      renderChapterContent(chap);
+    });
+  }
+
+  function updateTimeLabel(current, duration, el) {
+    function fmt(sec) {
+      const s = Math.round(sec);
+      const m = Math.floor(s / 60);
+      const r = s % 60;
+      return String(m).padStart(2,'0') + ':' + String(r).padStart(2,'0');
+    }
+    el.textContent = `${fmt(current)} / ${fmt(duration || 0)}`;
+  }
+
+  // ====== 4. 初始化渲染 ======
+  renderChapterList();
+  renderCourseProgressSummary();
+
+  // 默认展示：有进度的第一章，否则第一章
+  const firstWithProgress = course.chapters.find(c => getChapterProgress(c.id) > 0) || course.chapters[0];
+  if (firstWithProgress) {
+    // 高亮章节
+    const btn = document.querySelector(`#chapter-list button[data-chapter-id="${firstWithProgress.id}"]`);
+    if (btn) btn.classList.add('chapter-active');
+    renderChapterContent(firstWithProgress);
+  }
+</script>
+
+</body>
+</html>
