@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>讲师列表 - SUGON 合作伙伴赋能平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标库 -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: #FFFFFF;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .filter-chip-active {
+      border-color: #B01F24;
+      color: #B01F24;
+      background: rgba(255, 255, 255, 0.9);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+<!-- 顶部导航（SUGON） -->
+<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14">
+      <!-- 左侧：返回首页 -->
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
+            <i class="fa fa-chevron-left text-white text-xs"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
+              合作伙伴赋能平台 · 讲师中心
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 中间：标题 >
+      <div class="hidden md:flex flex-col items-center">
+        <span class="text-[11px] text-slate-400">讲师中心</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs">讲师列表</span>
+      </div-->
+
+      <!-- 右侧：入口 -->
+      <div class="flex items-center space-x-2 text-xs">
+        <a href="personal-center.html" class="px-3 py-1.5 rounded-full bg-white/20 border border-white/30 hover:border-white/50 transition text-white">
+          个人中心
+        </a>
+        <a href="#" class="px-3 py-1.5 rounded-full bg-white text-[#B01F24] font-medium">
+          登录
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6">
+    <!-- 顶部说明 + 搜索 & 排序 -->
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-6">
+      <div>
+        <h2 class="text-lg font-semibold flex items-center gap-2">
+          <span class="inline-flex h-6 w-1 rounded-full bg-[#B01F24]"></span>
+          讲师列表
+        </h2>
+        <p class="text-xs text-gray-600 mt-1">
+          为您推荐 <span class="text-[#B01F24]">32</span> 位优秀讲师，涵盖云计算、人工智能、大数据、网络安全等领域
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 justify-end">
+        <!-- 搜索 -->
+        <div class="relative">
+          <i class="fa fa-search text-gray-400 absolute left-2 top-2.5 text-xs"></i>
+          <input id="search-input"
+                 type="text"
+                 placeholder="搜索讲师姓名 / 专业领域 / 机构"
+                 class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]" />
+        </div>
+        <!-- 排序 -->
+        <div class="flex items-center gap-1 text-xs">
+          <span class="text-gray-400">排序：</span>
+          <select id="sort-select"
+                  class="rounded-full bg-white/80 border border-gray-300 px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-[#B01F24]">
+            <option value="newest">最新</option>
+            <option value="most-popular">最受欢迎</option>
+            <option value="highest-rated">评分最高</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 筛选条件 -->
+    <div class="mb-6">
+      <div class="flex flex-wrap gap-2">
+        <button class="filter-chip-active px-3 py-1 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition">
+          全部
+        </button>
+        <button class="px-3 py-1 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition">
+          云计算
+        </button>
+        <button class="px-3 py-1 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition">
+          人工智能
+        </button>
+        <button class="px-3 py-1 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition">
+          大数据
+        </button>
+        <button class="px-3 py-1 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition">
+          网络安全
+        </button>
+        <button class="px-3 py-1 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition">
+          架构设计
+        </button>
+        <button class="px-3 py-1 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition">
+          数据库
+        </button>
+      </div>
+    </div>
+
+    <!-- 讲师列表 -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <!-- 讲师卡片 1 -->
+      <a href="lecturer-detail.html?id=1" class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#B01F24] hover:-translate-y-0.5 transition group">
+        <div class="flex items-center mb-3">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&facepad=3&w=100&h=100&q=80" 
+               alt="讲师头像" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm">
+          <div class="ml-3">
+            <h3 class="text-sm font-semibold text-gray-800 group-hover:text-[#B01F24]">张伟明</h3>
+            <div class="flex flex-wrap gap-1 mt-1">
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700">云计算专家</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700">架构师</span>
+            </div>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 space-y-1">
+          <div class="flex items-center">
+            <i class="fa fa-calendar-days mr-1.5 text-emerald-400"></i>
+            <span>教龄 8 年</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fa fa-graduation-cap mr-1.5 text-emerald-400"></i>
+            <span>主讲课程 12 门</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fa fa-star mr-1.5 text-emerald-400"></i>
+            <span>学员评分 4.9/5.0</span>
+          </div>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <span class="text-[11px] text-gray-500">2,456 名学员</span>
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-[#B01F24]/10 text-[#B01F24]">
+            精品讲师
+          </span>
+        </div>
+      </a>
+
+      <!-- 讲师卡片 2 -->
+      <a href="lecturer-detail.html?id=2" class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#B01F24] hover:-translate-y-0.5 transition group">
+        <div class="flex items-center mb-3">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=facearea&facepad=3&w=100&h=100&q=80" 
+               alt="讲师头像" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm">
+          <div class="ml-3">
+            <h3 class="text-sm font-semibold text-gray-800 group-hover:text-[#B01F24]">李雅静</h3>
+            <div class="flex flex-wrap gap-1 mt-1">
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-purple-100 text-purple-700">AI算法专家</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-pink-100 text-pink-700">数据科学家</span>
+            </div>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 space-y-1">
+          <div class="flex items-center">
+            <i class="fa fa-calendar-days mr-1.5 text-purple-400"></i>
+            <span>教龄 6 年</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fa fa-graduation-cap mr-1.5 text-purple-400"></i>
+            <span>主讲课程 8 门</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fa fa-star mr-1.5 text-purple-400"></i>
+            <span>学员评分 4.8/5.0</span>
+          </div>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <span class="text-[11px] text-gray-500">1,872 名学员</span>
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-[#B01F24]/10 text-[#B01F24]">
+            知名讲师
+          </span>
+        </div>
+      </a>
+
+      <!-- 讲师卡片 3 -->
+      <a href="lecturer-detail.html?id=3" class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#B01F24] hover:-translate-y-0.5 transition group">
+        <div class="flex items-center mb-3">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=facearea&facepad=3&w=100&h=100&q=80" 
+               alt="讲师头像" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm">
+          <div class="ml-3">
+            <h3 class="text-sm font-semibold text-gray-800 group-hover:text-[#B01F24]">王建华</h3>
+            <div class="flex flex-wrap gap-1 mt-1">
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700">网络安全专家</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-red-100 text-red-700">安全架构师</span>
+            </div>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 space-y-1">
+          <div class="flex items-center">
+            <i class="fa fa-calendar-days mr-1.5 text-amber-400"></i>
+            <span>教龄 10 年</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fa fa-graduation-cap mr-1.5 text-amber-400"></i>
+            <span>主讲课程 15 门</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fa fa-star mr-1.5 text-amber-400"></i>
+            <span>学员评分 4.9/5.0</span>
+          </div>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <span class="text-[11px] text-gray-500">3,210 名学员</span>
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-[#B01F24]/10 text-[#B01F24]">
+            权威专家
+          </span>
+        </div>
+      </a>
+
+      <!-- 讲师卡片 4 -->
+      <a href="lecturer-detail.html?id=4" class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#B01F24] hover:-translate-y-0.5 transition group">
+        <div class="flex items-center mb-3">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=facearea&facepad=3&w=100&h=100&q=80" 
+               alt="讲师头像" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm">
+          <div class="ml-3">
+            <h3 class="text-sm font-semibold text-gray-800 group-hover:text-[#B01F24]">陈丽娜</h3>
+            <div class="flex flex-wrap gap-1 mt-1">
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-cyan-100 text-cyan-700">大数据专家</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-green-100 text-green-700">数据架构师</span>
+            </div>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 space-y-1">
+          <div class="flex items-center">
+            <i class="fa fa-calendar-days mr-1.5 text-cyan-400"></i>
+            <span>教龄 7 年</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fa fa-graduation-cap mr-1.5 text-cyan-400"></i>
+            <span>主讲课程 10 门</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fa fa-star mr-1.5 text-cyan-400"></i>
+            <span>学员评分 4.8/5.0</span>
+          </div>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <span class="text-[11px] text-gray-500">2,156 名学员</span>
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-[#B01F24]/10 text-[#B01F24]">
+            金牌讲师
+          </span>
+        </div>
+      </a>
+
+      <!-- 讲师卡片 5 -->
+      <a href="lecturer-detail.html?id=5" class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#B01F24] hover:-translate-y-0.5 transition group">
+        <div class="flex items-center mb-3">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=facearea&facepad=3&w=100&h=100&q=80" 
+               alt="讲师头像" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm">
+          <div class="ml-3">
+            <h3 class="text-sm font-semibold text-gray-800 group-hover:text-[#B01F24]">刘美华</h3>
+            <div class="flex flex-wrap gap-1 mt-1">
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700">DevOps专家</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-violet-100 text-violet-700">自动化工程师</span>
+            </div>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 space-y-1">
+          <div class="flex items-center">
+            <i class="fa fa-calendar-days mr-1.5 text-indigo-400"></i>
+            <span>教龄 5 年</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fa fa-graduation-cap mr-1.5 text-indigo-400"></i>
+            <span>主讲课程 6 门</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fa fa-star mr-1.5 text-indigo-400"></i>
+            <span>学员评分 4.7/5.0</span>
+          </div>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <span class="text-[11px] text-gray-500">1,543 名学员</span>
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-[#B01F24]/10 text-[#B01F24]">
+            人气讲师
+          </span>
+        </div>
+      </a>
+
+      <!-- 讲师卡片 6 -->
+      <a href="lecturer-detail.html?id=6" class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#B01F24] hover:-translate-y-0.5 transition group">
+        <div class="flex items-center mb-3">
+          <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=facearea&facepad=3&w=100&h=100&q=80" 
+               alt="讲师头像" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm">
+          <div class="ml-3">
+            <h3 class="text-sm font-semibold text-gray-800 group-hover:text-[#B01F24]">赵志强</h3>
+            <div class="flex flex-wrap gap-1 mt-1">
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-rose-100 text-rose-700">容器技术专家</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-orange-100 text-orange-700">K8s架构师</span>
+            </div>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 space-y-1">
+          <div class="flex items-center">
+            <i class="fa fa-calendar-days mr-1.5 text-rose-400"></i>
+            <span>教龄 9 年</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fa fa-graduation-cap mr-1.5 text-rose-400"></i>
+            <span>主讲课程 11 门</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fa fa-star mr-1.5 text-rose-400"></i>
+            <span>学员评分 4.9/5.0</span>
+          </div>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <span class="text-[11px] text-gray-500">2,789 名学员</span>
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-[#B01F24]/10 text-[#B01F24]">
+            顶级专家
+          </span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 分页 -->
+    <div class="mt-8 flex items-center justify-center">
+      <nav class="flex items-center space-x-1">
+        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/80 border border-gray-300 text-sm hover:bg-[#B01F24] hover:text-white">
+          <i class="fa fa-chevron-left"></i>
+        </a>
+        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-[#B01F24] text-white font-medium">1</a>
+        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/80 border border-gray-300 text-sm hover:bg-[#B01F24] hover:text-white">2</a>
+        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/80 border border-gray-300 text-sm hover:bg-[#B01F24] hover:text-white">3</a>
+        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/80 border border-gray-300 text-sm hover:bg-[#B01F24] hover:text-white">
+          <i class="fa fa-chevron-right"></i>
+        </a>
+      </nav>
+    </div>
+  </section>
+</main>
+
+<script>
+  // 搜索功能
+  document.getElementById('search-input').addEventListener('input', function(e) {
+    // 模拟搜索功能
+    console.log('搜索:', e.target.value);
+  });
+
+  // 排序功能
+  document.getElementById('sort-select').addEventListener('change', function(e) {
+    // 模拟排序功能
+    console.log('排序方式:', e.target.value);
+  });
+
+  // 筛选按钮功能
+  const filterButtons = document.querySelectorAll('.filter-chip-active');
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // 移除所有按钮的激活状态
+      filterButtons.forEach(btn => btn.classList.remove('filter-chip-active'));
+      // 为当前按钮添加激活状态
+      this.classList.add('filter-chip-active');
+      // 模拟筛选功能
+      console.log('筛选条件:', this.textContent);
+    });
+  });
+</script>
+
+</body>
+</html>

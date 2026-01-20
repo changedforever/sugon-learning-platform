@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>讲师详情 - SUGON 合作伙伴赋能平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标库 -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: #FFFFFF;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .tab-active {
+      border-color: #B01F24;
+      color: #B01F24;
+      background: rgba(255, 255, 255, 0.9);
+    }
+    .overlay {
+      background: rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+<!-- 顶部导航：SUGON 品牌 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14">
+      <!-- 左侧：返回讲师列表 -->
+      <div class="flex items-center space-x-3">
+        <a href="lecturer-list.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
+            <i class="fa fa-chevron-left text-white text-xs"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
+              讲师中心 · 讲师详情
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 中间：讲师姓名 -->
+      <div class="hidden md:flex flex-col items-center">
+        <span class="text-[11px] text-white/80">当前讲师</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs text-white">
+          张伟明（云计算专家）
+        </span>
+      </div>
+
+      <!-- 右侧：关注状态（由 JS 控制隐藏/显示） -->
+      <div class="flex items-center space-x-2 text-xs">
+        <span id="header-follow-badge"
+              class="hidden inline-flex items-center px-3 py-1 rounded-full border border-emerald-500 bg-emerald-100 text-emerald-700">
+          <i class="fa fa-check-circle mr-1 text-[11px] text-emerald-600"></i> 已关注
+        </span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6 grid lg:grid-cols-3 gap-6 items-start">
+    <!-- 左侧：讲师概览 + 介绍 -->
+    <div class="lg:col-span-2 space-y-4">
+      <!-- 顶部封面区域 -->
+      <div class="relative overflow-hidden rounded-3xl border border-gray-300 glass-card">
+        <div class="relative h-48 md:h-60 lg:h-64">
+          <img
+            src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1600&q=80"
+            alt="讲师封面"
+            class="w-full h-full object-cover opacity-70">
+          <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-black/60"></div>
+
+          <div class="absolute inset-0 flex flex-col justify-center px-5 md:px-8 lg:px-10 space-y-3 z-10">
+            <div class="flex flex-wrap items-center gap-2 text-[11px]">
+              <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-white/90 border border-gray-300 text-[#B01F24]">
+                <i class="fa fa-chalkboard-user mr-1 text-[10px] text-[#B01F24]"></i>
+                优秀讲师
+              </span>
+              <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-700">
+                云计算 · 高级
+              </span>
+              <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-700">
+                <i class="fa fa-users mr-1 text-[10px] text-amber-600"></i>
+                2,456 人已关注
+              </span>
+            </div>
+            <h1 class="text-xl md:text-2xl font-bold text-white z-10">
+              张伟明
+            </h1>
+            <p class="text-sm text-white/90 max-w-2xl z-10">
+              资深云计算架构师，拥有8年一线开发经验，专注于云原生、容器技术和微服务架构设计
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 讲师信息摘要 -->
+      <div class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="text-center">
+          <div class="text-2xl font-bold text-[#B01F24]">8年</div>
+          <div class="text-xs text-gray-600 mt-1">教龄</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-[#B01F24]">12</div>
+          <div class="text-xs text-gray-600 mt-1">课程数量</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-[#B01F24]">2,456</div>
+          <div class="text-xs text-gray-600 mt-1">观看人次</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-[#B01F24]">4.9</div>
+          <div class="text-xs text-gray-600 mt-1">学员评分</div>
+        </div>
+      </div>
+
+      <!-- 讲师简介 -->
+      <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5">
+        <h2 class="text-base font-semibold flex items-center gap-2 mb-3">
+          <i class="fa fa-user text-[#B01F24]"></i>
+          讲师简介
+        </h2>
+        <div class="text-sm text-gray-700 space-y-3 leading-relaxed">
+          <p>
+            张伟明老师是资深云计算架构师，拥有8年以上一线开发经验。曾就职于国内知名互联网公司，担任云平台高级架构师职位。擅长云原生技术栈、容器编排、微服务架构设计等前沿技术领域。
+          </p>
+          <p>
+            在过去的8年里，张老师参与了多个大型企业级云平台项目的设计与实施，具备丰富的实战经验。他曾主导设计过日处理千万级请求的分布式系统，以及支撑百万级用户的云服务平台。
+          </p>
+          <p>
+            张老师不仅技术功底深厚，还具备优秀的教学能力。他的课程理论与实践相结合，深受学员喜爱。已累计培养了超过2000名云计算领域的专业人才，其中不少已成为各大公司的技术骨干。
+          </p>
+        </div>
+      </article>
+
+      <!-- 关联课程 -->
+      <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5">
+        <h2 class="text-base font-semibold flex items-center gap-2 mb-3">
+          <i class="fa fa-book text-[#B01F24]"></i>
+          关联课程
+          <span class="text-xs text-gray-500 ml-2">(12门)</span>
+        </h2>
+        <div class="space-y-3">
+          <!-- 课程卡片 1 -->
+          <a href="#" class="flex items-center p-3 rounded-2xl border border-gray-300 hover:border-[#B01F24] transition">
+            <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=200&q=80" 
+                   alt="课程封面" class="w-full h-full object-cover">
+            </div>
+            <div class="ml-3 flex-1 min-w-0">
+              <h3 class="text-sm font-medium text-gray-800 truncate">云原生架构设计实战</h3>
+              <p class="text-xs text-gray-600 mt-1 line-clamp-2">
+                深入讲解云原生架构设计理念、服务拆分策略、容器与Kubernetes编排实践
+              </p>
+              <div class="flex items-center mt-2 text-xs text-gray-500">
+                <span><i class="fa fa-play-circle mr-1"></i> 180分钟</span>
+                <span class="mx-2">•</span>
+                <span><i class="fa fa-users mr-1"></i> 1,245人学习</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- 课程卡片 2 -->
+          <a href="#" class="flex items-center p-3 rounded-2xl border border-gray-300 hover:border-[#B01F24] transition">
+            <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+              <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=200&q=80" 
+                   alt="课程封面" class="w-full h-full object-cover">
+            </div>
+            <div class="ml-3 flex-1 min-w-0">
+              <h3 class="text-sm font-medium text-gray-800 truncate">容器技术与Docker实战</h3>
+              <p class="text-xs text-gray-600 mt-1 line-clamp-2">
+                从零开始掌握Docker容器技术，包括镜像管理、容器编排和最佳实践
+              </p>
+              <div class="flex items-center mt-2 text-xs text-gray-500">
+                <span><i class="fa fa-play-circle mr-1"></i> 150分钟</span>
+                <span class="mx-2">•</span>
+                <span><i class="fa fa-users mr-1"></i> 2,156人学习</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- 课程卡片 3 -->
+          <a href="#" class="flex items-center p-3 rounded-2xl border border-gray-300 hover:border-[#B01F24] transition">
+            <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+              <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=200&q=80" 
+                   alt="课程封面" class="w-full h-full object-cover">
+            </div>
+            <div class="ml-3 flex-1 min-w-0">
+              <h3 class="text-sm font-medium text-gray-800 truncate">Kubernetes集群管理</h3>
+              <p class="text-xs text-gray-600 mt-1 line-clamp-2">
+                深入理解Kubernetes核心概念，掌握集群部署、管理和运维技能
+              </p>
+              <div class="flex items-center mt-2 text-xs text-gray-500">
+                <span><i class="fa fa-play-circle mr-1"></i> 210分钟</span>
+                <span class="mx-2">•</span>
+                <span><i class="fa fa-users mr-1"></i> 1,876人学习</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- 课程卡片 4 -->
+          <a href="#" class="flex items-center p-3 rounded-2xl border border-gray-300 hover:border-[#B01F24] transition">
+            <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+              <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=200&q=80" 
+                   alt="课程封面" class="w-full h-full object-cover">
+            </div>
+            <div class="ml-3 flex-1 min-w-0">
+              <h3 class="text-sm font-medium text-gray-800 truncate">微服务架构设计模式</h3>
+              <p class="text-xs text-gray-600 mt-1 line-clamp-2">
+                探讨微服务架构的核心设计模式，解决分布式系统中的常见挑战
+              </p>
+              <div class="flex items-center mt-2 text-xs text-gray-500">
+                <span><i class="fa fa-play-circle mr-1"></i> 165分钟</span>
+                <span class="mx-2">•</span>
+                <span><i class="fa fa-users mr-1"></i> 1,543人学习</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </article>
+    </div>
+
+    <!-- 右侧：讲师信息 + 操作 -->
+    <div class="space-y-4">
+      <!-- 讲师头像与基础信息 -->
+      <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5">
+        <div class="text-center">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&facepad=3&w=120&h=120&q=80" 
+               alt="讲师头像" class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-lg mx-auto">
+          <h2 class="text-lg font-semibold mt-3 text-gray-800">张伟明</h2>
+          <p class="text-sm text-gray-600">资深云计算架构师</p>
+          
+          <div class="flex flex-wrap justify-center gap-1 mt-3">
+            <span class="text-[10px] px-2 py-1 rounded-full bg-emerald-100 text-emerald-700">云计算专家</span>
+            <span class="text-[10px] px-2 py-1 rounded-full bg-blue-100 text-blue-700">架构师</span>
+            <span class="text-[10px] px-2 py-1 rounded-full bg-purple-100 text-purple-700">云原生</span>
+            <span class="text-[10px] px-2 py-1 rounded-full bg-amber-100 text-amber-700">容器技术</span>
+          </div>
+
+          <div class="mt-4 space-y-2">
+            <button id="follow-btn"
+                    class="w-full py-2.5 rounded-xl bg-[#B01F24] text-white text-sm font-medium hover:opacity-90">
+              <i class="fa fa-heart mr-1"></i>
+              关注讲师
+            </button>
+            <button class="w-full py-2.5 rounded-xl border border-[#B01F24] text-[#B01F24] text-sm font-medium hover:bg-[#B01F24]/10">
+              <i class="fa fa-envelope mr-1"></i>
+              发送私信
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 讲师成就 -->
+      <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5">
+        <h3 class="font-semibold text-gray-800 mb-3 flex items-center">
+          <i class="fa fa-trophy text-amber-500 mr-2"></i>
+          讲师成就
+        </h3>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-center">
+            <i class="fa fa-check-circle text-emerald-500 mr-2 text-sm"></i>
+            <span class="text-gray-700">SUGON 金牌讲师</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fa fa-check-circle text-emerald-500 mr-2 text-sm"></i>
+            <span class="text-gray-700">云原生技术专家认证</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fa fa-check-circle text-emerald-500 mr-2 text-sm"></i>
+            <span class="text-gray-700">容器技术架构师认证</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fa fa-check-circle text-emerald-500 mr-2 text-sm"></i>
+            <span class="text-gray-700">微服务设计模式专家</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fa fa-check-circle text-emerald-500 mr-2 text-sm"></i>
+            <span class="text-gray-700">2023年度最佳讲师</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 学员评价 -->
+      <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5">
+        <h3 class="font-semibold text-gray-800 mb-3 flex items-center">
+          <i class="fa fa-star text-yellow-500 mr-2"></i>
+          学员评价
+        </h3>
+        <div class="space-y-3">
+          <div class="text-sm">
+            <div class="flex items-center mb-1">
+              <div class="flex text-amber-400">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </div>
+              <span class="text-xs text-gray-600 ml-2">5.0</span>
+            </div>
+            <p class="text-xs text-gray-600 line-clamp-2">
+              "张老师的课程非常实用，理论与实践相结合，让我对云原生技术有了更深的理解。"
+            </p>
+            <div class="text-xs text-gray-500 mt-1">- 李同学</div>
+          </div>
+          <div class="text-sm">
+            <div class="flex items-center mb-1">
+              <div class="flex text-amber-400">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-stroke"></i>
+              </div>
+              <span class="text-xs text-gray-600 ml-2">4.5</span>
+            </div>
+            <p class="text-xs text-gray-600 line-clamp-2">
+              "课程内容丰富，老师讲解清晰，实际工作中很有帮助。"
+            </p>
+            <div class="text-xs text-gray-500 mt-1">- 王同学</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<script>
+  // 关注按钮功能
+  document.getElementById('follow-btn').addEventListener('click', function() {
+    const isFollowing = this.innerHTML.includes('取消关注');
+    
+    if (isFollowing) {
+      // 取消关注
+      this.innerHTML = '<i class="fa fa-heart mr-1"></i> 关注讲师';
+      this.className = 'w-full py-2.5 rounded-xl bg-[#B01F24] text-white text-sm font-medium hover:opacity-90';
+      
+      // 隐藏顶部关注状态徽章
+      document.getElementById('header-follow-badge').classList.add('hidden');
+    } else {
+      // 关注
+      this.innerHTML = '<i class="fa fa-heart-circle-xmark mr-1"></i> 取消关注';
+      this.className = 'w-full py-2.5 rounded-xl bg-white border border-[#B01F24] text-[#B01F24] text-sm font-medium hover:bg-[#B01F24]/10';
+      
+      // 显示顶部关注状态徽章
+      document.getElementById('header-follow-badge').classList.remove('hidden');
+    }
+  });
+
+  // 课程卡片点击事件
+  const courseCards = document.querySelectorAll('.flex.items-center.p-3.rounded-2xl.border');
+  courseCards.forEach(card => {
+    card.addEventListener('click', function(e) {
+      // 如果点击的是按钮，不触发跳转
+      if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+        return;
+      }
+      // 模拟跳转到课程详情页
+      console.log('跳转到课程详情页');
+    });
+  });
+</script>
+
+</body>
+</html>

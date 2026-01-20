@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>评优 - SUGON 合作伙伴赋能平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标库 -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: #FFFFFF;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .tab-active {
+      border-color: #B01F24;
+      color: #B01F24;
+      background: rgba(255, 255, 255, 0.9);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+<!-- 顶部导航（SUGON） -->
+<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14">
+      <!-- 左侧：返回首页 -->
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
+            <i class="fa fa-chevron-left text-white text-xs"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
+              合作伙伴赋能平台 · 评优中心
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 中间：标题 >
+      <div class="hidden md:flex flex-col items-center">
+        <span class="text-[11px] text-slate-400">评优中心</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs">优秀员工</span>
+      </div-->
+
+      <!-- 右侧：入口 -->
+      <div class="flex items-center space-x-2 text-xs">
+        <a href="personal-center.html" class="px-3 py-1.5 rounded-full bg-white/20 border border-white/30 hover:border-white/50 transition text-white">
+          个人中心
+        </a>
+        <a href="#" class="px-3 py-1.5 rounded-full bg-white text-[#B01F24] font-medium">
+          登录
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6">
+    <!-- 顶部说明 + 年份选择 -->
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-6">
+      <div>
+        <h2 class="text-lg font-semibold flex items-center gap-2">
+          <span class="inline-flex h-6 w-1 rounded-full bg-[#B01F24]"></span>
+          优秀员工
+        </h2>
+        <p class="text-xs text-gray-600 mt-1">
+          展示 <span class="text-[#B01F24]">2025年度</span> 各类别优秀员工风采
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 justify-end">
+        <!-- 年份选择 -->
+        <div class="flex items-center gap-1 text-xs">
+          <span class="text-gray-400">年份：</span>
+          <select id="year-select"
+                  class="rounded-full bg-white/80 border border-gray-300 px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-[#B01F24]">
+            <option value="2025">2025年</option>
+            <option value="2024">2024年</option>
+            <option value="2023">2023年</option>
+            <option value="2022">2022年</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 分类标签 -->
+    <div class="mb-6">
+      <div class="flex flex-wrap gap-2">
+        <button class="tab-active px-4 py-1.5 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition" data-tab="all">
+          全部
+        </button>
+        <button class="px-4 py-1.5 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition" data-tab="self-driven">
+          自我驱动奖
+        </button>
+        <button class="px-4 py-1.5 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition" data-tab="newcomer">
+          最佳新人奖
+        </button>
+        <button class="px-4 py-1.5 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition" data-tab="contribution">
+          年度贡献奖
+        </button>
+        <button class="px-4 py-1.5 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition" data-tab="team">
+          优秀团队奖
+        </button>
+        <button class="px-4 py-1.5 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition" data-tab="excellent-employee">
+          公司级优秀员工
+        </button>
+      </div>
+    </div>
+
+    <!-- 优秀员工列表 -->
+    <div id="employee-list" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <!-- 员工卡片 1 - 自我驱动奖 -->
+      <div class="employee-card glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#B01F24] hover:-translate-y-0.5 transition group" data-category="self-driven">
+        <div class="flex items-center mb-3">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&facepad=3&w=100&h=100&q=80" 
+               alt="员工头像" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm">
+          <div class="ml-3">
+            <h3 class="text-sm font-semibold text-gray-800 group-hover:text-[#B01F24]">张伟明</h3>
+            <p class="text-xs text-gray-600">云计算事业部</p>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 space-y-1">
+          <p class="line-clamp-2">
+            在项目推进中主动承担责任，积极协调资源，确保项目按时交付，展现了出色的自我驱动力。
+          </p>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-[#B01F24]/10 text-[#B01F24]">
+            自我驱动奖
+          </span>
+        </div>
+      </div>
+
+      <!-- 员工卡片 2 - 最佳新人奖 -->
+      <div class="employee-card glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#B01F24] hover:-translate-y-0.5 transition group" data-category="newcomer">
+        <div class="flex items-center mb-3">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=facearea&facepad=3&w=100&h=100&q=80" 
+               alt="员工头像" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm">
+          <div class="ml-3">
+            <h3 class="text-sm font-semibold text-gray-800 group-hover:text-[#B01F24]">李雅静</h3>
+            <p class="text-xs text-gray-600">AI算法部</p>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 space-y-1">
+          <p class="line-clamp-2">
+            入职半年内快速融入团队，独立完成多个核心算法优化项目，展现了出色的学习能力和适应能力。
+          </p>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-purple-100 text-purple-700">
+            最佳新人奖
+          </span>
+        </div>
+      </div>
+
+      <!-- 员工卡片 3 - 年度贡献奖 -->
+      <div class="employee-card glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#B01F24] hover:-translate-y-0.5 transition group" data-category="contribution">
+        <div class="flex items-center mb-3">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=facearea&facepad=3&w=100&h=100&q=80" 
+               alt="员工头像" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm">
+          <div class="ml-3">
+            <h3 class="text-sm font-semibold text-gray-800 group-hover:text-[#B01F24]">王建华</h3>
+            <p class="text-xs text-gray-600">网络安全部</p>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 space-y-1">
+          <p class="line-clamp-2">
+            全年为公司网络安全做出突出贡献，主导多个安全项目，有效防范各类网络风险，保障公司信息安全。
+          </p>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">
+            年度贡献奖
+          </span>
+        </div>
+      </div>
+
+      <!-- 员工卡片 4 - 优秀团队奖 -->
+      <div class="employee-card glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#B01F24] hover:-translate-y-0.5 transition group" data-category="team">
+        <div class="flex items-center mb-3">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=facearea&facepad=3&w=100&h=100&q=80" 
+               alt="员工头像" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm">
+          <div class="ml-3">
+            <h3 class="text-sm font-semibold text-gray-800 group-hover:text-[#B01F24]">陈丽娜</h3>
+            <p class="text-xs text-gray-600">大数据研发部</p>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 space-y-1">
+          <p class="line-clamp-2">
+            带领团队完成公司级大数据平台项目，提升了数据处理效率，为公司业务发展提供了强有力的数据支持。
+          </p>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-cyan-100 text-cyan-700">
+            优秀团队奖
+          </span>
+        </div>
+      </div>
+
+      <!-- 员工卡片 5 - 公司级优秀员工 -->
+      <div class="employee-card glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#B01F24] hover:-translate-y-0.5 transition group" data-category="excellent-employee">
+        <div class="flex items-center mb-3">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=facearea&facepad=3&w=100&h=100&q=80" 
+               alt="员工头像" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm">
+          <div class="ml-3">
+            <h3 class="text-sm font-semibold text-gray-800 group-hover:text-[#B01F24]">刘美华</h3>
+            <p class="text-xs text-gray-600">DevOps工程部</p>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 space-y-1">
+          <p class="line-clamp-2">
+            在DevOps实践中表现卓越，优化了公司CI/CD流程，显著提升了软件交付效率和质量。
+          </p>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700">
+            公司级优秀员工
+          </span>
+        </div>
+      </div>
+
+      <!-- 员工卡片 6 - 自我驱动奖 -->
+      <div class="employee-card glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#B01F24] hover:-translate-y-0.5 transition group" data-category="self-driven">
+        <div class="flex items-center mb-3">
+          <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=facearea&facepad=3&w=100&h=100&q=80" 
+               alt="员工头像" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm">
+          <div class="ml-3">
+            <h3 class="text-sm font-semibold text-gray-800 group-hover:text-[#B01F24]">赵志强</h3>
+            <p class="text-xs text-gray-600">容器技术部</p>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 space-y-1">
+          <p class="line-clamp-2">
+            主动推动容器化改造项目，为公司节省大量服务器成本，展现了出色的主动性与执行力。
+          </p>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-[#B01F24]/10 text-[#B01F24]">
+            自我驱动奖
+          </span>
+        </div>
+      </div>
+
+      <!-- 员工卡片 7 - 最佳新人奖 -->
+      <div class="employee-card glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#B01F24] hover:-translate-y-0.5 transition group" data-category="newcomer">
+        <div class="flex items-center mb-3">
+          <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=facearea&facepad=3&w=100&h=100&q=80" 
+               alt="员工头像" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm">
+          <div class="ml-3">
+            <h3 class="text-sm font-semibold text-gray-800 group-hover:text-[#B01F24]">孙晓慧</h3>
+            <p class="text-xs text-gray-600">前端开发部</p>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 space-y-1">
+          <p class="line-clamp-2">
+            作为应届毕业生入职，快速掌握前端技术栈，参与多个重要项目的开发，展现了优秀的潜力。
+          </p>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-purple-100 text-purple-700">
+            最佳新人奖
+          </span>
+        </div>
+      </div>
+
+      <!-- 员工卡片 8 - 年度贡献奖 -->
+      <div class="employee-card glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#B01F24] hover:-translate-y-0.5 transition group" data-category="contribution">
+        <div class="flex items-center mb-3">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=facearea&facepad=3&w=100&h=100&q=80" 
+               alt="员工头像" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm">
+          <div class="ml-3">
+            <h3 class="text-sm font-semibold text-gray-800 group-hover:text-[#B01F24]">周建峰</h3>
+            <p class="text-xs text-gray-600">销售部</p>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 space-y-1">
+          <p class="line-clamp-2">
+            全年超额完成销售目标，为公司带来重要客户，展现了出色的业务拓展能力和业绩表现。
+          </p>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">
+            年度贡献奖
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 分页 -->
+    <div class="mt-8 flex items-center justify-center">
+      <nav class="flex items-center space-x-1">
+        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/80 border border-gray-300 text-sm hover:bg-[#B01F24] hover:text-white">
+          <i class="fa fa-chevron-left"></i>
+        </a>
+        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-[#B01F24] text-white font-medium">1</a>
+        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/80 border border-gray-300 text-sm hover:bg-[#B01F24] hover:text-white">2</a>
+        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/80 border border-gray-300 text-sm hover:bg-[#B01F24] hover:text-white">3</a>
+        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/80 border border-gray-300 text-sm hover:bg-[#B01F24] hover:text-white">
+          <i class="fa fa-chevron-right"></i>
+        </a>
+      </nav>
+    </div>
+  </section>
+</main>
+
+<script>
+  // 年份选择功能
+  document.getElementById('year-select').addEventListener('change', function(e) {
+    // 模拟年份切换功能
+    console.log('切换到年份:', e.target.value);
+    // 这里可以添加加载对应年份数据的逻辑
+  });
+
+  // 分类标签切换功能
+  const tabButtons = document.querySelectorAll('[data-tab]');
+  const employeeCards = document.querySelectorAll('.employee-card');
+  
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const selectedTab = this.getAttribute('data-tab');
+      
+      // 更新按钮状态
+      tabButtons.forEach(btn => {
+        btn.classList.remove('tab-active');
+      });
+      this.classList.add('tab-active');
+      
+      // 显示对应分类的员工卡片
+      employeeCards.forEach(card => {
+        if (selectedTab === 'all' || card.getAttribute('data-category') === selectedTab) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // 搜索功能
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      // 模拟搜索功能
+      console.log('搜索:', e.target.value);
+    });
+  }
+</script>
+
+</body>
+</html>

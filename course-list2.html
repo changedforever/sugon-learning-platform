@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>课程列表 - 合作伙伴赋能平台</title>
+    <title>培训列表 - 合作伙伴赋能平台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -62,7 +62,7 @@
                         <div class="hidden sm:block">
                             <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
                             <div class="text-sm font-semibold group-hover:text-white/90 text-white">
-                                合作伙伴赋能平台 · 在线学习
+                                合作伙伴赋能平台 · 培训中心
                             </div>
                         </div>
                     </a>
@@ -89,7 +89,7 @@
                 <div>
                     <h2 class="text-lg font-semibold flex items-center gap-2">
                         <span class="inline-flex h-6 w-1 rounded-full bg-[#B01F24]"></span>
-                        课程列表
+                        培训列表
                     </h2>
                 </div>
 
@@ -98,7 +98,7 @@
                     <!-- 搜索 -->
                     <div class="relative">
                         <i class="fa fa-search text-gray-500 absolute left-2 top-2.5 text-xs"></i>
-                        <input id="search-input" type="text" placeholder="搜索课程名称 / 发布来源 / 标签"
+                        <input id="search-input" type="text" placeholder="搜索培训名称 / 发布来源 / 标签"
                             class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]" />
                     </div>
                     <!-- 排序 -->
@@ -222,7 +222,7 @@
             <div
                 class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 text-[11px] text-gray-600 gap-2">
                 <div>
-                    共 <span id="total-count">0</span> 门课程，当前显示
+                    共 <span id="total-count">0</span> 门培训，当前显示
                     <span id="current-range">0–0</span>
                 </div>
                 <div class="flex items-center gap-2">
@@ -249,7 +249,7 @@
     <footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
         <div
             class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-600 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-            <div>© 2026 合作伙伴赋能平台 · 在线学习中心</div>
+            <div>© 2026 合作伙伴赋能平台 · 培训中心</div>
             <div class="flex flex-wrap gap-3">
                 <span>隐私政策</span>
                 <span>法律声明</span>
@@ -464,7 +464,7 @@
                     e.stopPropagation();
                     const id = btn.dataset.id;
                     const course = allCourses.find(c => c.id == id);
-                    alert(`已报名课程：「${course.name}」，即将跳转到课程详情页。`);
+                    alert(`已报名培训：「${course.name}」，即将跳转到培训详情页。`);
                 });
             });
         }
