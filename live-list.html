@@ -13,52 +13,53 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body {
-      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+      background: #FFFFFF;
     }
     .glass-card {
-      background: rgba(15,23,42,0.85);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
     }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
     .filter-chip-active {
-      border-color: rgb(129 140 248 / 1); /* indigo-400 */
-      color: rgb(191 219 254 / 1);
-      background: rgba(15,23,42,0.9);
+      border-color: #B01F24;
+      color: #B01F24;
+      background: rgba(255, 255, 255, 0.9);
     }
     .status-badge-upcoming {
-      background: rgba(56,189,248,0.12);
-      color: rgb(125,211,252);
-      border-color: rgba(56,189,248,0.5);
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+      border-color: rgba(59, 130, 246, 0.3);
     }
     .status-badge-live {
-      background: rgba(248,113,113,0.15);
-      color: rgb(252,165,165);
-      border-color: rgba(248,113,113,0.7);
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.3);
     }
     .status-badge-ended {
-      background: rgba(148,163,184,0.15);
-      color: rgb(148,163,184);
-      border-color: rgba(148,163,184,0.7);
+      background: rgba(107, 114, 128, 0.1);
+      color: #6b7280;
+      border-color: rgba(107, 114, 128, 0.3);
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-50">
+<body class="bg-white text-gray-800">
 
 <!-- 顶部导航（SUGON） -->
-<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左侧：返回首页 -->
       <div class="flex items-center space-x-3">
         <a href="index.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
-            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
+            <i class="fa fa-chevron-left text-white text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-indigo-300">
+            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
               合作伙伴赋能平台 · 直播中心
             </div>
           </div>
@@ -73,10 +74,10 @@
 
       <!-- 右侧：入口 -->
       <div class="flex items-center space-x-2 text-xs">
-        <a href="personal-center.html" class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 hover:border-indigo-500 transition">
+        <a href="personal-center.html" class="px-3 py-1.5 rounded-full bg-white/20 border border-white/30 hover:border-white/50 transition text-white">
           个人中心
         </a>
-        <a href="#" class="px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white font-medium">
+        <a href="#" class="px-3 py-1.5 rounded-full bg-white text-[#B01F24] font-medium">
           登录
         </a>
       </div>
@@ -91,7 +92,7 @@
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-6">
       <div>
         <h2 class="text-lg font-semibold flex items-center gap-2">
-          <span class="inline-flex h-6 w-1 rounded-full bg-indigo-500"></span>
+          <span class="inline-flex h-6 w-1 rounded-full bg-[#B01F24]"></span>
           直播列表
         </h2>
 
@@ -100,47 +101,47 @@
       <div class="flex flex-wrap items-center gap-2 justify-end">
         <!-- 搜索框 -->
         <div class="relative">
-          <i class="fa fa-search text-slate-400 absolute left-2 top-2.5 text-xs"></i>
+          <i class="fa fa-search text-gray-400 absolute left-2 top-2.5 text-xs"></i>
           <input id="search-input"
                  type="text"
                  placeholder="搜索直播主题 / 发布方 / 标签"
-                 class="w-52 md:w-64 rounded-full bg-slate-900/80 border border-slate-700 pl-7 pr-3 py-1.5 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                 class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]" />
         </div>
       </div>
     </div>
 
     <!-- 多维筛选：时间、状态、类别、岗位、赛道 -->
     <section class="mb-6">
-      <div class="glass-card rounded-3xl border border-slate-800 p-4 space-y-3">
+      <div class="glass-card rounded-3xl border border-gray-300 p-4 space-y-3">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <!--i class="fa fa-filter text-indigo-400 text-sm"></i>
             <span class="text-sm font-medium">筛选条件</span-->
           </div>
-          <span id="active-filter-text" class="text-[11px] text-slate-400">
+          <span id="active-filter-text" class="text-[11px] text-gray-600">
             已选条件：全部
           </span>
         </div>
 
         <!-- 时间 -->
         <div>
-          <div class="text-slate-400 mb-1 flex items-center justify-between">
+          <div class="text-gray-600 mb-1 flex items-center justify-between">
             <span>时间</span>
           </div>
           <div class="flex flex-wrap gap-1">
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px]"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px]"
                     data-filter="time" data-value="all">
               全部
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-emerald-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-emerald-600"
                     data-filter="time" data-value="today">
               今日
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-purple-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-purple-600"
                     data-filter="time" data-value="week">
               本周
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-amber-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-amber-600"
                     data-filter="time" data-value="month">
               本月
             </button>
@@ -149,23 +150,23 @@
 
         <!-- 状态 -->
         <div>
-          <div class="text-slate-400 mb-1 flex items-center justify-between">
+          <div class="text-gray-600 mb-1 flex items-center justify-between">
             <span>状态</span>
           </div>
           <div class="flex flex-wrap gap-1">
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px]"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px]"
                     data-filter="status" data-value="all">
               全部
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-sky-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-sky-600"
                     data-filter="status" data-value="upcoming">
               未开始
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-indigo-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-indigo-600"
                     data-filter="status" data-value="live">
               直播中
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-emerald-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-emerald-600"
                     data-filter="status" data-value="ended">
               已结束
             </button>
@@ -174,23 +175,23 @@
 
         <!-- 类别 -->
         <div>
-          <div class="text-slate-400 mb-1 flex items-center justify-between">
+          <div class="text-gray-600 mb-1 flex items-center justify-between">
             <span>类别</span>
           </div>
           <div class="flex flex-wrap gap-1">
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px]"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px]"
                     data-filter="category" data-value="all">
               全部
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-indigo-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-indigo-600"
                     data-filter="category" data-value="云基础设施">
               云基础设施
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-emerald-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-emerald-600"
                     data-filter="category" data-value="AI与数据智能">
               AI 与数据智能
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-amber-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-amber-600"
                     data-filter="category" data-value="解决方案">
               解决方案
             </button>
@@ -199,23 +200,23 @@
 
         <!-- 岗位 -->
         <div>
-          <div class="text-slate-400 mb-1 flex items-center justify-between">
+          <div class="text-gray-600 mb-1 flex items-center justify-between">
             <span>岗位</span>
           </div>
           <div class="flex flex-wrap gap-1">
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px]"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px]"
                     data-filter="role" data-value="all">
               全部
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-sky-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-sky-600"
                     data-filter="role" data-value="云架构师">
               云架构师
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-emerald-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-emerald-600"
                     data-filter="role" data-value="解决方案顾问">
               解决方案顾问
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-rose-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-rose-600"
                     data-filter="role" data-value="销售">
               销售
             </button>
@@ -224,23 +225,23 @@
 
         <!-- 赛道 -->
         <div>
-          <div class="text-slate-400 mb-1 flex items-center justify-between">
+          <div class="text-gray-600 mb-1 flex items-center justify-between">
             <span>赛道</span>
           </div>
           <div class="flex flex-wrap gap-1">
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px]"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px]"
                     data-filter="track" data-value="all">
               全部
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-emerald-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-emerald-600"
                     data-filter="track" data-value="DevOps">
               DevOps
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-purple-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-purple-600"
                     data-filter="track" data-value="AI">
               AI 赛道
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-amber-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-amber-600"
                     data-filter="track" data-value="业务运营">
               业务运营
             </button>
@@ -252,19 +253,19 @@
     <!-- 直播列表 + 分页 -->
     <section>
       <!-- 统计 + 分页信息 -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 text-[11px] text-slate-400 gap-2">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 text-[11px] text-gray-600 gap-2">
         <div>
           共 <span id="total-count">0</span> 场直播，当前显示
           <span id="current-range">0–0</span>
         </div>
         <div class="flex items-center gap-2">
           <button id="prev-btn"
-                  class="px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800">
+                  class="px-2.5 py-1 rounded-full bg-white border border-gray-300 hover:bg-gray-50">
             上一页
           </button>
           <span id="page-info">1 / 1</span>
           <button id="next-btn"
-                  class="px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800">
+                  class="px-2.5 py-1 rounded-full bg-white border border-gray-300 hover:bg-gray-50">
             下一页
           </button>
         </div>
@@ -280,8 +281,8 @@
 </main>
 
 <!-- 底部 -->
-<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
-  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+<footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-600 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
     <div>© 2026 SUGON 合作伙伴赋能平台 · 直播中心</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>
@@ -458,7 +459,7 @@
 
     pageData.forEach(l => {
       const card = document.createElement('article');
-      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-indigo-500/80 transition cursor-pointer';
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#B01F24]/80 transition cursor-pointer';
 
       const statusMap = {
         upcoming: { text: '未开始', cls: 'status-badge-upcoming' },
@@ -474,29 +475,29 @@
           <h3 class="text-sm font-semibold line-clamp-2 mb-2"><a href="live-detail.html" target="_blank">${l.title}</a></h3>
 
           <div class="flex items-center justify-between mb-1">
-            <span class="text-xs text-slate-400 truncate max-w-[150px]">${l.source}</span>
-            <span class="text-xs text-amber-300 flex items-center gap-1">
+            <span class="text-xs text-gray-600 truncate max-w-[150px]">${l.source}</span>
+            <span class="text-xs text-amber-600 flex items-center gap-1">
               <i class="fa fa-users text-[10px]"></i>
               ${l.attendees.toLocaleString()} 人已报
             </span>
           </div>
 
-          <div class="flex flex-wrap gap-1 text-[10px] text-slate-300">
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-slate-900/80 border border-slate-800">
-              <i class="fa fa-layer-group mr-1 text-[9px] text-indigo-400"></i>${l.category}
+          <div class="flex flex-wrap gap-1 text-[10px] text-gray-600">
+            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-white/80 border border-gray-300">
+              <i class="fa fa-layer-group mr-1 text-[9px] text-[#B01F24]"></i>${l.category}
             </span>
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-slate-900/80 border border-slate-800">
-              <i class="fa fa-user-tie mr-1 text-[9px] text-emerald-400"></i>${l.role}
+            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-white/80 border border-gray-300">
+              <i class="fa fa-user-tie mr-1 text-[9px] text-emerald-600"></i>${l.role}
             </span>
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-slate-900/80 border border-slate-800">
-              <i class="fa fa-road mr-1 text-[9px] text-sky-400"></i>${l.track}
+            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-white/80 border border-gray-300">
+              <i class="fa fa-road mr-1 text-[9px] text-sky-600"></i>${l.track}
             </span>
           </div>
 
-          <div class="mt-3 flex items-center justify-between text-xs text-slate-400">
+          <div class="mt-3 flex items-center justify-between text-xs text-gray-600">
             <div class="flex flex-col gap-1">
-              <span class="inline-flex items-center px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">
-                <i class="fa fa-clock mr-1 text-[9px] text-slate-400"></i>${l.date}
+              <span class="inline-flex items-center px-2 py-1 rounded-full bg-white/80 border border-gray-300">
+                <i class="fa fa-clock mr-1 text-[9px] text-gray-600"></i>${l.date}
               </span>
               <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] ${st.cls}">
                 <i class="fa fa-broadcast-tower mr-1 text-[9px]"></i>${st.text}
@@ -505,10 +506,10 @@
             <button
               class="enroll-btn px-3 py-1.5 rounded-full text-[11px] font-medium
                      ${l.status === 'ended'
-                        ? 'bg-slate-800 text-slate-400 border border-slate-700 cursor-not-allowed opacity-60'
+                        ? 'bg-gray-200 text-gray-500 border border-gray-300 cursor-not-allowed opacity-60'
                         : (isEnrolled
-                            ? 'bg-slate-900 border border-emerald-400 text-emerald-300 hover:bg-slate-800'
-                            : 'bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white hover:opacity-90')}"
+                            ? 'bg-white border border-emerald-500 text-emerald-600 hover:bg-gray-50'
+                            : 'bg-[#B01F24] text-white hover:opacity-90')}"
               data-id="${l.id}"
               data-status="${l.status}">
               ${l.status === 'ended' ? '已结束' : (isEnrolled ? '取消报名' : '报名')}

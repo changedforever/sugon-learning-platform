@@ -13,31 +13,32 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body {
-      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+      background: #FFFFFF;
     }
     .glass-card {
-      background: rgba(15,23,42,0.85);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
     }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-50">
+<body class="bg-white text-gray-800">
 
 <!-- 顶部导航 -->
-<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左：返回资讯/公告列表 -->
       <div class="flex items-center space-x-3">
         <a href="news-announcement-list.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
-            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
+            <i class="fa fa-chevron-left text-white text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-indigo-300">
+            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
               资讯中心
             </div>
           </div>
@@ -46,8 +47,8 @@
 
       <!-- 中：当前文章标题（简略） -->
       <div class="hidden md:flex flex-col items-center">
-        <span class="text-[11px] text-slate-400">当前内容</span>
-        <span id="header-title" class="text-sm font-medium line-clamp-1 max-w-xs">
+        <span class="text-[11px] text-gray-400">当前内容</span>
+        <span id="header-title" class="text-sm font-medium line-clamp-1 max-w-xs text-white">
           云原生架构设计最佳实践与行业动态
         </span>
       </div>
@@ -56,13 +57,13 @@
       <div class="flex items-center space-x-2 text-xs">
         <!-- 收藏小图标 -->
         <button id="favorite-icon-btn"
-                class="h-8 w-8 rounded-full bg-slate-900/80 border border-slate-700 flex items-center justify-center hover:border-indigo-500 transition"
+                class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center hover:border-white/50 transition"
                 title="收藏 / 取消收藏">
-          <i class="fa-regular fa-heart text-[12px] text-slate-200"></i>
+          <i class="fa-regular fa-heart text-[12px] text-white"></i>
         </button>
         <!-- 分享小图标 -->
         <button id="share-icon-btn"
-                class="h-8 w-8 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white flex items-center justify-center text-[12px] hover:opacity-90"
+                class="h-8 w-8 rounded-full bg-[#B01F24] text-white flex items-center justify-center text-[12px] hover:opacity-90"
                 title="分享">
           <i class="fa fa-share-nodes"></i>
         </button>
@@ -80,69 +81,69 @@
         <div class="flex items-center gap-2">
           <!-- 类型：资讯 or 公告 -->
           <span id="type-tag"
-                class="inline-flex items-center px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/60">
+                class="inline-flex items-center px-2 py-0.5 rounded-full bg-[#B01F24]/10 text-[#B01F24] border border-[#B01F24]/60">
             <i class="fa fa-newspaper mr-1 text-[9px]"></i> 资讯
           </span>
           <!-- 分类：仅资讯时显示（行业动态/政策流程/平台新闻等） -->
           <span id="category-tag"
-                class="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700 text-sky-300">
+                class="inline-flex items-center px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[#B01F24]">
             行业动态
           </span>
         </div>
-        <div class="flex items-center gap-3 text-slate-400">
+        <div class="flex items-center gap-3 text-gray-400">
           <span class="inline-flex items-center gap-1">
-            <i class="fa fa-eye text-[10px] text-slate-300"></i>
+            <i class="fa fa-eye text-[10px] text-gray-300"></i>
             <span id="read-count">1,845</span>
           </span>
         </div>
       </div>
 
       <!-- 标题 -->
-      <h1 id="article-title-main" class="text-lg md:text-2xl font-semibold mb-2 leading-snug">
+      <h1 id="article-title-main" class="text-lg md:text-2xl font-semibold mb-2 leading-snug text-gray-800">
         云原生架构设计最佳实践与行业动态
       </h1>
 
       <!-- 来源 + 时间 -->
-      <div class="flex flex-wrap items-center justify-between text-[11px] text-slate-400 mb-4">
+      <div class="flex flex-wrap items-center justify-between text-[11px] text-gray-400 mb-4">
         <div class="flex items-center gap-2">
           <span class="flex items-center gap-1">
-            <i class="fa fa-building text-[10px] text-slate-300"></i>
+            <i class="fa fa-building text-[10px] text-gray-300"></i>
             <span id="article-source">云基础设施学院</span>
           </span>
         </div>
         <div class="flex items-center gap-2">
           <span class="flex items-center gap-1">
-            <i class="fa fa-clock text-[10px] text-slate-300"></i>
+            <i class="fa fa-clock text-[10px] text-gray-300"></i>
             <span id="article-date">2026-01-15 09:30</span>
           </span>
         </div>
       </div>
 
       <!-- 分隔线 -->
-      <div class="border-t border-slate-800 my-3"></div>
+      <div class="border-t border-gray-300 my-3"></div>
 
       <!-- 正文内容（示例，可替换为后端返回的 HTML） -->
-      <div id="article-content" class="prose prose-invert max-w-none text-xs leading-6 text-slate-300">
+      <div id="article-content" class="prose max-w-none text-xs leading-6 text-gray-600">
         <p>
           随着云原生技术的快速发展，越来越多的企业开始从传统单体架构向云原生架构演进。
           本文结合 SUGON 在政企、金融等行业的实践经验，总结出一套可复用的云原生架构设计方法论。
         </p>
 
-        <h2 class="text-sm font-medium mt-4 mb-2">一、云原生架构的设计原则</h2>
+        <h2 class="text-sm font-medium mt-4 mb-2 text-gray-800">一、云原生架构的设计原则</h2>
         <p>在整体设计上，我们建议从以下三个维度审视系统：</p>
         <ul class="list-disc ml-5 space-y-1">
-          <li><strong>服务拆分</strong>：根据业务领域拆分为多个微服务，避免“大而全”的单体系统。</li>
+          <li><strong>服务拆分</strong>：根据业务领域拆分为多个微服务，避免"大而全"的单体系统。</li>
           <li><strong>弹性伸缩</strong>：结合业务峰谷规律，合理设置 HPA/VPA 策略。</li>
           <li><strong>可观测性</strong>：在设计阶段即考虑日志、指标、链路追踪的统一方案。</li>
         </ul>
 
-        <h2 class="text-sm font-medium mt-4 mb-2">二、典型行业实践案例</h2>
+        <h2 class="text-sm font-medium mt-4 mb-2 text-gray-800">二、典型行业实践案例</h2>
         <p>
           在金融行业项目中，我们通过引入服务网格、零信任安全体系，既满足了监管合规要求，
           又在高峰交易时段保障了系统的稳定性与弹性。
         </p>
 
-        <h2 class="text-sm font-medium mt-4 mb-2">三、对合作伙伴的建议</h2>
+        <h2 class="text-sm font-medium mt-4 mb-2 text-gray-800">三、对合作伙伴的建议</h2>
         <ol class="list-decimal ml-5 space-y-1">
           <li>在项目前期就与客户共同梳理业务域与非功能性需求；</li>
           <li>优先选择成熟的开源组件，并结合 SUGON 云平台组件进行集成；</li>
@@ -157,23 +158,23 @@
       <!-- 底部：收藏 & 分享操作栏 -->
       <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs">
         <!-- 左：文章标签（可选） -->
-        <div class="flex flex-wrap items-center gap-2 text-[11px] text-slate-400">
+        <div class="flex flex-wrap items-center gap-2 text-[11px] text-gray-400">
           <span>标签：</span>
-          <span class="px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700 text-indigo-300">云原生</span>
-          <span class="px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700 text-emerald-300">架构设计</span>
-          <span class="px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700 text-sky-300">行业动态</span>
+          <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[#B01F24]">云原生</span>
+          <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[#B01F24]">架构设计</span>
+          <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[#B01F24]">行业动态</span>
         </div>
 
         <!-- 右：收藏 / 分享大按钮 -->
         <div class="flex items-center gap-2 justify-end">
           <button id="favorite-btn"
-                  class="inline-flex items-center px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-indigo-500 text-sm"
+                  class="inline-flex items-center px-3 py-1.5 rounded-full bg-white border border-gray-300 hover:border-[#B01F24] text-sm"
                   data-favorited="false">
             <i class="fa-regular fa-heart mr-1 text-[11px]"></i>
             <span>收藏</span>
           </button>
           <button id="share-btn"
-                  class="inline-flex items-center px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white text-sm font-medium hover:opacity-90">
+                  class="inline-flex items-center px-3 py-1.5 rounded-full bg-[#B01F24] text-white text-sm font-medium hover:opacity-90">
             <i class="fa fa-share mr-1 text-[11px]"></i>
             <span>分享</span>
           </button>
@@ -183,8 +184,8 @@
   </section>
 </main>
 
-<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
-  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+<footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
     <div>© 2026 SUGON 合作伙伴赋能平台 · 资讯中心</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>
@@ -215,7 +216,7 @@
   function initTypeAndCategory() {
     if (articleType === 'announcement') {
       typeTag.innerHTML = '<i class="fa fa-bullhorn mr-1 text-[9px]"></i> 公告';
-      typeTag.className = 'inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/60 text-[11px]';
+      typeTag.className = 'inline-flex items-center px-2 py-0.5 rounded-full bg-[#B01F24]/10 text-[#B01F24] border border-[#B01F24]/60 text-[11px]';
       // 公告一般不展示分类，可按需隐藏
       categoryTag.classList.add('hidden');
     } else {
@@ -240,16 +241,16 @@
     favoriteBtn.dataset.favorited = favorited ? 'true' : 'false';
 
     if (favorited) {
-      favoriteBtn.classList.remove('bg-slate-900/80', 'border-slate-700');
-      favoriteBtn.classList.add('bg-emerald-500/20', 'border-emerald-400', 'text-emerald-200');
+      favoriteBtn.classList.remove('bg-white', 'border-gray-300');
+      favoriteBtn.classList.add('bg-[#B01F24]/20', 'border-[#B01F24]', 'text-[#B01F24]');
       favIcon.classList.remove('fa-regular');
-      favIcon.classList.add('fa-solid', 'text-emerald-300');
+      favIcon.classList.add('fa-solid', 'text-[#B01F24]');
       favText.textContent = '已收藏';
     } else {
-      favoriteBtn.classList.add('bg-slate-900/80', 'border-slate-700');
-      favoriteBtn.classList.remove('bg-emerald-500/20', 'border-emerald-400', 'text-emerald-200');
+      favoriteBtn.classList.add('bg-white', 'border-gray-300');
+      favoriteBtn.classList.remove('bg-[#B01F24]/20', 'border-[#B01F24]', 'text-[#B01F24]');
       favIcon.classList.add('fa-regular');
-      favIcon.classList.remove('fa-solid', 'text-emerald-300');
+      favIcon.classList.remove('fa-solid', 'text-[#B01F24]');
       favText.textContent = '收藏';
     }
 
@@ -257,12 +258,12 @@
     const smallIcon = favoriteIconBtn.querySelector('i');
     if (favorited) {
       smallIcon.classList.remove('fa-regular');
-      smallIcon.classList.add('fa-solid', 'text-emerald-300');
-      favoriteIconBtn.classList.add('border-emerald-400');
+      smallIcon.classList.add('fa-solid', 'text-[#B01F24]');
+      favoriteIconBtn.classList.add('border-[#B01F24]');
     } else {
       smallIcon.classList.add('fa-regular');
-      smallIcon.classList.remove('fa-solid', 'text-emerald-300');
-      favoriteIconBtn.classList.remove('border-emerald-400');
+      smallIcon.classList.remove('fa-solid', 'text-[#B01F24]');
+      favoriteIconBtn.classList.remove('border-[#B01F24]');
     }
   }
 

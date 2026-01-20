@@ -13,47 +13,48 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body {
-      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+      background: #FFFFFF;
     }
     .glass-card {
-      background: rgba(15,23,42,0.85);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
     }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
     .status-badge-upcoming {
-      background: rgba(56,189,248,0.12);
-      color: rgb(125,211,252);
-      border-color: rgba(56,189,248,0.5);
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+      border-color: rgba(59, 130, 246, 0.3);
     }
     .status-badge-live {
-      background: rgba(248,113,113,0.15);
-      color: rgb(252,165,165);
-      border-color: rgba(248,113,113,0.7);
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.3);
     }
     .status-badge-ended {
-      background: rgba(148,163,184,0.15);
-      color: rgb(148,163,184);
-      border-color: rgba(148,163,184,0.7);
+      background: rgba(107, 114, 128, 0.1);
+      color: #6b7280;
+      border-color: rgba(107, 114, 128, 0.3);
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-50">
+<body class="bg-white text-gray-800">
 
 <!-- 顶部导航：SUGON 品牌 -->
-<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左侧：返回直播列表 -->
       <div class="flex items-center space-x-3">
         <a href="live-list.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
-            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
+            <i class="fa fa-chevron-left text-white text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-indigo-300">
+            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
               直播中心 · 直播详情
             </div>
           </div>
@@ -63,7 +64,7 @@
       <!-- 中间：直播标题（简略） -->
       <div class="hidden md:flex flex-col items-center">
         <span class="text-[11px] text-slate-400">当前直播</span>
-        <span id="header-title" class="text-sm font-medium line-clamp-1 max-w-xs">
+        <span id="header-title" class="text-sm font-medium line-clamp-1 max-w-xs text-white">
           云原生架构设计实战分享
         </span>
       </div>
@@ -71,12 +72,12 @@
       <!-- 右侧：我的直播 / 预约状态 -->
       <div class="flex items-center space-x-2 text-xs">
         <span id="my-live-badge"
-              class="inline-flex items-center px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px] text-slate-300">
+              class="inline-flex items-center px-2 py-1 rounded-full bg-white/20 border border-white/30 text-[11px] text-white">
           <i class="fa fa-list-check mr-1 text-[10px]"></i>
           我的直播
         </span>
         <span id="header-status"
-              class="inline-flex items-center px-2 py-1 rounded-full bg-slate-900/80 text-emerald-300 border border-emerald-500/30 text-[11px]">
+              class="inline-flex items-center px-2 py-1 rounded-full bg-white/20 text-white border border-white/30 text-[11px]">
           <i class="fa fa-circle mr-1 text-[8px]"></i>
           可预约
         </span>
@@ -92,46 +93,46 @@
       <!-- 左侧：封面 + 介绍 + 日程 -->
       <div class="lg:col-span-2 space-y-4">
         <!-- 封面区域 -->
-        <div class="relative overflow-hidden rounded-3xl border border-slate-800 glass-card">
+        <div class="relative overflow-hidden rounded-3xl border border-gray-300 glass-card">
           <div class="relative h-48 md:h-60 lg:h-72">
             <img
               id="cover-img"
               src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1600&q=80"
               alt="直播封面"
               class="w-full h-full object-cover opacity-70">
-            <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/20 to-slate-900/80"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/10"></div>
 
             <div class="absolute inset-0 flex flex-col justify-center px-5 md:px-8 lg:px-10 space-y-3 z-10">
               <div class="flex flex-wrap items-center gap-2 text-[11px]">
                 <span id="tag-category"
-                      class="inline-flex items-center px-2 py-1 rounded-full bg-slate-950/80 border border-slate-700 text-indigo-300">
-                  <i class="fa fa-layer-group mr-1 text-[10px] text-indigo-400"></i>
+                      class="inline-flex items-center px-2 py-1 rounded-full bg-white/90 border border-gray-300 text-gray-700">
+                  <i class="fa fa-layer-group mr-1 text-[10px] text-[#B01F24]"></i>
                   云基础设施
                 </span>
                 <span id="tag-track"
-                      class="inline-flex items-center px-2 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/60 text-emerald-200">
-                  <i class="fa fa-road mr-1 text-[10px]"></i> DevOps 赛道
+                      class="inline-flex items-center px-2 py-1 rounded-full bg-white/90 border border-gray-300 text-gray-700">
+                  <i class="fa fa-road mr-1 text-[10px] text-[#B01F24]"></i> DevOps 赛道
                 </span>
                 <span id="tag-status"
-                      class="inline-flex items-center px-2 py-1 rounded-full border text-sky-300 status-badge-upcoming">
+                      class="inline-flex items-center px-2 py-1 rounded-full border text-[#B01F24] status-badge-upcoming">
                   <i class="fa fa-broadcast-tower mr-1 text-[10px]"></i>
                   未开始
                 </span>
               </div>
-              <h1 id="live-title" class="text-xl md:text-2xl lg:text-3xl font-semibold leading-snug line-clamp-2">
+              <h1 id="live-title" class="text-xl md:text-2xl lg:text-3xl font-semibold leading-snug line-clamp-2 text-white">
                 云原生架构设计实战分享
               </h1>
-              <p id="live-desc" class="text-xs md:text-sm text-slate-300 max-w-2xl">
+              <p id="live-desc" class="text-xs md:text-sm text-white max-w-2xl">
                 本次直播将深入讲解云原生架构设计理念、微服务拆分原则、容器编排最佳实践，并结合真实项目 DEMO 演示，帮助伙伴快速掌握云原生落地方法。
               </p>
               <!-- 开播时间包含日期+报名人数 -->
-              <div class="flex flex-wrap items-center gap-3 text-[11px] text-slate-300">
+              <div class="flex flex-wrap items-center gap-3 text-[11px] text-white">
                 <span id="live-time">
-                  <i class="fa fa-clock mr-1 text-emerald-400"></i>
+                  <i class="fa fa-clock mr-1 text-[#B01F24]"></i>
                   开播时间：2026-01-15 19:00–21:00
                 </span>
                 <span id="live-attendees">
-                  <i class="fa fa-users mr-1 text-sky-400"></i>
+                  <i class="fa fa-users mr-1 text-[#B01F24]"></i>
                   报名人数：12,345 人
                 </span>
               </div>
@@ -142,41 +143,41 @@
         <!-- 日程表 + 主讲人信息 -->
         <section class="grid md:grid-cols-2 gap-4">
           <!-- 日程表 -->
-          <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-5">
-            <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2">
-              <i class="fa fa-calendar-check mr-1 text-indigo-400"></i> 日程表
+          <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5">
+            <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2 text-gray-800">
+              <i class="fa fa-calendar-check mr-1 text-[#B01F24]"></i> 日程表
             </h2>
-            <ul id="schedule-list" class="text-xs text-slate-300 space-y-2">
+            <ul id="schedule-list" class="text-xs text-gray-600 space-y-2">
               <!-- JS 注入日程 -->
             </ul>
-            <p class="mt-3 text-[11px] text-slate-400">
-              <i class="fa fa-bell mr-1 text-amber-300"></i>
+            <p class="mt-3 text-[11px] text-gray-500">
+              <i class="fa fa-bell mr-1 text-[#B01F24]"></i>
               已预约用户将在开播前 15 分钟收到站内消息、邮件和 APP 推送提醒。
             </p>
           </article>
 
           <!-- 主讲人信息 -->
-          <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-5">
-            <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2">
-              <i class="fa fa-user-tie mr-1 text-emerald-400"></i> 主讲人
+          <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5">
+            <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2 text-gray-800">
+              <i class="fa fa-user-tie mr-1 text-[#B01F24]"></i> 主讲人
             </h2>
             <div class="flex items-start gap-3 mb-3">
               <img id="speaker-avatar"
                    src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=80&q=80"
-                   class="h-12 w-12 rounded-full object-cover border border-slate-700" alt="speaker">
-              <div class="flex-1 text-xs text-slate-300">
-                <div id="speaker-name" class="font-medium text-slate-100">王云</div>
-                <div id="speaker-title" class="text-slate-400">首席云架构师 · 云基础设施学院</div>
-                <p id="speaker-intro" class="mt-1 leading-snug">
+                   class="h-12 w-12 rounded-full object-cover border border-gray-300" alt="speaker">
+              <div class="flex-1 text-xs text-gray-600">
+                <div id="speaker-name" class="font-medium text-gray-800">王云</div>
+                <div id="speaker-title" class="text-gray-500">首席云架构师 · 云基础设施学院</div>
+                <p id="speaker-intro" class="mt-1 leading-snug text-gray-600">
                   拥有 10 年云原生项目经验，主导多家头部企业云原生转型项目，对 Kubernetes、服务网格和 DevOps 实践有深入研究。
                 </p>
               </div>
             </div>
             <div class="flex flex-wrap gap-2 text-[11px]">
-              <a href="#" class="inline-flex items-center px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-indigo-300 hover:border-indigo-500">
+              <a href="#" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#B01F24] hover:border-[#B01F24]">
                 <i class="fa fa-id-badge mr-1 text-[9px]"></i> 查看讲师主页
               </a>
-              <a href="#" class="inline-flex items-center px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-emerald-300 hover:border-emerald-500">
+              <a href="#" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#B01F24] hover:border-[#B01F24]">
                 <i class="fa fa-video mr-1 text-[9px]"></i> 查看讲师更多直播
               </a>
             </div>
@@ -184,16 +185,16 @@
         </section>
 
         <!-- 直播介绍（详细） -->
-        <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6 mt-4">
-          <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2">
-            <i class="fa fa-book-open mr-1 text-slate-400"></i> 直播介绍
+        <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-6 mt-4">
+          <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2 text-gray-800">
+            <i class="fa fa-book-open mr-1 text-gray-400"></i> 直播介绍
           </h2>
-          <p class="text-xs text-slate-300 leading-6">
+          <p class="text-xs text-gray-600 leading-6">
             本场直播面向 SUGON 合作伙伴生态中的云架构师、解决方案顾问和 DevOps 工程师，
             从实际项目案例出发，梳理一套可复制的云原生架构设计方法论，并通过现场 DEMO
             展示完整落地过程。直播结束后，将提供录播回看和资料下载。
           </p>
-          <ul class="mt-3 text-xs text-slate-300 space-y-1 list-disc pl-5">
+          <ul class="mt-3 text-xs text-gray-600 space-y-1 list-disc pl-5">
             <li>适合人群：云架构师 / 解决方案顾问 / DevOps 工程师</li>
             <li>配套资源：演示项目代码、架构图模板、最佳实践手册</li>
             <li>关联认证：伙伴云架构工程师（P-Cloud Architect）专业认证</li>
@@ -205,11 +206,11 @@
           <!-- 进入直播 -->
           <div class="md:col-span-1 space-y-2">
             <button id="btn-enter-live"
-                    class="hidden w-full py-2.5 rounded-xl bg-emerald-500 text-white text-sm font-medium hover:bg-emerald-400 flex items-center justify-center gap-2">
+                    class="hidden w-full py-2.5 rounded-xl bg-[#B01F24] text-white text-sm font-medium hover:bg-[#9a1a1f] flex items-center justify-center gap-2">
               <i class="fa fa-circle-play mr-1 text-[13px]"></i>
               进入直播
             </button>
-            <p class="text-[11px] text-slate-400">
+            <p class="text-[11px] text-gray-500">
               直播开始后可直接进入直播间，建议提前几分钟测试网络和音视频设备。
             </p>
           </div>
@@ -217,11 +218,11 @@
           <!-- 回放入口 -->
           <div class="md:col-span-1 space-y-2">
             <button id="btn-playback"
-                    class="hidden w-full py-2.5 rounded-xl bg-slate-900/80 text-sm text-emerald-300 border border-emerald-500 hover:bg-slate-800 flex items-center justify-center gap-2">
+                    class="hidden w-full py-2.5 rounded-xl bg-white text-sm text-[#B01F24] border border-[#B01F24] hover:bg-gray-50 flex items-center justify-center gap-2">
               <i class="fa fa-play-circle mr-1 text-[13px]"></i>
               观看回放
             </button>
-            <p id="playback-tip" class="text-[11px] text-slate-400">
+            <p id="playback-tip" class="text-[11px] text-gray-500">
               直播结束后将提供录播回放，观看进度会自动记录并同步到「我的直播」。
             </p>
           </div>
@@ -229,15 +230,15 @@
 
         <!-- “我的直播”观看进度联动 -->
         <article id="my-live-progress"
-                 class="hidden glass-card rounded-3xl border border-slate-800 p-4 mt-4">
+                 class="hidden glass-card rounded-3xl border border-gray-300 p-4 mt-4">
           <div class="flex items-center justify-between mb-1 text-xs">
-            <span class="text-slate-400">我的观看进度</span>
-            <span id="progress-text" class="text-emerald-300">0%</span>
+            <span class="text-gray-400">我的观看进度</span>
+            <span id="progress-text" class="text-[#B01F24]">0%</span>
           </div>
-          <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
-            <div id="progress-bar" class="h-full bg-gradient-to-r from-emerald-400 to-cyan-400" style="width:0%"></div>
+          <div class="w-full h-1.5 rounded-full bg-gray-200 overflow-hidden">
+            <div id="progress-bar" class="h-full bg-gradient-to-r from-[#B01F24] to-[#c93a3e]" style="width:0%"></div>
           </div>
-          <p class="mt-2 text-[11px] text-slate-400">
+          <p class="mt-2 text-[11px] text-gray-500">
             进度将用于「我的直播」中继续回看，并作为学习记录计入学习中心。
           </p>
         </article>
@@ -245,9 +246,9 @@
 
       <!-- 右侧：关键信息 + 提醒、预约（恢复“时长”“报名人数”） -->
       <aside class="lg:col-span-1 space-y-4">
-        <div class="glass-card rounded-3xl border border-slate-800 p-4 md:p-5 space-y-3 text-xs text-slate-300">
+        <div class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5 space-y-3 text-xs text-gray-600">
           <div class="flex items-center justify-between mb-1">
-            <span class="text-slate-400">直播状态</span>
+            <span class="text-gray-400">直播状态</span>
             <span id="side-status"
                   class="inline-flex items-center px-2 py-0.5 rounded-full border status-badge-upcoming text-[11px]">
               <i class="fa fa-broadcast-tower mr-1 text-[9px]"></i> 未开始
@@ -255,25 +256,25 @@
           </div>
 
           <div class="flex items-center justify-between">
-            <span class="text-slate-400">时长</span>
+            <span class="text-gray-400">时长</span>
             <span>120 分钟</span>
           </div>
 
           <div class="flex items-center justify-between">
-            <span class="text-slate-400">报名人数</span>
+            <span class="text-gray-400">报名人数</span>
             <span id="side-attendees">12,345 人</span>
           </div>
 
           <div class="flex items-center justify-between">
-            <span class="text-slate-400">提醒渠道</span>
+            <span class="text-gray-400">提醒渠道</span>
             <div class="flex flex-wrap gap-1.5 text-[11px]">
-              <span class="px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700 text-indigo-300">
+              <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[#B01F24]">
                 <i class="fa fa-envelope mr-1 text-[9px]"></i> 邮件
               </span>
-              <span class="px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700 text-emerald-300">
+              <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[#B01F24]">
                 <i class="fa fa-bell mr-1 text-[9px]"></i> 站内消息
               </span>
-              <span class="px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700 text-sky-300">
+              <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[#B01F24]">
                 <i class="fa fa-mobile-screen mr-1 text-[9px]"></i> APP 推送
               </span>
             </div>
@@ -282,16 +283,16 @@
           <!-- 右侧的预约/取消预约按钮 + 说明 -->
           <div class="mt-3 space-y-2">
             <button id="btn-reserve"
-                    class="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white text-sm font-medium hover:opacity-90 flex items-center justify-center gap-2">
+                    class="w-full py-2.5 rounded-xl bg-[#B01F24] text-white text-sm font-medium hover:bg-[#9a1a1f] flex items-center justify-center gap-2">
               <i class="fa fa-bell mr-1 text-[13px]"></i>
               预约直播
             </button>
             <button id="btn-cancel-reserve"
-                    class="hidden w-full py-2.5 rounded-xl bg-slate-900/80 text-sm text-slate-200 border border-slate-700 hover:border-rose-400 flex items-center justify-center gap-2">
+                    class="hidden w-full py-2.5 rounded-xl bg-white text-sm text-gray-700 border border-gray-300 hover:border-rose-400 flex items-center justify-center gap-2">
               <i class="fa fa-xmark mr-1 text-[13px]"></i>
               取消预约
             </button>
-            <p id="reserve-tip" class="text-[11px] text-slate-400">
+            <p id="reserve-tip" class="text-[11px] text-gray-500">
               预约后将通过站内消息 / 邮件 / APP 推送进行开播提醒，可在「我的直播」中管理预约。
             </p>
           </div>
@@ -301,8 +302,8 @@
   </section>
 </main>
 
-<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
-  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+<footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
     <div>© 2026 SUGON 合作伙伴赋能平台 · 直播中心</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>

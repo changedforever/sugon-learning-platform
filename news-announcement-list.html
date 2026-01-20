@@ -13,37 +13,38 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body {
-      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+      background: #FFFFFF;
     }
     .glass-card {
-      background: rgba(15,23,42,0.85);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
     }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
     .filter-chip-active {
-      border-color: rgb(129 140 248 / 1); /* indigo-400 */
-      color: rgb(191 219 254 / 1);
-      background: rgba(15,23,42,0.9);
+      border-color: #B01F24;
+      color: #B01F24;
+      background: rgba(255, 255, 255, 0.9);
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-50">
+<body class="bg-white text-gray-800">
 
 <!-- 顶部导航 -->
-<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左：返回首页 -->
       <div class="flex items-center space-x-3">
         <a href="index.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
-            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
+            <i class="fa fa-chevron-left text-white text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-indigo-300">
+            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
               合作伙伴赋能平台 · 资讯中心
             </div>
           </div>
@@ -52,8 +53,8 @@
 
       <!-- 中：标题 >
       <div class="hidden md:flex flex-col items-center">
-        <span class="text-[11px] text-slate-400">资讯中心</span>
-        <span class="text-sm font-medium line-clamp-1 max-w-xs">
+        <span class="text-[11px] text-gray-400">资讯中心</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs text-gray-800">
           资讯 / 公告列表
         </span>
       </div-->
@@ -61,11 +62,11 @@
       <!-- 右：快捷入口 -->
       <div class="flex items-center space-x-2 text-xs">
         <a href="personal-center.html"
-           class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 hover:border-indigo-500 transition">
+           class="px-3 py-1.5 rounded-full bg-white/20 border border-white/30 hover:border-white/50 transition text-white">
           个人中心
         </a>
         <a href="#"
-           class="px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white font-medium">
+           class="px-3 py-1.5 rounded-full bg-white text-[#B01F24] font-medium">
           登录
         </a>
       </div>
@@ -89,32 +90,32 @@
       <div class="flex flex-wrap items-center gap-2 justify-end">
         <!-- 搜索 -->
         <div class="relative">
-          <i class="fa fa-search text-slate-400 absolute left-2 top-2.5 text-xs"></i>
+          <i class="fa fa-search text-gray-400 absolute left-2 top-2.5 text-xs"></i>
           <input id="search-input"
                  type="text"
                  placeholder="搜索标题 / 来源 / 关键词"
-                 class="w-52 md:w-64 rounded-full bg-slate-900/80 border border-slate-700 pl-7 pr-3 py-1.5 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                 class="w-52 md:w-64 rounded-full bg-white border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]" />
         </div>
       </div>
     </div>
 
     <!-- 顶部筛选：类型 + 分类 -->
-    <section class="mb-6 glass-card rounded-3xl border border-slate-800 p-4">
+    <section class="mb-6 glass-card rounded-3xl border border-gray-300 p-4">
       <!-- 类型：全部 / 资讯 / 公告 -->
       <div class="flex flex-wrap items-center gap-2 text-xs mb-2">
-        <span class="text-slate-400">类型：</span>
+        <span class="text-gray-400">类型：</span>
         <button id="type-all"
-                class="filter-chip px-3 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px] text-slate-400 hover:border-indigo-500"
+                class="filter-chip px-3 py-1 rounded-full bg-white border border-gray-300 text-[11px] text-gray-400 hover:border-[#B01F24]"
                 data-type="all">
           全部
         </button>
         <button id="type-news"
-                class="filter-chip px-3 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px] text-indigo-300 hover:border-indigo-500"
+                class="filter-chip px-3 py-1 rounded-full bg-white border border-gray-300 text-[11px] text-[#B01F24] hover:border-[#B01F24]"
                 data-type="news">
           仅看资讯
         </button>
         <button id="type-announcement"
-                class="filter-chip px-3 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px] text-emerald-300 hover:border-emerald-500"
+                class="filter-chip px-3 py-1 rounded-full bg-white border border-gray-300 text-[11px] text-[#B01F24] hover:border-[#B01F24]"
                 data-type="announcement">
           仅看公告
         </button>
@@ -122,32 +123,32 @@
 
       <!-- 资讯分类：行业动态 / 政策流程 / 平台新闻 -->
       <div id="category-filter" class="flex flex-wrap items-center gap-2 mt-1 text-xs hidden">
-        <span class="text-slate-400">资讯分类：</span>
-        <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px]"
+        <span class="text-gray-400">资讯分类：</span>
+        <button class="filter-chip px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[11px]"
                 data-category="all">
           全部
         </button>
-        <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-sky-300"
+        <button class="filter-chip px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[11px] text-[#B01F24]"
                 data-category="industry">
           行业动态
         </button>
-        <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-emerald-300"
+        <button class="filter-chip px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[11px] text-[#B01F24]"
                 data-category="policy">
           政策流程
         </button>
-        <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-amber-300"
+        <button class="filter-chip px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[11px] text-[#B01F24]"
                 data-category="platform">
           平台新闻
         </button>
       </div>
 
       <!-- 排序（按时间） -->
-      <div class="mt-3 flex items-center justify-between text-[11px] text-slate-400">
+      <div class="mt-3 flex items-center justify-between text-[11px] text-gray-400">
         <div id="active-filter-text">当前视图：按时间倒序 · 全部类型</div>
         <div class="flex items-center gap-1">
           <span>排序：</span>
           <select id="sort-select"
-                  class="rounded-full bg-slate-900/80 border border-slate-700 px-2 py-1 text-[11px] focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                  class="rounded-full bg-white border border-gray-300 px-2 py-1 text-[11px] focus:outline-none focus:ring-1 focus:ring-[#B01F24]">
             <option value="time-desc">按时间从新到旧</option>
             <option value="read-desc">按阅读量从高到低</option>
           </select>
@@ -164,19 +165,19 @@
       </div>
 
       <!-- 分页 -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 text-xs text-slate-400 gap-2">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 text-xs text-gray-400 gap-2">
         <div>
           共 <span id="total-count">0</span> 条，当前显示
           <span id="current-range">0–0</span>
         </div>
         <div class="flex items-center gap-2">
           <button id="prev-btn"
-                  class="px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800">
+                  class="px-2.5 py-1 rounded-full bg-white border border-gray-300 hover:bg-gray-50">
             上一页
           </button>
           <span id="page-info">1 / 1</span>
           <button id="next-btn"
-                  class="px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800">
+                  class="px-2.5 py-1 rounded-full bg-white border border-gray-300 hover:bg-gray-50">
             下一页
           </button>
         </div>
@@ -185,8 +186,8 @@
   </section>
 </main>
 
-<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
-  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+<footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
     <div>© 2026 SUGON 合作伙伴赋能平台 · 资讯中心</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>
@@ -388,24 +389,24 @@
 
     pageData.forEach(article => {
       const card = document.createElement('article');
-      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-indigo-500/80 transition cursor-pointer';
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#B01F24]/80 transition cursor-pointer';
 
       // 类型标签
       const typeTag = article.type === 'news'
-        ? '<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/60 text-[10px]"><i class="fa fa-newspaper mr-1 text-[9px]"></i>资讯</span>'
-        : '<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/60 text-[10px]"><i class="fa fa-bullhorn mr-1 text-[9px]"></i>公告</span>';
+        ? '<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-[#B01F24]/10 text-[#B01F24] border border-[#B01F24]/60 text-[10px]"><i class="fa fa-newspaper mr-1 text-[9px]"></i>资讯</span>'
+        : '<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-[#B01F24]/10 text-[#B01F24] border border-[#B01F24]/60 text-[10px]"><i class="fa fa-bullhorn mr-1 text-[9px]"></i>公告</span>';
 
       // 分类标签（仅资讯）
       let categoryTag = '';
       if (article.type === 'news') {
         const cmap = {
-          industry: { text: '行业动态', cls: 'text-sky-300' },
-          policy:   { text: '政策流程', cls: 'text-emerald-300' },
-          platform: { text: '平台新闻', cls: 'text-amber-300' }
+          industry: { text: '行业动态', cls: 'text-[#B01F24]' },
+          policy:   { text: '政策流程', cls: 'text-[#B01F24]' },
+          platform: { text: '平台新闻', cls: 'text-[#B01F24]' }
         };
         const cfg = cmap[article.category];
         if (cfg) {
-          categoryTag = `<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700 text-[10px] ${cfg.cls}">${cfg.text}</span>`;
+          categoryTag = `<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] ${cfg.cls}">${cfg.text}</span>`;
         }
       }
 
@@ -426,26 +427,26 @@
             ${categoryTag}
           </div>
 
-          <h3 class="text-sm font-semibold line-clamp-2 mb-2">${article.title}</h3>
+          <h3 class="text-sm font-semibold line-clamp-2 mb-2 text-gray-800">${article.title}</h3>
 
-          <div class="space-y-1 text-xs text-slate-400 mb-2">
+          <div class="space-y-1 text-xs text-gray-400 mb-2">
             <div class="flex items-center justify-between gap-2">
               <span class="flex items-center gap-1 truncate max-w-[140px]">
-                <i class="fa fa-building text-[10px] text-slate-300"></i>
+                <i class="fa fa-building text-[10px] text-gray-300"></i>
                 ${article.source}
               </span>
               <span class="flex items-center gap-1">
-                <i class="fa fa-clock text-[10px] text-slate-300"></i>
+                <i class="fa fa-clock text-[10px] text-gray-300"></i>
                 ${formattedDate}
               </span>
             </div>
           </div>
 
-          <div class="flex items-center justify-between text-[11px] text-slate-400">
-            <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700">
-              <i class="fa fa-eye mr-1 text-[9px] text-slate-300"></i>${article.readCount}
+          <div class="flex items-center justify-between text-[11px] text-gray-400">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-white border border-gray-300">
+              <i class="fa fa-eye mr-1 text-[9px] text-gray-300"></i>${article.readCount}
             </span>
-            <span class="text-indigo-300 flex items-center gap-1">
+            <span class="text-[#B01F24] flex items-center gap-1">
               查看详情
               <i class="fa fa-arrow-right text-[9px]"></i>
             </span>

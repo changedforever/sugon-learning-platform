@@ -50,12 +50,10 @@
     <div class="flex items-center justify-between h-16">
       <!-- LOGO + 品牌 -->
       <div class="flex items-center space-x-2">
-        <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-cyan-400 flex items-center justify-center">
-          <i class="fa fa-network-wired text-white text-lg"></i>
-        </div>
+        <img src="images/logo.png" alt="SUGON Logo" class="h-14 w-14 object-contain">
         <div>
-          <div class="text-sm uppercase tracking-widest text-white">SUGON</div>
-          <div class="text-base font-semibold text-white">合作伙伴赋能平台</div>
+          <!--div class="text-xs uppercase tracking-widest text-white">SUGON</div-->
+          <div class="text-sm font-semibold text-white">合作伙伴赋能平台</div>
         </div>
       </div>
 
@@ -425,7 +423,7 @@
             <h3 class="text-sm font-semibold text-gray-800">即将开始 · 直播 / 活动</h3>
           </div>
           <a href="#" class="text-[11px] text-gray-600 hover:text-emerald-400">
-            活动日历
+            查看全部
           </a>
         </div>
         <div class="space-y-3 text-xs">
@@ -716,7 +714,7 @@
       <h4 class="text-sm font-semibold mb-1">快速链接</h4>
       <a href="#" class="block hover:text-[#B01F24]">学习中心</a>
       <a href="#" class="block hover:text-[#B01F24]">考试中心</a>
-      <a href="#" class="block hover:text-[#B01F24]">活动日历</a>
+      <!--a href="#" class="block hover:text-[#B01F24]">活动日历</a-->
       <a href="#" class="block hover:text-[#B01F24]">伙伴社区</a>
     </div>
     <!-- 资源中心 -->
@@ -797,6 +795,313 @@
     currentIndex = (currentIndex + 1) % total;
     goToSlide(currentIndex);
   }, 7000);
+</script>
+
+<!-- ================== 智能客服悬浮按钮 ================== -->
+<div id="ai-chat-btn"
+     class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white
+            flex items-center justify-center cursor-pointer shadow-xl hover:shadow-2xl transition-transform hover:scale-110 z-40"
+     title="AI 智能客服">
+  <i class="fa fa-comments text-lg"></i>
+</div>
+
+<!-- ================== 智能客服聊天侧边栏 ================== -->
+<div id="ai-chat-panel"
+     class="fixed right-0 top-0 w-full sm:w-80 h-full glass-card border-l border-gray-300 shadow-2xl
+            transform translate-x-full transition-transform duration-300 z-50"
+     style="display:none;">
+  <div class="flex flex-col h-full">
+    <!-- 头部 -->
+    <div class="flex items-center justify-between bg-white/90 border-b border-gray-300 px-3 py-2">
+      <div class="text-xs">
+        <div class="font-semibold flex items-center gap-1 text-gray-900">
+          <i class="fa fa-robot text-[#B01F24]"></i>
+          AI 智能客服
+        </div>
+        <div class="text-[11px] text-gray-700">
+          覆盖课程学习 / 考试认证 / 账号使用等常见问题
+        </div>
+      </div>
+      <button id="ai-chat-close" class="text-gray-700 hover:text-gray-900">
+        <i class="fa fa-times text-sm"></i>
+      </button>
+    </div>
+    <!-- 对话区 -->
+    <div id="chat-messages" class="flex-1 overflow-y-auto p-3 space-y-2 no-scrollbar text-xs text-gray-700">
+      <div class="flex items-start space-x-2">
+        <div class="w-7 h-7 rounded-full bg-[#B01F24]/15 flex items-center justify-center text-[#B01F24]">
+          <i class="fa fa-robot"></i>
+        </div>
+        <div class="bg-white/90 border border-gray-300 rounded-2xl px-3 py-2">
+          你好，我是 SUGON AI 客服助手。可以为你解答课程内容、考试认证和账号使用等问题，也可以配合「边看边搜」帮你查资料。
+        </div>
+      </div>
+    </div>
+    <!-- 输入区 -->
+    <div class="border-t border-gray-300 p-2">
+      <div class="flex items-center gap-2">
+        <input id="chat-input" type="text" placeholder="例如：云原生认证考试如何报名？"
+               class="flex-1 px-3 py-1.5 rounded-full bg-white/80 border border-gray-300 text-xs placeholder:text-gray-500
+                      focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
+        <button id="chat-send"
+                class="px-3 py-1.5 rounded-full bg-[#B01F24] hover:bg-gray-300 text-white text-xs font-medium">
+          发送
+        </button>
+      </div>
+      <div class="mt-1 text-[10px] text-gray-600">
+        提示：你也可以直接粘贴选中的「边看边搜」内容，让我帮你做更深入的分析。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================== 边看边搜：选中文本浮窗 ================== -->
+<div id="selection-overlay"
+     class="fixed bg-white/95 border border-gray-300 rounded-full px-2 py-0.5 text-xs text-gray-700
+            pointer-events-none opacity-0 transition-opacity duration-150 z-40">
+  <div class="flex items-center space-x-1">
+    <button class="p-1 text-[#B01F24] hover:text-white bg-transparent"    data-action="search"   title="搜索">
+      <i class="fa fa-search text-[11px]"></i>
+    </button>
+    <button class="p-1 text-[#B01F24] hover:text-white bg-transparent" data-action="copy"     title="复制">
+      <i class="fa fa-copy text-[11px]"></i>
+    </button>
+    <button class="p-1 text-[#B01F24] hover:text-white bg-transparent" data-action="translate" title="翻译">
+      <i class="fa fa-language text-[11px]"></i>
+    </button>
+    <button class="p-1 text-[#B01F24] hover:text-white bg-transparent"  data-action="read"     title="朗读">
+      <i class="fa fa-volume-high text-[11px]"></i>
+    </button>
+    <button class="p-1 text-[#B01F24] hover:text-white bg-transparent"  data-action="more"     title="更多">
+      <i class="fa fa-ellipsis text-[11px]"></i>
+    </button>
+  </div>
+</div>
+
+<!-- ================== 边看边搜：搜索弹窗 ================== -->
+<div id="search-dialog"
+     class="fixed inset-0 bg-white/80 backdrop-blur-md flex items-center justify-center px-4 hidden z-50">
+  <div class="relative glass-card rounded-3xl border border-gray-300 w-full max-w-md p-5 space-y-4">
+    <button id="search-dialog-close"
+            class="absolute right-3 top-3 text-gray-700 hover:text-gray-900">
+      <i class="fa fa-times text-sm"></i>
+    </button>
+    <h3 class="text-base md:text-lg font-semibold flex items-center gap-2 text-[#B01F24]">
+      <i class="fa fa-magnifying-glass-chart"></i>
+      边看边搜 · 智能解读
+    </h3>
+    <div class="text-xs text-gray-700">
+      已自动填写你刚才选中的文字，可直接点击「搜索」调用 AI Agent 进行智能解读和资料补充。
+    </div>
+    <textarea id="search-input"
+              rows="3"
+              class="w-full px-3 py-2 rounded-2xl bg-white/80 border border-gray-300 text-xs md:text-sm text-gray-800
+                     placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]"></textarea>
+    <div class="flex items-center justify-between text-[11px] text-gray-600">
+      <span>提示：可以用自然语言提问，例如「帮我解释一下上面的概念并给出一个案例」。</span>
+    </div>
+    <div class="flex justify-end gap-2">
+      <button id="search-btn"
+                class="px-4 py-1.5 rounded-full bg-[#B01F24] hover:bg-gray-300 text-white text-xs font-medium">
+        搜索并解读
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ================== 交互脚本 ================== -->
+<script>
+  // ---------- 智能客服：打开/关闭 ----------
+  const aiChatBtn   = document.getElementById('ai-chat-btn');
+  const aiChatPanel = document.getElementById('ai-chat-panel');
+  const aiChatClose = document.getElementById('ai-chat-close');
+  const chatMessages = document.getElementById('chat-messages');
+  const chatInput    = document.getElementById('chat-input');
+  const chatSendBtn  = document.getElementById('chat-send');
+
+  aiChatBtn.addEventListener('click', () => {
+    aiChatPanel.style.display = 'block';
+    requestAnimationFrame(() => {
+      aiChatPanel.style.transform = 'translateX(0)';
+    });
+  });
+
+  aiChatClose.addEventListener('click', () => {
+    aiChatPanel.style.transform = 'translateX(100%)';
+    setTimeout(() => {
+      aiChatPanel.style.display = 'none';
+    }, 250);
+  });
+
+  function appendChatBubble(content, role) {
+    const wrap = document.createElement('div');
+    if (role === 'user') {
+      wrap.className = 'flex items-end justify-end space-x-2';
+      wrap.innerHTML = `
+        <div class="bg-[#B01F24]/10 border border-[#B01F24]/40 px-3 py-2 rounded-2xl max-w-[80%] text-gray-800">
+          ${content}
+        </div>
+        <div class="w-7 h-7 rounded-full bg-white/60 flex items-center justify-center text-[#B01F24]">
+          <i class="fa fa-user"></i>
+        </div>`;
+    } else {
+      wrap.className = 'flex items-start space-x-2';
+      wrap.innerHTML = `
+        <div class="w-7 h-7 rounded-full bg-[#B01F24]/15 flex items-center justify-center text-[#B01F24]">
+          <i class="fa fa-robot"></i>
+        </div>
+        <div class="bg-white/90 border border-gray-300 px-3 py-2 rounded-2xl max-w-[80%] text-gray-800">
+          ${content}
+        </div>`;
+    }
+    chatMessages.appendChild(wrap);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  chatSendBtn.addEventListener('click', () => {
+    const text = chatInput.value.trim();
+    if (!text) return;
+    appendChatBubble(text, 'user');
+    chatInput.value = '';
+
+    // TODO：这里接入你的 AI Agent 接口
+    // 示例：简单回声+说明
+    setTimeout(() => {
+      appendChatBubble(
+        '我已经收到你的问题：「' + text +
+        '」。示例环境中暂未接入真实 AI 接口，正式环境可调用后端 AI Agent（例如 /api/ai/chat）返回答案。',
+        'ai');
+    }, 400);
+  });
+
+  // Enter 快捷发送
+  chatInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      chatSendBtn.click();
+    }
+  });
+
+  // ---------- 边看边搜：选中文本浮窗 ----------
+  const selectionOverlay = document.getElementById('selection-overlay');
+  let selectedText = '';
+  let overlayVisible = false;
+
+  function hideSelectionOverlay() {
+    selectionOverlay.style.opacity = '0';
+    selectionOverlay.style.pointerEvents = 'none';
+    overlayVisible = false;
+  }
+
+  document.addEventListener('mouseup', () => {
+    const sel = window.getSelection();
+    if (!sel || sel.rangeCount === 0) {
+      hideSelectionOverlay();
+      return;
+    }
+    const range = sel.getRangeAt(0);
+    const text = sel.toString().trim();
+    if (!text) {
+      hideSelectionOverlay();
+      return;
+    }
+
+    selectedText = text;
+    const rect = range.getBoundingClientRect();
+    const overlayWidth = 180;
+    const viewportWidth = window.innerWidth;
+
+    let left = rect.left + rect.width / 2 - overlayWidth / 2;
+    if (left < 8) left = 8;
+    if (left + overlayWidth > viewportWidth - 8) left = viewportWidth - overlayWidth - 8;
+    let top = rect.top - 32;
+    if (top < 8) top = rect.bottom + 8;
+
+    selectionOverlay.style.left = left + 'px';
+    selectionOverlay.style.top  = top + 'px';
+    selectionOverlay.style.width = overlayWidth + 'px';
+    selectionOverlay.style.opacity = '1';
+    selectionOverlay.style.pointerEvents = 'auto';
+    overlayVisible = true;
+  });
+
+  document.addEventListener('mousedown', (e) => {
+    // 点击页面其他地方自动隐藏浮窗（但保留再次选中文本的能力）
+    if (!selectionOverlay.contains(e.target)) {
+      hideSelectionOverlay();
+    }
+  });
+
+  // ---------- 边看边搜：浮窗按钮行为 ----------
+  const searchDialog = document.getElementById('search-dialog');
+  const searchInput  = document.getElementById('search-input');
+  const searchBtn    = document.getElementById('search-btn');
+  const searchDialogClose = document.getElementById('search-dialog-close');
+
+  selectionOverlay.addEventListener('click', (e) => {
+    const action = e.target.dataset.action || e.target.parentElement?.dataset.action;
+    if (!action) return;
+    e.stopPropagation();
+
+    if (action === 'copy') {
+      if (!selectedText) return;
+      navigator.clipboard?.writeText(selectedText)
+        .then(() => alert('已复制选中文本'))
+        .catch(() => alert('复制失败，请检查浏览器权限'));
+    }
+
+    if (action === 'translate') {
+      if (!selectedText) return;
+      alert('示例：将选中文本发送到翻译接口，返回多语言结果。');
+    }
+
+    if (action === 'read') {
+      if (!selectedText) return;
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(selectedText);
+        utterance.lang = 'zh-CN';
+        speechSynthesis.speak(utterance);
+      } else {
+        alert('当前浏览器不支持朗读功能');
+      }
+    }
+
+    if (action === 'search') {
+      if (!selectedText) return;
+      hideSelectionOverlay();
+      searchInput.value = selectedText;
+      searchDialog.classList.remove('hidden');
+    }
+
+    if (action === 'more') {
+      alert('这里可以扩展：收藏选中内容、发送到笔记、反馈问题等更多能力。');
+    }
+  });
+
+  // ---------- 搜索弹窗行为 ----------
+  searchDialogClose.addEventListener('click', () => {
+    searchDialog.classList.add('hidden');
+  });
+
+  searchBtn.addEventListener('click', () => {
+    const query = searchInput.value.trim();
+    if (!query) return;
+    searchDialog.classList.add('hidden');
+
+    // 将搜索问题同步到右侧 AI 聊天窗口，形成一体化体验
+    appendChatBubble('【边看边搜】' + query, 'user');
+
+    // 示例占位回复
+    setTimeout(() => {
+      appendChatBubble(
+        '这是对你选中文本的示例解读：\n' +
+        '1. 解释概念含义；\n' +
+        '2. 给出一个贴近 SUGON 产品/方案的应用场景；\n' +
+        '3. 推荐 1-2 门关联课程或认证路径。\n\n' +
+        '正式环境中可由后端 AI Agent（API 集成形式）返回结构化的补充资料。',
+        'ai');
+    }, 500);
+  });
 </script>
 
 </body>

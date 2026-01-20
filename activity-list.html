@@ -13,47 +13,48 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body {
-      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+      background: #FFFFFF;
     }
     .glass-card {
-      background: rgba(15,23,42,0.85);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
     }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
     .status-badge-upcoming {
-      background: rgba(56,189,248,0.12);
-      color: rgb(125,211,252);
-      border-color: rgba(56,189,248,0.5);
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+      border-color: rgba(59, 130, 246, 0.3);
     }
     .status-badge-live {
-      background: rgba(248,113,113,0.15);
-      color: rgb(252,165,165);
-      border-color: rgba(248,113,113,0.7);
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.3);
     }
     .status-badge-ended {
-      background: rgba(148,163,184,0.15);
-      color: rgb(148,163,184);
-      border-color: rgba(148,163,184,0.7);
+      background: rgba(107, 114, 128, 0.1);
+      color: #6b7280;
+      border-color: rgba(107, 114, 128, 0.3);
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-50">
+<body class="bg-white text-gray-800">
 
 <!-- 顶部导航：SUGON 品牌 -->
-<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左侧：返回首页 -->
       <div class="flex items-center space-x-3">
         <a href="index.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
-            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
+            <i class="fa fa-chevron-left text-white text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-indigo-300">
+            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
               合作伙伴赋能平台 · 活动中心
             </div>
           </div>
@@ -62,8 +63,8 @@
 
       <!-- 中间：标题 >
       <div class="hidden md:flex flex-col items-center">
-        <span class="text-[11px] text-slate-400">活动中心</span>
-        <span class="text-sm font-medium line-clamp-1 max-w-xs">
+        <span class="text-[11px] text-gray-400">活动中心</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs text-gray-800">
           活动列表
         </span>
       </div-->
@@ -71,11 +72,11 @@
       <!-- 右侧：入口 -->
       <div class="flex items-center space-x-2 text-xs">
         <a href="personal-center.html"
-           class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 hover:border-indigo-500 transition">
+           class="px-3 py-1.5 rounded-full bg-white/20 border border-white/30 hover:border-white/50 transition text-white">
           个人中心
         </a>
         <a href="#"
-           class="px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white font-medium">
+           class="px-3 py-1.5 rounded-full bg-white text-[#B01F24] font-medium">
           登录
         </a>
       </div>
@@ -98,11 +99,11 @@
       <div class="flex flex-wrap items-center gap-2 justify-end">
         <!-- 搜索框 -->
         <div class="relative">
-          <i class="fa fa-search text-slate-400 absolute left-2 top-2.5 text-xs"></i>
+          <i class="fa fa-search text-gray-400 absolute left-2 top-2.5 text-xs"></i>
           <input id="search-input"
                  type="text"
                  placeholder="搜索活动名称 / 地点"
-                 class="w-52 md:w-64 rounded-full bg-slate-900/80 border border-slate-700 pl-7 pr-3 py-1.5 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                 class="w-52 md:w-64 rounded-full bg-white border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]" />
         </div>
       </div>
     </div>
@@ -115,8 +116,8 @@
   </section>
 </main>
 
-<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
-  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+<footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
     <div>© 2026 SUGON 合作伙伴赋能平台 · 活动中心</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>
@@ -244,7 +245,7 @@
 
     list.forEach(act => {
       const card = document.createElement('article');
-      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-indigo-500/80 transition cursor-pointer';
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#B01F24]/80 transition';
 
       const isOnline = act.type === 'online';
       const statusCfg = {
@@ -259,10 +260,10 @@
         <div class="flex flex-col h-full justify-between">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="text-[11px] inline-flex items-center px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700 ${
-                isOnline ? 'text-sky-300' : 'text-emerald-300'
+              <span class="text-[11px] inline-flex items-center px-2 py-0.5 rounded-full bg-white border border-gray-300 ${
+                isOnline ? 'text-[#B01F24]' : 'text-[#B01F24]'
               }">
-                <i class="fa ${isOnline ? 'fa-wifi' : 'fa-building'} mr-1 text-[9px]"></i>
+                <i class="fa ${isOnline ? 'fa-wifi' : 'fa-building'} mr-1 text-[9px] text-[#B01F24]"></i>
                 ${isOnline ? '线上活动' : '线下活动'}
               </span>
               <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] ${statusCfg.cls}">
@@ -270,22 +271,24 @@
               </span>
             </div>
 
-            <h3 class="text-sm font-semibold line-clamp-2 mb-2">${act.title}</h3>
+            <a href="activity-detail.html?id=${act.id}" class="block">
+              <h3 class="text-sm font-semibold line-clamp-2 mb-2 text-gray-800 hover:text-[#B01F24]">${act.title}</h3>
+            </a>
 
-            <div class="space-y-1 text-xs text-slate-300 mb-2">
+            <div class="space-y-1 text-xs text-gray-600 mb-2">
               <div class="flex items-center gap-1">
-                <i class="fa fa-clock text-[10px] text-emerald-400"></i>
+                <i class="fa fa-clock text-[10px] text-[#B01F24]"></i>
                 <span>${act.datetime}</span>
               </div>
               <div class="flex items-center gap-1">
-                <i class="fa fa-location-dot text-[10px] text-sky-400"></i>
+                <i class="fa fa-location-dot text-[10px] text-[#B01F24]"></i>
                 <span class="line-clamp-1">${act.place}</span>
               </div>
             </div>
 
-            <div class="flex items-center justify-between text-[11px] text-slate-400 mt-1">
+            <div class="flex items-center justify-between text-[11px] text-gray-400 mt-1">
               <span>报名人数</span>
-              <span class="text-amber-300">
+              <span class="text-[#B01F24]">
                 <i class="fa fa-users mr-1 text-[9px]"></i>${act.attendees.toLocaleString()}
               </span>
             </div>
@@ -295,10 +298,10 @@
             <button
               class="enroll-btn px-3 py-1.5 rounded-full font-medium
                      ${act.status === 'ended'
-                        ? 'bg-slate-800 text-slate-400 border border-slate-700 cursor-not-allowed opacity-60'
+                        ? 'bg-gray-100 text-gray-400 border border-gray-300 cursor-not-allowed opacity-60'
                         : (enrolled
-                            ? 'bg-slate-900/80 text-slate-100 border border-emerald-400 hover:border-rose-400'
-                            : 'bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white hover:opacity-90')}"
+                            ? 'bg-white text-gray-700 border border-[#B01F24] hover:border-rose-400'
+                            : 'bg-[#B01F24] text-white hover:bg-[#9a1a1f]')}"
               data-id="${act.id}"
               data-status="${act.status}"
               ${act.status === 'ended' ? 'disabled' : ''}
