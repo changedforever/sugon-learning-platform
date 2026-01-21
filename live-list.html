@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>直播列表 - SUGON 合作伙伴赋能平台</title>
+  <title>直播列表 - HIECO 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -24,8 +24,8 @@
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
     .filter-chip-active {
-      border-color: #B01F24;
-      color: #B01F24;
+      border-color: #2D874B;
+      color: #2D874B;
       background: rgba(255, 255, 255, 0.9);
     }
     .status-badge-upcoming {
@@ -47,20 +47,20 @@
 </head>
 <body class="bg-white text-gray-800">
 
-<!-- 顶部导航（SUGON） -->
-<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
+<!-- 顶部导航（HIECO） -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左侧：返回首页 -->
       <div class="flex items-center space-x-3">
         <a href="index.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
-            <i class="fa fa-chevron-left text-white text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center group-hover:border-[#2D874B]">
+            <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
-              合作伙伴赋能平台 · 直播中心
+            <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
+            <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
+              光合技术支持平台 · 直播中心
             </div>
           </div>
         </a>
@@ -74,12 +74,12 @@
 
       <!-- 右侧：入口 -->
       <div class="flex items-center space-x-2 text-xs">
-        <a href="personal-center.html" class="px-3 py-1.5 rounded-full bg-white/20 border border-white/30 hover:border-white/50 transition text-white">
+        <a href="personal-center.html" class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
           个人中心
         </a>
-        <a href="#" class="px-3 py-1.5 rounded-full bg-white text-[#B01F24] font-medium">
+        <!--a href="#" class="px-3 py-1.5 rounded-full bg-white text-[#B01F24] font-medium">
           登录
-        </a>
+        </a-->
       </div>
     </div>
   </div>
@@ -92,7 +92,7 @@
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-6">
       <div>
         <h2 class="text-lg font-semibold flex items-center gap-2">
-          <span class="inline-flex h-6 w-1 rounded-full bg-[#B01F24]"></span>
+          <span class="inline-flex h-6 w-1 rounded-full bg-[#2D874B]"></span>
           直播列表
         </h2>
 
@@ -105,7 +105,7 @@
           <input id="search-input"
                  type="text"
                  placeholder="搜索直播主题 / 发布方 / 标签"
-                 class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]" />
+                 class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]" />
         </div>
       </div>
     </div>
@@ -133,7 +133,7 @@
                     data-filter="time" data-value="all">
               全部
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-emerald-600"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#B01F24]"
                     data-filter="time" data-value="today">
               今日
             </button>
@@ -166,7 +166,7 @@
                     data-filter="status" data-value="live">
               直播中
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-emerald-600"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#B01F24]"
                     data-filter="status" data-value="ended">
               已结束
             </button>
@@ -187,7 +187,7 @@
                     data-filter="category" data-value="云基础设施">
               云基础设施
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-emerald-600"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#B01F24]"
                     data-filter="category" data-value="AI与数据智能">
               AI 与数据智能
             </button>
@@ -212,7 +212,7 @@
                     data-filter="role" data-value="云架构师">
               云架构师
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-emerald-600"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#B01F24]"
                     data-filter="role" data-value="解决方案顾问">
               解决方案顾问
             </button>
@@ -233,7 +233,7 @@
                     data-filter="track" data-value="all">
               全部
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-emerald-600"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#B01F24]"
                     data-filter="track" data-value="DevOps">
               DevOps
             </button>
@@ -283,7 +283,7 @@
 <!-- 底部 -->
 <footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
   <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-600 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-    <div>© 2026 SUGON 合作伙伴赋能平台 · 直播中心</div>
+    <div>© 2026 HIECO 光合技术支持平台 · 直播中心</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>
       <span>法律声明</span>
@@ -459,7 +459,7 @@
 
     pageData.forEach(l => {
       const card = document.createElement('article');
-      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#B01F24]/80 transition cursor-pointer';
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer';
 
       const statusMap = {
         upcoming: { text: '未开始', cls: 'status-badge-upcoming' },
@@ -487,7 +487,7 @@
               <i class="fa fa-layer-group mr-1 text-[9px] text-[#B01F24]"></i>${l.category}
             </span>
             <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-white/80 border border-gray-300">
-              <i class="fa fa-user-tie mr-1 text-[9px] text-emerald-600"></i>${l.role}
+              <i class="fa fa-user-tie mr-1 text-[9px] text-[#B01F24]"></i>${l.role}
             </span>
             <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-white/80 border border-gray-300">
               <i class="fa fa-road mr-1 text-[9px] text-sky-600"></i>${l.track}
@@ -508,8 +508,8 @@
                      ${l.status === 'ended'
                         ? 'bg-gray-200 text-gray-500 border border-gray-300 cursor-not-allowed opacity-60'
                         : (isEnrolled
-                            ? 'bg-white border border-emerald-500 text-emerald-600 hover:bg-gray-50'
-                            : 'bg-[#B01F24] text-white hover:opacity-90')}"
+                            ? 'bg-white border border-[#B01F24] text-[#B01F24] hover:bg-gray-50'
+                            : 'bg-[#2D874B] text-white hover:opacity-90')}"
               data-id="${l.id}"
               data-status="${l.status}">
               ${l.status === 'ended' ? '已结束' : (isEnrolled ? '取消报名' : '报名')}

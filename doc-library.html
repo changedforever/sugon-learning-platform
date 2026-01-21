@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>技术文档库 - SUGON 合作伙伴赋能平台</title>
+  <title>技术文档库 - HIECO 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -32,18 +32,18 @@
 <body class="bg-white text-gray-800">
 
 <!-- 顶部导航 -->
-<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左侧：返回资源中心 -->
       <div class="flex items-center space-x-3">
         <a href="index.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
-            <i class="fa fa-chevron-left text-white text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center group-hover:border-[#2D874B]">
+            <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
+            <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
+            <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
               资源中心 · 技术文档库
             </div>
           </div>
@@ -61,11 +61,11 @@
       <!-- 右侧：资源中心其他入口 -->
       <div class="flex items-center space-x-2 text-xs">
         <a href="tech-tool-library.html"
-           class="px-3 py-1.5 rounded-full bg-white/20 border border-white/30 hover:border-white/50 transition text-white">
+           class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
           技术工具库
         </a>
         <a href="case-library.html"
-           class="px-3 py-1.5 rounded-full bg-white/20 border border-white/30 hover:border-white/50 transition text-white">
+           class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
           案例库
         </a>
       </div>
@@ -81,7 +81,7 @@
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
           <h1 class="text-lg md:text-xl font-semibold text-gray-800 flex items-center gap-2">
-            <span class="inline-flex h-7 w-1 rounded-full bg-[#B01F24]"></span>
+            <span class="inline-flex h-7 w-1 rounded-full bg-[#2D874B]"></span>
             技术文档库
           </h1>
           <p class="mt-2 text-xs md:text-sm text-gray-600 max-w-2xl">
@@ -108,7 +108,7 @@
 
 <footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
   <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-    <div>© 2026 SUGON 合作伙伴赋能平台 · 资源中心 · 技术文档库</div>
+    <div>© 2026 HIECO 光合技术支持平台 · 资源中心 · 技术文档库</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>
       <span>法律声明</span>
@@ -124,7 +124,7 @@
     {
       id: 1,
       title: "云原生架构设计白皮书",
-      desc: "SUGON 云原生架构设计最佳实践与方法论，涵盖微服务、服务网格、CI/CD 等核心内容。",
+      desc: "HIECO 云原生架构设计最佳实践与方法论，涵盖微服务、服务网格、CI/CD 等核心内容。",
       type: "白皮书",
       category: "技术白皮书",
       previewUrl: "https://example.com/docs/whitepaper1.pdf",
@@ -133,7 +133,7 @@
     },
     {
       id: 2,
-      title: "SUGON 云平台产品手册",
+      title: "HIECO 云平台产品手册",
       desc: "覆盖云基础设施平台主要产品的特性、配置项及典型使用场景说明。",
       type: "手册",
       category: "产品手册",
@@ -218,7 +218,7 @@
             <i class="fa fa-file text-[11px]"></i> 在线预览
           </button>
           <a href="${doc.downloadUrl}" target="_blank"
-             class="flex-1 py-2 rounded-full bg-[#B01F24] text-white text-xs font-medium hover:opacity-90 text-center">
+             class="flex-1 py-2 rounded-full bg-[#2D874B] text-white text-xs font-medium hover:opacity-90 text-center">
             <i class="fa fa-download text-[11px]"></i> 下载
           </a>
         </div>

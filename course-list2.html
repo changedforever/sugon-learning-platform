@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>培训列表 - 合作伙伴赋能平台</title>
+    <title>培训列表 - 光合技术支持平台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -32,10 +32,10 @@
             scrollbar-width: none;
         }
 
-        /* 激活筛选 Chip：B01F24 边框+文字，浅色底 */
+        /* 激活筛选 Chip：2D874B 边框+文字，浅色底 */
         .filter-chip-active {
-            border-color: rgb(176 31 36 / 1);
-            color: rgb(176 31 36);
+            border-color: rgb(45 135 75 / 1);
+            color: rgb(45 135 75);
             background: rgba(255, 255, 255, 0.9);
         }
 
@@ -50,19 +50,19 @@
 <body class="bg-white text-gray-800">
 
     <!-- 顶部导航（简版），与首页风格统一 -->
-    <header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
+    <header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
         <div class="max-w-7xl mx-auto px-4 lg:px-6">
             <div class="flex items-center justify-between h-14">
                 <!-- 左侧：返回首页 -->
                 <div class="flex items-center space-x-3">
                     <a href="index.html" class="flex items-center space-x-2 group">
-                        <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
-                            <i class="fa fa-chevron-left text-white text-xs"></i>
+                        <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center group-hover:border-[#2D874B]">
+                            <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
                         </button>
                         <div class="hidden sm:block">
-                            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
-                            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
-                                合作伙伴赋能平台 · 培训中心
+                            <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
+                            <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
+                                光合技术支持平台 · 培训中心
                             </div>
                         </div>
                     </a>
@@ -70,12 +70,12 @@
 
                 <!-- 右侧：入口 -->
                 <div class="flex items-center space-x-2 text-xs">
-                    <a href="personal-center.html" class="px-3 py-1.5 rounded-full bg-white/20 border border-white/30 hover:border-white/50 transition text-white">
+                    <a href="personal-center.html" class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
                         个人中心
                     </a>
-                    <a href="#" class="px-3 py-1.5 rounded-full bg-white text-[#B01F24] font-medium">
+                    <!-- <a href="#" class="px-3 py-1.5 rounded-full bg-[#2D874B] text-white font-medium">
                         登录
-                    </a>
+                    </a> -->
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
                 <div>
                     <h2 class="text-lg font-semibold flex items-center gap-2">
-                        <span class="inline-flex h-6 w-1 rounded-full bg-[#B01F24]"></span>
+                        <span class="inline-flex h-6 w-1 rounded-full bg-[#2D874B]"></span>
                         培训列表
                     </h2>
                 </div>
@@ -99,13 +99,13 @@
                     <div class="relative">
                         <i class="fa fa-search text-gray-500 absolute left-2 top-2.5 text-xs"></i>
                         <input id="search-input" type="text" placeholder="搜索培训名称 / 发布来源 / 标签"
-                            class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]" />
+                            class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]" />
                     </div>
                     <!-- 排序 -->
                     <div class="flex items-center gap-1 text-xs">
                         <span class="text-gray-600">排序：</span>
                         <select id="sort-select"
-                            class="rounded-full bg-white/80 border border-gray-300 px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-[#B01F24]">
+                            class="rounded-full bg-white/80 border border-gray-300 px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-[#2D874B]">
                             <option value="newest">最新</option>
                             <option value="most-popular">最热</option>
                         </select>
@@ -138,17 +138,17 @@
                                 全部
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#B01F24]"
+                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
                                 data-filter="category" data-value="云基础设施">
                                 云基础设施
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#B01F24]"
+                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
                                 data-filter="category" data-value="AI与数据智能">
                                 AI 与数据智能
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#B01F24]"
+                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#2D874B]"
                                 data-filter="category" data-value="解决方案">
                                 解决方案
                             </button>
@@ -167,17 +167,17 @@
                                 全部
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#B01F24]"
+                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#2D874B]"
                                 data-filter="role" data-value="云架构师">
                                 云架构师
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#B01F24]"
+                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#2D874B]"
                                 data-filter="role" data-value="解决方案顾问">
                                 解决方案顾问
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#B01F24]"
+                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#2D874B]"
                                 data-filter="role" data-value="销售">
                                 销售
                             </button>
@@ -196,17 +196,17 @@
                                 全部
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#B01F24]"
+                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#2D874B]"
                                 data-filter="track" data-value="DevOps">
                                 DevOps
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#B01F24]"
+                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#2D874B]"
                                 data-filter="track" data-value="AI">
                                 AI 赛道
                             </button>
                             <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#B01F24]"
+                                class="filter-chip px-2.5 py-1 rounded-full bg白/80 border border-gray-300 text-[11px] text-[#2D874B]"
                                 data-filter="track" data-value="业务运营">
                                 业务运营
                             </button>
@@ -249,7 +249,7 @@
     <footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
         <div
             class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-600 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-            <div>© 2026 合作伙伴赋能平台 · 培训中心</div>
+            <div>© 2026 光合技术支持平台 · 培训中心</div>
             <div class="flex flex-wrap gap-3">
                 <span>隐私政策</span>
                 <span>法律声明</span>
@@ -389,14 +389,14 @@
             const pageData = filteredCourses.slice(startIndex, endIndex);
             pageData.forEach(course => {
                 const card = document.createElement('article');
-                card.className = 'glass-card rounded-3xl p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#B01F24]/80 transition cursor-pointer';
+                card.className = 'glass-card rounded-3xl p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer';
 
                 card.innerHTML = `
   <!-- 顶部：来源 + 热度 -->
   <div class="flex items-center justify-between mb-2">
     <span class="text-[11px] text-gray-600 truncate max-w-[120px]">${course.source}</span>
     <span class="text-[11px] text-[#B01F24] flex items-center gap-1">
-      <i class="fa fa-fire text-[10px]"></i>
+      <i class="fa fa-fire text-[10px] text-[#B01F24]"></i>
       ${(course.learners / 1000).toFixed(1)}k 在学
     </span>
   </div>
@@ -427,18 +427,18 @@
     <!-- 标签区域，与时间/人数同级 -->
     <div class="flex flex-wrap justify-start gap-1">
       <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg白/80 border border-gray-300">
-        <i class="fa fa-layer-group mr-1 text-[9px] text-[#B01F24]"></i>${course.category}
+        <i class="fa fa-layer-group mr-1 text-[9px] text-[#2D874B]"></i>${course.category}
       </span>
       <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg白/80 border border-gray-300">
-        <i class="fa fa-user-tie mr-1 text-[9px] text-[#B01F24]"></i>${course.role}
+        <i class="fa fa-user-tie mr-1 text-[9px] text-[#2D874B]"></i>${course.role}
       </span>
       <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg白/80 border border-gray-300">
-        <i class="fa fa-road mr-1 text-[9px] text-[#B01F24]"></i>${course.track}
+        <i class="fa fa-road mr-1 text-[9px] text-[#2D874B]"></i>${course.track}
       </span>
     </div>
     <!-- 报名按钮：底色 B01F24 + 白字 -->
     <div class="flex justify-end">
-      <button class="enroll-btn px-3 py-1.5 rounded-full bg-[#B01F24] text-white text-[11px] font-medium hover:opacity-90"
+      <button class="enroll-btn px-3 py-1.5 rounded-full bg-[#2D874B] text-white text-[11px] font-medium hover:opacity-90"
               data-id="${course.id}">
         立即报名
       </button>

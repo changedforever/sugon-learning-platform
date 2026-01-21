@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>个人中心 - SUGON 合作伙伴赋能平台</title>
+  <title>个人中心 - HIECO 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -92,19 +92,19 @@
 <body class="bg-white text-gray-800">
 
 <!-- 顶部导航 -->
-<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左侧：返回首页 -->
       <div class="flex items-center space-x-3">
         <a href="index.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
-            <i class="fa fa-chevron-left text-white text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center group-hover:border-[#2D874B]">
+            <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
-              合作伙伴赋能平台 · 个人中心
+            <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
+            <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
+              光合技术支持平台 · 个人中心
             </div>
           </div>
         </a>
@@ -118,8 +118,8 @@
 
       <!-- 右侧：设置入口 -->
       <div class="flex items-center space-x-2 text-xs">
-        <button id="account-settings-btn" class="px-3 py-1.5 rounded-full bg-white/20 border border-white/30 hover:border-white/50 transition text-white">
-          <i class="fa fa-gear text-xs mr-1"></i> 账号设置
+        <button id="account-settings-btn" class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
+          <i class="fa fa-gear text-xs mr-1 text-[#2D874B]"></i> 账号设置
         </button>
       </div>
     </div>
@@ -214,16 +214,20 @@
       </article>
     </section>
 
-    <!-- Tab：我的学习 / 我的证书 / 我的直播 / 我的活动 / 我的收藏 / 消息中心 -->
+    <!-- Tab：我的任务 / 我的培训 / 我的证书 / 我的直播 / 我的活动 / 我的收藏 / 消息中心 -->
     <section class="space-y-4">
       <div class="flex flex-wrap gap-2 text-xs">
         <button class="main-tab main-tab-active px-3 py-1.5 rounded-full bg-white border border-[#B01F24]"
+                data-target="tab-tasks">
+          <i class="fa fa-tasks mr-1 text-[11px] text-[#B01F24]"></i> 我的任务
+        </button>
+        <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
                 data-target="tab-learning">
-          <i class="fa fa-book-open mr-1 text-[11px] text-[#B01F24]"></i> 我的学习
+          <i class="fa fa-book-open mr-1 text-[11px] text-[#B01F24]"></i> 我的培训
         </button>
         <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
                 data-target="tab-exams">
-          <i class="fa fa-file-pen mr-1 text-[11px] text-[#B01F24]"></i> 考试列表
+          <i class="fa fa-file-pen mr-1 text-[11px] text-[#B01F24]"></i> 我的考试
         </button>
         <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
                 data-target="tab-certificates">
@@ -242,13 +246,24 @@
           <i class="fa fa-heart mr-1 text-[11px] text-[#B01F24]"></i> 我的收藏
         </button>
         <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
+                data-target="tab-likes">
+          <i class="fa fa-thumbs-up mr-1 text-[11px] text-[#B01F24]"></i> 我的点赞
+        </button>
+        <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
                 data-target="tab-messages">
           <i class="fa fa-bell mr-1 text-[11px] text-[#B01F24]"></i> 消息中心
         </button>
       </div>
 
+      <!-- 我的任务：任务列表 -->
+      <section id="tab-tasks" class="main-panel">
+        <div id="task-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </section>
+
       <!-- 我的学习：课程列表 + 进度 -->
-      <section id="tab-learning" class="main-panel">
+      <section id="tab-learning" class="main-panel hidden">
         <div id="learning-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <!-- JS 注入 -->
         </div>
@@ -289,6 +304,13 @@
         </div>
       </section>
 
+      <!-- 我的点赞 -->
+      <section id="tab-likes" class="main-panel hidden">
+        <div id="like-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </section>
+
       <!-- 消息中心 -->
       <section id="tab-messages" class="main-panel hidden">
         <div class="flex items-center justify-between text-xs mb-2">
@@ -309,7 +331,7 @@
 
 <footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
   <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-    <div>© 2026 SUGON 合作伙伴赋能平台 · 个人中心</div>
+    <div>© 2026 HIECO 光合技术支持平台 · 个人中心</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>
       <span>法律声明</span>
@@ -454,11 +476,11 @@
 
 <script>
   // =============== 一些简单的本地存储 key ===============
-  const KEY_PROFILE = 'sugon_profile';
-  const KEY_AUTH = 'sugon_auth_verified';
-  const KEY_ASSOC = 'sugon_assoc_companies';
-  const KEY_TARGET_CERT = 'sugon_target_certs';
-  const KEY_MESSAGES = 'sugon_messages';
+  const KEY_PROFILE = 'HIECO_profile';
+  const KEY_AUTH = 'HIECO_auth_verified';
+  const KEY_ASSOC = 'HIECO_assoc_companies';
+  const KEY_TARGET_CERT = 'HIECO_target_certs';
+  const KEY_MESSAGES = 'HIECO_messages';
 
   // =============== 工具函数 ===============
   function $(id){ return document.getElementById(id); }
@@ -524,8 +546,8 @@
   // =============== 能力概览：证书 + 目标证书 ===============
   function renderAbility(){
     const got = [
-      {title:'SUGON 云架构师（Professional）', type:'已获得'},
-      {title:'SUGON AI 与数据智能（Associate）', type:'已获得'}
+      {title:'HIECO 云架构师（Professional）', type:'已获得'},
+      {title:'HIECO AI 与数据智能（Associate）', type:'已获得'}
     ];
     const targets = loadJSON(KEY_TARGET_CERT, []);
     const ul = $('ability-cert-list');
@@ -552,9 +574,9 @@
 
   function renderTargetCertOptions(){
     const candidates = [
-      'SUGON 云原生架构师（Expert）',
-      'SUGON 数据智能专家（Professional）',
-      'SUGON 解决方案顾问（高级）'
+      'HIECO 云原生架构师（Expert）',
+      'HIECO 数据智能专家（Professional）',
+      'HIECO 解决方案顾问（高级）'
     ];
     const ul = $('target-cert-list');
     ul.innerHTML = '';
@@ -581,6 +603,36 @@
 
   // =============== 学习 / 考试 / 直播 / 活动 / 收藏 / 消息 列表模拟 ===============
   function initListsAndOverview(){
+    // 我的任务
+    const tasks = [
+      {title:'新员工入职培训任务', type:'培训+考试', progress:60, status:'进行中', completed:false, deadline:'2026-02-15'},
+      {title:'云原生技术认证任务', type:'培训+考试+认证', progress:100, status:'已完成', completed:true, completeTime:'2026-01-18'},
+      {title:'AI技术沙龙直播任务', type:'直播', progress:100, status:'已完成', completed:true, completeTime:'2026-01-15'},
+      {title:'合作伙伴技术认证', type:'认证', progress:30, status:'进行中', completed:false, deadline:'2026-03-30'}
+    ];
+    const taskWrap = $('task-list');
+    taskWrap.innerHTML = '';
+    tasks.forEach(t=>{
+      const card = document.createElement('article');
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 space-y-2 hover:-translate-y-1 hover:border-[#B01F24]/80 transition';
+      card.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div class="text-sm font-medium">${t.title}</div>
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-white border border-gray-300">
+            ${t.type}
+          </span>
+        </div>
+        <div class="w-full h-1.5 rounded-full bg-gray-200 overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" style="width:${t.progress}%"></div>
+        </div>
+        <div class="flex justify-between text-[11px] text-slate-400">
+          <span>${t.completed ? '完成时间：'+t.completeTime : '截止时间：'+t.deadline}</span>
+          <span>${t.status}</span>
+        </div>
+      `;
+      taskWrap.appendChild(card);
+    });
+
     // 我的学习
     const learn = [
       {title:'云基础设施入门', progress:80, status:'进行中', completed:false},
@@ -611,9 +663,9 @@
 
     // 考试
     const exams = [
-      {title:'云架构师（Professional）认证考试', time:'2026-03-10', status:'未考试'},
-      {title:'AI 与数据智能（Associate）认证考试', time:'2025-12-15', status:'已通过'},
-      {title:'解决方案顾问（中级）考试', time:'2025-11-20', status:'未通过'}
+      {title:'HIECO 云架构师（Professional）认证考试', time:'2026-03-10', status:'未考试'},
+      {title:'HIECO AI 与数据智能（Associate）认证考试', time:'2025-12-15', status:'已通过'},
+      {title:'HIECO 解决方案顾问（中级）考试', time:'2025-11-20', status:'未通过'}
     ];
     const examWrap = $('exam-list');
     examWrap.innerHTML = '';
@@ -639,8 +691,8 @@
 
     // 我的证书
     const certs = [
-      {name:'SUGON 云架构师（Professional）', no:'SUG-2025-001', start:'2025-12-20', end:'2027-12-20'},
-      {name:'AI 与数据智能（Associate）', no:'SUG-2025-010', start:'2025-11-10', end:'2027-11-10'}
+      {name:'HIECO 云架构师（Professional）', no:'HIECO-2025-001', start:'2025-12-20', end:'2027-12-20'},
+      {name:'HIECO AI 与数据智能（Associate）', no:'HIECO-2025-010', start:'2025-11-10', end:'2027-11-10'}
     ];
     const certWrap = $('certificate-list');
     certWrap.innerHTML = '';
@@ -737,6 +789,30 @@
       favWrap.appendChild(card);
     });
 
+    // 我的点赞
+    const likes = [
+      {title:'课程：Kubernetes 入门实战', type:'课程'},
+      {title:'课程：Docker 容器化部署实战', type:'课程'},
+      {title:'课程：云原生微服务架构设计', type:'课程'},
+      {title:'课程：DevOps 自动化实践指南', type:'课程'}
+    ];
+    const likeWrap = $('like-list');
+    likeWrap.innerHTML = '';
+    likes.forEach(l=>{
+      const card = document.createElement('article');
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 space-y-2 hover:-translate-y-1 hover:border-[#B01F24]/80 transition';
+      card.innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-medium">${l.title}</span>
+          <i class="fa fa-thumbs-up text-[#B01F24] text-[10px]"></i>
+        </div>
+        <button class="w-full mt-1 py-1.5 rounded-full bg-white border border-gray-300 hover:bg-gray-100 text-[11px]">
+          进入学习
+        </button>
+      `;
+      likeWrap.appendChild(card);
+    });
+
     // 消息中心
     let msgs = loadJSON(KEY_MESSAGES, null);
     if(!msgs){
@@ -783,7 +859,7 @@
 
     $('summary-learning').textContent = learn.length;
     $('summary-cert').textContent = certs.length;
-    $('summary-todo').textContent = exams.length + acts.filter(a=>a.status!=='已结束').length;
+    $('summary-todo').textContent = exams.length + acts.filter(a=>a.status!=='已结束').length + tasks.filter(t=>!t.completed).length;
   }
 
   // =============== Tab 切换 ===============

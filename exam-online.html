@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>考试详情 - SUGON 合作伙伴赋能平台</title>
+  <title>考试详情 - HIECO 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -35,20 +35,20 @@
 </head>
 <body class="bg-white text-gray-800">
 
-<!-- 顶部导航：SUGON 品牌 -->
-<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
+<!-- HIECO 品牌 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左侧：返回考试列表 -->
       <div class="flex items-center space-x-3">
         <a href="exam-list.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
-            <i class="fa fa-chevron-left text-white text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center group-hover:border-[#2D874B]">
+            <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
-              考试中心 · 考试详情
+            <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
+            <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
+              考试中心 · 在线考试
             </div>
           </div>
         </a>
@@ -56,17 +56,20 @@
 
       <!-- 中间：考试名称 -->
       <div class="hidden md:flex flex-col items-center">
-        <span class="text-[11px] text-white/80">当前考试</span>
-        <span class="text-sm font-medium line-clamp-1 max-w-xs text-white">
+        <span class="text-[11px] text-gray-600">当前考试</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs text-gray-800">
           伙伴云架构工程师（P-Cloud Architect）认证考试
         </span>
       </div>
 
-      <!-- 右侧：报名状态（由 JS 控制隐藏/显示） -->
+      <!-- 右侧：入口 -->
       <div class="flex items-center space-x-2 text-xs">
+        <a href="personal-center.html" class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
+          个人中心
+        </a>
         <span id="header-enroll-badge"
-              class="hidden inline-flex items-center px-3 py-1 rounded-full border border-emerald-500 bg-emerald-100 text-emerald-700">
-          <i class="fa fa-check-circle mr-1 text-[11px] text-emerald-600"></i> 已报名
+              class="hidden inline-flex items-center px-3 py-1 rounded-full bg-gray-200/80 border border-gray-300 text-[#2D874B]">
+          <i class="fa fa-check-circle mr-1 text-[11px] text-[#2D874B]"></i> 已报名
         </span>
       </div>
     </div>
@@ -295,7 +298,7 @@
 <!-- 底部 -->
 <footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
   <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-600 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-    <div>© 2026 SUGON 合作伙伴赋能平台 · 考试中心</div>
+    <div>© 2026 HIECO 光合技术支持平台 · 考试中心</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>
       <span>法律声明</span>

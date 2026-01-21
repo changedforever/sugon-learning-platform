@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>案例库 - SUGON 合作伙伴赋能平台</title>
+  <title>案例库 - HIECO 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -41,18 +41,18 @@
 <body class="bg-white text-gray-800">
 
 <!-- 顶部导航 -->
-<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左：返回资源中心 -->
       <div class="flex items-center space-x-3">
         <a href="index.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
-            <i class="fa fa-chevron-left text-white text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center group-hover:border-[#2D874B]">
+            <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
+            <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
+            <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
               资源中心 · 案例库
             </div>
           </div>
@@ -70,11 +70,11 @@
       <!-- 右：其他资源入口 -->
       <div class="flex items-center space-x-2 text-xs">
         <a href="tech-tool-library.html"
-           class="px-3 py-1.5 rounded-full bg-white/20 border border-white/30 hover:border-white/50 transition text-white">
+           class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
           技术工具库
         </a>
         <a href="doc-library.html"
-           class="px-3 py-1.5 rounded-full bg-white/20 border border-white/30 hover:border-white/50 transition text-white">
+           class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
           技术文档库
         </a>
       </div>
@@ -90,11 +90,11 @@
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
           <h1 class="text-lg md:text-xl font-semibold text-gray-800 flex items-center gap-2">
-            <span class="inline-flex h-7 w-1 rounded-full bg-[#B01F24]"></span>
+            <span class="inline-flex h-7 w-1 rounded-full bg-[#2D874B]"></span>
             案例库
           </h1>
           <p class="mt-2 text-xs md:text-sm text-gray-600 max-w-2xl">
-            展示 SUGON 及合作伙伴在各行业的成功案例和项目方案集锦，按行业 / 产品 / 场景分类展示。
+            展示 HIECO 及合作伙伴在各行业的成功案例和项目方案集锦，按行业 / 产品 / 场景分类展示。
             点击案例可查看完整方案背景、架构设计、实施步骤与收益成效。
           </p>
         </div>
@@ -139,7 +139,7 @@
 
 <footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
   <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-    <div>© 2026 SUGON 合作伙伴赋能平台 · 资源中心 · 案例库</div>
+    <div>© 2026 HIECO 光合技术支持平台 · 资源中心 · 案例库</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>
       <span>法律声明</span>
@@ -155,7 +155,7 @@
     {
       id: 1,
       title: "金融行业云原生核心系统改造",
-      desc: "某头部银行基于 SUGON 云平台完成核心业务系统云原生改造，实现弹性伸缩与快速发布。",
+      desc: "某头部银行基于 HIECO 云平台完成核心业务系统云原生改造，实现弹性伸缩与快速发布。",
       industry: "金融",
       product: "云基础设施 + Kubernetes",
       scenario: "核心系统上云",
@@ -265,7 +265,7 @@
           <h3 class="text-sm font-semibold line-clamp-2 text-gray-800">${c.title}</h3>
           <p class="text-xs text-gray-600 line-clamp-2 mt-1 flex-1">${c.desc}</p>
           <a href="${c.detailUrl}"
-             class="mt-2 w-full py-1.5 rounded-full bg-[#B01F24] text-white text-xs font-medium hover:opacity-90 text-center">
+             class="mt-2 w-full py-1.5 rounded-full bg-[#2D874B] text-white text-xs font-medium hover:opacity-90 text-center">
             查看案例详情
           </a>
         </div>

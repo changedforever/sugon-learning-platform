@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>课程学习 - 合作伙伴赋能平台</title>
+  <title>课程学习 - 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -23,8 +23,8 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     .chapter-active {
-      background: rgba(176, 31, 36, 0.1);
-      border: 1px solid #B01F24;
+      background: rgba(45, 135, 75, 0.1);
+      border: 1px solid #2D874B;
     }
     .chapter-completed {
       border-left: 3px solid #22c55e;
@@ -33,7 +33,7 @@
       background: #e5e7eb;
     }
     .progress-bar-fill {
-      background: #B01F24;
+      background: #2D874B;
     }
     /* 自定义视频控件容器 */
     .video-shell {
@@ -52,18 +52,18 @@
 <body class="bg-white text-gray-800">
 
 <!-- 顶部导航：返回课程详情页 -->
-<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左侧：返回按钮 + 文案 -->
       <div class="flex items-center space-x-3">
         <a href="course-detail.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
-            <i class="fa fa-chevron-left text-white text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center group-hover:border-[#2D874B]">
+            <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
+            <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
+            <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
               课程学习 · 云原生解决方案实战 | 中级
             </div>
           </div>
@@ -72,18 +72,22 @@
 
       <!-- 中间：课程标题（简略） -->
       <div class="hidden md:flex flex-col items-center">
-        <span class="text-[11px] text-white/80">当前课程</span>
-        <span class="text-sm font-medium line-clamp-1 max-w-xs text-white">
+        <span class="text-[11px] text-gray-600">当前课程</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs text-gray-800">
           云原生解决方案实战 | 中级
         </span>
       </div>
 
       <!-- 右侧：报名状态 + 总进度 -->
       <div class="flex items-center space-x-2 text-xs">
-        <span class="inline-flex items-center px-2 py-1 rounded-full bg-white/20 text-emerald-300 text-white">
-          <i class="fa fa-check-circle mr-1 text-[11px] text-white"></i> 已报名
+        <!--a href="personal-center.html" class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
+          个人中心
+        </a-->
+        <span id="header-enroll-badge"
+              class="inline-flex items-center px-3 py-1 rounded-full bg-gray-200/80 border border-gray-300 text-[#2D874B]">
+          <i class="fa fa-check-circle mr-1 text-[11px] text-[#2D874B]"></i> 已报名
         </span>
-        <span id="course-progress-summary" class="hidden md:inline-flex items-center px-2 py-1 rounded-full bg-white/20 border border-white/30 text-[11px] text-white">
+        <span id="course-progress-summary" class="hidden md:inline-flex items-center px-2 py-1 rounded-full bg-gray-200/80 border border-gray-300 text-[11px] text-[#2D874B]">
           课程进度：0%
         </span>
       </div>
@@ -99,7 +103,7 @@
         <div class="glass-card rounded-3xl border border-gray-300 p-4">
           <div class="flex items-center justify-between mb-3">
             <h2 class="text-sm font-semibold flex items-center gap-2">
-              <span class="h-6 w-1 rounded-full bg-[#B01F24]"></span>
+              <span class="h-6 w-1 rounded-full bg-[#2D874B]"></span>
               课程目录
             </h2>
             <span class="text-[11px] text-gray-600" id="course-progress-text">进度：0%</span>
@@ -122,7 +126,7 @@
             </div>
             <div class="text-[11px] text-gray-600 flex flex-col items-end gap-1">
               <div>
-                当前章节进度：<span id="chapter-progress-value" class="text-[#B01F24]">0%</span>
+                当前章节进度：<span id="chapter-progress-value" class="text-[#2D874B]">0%</span>
               </div>
               <div class="w-40 h-1.5 rounded-full overflow-hidden progress-bar-track">
                 <div id="chapter-progress-bar" class="h-full progress-bar-fill" style="width:0%"></div>
@@ -149,7 +153,7 @@
 
 <footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
   <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-600 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-    <div>© 2026 合作伙伴赋能平台 · 在线学习中心</div>
+    <div>© 2026 光合技术支持平台 · 在线学习中心</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>
       <span>法律声明</span>
@@ -317,7 +321,7 @@
           <span>可在线预览或下载保存</span>
         </div>
         <a href="${chap.pdfUrl}" target="_blank"
-           class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/80 border border-gray-300 hover:border-[#B01F24] text-[11px]">
+           class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/80 border border-gray-300 hover:border-[#2D874B] text-[11px]">
           <i class="fa fa-download mr-1 text-[10px]"></i>下载 PDF
         </a>
       </div>
@@ -330,7 +334,7 @@
       <div class="mt-4 flex items-center justify-between text-[11px] text-gray-600">
         <span>浏览完本章节后，自动标记为已完成。</span>
         <button id="mark-complete-${chap.id}"
-                class="px-3 py-1.5 rounded-full bg-[#B01F24] text-white font-medium hover:opacity-90">
+                class="px-3 py-1.5 rounded-full bg-[#2D874B] text-white font-medium hover:opacity-90">
           本章节已学完
         </button>
       </div>
@@ -381,7 +385,7 @@
       <div class="flex items-center justify-between text-[11px] text-gray-600 mt-2">
         <span>视频播放进度会自动记录，可在「我的课程」中继续。</span>
         <button id="mark-complete-${chap.id}"
-                class="px-3 py-1.5 rounded-full bg-[#B01F24] text-white font-medium hover:opacity-90">
+                class="px-3 py-1.5 rounded-full bg-[#2D874B] text-white font-medium hover:opacity-90">
           本章节已学完
         </button>
       </div>

@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>资讯/公告详情 - SUGON 合作伙伴赋能平台</title>
+  <title>资讯/公告详情 - HIECO 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -27,18 +27,18 @@
 <body class="bg-white text-gray-800">
 
 <!-- 顶部导航 -->
-<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左：返回资讯/公告列表 -->
       <div class="flex items-center space-x-3">
         <a href="news-announcement-list.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
-            <i class="fa fa-chevron-left text-white text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center group-hover:border-[#2D874B]">
+            <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
+            <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
+            <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
               资讯中心
             </div>
           </div>
@@ -48,7 +48,7 @@
       <!-- 中：当前文章标题（简略） -->
       <div class="hidden md:flex flex-col items-center">
         <span class="text-[11px] text-gray-400">当前内容</span>
-        <span id="header-title" class="text-sm font-medium line-clamp-1 max-w-xs text-white">
+        <span id="header-title" class="text-sm font-medium line-clamp-1 max-w-xs text-[#2D874B]">
           云原生架构设计最佳实践与行业动态
         </span>
       </div>
@@ -57,13 +57,13 @@
       <div class="flex items-center space-x-2 text-xs">
         <!-- 收藏小图标 -->
         <button id="favorite-icon-btn"
-                class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center hover:border-white/50 transition"
+                class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center hover:border-[#2D874B] transition"
                 title="收藏 / 取消收藏">
-          <i class="fa-regular fa-heart text-[12px] text-white"></i>
+          <i class="fa-regular fa-heart text-[12px] text-[#2D874B]"></i>
         </button>
         <!-- 分享小图标 -->
         <button id="share-icon-btn"
-                class="h-8 w-8 rounded-full bg-[#B01F24] text-white flex items-center justify-center text-[12px] hover:opacity-90"
+                class="h-8 w-8 rounded-full bg-[#2D874B] text-white flex items-center justify-center text-[12px] hover:opacity-90"
                 title="分享">
           <i class="fa fa-share-nodes"></i>
         </button>
@@ -81,12 +81,12 @@
         <div class="flex items-center gap-2">
           <!-- 类型：资讯 or 公告 -->
           <span id="type-tag"
-                class="inline-flex items-center px-2 py-0.5 rounded-full bg-[#B01F24]/10 text-[#B01F24] border border-[#B01F24]/60">
+                class="inline-flex items-center px-2 py-0.5 rounded-full bg-[#2D874B]/10 text-[#2D874B] border border-[#2D874B]/60">
             <i class="fa fa-newspaper mr-1 text-[9px]"></i> 资讯
           </span>
           <!-- 分类：仅资讯时显示（行业动态/政策流程/平台新闻等） -->
           <span id="category-tag"
-                class="inline-flex items-center px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[#B01F24]">
+                class="inline-flex items-center px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[#2D874B]">
             行业动态
           </span>
         </div>
@@ -126,7 +126,7 @@
       <div id="article-content" class="prose max-w-none text-xs leading-6 text-gray-600">
         <p>
           随着云原生技术的快速发展，越来越多的企业开始从传统单体架构向云原生架构演进。
-          本文结合 SUGON 在政企、金融等行业的实践经验，总结出一套可复用的云原生架构设计方法论。
+          本文结合 HIECO 在政企、金融等行业的实践经验，总结出一套可复用的云原生架构设计方法论。
         </p>
 
         <h2 class="text-sm font-medium mt-4 mb-2 text-gray-800">一、云原生架构的设计原则</h2>
@@ -146,7 +146,7 @@
         <h2 class="text-sm font-medium mt-4 mb-2 text-gray-800">三、对合作伙伴的建议</h2>
         <ol class="list-decimal ml-5 space-y-1">
           <li>在项目前期就与客户共同梳理业务域与非功能性需求；</li>
-          <li>优先选择成熟的开源组件，并结合 SUGON 云平台组件进行集成；</li>
+          <li>优先选择成熟的开源组件，并结合 HIECO 云平台组件进行集成；</li>
           <li>通过培训与认证体系，构建稳定的云原生交付团队。</li>
         </ol>
 
@@ -174,7 +174,7 @@
             <span>收藏</span>
           </button>
           <button id="share-btn"
-                  class="inline-flex items-center px-3 py-1.5 rounded-full bg-[#B01F24] text-white text-sm font-medium hover:opacity-90">
+                  class="inline-flex items-center px-3 py-1.5 rounded-full bg-[#2D874B] text-white text-sm font-medium hover:opacity-90">
             <i class="fa fa-share mr-1 text-[11px]"></i>
             <span>分享</span>
           </button>
@@ -186,7 +186,7 @@
 
 <footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
   <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-    <div>© 2026 SUGON 合作伙伴赋能平台 · 资讯中心</div>
+    <div>© 2026 HIECO 光合技术支持平台 · 资讯中心</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>
       <span>法律声明</span>
@@ -201,7 +201,7 @@
   const params = new URLSearchParams(location.search);
   const articleType = params.get('type') || 'news'; // news / announcement
   const articleId = params.get('id') || '1';
-  const FAVORITE_KEY = 'sugon_favorite_article_' + articleType + '_' + articleId;
+  const FAVORITE_KEY = 'HIECO_favorite_article_' + articleType + '_' + articleId;
 
   // ===== DOM 引用 =====
   const favoriteBtn = document.getElementById('favorite-btn');

@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>资讯/公告列表 - SUGON 合作伙伴赋能平台</title>
+  <title>资讯/公告列表 - HIECO 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -33,19 +33,19 @@
 <body class="bg-white text-gray-800">
 
 <!-- 顶部导航 -->
-<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左：返回首页 -->
       <div class="flex items-center space-x-3">
         <a href="index.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
-            <i class="fa fa-chevron-left text-white text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center group-hover:border-[#2D874B]">
+            <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
-              合作伙伴赋能平台 · 资讯中心
+            <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
+            <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
+              光合技术支持平台 · 资讯中心
             </div>
           </div>
         </a>
@@ -62,13 +62,13 @@
       <!-- 右：快捷入口 -->
       <div class="flex items-center space-x-2 text-xs">
         <a href="personal-center.html"
-           class="px-3 py-1.5 rounded-full bg-white/20 border border-white/30 hover:border-white/50 transition text-white">
+           class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
           个人中心
         </a>
-        <a href="#"
+        <!--a href="#"
            class="px-3 py-1.5 rounded-full bg-white text-[#B01F24] font-medium">
           登录
-        </a>
+        </a-->
       </div>
     </div>
   </div>
@@ -110,7 +110,7 @@
           全部
         </button>
         <button id="type-news"
-                class="filter-chip px-3 py-1 rounded-full bg-white border border-gray-300 text-[11px] text-[#B01F24] hover:border-[#B01F24]"
+                class="filter-chip px-3 py-1 rounded-full bg-white border border-gray-300 text-[11px] text-[#2D874B] hover:border-[#2D874B]"
                 data-type="news">
           仅看资讯
         </button>
@@ -188,7 +188,7 @@
 
 <footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
   <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-    <div>© 2026 SUGON 合作伙伴赋能平台 · 资讯中心</div>
+    <div>© 2026 HIECO 光合技术支持平台 · 资讯中心</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>
       <span>法律声明</span>
@@ -204,7 +204,7 @@
     // 资讯
     { id: 1, type: 'news', category: 'industry', title: '云原生架构设计最佳实践与行业动态', source: '云基础设施学院', date: '2026-01-15 09:30', readCount: 1845 },
     { id: 2, type: 'news', category: 'policy', title: '2026 年云原生安全政策调整解读', source: '云安全中心', date: '2026-01-14 14:20', readCount: 1230 },
-    { id: 3, type: 'news', category: 'platform', title: 'SUGON 合作伙伴赋能平台 2.0 正式上线', source: '平台开发团队', date: '2026-01-13 16:10', readCount: 1987 },
+    { id: 3, type: 'news', category: 'platform', title: 'HIECO 光合技术支持平台 2.0 正式上线', source: '平台开发团队', date: '2026-01-13 16:10', readCount: 1987 },
     { id: 4, type: 'news', category: 'industry', title: 'AI 与数据智能生态合作新趋势', source: 'AI 与数据智能学院', date: '2026-01-12 10:45', readCount: 1560 },
     { id: 5, type: 'news', category: 'platform', title: '新增「直播中心」与「活动中心」能力说明', source: '平台运营团队', date: '2025-12-30 09:15', readCount: 980 },
 
@@ -393,16 +393,16 @@
 
       // 类型标签
       const typeTag = article.type === 'news'
-        ? '<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-[#B01F24]/10 text-[#B01F24] border border-[#B01F24]/60 text-[10px]"><i class="fa fa-newspaper mr-1 text-[9px]"></i>资讯</span>'
+        ? '<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-[#2D874B]/10 text-[#2D874B] border border-[#2D874B]/60 text-[10px]"><i class="fa fa-newspaper mr-1 text-[9px]"></i>资讯</span>'
         : '<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-[#B01F24]/10 text-[#B01F24] border border-[#B01F24]/60 text-[10px]"><i class="fa fa-bullhorn mr-1 text-[9px]"></i>公告</span>';
 
       // 分类标签（仅资讯）
       let categoryTag = '';
       if (article.type === 'news') {
         const cmap = {
-          industry: { text: '行业动态', cls: 'text-[#B01F24]' },
-          policy:   { text: '政策流程', cls: 'text-[#B01F24]' },
-          platform: { text: '平台新闻', cls: 'text-[#B01F24]' }
+          industry: { text: '行业动态', cls: 'text-[#2D874B]' },
+          policy:   { text: '政策流程', cls: 'text-[#2D874B]' },
+          platform: { text: '平台新闻', cls: 'text-[#2D874B]' }
         };
         const cfg = cmap[article.category];
         if (cfg) {
@@ -446,7 +446,7 @@
             <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-white border border-gray-300">
               <i class="fa fa-eye mr-1 text-[9px] text-gray-300"></i>${article.readCount}
             </span>
-            <span class="text-[#B01F24] flex items-center gap-1">
+            <span class="text-blue-500 flex items-center gap-1">
               查看详情
               <i class="fa fa-arrow-right text-[9px]"></i>
             </span>

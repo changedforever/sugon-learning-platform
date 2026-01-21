@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>讲师详情 - SUGON 合作伙伴赋能平台</title>
+  <title>讲师详情 - HIECO 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -35,19 +35,19 @@
 </head>
 <body class="bg-white text-gray-800">
 
-<!-- 顶部导航：SUGON 品牌 -->
-<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
+<!-- 顶部导航：HIECO 品牌 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左侧：返回讲师列表 -->
       <div class="flex items-center space-x-3">
         <a href="lecturer-list.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
-            <i class="fa fa-chevron-left text-white text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center group-hover:border-[#2D874B]">
+            <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
+            <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
+            <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
               讲师中心 · 讲师详情
             </div>
           </div>
@@ -56,8 +56,8 @@
 
       <!-- 中间：讲师姓名 -->
       <div class="hidden md:flex flex-col items-center">
-        <span class="text-[11px] text-white/80">当前讲师</span>
-        <span class="text-sm font-medium line-clamp-1 max-w-xs text-white">
+        <span class="text-[11px] text-gray-600">当前讲师</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs text-[#2D874B]">
           张伟明（云计算专家）
         </span>
       </div>
@@ -68,6 +68,10 @@
               class="hidden inline-flex items-center px-3 py-1 rounded-full border border-emerald-500 bg-emerald-100 text-emerald-700">
           <i class="fa fa-check-circle mr-1 text-[11px] text-emerald-600"></i> 已关注
         </span>
+        <button id="header-follow-btn"
+                class="hidden px-3 py-1.5 rounded-full bg-[#2D874B] text-white font-medium text-sm">
+          <i class="fa fa-plus mr-1 text-[11px]"></i> 关注
+        </button>
       </div>
     </div>
   </div>
@@ -95,10 +99,12 @@
               <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-700">
                 云计算 · 高级
               </span>
+              <!--
               <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-700">
                 <i class="fa fa-users mr-1 text-[10px] text-amber-600"></i>
                 2,456 人已关注
               </span>
+              -->
             </div>
             <h1 class="text-xl md:text-2xl font-bold text-white z-10">
               张伟明
@@ -124,10 +130,12 @@
           <div class="text-2xl font-bold text-[#B01F24]">2,456</div>
           <div class="text-xs text-gray-600 mt-1">观看人次</div>
         </div>
+        <!--
         <div class="text-center">
           <div class="text-2xl font-bold text-[#B01F24]">4.9</div>
           <div class="text-xs text-gray-600 mt-1">学员评分</div>
         </div>
+        -->
       </div>
 
       <!-- 讲师简介 -->
@@ -242,7 +250,7 @@
       <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5">
         <div class="text-center">
           <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&facepad=3&w=120&h=120&q=80" 
-               alt="讲师头像" class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-lg mx-auto">
+               alt="讲师头像" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mx-auto">
           <h2 class="text-lg font-semibold mt-3 text-gray-800">张伟明</h2>
           <p class="text-sm text-gray-600">资深云计算架构师</p>
           
@@ -253,6 +261,7 @@
             <span class="text-[10px] px-2 py-1 rounded-full bg-amber-100 text-amber-700">容器技术</span>
           </div>
 
+          <!-- 
           <div class="mt-4 space-y-2">
             <button id="follow-btn"
                     class="w-full py-2.5 rounded-xl bg-[#B01F24] text-white text-sm font-medium hover:opacity-90">
@@ -264,10 +273,12 @@
               发送私信
             </button>
           </div>
+          -->
         </div>
       </article>
 
-      <!-- 讲师成就 -->
+      <!--
+      讲师成就
       <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5">
         <h3 class="font-semibold text-gray-800 mb-3 flex items-center">
           <i class="fa fa-trophy text-amber-500 mr-2"></i>
@@ -276,7 +287,7 @@
         <div class="space-y-3 text-sm">
           <div class="flex items-center">
             <i class="fa fa-check-circle text-emerald-500 mr-2 text-sm"></i>
-            <span class="text-gray-700">SUGON 金牌讲师</span>
+            <span class="text-gray-700">HIECO 金牌讲师</span>
           </div>
           <div class="flex items-center">
             <i class="fa fa-check-circle text-emerald-500 mr-2 text-sm"></i>
@@ -296,8 +307,10 @@
           </div>
         </div>
       </article>
+      -->
 
       <!-- 学员评价 -->
+      <!--
       <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5">
         <h3 class="font-semibold text-gray-800 mb-3 flex items-center">
           <i class="fa fa-star text-yellow-500 mr-2"></i>
@@ -338,12 +351,14 @@
           </div>
         </div>
       </article>
+      -->
     </div>
   </section>
 </main>
 
 <script>
   // 关注按钮功能
+  /*
   document.getElementById('follow-btn').addEventListener('click', function() {
     const isFollowing = this.innerHTML.includes('取消关注');
     
@@ -363,6 +378,7 @@
       document.getElementById('header-follow-badge').classList.remove('hidden');
     }
   });
+  */
 
   // 课程卡片点击事件
   const courseCards = document.querySelectorAll('.flex.items-center.p-3.rounded-2xl.border');
