@@ -107,6 +107,16 @@
                  placeholder="搜索直播主题 / 发布方 / 标签"
                  class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]" />
         </div>
+        
+        <!-- 排序 -->
+        <div class="flex items-center gap-1 text-xs">
+          <span class="text-gray-600">排序：</span>
+          <select id="sort-select"
+                  class="rounded-full bg-white/80 border border-gray-300 px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-[#2D874B]">
+            <option value="newest">最新</option>
+            <option value="most-popular">最热</option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -324,6 +334,7 @@
   };
 
   const searchInput = document.getElementById('search-input');
+  const sortSelect = document.getElementById('sort-select');
   const liveList = document.getElementById('live-list');
   const totalCountEl = document.getElementById('total-count');
   const currentRangeEl = document.getElementById('current-range');
@@ -365,6 +376,11 @@
   // 搜索
   searchInput.addEventListener('input', () => {
     filters.search = searchInput.value.trim().toLowerCase();
+    applyFiltersAndRender();
+  });
+
+  // 排序
+  sortSelect.addEventListener('change', () => {
     applyFiltersAndRender();
   });
 
@@ -429,8 +445,15 @@
       return mt && ms && mc && mr && mk && mkw;
     });
 
-    // 按时间倒序（最近的靠前）
-    filteredLives.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // 排序逻辑
+    const sortBy = sortSelect.value;
+    if (sortBy === 'newest') {
+      // 最新：按时间倒序（最近的靠前）
+      filteredLives.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else if (sortBy === 'most-popular') {
+      // 最热：按报名人数倒序
+      filteredLives.sort((a, b) => b.attendees - a.attendees);
+    }
 
     currentPage = 1;
     updateFilterText();

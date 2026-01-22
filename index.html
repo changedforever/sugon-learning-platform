@@ -40,6 +40,65 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+    
+    /* 导航下拉浮窗样式 */
+    .nav-dropdown-menu {
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+    }
+    .group:hover .nav-dropdown-menu {
+      transform: translateY(0);
+    }
+    
+    .nav-submenu {
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+    }
+    .group:hover .nav-submenu {
+      transform: translateX(0);
+    }
+    
+    /* 防止下拉浮窗闪烁 */
+    .nav-dropdown:hover .nav-dropdown-menu {
+      pointer-events: auto;
+    }
+    .nav-dropdown-menu {
+      pointer-events: none;
+    }
+    .nav-dropdown-menu * {
+      pointer-events: auto;
+    }
+    
+    /* 优化banner视觉效果 */
+    .banner-card {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    /* 增强banner遮罩效果 */
+    .banner-slide::after {
+      background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 30%, rgba(255,255,255,0.3) 70%, rgba(255,255,255,0.1) 100%);
+    }
+    
+    /* 个人信息模块悬浮效果 */
+    .user-info-card {
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border: none;
+    }
+    
+    /* 响应式调整 */
+    @media (max-width: 1024px) {
+      .user-info-card {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: 100%;
+        margin-top: 1rem;
+      }
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -68,7 +127,7 @@
           />
           <i class="fa fa-search text-gray-500 absolute left-3 top-2.5 text-sm"></i>
           <a href="search-results.html"
-             class="absolute right-1.5 top-1.5 text-xs px-3 py-1 rounded-full bg-[#2D874B] hover:bg-gray-300 transition text-white">
+             class="absolute right-1.5 top-1.5 text-xs px-3 py-1 rounded-full bg-[#4B8CF5] hover:bg-gray-300 transition text-white">
             搜索
           </a>
         </div>
@@ -76,10 +135,203 @@
 
       <!-- 右侧：导航入口（桌面端） -->
       <nav class="hidden md:flex items-center space-x-3 text-sm">
-        <a href="course-list2.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">培训</a>
-        <a href="exam-list.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">考试</a>
-        <a href="live-list.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">直播</a>
-        <a href="certification.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">认证</a>
+        <!-- 培训 - 带下拉浮窗 -->
+        <div class="nav-dropdown relative group">
+          <a href="course-list2.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1">
+            培训
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
+          </a>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-96 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="grid grid-cols-3 gap-4">
+                <!-- 第一级分类 -->
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">技术领域</h3>
+                  <div class="space-y-1">
+                    <div class="nav-item group/item relative">
+                      <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] flex items-center justify-between">
+                        云基础设施
+                        <i class="fa fa-chevron-right text-[10px] opacity-0 group-hover/item:opacity-100"></i>
+                      </a>
+                      <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
+                        <div class="p-3">
+                          <h4 class="text-xs font-semibold text-gray-800 mb-2">云基础设施</h4>
+                          <div class="grid grid-cols-2 gap-2">
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">云计算基础</a>
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">容器技术</a>
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">Kubernetes</a>
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">服务网格</a>
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">DevOps</a>
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">云安全</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="nav-item group/item relative">
+                      <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] flex items-center justify-between">
+                        AI与数据智能
+                        <i class="fa fa-chevron-right text-[10px] opacity-0 group-hover/item:opacity-100"></i>
+                      </a>
+                      <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
+                        <div class="p-3">
+                          <h4 class="text-xs font-semibold text-gray-800 mb-2">AI与数据智能</h4>
+                          <div class="grid grid-cols-2 gap-2">
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">机器学习</a>
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">深度学习</a>
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">自然语言处理</a>
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">计算机视觉</a>
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">数据分析</a>
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">大数据平台</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="nav-item group/item relative">
+                      <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] flex items-center justify-between">
+                        解决方案
+                        <i class="fa fa-chevron-right text-[10px] opacity-0 group-hover/item:opacity-100"></i>
+                      </a>
+                      <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
+                        <div class="p-3">
+                          <h4 class="text-xs font-semibold text-gray-800 mb-2">解决方案</h4>
+                          <div class="grid grid-cols-2 gap-2">
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">售前咨询</a>
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">架构设计</a>
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">项目管理</a>
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">实施交付</a>
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">运维支持</a>
+                            <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">客户成功</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 第二级分类 -->
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">认证级别</h3>
+                  <div class="space-y-1">
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">初级认证</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">中级认证</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">高级认证</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">专家认证</a>
+                  </div>
+                </div>
+                
+                <!-- 第三级分类 -->
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">学习形式</h3>
+                  <div class="space-y-1">
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">在线课程</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">直播课程</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">面授培训</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">实战项目</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">认证培训</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 考试 - 带下拉浮窗 -->
+        <div class="nav-dropdown relative group">
+          <a href="exam-list.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1">
+            考试
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
+          </a>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">考试类型</h3>
+                  <div class="space-y-1">
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">资格认证考试</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">技能水平考试</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">岗位能力考试</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">产品认证考试</a>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">考试形式</h3>
+                  <div class="space-y-1">
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">在线考试</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">线下考试</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">实操考试</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">理论考试</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 直播 - 带下拉浮窗 -->
+        <div class="nav-dropdown relative group">
+          <a href="live-list.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1">
+            直播
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
+          </a>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">直播状态</h3>
+                  <div class="space-y-1">
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">未开始</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">直播中</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">已结束</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">可预约</a>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">直播类型</h3>
+                  <div class="space-y-1">
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">技术分享</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">产品发布</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">案例解析</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">专家访谈</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 认证 - 带下拉浮窗 -->
+        <div class="nav-dropdown relative group">
+          <a href="certification.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1">
+            认证
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
+          </a>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">认证类型</h3>
+                  <div class="space-y-1">
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">通用计算认证</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">智能计算认证</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">行业解决方案认证</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">专业技术认证</a>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">认证级别</h3>
+                  <div class="space-y-1">
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">初级认证</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">中级认证</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">高级认证</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">专家认证</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 其他导航项（无下拉） -->
         <a href="#" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">论坛</a>
         <a href="tech-tool-library.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">资源</a>
         <a href="news-announcement-list.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">资讯</a>
@@ -112,7 +364,7 @@
           />
           <i class="fa fa-search text-gray-500 absolute left-3 top-2.5 text-xs"></i>
           <button
-            class="absolute right-1 top-1 text-[11px] px-2 py-1 rounded-full bg-[#2D874B] hover:bg-gray-300 transition text-white">
+            class="absolute right-1 top-1 text-[11px] px-2 py-1 rounded-full bg-[#4B8CF5] hover:bg-gray-300 transition text-white">
             搜索
           </button>
         </div>
@@ -135,11 +387,10 @@
   <!-- 门户 Banner 轮播 和 个人信息 水平布局 -->
   <section class="relative bg-white">
     <div class="max-w-7xl mx-auto px-4 lg:px-6">
-      <div class="grid lg:grid-cols-3 gap-5">
-        <!-- Banner 区域 -->
-        <div class="lg:col-span-2">
-          <div class="relative overflow-hidden rounded-3xl border border-gray-300 bg-white h-full">
-            <div id="bannerTrack" class="flex transition-transform duration-700 ease-in-out">
+      <div class="relative">
+        <!-- Banner 区域 - 通铺显示 -->
+        <div class="relative overflow-hidden rounded-3xl border border-gray-300 bg-white h-96 lg:h-[420px]">
+          <div id="bannerTrack" class="flex transition-transform duration-700 ease-in-out h-full">
 
               <!-- Banner 1：平台核心价值 -->
               <div class="banner-slide flex-shrink-0 w-full">
@@ -160,7 +411,7 @@
                       </p>
                       <div class="flex flex-wrap gap-3">
                         <a href="#personal-section"
-                           class="inline-flex items-center px-4 py-2 rounded-full bg-[#2D874B] hover:bg-gray-300 text-sm font-medium text-white">
+                           class="inline-flex items-center px-4 py-2 rounded-full bg-[#4B8CF5] hover:bg-gray-300 text-sm font-medium text-white">
                           进入培训中心
                           <i class="fa fa-arrow-right ml-2 text-xs"></i>
                         </a>
@@ -178,8 +429,8 @@
               <div class="banner-slide flex-shrink-0 w-full">
                 <div class="banner-card bg-cover bg-center"
                      style="background-image:url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1600&q=80');">
-                  <div class="relative z-10 h-full flex items-center justify-end">
-                    <div class="px-6 lg:px-10 max-w-xl text-right ml-auto space-y-4">
+                  <div class="relative z-10 h-full flex items-center">
+                    <div class="px-6 lg:px-10 max-w-xl space-y-4">
                       <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/80 border border-gray-300 text-xs text-gray-600">
                         <i class="fa fa-graduation-cap text-[#2D874B] mr-2"></i> 重点课程推荐
                       </span>
@@ -191,8 +442,8 @@
                         联合专家团队打造覆盖售前、实施、运维、运营的系统课程，
                         包含真实项目案例和实验环境，快速提升项目交付与解决方案能力。
                       </p>
-                      <div class="flex flex-wrap justify-end gap-3">
-                        <a href="#" class="inline-flex items-center px-4 py-2 rounded-full bg-[#2D874B] hover:bg-gray-300 text-sm font-medium text-white">
+                      <div class="flex flex-wrap gap-3">
+                        <a href="#" class="inline-flex items-center px-4 py-2 rounded-full bg-[#4B8CF5] hover:bg-gray-300 text-sm font-medium text-white">
                           查看课程详情
                         </a>
                         <a href="#college-section"
@@ -224,7 +475,7 @@
                       </p>
                       <div class="flex flex-wrap gap-3">
                         <a href="live-streaming.html"
-                           class="inline-flex items-center px-4 py-2 rounded-full bg-[#2D874B] hover:bg-gray-300 text-sm font-medium text-white">
+                           class="inline-flex items-center px-4 py-2 rounded-full bg-[#4B8CF5] hover:bg-gray-300 text-sm font-medium text-white">
                           点击观看直播
                           <i class="fa fa-play ml-2 text-xs"></i>
                         </a>
@@ -257,7 +508,7 @@
                       </p>
                       <div class="flex flex-wrap gap-3">
                         <a href="#cert-section"
-                           class="inline-flex items-center px-4 py-2 rounded-full bg-[#2D874B] hover:bg-gray-300 text-sm font-medium text-white">
+                           class="inline-flex items-center px-4 py-2 rounded-full bg-[#4B8CF5] hover:bg-gray-300 text-sm font-medium text-white">
                           报名认证考试
                         </a>
                         <a href="#" class="inline-flex items-center px-4 py-2 rounded-full bg-white/80 border border-gray-300 text-sm hover:border-[#2D874B]">
@@ -278,13 +529,19 @@
               <button class="banner-dot w-2.5 h-2.5 rounded-full bg-gray-600/70 hover:bg-white" data-index="2"></button>
               <button class="banner-dot w-2.5 h-2.5 rounded-full bg-gray-600/70 hover:bg-white" data-index="3"></button>
             </div>
+            
+            <!-- Banner 导航点 -->
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+              <button class="banner-dot w-2.5 h-2.5 rounded-full bg-white/80 hover:bg-white transition" data-index="0"></button>
+              <button class="banner-dot w-2.5 h-2.5 rounded-full bg-gray-600/70 hover:bg-white" data-index="1"></button>
+              <button class="banner-dot w-2.5 h-2.5 rounded-full bg-gray-600/70 hover:bg-white" data-index="2"></button>
+              <button class="banner-dot w-2.5 h-2.5 rounded-full bg-gray-600/70 hover:bg-white" data-index="3"></button>
+            </div>
           </div>
-        </div>
-        
-        <!-- 个人信息模块（移到 banner 右侧） -->
-        <div class="lg:col-span-1">
-          <div class="glass-card rounded-3xl border border-gray-300 p-5 space-y-4 h-full flex flex-col">
-            <div class="flex items-center space-x-4">
+          
+          <!-- 个人信息模块 - 悬浮在banner右侧 -->
+          <div class="absolute top-1/2 right-6 z-20 w-80 user-info-card rounded-3xl p-5 space-y-4 transform -translate-y-1/2">
+              <div class="flex items-center space-x-4">
               <div class="relative">
                 <img
                   src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80"
@@ -308,34 +565,34 @@
             </div>
 
             <!-- 数据总览 -->
-            <div class="grid grid-cols-2 gap-3 text-xs mt-2 flex-1">
-              <div class="rounded-2xl bg-white/70 border border-gray-300 px-3 py-2">
-                <div class="flex items-center justify-between mb-1">
+            <div class="grid grid-cols-2 gap-2 text-xs mt-2 flex-1">
+              <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                <div class="flex items-center justify-between mb-0.5">
                   <span class="text-gray-600">已修课程</span>
-                  <i class="fa fa-book-open text-indigo-400"></i>
+                  <i class="fa fa-book-open text-indigo-400 text-[10px]"></i>
                 </div>
-                <div class="text-lg font-semibold">18</div>
+                <div class="text-sm font-semibold">18</div>
               </div>
-              <div class="rounded-2xl bg-white/70 border border-gray-300 px-3 py-2">
-                <div class="flex items-center justify-between mb-1">
+              <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                <div class="flex items-center justify-between mb-0.5">
                   <span class="text-gray-600">直播回放</span>
-                  <i class="fa fa-video text-sky-400"></i>
+                  <i class="fa fa-video text-sky-400 text-[10px]"></i>
                 </div>
-                <div class="text-lg font-semibold">7</div>
+                <div class="text-sm font-semibold">7</div>
               </div>
-              <div class="rounded-2xl bg-white/70 border border-gray-300 px-3 py-2">
-                <div class="flex items-center justify-between mb-1">
-                  <span class="text-gray-600">参加考试</span>
-                  <i class="fa fa-users text-amber-400"></i>
+              <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                <div class="flex items-center justify-between mb-0.5">
+                  <span class="text-gray-600">我的任务</span>
+                  <i class="fa fa-users text-amber-400 text-[10px]"></i>
                 </div>
-                <div class="text-lg font-semibold">5</div>
+                <div class="text-sm font-semibold">5</div>
               </div>
-              <div class="rounded-2xl bg-white/70 border border-gray-300 px-3 py-2">
-                <div class="flex items-center justify-between mb-1">
+              <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                <div class="flex items-center justify-between mb-0.5">
                   <span class="text-gray-600">有效证书</span>
-                  <i class="fa fa-certificate text-[#2D874B]"></i>
+                  <i class="fa fa-certificate text-[#2D874B] text-[10px]"></i>
                 </div>
-                <div class="text-lg font-semibold">3</div>
+                <div class="text-sm font-semibold">3</div>
               </div>
             </div>
 
@@ -343,7 +600,7 @@
             <div class="flex gap-3 pt-1">
               <!-- 按钮底色为 B01F24，字体统一使用白色 -->
               <a href="personal-center.html"
-                 class="flex-1 inline-flex items-center justify-center px-3 py-2 rounded-2xl bg-[#2D874B] hover:bg-gray-300 text-xs font-medium text-white">
+                 class="flex-1 inline-flex items-center justify-center px-3 py-2 rounded-2xl bg-[#4B8CF5] hover:bg-gray-300 text-xs font-medium text-white">
                 <i class="fa fa-layer-group mr-1.5 text-[11px]"></i> 个人中心
               </a>
               <!-- 该按钮背景为白色，不属于 B01F24 场景，仅保持原浅色样式 -->
@@ -354,6 +611,93 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 热门认证 -->
+  <section id="cert-section" class="mt-10 lg:mt-12">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center space-x-2">
+          <div class="h-7 w-1 rounded-full bg-[#2D874B]"></div>
+          <h2 class="text-lg font-semibold text-gray-800">热门认证</h2>
+        </div>
+        <a href="certification.html" class="text-xs text-gray-600 hover:text-[#2D874B] flex items-center">
+          查看更多
+          <i class="fa fa-chevron-right ml-1 text-[10px]"></i>
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-4">
+        <!-- 认证卡片 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col justify-between">
+          <div class="space-y-2">
+            <div class="inline-flex items-center px-2 py-1 rounded-full bg-[#2D874B]/10 border border-[#2D874B]/60 text-[11px] text-[#2D874B]">
+              <i class="fa fa-certificate mr-1 text-[10px]"></i> 技术方向
+            </div>
+            <h3 class="text-sm font-semibold text-gray-800">伙伴云架构工程师（P-Cloud Architect）</h3>
+            <p class="text-xs text-gray-600">
+              面向云架构设计与实施人员，覆盖多云架构、混合云、容灾与高可用等能力认证。
+            </p>
+          </div>
+          <div class="mt-3 flex items-center justify-between text-[11px] text-gray-600">
+            <span><i class="fa fa-clock mr-1"></i> 考试时长：90 分钟</span>
+            <span class="text-[#2D874B]">报名中</span>
+          </div>
+        </a>
+
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col justify-between">
+          <div class="space-y-2">
+            <div class="inline-flex items-center px-2 py-1 rounded-full bg-indigo-500/10 border border-indigo-400/60 text-[11px] text-indigo-300">
+              售前方向
+            </div>
+            <h3 class="text-sm font-semibold text-gray-800">伙伴解决方案专家（P-Solution Expert）</h3>
+            <p class="text-xs text-gray-600">
+              关注行业解决方案、标书与方案撰写、演示与 POC 设计等核心售前能力。
+            </p>
+          </div>
+          <div class="mt-3 flex items-center justify-between text-[11px] text-gray-600">
+            <span><i class="fa fa-clock mr-1"></i> 考试时长：120 分钟</span>
+            <span class="text-[#2D874B]">预约中</span>
+          </div>
+        </a>
+
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col justify-between">
+          <div class="space-y-2">
+            <div class="inline-flex items-center px-2 py-1 rounded-full bg-amber-500/10 border border-amber-400/60 text-[11px] text-amber-300">
+              运营方向
+            </div>
+            <h3 class="text-sm font-semibold text-gray-800">伙伴业务运营经理（P-Biz Ops）</h3>
+            <p class="text-xs text-gray-600">
+              面向渠道运营与项目运营人员，涵盖伙伴分级、激励政策与项目管理等内容。
+            </p>
+          </div>
+          <div class="mt-3 flex items-center justify-between text-[11px] text-gray-600">
+            <span><i class="fa fa-clock mr-1"></i> 考试时长：60 分钟</span>
+            <span class="text-[#2D874B]">报名中</span>
+          </div>
+        </a>
+
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col justify-between">
+          <div class="space-y-2">
+            <div class="inline-flex items-center px-2 py-1 rounded-full bg-pink-500/10 border border-pink-400/60 text-[11px] text-pink-300">
+              综合方向
+            </div>
+            <h3 class="text-sm font-semibold text-gray-800">生态技术领袖（P-Eco Leader）</h3>
+            <p class="text-xs text-gray-600">
+              对生态技术、业务、运营能力进行综合评估的高级认证，适合资深合伙人。
+            </p>
+          </div>
+          <div class="mt-3 flex items-center justify-between text-[11px] text-gray-600">
+            <span><i class="fa fa-clock mr-1"></i> 审核制</span>
+            <span class="text-gray-600">邀请制</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -405,6 +749,77 @@
             面向高级技术顾问与架构师，采用在线笔试+案例评审双重考核形式。
           </p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 领域专区 -->
+  <section id="college-section" class="mt-10 lg:mt-12">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center space-x-2">
+          <div class="h-7 w-1 rounded-full bg-sky-500"></div>
+          <h2 class="text-lg font-semibold text-gray-800">领域专区</h2>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- 领域卡片示例 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-sky-500/80 hover:-translate-y-0.5 transition">
+          <div class="flex items-center justify-between mb-2">
+            <div class="h-9 w-9 rounded-2xl bg-sky-500/10 flex items-center justify-center text-sky-400">
+              <i class="fa fa-cloud"></i>
+            </div>
+            <span class="text-[11px] text-gray-600">课程 24 · 认证 3</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-1 text-gray-800">云基础设施学院</h3>
+          <p class="text-xs text-gray-600">
+            聚焦 IaaS / PaaS / 容器 / 云原生等基础设施能力提升，覆盖从架构设计到运维管理全流程。
+          </p>
+        </a>
+
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-indigo-500/80 hover:-translate-y-0.5 transition">
+          <div class="flex items-center justify-between mb-2">
+            <div class="h-9 w-9 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400">
+              <i class="fa fa-brain"></i>
+            </div>
+            <span class="text-[11px] text-gray-600">课程 18 · 认证 2</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-1 text-gray-800">AI 与数据智能学院</h3>
+          <p class="text-xs text-gray-600">
+            覆盖数据分析、机器学习、AIGC 应用及行业场景，支持 Notebook 与实验环境一键开启。
+          </p>
+        </a>
+
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition">
+          <div class="flex items-center justify-between mb-2">
+            <div class="h-9 w-9 rounded-2xl bg-[#2D874B]/10 flex items-center justify-center text-[#2D874B]">
+              <i class="fa fa-handshake"></i>
+            </div>
+            <span class="text-[11px] text-gray-600">课程 16 · 认证 1</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-1 text-gray-800">解决方案与售前学院</h3>
+          <p class="text-xs text-gray-600">
+            针对售前顾问与方案架构师，聚焦行业方案、标书编写、演示技巧和 POC 设计。
+          </p>
+        </a>
+
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-amber-500/80 hover:-translate-y-0.5 transition">
+          <div class="flex items-center justify-between mb-2">
+            <div class="h-9 w-9 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-400">
+              <i class="fa fa-chart-line"></i>
+            </div>
+            <span class="text-[11px] text-gray-600">课程 12 · 认证 2</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-1 text-gray-800">伙伴业务与运营学院</h3>
+          <p class="text-xs text-gray-600">
+            面向业务负责人与运营人员，涵盖渠道运营、联合营销、增长策略与项目管理。
+          </p>
+        </a>
       </div>
     </div>
   </section>
@@ -957,76 +1372,7 @@
     </div>
   </section>
 
-  <!-- 学院模块 -->
-  <section id="college-section" class="mt-10 lg:mt-12">
-    <div class="max-w-7xl mx-auto px-4 lg:px-6">
-      <div class="flex items-center justify-between mb-4">
-        <div class="flex items-center space-x-2">
-          <div class="h-7 w-1 rounded-full bg-sky-500"></div>
-          <h2 class="text-lg font-semibold text-gray-800">学院专区</h2>
-        </div>
-      </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- 学院卡片示例 -->
-        <a href="#"
-           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-sky-500/80 hover:-translate-y-0.5 transition">
-          <div class="flex items-center justify-between mb-2">
-            <div class="h-9 w-9 rounded-2xl bg-sky-500/10 flex items-center justify-center text-sky-400">
-              <i class="fa fa-cloud"></i>
-            </div>
-            <span class="text-[11px] text-gray-600">课程 24 · 认证 3</span>
-          </div>
-          <h3 class="text-sm font-semibold mb-1 text-gray-800">云基础设施学院</h3>
-          <p class="text-xs text-gray-600">
-            聚焦 IaaS / PaaS / 容器 / 云原生等基础设施能力提升，覆盖从架构设计到运维管理全流程。
-          </p>
-        </a>
-
-        <a href="#"
-           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-indigo-500/80 hover:-translate-y-0.5 transition">
-          <div class="flex items-center justify-between mb-2">
-            <div class="h-9 w-9 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400">
-              <i class="fa fa-brain"></i>
-            </div>
-            <span class="text-[11px] text-gray-600">课程 18 · 认证 2</span>
-          </div>
-          <h3 class="text-sm font-semibold mb-1 text-gray-800">AI 与数据智能学院</h3>
-          <p class="text-xs text-gray-600">
-            覆盖数据分析、机器学习、AIGC 应用及行业场景，支持 Notebook 与实验环境一键开启。
-          </p>
-        </a>
-
-        <a href="#"
-           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition">
-          <div class="flex items-center justify-between mb-2">
-            <div class="h-9 w-9 rounded-2xl bg-[#2D874B]/10 flex items-center justify-center text-[#2D874B]">
-              <i class="fa fa-handshake"></i>
-            </div>
-            <span class="text-[11px] text-gray-600">课程 16 · 认证 1</span>
-          </div>
-          <h3 class="text-sm font-semibold mb-1 text-gray-800">解决方案与售前学院</h3>
-          <p class="text-xs text-gray-600">
-            针对售前顾问与方案架构师，聚焦行业方案、标书编写、演示技巧和 POC 设计。
-          </p>
-        </a>
-
-        <a href="#"
-           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-amber-500/80 hover:-translate-y-0.5 transition">
-          <div class="flex items-center justify-between mb-2">
-            <div class="h-9 w-9 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-400">
-              <i class="fa fa-chart-line"></i>
-            </div>
-            <span class="text-[11px] text-gray-600">课程 12 · 认证 2</span>
-          </div>
-          <h3 class="text-sm font-semibold mb-1 text-gray-800">伙伴业务与运营学院</h3>
-          <p class="text-xs text-gray-600">
-            面向业务负责人与运营人员，涵盖渠道运营、联合营销、增长策略与项目管理。
-          </p>
-        </a>
-      </div>
-    </div>
-  </section>
 
   <!-- 专区模块 -->
   <section class="mt-10 lg:mt-12">
@@ -1098,92 +1444,7 @@
     </div>
   </section>
 
-  <!-- 认证模块 -->
-  <section id="cert-section" class="mt-10 lg:mt-12 mb-10 lg:mb-16">
-    <div class="max-w-7xl mx-auto px-4 lg:px-6">
-      <div class="flex items-center justify-between mb-4">
-        <div class="flex items-center space-x-2">
-          <div class="h-7 w-1 rounded-full bg-[#2D874B]"></div>
-          <h2 class="text-lg font-semibold text-gray-800">热门认证</h2>
-        </div>
-        <a href="certification.html" class="text-xs text-gray-600 hover:text-[#2D874B] flex items-center">
-          查看更多
-          <i class="fa fa-chevron-right ml-1 text-[10px]"></i>
-        </a>
-      </div>
 
-      <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-4">
-        <!-- 认证卡片 -->
-        <a href="#"
-           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col justify-between">
-          <div class="space-y-2">
-            <div class="inline-flex items-center px-2 py-1 rounded-full bg-[#2D874B]/10 border border-[#2D874B]/60 text-[11px] text-[#2D874B]">
-              <i class="fa fa-certificate mr-1 text-[10px]"></i> 技术方向
-            </div>
-            <h3 class="text-sm font-semibold text-gray-800">伙伴云架构工程师（P-Cloud Architect）</h3>
-            <p class="text-xs text-gray-600">
-              面向云架构设计与实施人员，覆盖多云架构、混合云、容灾与高可用等能力认证。
-            </p>
-          </div>
-          <div class="mt-3 flex items-center justify-between text-[11px] text-gray-600">
-            <span><i class="fa fa-clock mr-1"></i> 考试时长：90 分钟</span>
-            <span class="text-[#2D874B]">报名中</span>
-          </div>
-        </a>
-
-        <a href="#"
-           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col justify-between">
-          <div class="space-y-2">
-            <div class="inline-flex items-center px-2 py-1 rounded-full bg-indigo-500/10 border border-indigo-400/60 text-[11px] text-indigo-300">
-              售前方向
-            </div>
-            <h3 class="text-sm font-semibold text-gray-800">伙伴解决方案专家（P-Solution Expert）</h3>
-            <p class="text-xs text-gray-600">
-              关注行业解决方案、标书与方案撰写、演示与 POC 设计等核心售前能力。
-            </p>
-          </div>
-          <div class="mt-3 flex items-center justify-between text-[11px] text-gray-600">
-            <span><i class="fa fa-clock mr-1"></i> 考试时长：120 分钟</span>
-            <span class="text-[#2D874B]">预约中</span>
-          </div>
-        </a>
-
-        <a href="#"
-           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col justify-between">
-          <div class="space-y-2">
-            <div class="inline-flex items-center px-2 py-1 rounded-full bg-amber-500/10 border border-amber-400/60 text-[11px] text-amber-300">
-              运营方向
-            </div>
-            <h3 class="text-sm font-semibold text-gray-800">伙伴业务运营经理（P-Biz Ops）</h3>
-            <p class="text-xs text-gray-600">
-              面向渠道运营与项目运营人员，涵盖伙伴分级、激励政策与项目管理等内容。
-            </p>
-          </div>
-          <div class="mt-3 flex items-center justify-between text-[11px] text-gray-600">
-            <span><i class="fa fa-clock mr-1"></i> 考试时长：60 分钟</span>
-            <span class="text-[#2D874B]">报名中</span>
-          </div>
-        </a>
-
-        <a href="#"
-           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col justify-between">
-          <div class="space-y-2">
-            <div class="inline-flex items-center px-2 py-1 rounded-full bg-pink-500/10 border border-pink-400/60 text-[11px] text-pink-300">
-              综合方向
-            </div>
-            <h3 class="text-sm font-semibold text-gray-800">生态技术领袖（P-Eco Leader）</h3>
-            <p class="text-xs text-gray-600">
-              对生态技术、业务、运营能力进行综合评估的高级认证，适合资深合伙人。
-            </p>
-          </div>
-          <div class="mt-3 flex items-center justify-between text-[11px] text-gray-600">
-            <span><i class="fa fa-clock mr-1"></i> 审核制</span>
-            <span class="text-gray-600">邀请制</span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
   
   <!-- 生态伙伴入口 -->
   <section class="mt-10 lg:mt-12 mb-8">
@@ -1341,12 +1602,23 @@
   }, 7000);
 </script>
 
-<!-- ================== 智能体悬浮按钮 ================== -->
-<div id="ai-chat-btn"
-     class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white
-            flex items-center justify-center cursor-pointer shadow-xl hover:shadow-2xl transition-transform hover:scale-110 z-40"
-     title="AI 智能体">
-  <i class="fa fa-comments text-lg"></i>
+<!-- ================== 悬浮按钮组 ================== -->
+<div class="fixed bottom-6 right-6 flex flex-col gap-3 z-40">
+  <!-- 智能体悬浮按钮 -->
+  <div id="ai-chat-btn"
+       class="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white
+              flex items-center justify-center cursor-pointer shadow-xl hover:shadow-2xl transition-transform hover:scale-110"
+       title="AI 智能体">
+    <i class="fa fa-comments text-lg"></i>
+  </div>
+
+  <!-- 专家在线支持按钮 -->
+  <div id="expert-support-btn"
+       class="w-12 h-12 rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-red-400 text-white
+              flex items-center justify-center cursor-pointer shadow-xl hover:shadow-2xl transition-transform hover:scale-110"
+       title="专家在线支持">
+    <i class="fa fa-headset text-lg"></i>
+  </div>
 </div>
 
 <!-- ================== 智能体聊天侧边栏 ================== -->

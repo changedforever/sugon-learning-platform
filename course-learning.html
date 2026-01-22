@@ -97,16 +97,20 @@
 
 <main class="pt-16 lg:pt-20 pb-10">
   <section class="max-w-7xl mx-auto px-4 lg:px-6">
-    <div class="grid lg:grid-cols-3 gap-6 items-start">
+    <div class="grid lg:grid-cols-5 gap-6 items-start">
       <!-- 左侧：章节目录 -->
-      <aside class="lg:col-span-1 space-y-3">
+      <aside id="sidebar" class="lg:col-span-1 space-y-3 transition-all duration-300 relative">
+        <!-- 切换按钮 -->
+        <button id="toggle-sidebar" class="absolute -right-3 top-4 z-10 w-6 h-6 rounded-full bg-white border border-gray-300 flex items-center justify-center text-gray-500 hover:text-gray-700 hover:border-gray-400 transition shadow-sm">
+          <i class="fa fa-chevron-left text-xs"></i>
+        </button>
+        
         <div class="glass-card rounded-3xl border border-gray-300 p-4">
           <div class="flex items-center justify-between mb-3">
             <h2 class="text-sm font-semibold flex items-center gap-2">
               <span class="h-6 w-1 rounded-full bg-[#2D874B]"></span>
               课程目录
             </h2>
-            <span class="text-[11px] text-gray-600" id="course-progress-text">进度：0%</span>
           </div>
 
           <div id="chapter-list" class="space-y-2 text-xs max-h-[560px] overflow-y-auto no-scrollbar">
@@ -116,7 +120,7 @@
       </aside>
 
       <!-- 右侧：学习内容 -->
-      <section class="lg:col-span-2 glass-card rounded-3xl border border-gray-300 p-4 md:p-6">
+      <section id="content-area" class="lg:col-span-4 glass-card rounded-3xl border border-gray-300 p-4 md:p-6 transition-all duration-300">
         <!-- 顶部：当前章节标题 + 类型 + 单章进度 -->
         <div id="chapter-header" class="mb-4 hidden">
           <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
@@ -382,13 +386,13 @@
           </div>
         </div>
       </div>
-      <div class="flex items-center justify-between text-[11px] text-gray-600 mt-2">
+      <!--div class="flex items-center justify-between text-[11px] text-gray-600 mt-2">
         <span>视频播放进度会自动记录，可在「我的课程」中继续。</span>
         <button id="mark-complete-${chap.id}"
                 class="px-3 py-1.5 rounded-full bg-[#2D874B] text-white font-medium hover:opacity-90">
           本章节已学完
         </button>
-      </div>
+      </div-->
     `;
     container.appendChild(wrapper);
 
@@ -464,7 +468,7 @@
     });
 
     // 手动标记完成
-    markBtn.addEventListener('click', () => {
+    markBtn && markBtn.addEventListener('click', () => {
       setChapterProgress(chap.id, 100);
       renderChapterContent(chap);
     });
@@ -492,6 +496,42 @@
     if (btn) btn.classList.add('chapter-active');
     renderChapterContent(firstWithProgress);
   }
+
+  // ====== 5. 目录收起展开功能 ======
+  const sidebar = document.getElementById('sidebar');
+  const contentArea = document.getElementById('content-area');
+  const toggleBtn = document.getElementById('toggle-sidebar');
+  
+  let isSidebarCollapsed = false;
+
+  // 切换目录状态
+  function toggleSidebar() {
+    isSidebarCollapsed = !isSidebarCollapsed;
+    
+    if (isSidebarCollapsed) {
+      // 收起目录
+      sidebar.classList.add('hidden');
+      contentArea.classList.remove('lg:col-span-4');
+      contentArea.classList.add('lg:col-span-5');
+      toggleBtn.innerHTML = '<i class="fa fa-chevron-right text-xs"></i>';
+      toggleBtn.classList.add('-left-3');
+      toggleBtn.classList.remove('left-0');
+    } else {
+      // 展开目录
+      sidebar.classList.remove('hidden');
+      contentArea.classList.remove('lg:col-span-5');
+      contentArea.classList.add('lg:col-span-4');
+      toggleBtn.innerHTML = '<i class="fa fa-chevron-left text-xs"></i>';
+      toggleBtn.classList.remove('-left-3');
+      toggleBtn.classList.add('left-0');
+    }
+  }
+
+  // 绑定点击事件
+  toggleBtn.addEventListener('click', toggleSidebar);
+
+  // 默认展开目录
+  isSidebarCollapsed = false;
 </script>
 
 </body>

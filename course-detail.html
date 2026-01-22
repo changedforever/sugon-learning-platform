@@ -25,8 +25,8 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     .tab-active {
-      border-color: #B01F24;
-      background: #B01F24;
+      border-color: #2D874B;
+      background: #2D874B;
       color: #FFFFFF;
     }
     .review-card {
@@ -85,6 +85,13 @@
 
             <!-- 封面文案 -->
             <div class="absolute inset-0 flex flex-col justify-center px-5 md:px-8 lg:px-10 space-y-3 z-10">
+              
+              <!-- 点赞按钮 -->
+              <div class="absolute top-4 right-4 z-20">
+                <button id="like-btn" class="flex items-center justify-center w-8 h-8 rounded-full bg-white/90 border border-gray-300 text-[#B01F24] hover:border-[#B01F24] hover:bg-[#B01F24]/5 transition">
+                  <i class="fa fa-thumbs-up text-sm"></i>
+                </button>
+              </div>
               <div class="flex flex-wrap items-center gap-2">
                 <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-white/85 border border-gray-300 text-[11px] text-[#B01F24]">
                   <i class="fa fa-cloud mr-1 text-[10px]"></i> 云基础设施学院
@@ -181,7 +188,7 @@
         <div class="space-y-2 pt-1">
           <!-- 未报名态：显示「立即报名」 -->
           <button id="enroll-btn"
-                  class="w-full py-2.5 rounded-xl bg-[#B01F24] text-white text-sm font-medium hover:opacity-90 transition flex items-center justify-center gap-2">
+                  class="w-full py-2.5 rounded-xl bg-[#2D874B] text-white text-sm font-medium hover:opacity-90 transition flex items-center justify-center gap-2">
             <i class="fa fa-play-circle text-[15px]"></i>
             立即报名 · 开始学习
           </button>
@@ -190,7 +197,7 @@
           <button id="start-learning-btn"
                   class="hidden w-full py-2.5 rounded-xl bg-emerald-500 text-white text-sm font-medium hover:bg-emerald-400 transition flex items-center justify-center gap-2">
             <i class="fa fa-circle-play text-[15px]"></i>
-            立即学习
+            进入学习
           </button>
 
           <button id="cancel-enroll-btn"
@@ -206,6 +213,37 @@
       </aside>
     </div>
 
+    <!-- ================= 讲师介绍 ================= -->
+    <section class="mt-8">
+      <div class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5">
+        <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2 text-gray-800">
+          <i class="fa fa-user-tie mr-1 text-[#2D874B]"></i> 讲师介绍
+        </h2>
+        <div class="flex items-start gap-3 mb-3">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=80&q=80"
+               class="h-12 w-12 rounded-full object-cover border border-gray-300" alt="讲师">
+          <div class="flex-1 text-xs text-gray-600">
+            <div class="font-medium text-gray-800">王云</div>
+            <div class="text-gray-500">首席云架构师 · 云基础设施学院</div>
+            <p class="mt-1 leading-snug text-gray-600">
+              拥有 10 年云原生项目经验，主导多家头部企业云原生转型项目，对 Kubernetes、服务网格和 DevOps 实践有深入研究。
+              曾参与多个国家级云原生标准制定，具备丰富的实战经验和理论体系。
+            </p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2 text-[11px]">
+          <a href="lecturer-detail.html" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#2D874B] hover:border-[#2D874B]">
+            <i class="fa fa-id-badge mr-1 text-[9px]"></i> 查看讲师主页
+          </a>
+          <a href="#" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#2D874B] hover:border-[#2D874B]">
+            <i class="fa fa-video mr-1 text-[9px]"></i> 查看讲师更多课程
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+
     <!-- 下部：Tab 区域：课程介绍 / 课程目录 / 课程评价 / 课程信息 -->
     <section class="mt-8">
       <!-- Tab 切换 -->
@@ -214,15 +252,15 @@
                 data-target="tab-intro">
           课程介绍
         </button>
-        <button class="tab-btn px-3 py-1.5 rounded-full bg-white/90 border border-gray-300 text-[#B01F24]"
+        <button class="tab-btn px-3 py-1.5 rounded-full bg-white/90 border border-gray-300 text-[#2D874B]"
                 data-target="tab-catalog">
           课程目录
         </button>
-        <button class="tab-btn px-3 py-1.5 rounded-full bg-white/90 border border-gray-300 text-[#B01F24]"
+        <button class="tab-btn px-3 py-1.5 rounded-full bg-white/90 border border-gray-300 text-[#2D874B]"
                 data-target="tab-review">
           课程评价
         </button>
-        <button class="tab-btn px-3 py-1.5 rounded-full bg-white/90 border border-gray-300 text-[#B01F24]"
+        <button class="tab-btn px-3 py-1.5 rounded-full bg-white/90 border border-gray-300 text-[#2D874B]"
                 data-target="tab-info">
           课程信息
         </button>
@@ -440,6 +478,127 @@
         </div>
       </div>
     </section>
+
+    <!-- ================= 推荐课程 ================= -->
+    <section class="mt-12 bg-gray-50 py-8">
+      <div class="max-w-7xl mx-auto px-4 lg:px-6">
+        <h2 class="text-xl font-semibold mb-6 flex items-center gap-2 justify-center">
+          <i class="fa fa-graduation-cap text-[#2D874B]"></i>
+          推荐课程
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- 推荐课程 1 -->
+          <article class="glass-card rounded-3xl border border-gray-300 p-5 hover:-translate-y-1 hover:border-[#2D874B]/80 transition">
+            <div class="flex items-center justify-between mb-3">
+              <span class="inline-flex items-center px-2 py-1 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-800 text-xs">
+                初级认证
+              </span>
+              <span class="text-[11px] text-gray-500">云计算</span>
+            </div>
+            
+            <h3 class="text-sm font-semibold text-gray-800 mb-2">云计算基础与容器入门</h3>
+            <p class="text-xs text-gray-600 mb-3">掌握云计算基础概念和容器技术入门知识</p>
+            
+            <div class="flex items-center justify-between text-[11px] text-gray-500 mb-3">
+              <span><i class="fa fa-clock mr-1"></i>1个月</span>
+              <span><i class="fa fa-file-alt mr-1"></i>线上考试</span>
+            </div>
+            
+            <div class="flex gap-2">
+              <a href="course-detail.html" class="flex-1 px-3 py-1.5 rounded-full bg-white border border-gray-300 hover:border-[#2D874B] text-xs transition text-center">
+                <i class="fa fa-eye mr-1"></i>查看详情
+              </a>
+              <a href="task-detail.html" class="flex-1 px-3 py-1.5 rounded-full bg-[#2D874B] text-white text-xs hover:bg-[#24703a] transition text-center">
+                <i class="fa fa-play mr-1"></i>开始学习
+              </a>
+            </div>
+          </article>
+          
+          <!-- 推荐课程 2 -->
+          <article class="glass-card rounded-3xl border border-gray-300 p-5 hover:-translate-y-1 hover:border-[#2D874B]/80 transition">
+            <div class="flex items-center justify-between mb-3">
+              <span class="inline-flex items-center px-2 py-1 rounded-full bg-blue-100 border border-blue-300 text-blue-800 text-xs">
+                高级认证
+              </span>
+              <span class="text-[11px] text-gray-500">云原生</span>
+            </div>
+            
+            <h3 class="text-sm font-semibold text-gray-800 mb-2">云原生高级架构设计</h3>
+            <p class="text-xs text-gray-600 mb-3">深入掌握云原生高级架构设计和优化技术</p>
+            
+            <div class="flex items-center justify-between text-[11px] text-gray-500 mb-3">
+              <span><i class="fa fa-clock mr-1"></i>3个月</span>
+              <span><i class="fa fa-file-alt mr-1"></i>项目评审</span>
+            </div>
+            
+            <div class="flex gap-2">
+              <a href="course-detail.html" class="flex-1 px-3 py-1.5 rounded-full bg-white border border-gray-300 hover:border-[#2D874B] text-xs transition text-center">
+                <i class="fa fa-eye mr-1"></i>查看详情
+              </a>
+              <a href="task-detail.html" class="flex-1 px-3 py-1.5 rounded-full bg-[#2D874B] text-white text-xs hover:bg-[#24703a] transition text-center">
+                <i class="fa fa-play mr-1"></i>开始学习
+              </a>
+            </div>
+          </article>
+          
+          <!-- 推荐课程 3 -->
+          <article class="glass-card rounded-3xl border border-gray-300 p-5 hover:-translate-y-1 hover:border-[#2D874B]/80 transition">
+            <div class="flex items-center justify-between mb-3">
+              <span class="inline-flex items-center px-2 py-1 rounded-full bg-purple-100 border border-purple-300 text-purple-800 text-xs">
+                专家认证
+              </span>
+              <span class="text-[11px] text-gray-500">AI</span>
+            </div>
+            
+            <h3 class="text-sm font-semibold text-gray-800 mb-2">AI 基础算法与工程实践</h3>
+            <p class="text-xs text-gray-600 mb-3">掌握人工智能基础算法和工程实践技能</p>
+            
+            <div class="flex items-center justify-between text-[11px] text-gray-500 mb-3">
+              <span><i class="fa fa-clock mr-1"></i>2个月</span>
+              <span><i class="fa fa-file-alt mr-1"></i>线上+实践</span>
+            </div>
+            
+            <div class="flex gap-2">
+              <a href="course-detail.html" class="flex-1 px-3 py-1.5 rounded-full bg-white border border-gray-300 hover:border-[#2D874B] text-xs transition text-center">
+                <i class="fa fa-eye mr-1"></i>查看详情
+              </a>
+              <a href="task-detail.html" class="flex-1 px-3 py-1.5 rounded-full bg-[#2D874B] text-white text-xs hover:bg-[#24703a] transition text-center">
+                <i class="fa fa-play mr-1"></i>开始学习
+              </a>
+            </div>
+          </article>
+          
+          <!-- 推荐课程 4 -->
+          <article class="glass-card rounded-3xl border border-gray-300 p-5 hover:-translate-y-1 hover:border-[#2D874B]/80 transition">
+            <div class="flex items-center justify-between mb-3">
+              <span class="inline-flex items-center px-2 py-1 rounded-full bg-orange-100 border border-orange-300 text-orange-800 text-xs">
+                中级认证
+              </span>
+              <span class="text-[11px] text-gray-500">大数据</span>
+            </div>
+            
+            <h3 class="text-sm font-semibold text-gray-800 mb-2">大数据平台架构与运维</h3>
+            <p class="text-xs text-gray-600 mb-3">掌握大数据平台架构设计和运维管理技能</p>
+            
+            <div class="flex items-center justify-between text-[11px] text-gray-500 mb-3">
+              <span><i class="fa fa-clock mr-1"></i>2.5个月</span>
+              <span><i class="fa fa-file-alt mr-1"></i>实操考核</span>
+            </div>
+            
+            <div class="flex gap-2">
+              <a href="course-detail.html" class="flex-1 px-3 py-1.5 rounded-full bg-white border border-gray-300 hover:border-[#2D874B] text-xs transition text-center">
+                <i class="fa fa-eye mr-1"></i>查看详情
+              </a>
+              <a href="task-detail.html" class="flex-1 px-3 py-1.5 rounded-full bg-[#2D874B] text-white text-xs hover:bg-[#24703a] transition text-center">
+                <i class="fa fa-play mr-1"></i>开始学习
+              </a>
+            </div>
+          </article>
+          
+        </div>
+      </div>
+    </section>
   </section>
 </main>
 
@@ -457,6 +616,72 @@
 
 <!-- 交互脚本：Tab 切换 + 报名/取消报名 + 进入学习 -->
 <script>
+  // ---- 点赞按钮逻辑 ----
+  const likeBtn = document.getElementById('like-btn');
+  const likeIcon = likeBtn.querySelector('i');
+  const LIKE_STORAGE_KEY = 'partner_liked_courses';
+    const COURSE_ID = 'course-cloud-native-001';
+  
+  function getLikedCourses() {
+    try {
+      const val = localStorage.getItem(LIKE_STORAGE_KEY);
+      return val ? JSON.parse(val) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+  
+  function setLikedCourses(list) {
+    localStorage.setItem(LIKE_STORAGE_KEY, JSON.stringify(list));
+  }
+  
+  function isLiked() {
+    const list = getLikedCourses();
+    return list.includes(COURSE_ID);
+  }
+  
+  function updateLikeUI() {
+    const liked = isLiked();
+    if (liked) {
+      likeIcon.classList.remove('fa-thumbs-up');
+      likeIcon.classList.add('fa-thumbs-up', 'text-[#B01F24]');
+      likeBtn.classList.add('bg-[#B01F24]/10', 'border-[#B01F24]');
+    } else {
+      likeIcon.classList.remove('fa-thumbs-up');
+      likeIcon.classList.add('fa-thumbs-up');
+      likeBtn.classList.remove('bg-[#B01F24]/10', 'border-[#B01F24]');
+      likeBtn.classList.add('border-gray-300');
+    }
+  }
+  
+  // 初始化点赞状态
+  updateLikeUI();
+  
+  // 点击点赞按钮
+  likeBtn.addEventListener('click', () => {
+    let list = getLikedCourses();
+    const liked = isLiked();
+    
+    if (liked) {
+      // 取消点赞
+      list = list.filter(id => id !== COURSE_ID);
+      likeIcon.classList.remove('fa-thumbs-up');
+      likeIcon.classList.add('fa-thumbs-up');
+      likeBtn.classList.remove('bg-[#B01F24]/10', 'border-[#B01F24]');
+      likeBtn.classList.add('border-gray-300');
+    } else {
+      // 点赞
+      if (!list.includes(COURSE_ID)) {
+        list.push(COURSE_ID);
+      }
+      likeIcon.classList.remove('fa-thumbs-up');
+      likeIcon.classList.add('fa-thumbs-up', 'text-[#B01F24]');
+      likeBtn.classList.add('bg-[#B01F24]/10', 'border-[#B01F24]');
+    }
+    
+    setLikedCourses(list);
+  });
+
   // ---- Tab 逻辑 ----
   const tabButtons = document.querySelectorAll('.tab-btn');
   const tabPanels = document.querySelectorAll('.tab-panel');
@@ -475,74 +700,112 @@
   });
 
   // ---- 报名 / 取消报名 / 进入学习 逻辑 ----
-  const enrollBtn = document.getElementById('enroll-btn');
-  const startLearningBtn = document.getElementById('start-learning-btn');
-  const cancelEnrollBtn = document.getElementById('cancel-enroll-btn');
-  const enrollTip = document.getElementById('enroll-tip');
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM加载完成，开始初始化报名逻辑');
+    
+    const enrollBtn = document.getElementById('enroll-btn');
+    const startLearningBtn = document.getElementById('start-learning-btn');
+    const cancelEnrollBtn = document.getElementById('cancel-enroll-btn');
+    const enrollTip = document.getElementById('enroll-tip');
 
-  // 假设当前课程 ID（实际使用时替换为真实 ID）
-  const COURSE_ID = 'course-cloud-native-001';
-  const STORAGE_KEY = 'partner_enrolled_courses';
-
-  function getEnrolledCourses() {
-    try {
-      const val = localStorage.getItem(STORAGE_KEY);
-      return val ? JSON.parse(val) : [];
-    } catch (e) {
-      return [];
+    // 检查元素是否存在
+    if (!enrollBtn || !startLearningBtn || !cancelEnrollBtn || !enrollTip) {
+      console.error('按钮元素未找到');
+      return;
     }
-  }
 
-  function setEnrolledCourses(list) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-  }
+    console.log('所有按钮元素已找到');
 
-  function isEnrolled() {
-    const list = getEnrolledCourses();
-    return list.includes(COURSE_ID);
-  }
+    // 假设当前课程 ID
+    // const COURSE_ID = 'course-cloud-native-001';
+    const STORAGE_KEY = 'partner_enrolled_courses';
 
-  function updateEnrollUI() {
-    const enrolled = isEnrolled();
-    if (enrolled) {
-      enrollBtn.classList.add('hidden');
-      startLearningBtn.classList.remove('hidden');
-      cancelEnrollBtn.classList.remove('hidden');
-      enrollTip.textContent = '已报名，该课程已同步到你的学习中心，可随时继续学习。';
-    } else {
-      enrollBtn.classList.remove('hidden');
-      startLearningBtn.classList.add('hidden');
-      cancelEnrollBtn.classList.add('hidden');
-      enrollTip.textContent = '报名即刻解锁全部课时与实验环境，学习进度将同步到你的「学习中心」。';
+    // 检查是否已报名
+    function isEnrolled() {
+      try {
+        const enrolledCourses = localStorage.getItem(STORAGE_KEY);
+        if (enrolledCourses) {
+          const courses = JSON.parse(enrolledCourses);
+          return courses.includes(COURSE_ID);
+        }
+      } catch (e) {
+        console.error('读取localStorage出错:', e);
+      }
+      return false;
     }
-  }
 
-  // 初始化 UI
-  updateEnrollUI();
-
-  // 点击「立即报名」
-  enrollBtn.addEventListener('click', () => {
-    const list = getEnrolledCourses();
-    if (!list.includes(COURSE_ID)) {
-      list.push(COURSE_ID);
-      setEnrolledCourses(list);
+    // 更新UI显示状态
+    function updateEnrollUI() {
+      const enrolled = isEnrolled();
+      console.log('更新UI，报名状态:', enrolled);
+      
+      if (enrolled) {
+        // 已报名状态：显示进入学习和取消报名按钮
+        enrollBtn.style.display = 'none';
+        startLearningBtn.style.display = 'flex';
+        cancelEnrollBtn.style.display = 'flex';
+        enrollTip.textContent = '已报名，该课程已同步到你的学习中心，可随时继续学习。';
+      } else {
+        // 未报名状态：显示立即报名按钮
+        enrollBtn.style.display = 'flex';
+        startLearningBtn.style.display = 'none';
+        cancelEnrollBtn.style.display = 'none';
+        enrollTip.textContent = '报名即刻解锁全部课时与实验环境，学习进度将同步到你的「学习中心」。';
+      }
     }
+
+    // 立即报名
+    enrollBtn.addEventListener('click', function() {
+      console.log('点击立即报名按钮');
+      
+      try {
+        let enrolledCourses = localStorage.getItem(STORAGE_KEY);
+        let courses = enrolledCourses ? JSON.parse(enrolledCourses) : [];
+        
+        if (!courses.includes(COURSE_ID)) {
+          courses.push(COURSE_ID);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(courses));
+          console.log('报名成功，课程ID:', COURSE_ID);
+        }
+        
+        updateEnrollUI();
+        alert('报名成功！');
+      } catch (e) {
+        console.error('报名出错:', e);
+        alert('报名失败，请重试');
+      }
+    });
+
+    // 进入学习
+    startLearningBtn.addEventListener('click', function() {
+      console.log('点击进入学习按钮');
+      window.location.href = 'course-learning.html?id=' + COURSE_ID;
+    });
+
+    // 取消报名
+    cancelEnrollBtn.addEventListener('click', function() {
+      console.log('点击取消报名按钮');
+      
+      try {
+        let enrolledCourses = localStorage.getItem(STORAGE_KEY);
+        if (enrolledCourses) {
+          let courses = JSON.parse(enrolledCourses);
+          courses = courses.filter(id => id !== COURSE_ID);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(courses));
+          console.log('取消报名成功');
+        }
+        
+        updateEnrollUI();
+        alert('已取消报名，课程已从你的学习中心移除。');
+      } catch (e) {
+        console.error('取消报名出错:', e);
+        alert('取消报名失败，请重试');
+      }
+    });
+
+    // 初始化UI
     updateEnrollUI();
-    alert('报名成功！即将进入学习页面…');
-    window.location.href = 'course-learning.html?id=' + COURSE_ID;
-  });
-
-  // 点击「进入学习页面」
-  startLearningBtn.addEventListener('click', () => {
-    window.location.href = 'course-learning.html?id=' + COURSE_ID;
-  });
-
-  // 点击「取消报名」
-  cancelEnrollBtn.addEventListener('click', () => {
-    let list = getEnrolledCourses();
-    list = list.filter(id => id !== COURSE_ID);
-    setEnrolledCourses(list);
-    alert('已取消报名，课程已从你的学习中心移除。');
+    console.log('报名逻辑初始化完成');
   });
 </script>
 

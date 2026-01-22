@@ -257,7 +257,7 @@
 
       <!-- 我的任务：任务列表 -->
       <section id="tab-tasks" class="main-panel">
-        <div id="task-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div id="task-list" class="space-y-3">
           <!-- JS 注入 -->
         </div>
       </section>
@@ -605,31 +605,57 @@
   function initListsAndOverview(){
     // 我的任务
     const tasks = [
-      {title:'新员工入职培训任务', type:'培训+考试', progress:60, status:'进行中', completed:false, deadline:'2026-02-15'},
-      {title:'云原生技术认证任务', type:'培训+考试+认证', progress:100, status:'已完成', completed:true, completeTime:'2026-01-18'},
-      {title:'AI技术沙龙直播任务', type:'直播', progress:100, status:'已完成', completed:true, completeTime:'2026-01-15'},
-      {title:'合作伙伴技术认证', type:'认证', progress:30, status:'进行中', completed:false, deadline:'2026-03-30'}
+      {title:'新员工入职培训任务', type:'培训+考试', progress:60, status:'进行中', completed:false, deadline:'2026-02-15', tag:'派发'},
+      {title:'云原生技术认证任务', type:'培训+考试+认证', progress:100, status:'已完成', completed:true, completeTime:'2026-01-18', tag:'派发'},
+      {title:'AI技术沙龙直播任务', type:'直播', progress:100, status:'已完成', completed:true, completeTime:'2026-01-15', tag:'派发'},
+      {title:'合作伙伴技术认证', type:'认证', progress:30, status:'进行中', completed:false, deadline:'2026-03-30', tag:'派发'},
+      {title:'高级云架构师认证', type:'认证', progress:60, status:'进行中', completed:false, deadline:'2026-04-30', tag:'自主申请'},
+      {title:'解决方案专家认证', type:'培训+认证', progress:30, status:'进行中', completed:false, deadline:'2026-05-15', tag:'自主申请'},
+      {title:'生态技术领袖认证', type:'认证', progress:100, status:'已完成', completed:true, completeTime:'2026-01-20', tag:'自主申请'}
     ];
     const taskWrap = $('task-list');
     taskWrap.innerHTML = '';
     tasks.forEach(t=>{
       const card = document.createElement('article');
-      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 space-y-2 hover:-translate-y-1 hover:border-[#B01F24]/80 transition';
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-5 hover:-translate-y-1 hover:border-[#B01F24]/80 transition relative cursor-pointer';
       card.innerHTML = `
-        <div class="flex items-center justify-between">
-          <div class="text-sm font-medium">${t.title}</div>
-          <span class="text-[11px] px-2 py-0.5 rounded-full bg-white border border-gray-300">
+        <!-- 角标 -->
+        <div class="absolute -top-1 right-1">
+          <span class="inline-flex items-center px-1.5 py-0.5 rounded-full ${t.tag === '自主申请' ? 'bg-amber-500' : 'bg-[#2D874B]'} text-white text-[9px] font-medium">
+            ${t.tag}
+          </span>
+        </div>
+        <div class="flex items-center justify-between mb-3">
+          <div class="text-base font-semibold">${t.title}</div>
+          <span class="text-xs px-2 py-1 rounded-full bg-white border border-gray-300">
             ${t.type}
           </span>
         </div>
-        <div class="w-full h-1.5 rounded-full bg-gray-200 overflow-hidden">
-          <div class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" style="width:${t.progress}%"></div>
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex-1 mr-4">
+            <div class="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" style="width:${t.progress}%"></div>
+            </div>
+          </div>
+          <span class="text-xs font-medium ${t.progress === 100 ? 'text-green-600' : t.progress > 0 ? 'text-blue-600' : 'text-gray-500'}">
+            ${t.progress}%
+          </span>
         </div>
-        <div class="flex justify-between text-[11px] text-slate-400">
+        <div class="flex justify-between text-xs text-gray-600">
           <span>${t.completed ? '完成时间：'+t.completeTime : '截止时间：'+t.deadline}</span>
-          <span>${t.status}</span>
+          <span class="font-medium ${t.status === '已完成' ? 'text-green-600' : t.status === '进行中' ? 'text-blue-600' : 'text-amber-600'}">${t.status}</span>
         </div>
       `;
+      
+      // 添加点击跳转到任务详情页面的功能
+      card.addEventListener('click', function() {
+        if (t.tag === '自主申请') {
+          window.location.href = 'task-detail-self-apply.html';
+        } else {
+          window.location.href = 'task-detail.html';
+        }
+      });
+      
       taskWrap.appendChild(card);
     });
 
