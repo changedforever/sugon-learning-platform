@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>网站功能架构图 - SUGON 合作伙伴赋能平台</title>
+  <title>网站功能架构图 - HIECO 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -13,11 +13,13 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body {
-      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+      background: #FFFFFF;
+      color: #333333;
     }
     .glass-card {
-      background: rgba(15,23,42,0.85);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
     }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -41,22 +43,22 @@
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-50 text-gray-50">
+<body class="bg-white text-gray-800">
 
 <!-- 顶部导航 -->
-<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左侧：返回首页 -->
       <div class="flex items-center space-x-3">
         <a href="index.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
-            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
+            <i class="fa fa-chevron-left text-white text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-indigo-300">
-              合作伙伴赋能平台 · 网站架构图
+            <div class="text-[11px] uppercase tracking-widest text-white/80">HIECO</div>
+            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
+              光合技术支持平台 · 网站架构图
             </div>
           </div>
         </a>
@@ -64,8 +66,8 @@
 
       <!-- 中间：标题 -->
       <div class="hidden md:flex flex-col items-center">
-        <span class="text-[11px] text-slate-400">功能架构</span>
-        <span class="text-sm font-medium line-clamp-1 max-w-xs">
+        <span class="text-[11px] text-white/80">功能架构</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs text-white">
           PC端平台功能架构图
         </span>
       </div>
@@ -73,7 +75,7 @@
       <!-- 右侧：返回入口 -->
       <div class="flex items-center space-x-2 text-xs">
         <a href="index.html"
-           class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 hover:border-indigo-500 transition">
+           class="px-3 py-1.5 rounded-full bg-white/20 border border-white/30 hover:border-white/50 transition text-white">
           返回首页
         </a>
       </div>
@@ -84,30 +86,30 @@
 <main class="pt-16 lg:pt-20 pb-10">
   <section class="max-w-full mx-auto px-4 lg:px-6 space-y-4">
     <!-- 文本说明 -->
-    <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6 max-w-7xl mx-auto">
+    <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-6 max-w-7xl mx-auto">
       <h1 class="text-lg md:text-2xl font-semibold flex items-center gap-2 mb-2">
-        <span class="inline-flex h-6 w-1 rounded-full bg-indigo-500"></span>
-        SUGON 合作伙伴赋能平台功能架构图
+        <span class="inline-flex h-6 w-1 rounded-full bg-[#B01F24]"></span>
+        HIECO 光合技术支持平台功能架构图
       </h1>
-      <p class="text-xs md:text-sm text-slate-300 leading-6">
-        本架构图基于思维导图内容，展示 SUGON 合作伙伴赋能平台的整体功能架构。
+      <p class="text-xs md:text-sm text-gray-600 leading-6">
+        本架构图基于思维导图内容，展示 HIECO 光合技术支持平台的整体功能架构。
         从顶层PC端平台开始，逐级展示首页、在线学习、考试认证、直播与活动、资源中心、资讯公告、个人学习中心等功能模块及其子功能。
       </p>
     </article>
 
     <!-- 功能架构图容器 - 使用全宽布局 -->
-    <article class="glass-card rounded-3xl border border-slate-800 p-3 md:p-5">
+    <article class="glass-card rounded-3xl border border-gray-300 p-3 md:p-5">
       <div class="flex items-center justify-between mb-4 max-w-7xl mx-auto">
         <h2 class="text-sm md:text-base font-semibold flex items-center gap-2">
-          <i class="fa fa-project-diagram text-indigo-300"></i>
+          <i class="fa fa-project-diagram text-[#B01F24]"></i>
           网站功能层级架构图
         </h2>
-        <span class="text-[11px] text-slate-400">
+        <span class="text-[11px] text-gray-400">
           说明：可左右拖动查看全部节点（Mermaid · 深色主题）
         </span>
       </div>
 
-      <div class="mermaid-wrapper border border-slate-800 rounded-2xl bg-slate-950/40 p-4">
+      <div class="mermaid-wrapper border border-gray-300 rounded-2xl bg-gray-100/40 p-4">
         <div class="mermaid" id="architecture-diagram">
 graph TB
     %% ===== 顶层：PC端平台 =====
@@ -320,18 +322,18 @@ graph TB
     </article>
 
     <!-- 功能模块详细介绍 -->
-    <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6 max-w-7xl mx-auto">
+    <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-6 max-w-7xl mx-auto">
       <h2 class="text-lg font-semibold flex items-center gap-2 mb-4">
-        <span class="inline-flex h-6 w-1 rounded-full bg-indigo-500"></span>
+        <span class="inline-flex h-6 w-1 rounded-full bg-[#B01F24]"></span>
         功能架构层级详解
       </h2>
       
       <div class="space-y-4">
-        <div class="glass-card rounded-2xl border border-slate-700 p-4">
-          <h3 class="font-medium text-indigo-300 mb-2 flex items-center">
+        <div class="glass-card rounded-2xl border border-gray-300 p-4">
+          <h3 class="font-medium text-[#B01F24] mb-2 flex items-center">
             <i class="fa fa-level-down-alt mr-2"></i> 一级功能模块
           </h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs text-slate-300">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs text-gray-600">
             <div><strong>首页</strong> - 导航入口、全站搜索、门户Banner、公告模块等</div>
             <div><strong>在线学习</strong> - 课程资源管理、课程学习功能</div>
             <div><strong>考试认证</strong> - 考试与认证功能模块</div>
@@ -343,11 +345,11 @@ graph TB
           </div>
         </div>
         
-        <div class="glass-card rounded-2xl border border-slate-700 p-4">
-          <h3 class="font-medium text-indigo-300 mb-2 flex items-center">
+        <div class="glass-card rounded-2xl border border-gray-300 p-4">
+          <h3 class="font-medium text-[#B01F24] mb-2 flex items-center">
             <i class="fa fa-level-down-alt mr-2"></i> 二级功能模块
           </h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs text-slate-300">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs text-gray-600">
             <div><strong>课程资源</strong> - 课程列表展示、高级筛选</div>
             <div><strong>课程学习</strong> - 课程详情、文本课程、视频课程</div>
             <div><strong>考试</strong> - 在线考试、考试反舞弊、考试结果</div>
@@ -363,11 +365,11 @@ graph TB
           </div>
         </div>
         
-        <div class="glass-card rounded-2xl border border-slate-700 p-4">
-          <h3 class="font-medium text-indigo-300 mb-2 flex items-center">
+        <div class="glass-card rounded-2xl border border-gray-300 p-4">
+          <h3 class="font-medium text-[#B01F24] mb-2 flex items-center">
             <i class="fa fa-level-down-alt mr-2"></i> 三级功能模块
           </h3>
-          <div class="text-xs text-slate-300 space-y-1 max-h-40 overflow-y-auto">
+          <div class="text-xs text-gray-600 space-y-1 max-h-40 overflow-y-auto">
             <div><strong>个人中心首页:</strong> 学习概览、能力概览、其他功能入口</div>
             <div><strong>我的学习:</strong> 学习任务列表、考试列表</div>
             <div><strong>我的证书:</strong> 证书列表、证书详情与下载</div>
@@ -383,9 +385,9 @@ graph TB
   </section>
 </main>
 
-<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
-  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-    <div>© 2026 SUGON 合作伙伴赋能平台 · 网站架构图</div>
+<footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 HIECO 光合技术支持平台 · 网站架构图</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>
       <span>法律声明</span>
@@ -397,24 +399,24 @@ graph TB
 <!-- Mermaid 渲染脚本 -->
 <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
 <script>
-  // 初始化 Mermaid，使用深色主题并优化配置
+  // 初始化 Mermaid，使用浅色主题并优化配置
   mermaid.initialize({
     startOnLoad: true,
-    theme: 'dark',
+    theme: 'default',
     flowchart: {
       useMaxWidth: false,
       htmlLabels: true,
       curve: 'basis'
     },
     themeVariables: {
-      darkMode: true,
-      background: '#0f172a',
-      primaryColor: '#6366f1',
-      primaryTextColor: '#f1f5f9',
-      primaryBorderColor: '#4f46e5',
-      lineColor: '#64748b',
-      secondaryColor: '#1e293b',
-      tertiaryColor: '#334155'
+      darkMode: false,
+      background: '#ffffff',
+      primaryColor: '#fef2f2',
+      primaryTextColor: '#dc2626',
+      primaryBorderColor: '#b01f24',
+      lineColor: '#d1d5db',
+      secondaryColor: '#f9fafb',
+      tertiaryColor: '#f3f4f6'
     }
   });
 </script>

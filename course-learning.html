@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>课程学习 - 合作伙伴赋能平台</title>
+  <title>课程学习 - 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -13,31 +13,32 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body {
-      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+      background: #FFFFFF;
     }
     .glass-card {
-      background: rgba(15,23,42,0.85);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
     }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     .chapter-active {
-      background: rgba(37, 99, 235, 0.35);
-      border: 1px solid rgba(129, 140, 248, 0.8);
+      background: rgba(45, 135, 75, 0.1);
+      border: 1px solid #2D874B;
     }
     .chapter-completed {
       border-left: 3px solid #22c55e;
     }
     .progress-bar-track {
-      background: #020617;
+      background: #e5e7eb;
     }
     .progress-bar-fill {
-      background: linear-gradient(to right, #6366f1, #22d3ee);
+      background: #2D874B;
     }
     /* 自定义视频控件容器 */
     .video-shell {
       position: relative;
-      background: #020617;
+      background: #f9fafb;
       border-radius: 0.75rem;
       overflow: hidden;
     }
@@ -48,21 +49,21 @@
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-50">
+<body class="bg-white text-gray-800">
 
 <!-- 顶部导航：返回课程详情页 -->
-<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左侧：返回按钮 + 文案 -->
       <div class="flex items-center space-x-3">
         <a href="course-detail.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
-            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center group-hover:border-[#2D874B]">
+            <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-indigo-300">
+            <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
+            <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
               课程学习 · 云原生解决方案实战 | 中级
             </div>
           </div>
@@ -71,18 +72,22 @@
 
       <!-- 中间：课程标题（简略） -->
       <div class="hidden md:flex flex-col items-center">
-        <span class="text-[11px] text-slate-400">当前课程</span>
-        <span class="text-sm font-medium line-clamp-1 max-w-xs">
+        <span class="text-[11px] text-gray-600">当前课程</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs text-gray-800">
           云原生解决方案实战 | 中级
         </span>
       </div>
 
       <!-- 右侧：报名状态 + 总进度 -->
       <div class="flex items-center space-x-2 text-xs">
-        <span class="inline-flex items-center px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-300">
-          <i class="fa fa-check-circle mr-1 text-[11px]"></i> 已报名
+        <!--a href="personal-center.html" class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
+          个人中心
+        </a-->
+        <span id="header-enroll-badge"
+              class="inline-flex items-center px-3 py-1 rounded-full bg-gray-200/80 border border-gray-300 text-[#2D874B]">
+          <i class="fa fa-check-circle mr-1 text-[11px] text-[#2D874B]"></i> 已报名
         </span>
-        <span id="course-progress-summary" class="hidden md:inline-flex items-center px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px] text-slate-300">
+        <span id="course-progress-summary" class="hidden md:inline-flex items-center px-2 py-1 rounded-full bg-gray-200/80 border border-gray-300 text-[11px] text-[#2D874B]">
           课程进度：0%
         </span>
       </div>
@@ -92,16 +97,20 @@
 
 <main class="pt-16 lg:pt-20 pb-10">
   <section class="max-w-7xl mx-auto px-4 lg:px-6">
-    <div class="grid lg:grid-cols-3 gap-6 items-start">
+    <div class="grid lg:grid-cols-5 gap-6 items-start">
       <!-- 左侧：章节目录 -->
-      <aside class="lg:col-span-1 space-y-3">
-        <div class="glass-card rounded-3xl border border-slate-800 p-4">
+      <aside id="sidebar" class="lg:col-span-1 space-y-3 transition-all duration-300 relative">
+        <!-- 切换按钮 -->
+        <button id="toggle-sidebar" class="absolute -right-3 top-4 z-10 w-6 h-6 rounded-full bg-white border border-gray-300 flex items-center justify-center text-gray-500 hover:text-gray-700 hover:border-gray-400 transition shadow-sm">
+          <i class="fa fa-chevron-left text-xs"></i>
+        </button>
+        
+        <div class="glass-card rounded-3xl border border-gray-300 p-4">
           <div class="flex items-center justify-between mb-3">
             <h2 class="text-sm font-semibold flex items-center gap-2">
-              <span class="h-6 w-1 rounded-full bg-indigo-500"></span>
+              <span class="h-6 w-1 rounded-full bg-[#2D874B]"></span>
               课程目录
             </h2>
-            <span class="text-[11px] text-slate-400" id="course-progress-text">进度：0%</span>
           </div>
 
           <div id="chapter-list" class="space-y-2 text-xs max-h-[560px] overflow-y-auto no-scrollbar">
@@ -111,17 +120,17 @@
       </aside>
 
       <!-- 右侧：学习内容 -->
-      <section class="lg:col-span-2 glass-card rounded-3xl border border-slate-800 p-4 md:p-6">
+      <section id="content-area" class="lg:col-span-4 glass-card rounded-3xl border border-gray-300 p-4 md:p-6 transition-all duration-300">
         <!-- 顶部：当前章节标题 + 类型 + 单章进度 -->
         <div id="chapter-header" class="mb-4 hidden">
           <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
             <div>
-              <div class="text-xs text-slate-400 mb-1" id="chapter-type-label"></div>
+              <div class="text-xs text-gray-600 mb-1" id="chapter-type-label"></div>
               <h1 id="chapter-title" class="text-base md:text-lg font-semibold"></h1>
             </div>
-            <div class="text-[11px] text-slate-400 flex flex-col items-end gap-1">
+            <div class="text-[11px] text-gray-600 flex flex-col items-end gap-1">
               <div>
-                当前章节进度：<span id="chapter-progress-value" class="text-indigo-300">0%</span>
+                当前章节进度：<span id="chapter-progress-value" class="text-[#2D874B]">0%</span>
               </div>
               <div class="w-40 h-1.5 rounded-full overflow-hidden progress-bar-track">
                 <div id="chapter-progress-bar" class="h-full progress-bar-fill" style="width:0%"></div>
@@ -131,10 +140,10 @@
         </div>
 
         <!-- 内容区：初始占位 -->
-        <div id="content-placeholder" class="flex flex-col items-center justify-center h-72 bg-slate-900/30 rounded-2xl text-slate-400 text-xs space-y-2">
+        <div id="content-placeholder" class="flex flex-col items-center justify-center h-72 bg-gray-100/50 rounded-2xl text-gray-500 text-xs space-y-2">
           <i class="fa fa-circle-play text-2xl"></i>
           <div>请选择左侧任意章节开始学习</div>
-          <div class="text-[11px] text-slate-500">
+          <div class="text-[11px] text-gray-600">
             文本章节支持在线预览 PDF / 下载；视频章节支持在线播放并记录进度。
           </div>
         </div>
@@ -146,9 +155,9 @@
   </section>
 </main>
 
-<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
-  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-    <div>© 2026 合作伙伴赋能平台 · 在线学习中心</div>
+<footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-600 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 光合技术支持平台 · 在线学习中心</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>
       <span>法律声明</span>
@@ -247,7 +256,7 @@
     course.chapters.forEach((chap, index) => {
       const p = getChapterProgress(chap.id);
       const item = document.createElement('button');
-      item.className = `w-full text-left rounded-2xl border border-slate-800 px-3 py-2 hover:bg-slate-900/70 transition flex flex-col gap-1 ${p === 100 ? 'chapter-completed' : ''}`;
+      item.className = `w-full text-left rounded-2xl border border-gray-300 px-3 py-2 hover:bg-gray-100 transition flex flex-col gap-1 ${p === 100 ? 'chapter-completed' : ''}`;
       item.dataset.chapterId = chap.id;
 
       const typeLabel = chap.type === 'text' ? '文本课 · PDF' : '视频课 · MP4';
@@ -255,16 +264,16 @@
       item.innerHTML = `
         <div class="flex items-center justify-between gap-2">
           <div class="flex-1">
-            <div class="text-[11px] text-slate-400 mb-0.5">第 ${index + 1} 章 · ${typeLabel}</div>
+            <div class="text-[11px] text-gray-600 mb-0.5">第 ${index + 1} 章 · ${typeLabel}</div>
             <div class="text-xs font-medium line-clamp-1">${chap.name}</div>
           </div>
-          <div class="flex flex-col items-end text-[11px] text-slate-400">
-            <span>${p === 100 ? '<span class="text-emerald-300 flex items-center"><i class="fa fa-check mr-1 text-[10px]"></i>已完成</span>' : (p > 0 ? p + '%': '未开始')}</span>
-            ${chap.type === 'video' && chap.duration ? `<span class="mt-0.5 text-[10px] text-slate-500"><i class="fa fa-clock mr-1 text-[9px]"></i>${Math.round(chap.duration/60)} 分钟</span>` : ''}
+          <div class="flex flex-col items-end text-[11px] text-gray-600">
+            <span>${p === 100 ? '<span class="text-emerald-500 flex items-center"><i class="fa fa-check mr-1 text-[10px]"></i>已完成</span>' : (p > 0 ? p + '%': '未开始')}</span>
+            ` + (chap.type === 'video' && chap.duration ? '<span class="mt-0.5 text-[10px] text-gray-500"><i class="fa fa-clock mr-1 text-[9px]"></i>'+Math.round(chap.duration/60)+' 分钟</span>' : '') + `
           </div>
         </div>
-        <div class="mt-1 w-full h-1.5 rounded-full overflow-hidden bg-slate-900">
-          <div class="h-full ${p>0 ? 'progress-bar-fill' : 'bg-slate-800'}" style="width:${p}%"></div>
+        <div class="mt-1 w-full h-1.5 rounded-full overflow-hidden bg-gray-200">
+          <div class="h-full ` + (p>0 ? 'progress-bar-fill' : 'bg-gray-300') + `" style="width:` + p + `%"></div>
         </div>
       `;
 
@@ -308,28 +317,28 @@
   function renderTextChapter(chap, container) {
     const wrapper = document.createElement('div');
     wrapper.innerHTML = `
-      <div class="flex items-center justify-between text-xs text-slate-400 mb-3">
+      <div class="flex items-center justify-between text-xs text-gray-600 mb-3">
         <div class="flex items-center gap-2">
-          <span class="inline-flex items-center px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">
-            <i class="fa fa-file-pdf mr-1 text-red-400 text-[11px]"></i> PDF 讲义
+          <span class="inline-flex items-center px-2 py-1 rounded-full bg-white/80 border border-gray-300">
+            <i class="fa fa-file-pdf mr-1 text-red-500 text-[11px]"></i> PDF 讲义
           </span>
           <span>可在线预览或下载保存</span>
         </div>
         <a href="${chap.pdfUrl}" target="_blank"
-           class="inline-flex items-center px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-indigo-500 text-[11px]">
+           class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/80 border border-gray-300 hover:border-[#2D874B] text-[11px]">
           <i class="fa fa-download mr-1 text-[10px]"></i>下载 PDF
         </a>
       </div>
-      <div class="rounded-2xl overflow-hidden border border-slate-800 bg-slate-950/80">
+      <div class="rounded-2xl overflow-hidden border border-gray-300 bg-white/80">
         <iframe
           src="https://docs.google.com/gview?url=${encodeURIComponent(chap.pdfUrl)}&embedded=true"
           class="w-full h-[420px] border-0"
         ></iframe>
       </div>
-      <div class="mt-4 flex items-center justify-between text-[11px] text-slate-400">
-        <span>浏览完本章节后，可手动标记为已完成。</span>
+      <div class="mt-4 flex items-center justify-between text-[11px] text-gray-600">
+        <span>浏览完本章节后，自动标记为已完成。</span>
         <button id="mark-complete-${chap.id}"
-                class="px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white font-medium hover:opacity-90">
+                class="px-3 py-1.5 rounded-full bg-[#2D874B] text-white font-medium hover:opacity-90">
           本章节已学完
         </button>
       </div>
@@ -347,10 +356,10 @@
     const hasCompletedOnce = getChapterProgress(chap.id) === 100;
     const wrapper = document.createElement('div');
     wrapper.innerHTML = `
-      <div class="flex items-center justify-between text-xs text-slate-400 mb-3">
+      <div class="flex items-center justify-between text-xs text-gray-600 mb-3">
         <div class="flex items-center gap-2">
-          <span class="inline-flex items-center px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">
-            <i class="fa fa-video mr-1 text-sky-400 text-[11px]"></i> 视频课程
+          <span class="inline-flex items-center px-2 py-1 rounded-full bg-white/80 border border-gray-300">
+            <i class="fa fa-video mr-1 text-sky-500 text-[11px]"></i> 视频课程
           </span>
           <span>${hasCompletedOnce ? '你已完成本视频，可自由拖动进度。' : '首次学习不支持拖拽进度，请按顺序完整观看。'}</span>
         </div>
@@ -361,29 +370,29 @@
           您的浏览器不支持 HTML5 视频。
         </video>
         <!-- 自定义控制条 -->
-        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/95 via-slate-950/80 to-transparent px-3 pb-3 pt-4">
-          <div class="flex items-center justify-between text-[10px] text-slate-300 mb-1">
+        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-gray-900/90 via-gray-900/80 to-transparent px-3 pb-3 pt-4">
+          <div class="flex items-center justify-between text-[10px] text-gray-300 mb-1">
             <div class="flex items-center gap-2">
               <button id="btn-play-${chap.id}"
-                      class="h-7 w-7 rounded-full bg-slate-900/80 border border-slate-700 flex items-center justify-center hover:border-indigo-400">
+                      class="h-7 w-7 rounded-full bg-white/20 border border-white/30 flex items-center justify-center hover:border-white/50">
                 <i class="fa fa-play text-[11px]"></i>
               </button>
               <span id="time-label-${chap.id}">00:00 / 00:00</span>
             </div>
-            <span class="text-slate-400">${Math.round((chap.duration || 0)/60)} min</span>
+            <span class="text-gray-400">${Math.round((chap.duration || 0)/60)} min</span>
           </div>
-          <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden cursor-pointer" id="progress-track-${chap.id}">
+          <div class="w-full h-1.5 rounded-full bg-gray-800 overflow-hidden cursor-pointer" id="progress-track-${chap.id}">
             <div id="progress-fill-${chap.id}" class="h-full progress-bar-fill" style="width:0%"></div>
           </div>
         </div>
       </div>
-      <div class="flex items-center justify-between text-[11px] text-slate-400 mt-2">
-        <span>视频播放进度会自动记录，可在「学习中心」中继续。</span>
+      <!--div class="flex items-center justify-between text-[11px] text-gray-600 mt-2">
+        <span>视频播放进度会自动记录，可在「我的课程」中继续。</span>
         <button id="mark-complete-${chap.id}"
-                class="px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white font-medium hover:opacity-90">
+                class="px-3 py-1.5 rounded-full bg-[#2D874B] text-white font-medium hover:opacity-90">
           本章节已学完
         </button>
-      </div>
+      </div-->
     `;
     container.appendChild(wrapper);
 
@@ -459,7 +468,7 @@
     });
 
     // 手动标记完成
-    markBtn.addEventListener('click', () => {
+    markBtn && markBtn.addEventListener('click', () => {
       setChapterProgress(chap.id, 100);
       renderChapterContent(chap);
     });
@@ -487,6 +496,42 @@
     if (btn) btn.classList.add('chapter-active');
     renderChapterContent(firstWithProgress);
   }
+
+  // ====== 5. 目录收起展开功能 ======
+  const sidebar = document.getElementById('sidebar');
+  const contentArea = document.getElementById('content-area');
+  const toggleBtn = document.getElementById('toggle-sidebar');
+  
+  let isSidebarCollapsed = false;
+
+  // 切换目录状态
+  function toggleSidebar() {
+    isSidebarCollapsed = !isSidebarCollapsed;
+    
+    if (isSidebarCollapsed) {
+      // 收起目录
+      sidebar.classList.add('hidden');
+      contentArea.classList.remove('lg:col-span-4');
+      contentArea.classList.add('lg:col-span-5');
+      toggleBtn.innerHTML = '<i class="fa fa-chevron-right text-xs"></i>';
+      toggleBtn.classList.add('-left-3');
+      toggleBtn.classList.remove('left-0');
+    } else {
+      // 展开目录
+      sidebar.classList.remove('hidden');
+      contentArea.classList.remove('lg:col-span-5');
+      contentArea.classList.add('lg:col-span-4');
+      toggleBtn.innerHTML = '<i class="fa fa-chevron-left text-xs"></i>';
+      toggleBtn.classList.remove('-left-3');
+      toggleBtn.classList.add('left-0');
+    }
+  }
+
+  // 绑定点击事件
+  toggleBtn.addEventListener('click', toggleSidebar);
+
+  // 默认展开目录
+  isSidebarCollapsed = false;
 </script>
 
 </body>

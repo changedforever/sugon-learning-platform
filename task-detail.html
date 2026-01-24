@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>任务详情 - HIECO 光合技术支持平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: #FFFFFF;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .status-upcoming {
+      background: rgba(56,189,248,0.12);
+      color: #0ea5e9;
+      border-color: rgba(56,189,248,0.5);
+    }
+    .status-in-progress {
+      background: rgba(16,185,129,0.12);
+      color: #10b981;
+      border-color: rgba(16,185,129,0.5);
+    }
+    .status-completed {
+      background: rgba(16,185,129,0.12);
+      color: #10b981;
+      border-color: rgba(16,185,129,0.5);
+    }
+    .status-overdue {
+      background: rgba(248,113,113,0.12);
+      color: #f87171;
+      border-color: rgba(248,113,113,0.5);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+<!-- 顶部导航 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14">
+      <!-- 左侧：返回个人中心 -->
+      <div class="flex items-center space-x-3">
+        <a href="personal-center.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center group-hover:border-[#2D874B]">
+            <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
+            <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
+              个人中心 · 任务详情
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 中间：任务名称 -->
+      <div class="hidden md:flex flex-col items-center">
+        <span class="text-[11px] text-gray-400">当前任务</span>
+        <span id="header-title" class="text-sm font-medium line-clamp-1 max-w-xs text-[#2D874B]">
+          新员工入职培训任务
+        </span>
+      </div>
+
+      <!-- 右侧：操作按钮 -->
+      <div class="flex items-center space-x-2 text-xs">
+        <button class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
+          <i class="fa fa-share-alt text-xs mr-1"></i> 分享
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6 space-y-6">
+    
+    <!-- 任务概览 -->
+    <section class="glass-card rounded-3xl border border-gray-300 p-6">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div class="flex-1">
+          <div class="flex items-center gap-3 mb-2">
+            <h1 class="text-xl font-bold text-gray-800">新员工入职培训任务</h1>
+            <span class="inline-flex items-center px-2 py-1 rounded-full bg-[#2D874B] text-white text-xs font-medium">
+              派发
+            </span>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div class="space-y-1">
+              <span class="text-gray-500">发布来源：</span>
+              <span class="font-medium text-gray-800">人力资源部</span>
+            </div>
+            <div class="space-y-1">
+              <span class="text-gray-500">发布时间：</span>
+              <span class="font-medium text-gray-800">2026-01-10</span>
+            </div>
+            <div class="space-y-1">
+              <span class="text-gray-500">截止时间：</span>
+              <span class="font-medium text-gray-800">2026-02-15</span>
+            </div>
+            <div class="space-y-1">
+              <span class="text-gray-500">任务状态：</span>
+              <span class="inline-flex items-center px-2 py-1 rounded-full border text-xs status-in-progress">
+                <i class="fa fa-play-circle mr-1 text-[10px]"></i> 进行中
+              </span>
+            </div>
+            <div class="space-y-1">
+              <span class="text-gray-500">完成时间：</span>
+              <span class="font-medium text-gray-800" id="complete-time">-</span>
+            </div>
+            <div class="space-y-1">
+              <span class="text-gray-500">任务类型：</span>
+              <span class="font-medium text-gray-800">培训+考试</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 进度条 -->
+        <div class="lg:w-64">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-sm font-medium text-gray-700">任务进度</span>
+            <span class="text-sm font-bold text-[#2D874B]" id="progress-percent">60%</span>
+          </div>
+          <div class="w-full h-2.5 rounded-full bg-gray-200 overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" style="width:60%"></div>
+          </div>
+          <div class="text-xs text-gray-500 mt-1">已完成 3/5 个子任务</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 任务地图 -->
+    <section class="glass-card rounded-3xl border border-gray-300 p-6">
+      <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+        <i class="fa fa-map text-[#2D874B]"></i> 任务地图
+      </h2>
+      
+      <div class="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-6">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <!-- 地图图示 -->
+          <div class="flex-1">
+            <div class="grid grid-cols-5 gap-3 relative">
+              <!-- 起点 -->
+              <div class="text-center">
+                <div class="h-12 w-12 rounded-full bg-[#2D874B] flex items-center justify-center mx-auto mb-1">
+                  <i class="fa fa-flag text-white text-sm"></i>
+                </div>
+                <span class="text-xs font-medium">开始</span>
+              </div>
+              
+              <!-- 连接线 -->
+              <div class="absolute top-6 left-12 w-3/5 h-0.5 bg-[#2D874B] opacity-30"></div>
+              
+              <!-- 节点1：入职培训 -->
+              <div class="text-center">
+                <div class="h-12 w-12 rounded-full bg-[#2D874B] flex items-center justify-center mx-auto mb-1">
+                  <i class="fa fa-check text-white text-sm"></i>
+                </div>
+                <span class="text-xs font-medium">入职培训</span>
+              </div>
+              
+              <!-- 节点2：产品知识 -->
+              <div class="text-center">
+                <div class="h-12 w-12 rounded-full bg-[#2D874B] flex items-center justify-center mx-auto mb-1">
+                  <i class="fa fa-check text-white text-sm"></i>
+                </div>
+                <span class="text-xs font-medium">产品知识</span>
+              </div>
+              
+              <!-- 节点3：技术基础 -->
+              <div class="text-center">
+                <div class="h-12 w-12 rounded-full bg-[#2D874B] flex items-center justify-center mx-auto mb-1">
+                  <i class="fa fa-check text-white text-sm"></i>
+                </div>
+                <span class="text-xs font-medium">技术基础</span>
+              </div>
+              
+              <!-- 节点4：安全规范 -->
+              <div class="text-center">
+                <div class="h-12 w-12 rounded-full bg-gray-300 flex items-center justify-center mx-auto mb-1">
+                  <i class="fa fa-clock text-gray-600 text-sm"></i>
+                </div>
+                <span class="text-xs font-medium">安全规范</span>
+              </div>
+              
+              <!-- 节点5：最终考核 -->
+              <div class="text-center">
+                <div class="h-12 w-12 rounded-full bg-gray-300 flex items-center justify-center mx-auto mb-1">
+                  <i class="fa fa-clock text-gray-600 text-sm"></i>
+                </div>
+                <span class="text-xs font-medium">最终考核</span>
+              </div>
+              
+              <!-- 终点 -->
+              <div class="text-center">
+                <div class="h-12 w-12 rounded-full bg-gray-300 flex items-center justify-center mx-auto mb-1">
+                  <i class="fa fa-flag-checkered text-gray-600 text-sm"></i>
+                </div>
+                <span class="text-xs font-medium">完成</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 图例说明 -->
+          <div class="lg:w-48 space-y-2">
+            <h3 class="text-sm font-semibold text-gray-700">图例说明</h3>
+            <div class="flex items-center gap-2 text-xs">
+              <div class="h-3 w-3 rounded-full bg-[#2D874B]"></div>
+              <span>已完成</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+              <div class="h-3 w-3 rounded-full bg-gray-300"></div>
+              <span>未开始</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+              <div class="h-3 w-3 rounded-full bg-yellow-400"></div>
+              <span>进行中</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+              <div class="h-3 w-3 rounded-full bg-red-500"></div>
+              <span>已超时</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 子任务列表 -->
+    <section class="glass-card rounded-3xl border border-gray-300 p-6">
+      <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+        <i class="fa fa-tasks text-[#2D874B]"></i> 子任务列表
+      </h2>
+      
+      <div class="space-y-4" id="subtask-list">
+        <!-- 子任务卡片由JS注入 -->
+      </div>
+    </section>
+
+  </section>
+</main>
+
+<footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 HIECO 光合技术支持平台 · 任务详情</div>
+    <div class="flex flex-wrap gap-3">
+      <span>隐私政策</span>
+      <span>法律声明</span>
+      <span>版权信息</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 交互脚本 -->
+<script>
+  // ========== 模拟子任务数据 ==========
+  const subtasks = [
+    {
+      id: 1,
+      title: '入职培训 - 公司文化介绍',
+      description: '了解公司发展历程、企业文化、组织架构等基本信息',
+      type: '培训',
+      status: 'completed',
+      progress: 100,
+      deadline: '2026-01-20',
+      completeTime: '2026-01-15',
+      estimatedTime: '2小时',
+      points: 10
+    },
+    {
+      id: 2,
+      title: '产品知识学习',
+      description: '学习公司主要产品线和技术解决方案',
+      type: '学习',
+      status: 'completed',
+      progress: 100,
+      deadline: '2026-01-25',
+      completeTime: '2026-01-18',
+      estimatedTime: '4小时',
+      points: 20
+    },
+    {
+      id: 3,
+      title: '技术基础培训',
+      description: '掌握基础技术知识和工具使用方法',
+      type: '培训',
+      status: 'completed',
+      progress: 100,
+      deadline: '2026-02-05',
+      completeTime: '2026-01-28',
+      estimatedTime: '6小时',
+      points: 30
+    },
+    {
+      id: 4,
+      title: '安全规范考试',
+      description: '通过信息安全与合规性考试',
+      type: '考试',
+      status: 'in-progress',
+      progress: 40,
+      deadline: '2026-02-10',
+      completeTime: null,
+      estimatedTime: '1小时',
+      points: 15
+    },
+    {
+      id: 5,
+      title: '最终综合考核',
+      description: '完成所有培训内容的综合考核',
+      type: '考核',
+      status: 'upcoming',
+      progress: 0,
+      deadline: '2026-02-15',
+      completeTime: null,
+      estimatedTime: '3小时',
+      points: 25
+    }
+  ];
+
+  // ========== 渲染子任务列表 ==========
+  function renderSubtasks() {
+    const subtaskList = document.getElementById('subtask-list');
+    subtaskList.innerHTML = '';
+
+    subtasks.forEach(subtask => {
+      const card = document.createElement('article');
+      card.className = 'glass-card rounded-2xl border border-gray-300 p-4 hover:-translate-y-1 hover:border-[#2D874B]/80 transition';
+      
+      let statusClass = 'status-upcoming';
+      let statusIcon = 'fa-clock';
+      let statusText = '未开始';
+      
+      if (subtask.status === 'completed') {
+        statusClass = 'status-completed';
+        statusIcon = 'fa-check-circle';
+        statusText = '已完成';
+      } else if (subtask.status === 'in-progress') {
+        statusClass = 'status-in-progress';
+        statusIcon = 'fa-play-circle';
+        statusText = '进行中';
+      } else if (subtask.status === 'overdue') {
+        statusClass = 'status-overdue';
+        statusIcon = 'fa-exclamation-circle';
+        statusText = '已超时';
+      }
+
+      card.innerHTML = `
+        <div class="flex items-start justify-between mb-3">
+          <div class="flex-1">
+            <h3 class="text-sm font-semibold text-gray-800 mb-1">${subtask.title}</h3>
+            <p class="text-xs text-gray-600 mb-2">${subtask.description}</p>
+            <div class="flex flex-wrap gap-3 text-xs text-gray-500">
+              <span><i class="fa fa-clock mr-1"></i>预计耗时：${subtask.estimatedTime}</span>
+              <span><i class="fa fa-gem mr-1"></i>积分：${subtask.points}</span>
+              <span><i class="fa fa-calendar mr-1"></i>截止：${subtask.deadline}</span>
+            </div>
+          </div>
+          <span class="inline-flex items-center px-2 py-1 rounded-full border text-xs ${statusClass}">
+            <i class="fa ${statusIcon} mr-1 text-[10px]"></i>${statusText}
+          </span>
+        </div>
+        
+        <div class="flex items-center justify-between">
+          <div class="flex-1">
+            <div class="w-full h-1.5 rounded-full bg-gray-200 overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" style="width:${subtask.progress}%"></div>
+            </div>
+            <div class="text-xs text-gray-500 mt-1">进度：${subtask.progress}%</div>
+          </div>
+          <div class="ml-4 flex gap-2">
+            <button class="px-3 py-1 rounded-full bg-white border border-gray-300 hover:border-[#2D874B] text-xs transition"
+                    onclick="startSubtask(${subtask.id})">
+              <i class="fa fa-play mr-1"></i>开始
+            </button>
+            <button class="px-3 py-1 rounded-full bg-[#2D874B] text-white text-xs hover:bg-[#24703a] transition"
+                    onclick="viewSubtaskDetail(${subtask.id})">
+              <i class="fa fa-eye mr-1"></i>详情
+            </button>
+          </div>
+        </div>
+        
+        ${subtask.completeTime ? `
+          <div class="mt-2 pt-2 border-t border-gray-200 text-xs text-gray-500">
+            <i class="fa fa-check-circle mr-1 text-green-500"></i>完成时间：${subtask.completeTime}
+          </div>
+        ` : ''}
+      `;
+      
+      subtaskList.appendChild(card);
+    });
+  }
+
+  // ========== 子任务操作函数 ==========
+  function startSubtask(id) {
+    const subtask = subtasks.find(s => s.id === id);
+    if (subtask) {
+      alert(`开始执行子任务：${subtask.title}`);
+      // 实际项目中这里会跳转到具体的任务执行页面
+    }
+  }
+
+  function viewSubtaskDetail(id) {
+    const subtask = subtasks.find(s => s.id === id);
+    if (subtask) {
+      alert(`查看子任务详情：${subtask.title}\n\n描述：${subtask.description}\n类型：${subtask.type}\n状态：${subtask.status}`);
+    }
+  }
+
+  // ========== 页面加载时初始化 ==========
+  document.addEventListener('DOMContentLoaded', function() {
+    renderSubtasks();
+    
+    // 更新总进度
+    const completedCount = subtasks.filter(s => s.status === 'completed').length;
+    const totalCount = subtasks.length;
+    const progressPercent = Math.round((completedCount / totalCount) * 100);
+    
+    document.getElementById('progress-percent').textContent = progressPercent + '%';
+    document.querySelector('.bg-gradient-to-r').style.width = progressPercent + '%';
+    document.querySelector('.text-xs.text-gray-500.mt-1').textContent = 
+      `已完成 ${completedCount}/${totalCount} 个子任务`;
+  });
+</script>
+
+</body>
+</html>

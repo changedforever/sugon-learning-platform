@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>统一账号登录 - SUGON 合作伙伴赋能平台</title>
+  <title>统一账号登录 - HIECO 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -13,38 +13,39 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body {
-      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+      background: #FFFFFF;
     }
     .glass-card {
-      background: rgba(15,23,42,0.85);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
     }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
     .tab-btn-active {
-      border-color: rgb(129 140 248);
-      color: rgb(191 219 254);
-      background: rgba(15,23,42,0.9);
+      border-color: #B01F24;
+      color: #B01F24;
+      background: #ffffff;
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-50">
+<body class="bg-white text-gray-800">
 
 <!-- 顶部导航 -->
-<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左侧：返回首页 -->
       <div class="flex items-center space-x-3">
         <a href="index.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
-            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
+            <i class="fa fa-chevron-left text-white text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-indigo-300">
-              合作伙伴赋能平台 · 统一账号
+            <div class="text-[11px] uppercase tracking-widest text-white/80">HIECO</div>
+            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
+              光合技术支持平台 · 统一账号中心
             </div>
           </div>
         </a>
@@ -52,8 +53,8 @@
 
       <!-- 中间：页面标题 -->
       <div class="hidden md:flex flex-col items-center">
-        <span class="text-[11px] text-slate-400">统一账号中心</span>
-        <span class="text-sm font-medium line-clamp-1 max-w-xs">
+        <!--span class="text-[11px] text-white/80">统一账号中心</span-->
+        <span class="text-sm font-medium line-clamp-1 max-w-xs text-white">
           登录 / 注册
         </span>
       </div>
@@ -61,7 +62,7 @@
       <!-- 右侧：占位按钮（可按需改为其他入口） -->
       <div class="flex items-center space-x-2 text-xs">
         <a href="#"
-           class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 hover:border-indigo-500 transition">
+           class="px-3 py-1.5 rounded-full bg-white/20 border border-white/30 hover:border-white/50 transition text-white">
           帮助
         </a>
       </div>
@@ -72,394 +73,371 @@
 <main class="pt-16 lg:pt-20 pb-10">
   <section class="max-w-7xl mx-auto px-4 lg:px-6">
     <!-- 顶部简介 -->
-    <div class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6 mb-6">
+    <div class="glass-card rounded-3xl border border-gray-300 p-4 md:p-6 mb-6">
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
-          <h1 class="text-lg md:text-xl font-semibold flex items-center gap-2">
-            <span class="inline-flex h-7 w-1 rounded-full bg-indigo-500"></span>
-            SUGON 统一账号
+          <h1 class="text-lg md:text-xl font-semibold text-gray-800 flex items-center gap-2">
+            <span class="inline-flex h-7 w-1 rounded-full bg-[#B01F24]"></span>
+            HIECO 统一账号
           </h1>
-          <p class="mt-2 text-xs md:text-sm text-slate-300 max-w-2xl">
-            使用统一账号即可访问 SUGON 合作伙伴赋能平台及公司其他业务系统。
-            支持通过 <span class="text-indigo-300">光合组织官网</span> 进行账号密码登录，
-            以及通过 <span class="text-emerald-300">光圈</span> 完成单点登录。
+          <p class="mt-2 text-xs md:text-sm text-gray-600 max-w-2xl">
+            使用统一账号即可访问 HIECO 光合技术支持平台及公司其他业务系统。
+            支持通过 <span class="text-[#B01F24]">光合组织官网</span> 进行账号密码登录，
+            以及通过 <span class="text-emerald-500">光圈</span> 完成单点登录。
           </p>
         </div>
-        <div class="text-[11px] text-slate-400 space-y-1 lg:text-right">
-          <div>尚未注册？<span class="text-indigo-300">可在右侧快速完成账号开通</span></div>
+        <div class="text-[11px] text-gray-400 space-y-1 lg:text-right">
+          <div>尚未注册？<span class="text-[#B01F24]">可点击立即注册快速完成账号开通</span></div>
           <div>遇到登录问题，请联系平台管理员或企业 IT 支持。</div>
         </div>
       </div>
     </div>
 
-    <!-- 主体：左登录 / 右注册 -->
-    <div class="grid lg:grid-cols-2 gap-6 items-start">
-      <!-- 左：统一账号登录 -->
-      <article class="glass-card rounded-3xl border border-slate-800 p-5 md:p-6 space-y-4">
-        <h2 class="text-sm md:text-base font-semibold flex items-center gap-2">
-          <i class="fa fa-right-to-bracket text-indigo-300"></i>
-          统一账号登录
-        </h2>
-        <p class="text-xs text-slate-400">
-          使用光合组织官网账号，或通过光圈完成单点登录。
-        </p>
-
-        <!-- Tab：账号密码登录 / 单点登录 -->
-        <div class="flex gap-2 text-xs mt-2 mb-3">
-          <button class="tab-btn tab-btn-active px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
-                  data-target="login-password-panel">
-            <i class="fa fa-key mr-1 text-[10px] text-indigo-300"></i> 账号密码登录
-          </button>
-          <button class="tab-btn px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
-                  data-target="login-sso-panel">
-            <i class="fa fa-circle-nodes mr-1 text-[10px] text-emerald-300"></i> 单点登录（光圈）
-          </button>
-        </div>
-
-        <!-- 账号密码登录面板 -->
-        <div id="login-password-panel" class="login-panel">
-          <form id="login-form" class="space-y-3">
-            <div>
-              <label for="login-username" class="block text-[11px] text-slate-300 mb-1">
-                用户名 / 邮箱
-              </label>
-              <div class="relative">
-                <i class="fa fa-user text-slate-500 text-xs absolute left-3 top-2.5"></i>
-                <input id="login-username"
-                       type="text"
-                       required
-                       placeholder="输入光合组织官网的用户名或邮箱"
-                       class="w-full pl-7 pr-3 py-2 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-              </div>
-            </div>
-            <div>
-              <label for="login-password" class="block text-[11px] text-slate-300 mb-1">
-                密码
-              </label>
-              <div class="relative">
-                <i class="fa fa-lock text-slate-500 text-xs absolute left-3 top-2.5"></i>
-                <input id="login-password"
-                       type="password"
-                       required
-                       placeholder="输入登录密码"
-                       class="w-full pl-7 pr-3 py-2 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-              </div>
-            </div>
-            <div class="flex items-center justify-between text-[11px]">
-              <label class="flex items-center text-slate-400">
-                <input id="login-remember" type="checkbox" class="mr-1 text-indigo-500">
-                记住我（7 天）
-              </label>
-              <button type="button"
-                      id="forgot-password-btn"
-                      class="text-slate-400 hover:text-indigo-300">
-                忘记密码？
-              </button>
-            </div>
-
-            <button type="submit"
-                    class="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white text-sm font-medium hover:opacity-90">
-              登录
-            </button>
-          </form>
-
-          <p class="mt-3 text-[11px] text-slate-400">
-            首次使用？请确保已在光合组织官网完成账号开通与激活。
-          </p>
-        </div>
-
-        <!-- 单点登录面板 -->
-        <div id="login-sso-panel" class="login-panel hidden">
-          <div class="space-y-3 text-xs text-slate-300">
-            <p>
-              若你的企业已接入光圈统一身份，请点击下方按钮，通过企业账号一键登录。
+      <!-- 居中显示的认证模块 -->
+      <div class="flex justify-center">
+        <div class="w-full max-w-md">
+          <!-- 统一账号登录模块 -->
+          <article id="login-module" class="glass-card rounded-3xl border border-gray-300 p-5 md:p-6 space-y-4">
+            <h2 class="text-sm md:text-base font-semibold text-gray-800 flex items-center gap-2">
+              <i class="fa fa-right-to-bracket text-[#B01F24]"></i>
+              统一账号登录
+            </h2>
+            <p class="text-xs text-gray-400">
+              使用光合组织官网账号，或通过光圈完成单点登录。
             </p>
-            <button id="sso-login-btn"
-                    class="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-400 text-white text-sm font-medium hover:opacity-90 flex items-center justify-center gap-2">
-              <i class="fa fa-circle-nodes text-[13px]"></i>
-              通过光圈单点登录
-            </button>
-            <p class="text-[11px] text-slate-400">
-              点击后将跳转至光圈认证页面，完成企业账号验证后自动返回本平台。
-            </p>
-          </div>
-        </div>
-      </article>
 
-      <!-- 右：注册 / 密码找回 -->
-      <article class="glass-card rounded-3xl border border-slate-800 p-5 md:p-6 space-y-4">
-        <!-- Tab：注册 / 找回密码 -->
-        <div class="flex items-center justify-between mb-1">
-          <h2 class="text-sm md:text-base font-semibold flex items-center gap-2">
-            <i class="fa fa-id-card-clip text-emerald-300"></i>
-            账号注册与密码重置
-          </h2>
-        </div>
-
-        <div class="flex gap-2 text-xs mb-3">
-          <button class="reg-tab tab-btn-active px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
-                  data-target="panel-register">
-            <i class="fa fa-user-plus mr-1 text-[10px] text-emerald-300"></i> 注册新账号
-          </button>
-          <button class="reg-tab px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
-                  data-target="panel-reset">
-            <i class="fa fa-unlock-keyhole mr-1 text-[10px] text-sky-300"></i> 密码找回/重置
-          </button>
-        </div>
-
-        <!-- 注册面板 -->
-        <div id="panel-register" class="reg-panel">
-          <form id="register-form" class="space-y-3 text-xs">
-            <div>
-              <label for="reg-name" class="block text-[11px] text-slate-300 mb-1">姓名</label>
-              <input id="reg-name" type="text" required placeholder="请输入您的真实姓名"
-                     class="w-full px-3 py-2 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-            </div>
-            <div>
-              <label for="reg-email" class="block text-[11px] text-slate-300 mb-1">邮箱</label>
-              <input id="reg-email" type="email" required placeholder="用于接收通知和重置密码"
-                     class="w-full px-3 py-2 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-            </div>
-            <div>
-              <label for="reg-phone" class="block text-[11px] text-slate-300 mb-1">手机号码</label>
-              <input id="reg-phone" type="tel" required placeholder="用于短信验证码与安全校验"
-                     class="w-full px-3 py-2 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-            </div>
-            <div>
-              <label for="reg-password" class="block text-[11px] text-slate-300 mb-1">设置密码</label>
-              <input id="reg-password" type="password" required placeholder="至少 8 位，包含字母和数字"
-                     class="w-full px-3 py-2 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-            </div>
-            <div class="flex items-center">
-              <input id="reg-terms" type="checkbox" class="mr-1 text-indigo-500">
-              <label for="reg-terms" class="text-[11px] text-slate-400">
-                我已阅读并同意
-                <a href="#" class="text-indigo-300 hover:underline">《用户协议》</a>
-                和
-                <a href="#" class="text-indigo-300 hover:underline">《隐私政策》</a>
-              </label>
-            </div>
-            <button type="submit"
-                    class="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-400 text-white text-sm font-medium hover:opacity-90">
-              注册并开通统一账号
-            </button>
-          </form>
-
-          <p class="mt-3 text-[11px] text-slate-400">
-            注册成功后，您即可使用该统一账号登录公司其他业务平台，相关权限将由企业管理员进行分配。
-          </p>
-        </div>
-
-        <!-- 密码找回/重置面板 -->
-        <div id="panel-reset" class="reg-panel hidden">
-          <form id="reset-form" class="space-y-3 text-xs">
-            <p class="text-slate-300">
-              通过邮箱或手机验证码找回或重置密码。
-            </p>
-            <div>
-              <label for="reset-email" class="block text-[11px] text-slate-300 mb-1">邮箱（可选）</label>
-              <input id="reset-email" type="email" placeholder="输入绑定邮箱"
-                     class="w-full px-3 py-2 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-            </div>
-            <div>
-              <label for="reset-phone" class="block text-[11px] text-slate-300 mb-1">手机号码（可选）</label>
-              <input id="reset-phone" type="tel" placeholder="输入绑定手机号"
-                     class="w-full px-3 py-2 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-            </div>
-            <button type="button"
-                    id="reset-send-code"
-                    class="w-full py-2 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white text-xs font-medium hover:opacity-90">
-              获取验证码
-            </button>
-
-            <div id="reset-code-area" class="hidden space-y-3">
+            <!-- 登录表单 -->
+            <form id="login-form" class="space-y-3">
               <div>
-                <label for="reset-code" class="block text-[11px] text-slate-300 mb-1">验证码</label>
-                <input id="reset-code" type="text" placeholder="输入收到的验证码"
-                       class="w-full px-3 py-2 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                <label for="login-username" class="block text-[11px] text-gray-500 mb-1">
+                  用户名 / 邮箱
+                </label>
+                <div class="relative">
+                  <i class="fa fa-user text-gray-400 text-xs absolute left-3 top-2.5"></i>
+                  <input id="login-username"
+                         type="text"
+                         required
+                         placeholder="输入光合组织官网的用户名或邮箱"
+                         class="w-full pl-7 pr-3 py-2 rounded-full bg-white border border-gray-300 text-gray-800 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
+                </div>
               </div>
               <div>
-                <label for="reset-new-password" class="block text-[11px] text-slate-300 mb-1">新密码</label>
-                <input id="reset-new-password" type="password" placeholder="设置新密码"
-                       class="w-full px-3 py-2 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                <label for="login-password" class="block text-[11px] text-gray-500 mb-1">
+                  密码
+                </label>
+                <div class="relative">
+                  <i class="fa fa-lock text-gray-400 text-xs absolute left-3 top-2.5"></i>
+                  <input id="login-password"
+                         type="password"
+                         required
+                         placeholder="输入登录密码"
+                         class="w-full pl-7 pr-3 py-2 rounded-full bg-white border border-gray-300 text-gray-800 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
+                </div>
               </div>
-              <div class="flex gap-2">
+              <div class="flex items-center justify-between text-[11px]">
+                <label class="flex items-center text-gray-400">
+                  <input id="login-remember" type="checkbox" class="mr-1 text-[#B01F24]">
+                  记住我（7 天）
+                </label>
                 <button type="button"
-                        id="reset-resend"
-                        class="flex-1 py-2 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 text-[11px] text-slate-200">
-                  重新发送
-                </button>
-                <button type="submit"
-                        class="flex-1 py-2 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-400 text-white text-[11px] font-medium hover:opacity-90">
-                  确认重置
+                        id="forgot-password-btn"
+                        class="text-gray-400 hover:text-[#B01F24]">
+                  忘记密码？
                 </button>
               </div>
+
+              <button type="submit"
+                      class="w-full py-2.5 rounded-xl bg-[#B01F24] text-white text-sm font-medium hover:opacity-90">
+                登录
+              </button>
+              
+              <!-- 新增：注册按钮 -->
+              <button type="button" id="to-register" 
+                      class="w-full py-2.5 rounded-xl border border-[#B01F24] text-[#B01F24] text-sm font-medium hover:bg-[#B01F24]/10">
+                没有账号，立即注册
+              </button>
+            </form>
+
+            <p class="mt-3 text-[11px] text-gray-400">
+              首次使用？请确保已在光合组织官网完成账号开通与激活。
+            </p>
+          </article>
+
+          <!-- 账号注册模块 -->
+          <article id="register-module" class="glass-card rounded-3xl border border-gray-300 p-5 md:p-6 space-y-4 hidden">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="text-sm md:text-base font-semibold text-gray-800 flex items-center gap-2">
+                <i class="fa fa-user-plus text-emerald-500"></i>
+                账号注册
+              </h2>
             </div>
-          </form>
 
-          <p class="mt-3 text-[11px] text-slate-400">
-            如长时间未收到验证码，请联系企业 IT 或平台管理员协助处理。
-          </p>
+            <form id="register-form" class="space-y-3 text-xs">
+              <div>
+                <label for="reg-name" class="block text-[11px] text-gray-500 mb-1">姓名</label>
+                <input id="reg-name" type="text" required placeholder="请输入您的真实姓名"
+                       class="w-full px-3 py-2 rounded-full bg-white border border-gray-300 text-gray-800 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
+              </div>
+              <div>
+                <label for="reg-email" class="block text-[11px] text-gray-500 mb-1">邮箱</label>
+                <input id="reg-email" type="email" required placeholder="用于接收通知和重置密码"
+                       class="w-full px-3 py-2 rounded-full bg-white border border-gray-300 text-gray-800 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
+              </div>
+              <div>
+                <label for="reg-phone" class="block text-[11px] text-gray-500 mb-1">手机号码</label>
+                <input id="reg-phone" type="tel" required placeholder="用于短信验证码与安全校验"
+                       class="w-full px-3 py-2 rounded-full bg-white border border-gray-300 text-gray-800 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
+              </div>
+              <div>
+                <label for="reg-password" class="block text-[11px] text-gray-500 mb-1">设置密码</label>
+                <input id="reg-password" type="password" required placeholder="至少 8 位，包含字母和数字"
+                       class="w-full px-3 py-2 rounded-full bg-white border border-gray-300 text-gray-800 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
+              </div>
+              <div class="flex items-center">
+                <input id="reg-terms" type="checkbox" class="mr-1 text-[#B01F24]">
+                <label for="reg-terms" class="text-[11px] text-gray-400">
+                  我已阅读并同意
+                  <a href="#" class="text-[#B01F24] hover:underline">《用户协议》</a>
+                  和
+                  <a href="#" class="text-[#B01F24] hover:underline">《隐私政策》</a>
+                </label>
+              </div>
+              <button type="submit"
+                      class="w-full py-2.5 rounded-xl bg-[#B01F24] text-white text-sm font-medium hover:opacity-90">
+                注册并开通统一账号
+              </button>
+              
+              <!-- 返回登录按钮 -->
+              <button type="button" id="back-to-login" 
+                      class="w-full py-2.5 rounded-xl border border-[#B01F24] text-[#B01F24] text-sm font-medium hover:bg-[#B01F24]/10">
+                返回登录
+              </button>
+            </form>
+
+            <p class="mt-3 text-[11px] text-gray-400">
+              注册成功后，您即可使用该统一账号登录公司其他业务平台，相关权限将由企业管理员进行分配。
+            </p>
+          </article>
+
+          <!-- 密码找回/重置模块 -->
+          <article id="reset-module" class="glass-card rounded-3xl border border-gray-300 p-5 md:p-6 space-y-4 hidden">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="text-sm md:text-base font-semibold text-gray-800 flex items-center gap-2">
+                <i class="fa fa-unlock-keyhole text-sky-500"></i>
+                密码找回/重置
+              </h2>
+            </div>
+
+            <form id="reset-form" class="space-y-3 text-xs">
+              <p class="text-gray-600">
+                通过邮箱或手机验证码找回或重置密码。
+              </p>
+              <div>
+                <label for="reset-email" class="block text-[11px] text-gray-500 mb-1">邮箱（可选）</label>
+                <input id="reset-email" type="email" placeholder="输入绑定邮箱"
+                       class="w-full px-3 py-2 rounded-full bg-white border border-gray-300 text-gray-800 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
+              </div>
+              <div>
+                <label for="reset-phone" class="block text-[11px] text-gray-500 mb-1">手机号码（可选）</label>
+                <input id="reset-phone" type="tel" placeholder="输入绑定手机号"
+                       class="w-full px-3 py-2 rounded-full bg-white border border-gray-300 text-gray-800 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
+              </div>
+              <button type="button"
+                      id="reset-send-code"
+                      class="w-full py-2 rounded-xl bg-[#B01F24] text-white text-xs font-medium hover:opacity-90">
+                获取验证码
+              </button>
+
+              <div id="reset-code-area" class="hidden space-y-3">
+                <div>
+                  <label for="reset-code" class="block text-[11px] text-gray-500 mb-1">验证码</label>
+                  <input id="reset-code" type="text" placeholder="输入收到的验证码"
+                         class="w-full px-3 py-2 rounded-full bg-white border border-gray-300 text-gray-800 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
+                </div>
+                <div>
+                  <label for="reset-new-password" class="block text-[11px] text-gray-500 mb-1">新密码</label>
+                  <input id="reset-new-password" type="password" placeholder="设置新密码"
+                         class="w-full px-3 py-2 rounded-full bg-white border border-gray-300 text-gray-800 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
+                </div>
+                <div class="flex gap-2">
+                  <button type="button"
+                          id="reset-resend"
+                          class="flex-1 py-2 rounded-full bg-white border border-gray-300 hover:bg-gray-50 text-[11px] text-gray-600">
+                    重新发送
+                  </button>
+                  <button type="submit"
+                          class="flex-1 py-2 rounded-full bg-[#B01F24] text-white text-[11px] font-medium hover:opacity-90">
+                    确认重置
+                  </button>
+                </div>
+              </div>
+              
+              <!-- 返回登录按钮 -->
+              <button type="button" id="reset-back-to-login" 
+                      class="w-full py-2.5 rounded-xl border border-[#B01F24] text-[#B01F24] text-sm font-medium hover:bg-[#B01F24]/10">
+                返回登录
+              </button>
+            </form>
+
+            <p class="mt-3 text-[11px] text-gray-400">
+              如长时间未收到验证码，请联系企业 IT 或平台管理员协助处理。
+            </p>
+          </article>
         </div>
-      </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div>© 2026 HIECO 光合技术支持平台 · 统一账号中心</div>
+      <div class="flex flex-wrap gap-3">
+        <span>隐私政策</span>
+        <span>法律声明</span>
+        <span>版权信息</span>
+      </div>
     </div>
-  </section>
-</main>
+  </footer>
 
-<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
-  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-    <div>© 2026 SUGON 合作伙伴赋能平台 · 统一账号中心</div>
-    <div class="flex flex-wrap gap-3">
-      <span>隐私政策</span>
-      <span>法律声明</span>
-      <span>版权信息</span>
-    </div>
-  </div>
-</footer>
+  <!-- JavaScript 实现模块切换 -->
+   <script>
+     // 获取所有模块
+     const loginModule = document.getElementById('login-module');
+     const registerModule = document.getElementById('register-module');
+     const resetModule = document.getElementById('reset-module');
+     
+     // 获取切换按钮
+     const toRegisterBtn = document.getElementById('to-register');
+     const forgotPasswordBtn = document.getElementById('forgot-password-btn');
+     const backToLoginBtn = document.getElementById('back-to-login');
+     const resetBackToLoginBtn = document.getElementById('reset-back-to-login');
+     
+     // 显示指定模块的函数
+     function showModule(module) {
+       loginModule.classList.add('hidden');
+       registerModule.classList.add('hidden');
+       resetModule.classList.add('hidden');
+       
+       module.classList.remove('hidden');
+     }
+     
+     // 切换到注册模块
+     toRegisterBtn.addEventListener('click', function(e) {
+       e.preventDefault();
+       showModule(registerModule);
+     });
+     
+     // 切换到密码找回模块
+     forgotPasswordBtn.addEventListener('click', function(e) {
+       e.preventDefault();
+       showModule(resetModule);
+     });
+     
+     // 从注册模块返回登录模块
+     backToLoginBtn.addEventListener('click', function(e) {
+       e.preventDefault();
+       showModule(loginModule);
+     });
+     
+     // 从密码找回模块返回登录模块
+     resetBackToLoginBtn.addEventListener('click', function(e) {
+       e.preventDefault();
+       showModule(loginModule);
+     });
+     
+     // ====== 统一账号登录：账号密码登录（示例逻辑） ======
+     const loginForm = document.getElementById('login-form');
+     loginForm.addEventListener('submit', e => {
+       e.preventDefault();
+       const username = document.getElementById('login-username').value.trim();
+       const pwd = document.getElementById('login-password').value.trim();
+       if (!username || !pwd) {
+         alert('请输入用户名和密码');
+         return;
+       }
+       // 实际环境：调用后端登录 API
+       // POST /api/auth/login { username, password }
+       alert('登录成功（示例），即将进入平台首页。');
+       window.location.href = 'index.html';
+     });
 
-<!-- 交互脚本：Tab 切换 / 登录 / 注册 / 密码找回 -->
-<script>
-  // ====== Tab：登录方式（账号密码 / SSO） ======
-  const loginTabBtns = document.querySelectorAll('.tab-btn');
-  const loginPanels = document.querySelectorAll('.login-panel');
+     // ====== 注册：采集基础信息（示例逻辑） ======
+     const registerForm = document.getElementById('register-form');
+     registerForm.addEventListener('submit', e => {
+       e.preventDefault();
+       const name = document.getElementById('reg-name').value.trim();
+       const email = document.getElementById('reg-email').value.trim();
+       const phone = document.getElementById('reg-phone').value.trim();
+       const pwd = document.getElementById('reg-password').value.trim();
+       const terms = document.getElementById('reg-terms').checked;
 
-  loginTabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.target;
-      loginTabBtns.forEach(b => b.classList.remove('tab-btn-active'));
-      btn.classList.add('tab-btn-active');
-      loginPanels.forEach(p => {
-        p.classList.toggle('hidden', p.id !== target);
-      });
-    });
-  });
+       if (!name || !email || !phone || !pwd) {
+         alert('请完整填写注册信息');
+         return;
+       }
+       if (pwd.length < 8) {
+         alert('密码长度至少 8 位');
+         return;
+       }
+       if (!terms) {
+         alert('请先阅读并勾选同意《用户协议》和《隐私政策》');
+         return;
+       }
 
-  // ====== Tab：注册 / 重置密码 ======
-  const regTabBtns = document.querySelectorAll('.reg-tab');
-  const regPanels = document.querySelectorAll('.reg-panel');
+       // 实际环境：调用后端注册接口
+       // POST /api/auth/register { name, email, phone, password }
+       alert('注册成功！现在可以使用该账号登录公司其他平台。');
+       registerForm.reset();
+     });
 
-  regTabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.target;
-      regTabBtns.forEach(b => b.classList.remove('tab-btn-active'));
-      btn.classList.add('tab-btn-active');
-      regPanels.forEach(p => {
-        p.classList.toggle('hidden', p.id !== target);
-      });
-    });
-  });
+     // ====== 密码找回 / 重置 ======
+     const resetForm = document.getElementById('reset-form');
+     const resetSendCodeBtn = document.getElementById('reset-send-code');
+     const resetCodeArea = document.getElementById('reset-code-area');
+     const resetResendBtn = document.getElementById('reset-resend');
 
-  // ====== 统一账号登录：账号密码登录（示例逻辑） ======
-  const loginForm = document.getElementById('login-form');
-  loginForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const username = document.getElementById('login-username').value.trim();
-    const pwd = document.getElementById('login-password').value.trim();
-    if (!username || !pwd) {
-      alert('请输入用户名和密码');
-      return;
-    }
-    // 实际环境：调用后端登录 API
-    // POST /api/auth/login { username, password }
-    alert('登录成功（示例），即将进入平台首页。');
-    window.location.href = 'index.html';
-  });
+     resetSendCodeBtn.addEventListener('click', () => {
+       const email = document.getElementById('reset-email').value.trim();
+       const phone = document.getElementById('reset-phone').value.trim();
+       if (!email && !phone) {
+         alert('请至少填写邮箱或手机号之一');
+         return;
+       }
+       // 实际环境：请求发送验证码
+       // POST /api/auth/reset/send-code { email, phone }
+       alert('验证码已发送，请注意查收。');
+       resetCodeArea.classList.remove('hidden');
+     });
 
-  // ====== 单点登录：光圈 SSO（示例跳转） ======
-  const ssoLoginBtn = document.getElementById('sso-login-btn');
-  ssoLoginBtn.addEventListener('click', () => {
-    // 实际环境：跳转到光圈 SSO 地址
-    const returnUrl = encodeURIComponent(window.location.origin + '/index.html');
-    window.location.href = 'https://example-qcircle-sso.com/login?returnUrl=' + returnUrl;
-  });
+     resetResendBtn.addEventListener('click', () => {
+       alert('验证码已重新发送，请稍后再次查收。');
+     });
 
-  // ====== 注册：采集基础信息（示例逻辑） ======
-  const registerForm = document.getElementById('register-form');
-  registerForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const name = document.getElementById('reg-name').value.trim();
-    const email = document.getElementById('reg-email').value.trim();
-    const phone = document.getElementById('reg-phone').value.trim();
-    const pwd = document.getElementById('reg-password').value.trim();
-    const terms = document.getElementById('reg-terms').checked;
+     resetForm.addEventListener('submit', e => {
+       e.preventDefault();
+       const code = document.getElementById('reset-code').value.trim();
+       const newPwd = document.getElementById('reset-new-password').value.trim();
+       if (!code) {
+         alert('请输入验证码');
+         return;
+       }
+       if (!newPwd || newPwd.length < 8) {
+         alert('请设置至少 8 位的新密码');
+         return;
+       }
+       // 实际环境：提交验证码 + 新密码
+       // POST /api/auth/reset/confirm { code, newPassword }
+       alert('密码重置成功，请使用新密码重新登录。');
+       resetForm.reset();
+       resetCodeArea.classList.add('hidden');
+     });
 
-    if (!name || !email || !phone || !pwd) {
-      alert('请完整填写注册信息');
-      return;
-    }
-    if (pwd.length < 8) {
-      alert('密码长度至少 8 位');
-      return;
-    }
-    if (!terms) {
-      alert('请先阅读并勾选同意《用户协议》和《隐私政策》');
-      return;
-    }
-
-    // 实际环境：调用后端注册接口
-    // POST /api/auth/register { name, email, phone, password }
-    alert('注册成功！现在可以使用该账号登录公司其他平台。');
-    registerForm.reset();
-  });
-
-  // ====== 密码找回 / 重置 ======
-  const resetForm = document.getElementById('reset-form');
-  const resetSendCodeBtn = document.getElementById('reset-send-code');
-  const resetCodeArea = document.getElementById('reset-code-area');
-  const resetResendBtn = document.getElementById('reset-resend');
-
-  resetSendCodeBtn.addEventListener('click', () => {
-    const email = document.getElementById('reset-email').value.trim();
-    const phone = document.getElementById('reset-phone').value.trim();
-    if (!email && !phone) {
-      alert('请至少填写邮箱或手机号之一');
-      return;
-    }
-    // 实际环境：请求发送验证码
-    // POST /api/auth/reset/send-code { email, phone }
-    alert('验证码已发送，请注意查收。');
-    resetCodeArea.classList.remove('hidden');
-  });
-
-  resetResendBtn.addEventListener('click', () => {
-    alert('验证码已重新发送，请稍后再次查收。');
-  });
-
-  resetForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const code = document.getElementById('reset-code').value.trim();
-    const newPwd = document.getElementById('reset-new-password').value.trim();
-    if (!code) {
-      alert('请输入验证码');
-      return;
-    }
-    if (!newPwd || newPwd.length < 8) {
-      alert('请设置至少 8 位的新密码');
-      return;
-    }
-    // 实际环境：提交验证码 + 新密码
-    // POST /api/auth/reset/confirm { code, newPassword }
-    alert('密码重置成功，请使用新密码重新登录。');
-    resetForm.reset();
-    resetCodeArea.classList.add('hidden');
-  });
-
-  // ====== “忘记密码？” 快捷切换到重置 Tab ======
-  const forgotBtn = document.getElementById('forgot-password-btn');
-  forgotBtn.addEventListener('click', () => {
-    // 切换到右侧“密码找回/重置”Tab
-    const resetTab = document.querySelector('.reg-tab[data-target="panel-reset"]');
-    resetTab.click();
-    // 页面轻微滚动以便用户看到右侧
-    window.scrollTo({ top: 200, behavior: 'smooth' });
-  });
-
-  // 初始焦点
-  window.addEventListener('load', () => {
-    const u = document.getElementById('login-username');
-    if (u) u.focus();
-  });
-</script>
+     // 初始焦点
+     window.addEventListener('load', () => {
+       const u = document.getElementById('login-username');
+       if (u) u.focus();
+     });
+   </script>
 
 </body>
 </html>

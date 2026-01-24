@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>在线考试 - 合作伙伴赋能平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标库 -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: #FFFFFF;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .question-nav-item-active {
+      background: rgba(176, 31, 36, 0.25);
+      border-color: #B01F24;
+    }
+    .question-nav-item-answered {
+      border-left: 3px solid #22c55e;
+    }
+    .question-nav-item-flagged {
+      border-left: 3px solid #eab308;
+    }
+
+    .progress-bar-track { background: #f3f4f6; }
+    .progress-bar-fill {
+      background: linear-gradient(to right, #B01F24, #d946ef);
+    }
+
+    .overlay {
+      background: rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+<!-- 顶部导航：Logo 区改为 SUGON -->
+<header class="fixed top-0 inset-x-0 z-50 bg-[#B01F24] backdrop-blur-xl border-b border-gray-300">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14">
+      <!-- 左侧：返回考试详情 + SUGON 品牌 -->
+      <div class="flex items-center space-x-3">
+        <a href="exam-online.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center group-hover:border-white/50">
+            <i class="fa fa-chevron-left text-white text-xs"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="text-[11px] uppercase tracking-widest text-white/80">SUGON</div>
+            <div class="text-sm font-semibold group-hover:text-white/90 text-white">
+              考试中心 · 在线考试
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 中间：考试名称 -->
+      <div class="hidden md:flex flex-col items-center">
+        <span class="text-[11px] text-white/80">当前考试</span>
+        <span class="text-sm font-medium line-clamp-1 max-w-xs text-white">
+          伙伴云架构工程师（P-Cloud Architect）认证考试
+        </span>
+      </div>
+
+      <!-- 右侧：已答题数 + 剩余时间 -->
+      <div class="flex items-center space-x-2 text-xs">
+        <span id="answered-info"
+              class="inline-flex items-center px-2 py-1 rounded-full bg-white/20 border border-white/30 text-white">
+          已答 <span id="answered-count" class="mx-1 text-emerald-300">0</span>/<span id="total-count">0</span>
+        </span>
+        <span id="time-info"
+              class="inline-flex items-center px-2 py-1 rounded-full bg-white/20 border border-white/30 text-white">
+          剩余时间：<span id="timer" class="ml-1 text-amber-300">--:--</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <!-- “考生须知”弹窗 -->
+  <div id="notice-modal"
+       class="fixed inset-0 z-40 hidden overlay backdrop-blur-md flex items-center justify-center p-4">
+    <div class="glass-card rounded-3xl border border-slate-800 w-full max-w-md p-6 max-h-[80vh] overflow-y-auto no-scrollbar">
+      <h2 class="text-lg font-semibold mb-3">考生须知</h2>
+      <p class="text-xs text-slate-300 leading-5 mb-3">
+        请仔细阅读以下考试注意事项：
+      </p>
+      <ul class="text-xs text-slate-300 space-y-1 mb-4 list-disc pl-4">
+        <li>本次考试为线上闭卷考试，请独立完成答题，不得与他人交流。</li>
+        <li>考试限时 <span class="text-amber-300">60 分钟</span>，时间到系统将自动交卷。</li>
+        <li>考试过程中请勿频繁切换浏览器或屏幕，系统将记录切屏行为。</li>
+        <li>若检测到 <span class="text-amber-300">5 次</span>及以上切屏/截图复制行为，本次成绩将视为无效。</li>
+        <li>支持单选、多选、判断题，可将暂不确定的题目标记为“存疑”。</li>
+        <li>可开启“自动跳转下一题”，答完当前题目后自动进入下一题。</li>
+      </ul>
+      <div class="text-[11px] text-slate-400 mb-4">
+        点击“我已知晓并开始考试”视为同意以上规则。
+      </div>
+      <div class="flex gap-3">
+        <button id="notice-cancel"
+                class="flex-1 py-2 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 text-xs">
+          取消
+        </button>
+        <button id="notice-confirm"
+                class="flex-1 py-2 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-xs font-medium hover:opacity-90">
+          我已知晓并开始考试
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 切屏/截图提示弹窗 -->
+  <div id="warning-modal"
+       class="fixed inset-0 z-40 hidden overlay backdrop-blur-md flex items-center justify-center p-4">
+    <div class="glass-card rounded-3xl border border-amber-500/60 w-full max-w-sm p-5">
+      <h3 class="text-sm font-semibold mb-2 text-amber-600 flex items-center">
+        <i class="fa fa-triangle-exclamation mr-2"></i> 考试异常提醒
+      </h3>
+      <p id="warning-text" class="text-xs text-gray-700 mb-3 leading-5">
+        已检测到 1 次切屏，达到 5 次则本次成绩失效。
+      </p>
+      <div class="flex justify-end">
+        <button id="warning-close"
+                class="px-4 py-1.5 rounded-full bg-white border border-gray-300 hover:bg-gray-100 text-[11px]">
+          我已知晓
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <section class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="grid lg:grid-cols-3 gap-6 items-start">
+      <!-- 左侧：题目竖向目录 -->
+      <aside class="lg:col-span-1 glass-card rounded-3xl border border-gray-300 p-4">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="h-6 w-1 rounded-full bg-[#B01F24]"></span>
+            <h2 class="text-sm font-semibold text-gray-800">试题目录</h2>
+          </div>
+          <span class="text-[11px] text-gray-600">可自由切换题目</span>
+        </div>
+        <div id="question-nav"
+             class="space-y-2 text-xs max-h-[560px] overflow-y-auto no-scrollbar">
+          <!-- 题目标目录由 JS 注入 -->
+        </div>
+      </aside>
+
+      <!-- 右侧：答题区域 -->
+      <section class="lg:col-span-2 glass-card rounded-3xl border border-gray-300 p-4 md:p-6">
+        <!-- 顶部操作区：开始考试 / 自动跳转开关 / 交卷 -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+          <div class="flex items-center gap-2 text-xs">
+            <button id="start-exam-btn"
+                    class="px-4 py-2 rounded-full bg-[#B01F24] text-white font-medium hover:opacity-90">
+              <i class="fa fa-play mr-1 text-[11px]"></i> 开始考试
+            </button>
+            <button id="submit-btn"
+                    class="px-4 py-2 rounded-full bg-rose-500 text-white font-medium hover:bg-rose-600 disabled:opacity-40 disabled:cursor-not-allowed"
+                    disabled>
+              交卷
+            </button>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-gray-600">
+            <div class="flex items-center gap-1">
+              <span class="text-gray-500">自动跳转下一题</span>
+              <button id="auto-next-toggle"
+                      class="relative inline-flex h-5 w-9 items-center rounded-full bg-gray-200 border border-gray-400 transition">
+                <span id="auto-next-thumb"
+                      class="inline-block h-4 w-4 transform rounded-full bg-gray-500 translate-x-0 transition"></span>
+              </button>
+            </div>
+            <button id="flag-btn"
+                    class="px-3 py-1.5 rounded-full bg-yellow-100 border border-yellow-500 text-[11px] text-yellow-700 hover:bg-yellow-200">
+              <i class="fa fa-flag mr-1 text-[10px]"></i> 标记为存疑
+            </button>
+          </div>
+        </div>
+
+        <!-- 当前题目及选项 -->
+        <div id="question-area" class="hidden">
+          <div class="flex items-start justify-between gap-3 mb-3">
+            <div>
+              <div id="question-meta" class="text-[11px] text-slate-400 mb-1">
+                <!-- 题型 & 序号 -->
+              </div>
+              <h1 id="question-text" class="text-sm md:text-base font-semibold leading-6">
+                <!-- 题干 -->
+              </h1>
+            </div>
+            <div class="text-[11px] text-right text-slate-400">
+              <div>当前题：<span id="current-index">1</span>/<span id="total-index">1</span></div>
+              <div class="mt-1 flex items-center gap-1">
+                <span>本题状态：</span>
+                <span id="current-status" class="text-amber-300">未作答</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 选项列表 -->
+          <div id="options-area" class="space-y-2 text-xs">
+            <!-- 由 JS 注入 -->
+          </div>
+
+          <!-- 底部：上一题 / 下一题 + 小进度条 -->
+          <div class="mt-5 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <div class="flex items-center gap-2 text-xs">
+              <button id="prev-btn"
+                      class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed">
+                <i class="fa fa-chevron-left mr-1 text-[10px]"></i> 上一题
+              </button>
+              <button id="next-btn"
+                      class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed">
+                下一题 <i class="fa fa-chevron-right ml-1 text-[10px]"></i>
+              </button>
+            </div>
+            <div class="flex-1 md:max-w-xs md:ml-auto">
+              <div class="flex items-center justify-between text-[11px] text-slate-400 mb-1">
+                <span>考试整体进度</span>
+                <span id="overall-progress-text">0%</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full overflow-hidden progress-bar-track">
+                <div id="overall-progress-bar"
+                     class="h-full progress-bar-fill"
+                     style="width:0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 提示占位：未开始考试 -->
+        <div id="placeholder-area"
+             class="flex flex-col items-center justify-center h-64 bg-slate-900/30 rounded-2xl text-slate-400 text-xs space-y-2">
+          <i class="fa fa-clipboard-question text-2xl"></i>
+          <div>点击上方“开始考试”按钮后，将自动进入第一题。</div>
+          <div class="text-[11px] text-slate-500">
+            考试过程中请保持网络稳定，避免频繁切换页面。
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-600 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 SUGON 合作伙伴赋能平台 · 考试中心</div>
+    <div class="flex flex-wrap gap-3">
+      <span>隐私政策</span>
+      <span>法律声明</span>
+      <span>版权信息</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 考试逻辑脚本 -->
+<script>
+  // ===================== 模拟考试数据 =====================
+  const exam = {
+    id: 'exam-cloud-architect',
+    durationSeconds: 60 * 60, // 60 分钟
+    questions: [
+      {
+        id: 'q1',
+        type: 'judge', // 判断题
+        text: 'Kubernetes 的 Pod 是调度的最小单元。',
+        options: [
+          { id: 'A', text: '正确' },
+          { id: 'B', text: '错误' }
+        ]
+      },
+      {
+        id: 'q2',
+        type: 'single', // 单选题
+        text: '以下哪项是 Kubernetes 中用于服务发现的组件？',
+        options: [
+          { id: 'A', text: 'CoreDNS' },
+          { id: 'B', text: 'ZooKeeper' },
+          { id: 'C', text: 'Kafka' }
+        ]
+      },
+      {
+        id: 'q3',
+        type: 'multiple', // 多选题
+        text: 'Kubernetes 中用于配置管理的对象包括：',
+        options: [
+          { id: 'A', text: 'ConfigMap' },
+          { id: 'B', text: 'Secret' },
+          { id: 'C', text: 'Service' },
+          { id: 'D', text: 'Deployment' }
+        ]
+      },
+      {
+        id: 'q4',
+        type: 'single',
+        text: '以下哪种控制器更适合无状态服务的滚动更新？',
+        options: [
+          { id: 'A', text: 'Deployment' },
+          { id: 'B', text: 'DaemonSet' },
+          { id: 'C', text: 'Job' }
+        ]
+      },
+      {
+        id: 'q5',
+        type: 'judge',
+        text: 'Helm 可以视为 Kubernetes 的包管理工具。',
+        options: [
+          { id: 'A', text: '正确' },
+          { id: 'B', text: '错误' }
+        ]
+      }
+    ]
+  };
+
+  // ===================== 状态与存储键 =====================
+  const STORAGE_KEY = 'exam_answers_' + exam.id;
+  const SWITCH_KEY = 'exam_switch_count_' + exam.id;
+
+  let answers = loadAnswers();  // { questionId: 'A' | ['A','B'] | null }
+  let flags = {};               // { questionId: true | false }
+  let currentIndex = 0;
+  let started = false;
+  let finished = false;
+  let autoNext = false;
+  let leftSeconds = exam.durationSeconds;
+  let timerId = null;
+  let switchCount = loadSwitchCount();
+
+  // ===================== DOM 引用 =====================
+  const questionNavEl = document.getElementById('question-nav');
+  const answeredCountEl = document.getElementById('answered-count');
+  const totalCountEl = document.getElementById('total-count');
+  const timerEl = document.getElementById('timer');
+  const overallProgressTextEl = document.getElementById('overall-progress-text');
+  const overallProgressBarEl = document.getElementById('overall-progress-bar');
+  const startExamBtn = document.getElementById('start-exam-btn');
+  const submitBtn = document.getElementById('submit-btn');
+  const autoNextToggle = document.getElementById('auto-next-toggle');
+  const autoNextThumb = document.getElementById('auto-next-thumb');
+  const flagBtn = document.getElementById('flag-btn');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const questionArea = document.getElementById('question-area');
+  const placeholderArea = document.getElementById('placeholder-area');
+  const questionMetaEl = document.getElementById('question-meta');
+  const questionTextEl = document.getElementById('question-text');
+  const optionsAreaEl = document.getElementById('options-area');
+  const currentIndexEl = document.getElementById('current-index');
+  const totalIndexEl = document.getElementById('total-index');
+  const currentStatusEl = document.getElementById('current-status');
+  const noticeModal = document.getElementById('notice-modal');
+  const noticeCancel = document.getElementById('notice-cancel');
+  const noticeConfirm = document.getElementById('notice-confirm');
+  const warningModal = document.getElementById('warning-modal');
+  const warningText = document.getElementById('warning-text');
+  const warningClose = document.getElementById('warning-close');
+
+  totalCountEl.textContent = exam.questions.length;
+  totalIndexEl.textContent = exam.questions.length;
+
+  // ===================== 初始化渲染 =====================
+  renderNav();
+  updateStats();
+
+  // ===================== 目录渲染 =====================
+  function renderNav() {
+    questionNavEl.innerHTML = '';
+    exam.questions.forEach((q, index) => {
+      const navBtn = document.createElement('button');
+      const ans = answers[q.id];
+      const isAnswered = q.type === 'multiple'
+        ? Array.isArray(ans) && ans.length > 0
+        : !!ans;
+      const isFlagged = flags[q.id];
+
+      let baseCls = 'w-full text-left rounded-2xl border border-slate-800 px-3 py-2 text-xs hover:bg-slate-900/80 transition flex flex-col gap-1';
+      if (isAnswered) baseCls += ' question-nav-item-answered';
+      if (isFlagged) baseCls += ' question-nav-item-flagged';
+      if (index === currentIndex && started && !finished) baseCls += ' question-nav-item-active';
+
+      navBtn.className = baseCls;
+      navBtn.dataset.index = index;
+
+      const typeLabel = q.type === 'judge' ? '判断题' : (q.type === 'single' ? '单选题' : '多选题');
+      navBtn.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div class="flex-1">
+            <div class="text-[11px] text-slate-400 mb-0.5">第 ${index + 1} 题 · ${typeLabel}</div>
+            <div class="line-clamp-1">${q.text}</div>
+          </div>
+          <div class="ml-2 flex flex-col items-end text-[11px] text-slate-400">
+            <span>${isAnswered ? '<span class="text-emerald-300">已答</span>' : '未答'}</span>
+            ${isFlagged ? '<span class="text-amber-300 mt-0.5"><i class="fa fa-flag text-[9px] mr-1"></i>存疑</span>' : ''}
+          </div>
+        </div>
+      `;
+      navBtn.addEventListener('click', () => {
+        if (!started || finished) return;
+        currentIndex = index;
+        renderQuestion();
+        renderNav();
+      });
+      questionNavEl.appendChild(navBtn);
+    });
+  }
+
+  // ===================== 渲染当前题目 =====================
+  function renderQuestion() {
+    const q = exam.questions[currentIndex];
+    if (!q) return;
+
+    questionArea.classList.remove('hidden');
+    placeholderArea.classList.add('hidden');
+
+    const typeLabel = q.type === 'judge' ? '判断题' : (q.type === 'single' ? '单选题' : '多选题');
+    questionMetaEl.textContent = `${typeLabel} · 第 ${currentIndex + 1} 题`;
+
+    questionTextEl.textContent = q.text;
+    currentIndexEl.textContent = currentIndex + 1;
+
+    const ans = answers[q.id];
+    const isAnswered = q.type === 'multiple'
+      ? Array.isArray(ans) && ans.length > 0
+      : !!ans;
+    const isFlagged = !!flags[q.id];
+
+    currentStatusEl.textContent = isAnswered ? (isFlagged ? '已答（存疑）' : '已答') : (isFlagged ? '未答（存疑）' : '未作答');
+    currentStatusEl.className = 'text-[11px] ' + (isAnswered ? 'text-emerald-300' : (isFlagged ? 'text-amber-300' : 'text-slate-400'));
+
+    // 选项
+    optionsAreaEl.innerHTML = '';
+    q.options.forEach(opt => {
+      const btn = document.createElement('button');
+      const selected = q.type === 'multiple'
+        ? Array.isArray(ans) && ans.includes(opt.id)
+        : ans === opt.id;
+      btn.className = `w-full text-left rounded-2xl border px-3 py-2 flex items-center gap-2 text-xs
+                       ${selected ? 'border-indigo-400 bg-indigo-500/10' : 'border-slate-800 bg-slate-900/60'}
+                       hover:bg-slate-800 transition`;
+      btn.dataset.option = opt.id;
+      btn.innerHTML = `
+        <span class="inline-flex h-5 w-5 items-center justify-center rounded-full border
+          ${selected ? 'border-indigo-400 bg-indigo-500/30' : 'border-slate-700 bg-slate-900'}">
+          ${selected ? '<i class="fa fa-check text-[10px] text-indigo-300"></i>' : ''}
+        </span>
+        <span class="flex-1">${opt.id}、${opt.text}</span>
+      `;
+      btn.addEventListener('click', () => handleSelect(q, opt.id));
+      optionsAreaEl.appendChild(btn);
+    });
+
+    // 上一/下一题按钮状态
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === exam.questions.length - 1;
+  }
+
+  function handleSelect(q, optId) {
+    if (!started || finished) return;
+
+    if (q.type === 'multiple') {
+      let arr = Array.isArray(answers[q.id]) ? [...answers[q.id]] : [];
+      if (arr.includes(optId)) {
+        arr = arr.filter(id => id !== optId);
+      } else {
+        arr.push(optId);
+      }
+      answers[q.id] = arr.length ? arr : null;
+    } else {
+      answers[q.id] = answers[q.id] === optId ? null : optId;
+    }
+    saveAnswers(answers);
+    updateStats();
+    renderQuestion();
+    renderNav();
+
+    // 自动跳转下一题
+    if (autoNext) {
+      const isAnswered = q.type === 'multiple'
+        ? Array.isArray(answers[q.id]) && answers[q.id].length > 0
+        : !!answers[q.id];
+      if (isAnswered && currentIndex < exam.questions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+        renderNav();
+      }
+    }
+  }
+
+  // ===================== 统计 & 进度 =====================
+  function updateStats() {
+    let answered = 0;
+    exam.questions.forEach(q => {
+      const ans = answers[q.id];
+      const isAns = q.type === 'multiple'
+        ? Array.isArray(ans) && ans.length > 0
+        : !!ans;
+      if (isAns) answered++;
+    });
+    answeredCountEl.textContent = answered;
+
+    const percent = Math.round(answered / exam.questions.length * 100);
+    overallProgressTextEl.textContent = percent + '%';
+    overallProgressBarEl.style.width = percent + '%';
+  }
+
+  // ===================== 计时器 =====================
+  function startTimer() {
+    clearInterval(timerId);
+    timerId = setInterval(() => {
+      if (!started || finished) {
+        clearInterval(timerId);
+        return;
+      }
+      leftSeconds--;
+      if (leftSeconds <= 0) {
+        leftSeconds = 0;
+        renderTimer();
+        autoSubmit('时间到，系统已自动为你交卷。');
+        return;
+      }
+      renderTimer();
+    }, 1000);
+    renderTimer();
+  }
+
+  function renderTimer() {
+    const m = String(Math.floor(leftSeconds / 60)).padStart(2, '0');
+    const s = String(leftSeconds % 60).padStart(2, '0');
+    timerEl.textContent = `${m}:${s}`;
+  }
+
+  // ===================== 开始考试 & 交卷 =====================
+  startExamBtn.addEventListener('click', () => {
+    if (started || finished) return;
+    // 弹出考生须知
+    noticeModal.classList.remove('hidden');
+  });
+
+  noticeCancel.addEventListener('click', () => {
+    noticeModal.classList.add('hidden');
+  });
+
+  noticeConfirm.addEventListener('click', () => {
+    noticeModal.classList.add('hidden');
+    started = true;
+    finished = false;
+    startExamBtn.disabled = true;
+    submitBtn.disabled = false;
+    currentIndex = 0;
+    renderQuestion();
+    renderNav();
+    startTimer();
+  });
+
+  submitBtn.addEventListener('click', () => {
+    if (!started || finished) return;
+    if (!confirm('确认要提前交卷吗？')) return;
+    autoSubmit('你已手动交卷，本次作答已提交。');
+  });
+
+  function autoSubmit(msg) {
+    finished = true;
+    started = false;
+    clearInterval(timerId);
+    submitBtn.disabled = true;
+
+    // 禁用操作
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+    flagBtn.disabled = true;
+    autoNextToggle.classList.add('opacity-50', 'pointer-events-none');
+
+    alert(msg + '\n（示例页未接入评分接口，仅模拟提交流程）');
+    
+    // 自动跳转到考试结果页面
+    setTimeout(() => {
+      window.location.href = 'exam-result.html';
+    }, 1000);
+  }
+
+  // 上一题 / 下一题
+  prevBtn.addEventListener('click', () => {
+    if (!started || finished) return;
+    if (currentIndex > 0) {
+      currentIndex--;
+      renderQuestion();
+      renderNav();
+    }
+  });
+  nextBtn.addEventListener('click', () => {
+    if (!started || finished) return;
+    if (currentIndex < exam.questions.length - 1) {
+      currentIndex++;
+      renderQuestion();
+      renderNav();
+    }
+  });
+
+  // 存疑标记
+  flagBtn.addEventListener('click', () => {
+    if (!started || finished) return;
+    const q = exam.questions[currentIndex];
+    flags[q.id] = !flags[q.id];
+    renderQuestion();
+    renderNav();
+  });
+
+  // 自动跳转开关
+  autoNextToggle.addEventListener('click', () => {
+    if (!started || finished) return;
+    autoNext = !autoNext;
+    if (autoNext) {
+      autoNextToggle.classList.remove('bg-slate-800');
+      autoNextToggle.classList.add('bg-indigo-500');
+      autoNextThumb.style.transform = 'translateX(16px)';
+    } else {
+      autoNextToggle.classList.add('bg-slate-800');
+      autoNextToggle.classList.remove('bg-indigo-500');
+      autoNextThumb.style.transform = 'translateX(0)';
+    }
+  });
+
+  // ===================== 切屏 / 截图复制检测 =====================
+  function loadSwitchCount() {
+    try {
+      const v = localStorage.getItem(SWITCH_KEY);
+      return v ? parseInt(v, 10) || 0 : 0;
+    } catch {
+      return 0;
+    }
+  }
+  function saveSwitchCount(v) {
+    localStorage.setItem(SWITCH_KEY, String(v));
+  }
+
+  function triggerWarning(typeText) {
+    if (!started || finished) return;
+    switchCount++;
+    saveSwitchCount(switchCount);
+    warningText.textContent = `已检测到 ${switchCount} 次${typeText}，达到 5 次则本次成绩失效。`;
+    warningModal.classList.remove('hidden');
+
+    if (switchCount >= 5) {
+      autoSubmit('已检测到 5 次异常行为，本次成绩已作废并自动交卷。');
+    }
+  }
+
+  // 切屏：visibilitychange
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      triggerWarning('切屏');
+    }
+  });
+
+  // 简单截图/复制检测：copy 事件
+  document.addEventListener('copy', () => {
+    triggerWarning('复制/截图');
+  });
+
+  warningClose.addEventListener('click', () => {
+    warningModal.classList.add('hidden');
+  });
+
+  // ===================== 答案持久化 =====================
+  function loadAnswers() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  }
+  function saveAnswers(data) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+</script>
+
+</body>
+</html>

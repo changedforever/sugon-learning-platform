@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>直播列表 - SUGON 合作伙伴赋能平台</title>
+  <title>直播列表 - HIECO 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -13,72 +13,248 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body {
-      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+      background: #FFFFFF;
     }
     .glass-card {
-      background: rgba(15,23,42,0.85);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
     }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
     .filter-chip-active {
-      border-color: rgb(129 140 248 / 1); /* indigo-400 */
-      color: rgb(191 219 254 / 1);
-      background: rgba(15,23,42,0.9);
+      border-color: #2D874B;
+      color: #2D874B;
+      background: rgba(255, 255, 255, 0.9);
     }
     .status-badge-upcoming {
-      background: rgba(56,189,248,0.12);
-      color: rgb(125,211,252);
-      border-color: rgba(56,189,248,0.5);
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+      border-color: rgba(59, 130, 246, 0.3);
     }
     .status-badge-live {
-      background: rgba(248,113,113,0.15);
-      color: rgb(252,165,165);
-      border-color: rgba(248,113,113,0.7);
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.3);
     }
     .status-badge-ended {
-      background: rgba(148,163,184,0.15);
-      color: rgb(148,163,184);
-      border-color: rgba(148,163,184,0.7);
+      background: rgba(107, 114, 128, 0.1);
+      color: #6b7280;
+      border-color: rgba(107, 114, 128, 0.3);
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-50">
+<body class="bg-white text-gray-800">
 
-<!-- 顶部导航（SUGON） -->
-<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+<!-- 顶部导航（完整版），与首页风格统一 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
-      <!-- 左侧：返回首页 -->
-      <div class="flex items-center space-x-3">
-        <a href="index.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
-            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
-          </button>
-          <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-indigo-300">
-              合作伙伴赋能平台 · 直播中心
-            </div>
-          </div>
+      <!-- LOGO + 品牌 -->
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+          <img src="images/logo2.png" alt="HIECO Logo" class="h-32 w-32 object-contain">
         </a>
+        <div>
+          <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200">光合技术支持平台</div>
+          </a>
+        </div>
       </div>
 
-      <!-- 中间：标题 >
-      <div class="hidden md:flex flex-col items-center">
-        <span class="text-[11px] text-slate-400">直播中心</span>
-        <span class="text-sm font-medium line-clamp-1 max-w-xs">直播列表</span>
-      </div-->
+      <!-- 导航入口（桌面端） -->
+      <nav class="hidden md:flex items-center space-x-3 text-sm">
+        <!-- 专家 - 无下拉 -->
+        <a href="expert-center.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">
+          专家
+        </a>
 
-      <!-- 右侧：入口 -->
-      <div class="flex items-center space-x-2 text-xs">
-        <a href="personal-center.html" class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 hover:border-indigo-500 transition">
-          个人中心
-        </a>
-        <a href="#" class="px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white font-medium">
-          登录
-        </a>
+        <!-- 培训 - 带下拉浮窗（合并培训、考试、认证、讲师） -->
+        <div class="nav-dropdown relative group">
+          <span class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer">
+            培训
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
+          </span>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-96 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="grid grid-cols-2 gap-4">
+                <!-- 左侧：二级菜单 -->
+                <div class="space-y-3">
+                  <!-- 课程（原培训） -->
+                  <div class="nav-item group/item relative">
+                    <a href="course-list2.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between">
+                      课程
+                      <i class="fa fa-chevron-right text-xs opacity-0 group-hover/item:opacity-100"></i>
+                    </a>
+                    <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
+                      <div class="p-3">
+                        <h4 class="text-sm font-semibold text-gray-800 mb-2">课程分类</h4>
+                        <div class="grid grid-cols-2 gap-2">
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">云基础设施</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">AI与数据智能</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">解决方案</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">安全技术</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">运维管理</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">开发技术</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- 考试 -->
+                  <div class="nav-item group/item relative">
+                    <a href="exam-list.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between">
+                      考试
+                      <i class="fa fa-chevron-right text-xs opacity-0 group-hover/item:opacity-100"></i>
+                    </a>
+                    <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
+                      <div class="p-3">
+                        <h4 class="text-sm font-semibold text-gray-800 mb-2">考试分类</h4>
+                        <div class="grid grid-cols-2 gap-2">
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">资格认证考试</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">技能水平考试</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">岗位能力考试</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">产品认证考试</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">在线考试</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">线下考试</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- 认证 -->
+                  <div class="nav-item group/item relative">
+                    <a href="certification.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between">
+                      认证
+                      <i class="fa fa-chevron-right text-xs opacity-0 group-hover/item:opacity-100"></i>
+                    </a>
+                    <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
+                      <div class="p-3">
+                        <h4 class="text-sm font-semibold text-gray-800 mb-2">认证分类</h4>
+                        <div class="grid grid-cols-2 gap-2">
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">通用计算认证</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">智能计算认证</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">行业解决方案认证</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">专业技术认证</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">初级认证</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">高级认证</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- 讲师 -->
+                  <a href="lecturer-list.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] block">
+                    讲师
+                  </a>
+                </div>
+                
+                <!-- 右侧：快速入口 -->
+                <div class="space-y-3">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">快速入口</h3>
+                  <div class="space-y-2">
+                    <a href="personal-center.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
+                      <i class="fa fa-user text-[#2D874B] text-xs"></i>
+                      个人中心
+                    </a>
+                    <a href="task-detail.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
+                      <i class="fa fa-tasks text-[#2D874B] text-xs"></i>
+                      我的任务
+                    </a>
+                    <a href="course-learning.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
+                      <i class="fa fa-book text-[#2D874B] text-xs"></i>
+                      继续学习
+                    </a>
+                    <a href="certification.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
+                      <i class="fa fa-certificate text-[#2D874B] text-xs"></i>
+                      我的证书
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 直播 - 带下拉浮窗 -->
+        <div class="nav-dropdown relative group">
+          <a href="live-list.html" class="px-3 py-1.5 rounded-full bg-[#2D874B] text-white transition flex items-center gap-1">
+            直播
+            <i class="fa fa-chevron-down text-xs text-white"></i>
+          </a>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">直播状态</h3>
+                  <div class="space-y-1">
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">未开始</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">直播中</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">已结束</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">可预约</a>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">直播类型</h3>
+                  <div class="space-y-1">
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">技术分享</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">产品发布</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">案例解析</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">专家访谈</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 其他导航项（无下拉） -->
+        <a href="#" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">论坛</a>
+        <a href="resource-center.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">资源</a>
+        
+        <!-- 资讯 - 带下拉浮窗（合并资讯、活动） -->
+        <div class="nav-dropdown relative group">
+          <span class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer">
+            资讯
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
+          </span>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="space-y-3">
+                <!-- 资讯 -->
+                <a href="news-announcement-list.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-newspaper mr-3 text-[#2D874B]"></i>
+                  <span>资讯</span>
+                </a>
+                
+                <!-- 活动 -->
+                <a href="activity-list.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-calendar-alt mr-3 text-[#2D874B]"></i>
+                  <span>活动</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- 右侧功能区 -->
+      <div class="flex items-center space-x-3">
+        <!-- 搜索图标（桌面端） -->
+        <div class="relative">
+          <!-- 搜索图标按钮 -->
+          <button id="search-toggle" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <i class="fa fa-search text-sm"></i>
+          </button>
+        </div>
+        
+        <!-- 头像 -->
+        <div class="relative">
+          <button class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <i class="fa fa-user text-sm"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -91,7 +267,7 @@
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-6">
       <div>
         <h2 class="text-lg font-semibold flex items-center gap-2">
-          <span class="inline-flex h-6 w-1 rounded-full bg-indigo-500"></span>
+          <span class="inline-flex h-6 w-1 rounded-full bg-[#2D874B]"></span>
           直播列表
         </h2>
 
@@ -100,147 +276,104 @@
       <div class="flex flex-wrap items-center gap-2 justify-end">
         <!-- 搜索框 -->
         <div class="relative">
-          <i class="fa fa-search text-slate-400 absolute left-2 top-2.5 text-xs"></i>
+          <i class="fa fa-search text-gray-400 absolute left-2 top-2.5 text-xs"></i>
           <input id="search-input"
                  type="text"
                  placeholder="搜索直播主题 / 发布方 / 标签"
-                 class="w-52 md:w-64 rounded-full bg-slate-900/80 border border-slate-700 pl-7 pr-3 py-1.5 text-xs placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                 class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]" />
+        </div>
+        
+        <!-- 排序 -->
+        <div class="flex items-center gap-1 text-xs">
+          <span class="text-gray-600">排序：</span>
+          <select id="sort-select"
+                  class="rounded-full bg-white/80 border border-gray-300 px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-[#2D874B]">
+            <option value="newest">最新</option>
+            <option value="most-popular">最热</option>
+          </select>
         </div>
       </div>
     </div>
 
-    <!-- 多维筛选：时间、状态、类别、岗位、赛道 -->
+    <!-- 正在直播区域 -->
+    <section class="mb-8">
+      <h3 class="text-base font-semibold mb-4 flex items-center gap-2">
+        <span class="inline-flex h-5 w-1 rounded-full bg-red-500"></span>
+        正在直播
+      </h3>
+      <div id="live-now-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 pb-4">
+        <!-- 由 JS 注入 -->
+      </div>
+    </section>
+
+    <!-- 最近直播区域 -->
+    <section class="mb-8">
+      <h3 class="text-base font-semibold mb-4 flex items-center gap-2">
+        <span class="inline-flex h-5 w-1 rounded-full bg-blue-500"></span>
+        最近直播
+      </h3>
+      <div id="upcoming-list" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <!-- 由 JS 注入 -->
+      </div>
+    </section>
+
+    <!-- 多维筛选：类别、赛道 -->
     <section class="mb-6">
-      <div class="glass-card rounded-3xl border border-slate-800 p-4 space-y-3">
+      <div class="glass-card rounded-3xl border border-gray-300 p-4 space-y-3">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <!--i class="fa fa-filter text-indigo-400 text-sm"></i>
             <span class="text-sm font-medium">筛选条件</span-->
           </div>
-          <span id="active-filter-text" class="text-[11px] text-slate-400">
+          <span id="active-filter-text" class="text-[11px] text-gray-600">
             已选条件：全部
           </span>
         </div>
 
-        <!-- 时间 -->
-        <div>
-          <div class="text-slate-400 mb-1 flex items-center justify-between">
-            <span>时间</span>
-          </div>
-          <div class="flex flex-wrap gap-1">
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px]"
-                    data-filter="time" data-value="all">
-              全部
-            </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-emerald-300"
-                    data-filter="time" data-value="today">
-              今日
-            </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-purple-300"
-                    data-filter="time" data-value="week">
-              本周
-            </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-amber-300"
-                    data-filter="time" data-value="month">
-              本月
-            </button>
-          </div>
-        </div>
-
-        <!-- 状态 -->
-        <div>
-          <div class="text-slate-400 mb-1 flex items-center justify-between">
-            <span>状态</span>
-          </div>
-          <div class="flex flex-wrap gap-1">
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px]"
-                    data-filter="status" data-value="all">
-              全部
-            </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-sky-300"
-                    data-filter="status" data-value="upcoming">
-              未开始
-            </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-indigo-300"
-                    data-filter="status" data-value="live">
-              直播中
-            </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-emerald-300"
-                    data-filter="status" data-value="ended">
-              已结束
-            </button>
-          </div>
-        </div>
-
         <!-- 类别 -->
         <div>
-          <div class="text-slate-400 mb-1 flex items-center justify-between">
+          <div class="text-gray-600 mb-1 flex items-center justify-between">
             <span>类别</span>
           </div>
           <div class="flex flex-wrap gap-1">
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px]"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px]"
                     data-filter="category" data-value="all">
               全部
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-indigo-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-indigo-600"
                     data-filter="category" data-value="云基础设施">
               云基础设施
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-emerald-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#B01F24]"
                     data-filter="category" data-value="AI与数据智能">
               AI 与数据智能
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-amber-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-amber-600"
                     data-filter="category" data-value="解决方案">
               解决方案
             </button>
           </div>
         </div>
 
-        <!-- 岗位 -->
-        <div>
-          <div class="text-slate-400 mb-1 flex items-center justify-between">
-            <span>岗位</span>
-          </div>
-          <div class="flex flex-wrap gap-1">
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px]"
-                    data-filter="role" data-value="all">
-              全部
-            </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-sky-300"
-                    data-filter="role" data-value="云架构师">
-              云架构师
-            </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-emerald-300"
-                    data-filter="role" data-value="解决方案顾问">
-              解决方案顾问
-            </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-rose-300"
-                    data-filter="role" data-value="销售">
-              销售
-            </button>
-          </div>
-        </div>
-
         <!-- 赛道 -->
         <div>
-          <div class="text-slate-400 mb-1 flex items-center justify-between">
+          <div class="text-gray-600 mb-1 flex items-center justify-between">
             <span>赛道</span>
           </div>
           <div class="flex flex-wrap gap-1">
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px]"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px]"
                     data-filter="track" data-value="all">
               全部
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-emerald-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#B01F24]"
                     data-filter="track" data-value="DevOps">
               DevOps
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-purple-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-purple-600"
                     data-filter="track" data-value="AI">
               AI 赛道
             </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] text-amber-300"
+            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-amber-600"
                     data-filter="track" data-value="业务运营">
               业务运营
             </button>
@@ -249,29 +382,33 @@
       </div>
     </section>
 
-    <!-- 直播列表 + 分页 -->
+    <!-- 全部直播区域 -->
     <section>
+      <h3 class="text-base font-semibold mb-4 flex items-center gap-2">
+        <span class="inline-flex h-5 w-1 rounded-full bg-gray-500"></span>
+        全部直播
+      </h3>
       <!-- 统计 + 分页信息 -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 text-[11px] text-slate-400 gap-2">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 text-[11px] text-gray-600 gap-2">
         <div>
           共 <span id="total-count">0</span> 场直播，当前显示
           <span id="current-range">0–0</span>
         </div>
         <div class="flex items-center gap-2">
           <button id="prev-btn"
-                  class="px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800">
+                  class="px-2.5 py-1 rounded-full bg-white border border-gray-300 hover:bg-gray-50">
             上一页
           </button>
           <span id="page-info">1 / 1</span>
           <button id="next-btn"
-                  class="px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800">
+                  class="px-2.5 py-1 rounded-full bg-white border border-gray-300 hover:bg-gray-50">
             下一页
           </button>
         </div>
       </div>
 
       <!-- 网格卡片 -->
-      <div id="live-list"
+      <div id="all-live-list"
            class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         <!-- 由 JS 注入 -->
       </div>
@@ -280,9 +417,9 @@
 </main>
 
 <!-- 底部 -->
-<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
-  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-    <div>© 2026 SUGON 合作伙伴赋能平台 · 直播中心</div>
+<footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-600 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 HIECO 光合技术支持平台 · 直播中心</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>
       <span>法律声明</span>
@@ -291,39 +428,42 @@
   </div>
 </footer>
 
-<!-- 交互脚本：筛选 / 分页 / 报名 / 取消报名 -->
+<!-- 交互脚本：筛选 / 分页 / 预约 / 取消预约 -->
 <script>
   // 模拟直播数据（实际可改为接口）
   const allLives = [
-    { id: 1, title: "云原生架构设计实战分享", source: "云基础设施学院", date: "2026-01-15 19:00", status: "upcoming", category: "云基础设施", role: "云架构师", track: "DevOps", attendees: 1234 },
-    { id: 2, title: "AI 与数据智能实战公开课", source: "AI 与数据智能学院", date: "2026-01-15 20:00", status: "live", category: "AI与数据智能", role: "数据分析师", track: "AI", attendees: 2567 },
-    { id: 3, title: "解决方案与售前实战分享", source: "解决方案与售前学院", date: "2026-01-14 18:00", status: "ended", category: "解决方案", role: "解决方案顾问", track: "业务运营", attendees: 894 },
-    { id: 4, title: "生态伙伴云运维沙龙", source: "云基础设施学院", date: "2026-01-12 19:30", status: "upcoming", category: "云基础设施", role: "运维工程师", track: "DevOps", attendees: 1562 },
-    { id: 5, title: "金融行业云原生案例拆解", source: "解决方案与售前学院", date: "2026-01-11 20:00", status: "ended", category: "解决方案", role: "解决方案顾问", track: "业务运营", attendees: 180 },
-    { id: 6, title: "AIGC 在方案中的落地", source: "AI 与数据智能学院", date: "2026-01-08 18:30", status: "upcoming", category: "AI与数据智能", role: "开发者", track: "AI", attendees: 987 },
-    { id: 7, title: "伙伴技术沙龙：真实项目案例", source: "解决方案与售前学院", date: "2026-01-05 19:00", status: "ended", category: "解决方案", role: "销售", track: "业务运营", attendees: 543 },
-    { id: 8, title: "云成本优化与 FinOps", source: "云基础设施学院", date: "2025-12-30 18:30", status: "ended", category: "云基础设施", role: "云架构师", track: "DevOps", attendees: 678 },
-    { id: 9, title: "生态技术领袖闭门对话", source: "生态合作中心", date: "2025-12-25 20:00", status: "ended", category: "解决方案", role: "技术专家", track: "业务运营", attendees: 456 },
-    { id: 10, title: "云原生安全最佳实践", source: "云基础设施学院", date: "2025-12-20 19:00", status: "upcoming", category: "云基础设施", role: "云安全专家", track: "DevOps", attendees: 1123 },
-    { id: 11, title: "数据治理与合规专题直播", source: "AI 与数据智能学院", date: "2025-12-18 18:30", status: "ended", category: "AI与数据智能", role: "数据分析师", track: "AI", attendees: 342 },
-    { id: 12, title: "销售技巧与标杆案例复盘", source: "解决方案与售前学院", date: "2025-12-15 20:00", status: "ended", category: "解决方案", role: "销售", track: "业务运营", attendees: 230 }
+    { id: 1, title: "云原生架构设计实战分享", source: "云基础设施学院", date: "2026-01-27 19:00", status: "upcoming", category: "云基础设施", role: "云架构师", track: "DevOps", attendees: 1234, cover: "images/living_room.png" },
+    { id: 2, title: "AI 与数据智能实战公开课", source: "AI 与数据智能学院", date: "2026-01-15 20:00", status: "live", category: "AI与数据智能", role: "数据分析师", track: "AI", attendees: 2567, cover: "images/living_room.png" },
+    { id: 3, title: "解决方案与售前实战分享", source: "解决方案与售前学院", date: "2026-01-14 18:00", status: "ended", category: "解决方案", role: "解决方案顾问", track: "业务运营", attendees: 894, cover: "images/living_room.png" },
+    { id: 4, title: "生态伙伴云运维沙龙", source: "云基础设施学院", date: "2026-01-29 19:30", status: "upcoming", category: "云基础设施", role: "运维工程师", track: "DevOps", attendees: 1562, cover: "images/living_room.png" },
+    { id: 5, title: "金融行业云原生案例拆解", source: "解决方案与售前学院", date: "2026-01-11 20:00", status: "ended", category: "解决方案", role: "解决方案顾问", track: "业务运营", attendees: 180, cover: "images/living_room.png" },
+    { id: 6, title: "AIGC 在方案中的落地", source: "AI 与数据智能学院", date: "2026-02-02 18:30", status: "upcoming", category: "AI与数据智能", role: "开发者", track: "AI", attendees: 987, cover: "images/living_room.png" },
+    { id: 7, title: "伙伴技术沙龙：真实项目案例", source: "解决方案与售前学院", date: "2026-01-05 19:00", status: "ended", category: "解决方案", role: "销售", track: "业务运营", attendees: 543, cover: "images/living_room.png" },
+    { id: 8, title: "云成本优化与 FinOps", source: "云基础设施学院", date: "2025-12-30 18:30", status: "ended", category: "云基础设施", role: "云架构师", track: "DevOps", attendees: 678, cover: "images/living_room.png" },
+    { id: 9, title: "生态技术领袖闭门对话", source: "生态合作中心", date: "2025-12-25 20:00", status: "ended", category: "解决方案", role: "技术专家", track: "业务运营", attendees: 456, cover: "images/living_room.png" },
+    { id: 10, title: "云原生安全最佳实践", source: "云基础设施学院", date: "2026-02-03 19:00", status: "upcoming", category: "云基础设施", role: "云安全专家", track: "DevOps", attendees: 1123, cover: "images/living_room.png" },
+    { id: 11, title: "数据治理与合规专题直播", source: "AI 与数据智能学院", date: "2025-12-18 18:30", status: "ended", category: "AI与数据智能", role: "数据分析师", track: "AI", attendees: 342, cover: "images/living_room.png" },
+    { id: 12, title: "销售技巧与标杆案例复盘", source: "解决方案与售前学院", date: "2025-12-15 20:00", status: "ended", category: "解决方案", role: "销售", track: "业务运营", attendees: 230, cover: "images/living_room.png" },
+    { id: 13, title: "企业数字化转型实践分享", source: "解决方案与售前学院", date: "2025-12-10 19:00", status: "ended", category: "解决方案", role: "数字化转型顾问", track: "业务运营", attendees: 789, cover: "images/living_room.png" },
+    { id: 14, title: "云原生安全技术研讨会", source: "云基础设施学院", date: "2025-12-05 18:30", status: "ended", category: "云基础设施", role: "安全专家", track: "DevOps", attendees: 567, cover: "images/living_room.png" },
+    { id: 15, title: "人工智能前沿技术论坛", source: "AI 与数据智能学院", date: "2025-11-30 19:00", status: "ended", category: "AI与数据智能", role: "AI专家", track: "AI", attendees: 890, cover: "images/living_room.png" }
   ];
 
-  const pageSize = 8;
+  const pageSize = 9;
   let currentPage = 1;
   let filteredLives = [...allLives];
 
   const filters = {
-    time: 'all',
-    status: 'all',
     category: 'all',
-    role: 'all',
     track: 'all',
     search: ''
   };
 
   const searchInput = document.getElementById('search-input');
-  const liveList = document.getElementById('live-list');
+  const sortSelect = document.getElementById('sort-select');
+  const liveNowList = document.getElementById('live-now-list');
+  const upcomingList = document.getElementById('upcoming-list');
+  const allLiveList = document.getElementById('all-live-list');
   const totalCountEl = document.getElementById('total-count');
   const currentRangeEl = document.getElementById('current-range');
   const pageInfoEl = document.getElementById('page-info');
@@ -332,7 +472,7 @@
   const activeFilterText = document.getElementById('active-filter-text');
   const filterChips = document.querySelectorAll('.filter-chip');
 
-  // 报名状态本地存储（可替换为后端状态）
+  // 预约状态本地存储（可替换为后端状态）
   const ENROLL_KEY = 'live_enrolled_ids';
   let enrolledIds = new Set();
   try {
@@ -364,6 +504,11 @@
   // 搜索
   searchInput.addEventListener('input', () => {
     filters.search = searchInput.value.trim().toLowerCase();
+    applyFiltersAndRender();
+  });
+
+  // 排序
+  sortSelect.addEventListener('change', () => {
     applyFiltersAndRender();
   });
 
@@ -408,28 +553,44 @@
   // 应用筛选
   function applyFiltersAndRender() {
     filteredLives = allLives.filter(l => {
-      const mt = filters.time === 'all' ||
-        (filters.time === 'today' && isToday(l.date)) ||
-        (filters.time === 'week' && isThisWeek(l.date)) ||
-        (filters.time === 'month' && isThisMonth(l.date));
-
-      const ms = filters.status === 'all' || l.status === filters.status;
       const mc = filters.category === 'all' || l.category === filters.category;
-      const mr = filters.role === 'all' || l.role === filters.role;
       const mk = filters.track === 'all' || l.track === filters.track;
       const kw = filters.search;
       const mkw = !kw ||
         l.title.toLowerCase().includes(kw) ||
         l.source.toLowerCase().includes(kw) ||
         (l.category || '').toLowerCase().includes(kw) ||
-        (l.role || '').toLowerCase().includes(kw) ||
         (l.track || '').toLowerCase().includes(kw);
 
-      return mt && ms && mc && mr && mk && mkw;
+      return mc && mk && mkw;
     });
 
-    // 按时间倒序（最近的靠前）
-    filteredLives.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // 排序逻辑
+    const sortBy = sortSelect.value;
+    if (sortBy === 'newest') {
+      // 最新：按时间倒序（最近的靠前）
+      filteredLives.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else if (sortBy === 'most-popular') {
+      // 最热：按预约人数倒序
+      filteredLives.sort((a, b) => b.attendees - a.attendees);
+    }
+    
+    // 始终按照状态优先级排序：直播中 > 倒计时 > 精彩回顾 > 已结束
+    filteredLives.sort((a, b) => {
+      const statusPriority = {
+        'live': 0,       // 直播中优先级最高
+        'upcoming': 1,   // 倒计时次之
+        'ended': 2       // 已结束（包括精彩回顾）优先级最低
+      };
+      
+      // 先按状态优先级排序
+      if (statusPriority[a.status] !== statusPriority[b.status]) {
+        return statusPriority[a.status] - statusPriority[b.status];
+      }
+      
+      // 状态相同时，按时间排序
+      return new Date(b.date) - new Date(a.date);
+    });
 
     currentPage = 1;
     updateFilterText();
@@ -438,114 +599,201 @@
 
   function updateFilterText() {
     const parts = [];
-    if (filters.time !== 'all') parts.push(`时间：${filters.time}`);
-    if (filters.status !== 'all') parts.push(`状态：${filters.status}`);
     if (filters.category !== 'all') parts.push(`类别：${filters.category}`);
-    if (filters.role !== 'all') parts.push(`岗位：${filters.role}`);
     if (filters.track !== 'all') parts.push(`赛道：${filters.track}`);
     if (filters.search) parts.push(`关键词：“${filters.search}”`);
     activeFilterText.textContent = '已选条件：' + (parts.length ? parts.join(' / ') : '全部');
   }
 
-  // 渲染直播卡片
-  function renderList() {
-    liveList.innerHTML = '';
+  // 计算倒计时天数（只返回正数）
+  function getCountdownDays(dateStr) {
+    const eventDate = new Date(dateStr);
+    const now = new Date();
+    const diffTime = eventDate - now;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return Math.max(0, diffDays);
+  }
+
+  // 渲染直播卡片（通用函数）
+  function createLiveCard(l) {
+    const card = document.createElement('article');
+    const statusMap = {
+      upcoming: { text: '未开始', cls: 'status-badge-upcoming' },
+      live: { text: '直播中', cls: 'status-badge-live' },
+      ended: { text: '精彩回顾', cls: 'status-badge-ended' }
+    };
+    const st = statusMap[l.status] || statusMap.upcoming;
+    const isEnrolled = enrolledIds.has(l.id);
+    const countdownDays = l.status === 'upcoming' ? getCountdownDays(l.date) : 0;
+    const statusText = l.status === 'upcoming' ? `倒计时 ${countdownDays} 天` : st.text;
+
+    card.className = 'glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col';
+    card.innerHTML = `
+      <div class="relative flex-shrink-0">
+        <img src="${l.cover}" alt="${l.title}" class="w-full aspect-[3/4] object-cover">  <!-- 修改为3:4比例，更适合竖向展示 -->
+        <div class="absolute top-2 left-2">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] ${st.cls}">
+            <i class="fa fa-broadcast-tower mr-1 text-[8px]"></i>${statusText}
+          </span>
+        </div>
+        <div class="absolute bottom-2 left-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+          <span><i class="fa fa-users mr-1"></i> ${l.status === 'live' ? (l.attendees * 1.5).toLocaleString() : l.attendees.toLocaleString()}</span>
+        </div>
+        <!-- 中间进入直播间按钮 -->
+        ${l.status === 'live' ? `
+        <div class="absolute inset-0 flex items-center justify-center">
+          <a href="live-detail.html" target="_blank" class="flex items-center justify-center bg-black bg-opacity-50 text-white px-6 py-4 rounded-full hover:bg-opacity-70 transition-all">
+            <i class="fa fa-music text-2xl mr-2"></i>
+            <span class="text-sm font-medium">进入直播间</span>
+          </a>
+        </div>
+        ` : ''}
+      </div>
+      <div class="p-3 flex-grow flex flex-col">
+        <h3 class="text-sm font-semibold line-clamp-2 mb-2 flex-grow"><a href="live-detail.html" target="_blank">${l.title}</a></h3>
+        <div class="flex items-center justify-between text-xs mt-auto pt-2">
+          <span class="text-gray-600">${l.date}</span>
+          ${l.status === 'live' ? `
+            <div class="flex gap-1">
+              <a href="live-detail.html" target="_blank" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+                进入直播间
+              </a>
+              <a href="live-detail.html" target="_blank" class="px-2 py-1 rounded-full text-[10px] font-medium bg-white border border-gray-300 hover:bg-gray-50">
+                查看详情
+              </a>
+            </div>
+          ` : `
+            <button
+              class="enroll-btn px-2 py-1 rounded-full text-[10px] font-medium
+                     ${l.status === 'ended'
+                        ? 'bg-gray-200 text-gray-500 border border-gray-300 cursor-not-allowed opacity-60'
+                        : (isEnrolled
+                            ? 'bg-white border border-[#B01F24] text-[#B01F24] hover:bg-gray-50'
+                            : 'bg-[#2D874B] text-white hover:opacity-90')}"
+              data-id="${l.id}"
+              data-status="${l.status}">
+              ${l.status === 'ended' ? '已结束' : (isEnrolled ? '取消预约' : '预约')}
+            </button>
+          `}
+        </div>
+      </div>
+    `;
+
+    return card;
+  }
+
+  // 渲染正在直播列表
+  function renderLiveNowList() {
+    liveNowList.innerHTML = '';
+    const liveNowData = allLives.filter(l => l.status === 'live').slice(0, 2);
+
+    if (liveNowData.length === 0) {
+      liveNowList.innerHTML = '<div class="w-full text-center py-8 text-gray-500">暂无正在直播的内容</div>';
+      return;
+    }
+
+    liveNowData.forEach(l => {
+      const card = createLiveCard(l);
+      liveNowList.appendChild(card);
+    });
+
+    // 绑定预约/取消预约
+    bindEnrollEvents();
+  }
+
+  // 渲染最近直播列表
+  function renderUpcomingList() {
+    upcomingList.innerHTML = '';
+    const upcomingData = allLives.filter(l => l.status === 'upcoming')
+      .sort((a, b) => new Date(a.date) - new Date(b.date))
+      .slice(0, 4);
+
+    if (upcomingData.length === 0) {
+      upcomingList.innerHTML = '<div class="w-full text-center py-8 text-gray-500">暂无即将开始的直播</div>';
+      return;
+    }
+
+    upcomingData.forEach(l => {
+      const card = createLiveCard(l);
+      upcomingList.appendChild(card);
+    });
+
+    // 绑定预约/取消预约
+    bindEnrollEvents();
+  }
+
+  // 渲染全部直播列表
+  function renderAllLiveList() {
+    allLiveList.innerHTML = '';
     const total = filteredLives.length;
     const totalPages = Math.ceil(total / pageSize) || 1;
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = Math.min(startIndex + pageSize, total);
     const pageData = filteredLives.slice(startIndex, endIndex);
 
-    pageData.forEach(l => {
-      const card = document.createElement('article');
-      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-indigo-500/80 transition cursor-pointer';
-
-      const statusMap = {
-        upcoming: { text: '未开始', cls: 'status-badge-upcoming' },
-        live: { text: '直播中', cls: 'status-badge-live' },
-        ended: { text: '已结束', cls: 'status-badge-ended' }
-      };
-      const st = statusMap[l.status] || statusMap.upcoming;
-
-      const isEnrolled = enrolledIds.has(l.id);
-
-      card.innerHTML = `
-        <div>
-          <h3 class="text-sm font-semibold line-clamp-2 mb-2"><a href="live-detail.html" target="_blank">${l.title}</a></h3>
-
-          <div class="flex items-center justify-between mb-1">
-            <span class="text-xs text-slate-400 truncate max-w-[150px]">${l.source}</span>
-            <span class="text-xs text-amber-300 flex items-center gap-1">
-              <i class="fa fa-users text-[10px]"></i>
-              ${l.attendees.toLocaleString()} 人已报
-            </span>
-          </div>
-
-          <div class="flex flex-wrap gap-1 text-[10px] text-slate-300">
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-slate-900/80 border border-slate-800">
-              <i class="fa fa-layer-group mr-1 text-[9px] text-indigo-400"></i>${l.category}
-            </span>
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-slate-900/80 border border-slate-800">
-              <i class="fa fa-user-tie mr-1 text-[9px] text-emerald-400"></i>${l.role}
-            </span>
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-slate-900/80 border border-slate-800">
-              <i class="fa fa-road mr-1 text-[9px] text-sky-400"></i>${l.track}
-            </span>
-          </div>
-
-          <div class="mt-3 flex items-center justify-between text-xs text-slate-400">
-            <div class="flex flex-col gap-1">
-              <span class="inline-flex items-center px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">
-                <i class="fa fa-clock mr-1 text-[9px] text-slate-400"></i>${l.date}
-              </span>
-              <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] ${st.cls}">
-                <i class="fa fa-broadcast-tower mr-1 text-[9px]"></i>${st.text}
-              </span>
+    if (pageData.length === 0) {
+      allLiveList.innerHTML = '<div class="w-full text-center py-8 text-gray-500">暂无符合条件的直播</div>';
+    } else {
+      pageData.forEach((l, index) => {
+        // 检查是否是最后一个卡片且状态为ended
+        if (index === pageData.length - 1 && l.status === 'ended') {
+          // 创建一个临时副本，修改状态文本
+          const modifiedLive = { ...l };
+          // 渲染卡片时特殊处理状态文本
+          const card = document.createElement('article');
+          const statusMap = {
+            upcoming: { text: '未开始', cls: 'status-badge-upcoming' },
+            live: { text: '直播中', cls: 'status-badge-live' },
+            ended: { text: '已结束', cls: 'status-badge-ended' }
+          };
+          const st = statusMap[modifiedLive.status] || statusMap.upcoming;
+          const isEnrolled = enrolledIds.has(modifiedLive.id);
+          const countdownDays = modifiedLive.status === 'upcoming' ? getCountdownDays(modifiedLive.date) : 0;
+          const statusText = modifiedLive.status === 'upcoming' ? `倒计时 ${countdownDays} 天` : st.text;
+          
+          // 网格卡片（用于最近直播和全部直播区域）
+          card.className = 'glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer';
+          card.innerHTML = `
+            <div class="relative">
+              <img src="${modifiedLive.cover}" alt="${modifiedLive.title}" class="w-full h-64 object-cover">
+              <div class="absolute top-2 left-2">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] ${st.cls}">
+                  <i class="fa fa-broadcast-tower mr-1 text-[8px]"></i>${statusText}
+                </span>
+              </div>
+              <div class="absolute bottom-2 left-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+                <span><i class="fa fa-users mr-1"></i> ${modifiedLive.status === 'live' ? (modifiedLive.attendees * 1.5).toLocaleString() : modifiedLive.attendees.toLocaleString()}</span>
+              </div>
             </div>
-            <button
-              class="enroll-btn px-3 py-1.5 rounded-full text-[11px] font-medium
-                     ${l.status === 'ended'
-                        ? 'bg-slate-800 text-slate-400 border border-slate-700 cursor-not-allowed opacity-60'
-                        : (isEnrolled
-                            ? 'bg-slate-900 border border-emerald-400 text-emerald-300 hover:bg-slate-800'
-                            : 'bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white hover:opacity-90')}"
-              data-id="${l.id}"
-              data-status="${l.status}">
-              ${l.status === 'ended' ? '已结束' : (isEnrolled ? '取消报名' : '报名')}
-            </button>
-          </div>
-        </div>
-      `;
-      liveList.appendChild(card);
-    });
-
-    // 绑定报名/取消报名
-    document.querySelectorAll('.enroll-btn').forEach(btn => {
-      btn.addEventListener('click', e => {
-        e.stopPropagation();
-        const id = parseInt(btn.dataset.id, 10);
-        const status = btn.dataset.status;
-
-        if (status === 'ended') {
-          alert('该直播已结束，无法报名。');
-          return;
-        }
-
-        if (enrolledIds.has(id)) {
-          // 取消报名
-          if (!confirm('确认取消该直播的报名吗？')) return;
-          enrolledIds.delete(id);
-          saveEnrollState();
-          alert('已取消报名。');
+            <div class="p-3">
+              <h3 class="text-sm font-semibold line-clamp-2 mb-2"><a href="live-detail.html" target="_blank">${modifiedLive.title}</a></h3>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-gray-600">${modifiedLive.date}</span>
+                <button
+                  class="enroll-btn px-2 py-1 rounded-full text-[10px] font-medium
+                         ${modifiedLive.status === 'ended'
+                            ? 'bg-gray-200 text-gray-500 border border-gray-300 cursor-not-allowed opacity-60'
+                            : (isEnrolled
+                                ? 'bg-white border border-[#B01F24] text-[#B01F24] hover:bg-gray-50'
+                                : 'bg-[#2D874B] text-white hover:opacity-90')}"
+                  data-id="${modifiedLive.id}"
+                  data-status="${modifiedLive.status}">
+                  ${modifiedLive.status === 'ended' ? '已结束' : (isEnrolled ? '取消预约' : (modifiedLive.status === 'live' ? '观看' : '预约'))}
+                </button>
+              </div>
+            </div>
+          `;
+          allLiveList.appendChild(card);
         } else {
-          // 报名
-          enrolledIds.add(id);
-          saveEnrollState();
-          alert('报名成功，开播前可在「直播中心 - 我的预约」中查看。');
+          // 正常渲染其他卡片
+          const card = createLiveCard(l);
+          allLiveList.appendChild(card);
         }
-        renderList();
       });
-    });
+
+      // 绑定预约/取消预约
+      bindEnrollEvents();
+    }
 
     // 分页信息
     totalCountEl.textContent = total;
@@ -558,8 +806,48 @@
     nextBtn.classList.toggle('opacity-50', nextBtn.disabled);
   }
 
+  // 绑定预约/取消预约事件
+  function bindEnrollEvents() {
+    document.querySelectorAll('.enroll-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const id = parseInt(btn.dataset.id, 10);
+        const status = btn.dataset.status;
+
+        if (status === 'ended') {
+          alert('该直播已结束，无法预约。');
+          return;
+        }
+
+        if (enrolledIds.has(id)) {
+          // 取消预约
+          if (!confirm('确认取消该直播的预约吗？')) return;
+          enrolledIds.delete(id);
+          saveEnrollState();
+          alert('已取消预约。');
+        } else {
+          // 预约
+          enrolledIds.add(id);
+          saveEnrollState();
+          alert('预约成功，开播前可在「直播中心 - 我的预约」中查看。');
+        }
+        // 重新渲染所有列表
+        renderLiveNowList();
+        renderUpcomingList();
+        renderAllLiveList();
+      });
+    });
+  }
+
+  // 渲染列表（主函数）
+  function renderList() {
+    renderLiveNowList();
+    renderUpcomingList();
+    renderAllLiveList();
+  }
+
   // 初始化
-  document.querySelectorAll('.filter-chip[data-value="all"]').forEach(chip => {
+  document.querySelectorAll('.filter-chip[data-filter="category"][data-value="all"], .filter-chip[data-filter="track"][data-value="all"]').forEach(chip => {
     chip.classList.add('filter-chip-active');
   });
   applyFiltersAndRender();

@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>个人中心 - SUGON 合作伙伴赋能平台</title>
+  <title>个人中心 - HIECO 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -13,11 +13,12 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body {
-      background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #000 100%);
+      background: #FFFFFF;
     }
     .glass-card {
-      background: rgba(15,23,42,0.85);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
     }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -26,7 +27,7 @@
       width: 3rem;
       height: 3rem;
       border-radius: 9999px;
-      background: linear-gradient(135deg, #4f46e5, #06b6d4);
+      background: linear-gradient(135deg, #B01F24, #d946ef);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -35,74 +36,75 @@
     }
 
     .main-tab-active {
-      border-color: rgb(129 140 248);
-      color: rgb(191 219 254);
-      background: rgba(15,23,42,0.9);
+      border-color: #B01F24;
+      color: #B01F24;
+      background: white;
     }
     .main-tab {
-      background: rgba(15,23,42,0.9);
-      border-color: rgb(51 65 85);
+      background: white;
+      border-color: #e5e7eb;
+      color: #6b7280;
     }
 
     .badge-verified {
       background: rgba(16,185,129,0.12);
-      color: rgb(110,231,183);
+      color: #10b981;
       border-color: rgba(16,185,129,0.5);
     }
     .badge-unverified {
       background: rgba(248,113,113,0.12);
-      color: rgb(252,165,165);
+      color: #f87171;
       border-color: rgba(248,113,113,0.5);
     }
 
     .status-upcoming {
       background: rgba(56,189,248,0.12);
-      color: rgb(125,211,252);
+      color: #0ea5e9;
       border-color: rgba(56,189,248,0.5);
     }
     .status-live {
       background: rgba(248,113,113,0.12);
-      color: rgb(252,165,165);
+      color: #f87171;
       border-color: rgba(248,113,113,0.5);
     }
     .status-ended {
       background: rgba(148,163,184,0.15);
-      color: rgb(148,163,184);
+      color: #9ca3af;
       border-color: rgba(148,163,184,0.7);
     }
     .status-pass {
       background: rgba(16,185,129,0.12);
-      color: rgb(110,231,183);
+      color: #10b981;
       border-color: rgba(16,185,129,0.5);
     }
     .status-fail {
       background: rgba(248,113,113,0.12);
-      color: rgb(252,165,165);
+      color: #f87171;
       border-color: rgba(248,113,113,0.5);
     }
     .status-wait {
       background: rgba(251,191,36,0.12);
-      color: rgb(252,211,77);
+      color: #fbbf24;
       border-color: rgba(251,191,36,0.5);
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-50">
+<body class="bg-white text-gray-800">
 
 <!-- 顶部导航 -->
-<header class="fixed top-0 inset-x-0 z-50 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800">
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
       <!-- 左侧：返回首页 -->
       <div class="flex items-center space-x-3">
         <a href="index.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:border-indigo-500">
-            <i class="fa fa-chevron-left text-slate-300 text-xs"></i>
+          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center group-hover:border-[#2D874B]">
+            <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
           </button>
           <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-slate-400">SUGON</div>
-            <div class="text-sm font-semibold group-hover:text-indigo-300">
-              合作伙伴赋能平台 · 个人中心
+            <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
+            <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
+              光合技术支持平台 · 个人中心
             </div>
           </div>
         </a>
@@ -110,14 +112,14 @@
 
       <!-- 中间：标题 -->
       <div class="hidden md:flex flex-col items-center">
-        <!--span class="text-[11px] text-slate-400">我的工作台</span>
+        <!--span class="text-[11px] text-gray-400">我的工作台</span>
         <span class="text-sm font-medium line-clamp-1 max-w-xs">个人中心首页</span-->
       </div>
 
       <!-- 右侧：设置入口 -->
       <div class="flex items-center space-x-2 text-xs">
-        <button id="account-settings-btn" class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 hover:border-indigo-500 transition">
-          <i class="fa fa-gear text-xs mr-1"></i> 账号设置
+        <button id="account-settings-btn" class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
+          <i class="fa fa-gear text-xs mr-1 text-[#2D874B]"></i> 账号设置
         </button>
       </div>
     </div>
@@ -128,7 +130,7 @@
   <section class="max-w-7xl mx-auto px-4 lg:px-6 space-y-6">
 
     <!-- 顶部个人信息总览 -->
-    <section class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6">
+    <section class="glass-card rounded-3xl border border-gray-300 p-4 md:p-6">
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div class="flex items-center gap-3">
           <div class="profile-avatar" id="profile-avatar">
@@ -136,31 +138,31 @@
           </div>
           <div class="space-y-1 text-xs">
             <div class="flex items-center gap-2">
-              <span id="profile-name-display" class="text-sm font-semibold">未命名用户</span>
+              <span id="profile-name-display" class="text-sm font-semibold text-gray-800">未命名用户</span>
               <span id="auth-badge"
                     class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] badge-unverified">
                 <i class="fa fa-circle-exclamation mr-1 text-[9px]"></i> 未认证
               </span>
                <button id="start-auth-btn"
-                    class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-indigo-500 text-[11px]">
+                    class="px-3 py-1.5 rounded-full bg-white border border-gray-300 hover:border-[#B01F24] text-[11px]">
               立即认证
             </button>
             <button id="apply-assoc-btn"
-                    class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-sky-400 text-[11px]">
+                    class="px-3 py-1.5 rounded-full bg-white border border-gray-300 hover:border-[#B01F24] text-[11px]">
               关联公司
             </button>
             </div>
-            <div class="text-slate-400 flex flex-wrap gap-3">
-              <span id="profile-role-display">岗位角色未填写</span>
-              <span class="text-slate-500">·</span>
-              <span id="profile-company-display">公司未填写</span>
+            <div class="text-gray-400 flex flex-wrap gap-3">
+              <span id="profile-role-display" class="text-gray-600">岗位角色未填写</span>
+              <span class="text-gray-500">·</span>
+              <span id="profile-company-display" class="text-gray-600">公司未填写</span>
             </div>
           </div>
         </div>
-        <div class="text-[11px] text-slate-400 space-y-1 lg:text-right">
-          <div>在学课程：<span class="text-indigo-300" id="summary-learning">0</span> 门</div>
-          <div>已获证书：<span class="text-emerald-300" id="summary-cert">0</span> 张</div>
-          <div>待考试/活动：<span class="text-amber-300" id="summary-todo">0</span> 项</div>
+        <div class="text-[11px] text-gray-400 space-y-1 lg:text-right">
+          <div>在学课程：<span class="text-[#B01F24]" id="summary-learning">0</span> 门</div>
+          <div>已获证书：<span class="text-[#B01F24]" id="summary-cert">0</span> 张</div>
+          <div>待考试/活动：<span class="text-[#B01F24]" id="summary-todo">0</span> 项</div>
         </div>
       </div>
     </section>
@@ -169,84 +171,99 @@
     <!-- 第二行：学习概览 / 能力概览 -->
     <section class="grid gap-6 md:grid-cols-2">
       <!-- 学习概览 -->
-      <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-5 space-y-3">
+      <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5 space-y-3">
         <div class="flex items-center justify-between mb-1">
-          <h2 class="text-sm md:text-base font-semibold flex items-center gap-2">
-            <i class="fa fa-chart-line text-indigo-300"></i> 学习概览
+          <h2 class="text-sm md:text-base font-semibold text-gray-800 flex items-center gap-2">
+            <i class="fa fa-chart-line text-[#B01F24]"></i> 学习概览
           </h2>
         </div>
         <div class="grid grid-cols-2 gap-3 text-xs">
-          <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3">
-            <div class="text-slate-400 mb-1">在学课程</div>
-            <div id="overview-learning" class="text-lg font-semibold text-indigo-300">0</div>
+          <div class="rounded-2xl bg-white border border-gray-300 p-3">
+            <div class="text-gray-400 mb-1">在学课程</div>
+            <div id="overview-learning" class="text-lg font-semibold text-[#B01F24]">0</div>
           </div>
-          <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3">
-            <div class="text-slate-400 mb-1">已完成课程</div>
-            <div id="overview-completed" class="text-lg font-semibold text-emerald-300">0</div>
+          <div class="rounded-2xl bg-white border border-gray-300 p-3">
+            <div class="text-gray-400 mb-1">已完成课程</div>
+            <div id="overview-completed" class="text-lg font-semibold text-[#B01F24]">0</div>
           </div>
-          <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3">
-            <div class="text-slate-400 mb-1">待参加考试/活动</div>
-            <div id="overview-exams-events" class="text-lg font-semibold text-amber-300">0</div>
+          <div class="rounded-2xl bg-white border border-gray-300 p-3">
+            <div class="text-gray-400 mb-1">待参加考试/活动</div>
+            <div id="overview-exams-events" class="text-lg font-semibold text-[#B01F24]">0</div>
           </div>
-          <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3">
-            <div class="text-slate-400 mb-1">近期直播预约</div>
-            <div id="overview-live" class="text-lg font-semibold text-sky-300">0</div>
+          <div class="rounded-2xl bg-white border border-gray-300 p-3">
+            <div class="text-gray-400 mb-1">近期直播预约</div>
+            <div id="overview-live" class="text-lg font-semibold text-[#B01F24]">0</div>
           </div>
         </div>
       </article>
 
       <!-- 能力概览 -->
-      <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-5 space-y-3">
+      <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5 space-y-3">
         <div class="flex items-center justify-between mb-1">
-          <h2 class="text-sm md:text-base font-semibold flex items-center gap-2">
-            <i class="fa fa-award text-emerald-300"></i> 能力概览
+          <h2 class="text-sm md:text-base font-semibold text-gray-800 flex items-center gap-2">
+            <i class="fa fa-award text-[#B01F24]"></i> 能力概览
           </h2>
           <button id="add-target-cert-btn"
-                  class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-emerald-400 text-[11px]">
+                  class="px-3 py-1.5 rounded-full bg-white border border-gray-300 hover:border-[#B01F24] text-[11px]">
             添加目标证书
           </button>
         </div>
-        <ul id="ability-cert-list" class="text-xs text-slate-300 space-y-2">
+        <ul id="ability-cert-list" class="text-xs text-gray-600 space-y-2">
           <!-- JS 注入已获得 & 目标证书 -->
         </ul>
       </article>
     </section>
 
-    <!-- Tab：我的学习 / 我的证书 / 我的直播 / 我的活动 / 我的收藏 / 消息中心 -->
+    <!-- Tab：我的任务 / 我的课程 / 我的证书 / 我的直播 / 我的活动 / 我的收藏 / 消息中心 -->
     <section class="space-y-4">
       <div class="flex flex-wrap gap-2 text-xs">
-        <button class="main-tab main-tab-active px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+        <button class="main-tab main-tab-active px-3 py-1.5 rounded-full bg-white border border-[#B01F24]"
+                data-target="tab-tasks">
+          <i class="fa fa-tasks mr-1 text-[11px] text-[#B01F24]"></i> 我的任务
+        </button>
+        <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
                 data-target="tab-learning">
-          <i class="fa fa-book-open mr-1 text-[11px] text-indigo-300"></i> 我的学习
+          <i class="fa fa-book-open mr-1 text-[11px] text-[#B01F24]"></i> 我的课程
         </button>
-        <button class="main-tab px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+        <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
                 data-target="tab-exams">
-          <i class="fa fa-file-pen mr-1 text-[11px] text-amber-300"></i> 考试列表
+          <i class="fa fa-file-pen mr-1 text-[11px] text-[#B01F24]"></i> 我的考试
         </button>
-        <button class="main-tab px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+        <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
                 data-target="tab-certificates">
-          <i class="fa fa-certificate mr-1 text-[11px] text-emerald-300"></i> 我的证书
+          <i class="fa fa-certificate mr-1 text-[11px] text-[#B01F24]"></i> 我的证书
         </button>
-        <button class="main-tab px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+        <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
                 data-target="tab-live">
-          <i class="fa fa-video mr-1 text-[11px] text-sky-300"></i> 我的直播
+          <i class="fa fa-video mr-1 text-[11px] text-[#B01F24]"></i> 我的直播
         </button>
-        <button class="main-tab px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+        <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
                 data-target="tab-events">
-          <i class="fa fa-calendar-check mr-1 text-[11px] text-purple-300"></i> 我的活动
+          <i class="fa fa-calendar-check mr-1 text-[11px] text-[#B01F24]"></i> 我的活动
         </button>
-        <button class="main-tab px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+        <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
                 data-target="tab-favorites">
-          <i class="fa fa-heart mr-1 text-[11px] text-rose-300"></i> 我的收藏
+          <i class="fa fa-heart mr-1 text-[11px] text-[#B01F24]"></i> 我的收藏
         </button>
-        <button class="main-tab px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700"
+        <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
+                data-target="tab-likes">
+          <i class="fa fa-thumbs-up mr-1 text-[11px] text-[#B01F24]"></i> 我的点赞
+        </button>
+        <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
                 data-target="tab-messages">
-          <i class="fa fa-bell mr-1 text-[11px] text-amber-300"></i> 消息中心
+          <i class="fa fa-bell mr-1 text-[11px] text-[#B01F24]"></i> 消息中心
         </button>
       </div>
 
+      <!-- 我的任务：任务列表 -->
+      <section id="tab-tasks" class="main-panel">
+        <div id="task-list" class="space-y-3">
+          <!-- JS 注入 -->
+        </div>
+      </section>
+
       <!-- 我的学习：课程列表 + 进度 -->
-      <section id="tab-learning" class="main-panel">
+      <section id="tab-learning" class="main-panel hidden">
         <div id="learning-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <!-- JS 注入 -->
         </div>
@@ -287,12 +304,19 @@
         </div>
       </section>
 
+      <!-- 我的点赞 -->
+      <section id="tab-likes" class="main-panel hidden">
+        <div id="like-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </section>
+
       <!-- 消息中心 -->
       <section id="tab-messages" class="main-panel hidden">
         <div class="flex items-center justify-between text-xs mb-2">
-          <span class="text-slate-400">系统通知 · 支持已读/未读管理</span>
+          <span class="text-gray-400">系统通知 · 支持已读/未读管理</span>
           <button id="mark-all-read"
-                  class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-emerald-400">
+                  class="px-3 py-1.5 rounded-full bg-white border border-gray-300 hover:border-[#B01F24]">
             标记全部已读
           </button>
         </div>
@@ -305,9 +329,9 @@
   </section>
 </main>
 
-<footer class="border-t border-slate-800 mt-8 pt-4 pb-6">
-  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-    <div>© 2026 SUGON 合作伙伴赋能平台 · 个人中心</div>
+<footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 HIECO 光合技术支持平台 · 个人中心</div>
     <div class="flex flex-wrap gap-3">
       <span>隐私政策</span>
       <span>法律声明</span>
@@ -317,130 +341,130 @@
 </footer>
 
 <!-- =============== 认证 Modal（姓名+手机） =============== -->
-<div id="auth-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center px-4">
-  <div class="glass-card rounded-3xl border border-slate-800 w-full max-w-md p-5 space-y-3 relative">
-    <button id="auth-modal-close" class="absolute right-3 top-3 text-slate-400 hover:text-slate-100">
+<div id="auth-modal" class="fixed inset-0 z-50 hidden bg-black/50 backdrop-blur-md flex items-center justify-center px-4">
+  <div class="glass-card rounded-3xl border border-gray-300 w-full max-w-md p-5 space-y-3 relative">
+    <button id="auth-modal-close" class="absolute right-3 top-3 text-gray-400 hover:text-gray-100">
       <i class="fa fa-times text-xs"></i>
     </button>
-    <h3 class="text-sm font-semibold mb-1 flex items-center gap-2">
-      <i class="fa fa-shield-halved text-emerald-300"></i> 实名认证
+    <h3 class="text-sm font-semibold mb-1 flex items-center gap-2 text-gray-800">
+      <i class="fa fa-shield-halved text-[#B01F24]"></i> 实名认证
     </h3>
-    <p class="text-[11px] text-slate-400">
+    <p class="text-[11px] text-gray-400">
       请确认姓名与手机号，用于认证与安全校验。示例中不做真实校验，实际环境可对接短信验证码服务。
     </p>
     <div class="space-y-2 text-xs">
       <div>
-        <label class="block text-slate-400 mb-1">姓名</label>
+        <label class="block text-gray-400 mb-1">姓名</label>
         <input id="auth-name" type="text" placeholder="请填写真实姓名"
-               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs">
+               class="w-full px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-800 text-xs">
       </div>
       <div>
-        <label class="block text-slate-400 mb-1">手机号码</label>
+        <label class="block text-gray-400 mb-1">手机号码</label>
         <input id="auth-phone" type="tel" placeholder="请填写手机号"
-               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs">
+               class="w-full px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-800 text-xs">
       </div>
       <div class="flex gap-2">
         <input id="auth-code" type="text" placeholder="输入验证码"
-               class="flex-1 px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs">
+               class="flex-1 px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-800 text-xs">
         <button id="auth-send-code"
-                class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:border-indigo-400 text-[11px]">
+                class="px-3 py-1.5 rounded-full bg-white border border-gray-300 hover:border-[#B01F24] text-[11px]">
           获取验证码
         </button>
       </div>
     </div>
     <button id="auth-submit"
-            class="w-full mt-2 py-2 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-400 text-white text-xs font-medium hover:opacity-90">
+            class="w-full mt-2 py-2 rounded-xl bg-[#B01F24] text-white text-xs font-medium hover:opacity-90">
       提交认证
     </button>
   </div>
 </div>
 
 <!-- =============== 关联公司 Modal =============== -->
-<div id="assoc-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center px-4">
-  <div class="glass-card rounded-3xl border border-slate-800 w-full max-w-md p-5 space-y-3 relative">
-    <button id="assoc-modal-close" class="absolute right-3 top-3 text-slate-400 hover:text-slate-100">
+<div id="assoc-modal" class="fixed inset-0 z-50 hidden bg-black/50 backdrop-blur-md flex items-center justify-center px-4">
+  <div class="glass-card rounded-3xl border border-gray-300 w-full max-w-md p-5 space-y-3 relative">
+    <button id="assoc-modal-close" class="absolute right-3 top-3 text-gray-400 hover:text-gray-100">
       <i class="fa fa-times text-xs"></i>
     </button>
-    <h3 class="text-sm font-semibold mb-1 flex items-center gap-2">
-      <i class="fa fa-handshake-angle text-sky-300"></i> 申请关联合作伙伴公司
+    <h3 class="text-sm font-semibold mb-1 flex items-center gap-2 text-gray-800">
+      <i class="fa fa-handshake-angle text-[#B01F24]"></i> 申请关联合作伙伴公司
     </h3>
-    <p class="text-[11px] text-slate-400">
+    <p class="text-[11px] text-gray-400">
       输入公司名称，提交后由该公司管理员在合作伙伴后台审批。
     </p>
     <div class="space-y-2 text-xs">
       <div>
-        <label class="block text-slate-400 mb-1">公司名称</label>
+        <label class="block text-gray-400 mb-1">公司名称</label>
         <input id="assoc-company-name" type="text" placeholder="如：北京某某信息技术有限公司"
-               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs">
+               class="w-full px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-800 text-xs">
       </div>
       <div>
-        <label class="block text-slate-400 mb-1">您的岗位角色（选填）</label>
+        <label class="block text-gray-400 mb-1">您的岗位角色（选填）</label>
         <input id="assoc-role" type="text" placeholder="销售 / 云架构师 / 运维 等"
-               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs">
+               class="w-full px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-800 text-xs">
       </div>
     </div>
     <button id="assoc-submit"
-            class="w-full mt-2 py-2 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 text-white text-xs font-medium hover:opacity-90">
+            class="w-full mt-2 py-2 rounded-xl bg-[#B01F24] text-white text-xs font-medium hover:opacity-90">
       提交关联申请
     </button>
   </div>
 </div>
 
 <!-- =============== 目标证书 Modal =============== -->
-<div id="target-cert-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center px-4">
-  <div class="glass-card rounded-3xl border border-slate-800 w-full max-w-md p-5 space-y-3 relative">
-    <button id="target-cert-close" class="absolute right-3 top-3 text-slate-400 hover:text-slate-100">
+<div id="target-cert-modal" class="fixed inset-0 z-50 hidden bg-black/50 backdrop-blur-md flex items-center justify-center px-4">
+  <div class="glass-card rounded-3xl border border-gray-300 w-full max-w-md p-5 space-y-3 relative">
+    <button id="target-cert-close" class="absolute right-3 top-3 text-gray-400 hover:text-gray-100">
       <i class="fa fa-times text-xs"></i>
     </button>
-    <h3 class="text-sm font-semibold mb-1 flex items-center gap-2">
-      <i class="fa fa-bullseye text-emerald-300"></i> 选择目标证书
+    <h3 class="text-sm font-semibold mb-1 flex items-center gap-2 text-gray-800">
+      <i class="fa fa-bullseye text-[#B01F24]"></i> 选择目标证书
     </h3>
-    <p class="text-[11px] text-slate-400">
+    <p class="text-[11px] text-gray-400">
       选择你希望在一年内达成的认证目标，系统会为你推荐学习路径和考试安排。
     </p>
-    <ul id="target-cert-list" class="space-y-1 text-xs text-slate-300">
+    <ul id="target-cert-list" class="space-y-1 text-xs text-gray-600">
       <!-- JS 注入 -->
     </ul>
   </div>
 </div>
 
 <!-- =============== 个人资料设置 Modal =============== -->
-<div id="profile-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center px-4">
-  <div class="glass-card rounded-3xl border border-slate-800 w-full max-w-md p-5 space-y-3 relative">
-    <button id="profile-modal-close" class="absolute right-3 top-3 text-slate-400 hover:text-slate-100">
+<div id="profile-modal" class="fixed inset-0 z-50 hidden bg-black/50 backdrop-blur-md flex items-center justify-center px-4">
+  <div class="glass-card rounded-3xl border border-gray-300 w-full max-w-md p-5 space-y-3 relative">
+    <button id="profile-modal-close" class="absolute right-3 top-3 text-gray-400 hover:text-gray-100">
       <i class="fa fa-times text-xs"></i>
     </button>
-    <h3 class="text-sm font-semibold mb-1 flex items-center gap-2">
-      <i class="fa fa-id-card text-indigo-300"></i> 个人资料及设置
+    <h3 class="text-sm font-semibold mb-1 flex items-center gap-2 text-gray-800">
+      <i class="fa fa-id-card text-[#B01F24]"></i> 个人资料及设置
     </h3>
-    <p class="text-[11px] text-slate-400">
+    <p class="text-[11px] text-gray-400">
       基本资料维护，完善个人信息以获得更好的服务体验。
     </p>
     <div class="space-y-2 text-xs">
       <div>
-        <label class="block text-slate-400 mb-1">姓名</label>
+        <label class="block text-gray-400 mb-1">姓名</label>
         <input id="profile-name" type="text" placeholder="请输入姓名"
-               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+               class="w-full px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-800 text-xs focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
       </div>
       <div>
-        <label class="block text-slate-400 mb-1">联系方式（手机）</label>
+        <label class="block text-gray-400 mb-1">联系方式（手机）</label>
         <input id="profile-phone" type="tel" placeholder="请输入手机号"
-               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+               class="w-full px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-800 text-xs focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
       </div>
       <div>
-        <label class="block text-slate-400 mb-1">邮箱</label>
+        <label class="block text-gray-400 mb-1">邮箱</label>
         <input id="profile-email" type="email" placeholder="用于通知与密码找回"
-               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+               class="w-full px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-800 text-xs focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
       </div>
       <div>
-        <label class="block text-slate-400 mb-1">所在公司</label>
+        <label class="block text-gray-400 mb-1">所在公司</label>
         <input id="profile-company" type="text" placeholder="请输入公司名称"
-               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+               class="w-full px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-800 text-xs focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
       </div>
       <div>
-        <label class="block text-slate-400 mb-1">岗位角色</label>
+        <label class="block text-gray-400 mb-1">岗位角色</label>
         <input id="profile-role" type="text" placeholder="云架构师 / 解决方案顾问 等"
-               class="w-full px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-100 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+               class="w-full px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-800 text-xs focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]">
       </div>
     </div>
     <button id="save-profile-btn"
@@ -452,11 +476,11 @@
 
 <script>
   // =============== 一些简单的本地存储 key ===============
-  const KEY_PROFILE = 'sugon_profile';
-  const KEY_AUTH = 'sugon_auth_verified';
-  const KEY_ASSOC = 'sugon_assoc_companies';
-  const KEY_TARGET_CERT = 'sugon_target_certs';
-  const KEY_MESSAGES = 'sugon_messages';
+  const KEY_PROFILE = 'HIECO_profile';
+  const KEY_AUTH = 'HIECO_auth_verified';
+  const KEY_ASSOC = 'HIECO_assoc_companies';
+  const KEY_TARGET_CERT = 'HIECO_target_certs';
+  const KEY_MESSAGES = 'HIECO_messages';
 
   // =============== 工具函数 ===============
   function $(id){ return document.getElementById(id); }
@@ -522,15 +546,15 @@
   // =============== 能力概览：证书 + 目标证书 ===============
   function renderAbility(){
     const got = [
-      {title:'SUGON 云架构师（Professional）', type:'已获得'},
-      {title:'SUGON AI 与数据智能（Associate）', type:'已获得'}
+      {title:'HIECO 云架构师（Professional）', type:'已获得'},
+      {title:'HIECO AI 与数据智能（Associate）', type:'已获得'}
     ];
     const targets = loadJSON(KEY_TARGET_CERT, []);
     const ul = $('ability-cert-list');
     ul.innerHTML = '';
     got.forEach(c=>{
       const li = document.createElement('li');
-      li.className = 'flex items-center justify-between py-1.5 px-2 rounded-lg bg-slate-900/80';
+      li.className = 'flex items-center justify-between py-1.5 px-2 rounded-lg bg-white border border-gray-300';
       li.innerHTML = `
         <span>${c.title}</span>
         <span class="text-[11px] text-emerald-300">${c.type}</span>
@@ -539,7 +563,7 @@
     });
     targets.forEach(c=>{
       const li = document.createElement('li');
-      li.className = 'flex items-center justify-between py-1.5 px-2 rounded-lg bg-slate-900/80';
+      li.className = 'flex items-center justify-between py-1.5 px-2 rounded-lg bg-white border border-gray-300';
       li.innerHTML = `
         <span>${c}</span>
         <span class="text-[11px] text-indigo-300">目标证书</span>
@@ -550,16 +574,16 @@
 
   function renderTargetCertOptions(){
     const candidates = [
-      'SUGON 云原生架构师（Expert）',
-      'SUGON 数据智能专家（Professional）',
-      'SUGON 解决方案顾问（高级）'
+      'HIECO 云原生架构师（Expert）',
+      'HIECO 数据智能专家（Professional）',
+      'HIECO 解决方案顾问（高级）'
     ];
     const ul = $('target-cert-list');
     ul.innerHTML = '';
     const existing = loadJSON(KEY_TARGET_CERT, []);
     candidates.forEach(c=>{
       const li = document.createElement('li');
-      li.className = 'cursor-pointer hover:bg-slate-900/70 p-2 rounded-lg flex items-center justify-between';
+      li.className = 'cursor-pointer hover:bg-gray-100 p-2 rounded-lg flex items-center justify-between border border-gray-300';
       const added = existing.includes(c);
       li.innerHTML = `
         <span>${c}</span>
@@ -579,6 +603,62 @@
 
   // =============== 学习 / 考试 / 直播 / 活动 / 收藏 / 消息 列表模拟 ===============
   function initListsAndOverview(){
+    // 我的任务
+    const tasks = [
+      {title:'新员工入职培训任务', type:'课程+考试', progress:60, status:'进行中', completed:false, deadline:'2026-02-15', tag:'派发'},
+      {title:'云原生技术认证任务', type:'课程+考试+认证', progress:100, status:'已完成', completed:true, completeTime:'2026-01-18', tag:'派发'},
+      {title:'AI技术沙龙直播任务', type:'直播', progress:100, status:'已完成', completed:true, completeTime:'2026-01-15', tag:'派发'},
+      {title:'合作伙伴技术认证', type:'认证', progress:30, status:'进行中', completed:false, deadline:'2026-03-30', tag:'派发'},
+      {title:'高级云架构师认证', type:'认证', progress:60, status:'进行中', completed:false, deadline:'2026-04-30', tag:'自主申请'},
+      {title:'解决方案专家认证', type:'课程+认证', progress:30, status:'进行中', completed:false, deadline:'2026-05-15', tag:'自主申请'},
+      {title:'生态技术领袖认证', type:'认证', progress:100, status:'已完成', completed:true, completeTime:'2026-01-20', tag:'自主申请'}
+    ];
+    const taskWrap = $('task-list');
+    taskWrap.innerHTML = '';
+    tasks.forEach(t=>{
+      const card = document.createElement('article');
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-5 hover:-translate-y-1 hover:border-[#B01F24]/80 transition relative cursor-pointer';
+      card.innerHTML = `
+        <!-- 角标 -->
+        <div class="absolute -top-1 right-1">
+          <span class="inline-flex items-center px-1.5 py-0.5 rounded-full ${t.tag === '自主申请' ? 'bg-amber-500' : 'bg-[#2D874B]'} text-white text-[9px] font-medium">
+            ${t.tag}
+          </span>
+        </div>
+        <div class="flex items-center justify-between mb-3">
+          <div class="text-base font-semibold">${t.title}</div>
+          <span class="text-xs px-2 py-1 rounded-full bg-white border border-gray-300">
+            ${t.type}
+          </span>
+        </div>
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex-1 mr-4">
+            <div class="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" style="width:${t.progress}%"></div>
+            </div>
+          </div>
+          <span class="text-xs font-medium ${t.progress === 100 ? 'text-green-600' : t.progress > 0 ? 'text-blue-600' : 'text-gray-500'}">
+            ${t.progress}%
+          </span>
+        </div>
+        <div class="flex justify-between text-xs text-gray-600">
+          <span>${t.completed ? '完成时间：'+t.completeTime : '截止时间：'+t.deadline}</span>
+          <span class="font-medium ${t.status === '已完成' ? 'text-green-600' : t.status === '进行中' ? 'text-blue-600' : 'text-amber-600'}">${t.status}</span>
+        </div>
+      `;
+      
+      // 添加点击跳转到任务详情页面的功能
+      card.addEventListener('click', function() {
+        if (t.tag === '自主申请') {
+          window.location.href = 'task-detail-self-apply.html';
+        } else {
+          window.location.href = 'task-detail.html';
+        }
+      });
+      
+      taskWrap.appendChild(card);
+    });
+
     // 我的学习
     const learn = [
       {title:'云基础设施入门', progress:80, status:'进行中', completed:false},
@@ -589,15 +669,15 @@
     learnWrap.innerHTML = '';
     learn.forEach(c=>{
       const card = document.createElement('article');
-      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 space-y-2 hover:-translate-y-1 hover:border-indigo-500/80 transition';
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 space-y-2 hover:-translate-y-1 hover:border-[#B01F24]/80 transition';
       card.innerHTML = `
         <div class="flex items-center justify-between">
           <div class="text-sm font-medium">${c.title}</div>
-          <span class="text-[11px] px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-700">
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-white border border-gray-300">
             ${c.status}
           </span>
         </div>
-        <div class="w-full h-1.5 rounded-full bg-slate-900/80 overflow-hidden">
+        <div class="w-full h-1.5 rounded-full bg-gray-200 overflow-hidden">
           <div class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" style="width:${c.progress}%"></div>
         </div>
         <div class="text-[11px] text-slate-400">
@@ -609,9 +689,9 @@
 
     // 考试
     const exams = [
-      {title:'云架构师（Professional）认证考试', time:'2026-03-10', status:'未考试'},
-      {title:'AI 与数据智能（Associate）认证考试', time:'2025-12-15', status:'已通过'},
-      {title:'解决方案顾问（中级）考试', time:'2025-11-20', status:'未通过'}
+      {title:'HIECO 云架构师（Professional）认证考试', time:'2026-03-10', status:'未考试'},
+      {title:'HIECO AI 与数据智能（Associate）认证考试', time:'2025-12-15', status:'已通过'},
+      {title:'HIECO 解决方案顾问（中级）考试', time:'2025-11-20', status:'未通过'}
     ];
     const examWrap = $('exam-list');
     examWrap.innerHTML = '';
@@ -621,14 +701,14 @@
       let statusText=e.status;
       if(e.status==='已通过') statusCls='status-pass';
       if(e.status==='未通过') statusCls='status-fail';
-      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 space-y-2 hover:-translate-y-1 hover:border-indigo-500/80 transition';
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 space-y-2 hover:-translate-y-1 hover:border-[#B01F24]/80 transition';
       card.innerHTML = `
         <div class="text-sm font-medium">${e.title}</div>
         <div class="text-[11px] text-slate-400">考试日期：${e.time}</div>
         <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] ${statusCls}">
           ${statusText}
         </span>
-        <button class="w-full mt-2 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 text-[11px]">
+        <button class="w-full mt-2 py-1.5 rounded-full bg-white border border-gray-300 hover:bg-gray-100 text-[11px]">
           查看考试详情
         </button>
       `;
@@ -637,21 +717,21 @@
 
     // 我的证书
     const certs = [
-      {name:'SUGON 云架构师（Professional）', no:'SUG-2025-001', start:'2025-12-20', end:'2027-12-20'},
-      {name:'AI 与数据智能（Associate）', no:'SUG-2025-010', start:'2025-11-10', end:'2027-11-10'}
+      {name:'HIECO 云架构师（Professional）', no:'HIECO-2025-001', start:'2025-12-20', end:'2027-12-20'},
+      {name:'HIECO AI 与数据智能（Associate）', no:'HIECO-2025-010', start:'2025-11-10', end:'2027-11-10'}
     ];
     const certWrap = $('certificate-list');
     certWrap.innerHTML = '';
     certs.forEach(c=>{
       const card = document.createElement('article');
-      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 space-y-2 hover:-translate-y-1 hover:border-emerald-400/80 transition';
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 space-y-2 hover:-translate-y-1 hover:border-[#B01F24]/80 transition';
       card.innerHTML = `
         <div class="text-sm font-semibold">${c.name}</div>
         <div class="text-[11px] text-slate-400">证书编号：${c.no}</div>
         <div class="text-[11px] text-slate-400">生效时间：${c.start}</div>
         <div class="text-[11px] text-slate-400">到期时间：${c.end}</div>
         <div class="flex gap-2 mt-1">
-          <button class="flex-1 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 text-[11px]">
+          <button class="flex-1 py-1.5 rounded-full bg-white border border-gray-300 hover:bg-gray-100 text-[11px]">
             查看详情
           </button>
           <button class="flex-1 py-1.5 rounded-full bg-emerald-500 text-[11px] text-white hover:bg-emerald-400">
@@ -674,14 +754,14 @@
       if(l.status==='已结束') cls='status-ended';
       if(l.status==='直播中') cls='status-live';
       const card = document.createElement('article');
-      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 space-y-2 hover:-translate-y-1 hover:border-sky-400/80 transition';
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 space-y-2 hover:-translate-y-1 hover:border-[#B01F24]/80 transition';
       card.innerHTML = `
         <div class="text-sm font-medium">${l.title}</div>
         <div class="text-[11px] text-slate-400">开播时间：${l.time}</div>
         <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] ${cls}">
           ${l.status}
         </span>
-        ${l.replay?'<button class="w-full mt-2 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 text-[11px]">继续观看/回放</button>':''}
+        ${l.replay?'<button class="w-full mt-2 py-1.5 rounded-full bg-white border border-gray-300 hover:bg-gray-100 text-[11px]">继续观看/回放</button>':''}
       `;
       liveWrap.appendChild(card);
     });
@@ -698,14 +778,14 @@
       if(a.status==='已结束') cls='status-ended';
       if(a.status==='进行中') cls='status-live';
       const card = document.createElement('article');
-      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 space-y-2 hover:-translate-y-1 hover:border-purple-400/80 transition';
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 space-y-2 hover:-translate-y-1 hover:border-[#B01F24]/80 transition';
       card.innerHTML = `
         <div class="text-sm font-medium">${a.title}</div>
         <div class="text-[11px] text-slate-400">${a.time} · ${a.place}</div>
         <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] ${cls}">
           ${a.status}
         </span>
-        <button class="w-full mt-2 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 text-[11px]">
+        <button class="w-full mt-2 py-1.5 rounded-full bg-white border border-gray-300 hover:bg-gray-100 text-[11px]">
           查看活动详情 / 资料
         </button>
       `;
@@ -722,17 +802,41 @@
     favWrap.innerHTML = '';
     favs.forEach(f=>{
       const card = document.createElement('article');
-      card.className = 'glass-card rounded-3xl border border-slate-800 p-4 space-y-2 hover:-translate-y-1 hover:border-rose-400/80 transition';
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 space-y-2 hover:-translate-y-1 hover:border-[#B01F24]/80 transition';
       card.innerHTML = `
         <div class="flex items-center justify-between">
           <span class="text-sm font-medium">${f.title}</span>
           <span class="text-[11px] text-slate-400">${f.type}</span>
         </div>
-        <button class="w-full mt-1 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 hover:bg-slate-800 text-[11px]">
+        <button class="w-full mt-1 py-1.5 rounded-full bg-white border border-gray-300 hover:bg-gray-100 text-[11px]">
           进入查看
         </button>
       `;
       favWrap.appendChild(card);
+    });
+
+    // 我的点赞
+    const likes = [
+      {title:'课程：Kubernetes 入门实战', type:'课程'},
+      {title:'课程：Docker 容器化部署实战', type:'课程'},
+      {title:'课程：云原生微服务架构设计', type:'课程'},
+      {title:'课程：DevOps 自动化实践指南', type:'课程'}
+    ];
+    const likeWrap = $('like-list');
+    likeWrap.innerHTML = '';
+    likes.forEach(l=>{
+      const card = document.createElement('article');
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 space-y-2 hover:-translate-y-1 hover:border-[#B01F24]/80 transition';
+      card.innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-medium">${l.title}</span>
+          <i class="fa fa-thumbs-up text-[#B01F24] text-[10px]"></i>
+        </div>
+        <button class="w-full mt-1 py-1.5 rounded-full bg-white border border-gray-300 hover:bg-gray-100 text-[11px]">
+          进入学习
+        </button>
+      `;
+      likeWrap.appendChild(card);
     });
 
     // 消息中心
@@ -750,7 +854,7 @@
     msgWrap.innerHTML = '';
     msgs.forEach((m, idx)=>{
       const li = document.createElement('li');
-      li.className = 'glass-card rounded-2xl border border-slate-800 p-3 text-xs flex items-start justify-between gap-2';
+      li.className = 'glass-card rounded-2xl border border-gray-300 p-3 text-xs flex items-start justify-between gap-2';
       li.innerHTML = `
         <div>
           <div class="flex items-center gap-2">
@@ -781,7 +885,7 @@
 
     $('summary-learning').textContent = learn.length;
     $('summary-cert').textContent = certs.length;
-    $('summary-todo').textContent = exams.length + acts.filter(a=>a.status!=='已结束').length;
+    $('summary-todo').textContent = exams.length + acts.filter(a=>a.status!=='已结束').length + tasks.filter(t=>!t.completed).length;
   }
 
   // =============== Tab 切换 ===============

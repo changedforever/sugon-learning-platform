@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>认证详情 - 海光CPU工程师认证 - HIECO 光合技术支持平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标库 -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: #FFFFFF;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    
+    .module-item {
+      transition: all 0.3s ease;
+    }
+    .module-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+<!-- 顶部导航：HIECO 品牌 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14">
+      <!-- 左侧：返回认证列表 -->
+      <div class="flex items-center space-x-3">
+        <a href="certification.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center group-hover:border-[#2D874B]">
+            <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
+            <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
+              光合技术支持平台 · 认证详情
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 右侧：入口 -->
+      <div class="flex items-center space-x-2 text-xs">
+        <a href="personal-center.html"
+           class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
+          个人中心
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6 space-y-8">
+
+    <!-- 认证标题和基本信息 -->
+    <section class="glass-card rounded-3xl border border-gray-300 p-6">
+      <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+        <div class="flex-1">
+          <!-- 认证级别标签 -->
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-[#2D874B] text-white text-xs font-medium mb-4">
+            <i class="fa fa-certificate mr-1"></i> 初级认证
+          </div>
+          
+          <h1 class="text-xl md:text-2xl font-bold text-gray-800 mb-3">
+            海光CPU工程师认证
+          </h1>
+          
+          <!-- 认证信息 -->
+          <div class="flex flex-wrap gap-4 text-xs text-gray-600 mb-4">
+            <span class="flex items-center">
+              <i class="fa fa-clock mr-1"></i> 认证时长：2个月
+            </span>
+            <span class="flex items-center">
+              <i class="fa fa-file-alt mr-1"></i> 考试类型：线上考试
+            </span>
+            <span class="flex items-center">
+              <i class="fa fa-server mr-1"></i> 类别：通用计算认证
+            </span>
+          </div>
+          
+          <!-- 技能描述 -->
+          <div class="bg-blue-50 rounded-xl p-4 border border-blue-200">
+            <h3 class="text-sm font-semibold text-blue-800 mb-2 flex items-center">
+              <i class="fa fa-bullseye mr-2"></i> 技能描述
+            </h3>
+            <p class="text-sm text-blue-700 leading-relaxed">
+              具备海光芯片售前、售后技术支持、系统运维、性能优化、故障诊断等必备的知识和技能
+            </p>
+          </div>
+        </div>
+        
+        <!-- 操作按钮 -->
+        <div class="lg:w-48 space-y-3">
+          <a href="task-detail.html" 
+             class="w-full py-2.5 rounded-xl bg-[#2D874B] text-white text-sm font-medium hover:bg-[#24703a] transition flex items-center justify-center gap-2">
+            <i class="fa fa-play-circle"></i>
+            开始学习
+          </a>
+          <!--button class="w-full py-2.5 rounded-xl bg-white border border-gray-300 text-gray-700 text-sm font-medium hover:border-[#2D874B] transition flex items-center justify-center gap-2">
+            <i class="fa fa-bookmark"></i>
+            收藏认证
+          </button-->
+        </div>
+      </div>
+    </section>
+
+    <!-- 课程目标 -->
+    <section class="glass-card rounded-3xl border border-gray-300 p-6">
+      <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+        <span class="inline-flex h-6 w-1 rounded-full bg-[#2D874B]"></span>
+        <i class="fa fa-flag text-[#2D874B]"></i>
+        课程目标
+      </h2>
+      
+      <div class="space-y-3">
+        <div class="flex items-start gap-3">
+          <i class="fa fa-check-circle text-green-500 mt-1 text-sm"></i>
+          <p class="text-sm text-gray-700 leading-relaxed">掌握 CPU 微架构、指令集、缓存层次结构等核心概念。</p>
+        </div>
+        
+        <div class="flex items-start gap-3">
+          <i class="fa fa-check-circle text-green-500 mt-1 text-sm"></i>
+          <p class="text-sm text-gray-700 leading-relaxed">熟悉 CPU 生态体系，包括操作系统、编译器、工具链等。</p>
+        </div>
+        
+        <div class="flex items-start gap-3">
+          <i class="fa fa-check-circle text-green-500 mt-1 text-sm"></i>
+          <p class="text-sm text-gray-700 leading-relaxed">掌握 CPU 基准测试方法，能够进行基础性能分析与优化。</p>
+        </div>
+        
+        <div class="flex items-start gap-3">
+          <i class="fa fa-check-circle text-green-500 mt-1 text-sm"></i>
+          <p class="text-sm text-gray-700 leading-relaxed">了解 CPU 在不同应用场景下的性能优化策略。</p>
+        </div>
+        
+        <div class="flex items-start gap-3">
+          <i class="fa fa-check-circle text-green-500 mt-1 text-sm"></i>
+          <p class="text-sm text-gray-700 leading-relaxed">掌握 CPU 系统的基础运维技能。</p>
+        </div>
+        
+        <div class="flex items-start gap-3">
+          <i class="fa fa-check-circle text-green-500 mt-1 text-sm"></i>
+          <p class="text-sm text-gray-700 leading-relaxed">具备 CPU 系统售前技术支持的基础能力。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 课程模块 -->
+    <section class="glass-card rounded-3xl border border-gray-300 p-6">
+      <h2 class="text-lg font-semibold mb-6 flex items-center gap-2">
+        <span class="inline-flex h-6 w-1 rounded-full bg-[#2D874B]"></span>
+        <i class="fa fa-sitemap text-[#2D874B]"></i>
+        课程模块
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- 模块1 -->
+        <div class="module-item glass-card rounded-2xl border border-gray-300 p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+              <span class="text-blue-600 font-bold text-sm">M1</span>
+            </div>
+            <h3 class="text-sm font-semibold text-gray-800">模块一：CPU 微架构及相关技术</h3>
+          </div>
+          <ul class="text-xs text-gray-600 space-y-1">
+            <li>• IC发展历程及芯片产品化过程</li>
+            <li>• 微架构核心概念</li>
+            <li>• 指令集架构 (ISA)</li>
+            <li>• 流水线结构</li>
+            <li>• 缓存层次结构</li>
+            <li>• CPU 微架构介绍</li>
+            <li>• CPU 安全机制简介</li>
+          </ul>
+        </div>
+        
+        <!-- 模块2 -->
+        <div class="module-item glass-card rounded-2xl border border-gray-300 p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
+              <span class="text-green-600 font-bold text-sm">M2</span>
+            </div>
+            <h3 class="text-sm font-semibold text-gray-800">模块二：CPU 生态体系</h3>
+          </div>
+          <ul class="text-xs text-gray-600 space-y-1">
+            <li>• CPU 兼容性概述</li>
+            <li>• CPU 基础软件生态</li>
+            <li>• CPU 编译器及工具链介绍</li>
+            <li>• 海光产业生态合作组织及申请适配认证介绍</li>
+          </ul>
+        </div>
+        
+        <!-- 模块3 -->
+        <div class="module-item glass-card rounded-2xl border border-gray-300 p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center">
+              <span class="text-purple-600 font-bold text-sm">M3</span>
+            </div>
+            <h3 class="text-sm font-semibold text-gray-800">模块三：CPU 基准测试与性能分析</h3>
+          </div>
+          <ul class="text-xs text-gray-600 space-y-1">
+            <li>• 基准测试概述</li>
+            <li>• CPU 常用基准测试工具</li>
+            <li>• 基准测试结果分析基础</li>
+            <li>• 性能瓶颈定位方法简介</li>
+            <li>• 基准测试性能优化方法介绍</li>
+          </ul>
+        </div>
+        
+        <!-- 模块4 -->
+        <div class="module-item glass-card rounded-2xl border border-gray-300 p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="h-10 w-10 rounded-full bg-orange-100 flex items-center justify-center">
+              <span class="text-orange-600 font-bold text-sm">M4</span>
+            </div>
+            <h3 class="text-sm font-semibold text-gray-800">模块四：CPU 应用场景性能优化</h3>
+          </div>
+          <ul class="text-xs text-gray-600 space-y-1">
+            <li>• 虚拟化场景优化基础</li>
+            <li>• 大数据场景优化基础</li>
+            <li>• 数据库场景优化基础</li>
+            <li>• 网络及流量场景优化基础</li>
+            <li>• 海光安全技术测试指南</li>
+          </ul>
+        </div>
+        
+        <!-- 模块5 -->
+        <div class="module-item glass-card rounded-2xl border border-gray-300 p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="h-10 w-10 rounded-full bg-red-100 flex items-center justify-center">
+              <span class="text-red-600 font-bold text-sm">M5</span>
+            </div>
+            <h3 class="text-sm font-semibold text-gray-800">模块五：CPU 系统运维</h3>
+          </div>
+          <ul class="text-xs text-gray-600 space-y-1">
+            <li>• 系统部署与配置基础</li>
+            <li>• 系统监控与告警基础</li>
+            <li>• Linux 系统问题排查指南</li>
+            <li>• 应用场景类问题排查指南</li>
+          </ul>
+        </div>
+        
+        <!-- 模块6 -->
+        <div class="module-item glass-card rounded-2xl border border-gray-300 p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
+              <span class="text-indigo-600 font-bold text-sm">M6</span>
+            </div>
+            <h3 class="text-sm font-semibold text-gray-800">模块六：CPU 技术支持</h3>
+          </div>
+          <ul class="text-xs text-gray-600 space-y-1">
+            <li>• CPU 产品及解决方案介绍</li>
+            <li>• 客户需求分析与方案设计基础</li>
+            <li>• 技术交流与方案讲解基础</li>
+          </ul>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- 认证要求 -->
+    <section class="glass-card rounded-3xl border border-gray-300 p-6">
+      <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+        <span class="inline-flex h-6 w-1 rounded-full bg-[#2D874B]"></span>
+        <i class="fa fa-graduation-cap text-[#2D874B]"></i>
+        认证要求
+      </h2>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="space-y-4">
+          <div class="flex items-start gap-3">
+            <i class="fa fa-check text-green-500 mt-1 text-sm"></i>
+            <div>
+              <h4 class="text-sm font-medium text-gray-800">学习要求</h4>
+              <p class="text-xs text-gray-600 mt-1">完成所有6个模块的学习内容，掌握核心知识点</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-3">
+            <i class="fa fa-check text-green-500 mt-1 text-sm"></i>
+            <div>
+              <h4 class="text-sm font-medium text-gray-800">考试要求</h4>
+              <p class="text-xs text-gray-600 mt-1">通过线上理论考试，成绩达到80分以上</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="space-y-4">
+          <div class="flex items-start gap-3">
+            <i class="fa fa-check text-green-500 mt-1 text-sm"></i>
+            <div>
+              <h4 class="text-sm font-medium text-gray-800">时间要求</h4>
+              <p class="text-xs text-gray-600 mt-1">建议学习周期2个月，可根据个人进度调整</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-3">
+            <i class="fa fa-check text-green-500 mt-1 text-sm"></i>
+            <div>
+              <h4 class="text-sm font-medium text-gray-800">证书获取</h4>
+              <p class="text-xs text-gray-600 mt-1">通过考试后，将获得海光CPU工程师认证电子证书</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </section>
+</main>
+
+<footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 HIECO 光合技术支持平台 · 认证中心</div>
+    <div class="flex flex-wrap gap-3">
+      <span>隐私政策</span>
+      <span>法律声明</span>
+      <span>版权信息</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 交互脚本 -->
+<script>
+  // 收藏认证功能
+  function toggleFavorite() {
+    const btn = document.querySelector('button:contains("收藏认证")');
+    if (btn.textContent.includes('收藏认证')) {
+      btn.innerHTML = '<i class="fa fa-bookmark text-[#2D874B]"></i> 已收藏';
+      btn.classList.add('border-[#2D874B]', 'text-[#2D874B]');
+    } else {
+      btn.innerHTML = '<i class="fa fa-bookmark"></i> 收藏认证';
+      btn.classList.remove('border-[#2D874B]', 'text-[#2D874B]');
+    }
+  }
+
+  // 页面加载时初始化
+  document.addEventListener('DOMContentLoaded', function() {
+    // 添加收藏按钮点击事件
+    const favoriteBtn = document.querySelector('button:contains("收藏认证")');
+    if (favoriteBtn) {
+      favoriteBtn.addEventListener('click', toggleFavorite);
+    }
+    
+    // 添加模块悬停效果
+    const modules = document.querySelectorAll('.module-item');
+    modules.forEach(module => {
+      module.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-2px)';
+        this.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+      });
+      
+      module.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+        this.style.boxShadow = 'none';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
