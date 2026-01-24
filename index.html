@@ -15,7 +15,7 @@
   <style>
     /* 轮播容器和卡片 */
     .banner-card {
-      height: 420px;
+      height: 600px;
     }
     .banner-slide {
       position: relative;
@@ -724,7 +724,7 @@
     <div class="w-full">
       <div class="relative">
         <!-- Banner 区域 - 通铺显示 -->
-        <div class="relative overflow-hidden h-[450px] lg:h-[500px]">
+        <div class="relative overflow-hidden h-[550px] lg:h-[600px]">
           <div id="bannerTrack" class="flex transition-transform duration-700 ease-in-out h-full">
 
               <!-- Banner 1：平台核心价值 -->
@@ -871,6 +871,28 @@
               <button class="banner-dot w-2.5 h-2.5 rounded-full bg-gray-600/70 hover:bg-white" data-index="1"></button>
               <button class="banner-dot w-2.5 h-2.5 rounded-full bg-gray-600/70 hover:bg-white" data-index="2"></button>
               <button class="banner-dot w-2.5 h-2.5 rounded-full bg-gray-600/70 hover:bg-white" data-index="3"></button>
+            </div>
+          </div>
+          
+          <!-- Banner底部导航条 -->
+          <div class="absolute bottom-0 left-0 right-0 z-10 bg-gray-800/60 backdrop-blur-sm">
+            <div class="flex justify-around items-center py-5 px-6">
+              <a href="expert-center.html" class="flex items-center text-white/90 hover:text-white transition text-sm">
+                <i class="fa fa-user-tie mr-2 text-lg"></i>
+                <span>专家支持</span>
+              </a>
+              <a href="#" class="flex items-center text-white/90 hover:text-white transition text-sm">
+                <i class="fa fa-robot mr-2 text-lg"></i>
+                <span>AI 智能体</span>
+              </a>
+              <a href="course-list2.html" class="flex items-center text-white/90 hover:text-white transition text-sm">
+                <i class="fa fa-graduation-cap mr-2 text-lg"></i>
+                <span>培训认证</span>
+              </a>
+              <a href="resource-center.html" class="flex items-center text-white/90 hover:text-white transition text-sm">
+                <i class="fa fa-th-large mr-2 text-lg"></i>
+                <span>资源中心</span>
+              </a>
             </div>
           </div>
           
@@ -2900,26 +2922,43 @@
 
   // Banner 轮播
   const bannerTrack = document.getElementById('bannerTrack');
-  const dots = document.querySelectorAll('.banner-dot');
+  const bannerSlides = document.querySelectorAll('.banner-slide');
+  const dots = document.querySelectorAll('.banner-dot[data-index]');
   let currentIndex = 0;
-  const total = dots.length;
+  const total = bannerSlides.length; // 使用实际的幻灯片数量而不是导航点数量
 
   function goToSlide(index) {
-    currentIndex = index;
-    bannerTrack.style.transform = `translateX(-${index * 100}%)`;
+    // 确保索引在有效范围内
+    let validIndex = index;
+    if (index >= total) {
+      validIndex = 0; // 如果超出范围，跳转到第一张
+    } else if (index < 0) {
+      validIndex = total - 1; // 如果小于0，跳转到最后一张
+    }
+    
+    currentIndex = validIndex;
+    bannerTrack.style.transform = `translateX(-${validIndex * 100}%)`;
+    
+    // 更新导航点状态
     dots.forEach((dot, i) => {
-      dot.classList.toggle('bg-gray-300/70', i === index);
-      dot.classList.toggle('bg-gray-600/70', i !== index);
+      if (i < total) { // 只更新有效的导航点
+        dot.classList.toggle('bg-gray-300/70', i === validIndex);
+        dot.classList.toggle('bg-gray-600/70', i !== validIndex);
+      }
     });
   }
 
+  // 为导航点添加点击事件
   dots.forEach(dot => {
     dot.addEventListener('click', () => {
       const index = Number(dot.dataset.index);
-      goToSlide(index);
+      if (index >= 0 && index < total) { // 确保索引有效
+        goToSlide(index);
+      }
     });
   });
 
+  // 自动轮播，每7秒切换一次
   setInterval(() => {
     currentIndex = (currentIndex + 1) % total;
     goToSlide(currentIndex);
@@ -2934,10 +2973,10 @@
   <div class="flex flex-col rounded-2xl bg-white border border-gray-200 shadow-lg overflow-hidden">
     <!-- 光合小智按钮 -->
     <div class="flex items-center group border-b border-gray-100 hover:bg-gray-50 transition-colors duration-300">
-      <span class="absolute right-14 bg-white text-gray-800 px-3 py-2 rounded-l-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap text-sm font-medium">
+      <span class="absolute right-14 bg-white text-gray-500 px-3 py-2 rounded-l-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap text-sm font-medium">
         光合小智
       </span>
-      <div id="guanghe-zhi" class="w-12 h-12 text-blue-500/80
+      <div id="guanghe-zhi" class="w-12 h-12 text-gray-500
               flex items-center justify-center cursor-pointer transition-all duration-300 group-hover:translate-x-[-10px]">
         <i class="fa fa-robot text-lg"></i>
       </div>
@@ -2945,10 +2984,10 @@
     
     <!-- 互动社区按钮 -->
     <div class="flex items-center group border-b border-gray-100 hover:bg-gray-50 transition-colors duration-300">
-      <span class="absolute right-14 bg-white text-gray-800 px-3 py-2 rounded-l-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap text-sm font-medium">
+      <span class="absolute right-14 bg-white text-gray-500 px-3 py-2 rounded-l-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap text-sm font-medium">
         互动社区
       </span>
-      <div class="w-12 h-12 text-blue-500/80
+      <div class="w-12 h-12 text-gray-500
               flex items-center justify-center cursor-pointer transition-all duration-300 group-hover:translate-x-[-10px]">
         <i class="fa fa-comments text-lg"></i>
       </div>
@@ -2956,10 +2995,10 @@
     
     <!-- 专家支持按钮 -->
     <div class="flex items-center group hover:bg-gray-50 transition-colors duration-300">
-      <span class="absolute right-14 bg-white text-gray-800 px-3 py-2 rounded-l-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap text-sm font-medium">
+      <span class="absolute right-14 bg-white text-gray-500 px-3 py-2 rounded-l-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap text-sm font-medium">
         专家支持
       </span>
-      <div class="w-12 h-12 text-blue-500/80
+      <div class="w-12 h-12 text-gray-500
               flex items-center justify-center cursor-pointer transition-all duration-300 group-hover:translate-x-[-10px]">
         <i class="fa fa-headset text-lg"></i>
       </div>

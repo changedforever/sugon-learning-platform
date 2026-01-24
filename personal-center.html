@@ -214,7 +214,7 @@
       </article>
     </section>
 
-    <!-- Tab：我的任务 / 我的培训 / 我的证书 / 我的直播 / 我的活动 / 我的收藏 / 消息中心 -->
+    <!-- Tab：我的任务 / 我的课程 / 我的证书 / 我的直播 / 我的活动 / 我的收藏 / 消息中心 -->
     <section class="space-y-4">
       <div class="flex flex-wrap gap-2 text-xs">
         <button class="main-tab main-tab-active px-3 py-1.5 rounded-full bg-white border border-[#B01F24]"
@@ -223,7 +223,7 @@
         </button>
         <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
                 data-target="tab-learning">
-          <i class="fa fa-book-open mr-1 text-[11px] text-[#B01F24]"></i> 我的培训
+          <i class="fa fa-book-open mr-1 text-[11px] text-[#B01F24]"></i> 我的课程
         </button>
         <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
                 data-target="tab-exams">
@@ -605,12 +605,12 @@
   function initListsAndOverview(){
     // 我的任务
     const tasks = [
-      {title:'新员工入职培训任务', type:'培训+考试', progress:60, status:'进行中', completed:false, deadline:'2026-02-15', tag:'派发'},
-      {title:'云原生技术认证任务', type:'培训+考试+认证', progress:100, status:'已完成', completed:true, completeTime:'2026-01-18', tag:'派发'},
+      {title:'新员工入职培训任务', type:'课程+考试', progress:60, status:'进行中', completed:false, deadline:'2026-02-15', tag:'派发'},
+      {title:'云原生技术认证任务', type:'课程+考试+认证', progress:100, status:'已完成', completed:true, completeTime:'2026-01-18', tag:'派发'},
       {title:'AI技术沙龙直播任务', type:'直播', progress:100, status:'已完成', completed:true, completeTime:'2026-01-15', tag:'派发'},
       {title:'合作伙伴技术认证', type:'认证', progress:30, status:'进行中', completed:false, deadline:'2026-03-30', tag:'派发'},
       {title:'高级云架构师认证', type:'认证', progress:60, status:'进行中', completed:false, deadline:'2026-04-30', tag:'自主申请'},
-      {title:'解决方案专家认证', type:'培训+认证', progress:30, status:'进行中', completed:false, deadline:'2026-05-15', tag:'自主申请'},
+      {title:'解决方案专家认证', type:'课程+认证', progress:30, status:'进行中', completed:false, deadline:'2026-05-15', tag:'自主申请'},
       {title:'生态技术领袖认证', type:'认证', progress:100, status:'已完成', completed:true, completeTime:'2026-01-20', tag:'自主申请'}
     ];
     const taskWrap = $('task-list');
