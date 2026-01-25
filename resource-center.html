@@ -310,6 +310,47 @@
             <i class="fa fa-lightbulb mr-2"></i>案例分享
           </a>
         </div>
+      <!-- 资源库搜索区域 -->
+      <div class="mt-12">
+        <div class="max-w-4xl mx-auto">
+          <!-- 搜索框 -->
+          <div class="mb-8">
+            <div class="relative max-w-2xl mx-auto">
+              <input 
+                type="text" 
+                id="resource-search-input"
+                placeholder="搜索资源库中的工具、文档、案例..."
+                class="w-full px-6 py-4 rounded-2xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent text-lg"
+              >
+              <button id="resource-search-button" class="absolute right-3 top-1/2 transform -translate-y-1/2 bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-xl transition">
+                <i class="fa fa-search mr-2"></i>搜索
+              </button>
+            </div>
+          </div>
+
+          <!-- 搜索结果标签页 -->
+          <div id="search-results-container" class="hidden">
+            <div class="flex border-b border-gray-200 mb-6">
+              <button class="tab-btn tab-active px-6 py-3 font-medium text-gray-800 border-b-2 border-gray-500 bg-gray-100 rounded-t-lg" data-tab="all">
+                <i class="fa fa-globe mr-2"></i>全部
+              </button>
+              <button class="tab-btn px-6 py-3 font-medium text-gray-600 hover:text-gray-800" data-tab="tools">
+                <i class="fa fa-tools mr-2"></i>工具
+              </button>
+              <button class="tab-btn px-6 py-3 font-medium text-gray-600 hover:text-gray-800" data-tab="docs">
+                <i class="fa fa-book mr-2"></i>文档
+              </button>
+              <button class="tab-btn px-6 py-3 font-medium text-gray-600 hover:text-gray-800" data-tab="cases">
+                <i class="fa fa-lightbulb mr-2"></i>案例
+              </button>
+            </div>
+
+            <!-- 搜索结果内容 -->
+            <div id="search-results-content" class="resource-grid">
+              <!-- 搜索结果将在这里动态显示 -->
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -874,8 +915,9 @@
     });
   });
 
-  // 标签筛选功能
+  // 页面初始化
   document.addEventListener('DOMContentLoaded', function() {
+    // 标签筛选功能
     const tagFilters = document.querySelectorAll('.tag-filter');
     
     tagFilters.forEach(filter => {
@@ -897,6 +939,136 @@
             resource.style.display = 'none';
           }
         });
+      });
+    });
+
+    // 资源搜索功能
+    // 获取DOM元素
+    const searchInput = document.getElementById('resource-search-input');
+    const searchButton = document.getElementById('resource-search-button');
+    const searchResultsContainer = document.getElementById('search-results-container');
+    const searchResultsContent = document.getElementById('search-results-content');
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    
+    // 模拟资源数据
+    const allResources = [
+      // 工具资源
+      { id: 1, title: 'SDK开发工具包', description: '提供完整的SDK开发工具包，支持多种编程语言，包含丰富的API接口和示例代码。', category: 'tools', type: '开发工具', icon: 'fa-code', color: 'blue', tags: ['devkit', 'sdk', 'api'] },
+      { id: 2, title: '调试分析工具', description: '专业的调试分析工具，支持性能分析、内存检测、代码调试等多种调试功能。', category: 'tools', type: '调试工具', icon: 'fa-bug', color: 'gray', tags: ['debug', 'analysis', 'performance'] },
+      { id: 3, title: '性能监控工具', description: '实时性能监控工具，监控系统运行状态，提供详细的性能指标和报警功能。', category: 'tools', type: '监控工具', icon: 'fa-cogs', color: 'purple', tags: ['monitoring', 'performance', 'alert'] },
+      { id: 4, title: '版本管理工具', description: '强大的版本管理工具，支持Git、SVN等主流版本控制系统，提高团队协作效率。', category: 'tools', type: '版本管理', icon: 'fa-code-branch', color: 'indigo', tags: ['version', 'git', 'svn'] },
+      
+      // 文档资源
+      { id: 5, title: 'API开发指南', description: '详细的API开发指南，包含各种API的使用说明、参数说明和示例代码。', category: 'docs', type: '开发文档', icon: 'fa-file-alt', color: 'blue', tags: ['api', 'guide', 'development'] },
+      { id: 6, title: '系统架构文档', description: '全面的系统架构文档，介绍系统设计思路、组件关系和部署流程。', category: 'docs', type: '架构文档', icon: 'fa-project-diagram', color: 'gray', tags: ['architecture', 'design', 'system'] },
+      { id: 7, title: '安全规范手册', description: '详细的安全规范手册，涵盖身份认证、权限控制、数据加密等安全要点。', category: 'docs', type: '安全文档', icon: 'fa-shield-alt', color: 'red', tags: ['security', 'authentication', 'encryption'] },
+      { id: 8, title: '用户操作手册', description: '用户友好的操作手册，详细介绍各功能模块的使用方法和注意事项。', category: 'docs', type: '用户文档', icon: 'fa-book', color: 'yellow', tags: ['user', 'manual', 'operation'] },
+      
+      // 案例资源
+      { id: 9, title: '电商系统案例', description: '完整的电商系统案例，从前端界面到后端服务，涵盖订单、支付、物流等功能。', category: 'cases', type: '系统案例', icon: 'fa-shopping-cart', color: 'blue', tags: ['ecommerce', 'order', 'payment'] },
+      { id: 10, title: '数据分析案例', description: '企业级数据分析案例，展示如何利用大数据技术进行商业智能分析。', category: 'cases', type: '分析案例', icon: 'fa-chart-bar', color: 'gray', tags: ['analytics', 'big-data', 'business-intelligence'] },
+      { id: 11, title: '物联网应用案例', description: '物联网应用开发案例，包括设备接入、数据采集、远程控制等核心功能。', category: 'cases', type: 'IoT案例', icon: 'fa-microchip', color: 'purple', tags: ['iot', 'device', 'data-collection'] },
+      { id: 12, title: '微服务架构案例', description: '微服务架构实践案例，展示服务拆分、通信机制、容错处理等关键技术。', category: 'cases', type: '架构案例', icon: 'fa-server', color: 'indigo', tags: ['microservice', 'architecture', 'communication'] }
+    ];
+
+    // 搜索功能
+    function performSearch() {
+      const searchTerm = searchInput.value.trim().toLowerCase();
+      
+      if (searchTerm === '') {
+        // 如果搜索框为空，隐藏搜索结果
+        searchResultsContainer.classList.add('hidden');
+        return;
+      }
+      
+      // 执行搜索
+      const filteredResults = allResources.filter(resource => 
+        resource.title.toLowerCase().includes(searchTerm) || 
+        resource.description.toLowerCase().includes(searchTerm) ||
+        resource.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+      );
+      
+      // 显示搜索结果容器
+      searchResultsContainer.classList.remove('hidden');
+      
+      // 渲染搜索结果
+      renderSearchResults(filteredResults);
+      
+      // 默认显示全部标签
+      activateTab('all');
+    }
+    
+    // 渲染搜索结果
+    function renderSearchResults(resources) {
+      searchResultsContent.innerHTML = '';
+      
+      if (resources.length === 0) {
+        searchResultsContent.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-gray-500 text-lg">未找到相关资源</p></div>';
+        return;
+      }
+      
+      resources.forEach(resource => {
+        const resourceCard = document.createElement('div');
+        resourceCard.className = 'resource-card glass-card rounded-2xl p-6 border border-gray-200';
+        resourceCard.innerHTML = `
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-gray-500 to-gray-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa ${resource.icon} text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">${resource.title}</h3>
+              <p class="text-sm text-gray-500">${resource.category === 'tools' ? '工具' : resource.category === 'docs' ? '文档' : '案例'} · ${resource.type}</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            ${resource.description}
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">${resource.type}</span>
+            <a href="#" class="text-gray-600 hover:text-gray-800 text-sm font-medium">
+              查看 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        `;
+        searchResultsContent.appendChild(resourceCard);
+      });
+    }
+    
+    // 激活指定标签页
+    function activateTab(tabName) {
+      // 更新标签按钮状态
+      tabButtons.forEach(btn => {
+        btn.classList.remove('tab-active');
+        if (btn.getAttribute('data-tab') === tabName) {
+          btn.classList.add('tab-active');
+        }
+      });
+      
+      // 根据标签过滤结果显示
+      let filteredResults = allResources;
+      if (tabName !== 'all') {
+        filteredResults = allResources.filter(resource => resource.category === tabName);
+      }
+      
+      // 重新渲染结果
+      renderSearchResults(filteredResults);
+    }
+    
+    // 绑定搜索按钮事件
+    searchButton.addEventListener('click', performSearch);
+    
+    // 绑定输入框回车事件
+    searchInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        performSearch();
+      }
+    });
+    
+    // 绑定标签页切换事件
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const tabName = this.getAttribute('data-tab');
+        activateTab(tabName);
       });
     });
   });

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>导入公司成员 - 光合技术支持平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
+    }
+    
+    .member-input {
+      transition: all 0.3s ease;
+    }
+    
+    .member-input:focus-within {
+      box-shadow: 0 0 0 3px rgba(45, 135, 75, 0.2);
+    }
+    
+    .invitation-result {
+      display: none;
+    }
+    
+    .copy-btn {
+      transition: all 0.2s ease;
+    }
+    
+    .copy-btn:hover {
+      background-color: #256e3d;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- 顶部导航 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-16">
+      <!-- LOGO + 品牌 -->
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+          <img src="images/logo2.png" alt="HIECO Logo" class="h-32 w-32 object-contain">
+        </a>
+        <div>
+          <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200">光合技术支持平台</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 导航入口（桌面端） -->
+      <nav class="hidden md:flex items-center space-x-3 text-sm">
+        <!-- 专家 - 无下拉 -->
+        <a href="expert-center.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">
+          专家
+        </a>
+
+        <!-- 培训 - 带下拉浮窗（合并培训、考试、认证、讲师） -->
+        <div class="nav-dropdown relative group">
+          <span class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer">
+            培训
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
+          </span>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">课程分类</h3>
+                  <a href="course-list.html?type=certification" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">职业认证</a>
+                  <a href="course-list.html?type=career" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">职业</a>
+                  <a href="course-list.html?type=education" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">教育</a>
+                </div>
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">功能</h3>
+                  <a href="exam-list.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">考试</a>
+                  <a href="certification-list.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">认证</a>
+                  <a href="instructor-center.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">讲师</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 直播 - 带下拉浮窗 -->
+        <div class="nav-dropdown relative group">
+          <a href="live-list.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1">
+            直播
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
+          </a>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">直播状态</h3>
+                  <a href="live-list.html?status=upcoming" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">未开始</a>
+                  <a href="live-list.html?status=live" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">直播中</a>
+                  <a href="live-list.html?status=ended" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">已结束</a>
+                </div>
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">类型</h3>
+                  <a href="live-list.html?type=tech" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">技术分享</a>
+                  <a href="live-list.html?type=product" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">产品发布</a>
+                  <a href="live-list.html?type=event" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">活动会议</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 资源 - 带下拉浮窗 -->
+        <a href="resource-center.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">
+          资源
+        </a>
+
+        <!-- 个人中心 - 带下拉浮窗 -->
+        <div class="nav-dropdown relative group">
+          <span class="flex items-center space-x-2 cursor-pointer">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-[#B01F24] to-[#2D874B] flex items-center justify-center text-white text-sm font-semibold">
+              U
+            </div>
+            <span class="hidden md:inline text-sm">用户名</span>
+          </span>
+          <div class="nav-dropdown-menu absolute top-full right-0 mt-2 w-60 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4 border-b border-gray-100">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-[#B01F24] to-[#2D874B] flex items-center justify-center text-white font-semibold">
+                  U
+                </div>
+                <div>
+                  <div class="font-medium text-gray-800">用户名</div>
+                  <div class="text-xs text-gray-500">普通用户</div>
+                </div>
+              </div>
+            </div>
+            <div class="py-2">
+              <a href="personal-center.html" class="flex items-center space-x-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <i class="fa fa-user text-[#2D874B]"></i>
+                <span>个人中心</span>
+              </a>
+              <a href="settings.html" class="flex items-center space-x-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <i class="fa fa-cog text-[#2D874B]"></i>
+                <span>设置</span>
+              </a>
+              <a href="login.html" class="flex items-center space-x-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <i class="fa fa-sign-out-alt text-[#B01F24]"></i>
+                <span>退出登录</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- 移动端菜单按钮 -->
+      <button id="mobile-menu-btn" class="md:hidden text-gray-600 hover:text-gray-800">
+        <i class="fa fa-bars text-xl"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- 页面内容 -->
+<main class="pt-16 min-h-screen">
+  <!-- 标题区域 -->
+  <section class="bg-gradient-to-br from-blue-50 to-green-50 py-12">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6">
+      <div class="text-center">
+        <h1 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">导入公司成员</h1>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          邀请同事加入光合技术支持平台，共同享受专业服务
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 主要内容区域 -->
+  <section class="py-12">
+    <div class="max-w-4xl mx-auto px-4 lg:px-6">
+      <!-- 导入方式选择 -->
+      <div class="glass-card rounded-3xl border border-gray-300 p-6 mb-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-6">请选择导入方式</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- 手动输入方式 -->
+          <div class="border-2 border-dashed border-gray-300 rounded-2xl p-6 text-center cursor-pointer import-method active" data-method="manual">
+            <i class="fa fa-keyboard text-4xl text-[#2D874B] mb-4"></i>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">手动输入</h3>
+            <p class="text-gray-600 text-sm">逐个输入成员姓名和手机号码</p>
+          </div>
+          
+          <!-- 文件导入方式 -->
+          <div class="border-2 border-dashed border-gray-300 rounded-2xl p-6 text-center cursor-pointer import-method" data-method="file">
+            <i class="fa fa-file-upload text-4xl text-[#2D874B] mb-4"></i>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">文件导入</h3>
+            <p class="text-gray-600 text-sm">批量上传包含姓名和手机号的文件</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 手动输入区域 -->
+      <div id="manual-input-section" class="glass-card rounded-3xl border border-gray-300 p-6 mb-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-6">手动输入成员信息</h2>
+        
+        <div id="members-list" class="space-y-4 mb-6">
+          <!-- 成员输入行 -->
+          <div class="member-input flex items-center gap-4 p-4 border border-gray-200 rounded-xl">
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">姓名</label>
+                <input type="text" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent" placeholder="请输入姓名">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">手机号码</label>
+                <input type="tel" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent" placeholder="请输入手机号码">
+              </div>
+            </div>
+            <button class="remove-member-btn text-red-500 hover:text-red-700 p-2">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </div>
+        
+        <button id="add-member-btn" class="w-full md:w-auto px-6 py-3 bg-white border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition flex items-center justify-center">
+          <i class="fa fa-plus mr-2"></i> 添加成员
+        </button>
+      </div>
+
+      <!-- 文件导入区域 -->
+      <div id="file-input-section" class="glass-card rounded-3xl border border-gray-300 p-6 mb-8 hidden">
+        <h2 class="text-xl font-semibold text-gray-800 mb-6">文件批量导入</h2>
+        
+        <div class="border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center mb-6">
+          <i class="fa fa-cloud-upload-alt text-5xl text-gray-400 mb-4"></i>
+          <p class="text-gray-600 mb-2">拖拽文件到此处或点击上传</p>
+          <p class="text-sm text-gray-500 mb-4">支持Excel(.xlsx)、CSV文件格式</p>
+          <input type="file" id="file-upload" accept=".xlsx,.xls,.csv" class="hidden">
+          <button id="upload-btn" class="px-6 py-2 bg-[#2D874B] text-white rounded-lg hover:bg-[#256e3d] transition">
+            选择文件
+          </button>
+        </div>
+        
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
+          <div class="flex items-start">
+            <i class="fa fa-info-circle text-blue-500 text-xl mt-0.5 mr-3"></i>
+            <div>
+              <h4 class="font-medium text-blue-800 mb-1">模板下载</h4>
+              <p class="text-sm text-blue-700 mb-2">请使用标准模板录入成员信息，确保姓名和手机号码字段正确</p>
+              <a href="#" class="text-sm text-blue-600 hover:text-blue-800 font-medium">下载模板文件 <i class="fa fa-download ml-1"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 确认导入按钮 -->
+      <div class="text-center mb-8">
+        <button id="confirm-import-btn" class="px-12 py-4 bg-[#2D874B] text-white rounded-2xl text-lg font-semibold hover:bg-[#256e3d] transition shadow-lg">
+          <i class="fa fa-paper-plane mr-2"></i>确认导入，邀请入驻
+        </button>
+      </div>
+
+      <!-- 邀请结果区域 -->
+      <div id="invitation-result" class="invitation-result glass-card rounded-3xl border border-gray-300 p-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">邀请链接及海报</h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- 邀请链接 -->
+          <div class="bg-gray-50 rounded-2xl p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+              <i class="fa fa-link text-[#2D874B] mr-2"></i> 邀请链接
+            </h3>
+            <div class="flex">
+              <input type="text" id="invitation-link" class="flex-1 px-4 py-3 rounded-l-lg border border-gray-300 bg-white" value="https://platform.hieco.com/invite/abc123def456" readonly>
+              <button id="copy-link-btn" class="px-4 py-3 bg-[#2D874B] text-white rounded-r-lg hover:bg-[#256e3d] transition copy-btn">
+                <i class="fa fa-copy"></i> 复制
+              </button>
+            </div>
+            <p class="text-sm text-gray-600 mt-2">将此链接发送给团队成员，他们可以通过链接直接注册</p>
+          </div>
+          
+          <!-- 二维码海报 -->
+          <div class="bg-gray-50 rounded-2xl p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+              <i class="fa fa-qrcode text-[#2D874B] mr-2"></i> 邀请海报
+            </h3>
+            <div class="flex flex-col items-center">
+              <div class="bg-white p-4 rounded-xl mb-4">
+                <canvas id="qr-canvas" width="200" height="200" class="bg-white p-2"></canvas>
+              </div>
+              <button id="download-poster-btn" class="px-4 py-2 bg-[#2D874B] text-white rounded-lg hover:bg-[#256e3d] transition">
+                <i class="fa fa-download mr-2"></i>下载海报
+              </button>
+              <p class="text-sm text-gray-600 mt-2 text-center">扫描二维码即可访问邀请页面</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-6 text-center">
+          <button id="new-invitation-btn" class="px-6 py-3 bg-white border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition">
+            <i class="fa fa-plus mr-2"></i>新建邀请
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  // 简化的$函数用于获取元素
+  function $(selector) {
+    const el = document.querySelector(selector);
+    if (!el) console.warn(`Element not found: ${selector}`);
+    return el;
+  }
+
+  // 页面加载完成后执行
+  document.addEventListener('DOMContentLoaded', function() {
+    // 导入方式切换
+    const importMethods = document.querySelectorAll('.import-method');
+    const manualSection = $('#manual-input-section');
+    const fileSection = $('#file-input-section');
+    
+    importMethods.forEach(method => {
+      method.addEventListener('click', function() {
+        const selectedMethod = this.getAttribute('data-method');
+        
+        // 更新选中状态
+        importMethods.forEach(m => m.classList.remove('active'));
+        this.classList.add('active');
+        
+        // 显示对应区域
+        if (selectedMethod === 'manual') {
+          manualSection.classList.remove('hidden');
+          fileSection.classList.add('hidden');
+        } else {
+          manualSection.classList.add('hidden');
+          fileSection.classList.remove('hidden');
+        }
+      });
+    });
+    
+    // 添加成员按钮
+    $('#add-member-btn').addEventListener('click', function() {
+      const membersList = $('#members-list');
+      const newMemberDiv = document.createElement('div');
+      newMemberDiv.className = 'member-input flex items-center gap-4 p-4 border border-gray-200 rounded-xl';
+      newMemberDiv.innerHTML = `
+        <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">姓名</label>
+            <input type="text" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent" placeholder="请输入姓名">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">手机号码</label>
+            <input type="tel" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent" placeholder="请输入手机号码">
+          </div>
+        </div>
+        <button class="remove-member-btn text-red-500 hover:text-red-700 p-2">
+          <i class="fa fa-trash"></i>
+        </button>
+      `;
+      membersList.appendChild(newMemberDiv);
+      
+      // 为新添加的删除按钮添加事件
+      newMemberDiv.querySelector('.remove-member-btn').addEventListener('click', function() {
+        newMemberDiv.remove();
+      });
+    });
+    
+    // 为初始的删除按钮添加事件
+    document.querySelectorAll('.remove-member-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        this.closest('.member-input').remove();
+      });
+    });
+    
+    // 文件上传功能
+    $('#upload-btn').addEventListener('click', function() {
+      $('#file-upload').click();
+    });
+    
+    $('#file-upload').addEventListener('change', function(e) {
+      if (this.files.length > 0) {
+        alert('文件已选择，您可以在此处添加文件解析逻辑');
+      }
+    });
+    
+    // 确认导入按钮
+    $('#confirm-import-btn').addEventListener('click', function() {
+      // 获取当前选择的导入方式
+      const selectedMethod = document.querySelector('.import-method.active').getAttribute('data-method');
+      
+      if (selectedMethod === 'manual') {
+        // 验证手动输入的数据
+        const memberInputs = document.querySelectorAll('#members-list .member-input');
+        let hasValidData = false;
+        
+        memberInputs.forEach(input => {
+          const name = input.querySelector('input[type="text"]').value.trim();
+          const phone = input.querySelector('input[type="tel"]').value.trim();
+          
+          if (name && phone) {
+            hasValidData = true;
+          }
+        });
+        
+        if (!hasValidData) {
+          alert('请至少输入一位成员的信息');
+          return;
+        }
+      } else {
+        // 文件导入方式，检查是否选择了文件
+        if (!$('#file-upload').value) {
+          alert('请选择要上传的文件');
+          return;
+        }
+      }
+      
+      // 显示邀请结果
+      $('#invitation-result').style.display = 'block';
+      
+      // 滚动到邀请结果区域
+      $('#invitation-result').scrollIntoView({ behavior: 'smooth' });
+      
+      // 生成二维码（这里使用简单的模拟）
+      generateQRCode();
+    });
+    
+    // 复制链接功能
+    $('#copy-link-btn').addEventListener('click', function() {
+      const linkInput = $('#invitation-link');
+      linkInput.select();
+      document.execCommand('copy');
+      
+      // 显示复制成功的提示
+      const originalText = this.innerHTML;
+      this.innerHTML = '<i class="fa fa-check"></i> 已复制';
+      setTimeout(() => {
+        this.innerHTML = originalText;
+      }, 2000);
+    });
+    
+    // 重新开始邀请
+    $('#new-invitation-btn').addEventListener('click', function() {
+      $('#invitation-result').style.display = 'none';
+      
+      // 清空手动输入的数据
+      document.querySelectorAll('#members-list .member-input').forEach((input, index) => {
+        if (index > 0) { // 保留第一个输入行
+          input.remove();
+        } else {
+          input.querySelector('input[type="text"]').value = '';
+          input.querySelector('input[type="tel"]').value = '';
+        }
+      });
+    });
+    
+    // 生成二维码的模拟函数
+    function generateQRCode() {
+      const canvas = $('#qr-canvas');
+      const ctx = canvas.getContext('2d');
+      
+      // 清空画布
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // 绘制简单的二维码模拟
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.fillStyle = '#000000';
+      // 绘制一些方块来模拟二维码
+      for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+          if ((i + j) % 2 === 0) {
+            ctx.fillRect(j * 20, i * 20, 15, 15);
+          }
+        }
+      }
+    }
+    
+    // 模拟初始二维码生成
+    generateQRCode();
+  });
+</script>
+
+</body>
+</html>

@@ -151,6 +151,10 @@
                     class="px-3 py-1.5 rounded-full bg-white border border-gray-300 hover:border-[#B01F24] text-[11px]">
               关联公司
             </button>
+            <div class="flex items-center gap-1 ml-2">
+              <i class="fa-solid fa-coins text-yellow-500"></i>
+              <span class="text-xs text-gray-700">积分: <span id="profile-points" class="font-semibold">1,280</span></span>
+            </div>
             </div>
             <div class="text-gray-400 flex flex-wrap gap-3">
               <span id="profile-role-display" class="text-gray-600">岗位角色未填写</span>
@@ -275,6 +279,21 @@
 
       <!-- 我的任务：任务列表 -->
       <section id="tab-tasks" class="main-panel">
+        <!-- 搜索框 -->
+        <div class="mb-4 flex">
+          <input 
+            type="text" 
+            id="task-search-input" 
+            placeholder="搜索任务标题或子任务..." 
+            class="flex-1 px-4 py-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-transparent"
+          >
+          <button 
+            id="task-search-btn"
+            class="px-4 py-2 bg-[#B01F24] text-white rounded-r-lg hover:bg-[#9a1b1f] transition"
+          >
+            搜索
+          </button>
+        </div>
         <div id="task-list" class="space-y-3">
           <!-- JS 注入 -->
         </div>
@@ -521,10 +540,13 @@
     $('profile-email').value = p.email || '';
     $('profile-company').value = p.company || '';
     $('profile-role').value = p.role || '';
+    // 添加积分数据，默认为1,280，可以从本地存储中读取或根据实际业务逻辑设定
+    const points = p.points !== undefined ? p.points : 1280;
 
     $('profile-name-display').textContent = p.name || '周圆圆';
     $('profile-role-display').textContent = p.role || '岗位角色未填写';
     $('profile-company-display').textContent = p.company || '公司未填写';
+    $('profile-points').textContent = points.toLocaleString(); // 格式化数字，如1,280
 
     const first = (p.name || 'U').trim()[0] || 'U';
     $('profile-avatar-text').textContent = first.toUpperCase();
@@ -536,7 +558,8 @@
       phone: $('profile-phone').value.trim(),
       email: $('profile-email').value.trim(),
       company: $('profile-company').value.trim(),
-      role: $('profile-role').value.trim()
+      role: $('profile-role').value.trim(),
+      points: 1280  // 默认积分，实际应用中可能会根据用户行为动态更新
     };
     saveJSON(KEY_PROFILE, p);
     loadProfile();
@@ -631,47 +654,86 @@
       {title:'解决方案专家认证', type:'课程+认证', progress:30, status:'进行中', completed:false, deadline:'2026-05-15', tag:'自主申请'},
       {title:'生态技术领袖认证', type:'认证', progress:100, status:'已完成', completed:true, completeTime:'2026-01-20', tag:'自主申请'}
     ];
-    const taskWrap = $('task-list');
-    taskWrap.innerHTML = '';
-    tasks.forEach(t=>{
-      const card = document.createElement('article');
-      card.className = 'glass-card rounded-3xl border border-gray-300 p-5 hover:-translate-y-1 hover:border-[#B01F24]/80 transition relative cursor-pointer';
-      card.innerHTML = `
-        <!-- 角标 -->
-        <div class="absolute -top-1 right-1">
-          <span class="inline-flex items-center px-1.5 py-0.5 rounded-full ${t.tag === '自主申请' ? 'bg-amber-500' : 'bg-[#2D874B]'} text-white text-[9px] font-medium">
-            ${t.tag}
-          </span>
-        </div>
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <div class="flex items-center gap-2 flex-wrap">
-            <div class="text-base font-semibold">${t.title}</div>
-            <div class="w-20 h-1.5 rounded-full bg-gray-200 overflow-hidden">
-              <div class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" style="width:${t.progress}%"></div>
-            </div>
-            <span class="text-xs font-medium ${t.progress === 100 ? 'text-green-600' : t.progress > 0 ? 'text-blue-600' : 'text-gray-500'}">
-              ${t.progress}%
+    
+    // 渲染任务列表的函数
+    function renderTasks(taskList) {
+      const taskWrap = $('task-list');
+      taskWrap.innerHTML = '';
+      taskList.forEach(t=>{
+        const card = document.createElement('article');
+        card.className = 'glass-card rounded-3xl border border-gray-300 p-5 hover:-translate-y-1 hover:border-[#B01F24]/80 transition relative cursor-pointer';
+        card.innerHTML = `
+          <!-- 角标 -->
+          <div class="absolute -top-1 right-1">
+            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full ${t.tag === '自主申请' ? 'bg-amber-500' : 'bg-[#2D874B]'} text-white text-[9px] font-medium">
+              ${t.tag}
             </span>
-            <span class="text-xs font-medium ${t.status === '已完成' ? 'text-green-600' : t.status === '进行中' ? 'text-blue-600' : 'text-amber-600'}">${t.status}</span>
-            <span class="text-xs text-gray-600">${t.completed ? '完成:'+t.completeTime : '截止:'+t.deadline}</span>
           </div>
-          <span class="text-xs px-2 py-1 rounded-full bg-white border border-gray-300 whitespace-nowrap">
-            ${t.type}
-          </span>
-        </div>
-      `;
-      
-      // 添加点击跳转到任务详情页面的功能
-      card.addEventListener('click', function() {
-        if (t.tag === '自主申请') {
-          window.location.href = 'task-detail-self-apply.html';
-        } else {
-          window.location.href = 'task-detail.html';
-        }
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2 flex-wrap">
+              <div class="text-base font-semibold">${t.title}</div>
+              <div class="w-20 h-1.5 rounded-full bg-gray-200 overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" style="width:${t.progress}%"></div>
+              </div>
+              <span class="text-xs font-medium ${t.progress === 100 ? 'text-green-600' : t.progress > 0 ? 'text-blue-600' : 'text-gray-500'}">
+                ${t.progress}%
+              </span>
+              <span class="text-xs font-medium ${t.status === '已完成' ? 'text-green-600' : t.status === '进行中' ? 'text-blue-600' : 'text-amber-600'}">${t.status}</span>
+              <span class="text-xs text-gray-600">${t.completed ? '完成:'+t.completeTime : '截止:'+t.deadline}</span>
+            </div>
+            <span class="text-xs px-2 py-1 rounded-full bg-white border border-gray-300 whitespace-nowrap">
+              ${t.type}
+            </span>
+          </div>
+        `;
+        
+        // 添加点击跳转到任务详情页面的功能
+        card.addEventListener('click', function() {
+          if (t.tag === '自主申请') {
+            window.location.href = 'task-detail-self-apply.html';
+          } else {
+            window.location.href = 'task-detail.html';
+          }
+        });
+        
+        taskWrap.appendChild(card);
       });
+    }
+    
+    // 初始化渲染所有任务
+    renderTasks(tasks);
+    
+    // 添加任务搜索功能
+    const searchInput = $('#task-search-input');
+    const searchBtn = $('#task-search-btn');
+    
+    // 搜索函数
+    function performSearch() {
+      const searchTerm = searchInput.value.toLowerCase().trim();
       
-      taskWrap.appendChild(card);
-    });
+      if (searchTerm === '') {
+        // 如果搜索框为空，显示所有任务
+        renderTasks(tasks);
+      } else {
+        // 根据搜索词过滤任务
+        const filteredTasks = tasks.filter(task => 
+          task.title.toLowerCase().includes(searchTerm) || 
+          task.type.toLowerCase().includes(searchTerm)
+        );
+        
+        renderTasks(filteredTasks);
+      }
+    }
+    
+    // 输入框实时搜索
+    if (searchInput) {
+      searchInput.addEventListener('input', performSearch);
+    }
+    
+    // 搜索按钮点击事件
+    if (searchBtn) {
+      searchBtn.addEventListener('click', performSearch);
+    }
 
     // 我的学习
     const learn = [
