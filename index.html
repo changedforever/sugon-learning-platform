@@ -41,33 +41,7 @@
       scrollbar-width: none;
     }
     
-    /* 导航下拉浮窗样式 */
-    .nav-dropdown-menu {
-      transform: translateY(-10px);
-      transition: all 0.3s ease;
-    }
-    .group:hover .nav-dropdown-menu {
-      transform: translateY(0);
-    }
-    
-    .nav-submenu {
-      transform: translateX(-10px);
-      transition: all 0.3s ease;
-    }
-    .group:hover .nav-submenu {
-      transform: translateX(0);
-    }
-    
-    /* 防止下拉浮窗闪烁 */
-    .nav-dropdown:hover .nav-dropdown-menu {
-      pointer-events: auto;
-    }
-    .nav-dropdown-menu {
-      pointer-events: none;
-    }
-    .nav-dropdown-menu * {
-      pointer-events: auto;
-    }
+
     
     /* 优化banner视觉效果 */
     .banner-card {
@@ -108,6 +82,56 @@
         margin-top: 1rem;
       }
     }
+    
+    /* 全屏宽度下拉弹窗样式 */
+    .full-width-dropdown {
+      width: 100vw;
+      max-width: none;
+      position: fixed;
+      top: auto;
+      left: 0;
+      margin-top: 0;
+      border-top: 1px solid #e5e7eb;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      z-index: 60;
+    }
+    
+    /* 当前激活的下拉菜单样式 */
+    .full-width-dropdown.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* 左侧导航项目样式 */
+    .nav-item {
+      transition: all 0.2s ease;
+    }
+    
+    .nav-item.selected {
+      background-color: #2D874B !important;
+      color: white !important;
+      font-weight: 500;
+    }
+    
+    /* 右侧内容区域样式 */
+    .nav-content.hidden {
+      display: none;
+    }
+    
+    .nav-content.active-content {
+      display: block;
+    }
+    
+    /* 防止下拉浮窗闪烁 */
+    .nav-dropdown:hover .full-width-dropdown {
+      pointer-events: auto;
+    }
+    .full-width-dropdown {
+      pointer-events: none;
+    }
+    .full-width-dropdown * {
+      pointer-events: auto;
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -136,327 +160,157 @@
           专家
         </a>
 
-        <!-- 培训 - 带下拉浮窗（合并培训、考试、认证、讲师） -->
         <div class="nav-dropdown relative group">
           <a href="training.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
             培训
             <i class="fa fa-chevron-down text-sm text-gray-500"></i>
           </a>
-          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-[600px] bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-            <div class="p-4">
-              <div class="grid grid-cols-[auto_1px_1fr] gap-0">
-                <!-- 左侧：二级菜单 -->
-                <div class="space-y-3">
-                  <!-- 课程 -->
-                  <div class="nav-item relative">
-                    <a href="course-list2.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between training-category" data-category="course">
-                      <div class="flex items-center">
-                        <i class="fa fa-book mr-3 text-[#2D874B]"></i>
-                        <span>课程</span>
-                      </div>
-                    </a>
-                  </div>
-                  
-                  <!-- 考试 -->
-                  <div class="nav-item relative">
-                    <a href="exam-list.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between training-category" data-category="exam">
-                      <div class="flex items-center">
-                        <i class="fa fa-file-alt mr-3 text-[#2D874B]"></i>
-                        <span>考试</span>
-                      </div>
-                    </a>
-                  </div>
-                  
-                  <!-- 认证 -->
-                  <div class="nav-item relative">
-                    <a href="certification.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between training-category" data-category="cert">
-                      <div class="flex items-center">
-                        <i class="fa fa-certificate mr-3 text-[#2D874B]"></i>
-                        <span>认证</span>
-                      </div>
-                    </a>
-                  </div>
-                  
-                  <!-- 讲师 -->
-                  <div class="nav-item relative">
-                    <a href="lecturer-list.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between training-category" data-category="lecturer">
-                      <div class="flex items-center">
-                        <i class="fa fa-user-tie mr-3 text-[#2D874B]"></i>
-                        <span>讲师</span>
-                      </div>
-                    </a>
+          <div class="full-width-dropdown fixed top-0 left-0 w-screen bg-white shadow-xl border-t border-gray-200 opacity-0 invisible transition-all duration-300 z-40" id="training-full-dropdown">
+            <div class="container mx-auto px-4 py-6">
+              <div class="flex">
+                <!-- 左侧导航 -->
+                <div class="w-48 pr-6 border-r border-gray-200">
+                  <div class="space-y-2">
+                    <a href="#" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 active-nav-item nav-item selected" data-target="course">课程</a>
+                    <a href="#" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="exam">考试</a>
+                    <a href="#" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="certification">认证</a>
+                    <a href="#" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="live">直播</a>
                   </div>
                 </div>
                 
-                <!-- 中间：分隔线 -->
-                <div class="border-l border-gray-200"></div>
+                <!-- 分隔线 -->
+                <div class="mx-6 h-full w-px bg-gray-200"></div>
                 
-                <!-- 右侧：所有三级目录 -->
-                <div class="space-y-6 text-left pl-4">
-                  <!-- 课程分类 -->
-                  <div class="category-content active" id="course-content">
-                    <h3 class="text-sm font-semibold text-gray-800 mb-3">课程分类</h3>
-                    <div class="space-y-3">
-                      <!-- 一级：职业认证 -->
-                      <div class="course-level1">
-                        <h4 class="text-xs font-semibold text-gray-700 mb-2">职业认证</h4>
-                        <!-- 二级：云服务 -->
-                        <div class="course-level2 ml-2">
-                          <h5 class="text-xs font-medium text-gray-600 mb-1">云服务</h5>
-                          <!-- 三级：教育 -->
-                          <div class="course-level3 ml-2">
-                            <div class="grid grid-cols-2 gap-1">
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">在线课程</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">面授培训</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">认证考试</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">学习资料</a>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- 二级：人工智能 -->
-                        <div class="course-level2 ml-2 mt-2">
-                          <h5 class="text-xs font-medium text-gray-600 mb-1">人工智能</h5>
-                          <!-- 三级：AI课程 -->
-                          <div class="course-level3 ml-2">
-                            <div class="grid grid-cols-2 gap-1">
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">机器学习</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">深度学习</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">自然语言处理</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">计算机视觉</a>
-                            </div>
-                          </div>
-                        </div>
+                <!-- 右侧分类内容 -->
+                <div class="flex-1 pl-6">
+                  <div id="course-content" class="nav-content active-content">
+                    <h3 class="text-lg font-semibold mb-4">课程分类</h3>
+                    <div class="grid grid-cols-3 gap-4">
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2">职业认证</h4>
+                        <ul class="space-y-1">
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">华为认证</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">红帽认证</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">思科认证</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">阿里云认证</a></li>
+                        </ul>
                       </div>
-                      <!-- 一级：技术培训 -->
-                      <div class="course-level1">
-                        <h4 class="text-xs font-semibold text-gray-700 mb-2">技术培训</h4>
-                        <!-- 二级：大数据 -->
-                        <div class="course-level2 ml-2">
-                          <h5 class="text-xs font-medium text-gray-600 mb-1">大数据</h5>
-                          <!-- 三级：大数据课程 -->
-                          <div class="course-level3 ml-2">
-                            <div class="grid grid-cols-2 gap-1">
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">Hadoop生态</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">Spark</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">数据挖掘</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">数据可视化</a>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- 二级：安全技术 -->
-                        <div class="course-level2 ml-2 mt-2">
-                          <h5 class="text-xs font-medium text-gray-600 mb-1">安全技术</h5>
-                          <!-- 三级：安全课程 -->
-                          <div class="course-level3 ml-2">
-                            <div class="grid grid-cols-2 gap-1">
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">网络安全</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">应用安全</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">数据安全</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">安全运维</a>
-                            </div>
-                          </div>
-                        </div>
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2">职业</h4>
+                        <ul class="space-y-1">
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">系统管理员</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">网络工程师</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">数据库管理员</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">安全工程师</a></li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2">教育</h4>
+                        <ul class="space-y-1">
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">高等院校</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">职业教育</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">培训机构</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">在线教育</a></li>
+                        </ul>
                       </div>
                     </div>
                   </div>
                   
-                  <!-- 考试分类 -->
-                  <div class="category-content hidden" id="exam-content">
-                    <h3 class="text-sm font-semibold text-gray-800 mb-3">考试分类</h3>
-                    <div class="space-y-3">
-                      <!-- 一级：职业认证考试 -->
-                      <div class="exam-level1">
-                        <h4 class="text-xs font-semibold text-gray-700 mb-2">职业认证考试</h4>
-                        <!-- 二级：云服务考试 -->
-                        <div class="exam-level2 ml-2">
-                          <h5 class="text-xs font-medium text-gray-600 mb-1">云服务考试</h5>
-                          <!-- 三级：教育考试 -->
-                          <div class="exam-level3 ml-2">
-                            <div class="grid grid-cols-2 gap-1">
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">云计算认证</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">云存储认证</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">云安全认证</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">云网络认证</a>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- 二级：人工智能考试 -->
-                        <div class="exam-level2 ml-2 mt-2">
-                          <h5 class="text-xs font-medium text-gray-600 mb-1">人工智能考试</h5>
-                          <!-- 三级：AI考试 -->
-                          <div class="exam-level3 ml-2">
-                            <div class="grid grid-cols-2 gap-1">
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">机器学习考试</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">深度学习考试</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">自然语言处理考试</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">计算机视觉考试</a>
-                            </div>
-                          </div>
-                        </div>
+                  <div id="exam-content" class="nav-content hidden">
+                    <h3 class="text-lg font-semibold mb-4">考试分类</h3>
+                    <div class="grid grid-cols-3 gap-4">
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2">认证考试</h4>
+                        <ul class="space-y-1">
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">HCIA考试</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">RHCSA考试</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">CCNA考试</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">ACP考试</a></li>
+                        </ul>
                       </div>
-                      <!-- 一级：技术考试 -->
-                      <div class="exam-level1">
-                        <h4 class="text-xs font-semibold text-gray-700 mb-2">技术考试</h4>
-                        <!-- 二级：大数据考试 -->
-                        <div class="exam-level2 ml-2">
-                          <h5 class="text-xs font-medium text-gray-600 mb-1">大数据考试</h5>
-                          <!-- 三级：大数据考试 -->
-                          <div class="exam-level3 ml-2">
-                            <div class="grid grid-cols-2 gap-1">
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">Hadoop考试</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">Spark考试</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">数据挖掘考试</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">数据可视化考试</a>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- 二级：安全技术考试 -->
-                        <div class="exam-level2 ml-2 mt-2">
-                          <h5 class="text-xs font-medium text-gray-600 mb-1">安全技术考试</h5>
-                          <!-- 三级：安全考试 -->
-                          <div class="exam-level3 ml-2">
-                            <div class="grid grid-cols-2 gap-1">
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">网络安全考试</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">应用安全考试</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">数据安全考试</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">安全运维考试</a>
-                            </div>
-                          </div>
-                        </div>
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2">技能评估</h4>
+                        <ul class="space-y-1">
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">Linux技能</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">网络技能</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">安全技能</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">云计算技能</a></li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2">模拟考试</h4>
+                        <ul class="space-y-1">
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">初级模拟</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">中级模拟</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">高级模拟</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">专家级模拟</a></li>
+                        </ul>
                       </div>
                     </div>
                   </div>
                   
-                  <!-- 认证分类 -->
-                  <div class="category-content hidden" id="cert-content">
-                    <h3 class="text-sm font-semibold text-gray-800 mb-3">认证分类</h3>
-                    <div class="space-y-3">
-                      <!-- 一级：职业认证 -->
-                      <div class="cert-level1">
-                        <h4 class="text-xs font-semibold text-gray-700 mb-2">职业认证</h4>
-                        <!-- 二级：云服务认证 -->
-                        <div class="cert-level2 ml-2">
-                          <h5 class="text-xs font-medium text-gray-600 mb-1">云服务认证</h5>
-                          <!-- 三级：教育认证 -->
-                          <div class="cert-level3 ml-2">
-                            <div class="grid grid-cols-2 gap-1">
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">云计算认证</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">云存储认证</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">云安全认证</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">云网络认证</a>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- 二级：人工智能认证 -->
-                        <div class="cert-level2 ml-2 mt-2">
-                          <h5 class="text-xs font-medium text-gray-600 mb-1">人工智能认证</h5>
-                          <!-- 三级：AI认证 -->
-                          <div class="cert-level3 ml-2">
-                            <div class="grid grid-cols-2 gap-1">
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">机器学习认证</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">深度学习认证</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">自然语言处理认证</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">计算机视觉认证</a>
-                            </div>
-                          </div>
-                        </div>
+                  <div id="certification-content" class="nav-content hidden">
+                    <h3 class="text-lg font-semibold mb-4">认证分类</h3>
+                    <div class="grid grid-cols-3 gap-4">
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2">厂商认证</h4>
+                        <ul class="space-y-1">
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">华为认证</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">红帽认证</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">思科认证</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">微软认证</a></li>
+                        </ul>
                       </div>
-                      <!-- 一级：技术认证 -->
-                      <div class="cert-level1">
-                        <h4 class="text-xs font-semibold text-gray-700 mb-2">技术认证</h4>
-                        <!-- 二级：大数据认证 -->
-                        <div class="cert-level2 ml-2">
-                          <h5 class="text-xs font-medium text-gray-600 mb-1">大数据认证</h5>
-                          <!-- 三级：大数据认证 -->
-                          <div class="cert-level3 ml-2">
-                            <div class="grid grid-cols-2 gap-1">
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">Hadoop认证</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">Spark认证</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">数据挖掘认证</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">数据可视化认证</a>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- 二级：安全技术认证 -->
-                        <div class="cert-level2 ml-2 mt-2">
-                          <h5 class="text-xs font-medium text-gray-600 mb-1">安全技术认证</h5>
-                          <!-- 三级：安全认证 -->
-                          <div class="cert-level3 ml-2">
-                            <div class="grid grid-cols-2 gap-1">
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">网络安全认证</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">应用安全认证</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">数据安全认证</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">安全运维认证</a>
-                            </div>
-                          </div>
-                        </div>
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2">技术认证</h4>
+                        <ul class="space-y-1">
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">网络安全</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">云计算</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">大数据</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">人工智能</a></li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2">行业认证</h4>
+                        <ul class="space-y-1">
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">金融行业</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">医疗行业</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">教育行业</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">政府机构</a></li>
+                        </ul>
                       </div>
                     </div>
                   </div>
                   
-                  <!-- 讲师分类 -->
-                  <div class="category-content hidden" id="lecturer-content">
-                    <h3 class="text-sm font-semibold text-gray-800 mb-3">讲师分类</h3>
-                    <div class="space-y-3">
-                      <!-- 一级：按领域分类 -->
-                      <div class="lecturer-level1">
-                        <h4 class="text-xs font-semibold text-gray-700 mb-2">按领域分类</h4>
-                        <!-- 二级：云服务讲师 -->
-                        <div class="lecturer-level2 ml-2">
-                          <h5 class="text-xs font-medium text-gray-600 mb-1">云服务讲师</h5>
-                          <!-- 三级：教育讲师 -->
-                          <div class="lecturer-level3 ml-2">
-                            <div class="grid grid-cols-2 gap-1">
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">云计算讲师</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">云存储讲师</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">云安全讲师</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">云网络讲师</a>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- 二级：人工智能讲师 -->
-                        <div class="lecturer-level2 ml-2 mt-2">
-                          <h5 class="text-xs font-medium text-gray-600 mb-1">人工智能讲师</h5>
-                          <!-- 三级：AI讲师 -->
-                          <div class="lecturer-level3 ml-2">
-                            <div class="grid grid-cols-2 gap-1">
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">机器学习讲师</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">深度学习讲师</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">自然语言处理讲师</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">计算机视觉讲师</a>
-                            </div>
-                          </div>
-                        </div>
+                  <div id="live-content" class="nav-content hidden">
+                    <h3 class="text-lg font-semibold mb-4">直播分类</h3>
+                    <div class="grid grid-cols-3 gap-4">
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2">技术直播</h4>
+                        <ul class="space-y-1">
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">Linux运维</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">网络配置</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">云服务</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">安全防护</a></li>
+                        </ul>
                       </div>
-                      <!-- 一级：按级别分类 -->
-                      <div class="lecturer-level1">
-                        <h4 class="text-xs font-semibold text-gray-700 mb-2">按级别分类</h4>
-                        <!-- 二级：高级讲师 -->
-                        <div class="lecturer-level2 ml-2">
-                          <h5 class="text-xs font-medium text-gray-600 mb-1">高级讲师</h5>
-                          <!-- 三级：高级讲师 -->
-                          <div class="lecturer-level3 ml-2">
-                            <div class="grid grid-cols-2 gap-1">
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">首席讲师</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">金牌讲师</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">银牌讲师</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">铜牌讲师</a>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- 二级：专业讲师 -->
-                        <div class="lecturer-level2 ml-2 mt-2">
-                          <h5 class="text-xs font-medium text-gray-600 mb-1">专业讲师</h5>
-                          <!-- 三级：专业讲师 -->
-                          <div class="lecturer-level3 ml-2">
-                            <div class="grid grid-cols-2 gap-1">
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">技术专家</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">行业专家</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">资深顾问</a>
-                              <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-0.5 block">认证导师</a>
-                            </div>
-                          </div>
-                        </div>
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2">认证直播</h4>
+                        <ul class="space-y-1">
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">HCIP备考</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">RHCE培训</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">CCNP讲座</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">AWS认证</a></li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2">专题直播</h4>
+                        <ul class="space-y-1">
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">新技术趋势</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">最佳实践</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">案例分析</a></li>
+                          <li><a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">专家访谈</a></li>
+                        </ul>
                       </div>
                     </div>
                   </div>
@@ -3768,84 +3622,7 @@
   });
   </script>
 
-  <!-- 培训下拉菜单交互脚本 -->
-  <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // 获取所有二级菜单项
-    const navItems = document.querySelectorAll('.nav-item');
-    
-    // 获取所有内容区域
-    const defaultContent = document.querySelector('.default-content');
-    const courseContent = document.querySelector('.course-content');
-    const examContent = document.querySelector('.exam-content');
-    const certificationContent = document.querySelector('.certification-content');
-    const lecturerContent = document.querySelector('.lecturer-content');
-    
-    // 隐藏所有内容区域
-    function hideAllContents() {
-      [defaultContent, courseContent, examContent, certificationContent, lecturerContent].forEach(content => {
-        if (content) content.classList.add('hidden');
-      });
-    }
-    
-    // 显示指定内容区域
-    function showContent(content) {
-      hideAllContents();
-      if (content) content.classList.remove('hidden');
-    }
-    
-    // 为每个二级菜单项添加鼠标事件
-    navItems.forEach(item => {
-      const link = item.querySelector('a');
-      
-      // 鼠标进入时显示对应内容
-      item.addEventListener('mouseenter', function() {
-        const linkText = link.textContent.trim();
-        
-        switch(linkText) {
-          case '课程':
-            showContent(courseContent);
-            break;
-          case '考试':
-            showContent(examContent);
-            break;
-          case '认证':
-            showContent(certificationContent);
-            break;
-          case '讲师':
-            showContent(lecturerContent);
-            break;
-          default:
-            hideAllContents();
-        }
-      });
-      
-      // 鼠标离开时隐藏所有内容
-      item.addEventListener('mouseleave', function() {
-        // 延迟隐藏，避免快速切换时闪烁
-        setTimeout(() => {
-          const isHoveringAnyItem = Array.from(navItems).some(navItem => 
-            navItem.matches(':hover')
-          );
-          if (!isHoveringAnyItem) {
-            hideAllContents();
-          }
-        }, 100);
-      });
-    });
-    
-    // 为整个下拉菜单添加鼠标离开事件
-    const dropdownMenu = document.querySelector('.nav-dropdown-menu');
-    if (dropdownMenu) {
-      dropdownMenu.addEventListener('mouseleave', function() {
-        hideAllContents();
-      });
-    }
-    
-    // 初始化：隐藏所有内容
-    hideAllContents();
-  });
-  </script>
+
   <!-- 专家支持 - 光圈下载居中弹窗 -->
   <div id="download-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
     <div class="bg-white rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl">
@@ -3962,38 +3739,77 @@
         });
       }
 
-      // 培训分类切换功能
-      document.querySelectorAll('.training-category').forEach(item => {
+      // 全屏宽度下拉弹窗交互功能
+      const trainingDropdown = document.querySelector('.nav-dropdown');
+      const fullWidthDropdown = document.getElementById('training-full-dropdown');
+      
+      if (trainingDropdown && fullWidthDropdown) {
+        // 鼠标进入培训按钮时显示下拉菜单
+        trainingDropdown.addEventListener('mouseenter', function() {
+          // 计算下拉菜单的位置
+          const rect = trainingDropdown.getBoundingClientRect();
+          // 设置下拉菜单的top位置，相对于视口
+          fullWidthDropdown.style.top = `${rect.bottom + window.scrollY}px`;
+          
+          // 确保下拉菜单可见
+          fullWidthDropdown.classList.add('active');
+        });
+        
+        // 鼠标离开培训按钮或下拉菜单时隐藏下拉菜单
+        trainingDropdown.addEventListener('mouseleave', function(e) {
+          // 延迟隐藏，以便用户可以在下拉菜单中移动鼠标
+          setTimeout(() => {
+            if (!fullWidthDropdown.matches(':hover')) {
+              fullWidthDropdown.classList.remove('active');
+            }
+          }, 100);
+        });
+        
+        // 鼠标进入下拉菜单时保持显示
+        fullWidthDropdown.addEventListener('mouseenter', function() {
+          // 保持显示
+        });
+        
+        // 鼠标离开下拉菜单时隐藏
+        fullWidthDropdown.addEventListener('mouseleave', function() {
+          setTimeout(() => {
+            if (!trainingDropdown.matches(':hover')) {
+              fullWidthDropdown.classList.remove('active');
+            }
+          }, 100);
+        });
+      }
+      
+      // 左侧导航和右侧分类切换功能
+      const navItems = document.querySelectorAll('.nav-item');
+      const navContents = document.querySelectorAll('.nav-content');
+      
+      navItems.forEach(item => {
         item.addEventListener('click', function(e) {
-          e.preventDefault(); // 阻止默认跳转行为
+          e.preventDefault(); // 阻止链接跳转
           
-          // 获取要显示的内容ID
-          const category = this.getAttribute('data-category');
-          const contentId = `${category}-content`;
+          // 获取目标内容ID
+          const target = this.getAttribute('data-target');
           
-          // 移除所有active类并隐藏所有内容
-          document.querySelectorAll('.category-content').forEach(content => {
-            content.classList.remove('active');
+          // 移除所有选中状态
+          navItems.forEach(nav => nav.classList.remove('selected'));
+          navContents.forEach(content => {
+            content.classList.remove('active-content');
             content.classList.add('hidden');
           });
           
-          // 添加active类并显示对应内容
-          const targetContent = document.getElementById(contentId);
+          // 添加选中状态到当前项
+          this.classList.add('selected');
+          
+          // 显示对应的内容
+          const targetContent = document.getElementById(`${target}-content`);
           if (targetContent) {
             targetContent.classList.remove('hidden');
-            targetContent.classList.add('active');
+            targetContent.classList.add('active-content');
           }
-          
-          // 更新激活状态的菜单项
-          document.querySelectorAll('.training-category').forEach(menuItem => {
-            menuItem.classList.remove('font-semibold', 'text-[#2D874B]');
-            menuItem.classList.add('text-gray-800');
-          });
-          
-          this.classList.remove('text-gray-800');
-          this.classList.add('font-semibold', 'text-[#2D874B]');
         });
       });
+
     });
   </script>
 
