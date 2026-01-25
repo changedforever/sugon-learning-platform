@@ -138,7 +138,7 @@
           </div>
           <div class="space-y-1 text-xs">
             <div class="flex items-center gap-2">
-              <span id="profile-name-display" class="text-sm font-semibold text-gray-800">未命名用户</span>
+              <span id="profile-name-display" class="text-sm font-semibold text-gray-800">周圆圆</span>
               <span id="auth-badge"
                     class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] badge-unverified">
                 <i class="fa fa-circle-exclamation mr-1 text-[9px]"></i> 未认证
@@ -159,10 +159,28 @@
             </div>
           </div>
         </div>
-        <div class="text-[11px] text-gray-400 space-y-1 lg:text-right">
+        <div class="text-[11px] text-gray-400 space-y-1 lg:text-right hidden">
           <div>在学课程：<span class="text-[#B01F24]" id="summary-learning">0</span> 门</div>
-          <div>已获证书：<span class="text-[#B01F24]" id="summary-cert">0</span> 张</div>
+          <div>已获证书：<span class="text-[#B01F24]" id="summary-cert">2</span> 张</div>
           <div>待考试/活动：<span class="text-[#B01F24]" id="summary-todo">0</span> 项</div>
+        </div>
+        <!-- 新增：专家支持、在学课程、已获证书横向排列 -->
+        <div class="grid grid-cols-3 gap-4 mt-4 lg:mt-0 lg:ml-4">
+          <div class="text-center lg:text-left">
+            <div class="text-gray-400 text-[11px]">专家支持</div>
+            <div class="text-[#B01F24] text-lg font-semibold">12</div>
+            <div class="text-[11px] text-gray-400">次</div>
+          </div>
+          <div class="text-center lg:text-left">
+            <div class="text-gray-400 text-[11px]">在学课程</div>
+            <div id="summary-learning-large" class="text-[#B01F24] text-lg font-semibold">0</div>
+            <div class="text-[11px] text-gray-400">门</div>
+          </div>
+          <div class="text-center lg:text-left">
+            <div class="text-gray-400 text-[11px]">已获证书</div>
+            <div id="summary-cert-large" class="text-[#B01F24] text-lg font-semibold">2</div>
+            <div class="text-[11px] text-gray-400">张</div>
+          </div>
         </div>
       </div>
     </section>
@@ -179,20 +197,20 @@
         </div>
         <div class="grid grid-cols-2 gap-3 text-xs">
           <div class="rounded-2xl bg-white border border-gray-300 p-3">
-            <div class="text-gray-400 mb-1">在学课程</div>
-            <div id="overview-learning" class="text-lg font-semibold text-[#B01F24]">0</div>
+            <div class="text-gray-400 mb-1">专家支持</div>
+            <div id="overview-expert-support" class="text-lg font-semibold text-[#B01F24]">12</div>
           </div>
           <div class="rounded-2xl bg-white border border-gray-300 p-3">
-            <div class="text-gray-400 mb-1">已完成课程</div>
-            <div id="overview-completed" class="text-lg font-semibold text-[#B01F24]">0</div>
+            <div class="text-gray-400 mb-1">已完成/报名课程</div>
+            <div id="overview-completed-enrolled" class="text-lg font-semibold text-[#B01F24]">3/12</div>
           </div>
           <div class="rounded-2xl bg-white border border-gray-300 p-3">
-            <div class="text-gray-400 mb-1">待参加考试/活动</div>
-            <div id="overview-exams-events" class="text-lg font-semibold text-[#B01F24]">0</div>
+            <div class="text-gray-400 mb-1">已通过/报名考试</div>
+            <div id="overview-passed-exams" class="text-lg font-semibold text-[#B01F24]">2/5</div>
           </div>
           <div class="rounded-2xl bg-white border border-gray-300 p-3">
-            <div class="text-gray-400 mb-1">近期直播预约</div>
-            <div id="overview-live" class="text-lg font-semibold text-[#B01F24]">0</div>
+            <div class="text-gray-400 mb-1">观看/预约直播</div>
+            <div id="overview-watched-live" class="text-lg font-semibold text-[#B01F24]">8/15</div>
           </div>
         </div>
       </article>
@@ -504,7 +522,7 @@
     $('profile-company').value = p.company || '';
     $('profile-role').value = p.role || '';
 
-    $('profile-name-display').textContent = p.name || '未命名用户';
+    $('profile-name-display').textContent = p.name || '周圆圆';
     $('profile-role-display').textContent = p.role || '岗位角色未填写';
     $('profile-company-display').textContent = p.company || '公司未填写';
 
@@ -625,25 +643,21 @@
             ${t.tag}
           </span>
         </div>
-        <div class="flex items-center justify-between mb-3">
-          <div class="text-base font-semibold">${t.title}</div>
-          <span class="text-xs px-2 py-1 rounded-full bg-white border border-gray-300">
-            ${t.type}
-          </span>
-        </div>
-        <div class="flex items-center justify-between mb-2">
-          <div class="flex-1 mr-4">
-            <div class="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2 flex-wrap">
+            <div class="text-base font-semibold">${t.title}</div>
+            <div class="w-20 h-1.5 rounded-full bg-gray-200 overflow-hidden">
               <div class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" style="width:${t.progress}%"></div>
             </div>
+            <span class="text-xs font-medium ${t.progress === 100 ? 'text-green-600' : t.progress > 0 ? 'text-blue-600' : 'text-gray-500'}">
+              ${t.progress}%
+            </span>
+            <span class="text-xs font-medium ${t.status === '已完成' ? 'text-green-600' : t.status === '进行中' ? 'text-blue-600' : 'text-amber-600'}">${t.status}</span>
+            <span class="text-xs text-gray-600">${t.completed ? '完成:'+t.completeTime : '截止:'+t.deadline}</span>
           </div>
-          <span class="text-xs font-medium ${t.progress === 100 ? 'text-green-600' : t.progress > 0 ? 'text-blue-600' : 'text-gray-500'}">
-            ${t.progress}%
+          <span class="text-xs px-2 py-1 rounded-full bg-white border border-gray-300 whitespace-nowrap">
+            ${t.type}
           </span>
-        </div>
-        <div class="flex justify-between text-xs text-gray-600">
-          <span>${t.completed ? '完成时间：'+t.completeTime : '截止时间：'+t.deadline}</span>
-          <span class="font-medium ${t.status === '已完成' ? 'text-green-600' : t.status === '进行中' ? 'text-blue-600' : 'text-amber-600'}">${t.status}</span>
         </div>
       `;
       

@@ -32,6 +32,11 @@
       background: rgba(255, 255, 255, 0.9);
       border-color: #d1d5db;
     }
+    .tab-btn-active {
+      background: rgba(176, 31, 36, 0.25); /* #B01F24 的浅色版本 */
+      border-color: #B01F24;
+      color: #333333;
+    }
     .result-badge-pass {
       background: rgba(16,185,129,0.12);
       color: #059669;
@@ -186,6 +191,19 @@
             <span class="text-[11px] text-gray-500">
               展示每道题的作答情况（绿色为正确，红色为错误）
             </span>
+          </div>
+
+          <!-- 标签切换：全部/错误/正确 -->
+          <div class="flex gap-2 mb-4">
+            <button id="tab-all" class="tab-btn-active tab-btn px-3 py-1.5 rounded-full border text-xs border-[#B01F24] text-gray-800 font-medium">
+              全部
+            </button>
+            <button id="tab-wrong" class="tab-btn px-3 py-1.5 rounded-full border text-xs bg-white border-gray-300 text-gray-600 hover:border-[#B01F24] hover:text-[#B01F24]">
+              错误
+            </button>
+            <button id="tab-correct" class="tab-btn px-3 py-1.5 rounded-full border text-xs bg-white border-gray-300 text-gray-600 hover:border-[#B01F24] hover:text-[#B01F24]">
+              正确
+            </button>
           </div>
 
           <!-- 题目摘要条（横向可滚动） -->
@@ -455,6 +473,75 @@
       window.location.href = 'exam-online.html?id=exam-cloud-architect';
     }
   });
+
+  // 答题详情标签切换功能
+  const tabAll = document.getElementById('tab-all');
+  const tabWrong = document.getElementById('tab-wrong');
+  const tabCorrect = document.getElementById('tab-correct');
+  const questionArticles = document.querySelectorAll('#panel-detail .space-y-4.text-xs > article');
+
+  // 初始化：显示全部题目
+  function showAllQuestions() {
+    questionArticles.forEach(article => {
+      article.style.display = 'block';
+    });
+    
+    // 更新按钮样式
+    tabAll.classList.add('tab-btn-active');
+    tabAll.classList.remove('tab-btn');
+    tabWrong.classList.add('tab-btn');
+    tabWrong.classList.remove('tab-btn-active');
+    tabCorrect.classList.add('tab-btn');
+    tabCorrect.classList.remove('tab-btn-active');
+  }
+
+  // 显示错误题目
+  function showWrongQuestions() {
+    questionArticles.forEach(article => {
+      const statusSpan = article.querySelector('span');
+      if (statusSpan && (statusSpan.textContent.includes('错误') || statusSpan.textContent.includes('部分正确'))) {
+        article.style.display = 'block';
+      } else {
+        article.style.display = 'none';
+      }
+    });
+    
+    // 更新按钮样式
+    tabWrong.classList.add('tab-btn-active');
+    tabWrong.classList.remove('tab-btn');
+    tabAll.classList.add('tab-btn');
+    tabAll.classList.remove('tab-btn-active');
+    tabCorrect.classList.add('tab-btn');
+    tabCorrect.classList.remove('tab-btn-active');
+  }
+
+  // 显示正确题目
+  function showCorrectQuestions() {
+    questionArticles.forEach(article => {
+      const statusSpan = article.querySelector('span');
+      if (statusSpan && statusSpan.textContent.includes('正确') && !statusSpan.textContent.includes('部分正确')) {
+        article.style.display = 'block';
+      } else {
+        article.style.display = 'none';
+      }
+    });
+    
+    // 更新按钮样式
+    tabCorrect.classList.add('tab-btn-active');
+    tabCorrect.classList.remove('tab-btn');
+    tabAll.classList.add('tab-btn');
+    tabAll.classList.remove('tab-btn-active');
+    tabWrong.classList.add('tab-btn');
+    tabWrong.classList.remove('tab-btn-active');
+  }
+
+  // 绑定事件监听器
+  tabAll.addEventListener('click', showAllQuestions);
+  tabWrong.addEventListener('click', showWrongQuestions);
+  tabCorrect.addEventListener('click', showCorrectQuestions);
+
+  // 默认显示全部题目
+  showAllQuestions();
 </script>
 
 </body>
