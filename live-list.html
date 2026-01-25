@@ -263,7 +263,7 @@
 <main class="pt-16 lg:pt-20 pb-10">
   <section class="max-w-7xl mx-auto px-4 lg:px-6">
 
-    <!-- 顶部说明 + 搜索 -->
+    <!-- 顶部说明 -->
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-6">
       <div>
         <h2 class="text-lg font-semibold flex items-center gap-2">
@@ -273,26 +273,6 @@
 
       </div>
 
-      <div class="flex flex-wrap items-center gap-2 justify-end">
-        <!-- 搜索框 -->
-        <div class="relative">
-          <i class="fa fa-search text-gray-400 absolute left-2 top-2.5 text-xs"></i>
-          <input id="search-input"
-                 type="text"
-                 placeholder="搜索直播主题 / 发布方 / 标签"
-                 class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]" />
-        </div>
-        
-        <!-- 排序 -->
-        <div class="flex items-center gap-1 text-xs">
-          <span class="text-gray-600">排序：</span>
-          <select id="sort-select"
-                  class="rounded-full bg-white/80 border border-gray-300 px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-[#2D874B]">
-            <option value="newest">最新</option>
-            <option value="most-popular">最热</option>
-          </select>
-        </div>
-      </div>
     </div>
 
     <!-- 正在直播区域 -->
@@ -301,19 +281,37 @@
         <span class="inline-flex h-5 w-1 rounded-full bg-red-500"></span>
         正在直播
       </h3>
-      <div id="live-now-list" class="flex overflow-x-auto gap-4 pb-4 no-scrollbar">
+      <div id="live-now-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 pb-4">
         <!-- 由 JS 注入 -->
       </div>
     </section>
 
-    <!-- 最近直播区域 -->
+    <!-- 即将直播区域 -->
     <section class="mb-8">
       <h3 class="text-base font-semibold mb-4 flex items-center gap-2">
         <span class="inline-flex h-5 w-1 rounded-full bg-blue-500"></span>
-        最近直播
+        即将直播
       </h3>
-      <div id="upcoming-list" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        <!-- 由 JS 注入 -->
+      <div class="flex flex-col lg:flex-row gap-4">
+        <!-- 左侧：单一直播卡片 -->
+        <div class="lg:w-1/3">
+          <div id="upcoming-main-card" class="flex justify-center">
+            <!-- 左侧主卡片将由JS注入 -->
+          </div>
+        </div>
+        <!-- 右侧：日期列表 -->
+        <div id="upcoming-date-list-container" class="hidden lg:block lg:w-2/3 h-full">
+          <div class="flex h-full">
+            <!-- 右侧日期列表的左侧：直播简介 -->
+            <div id="upcoming-description" class="lg:w-1/2 glass-card rounded-3xl border border-gray-300 p-4 overflow-y-auto">
+              <!-- 直播简介将由JS注入 -->
+            </div>
+            <!-- 右侧日期列表的右侧：日期列表 -->
+            <div id="upcoming-date-list" class="lg:w-1/2 glass-card rounded-3xl border border-gray-300 overflow-hidden flex flex-col">
+              <!-- 右侧日期列表将由JS注入 -->
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -384,10 +382,32 @@
 
     <!-- 全部直播区域 -->
     <section>
-      <h3 class="text-base font-semibold mb-4 flex items-center gap-2">
-        <span class="inline-flex h-5 w-1 rounded-full bg-gray-500"></span>
-        全部直播
-      </h3>
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+        <h3 class="text-base font-semibold flex items-center gap-2">
+          <span class="inline-flex h-5 w-1 rounded-full bg-gray-500"></span>
+          全部直播
+        </h3>
+        <div class="flex flex-wrap items-center gap-2 justify-end mt-2 sm:mt-0">
+          <!-- 搜索框 -->
+          <div class="relative">
+            <i class="fa fa-search text-gray-400 absolute left-2 top-2.5 text-xs"></i>
+            <input id="search-input"
+                   type="text"
+                   placeholder="搜索直播主题 / 发布方 / 标签"
+                   class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]" />
+          </div>
+          
+          <!-- 排序 -->
+          <div class="flex items-center gap-1 text-xs">
+            <span class="text-gray-600">排序：</span>
+            <select id="sort-select"
+                    class="rounded-full bg-white/80 border border-gray-300 px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-[#2D874B]">
+              <option value="newest">最新</option>
+              <option value="most-popular">最热</option>
+            </select>
+          </div>
+        </div>
+      </div>
       <!-- 统计 + 分页信息 -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 text-[11px] text-gray-600 gap-2">
         <div>
@@ -432,21 +452,21 @@
 <script>
   // 模拟直播数据（实际可改为接口）
   const allLives = [
-    { id: 1, title: "云原生架构设计实战分享", source: "云基础设施学院", date: "2026-01-27 19:00", status: "upcoming", category: "云基础设施", role: "云架构师", track: "DevOps", attendees: 1234, cover: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=light%20gray%20background%20with%20live%20streaming%20diagram%20text%20in%20Chinese&image_size=landscape_16_9" },
-    { id: 2, title: "AI 与数据智能实战公开课", source: "AI 与数据智能学院", date: "2026-01-15 20:00", status: "live", category: "AI与数据智能", role: "数据分析师", track: "AI", attendees: 2567, cover: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=light%20gray%20background%20with%20live%20streaming%20diagram%20text%20in%20Chinese&image_size=landscape_16_9" },
-    { id: 3, title: "解决方案与售前实战分享", source: "解决方案与售前学院", date: "2026-01-14 18:00", status: "ended", category: "解决方案", role: "解决方案顾问", track: "业务运营", attendees: 894, cover: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=light%20gray%20background%20with%20live%20streaming%20diagram%20text%20in%20Chinese&image_size=landscape_16_9" },
-    { id: 4, title: "生态伙伴云运维沙龙", source: "云基础设施学院", date: "2026-01-29 19:30", status: "upcoming", category: "云基础设施", role: "运维工程师", track: "DevOps", attendees: 1562, cover: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=light%20gray%20background%20with%20live%20streaming%20diagram%20text%20in%20Chinese&image_size=landscape_16_9" },
-    { id: 5, title: "金融行业云原生案例拆解", source: "解决方案与售前学院", date: "2026-01-11 20:00", status: "ended", category: "解决方案", role: "解决方案顾问", track: "业务运营", attendees: 180, cover: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=light%20gray%20background%20with%20live%20streaming%20diagram%20text%20in%20Chinese&image_size=landscape_16_9" },
-    { id: 6, title: "AIGC 在方案中的落地", source: "AI 与数据智能学院", date: "2026-02-02 18:30", status: "upcoming", category: "AI与数据智能", role: "开发者", track: "AI", attendees: 987, cover: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=light%20gray%20background%20with%20live%20streaming%20diagram%20text%20in%20Chinese&image_size=landscape_16_9" },
-    { id: 7, title: "伙伴技术沙龙：真实项目案例", source: "解决方案与售前学院", date: "2026-01-05 19:00", status: "ended", category: "解决方案", role: "销售", track: "业务运营", attendees: 543, cover: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=light%20gray%20background%20with%20live%20streaming%20diagram%20text%20in%20Chinese&image_size=landscape_16_9" },
-    { id: 8, title: "云成本优化与 FinOps", source: "云基础设施学院", date: "2025-12-30 18:30", status: "ended", category: "云基础设施", role: "云架构师", track: "DevOps", attendees: 678, cover: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=light%20gray%20background%20with%20live%20streaming%20diagram%20text%20in%20Chinese&image_size=landscape_16_9" },
-    { id: 9, title: "生态技术领袖闭门对话", source: "生态合作中心", date: "2025-12-25 20:00", status: "ended", category: "解决方案", role: "技术专家", track: "业务运营", attendees: 456, cover: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=light%20gray%20background%20with%20live%20streaming%20diagram%20text%20in%20Chinese&image_size=landscape_16_9" },
-    { id: 10, title: "云原生安全最佳实践", source: "云基础设施学院", date: "2026-02-03 19:00", status: "upcoming", category: "云基础设施", role: "云安全专家", track: "DevOps", attendees: 1123, cover: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=light%20gray%20background%20with%20live%20streaming%20diagram%20text%20in%20Chinese&image_size=landscape_16_9" },
-    { id: 11, title: "数据治理与合规专题直播", source: "AI 与数据智能学院", date: "2025-12-18 18:30", status: "ended", category: "AI与数据智能", role: "数据分析师", track: "AI", attendees: 342, cover: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=light%20gray%20background%20with%20live%20streaming%20diagram%20text%20in%20Chinese&image_size=landscape_16_9" },
-    { id: 12, title: "销售技巧与标杆案例复盘", source: "解决方案与售前学院", date: "2025-12-15 20:00", status: "ended", category: "解决方案", role: "销售", track: "业务运营", attendees: 230, cover: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=light%20gray%20background%20with%20live%20streaming%20diagram%20text%20in%20Chinese&image_size=landscape_16_9" },
-    { id: 13, title: "企业数字化转型实践分享", source: "解决方案与售前学院", date: "2025-12-10 19:00", status: "ended", category: "解决方案", role: "数字化转型顾问", track: "业务运营", attendees: 789, cover: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=light%20gray%20background%20with%20live%20streaming%20diagram%20text%20in%20Chinese&image_size=landscape_16_9" },
-    { id: 14, title: "云原生安全技术研讨会", source: "云基础设施学院", date: "2025-12-05 18:30", status: "ended", category: "云基础设施", role: "安全专家", track: "DevOps", attendees: 567, cover: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=light%20gray%20background%20with%20live%20streaming%20diagram%20text%20in%20Chinese&image_size=landscape_16_9" },
-    { id: 15, title: "人工智能前沿技术论坛", source: "AI 与数据智能学院", date: "2025-11-30 19:00", status: "ended", category: "AI与数据智能", role: "AI专家", track: "AI", attendees: 890, cover: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=light%20gray%20background%20with%20live%20streaming%20diagram%20text%20in%20Chinese&image_size=landscape_16_9" }
+    { id: 1, title: "云原生架构设计实战分享", source: "云基础设施学院", date: "2026-01-27 19:00", status: "upcoming", category: "云基础设施", role: "云架构师", track: "DevOps", attendees: 1234, cover: "images/living_room.png" },
+    { id: 2, title: "AI 与数据智能实战公开课", source: "AI 与数据智能学院", date: "2026-01-15 20:00", status: "live", category: "AI与数据智能", role: "数据分析师", track: "AI", attendees: 2567, cover: "images/living_room.png" },
+    { id: 3, title: "解决方案与售前实战分享", source: "解决方案与售前学院", date: "2026-01-14 18:00", status: "ended", category: "解决方案", role: "解决方案顾问", track: "业务运营", attendees: 894, cover: "images/living_room.png" },
+    { id: 4, title: "生态伙伴云运维沙龙", source: "云基础设施学院", date: "2026-01-29 19:30", status: "upcoming", category: "云基础设施", role: "运维工程师", track: "DevOps", attendees: 1562, cover: "images/living_room.png" },
+    { id: 5, title: "金融行业云原生案例拆解", source: "解决方案与售前学院", date: "2026-01-11 20:00", status: "ended", category: "解决方案", role: "解决方案顾问", track: "业务运营", attendees: 180, cover: "images/living_room.png" },
+    { id: 6, title: "AIGC 在方案中的落地", source: "AI 与数据智能学院", date: "2026-02-02 18:30", status: "upcoming", category: "AI与数据智能", role: "开发者", track: "AI", attendees: 987, cover: "images/living_room.png" },
+    { id: 7, title: "伙伴技术沙龙：真实项目案例", source: "解决方案与售前学院", date: "2026-01-05 19:00", status: "ended", category: "解决方案", role: "销售", track: "业务运营", attendees: 543, cover: "images/living_room.png" },
+    { id: 8, title: "云成本优化与 FinOps", source: "云基础设施学院", date: "2025-12-30 18:30", status: "ended", category: "云基础设施", role: "云架构师", track: "DevOps", attendees: 678, cover: "images/living_room.png" },
+    { id: 9, title: "生态技术领袖闭门对话", source: "生态合作中心", date: "2025-12-25 20:00", status: "ended", category: "解决方案", role: "技术专家", track: "业务运营", attendees: 456, cover: "images/living_room.png" },
+    { id: 10, title: "云原生安全最佳实践", source: "云基础设施学院", date: "2026-02-03 19:00", status: "upcoming", category: "云基础设施", role: "云安全专家", track: "DevOps", attendees: 1123, cover: "images/living_room.png" },
+    { id: 11, title: "数据治理与合规专题直播", source: "AI 与数据智能学院", date: "2025-12-18 18:30", status: "ended", category: "AI与数据智能", role: "数据分析师", track: "AI", attendees: 342, cover: "images/living_room.png" },
+    { id: 12, title: "销售技巧与标杆案例复盘", source: "解决方案与售前学院", date: "2025-12-15 20:00", status: "ended", category: "解决方案", role: "销售", track: "业务运营", attendees: 230, cover: "images/living_room.png" },
+    { id: 13, title: "企业数字化转型实践分享", source: "解决方案与售前学院", date: "2025-12-10 19:00", status: "ended", category: "解决方案", role: "数字化转型顾问", track: "业务运营", attendees: 789, cover: "images/living_room.png" },
+    { id: 14, title: "云原生安全技术研讨会", source: "云基础设施学院", date: "2025-12-05 18:30", status: "ended", category: "云基础设施", role: "安全专家", track: "DevOps", attendees: 567, cover: "images/living_room.png" },
+    { id: 15, title: "人工智能前沿技术论坛", source: "AI 与数据智能学院", date: "2025-11-30 19:00", status: "ended", category: "AI与数据智能", role: "AI专家", track: "AI", attendees: 890, cover: "images/living_room.png" }
   ];
 
   const pageSize = 9;
@@ -589,7 +609,12 @@
       }
       
       // 状态相同时，按时间排序
-      return new Date(b.date) - new Date(a.date);
+      // 对于upcoming状态，按日期升序排列（最近的在前），其他状态按日期降序排列
+      if (a.status === 'upcoming') {
+        return new Date(a.date) - new Date(b.date);  // 日期升序（最近的在前）
+      } else {
+        return new Date(b.date) - new Date(a.date);  // 日期降序
+      }
     });
 
     currentPage = 1;
@@ -615,7 +640,7 @@
   }
 
   // 渲染直播卡片（通用函数）
-  function createLiveCard(l, isHorizontal = false) {
+  function createLiveCard(l) {
     const card = document.createElement('article');
     const statusMap = {
       upcoming: { text: '未开始', cls: 'status-badge-upcoming' },
@@ -627,56 +652,42 @@
     const countdownDays = l.status === 'upcoming' ? getCountdownDays(l.date) : 0;
     const statusText = l.status === 'upcoming' ? `倒计时 ${countdownDays} 天` : st.text;
 
-    if (isHorizontal) {
-      // 大图卡片（用于正在直播区域）
-      card.className = 'glass-card rounded-3xl border border-gray-300 overflow-hidden w-full hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer';
-      card.innerHTML = `
-        <div class="relative">
-          <img src="${l.cover}" alt="${l.title}" class="w-full h-80 object-cover">
-          <div class="absolute top-2 left-2">
-            <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] ${st.cls}">
-              <i class="fa fa-broadcast-tower mr-1 text-[8px]"></i>${statusText}
-            </span>
-          </div>
-          <div class="absolute bottom-2 left-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
-            <span><i class="fa fa-users mr-1"></i> ${(l.attendees * 1.5).toLocaleString()}</span>
-          </div>
-          <!-- 中间进入直播间按钮 -->
-          <div class="absolute inset-0 flex items-center justify-center">
-            <a href="live-detail.html" target="_blank" class="flex flex-col items-center justify-center bg-black bg-opacity-50 text-white px-6 py-4 rounded-full hover:bg-opacity-70 transition-all">
-              <i class="fa fa-music text-2xl mb-2"></i>
-              <span class="text-sm font-medium">进入直播间</span>
-            </a>
-          </div>
-          <!-- 底部标题 -->
-          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-            <h3 class="text-white text-sm font-semibold line-clamp-2"><a href="live-detail.html" target="_blank">${l.title}</a></h3>
-            <div class="flex items-center justify-between text-xs text-white/90 mt-1">
-              <span>${l.source}</span>
-              <span>${l.date}</span>
+    card.className = 'glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col';
+    card.innerHTML = `
+      <div class="relative flex-shrink-0">
+        <img src="${l.cover}" alt="${l.title}" class="w-full aspect-[3/4] object-cover">  <!-- 修改为3:4比例，更适合竖向展示 -->
+        <div class="absolute top-2 left-2">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] ${st.cls}">
+            <i class="fa fa-broadcast-tower mr-1 text-[8px]"></i>${statusText}
+          </span>
+        </div>
+        <div class="absolute bottom-2 left-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+          <span><i class="fa fa-users mr-1"></i> ${l.status === 'live' ? (l.attendees * 1.5).toLocaleString() : l.attendees.toLocaleString()}</span>
+        </div>
+        <!-- 中间进入直播间按钮 -->
+        ${l.status === 'live' ? `
+        <div class="absolute inset-0 flex items-center justify-center">
+          <a href="live-detail.html" target="_blank" class="flex items-center justify-center bg-black bg-opacity-50 text-white px-6 py-4 rounded-full hover:bg-opacity-70 transition-all">
+            <i class="fa fa-music text-2xl mr-2"></i>
+            <span class="text-sm font-medium">进入直播间</span>
+          </a>
+        </div>
+        ` : ''}
+      </div>
+      <div class="p-3 flex-grow flex flex-col">
+        <h3 class="text-sm font-semibold line-clamp-2 mb-2 flex-grow"><a href="live-detail.html" target="_blank">${l.title}</a></h3>
+        <div class="flex items-center justify-between text-xs mt-auto pt-2">
+          <span class="text-gray-600">${l.date}</span>
+          ${l.status === 'live' ? `
+            <div class="flex gap-1">
+              <a href="live-detail.html" target="_blank" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+                进入直播间
+              </a>
+              <a href="live-detail.html" target="_blank" class="px-2 py-1 rounded-full text-[10px] font-medium bg-white border border-gray-300 hover:bg-gray-50">
+                详情
+              </a>
             </div>
-          </div>
-        </div>
-      `;
-    } else {
-      // 网格卡片（用于最近直播和全部直播区域）
-      card.className = 'glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer';
-      card.innerHTML = `
-        <div class="relative">
-          <img src="${l.cover}" alt="${l.title}" class="w-full h-64 object-cover">
-          <div class="absolute top-2 left-2">
-            <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] ${st.cls}">
-              <i class="fa fa-broadcast-tower mr-1 text-[8px]"></i>${statusText}
-            </span>
-          </div>
-          <div class="absolute bottom-2 left-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
-            <span><i class="fa fa-users mr-1"></i> ${l.status === 'live' ? (l.attendees * 1.5).toLocaleString() : l.attendees.toLocaleString()}</span>
-          </div>
-        </div>
-        <div class="p-3">
-          <h3 class="text-sm font-semibold line-clamp-2 mb-2"><a href="live-detail.html" target="_blank">${l.title}</a></h3>
-          <div class="flex items-center justify-between text-xs">
-            <span class="text-gray-600">${l.date}</span>
+          ` : `
             <button
               class="enroll-btn px-2 py-1 rounded-full text-[10px] font-medium
                      ${l.status === 'ended'
@@ -686,12 +697,12 @@
                             : 'bg-[#2D874B] text-white hover:opacity-90')}"
               data-id="${l.id}"
               data-status="${l.status}">
-              ${l.status === 'ended' ? '已结束' : (isEnrolled ? '取消预约' : (l.status === 'live' ? '观看' : '预约'))}
+              ${l.status === 'ended' ? '已结束' : (isEnrolled ? '取消预约' : '预约')}
             </button>
-          </div>
+          `}
         </div>
-      `;
-    }
+      </div>
+    `;
 
     return card;
   }
@@ -699,7 +710,7 @@
   // 渲染正在直播列表
   function renderLiveNowList() {
     liveNowList.innerHTML = '';
-    const liveNowData = allLives.filter(l => l.status === 'live');
+    const liveNowData = allLives.filter(l => l.status === 'live').slice(0, 2);
 
     if (liveNowData.length === 0) {
       liveNowList.innerHTML = '<div class="w-full text-center py-8 text-gray-500">暂无正在直播的内容</div>';
@@ -707,7 +718,7 @@
     }
 
     liveNowData.forEach(l => {
-      const card = createLiveCard(l, true);
+      const card = createLiveCard(l);
       liveNowList.appendChild(card);
     });
 
@@ -715,21 +726,105 @@
     bindEnrollEvents();
   }
 
-  // 渲染最近直播列表
+  // 渲染即将直播列表
   function renderUpcomingList() {
-    upcomingList.innerHTML = '';
+    // 获取即将直播的数据并按日期升序排序（最近的在前）
     const upcomingData = allLives.filter(l => l.status === 'upcoming')
-      .sort((a, b) => new Date(a.date) - new Date(b.date))
-      .slice(0, 4);
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
 
     if (upcomingData.length === 0) {
-      upcomingList.innerHTML = '<div class="w-full text-center py-8 text-gray-500">暂无即将开始的直播</div>';
+      document.getElementById('upcoming-main-card').innerHTML = '<div class="w-full text-center py-8 text-gray-500">暂无即将开始的直播</div>';
+      document.getElementById('upcoming-date-list').innerHTML = '';
+      document.getElementById('upcoming-description').innerHTML = '';
       return;
     }
 
-    upcomingData.forEach(l => {
-      const card = createLiveCard(l);
-      upcomingList.appendChild(card);
+    // 显示第一个（最近的）直播作为主卡片
+    const firstUpcoming = upcomingData[0];
+    const mainCard = createLiveCard(firstUpcoming);
+    document.getElementById('upcoming-main-card').innerHTML = '';
+    document.getElementById('upcoming-main-card').appendChild(mainCard);
+
+    // 显示第一个（最近的）直播的简介
+    const descriptionHtml = `
+      <h3 class="text-lg font-semibold text-gray-800 mb-3">${firstUpcoming.title}</h3>
+      <p class="text-sm text-gray-600 leading-relaxed">
+        本次直播将深入讲解云原生架构设计理念、微服务拆分原则、容器编排最佳实践，并结合真实项目 DEMO 演示，帮助伙伴快速掌握云原生落地方法。
+      </p>
+    `;
+    document.getElementById('upcoming-description').innerHTML = descriptionHtml;
+
+    // 生成右侧日期列表
+    const dateListHtml = upcomingData.map((l, index) => {
+      const dateObj = new Date(l.date);
+      const year = dateObj.getFullYear();
+      const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const day = String(dateObj.getDate()).padStart(2, '0');
+      const hours = String(dateObj.getHours()).padStart(2, '0');
+      const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+      const isEnrolled = enrolledIds.has(l.id);
+      
+      return `
+        <div class="date-item px-4 py-3 border-b border-gray-200 last:border-b-0 cursor-pointer hover:bg-gray-50 transition-colors ${index === 0 ? 'bg-blue-50' : ''}" 
+             data-index="${index}">
+          <div class="flex justify-between items-start">
+            <div class="flex-1 min-w-0">
+              <div class="font-medium text-gray-800">${year}-${month}-${day} ${hours}:${minutes}</div>
+              <div class="text-sm text-gray-600 truncate mt-1">${l.title}</div>
+            </div>
+            <div class="flex gap-1 ml-2">
+              <button class="enroll-btn text-xs px-2 py-1 rounded-full font-medium
+                       ${l.status === 'ended'
+                          ? 'bg-gray-200 text-gray-500 border border-gray-300 cursor-not-allowed opacity-60'
+                          : (isEnrolled
+                              ? 'bg-white border border-[#B01F24] text-[#B01F24] hover:bg-gray-50'
+                              : 'bg-[#2D874B] text-white hover:opacity-90')}"
+                data-id="${l.id}"
+                data-status="${l.status}">
+                ${l.status === 'ended' ? '已结束' : (isEnrolled ? '取消预约' : '预约')}
+              </button>
+              <a href="live-detail.html" class="text-xs px-2 py-1 rounded-full font-medium bg-white border border-gray-300 hover:bg-gray-50">
+                详情
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    document.getElementById('upcoming-date-list').innerHTML = dateListHtml;
+
+    // 绑定日期项点击事件
+    document.querySelectorAll('#upcoming-date-list .date-item').forEach(item => {
+      item.addEventListener('click', function() {
+        // 移除之前的选择状态
+        document.querySelectorAll('#upcoming-date-list .date-item').forEach(el => {
+          el.classList.remove('bg-blue-50');
+        });
+        
+        // 添加当前选择状态
+        this.classList.add('bg-blue-50');
+        
+        // 获取索引并显示相应的直播卡片
+        const index = parseInt(this.getAttribute('data-index'));
+        const selectedLive = upcomingData[index];
+        const selectedCard = createLiveCard(selectedLive);
+        
+        document.getElementById('upcoming-main-card').innerHTML = '';
+        document.getElementById('upcoming-main-card').appendChild(selectedCard);
+        
+        // 更新简介内容
+        const descriptionHtml = `
+          <h3 class="text-lg font-semibold text-gray-800 mb-3">${selectedLive.title}</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            本次直播将深入讲解云原生架构设计理念、微服务拆分原则、容器编排最佳实践，并结合真实项目 DEMO 演示，帮助伙伴快速掌握云原生落地方法。
+          </p>
+        `;
+        document.getElementById('upcoming-description').innerHTML = descriptionHtml;
+        
+        // 重新绑定预约/取消预约事件
+        bindEnrollEvents();
+      });
     });
 
     // 绑定预约/取消预约
@@ -765,11 +860,11 @@
           const countdownDays = modifiedLive.status === 'upcoming' ? getCountdownDays(modifiedLive.date) : 0;
           const statusText = modifiedLive.status === 'upcoming' ? `倒计时 ${countdownDays} 天` : st.text;
           
-          // 网格卡片（用于最近直播和全部直播区域）
-          card.className = 'glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer';
+          // 网格卡片（用于即将直播和全部直播区域）
+          card.className = 'glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col';
           card.innerHTML = `
-            <div class="relative">
-              <img src="${modifiedLive.cover}" alt="${modifiedLive.title}" class="w-full h-64 object-cover">
+            <div class="relative flex-shrink-0">
+              <img src="${modifiedLive.cover}" alt="${modifiedLive.title}" class="w-full aspect-[3/4] object-cover">  <!-- 修改为3:4比例，更适合竖向展示 -->
               <div class="absolute top-2 left-2">
                 <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] ${st.cls}">
                   <i class="fa fa-broadcast-tower mr-1 text-[8px]"></i>${statusText}
@@ -778,6 +873,15 @@
               <div class="absolute bottom-2 left-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
                 <span><i class="fa fa-users mr-1"></i> ${modifiedLive.status === 'live' ? (modifiedLive.attendees * 1.5).toLocaleString() : modifiedLive.attendees.toLocaleString()}</span>
               </div>
+              <!-- 中间进入直播间按钮 -->
+              ${modifiedLive.status === 'live' ? `
+              <div class="absolute inset-0 flex items-center justify-center">
+                <a href="live-detail.html" target="_blank" class="flex items-center justify-center bg-black bg-opacity-50 text-white px-6 py-4 rounded-full hover:bg-opacity-70 transition-all">
+                  <i class="fa fa-music text-2xl mr-2"></i>
+                  <span class="text-sm font-medium">进入直播间</span>
+                </a>
+              </div>
+              ` : ''}
             </div>
             <div class="p-3">
               <h3 class="text-sm font-semibold line-clamp-2 mb-2"><a href="live-detail.html" target="_blank">${modifiedLive.title}</a></h3>

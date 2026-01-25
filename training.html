@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>培训中心 - 光合技术支持平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标（Font Awesome） -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* 页面样式 */
+    .glass-card {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(14px);
+    }
+    
+    .training-card {
+      transition: all 0.3s ease;
+    }
+    .training-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .tab-active {
+      background: linear-gradient(135deg, #2D874B, #34D399);
+      color: white;
+      box-shadow: 0 4px 15px rgba(45, 135, 75, 0.3);
+    }
+    
+    .section-anchor {
+      scroll-margin-top: 100px;
+    }
+    
+    /* 悬浮下载按钮样式 */
+    .floating-download-btn {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    
+    .floating-btn-main {
+      background: linear-gradient(135deg, #2D874B, #34D399);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      box-shadow: 0 8px 25px rgba(45, 135, 75, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .floating-btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(45, 135, 75, 0.4);
+    }
+    
+    .download-options {
+      position: absolute;
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%) scale(0.9);
+      opacity: 0;
+      visibility: hidden;
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e5e7eb;
+      min-width: 280px;
+      transition: all 0.3s ease;
+      margin-right: 15px;
+    }
+    
+    .floating-download-btn:hover .download-options {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(-50%) scale(1);
+    }
+    
+    .download-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    
+    .download-option:hover {
+      background: #f3f4f6;
+    }
+    
+    .download-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: white;
+    }
+    
+    .pc-download .download-icon {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    }
+    
+    .mobile-download .download-icon {
+      background: linear-gradient(135deg, #10b981, #047857);
+    }
+    
+    .download-info h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 2px;
+    }
+    
+    .download-info p {
+      font-size: 12px;
+      color: #6b7280;
+    }
+    
+    .qrcode-container {
+      text-align: center;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #e5e7eb;
+    }
+    
+    .qrcode-placeholder {
+      width: 120px;
+      height: 120px;
+      background: #f3f4f6;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+      color: #6b7280;
+      font-size: 12px;
+    }
+    
+    .qrcode-text {
+      font-size: 12px;
+      color: #6b7280;
+    }
+    
+    /* 响应式调整 */
+    @media (max-width: 768px) {
+      .training-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .floating-download-btn {
+        right: 10px;
+        bottom: 20px;
+        top: auto;
+        transform: none;
+      }
+      
+      .download-options {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%) scale(0.9);
+        top: auto;
+        bottom: 100%;
+        margin-bottom: 15px;
+      }
+      
+      .floating-download-btn:hover .download-options {
+        transform: translateX(-50%) scale(1);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- 顶部导航 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-16">
+      <!-- LOGO + 品牌 -->
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+          <img src="images/logo2.png" alt="HIECO Logo" class="h-32 w-32 object-contain">
+        </a>
+        <div>
+          <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200">光合技术支持平台</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 导航入口（桌面端） -->
+      <nav class="hidden md:flex items-center space-x-3 text-sm">
+        <!-- 专家 - 无下拉 -->
+        <a href="expert-center.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">
+          专家
+        </a>
+
+        <!-- 培训 - 无下拉（当前页面） -->
+        <a href="training.html" class="px-3 py-1.5 rounded-full bg-[#2D874B] text-white transition">
+          培训
+        </a>
+
+        <!-- 直播 - 带下拉浮窗 -->
+        <div class="nav-dropdown relative group">
+          <a href="live-list.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1">
+            直播
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
+          </a>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">直播状态</h3>
+                  <div class="space-y-1">
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">未开始</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">直播中</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">已结束</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">可预约</a>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">直播类型</h3>
+                  <div class="space-y-1">
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">技术分享</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">产品发布</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">案例解析</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">专家访谈</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 其他导航项（无下拉） -->
+        <a href="#" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">论坛</a>
+        <a href="resource-center.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">资源</a>
+        
+        <!-- 资讯 - 带下拉浮窗（合并资讯、活动） -->
+        <div class="nav-dropdown relative group">
+          <span class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer">
+            资讯
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
+          </span>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="space-y-3">
+                <!-- 资讯 -->
+                <a href="news-announcement-list.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-newspaper mr-3 text-[#2D874B]"></i>
+                  <span>资讯</span>
+                </a>
+                
+                <!-- 活动 -->
+                <a href="activity-list.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-calendar-alt mr-3 text-[#2D874B]"></i>
+                  <span>活动</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- 右侧功能区 -->
+      <div class="flex items-center space-x-3">
+        <!-- 搜索图标（桌面端） -->
+        <div class="relative">
+          <!-- 搜索图标按钮 -->
+          <button id="search-toggle" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <i class="fa fa-search text-sm"></i>
+          </button>
+        </div>
+        
+        <!-- 头像 -->
+        <div class="relative">
+          <button class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <i class="fa fa-user text-sm"></i>
+          </button>
+        </div>
+        
+        <!-- 移动端菜单按钮 -->
+        <button class="md:hidden h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+          <i class="fa fa-bars text-sm"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 页面内容 -->
+<main class="pt-16 min-h-screen">
+  <!-- 页面标题区域 -->
+  <section class="bg-gradient-to-br from-green-50 to-blue-50 py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6">
+      <div class="text-center">
+        <h1 class="text-4xl lg:text-5xl font-bold text-gray-800 mb-4">培训中心</h1>
+        <p class="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          汇集课程、考试、认证与直播，为您提供全面的学习成长路径
+        </p>
+        
+        <!-- 快速导航标签 -->
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <a href="#courses" class="px-6 py-2 bg-white rounded-full border border-gray-300 hover:border-[#2D874B] hover:text-[#2D874B] transition-all duration-300 font-medium">
+            <i class="fa fa-book mr-2"></i>课程中心
+          </a>
+          <a href="#exams" class="px-6 py-2 bg-white rounded-full border border-gray-300 hover:border-[#2D874B] hover:text-[#2D874B] transition-all duration-300 font-medium">
+            <i class="fa fa-file-alt mr-2"></i>考试中心
+          </a>
+          <a href="#certifications" class="px-6 py-2 bg-white rounded-full border border-gray-300 hover:border-[#2D874B] hover:text-[#2D874B] transition-all duration-300 font-medium">
+            <i class="fa fa-certificate mr-2"></i>认证中心
+          </a>
+          <a href="#live-streaming" class="px-6 py-2 bg-white rounded-full border border-gray-300 hover:border-[#2D874B] hover:text-[#2D874B] transition-all duration-300 font-medium">
+            <i class="fa fa-video mr-2"></i>直播中心
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 课程中心 -->
+  <section id="courses" class="section-anchor py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6">
+      <!-- 标题区域 -->
+      <div class="text-center mb-12 lg:mb-16">
+        <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-blue-200 rounded-full mb-4">
+          <i class="fa fa-book text-blue-600 text-xl mr-2"></i>
+          <span class="text-blue-700 font-semibold">课程中心</span>
+        </div>
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">丰富课程体系</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          涵盖云基础设施、AI与数据智能、解决方案、安全技术等多个领域，助力您的技能提升
+        </p>
+      </div>
+
+      <!-- 课程分类 -->
+      <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-6 mb-12">
+        <!-- 云基础设施学院 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-blue-500/80 hover:-translate-y-0.5 transition flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-10 w-10 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400">
+              <i class="fa fa-cloud text-lg"></i>
+            </div>
+            <span class="text-xs text-gray-600">课程 24</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-2 text-gray-800">云基础设施学院</h3>
+          <p class="text-xs text-gray-600 flex-1">
+            聚焦 IaaS / PaaS / 容器 / 云原生等基础设施能力提升，覆盖从架构设计到运维管理全流程。
+          </p>
+          <div class="mt-3 text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <i class="fa fa-star text-yellow-400 mr-1"></i> 4.8
+            </span>
+          </div>
+        </a>
+
+        <!-- AI 与数据智能学院 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-indigo-500/80 hover:-translate-y-0.5 transition flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-10 w-10 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400">
+              <i class="fa fa-brain text-lg"></i>
+            </div>
+            <span class="text-xs text-gray-600">课程 18</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-2 text-gray-800">AI 与数据智能学院</h3>
+          <p class="text-xs text-gray-600 flex-1">
+            覆盖数据分析、机器学习、AIGC 应用及行业场景，支持 Notebook 与实验环境一键开启。
+          </p>
+          <div class="mt-3 text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <i class="fa fa-star text-yellow-400 mr-1"></i> 4.7
+            </span>
+          </div>
+        </a>
+
+        <!-- 解决方案与售前学院 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-10 w-10 rounded-2xl bg-[#2D874B]/10 flex items-center justify-center text-[#2D874B]">
+              <i class="fa fa-handshake text-lg"></i>
+            </div>
+            <span class="text-xs text-gray-600">课程 16</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-2 text-gray-800">解决方案与售前学院</h3>
+          <p class="text-xs text-gray-600 flex-1">
+            针对售前顾问与方案架构师，聚焦行业方案、标书编写、演示技巧和 POC 设计。
+          </p>
+          <div class="mt-3 text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <i class="fa fa-star text-yellow-400 mr-1"></i> 4.6
+            </span>
+          </div>
+        </a>
+
+        <!-- 伙伴业务与运营学院 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-amber-500/80 hover:-translate-y-0.5 transition flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-10 w-10 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-400">
+              <i class="fa fa-chart-line text-lg"></i>
+            </div>
+            <span class="text-xs text-gray-600">课程 12</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-2 text-gray-800">伙伴业务与运营学院</h3>
+          <p class="text-xs text-gray-600 flex-1">
+            面向业务负责人与运营人员，涵盖渠道运营、联合营销、增长策略与项目管理。
+          </p>
+          <div class="mt-3 text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <i class="fa fa-star text-yellow-400 mr-1"></i> 4.5
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 热门课程推荐 -->
+      <div class="mb-12">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-xl font-semibold text-gray-800">热门课程推荐</h3>
+          <a href="course-list2.html" class="text-sm text-gray-600 hover:text-[#2D874B] flex items-center">
+            查看全部
+            <i class="fa fa-chevron-right ml-1 text-xs"></i>
+          </a>
+        </div>
+        <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-4">
+          <a href="#"
+             class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition">
+            <div class="aspect-video bg-gray-200 rounded-xl mb-3 flex items-center justify-center">
+              <i class="fa fa-play text-2xl text-gray-500"></i>
+            </div>
+            <h4 class="text-sm font-semibold text-gray-800 mb-1">云原生解决方案实践</h4>
+            <div class="flex items-center justify-between text-xs text-gray-600">
+              <span>中级</span>
+              <span>24课时</span>
+            </div>
+          </a>
+          <a href="#"
+             class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition">
+            <div class="aspect-video bg-gray-200 rounded-xl mb-3 flex items-center justify-center">
+              <i class="fa fa-play text-2xl text-gray-500"></i>
+            </div>
+            <h4 class="text-sm font-semibold text-gray-800 mb-1">AI模型部署与优化</h4>
+            <div class="flex items-center justify-between text-xs text-gray-600">
+              <span>高级</span>
+              <span>18课时</span>
+            </div>
+          </a>
+          <a href="#"
+             class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition">
+            <div class="aspect-video bg-gray-200 rounded-xl mb-3 flex items-center justify-center">
+              <i class="fa fa-play text-2xl text-gray-500"></i>
+            </div>
+            <h4 class="text-sm font-semibold text-gray-800 mb-1">企业级安全架构设计</h4>
+            <div class="flex items-center justify-between text-xs text-gray-600">
+              <span>高级</span>
+              <span>20课时</span>
+            </div>
+          </a>
+          <a href="#"
+             class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition">
+            <div class="aspect-video bg-gray-200 rounded-xl mb-3 flex items-center justify-center">
+              <i class="fa fa-play text-2xl text-gray-500"></i>
+            </div>
+            <h4 class="text-sm font-semibold text-gray-800 mb-1">DevOps 实践指南</h4>
+            <div class="flex items-center justify-between text-xs text-gray-600">
+              <span>中级</span>
+              <span>16课时</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 考试中心 -->
+  <section id="exams" class="section-anchor py-16 lg:py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6">
+      <!-- 标题区域 -->
+      <div class="text-center mb-12 lg:mb-16">
+        <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-100 to-purple-200 rounded-full mb-4">
+          <i class="fa fa-file-alt text-purple-600 text-xl mr-2"></i>
+          <span class="text-purple-700 font-semibold">考试中心</span>
+        </div>
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">专业能力测评</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          提供在线考试、模拟测试、成绩查询等功能，全方位检验您的学习成果
+        </p>
+      </div>
+
+      <!-- 考试分类 -->
+      <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-6 mb-12">
+        <!-- 资格认证考试 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-purple-500/80 hover:-translate-y-0.5 transition flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-10 w-10 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-400">
+              <i class="fa fa-id-card text-lg"></i>
+            </div>
+            <span class="text-xs text-gray-600">考试 8</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-2 text-gray-800">资格认证考试</h3>
+          <p class="text-xs text-gray-600 flex-1">
+            用于获取各类资格认证的正式考试，通过后可获得相应资质证明。
+          </p>
+          <div class="mt-3 text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <i class="fa fa-clock mr-1"></i> 限时考试
+            </span>
+          </div>
+        </a>
+
+        <!-- 技能水平考试 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-indigo-500/80 hover:-translate-y-0.5 transition flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-10 w-10 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400">
+              <i class="fa fa-trophy text-lg"></i>
+            </div>
+            <span class="text-xs text-gray-600">考试 12</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-2 text-gray-800">技能水平考试</h3>
+          <p class="text-xs text-gray-600 flex-1">
+            评估特定技能掌握程度的考试，帮助了解自身能力水平。
+          </p>
+          <div class="mt-3 text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <i class="fa fa-chart-line mr-1"></i> 水平测试
+            </span>
+          </div>
+        </a>
+
+        <!-- 岗位能力考试 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-blue-500/80 hover:-translate-y-0.5 transition flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-10 w-10 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400">
+              <i class="fa fa-briefcase text-lg"></i>
+            </div>
+            <span class="text-xs text-gray-600">考试 6</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-2 text-gray-800">岗位能力考试</h3>
+          <p class="text-xs text-gray-600 flex-1">
+            针对特定岗位所需技能的专项考试，检验岗位胜任能力。
+          </p>
+          <div class="mt-3 text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <i class="fa fa-user-tie mr-1"></i> 岗位适配
+            </span>
+          </div>
+        </a>
+
+        <!-- 产品认证考试 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-green-500/80 hover:-translate-y-0.5 transition flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-10 w-10 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-400">
+              <i class="fa fa-cube text-lg"></i>
+            </div>
+            <span class="text-xs text-gray-600">考试 10</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-2 text-gray-800">产品认证考试</h3>
+          <p class="text-xs text-gray-600 flex-1">
+            针对公司产品的深度使用和配置能力的认证考试。
+          </p>
+          <div class="mt-3 text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <i class="fa fa-certificate mr-1"></i> 产品认证
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 热门考试推荐 -->
+      <div class="mb-12">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-xl font-semibold text-gray-800">热门考试推荐</h3>
+          <a href="exam-list.html" class="text-sm text-gray-600 hover:text-[#2D874B] flex items-center">
+            查看全部
+            <i class="fa fa-chevron-right ml-1 text-xs"></i>
+          </a>
+        </div>
+        <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-4">
+          <a href="#"
+             class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="inline-flex items-center px-2 py-1 rounded-full bg-[#2D874B]/10 border border-[#2D874B]/60 text-[11px] text-[#2D874B]">
+                <i class="fa fa-certificate mr-1 text-[10px]"></i> 技术方向
+              </div>
+              <h4 class="text-sm font-semibold text-gray-800">伙伴云架构工程师</h4>
+              <p class="text-xs text-gray-600">
+                面向云架构设计与实施人员，覆盖多云架构、混合云等能力认证。
+              </p>
+            </div>
+            <div class="mt-3 flex items-center justify-between text-[11px] text-gray-600">
+              <span><i class="fa fa-clock mr-1"></i> 90分钟</span>
+              <span class="text-[#2D874B]">报名中</span>
+            </div>
+          </a>
+          <a href="#"
+             class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="inline-flex items-center px-2 py-1 rounded-full bg-indigo-500/10 border border-indigo-400/60 text-[11px] text-indigo-300">
+                售前方向
+              </div>
+              <h4 class="text-sm font-semibold text-gray-800">伙伴解决方案专家</h4>
+              <p class="text-xs text-gray-600">
+                关注行业解决方案、标书与方案撰写、演示与POC设计。
+              </p>
+            </div>
+            <div class="mt-3 flex items-center justify-between text-[11px] text-gray-600">
+              <span><i class="fa fa-clock mr-1"></i> 120分钟</span>
+              <span class="text-[#2D874B]">预约中</span>
+            </div>
+          </a>
+          <a href="#"
+             class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="inline-flex items-center px-2 py-1 rounded-full bg-amber-500/10 border border-amber-400/60 text-[11px] text-amber-300">
+                运营方向
+              </div>
+              <h4 class="text-sm font-semibold text-gray-800">伙伴业务运营经理</h4>
+              <p class="text-xs text-gray-600">
+                面向渠道运营与项目运营人员，涵盖伙伴分级、激励政策等。
+              </p>
+            </div>
+            <div class="mt-3 flex items-center justify-between text-[11px] text-gray-600">
+              <span><i class="fa fa-clock mr-1"></i> 60分钟</span>
+              <span class="text-[#2D874B]">报名中</span>
+            </div>
+          </a>
+          <a href="#"
+             class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="inline-flex items-center px-2 py-1 rounded-full bg-pink-500/10 border border-pink-400/60 text-[11px] text-pink-300">
+                综合方向
+              </div>
+              <h4 class="text-sm font-semibold text-gray-800">生态技术领袖</h4>
+              <p class="text-xs text-gray-600">
+                对生态技术、业务、运营能力进行综合评估的高级认证。
+              </p>
+            </div>
+            <div class="mt-3 flex items-center justify-between text-[11px] text-gray-600">
+              <span><i class="fa fa-user-check mr-1"></i> 审核制</span>
+              <span class="text-gray-600">邀请制</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 认证中心 -->
+  <section id="certifications" class="section-anchor py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6">
+      <!-- 标题区域 -->
+      <div class="text-center mb-12 lg:mb-16">
+        <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-100 to-green-200 rounded-full mb-4">
+          <i class="fa fa-certificate text-green-600 text-xl mr-2"></i>
+          <span class="text-green-700 font-semibold">认证中心</span>
+        </div>
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">权威专业认证</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          提供多种专业认证，获得行业认可的专业资质，提升职业竞争力
+        </p>
+      </div>
+
+      <!-- 认证分类 -->
+      <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-6 mb-12">
+        <!-- 通用计算认证 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-green-500/80 hover:-translate-y-0.5 transition flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-10 w-10 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-400">
+              <i class="fa fa-microchip text-lg"></i>
+            </div>
+            <span class="text-xs text-gray-600">认证 5</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-2 text-gray-800">通用计算认证</h3>
+          <p class="text-xs text-gray-600 flex-1">
+            涵盖基础计算、存储、网络等核心技术，是计算领域的基础认证。
+          </p>
+          <div class="mt-3 text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <i class="fa fa-level-up-alt mr-1"></i> 初级
+            </span>
+          </div>
+        </a>
+
+        <!-- 智能计算认证 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-blue-500/80 hover:-translate-y-0.5 transition flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-10 w-10 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400">
+              <i class="fa fa-brain text-lg"></i>
+            </div>
+            <span class="text-xs text-gray-600">认证 7</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-2 text-gray-800">智能计算认证</h3>
+          <p class="text-xs text-gray-600 flex-1">
+            聚焦AI、大数据、机器学习等前沿技术，引领智能时代。
+          </p>
+          <div class="mt-3 text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <i class="fa fa-level-up-alt mr-1"></i> 中高级
+            </span>
+          </div>
+        </a>
+
+        <!-- 行业解决方案认证 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-purple-500/80 hover:-translate-y-0.5 transition flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-10 w-10 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-400">
+              <i class="fa fa-industry text-lg"></i>
+            </div>
+            <span class="text-xs text-gray-600">认证 6</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-2 text-gray-800">行业解决方案认证</h3>
+          <p class="text-xs text-gray-600 flex-1">
+            针对金融、医疗、教育等行业提供定制化解决方案认证。
+          </p>
+          <div class="mt-3 text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <i class="fa fa-level-up-alt mr-1"></i> 中级
+            </span>
+          </div>
+        </a>
+
+        <!-- 专业技术认证 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-orange-500/80 hover:-translate-y-0.5 transition flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-10 w-10 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-400">
+              <i class="fa fa-tools text-lg"></i>
+            </div>
+            <span class="text-xs text-gray-600">认证 8</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-2 text-gray-800">专业技术认证</h3>
+          <p class="text-xs text-gray-600 flex-1">
+            深入特定技术领域的专业认证，体现深厚技术功底。
+          </p>
+          <div class="mt-3 text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <i class="fa fa-level-up-alt mr-1"></i> 高级
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 热门认证推荐 -->
+      <div class="mb-12">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-xl font-semibold text-gray-800">热门认证推荐</h3>
+          <a href="certification.html" class="text-sm text-gray-600 hover:text-[#2D874B] flex items-center">
+            查看全部
+            <i class="fa fa-chevron-right ml-1 text-xs"></i>
+          </a>
+        </div>
+        <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-4">
+          <a href="#"
+             class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="inline-flex items-center px-2 py-1 rounded-full bg-[#2D874B]/10 border border-[#2D874B]/60 text-[11px] text-[#2D874B]">
+                <i class="fa fa-certificate mr-1 text-[10px]"></i> 技术方向
+              </div>
+              <h4 class="text-sm font-semibold text-gray-800">伙伴云架构工程师</h4>
+              <p class="text-xs text-gray-600">
+                面向云架构设计与实施人员，覆盖多云架构、混合云等能力认证。
+              </p>
+            </div>
+            <div class="mt-3 flex items-center justify-between text-[11px] text-gray-600">
+              <span><i class="fa fa-clock mr-1"></i> 考试时长：90 分钟</span>
+              <span class="text-[#2D874B]">报名中</span>
+            </div>
+          </a>
+          <a href="#"
+             class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="inline-flex items-center px-2 py-1 rounded-full bg-indigo-500/10 border border-indigo-400/60 text-[11px] text-indigo-300">
+                售前方向
+              </div>
+              <h4 class="text-sm font-semibold text-gray-800">伙伴解决方案专家</h4>
+              <p class="text-xs text-gray-600">
+                关注行业解决方案、标书与方案撰写、演示与POC设计。
+              </p>
+            </div>
+            <div class="mt-3 flex items-center justify-between text-[11px] text-gray-600">
+              <span><i class="fa fa-clock mr-1"></i> 考试时长：120 分钟</span>
+              <span class="text-[#2D874B]">预约中</span>
+            </div>
+          </a>
+          <a href="#"
+             class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="inline-flex items-center px-2 py-1 rounded-full bg-amber-500/10 border border-amber-400/60 text-[11px] text-amber-300">
+                运营方向
+              </div>
+              <h4 class="text-sm font-semibold text-gray-800">伙伴业务运营经理</h4>
+              <p class="text-xs text-gray-600">
+                面向渠道运营与项目运营人员，涵盖伙伴分级、激励政策等。
+              </p>
+            </div>
+            <div class="mt-3 flex items-center justify-between text-[11px] text-gray-600">
+              <span><i class="fa fa-clock mr-1"></i> 考试时长：60 分钟</span>
+              <span class="text-[#2D874B]">报名中</span>
+            </div>
+          </a>
+          <a href="#"
+             class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="inline-flex items-center px-2 py-1 rounded-full bg-pink-500/10 border border-pink-400/60 text-[11px] text-pink-300">
+                综合方向
+              </div>
+              <h4 class="text-sm font-semibold text-gray-800">生态技术领袖</h4>
+              <p class="text-xs text-gray-600">
+                对生态技术、业务、运营能力进行综合评估的高级认证。
+              </p>
+            </div>
+            <div class="mt-3 flex items-center justify-between text-[11px] text-gray-600">
+              <span><i class="fa fa-user-check mr-1"></i> 审核制</span>
+              <span class="text-gray-600">邀请制</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 直播中心 -->
+  <section id="live-streaming" class="section-anchor py-16 lg:py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6">
+      <!-- 标题区域 -->
+      <div class="text-center mb-12 lg:mb-16">
+        <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-red-100 to-red-200 rounded-full mb-4">
+          <i class="fa fa-video text-red-600 text-xl mr-2"></i>
+          <span class="text-red-700 font-semibold">直播中心</span>
+        </div>
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">实时互动直播</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          参与实时技术分享、产品发布、案例解析等活动，与专家面对面交流
+        </p>
+      </div>
+
+      <!-- 直播分类 -->
+      <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-6 mb-12">
+        <!-- 技术分享 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-red-500/80 hover:-translate-y-0.5 transition flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-10 w-10 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-400">
+              <i class="fa fa-chalkboard-teacher text-lg"></i>
+            </div>
+            <span class="text-xs text-gray-600">直播 15</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-2 text-gray-800">技术分享</h3>
+          <p class="text-xs text-gray-600 flex-1">
+            行业专家分享最新技术趋势、实践经验与解决方案。
+          </p>
+          <div class="mt-3 text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <i class="fa fa-circle text-green-500 mr-1"></i> 2 正在直播
+            </span>
+          </div>
+        </a>
+
+        <!-- 产品发布 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-blue-500/80 hover:-translate-y-0.5 transition flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-10 w-10 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400">
+              <i class="fa fa-bullhorn text-lg"></i>
+            </div>
+            <span class="text-xs text-gray-600">直播 8</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-2 text-gray-800">产品发布</h3>
+          <p class="text-xs text-gray-600 flex-1">
+            最新产品功能介绍、特性解析与使用指南。
+          </p>
+          <div class="mt-3 text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <i class="fa fa-calendar-check mr-1"></i> 3 即将开始
+            </span>
+          </div>
+        </a>
+
+        <!-- 案例解析 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-purple-500/80 hover:-translate-y-0.5 transition flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-10 w-10 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-400">
+              <i class="fa fa-clipboard-list text-lg"></i>
+            </div>
+            <span class="text-xs text-gray-600">直播 12</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-2 text-gray-800">案例解析</h3>
+          <p class="text-xs text-gray-600 flex-1">
+            真实项目案例深度剖析，学习成功经验与最佳实践。
+          </p>
+          <div class="mt-3 text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <i class="fa fa-play-circle mr-1"></i> 5 回放中
+            </span>
+          </div>
+        </a>
+
+        <!-- 专家访谈 -->
+        <a href="#"
+           class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-green-500/80 hover:-translate-y-0.5 transition flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-10 w-10 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-400">
+              <i class="fa fa-users text-lg"></i>
+            </div>
+            <span class="text-xs text-gray-600">直播 6</span>
+          </div>
+          <h3 class="text-sm font-semibold mb-2 text-gray-800">专家访谈</h3>
+          <p class="text-xs text-gray-600 flex-1">
+            与行业专家深度对话，探讨技术前沿与发展趋势。
+          </p>
+          <div class="mt-3 text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <i class="fa fa-comments mr-1"></i> 1 正在预约
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 热门直播推荐 -->
+      <div class="mb-12">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-xl font-semibold text-gray-800">热门直播推荐</h3>
+          <a href="live-list.html" class="text-sm text-gray-600 hover:text-[#2D874B] flex items-center">
+            查看全部
+            <i class="fa fa-chevron-right ml-1 text-xs"></i>
+          </a>
+        </div>
+        <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-4">
+          <a href="#"
+             class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col">
+            <div class="aspect-video bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl mb-3 flex items-center justify-center text-white relative">
+              <i class="fa fa-play text-2xl"></i>
+              <div class="absolute top-2 right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                <i class="fa fa-circle text-xs mr-1 animate-pulse"></i> LIVE
+              </div>
+            </div>
+            <h4 class="text-sm font-semibold text-gray-800 mb-1">云原生技术前沿分享</h4>
+            <p class="text-xs text-gray-600 mb-2">探讨最新的云原生技术趋势与实践案例</p>
+            <div class="flex items-center justify-between text-xs text-gray-600">
+              <span>王专家</span>
+              <span>2.1K人观看</span>
+            </div>
+          </a>
+          <a href="#"
+             class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col">
+            <div class="aspect-video bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl mb-3 flex items-center justify-center text-white relative">
+              <i class="fa fa-play text-2xl"></i>
+              <div class="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
+                预约
+              </div>
+            </div>
+            <h4 class="text-sm font-semibold text-gray-800 mb-1">AI大模型应用实战</h4>
+            <p class="text-xs text-gray-600 mb-2">深入理解大模型在企业场景中的应用</p>
+            <div class="flex items-center justify-between text-xs text-gray-600">
+              <span>李博士</span>
+              <span>明天 14:00</span>
+            </div>
+          </a>
+          <a href="#"
+             class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col">
+            <div class="aspect-video bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl mb-3 flex items-center justify-center text-white relative">
+              <i class="fa fa-play text-2xl"></i>
+              <div class="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
+                回放
+              </div>
+            </div>
+            <h4 class="text-sm font-semibold text-gray-800 mb-1">企业数字化转型策略</h4>
+            <p class="text-xs text-gray-600 mb-2">成功案例分析与转型路径规划</p>
+            <div class="flex items-center justify-between text-xs text-gray-600">
+              <span>赵总监</span>
+              <span>已结束</span>
+            </div>
+          </a>
+          <a href="#"
+             class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#2D874B]/80 hover:-translate-y-0.5 transition flex flex-col">
+            <div class="aspect-video bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl mb-3 flex items-center justify-center text-white relative">
+              <i class="fa fa-play text-2xl"></i>
+              <div class="absolute top-2 right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                <i class="fa fa-circle text-xs mr-1 animate-pulse"></i> LIVE
+              </div>
+            </div>
+            <h4 class="text-sm font-semibold text-gray-800 mb-1">网络安全攻防演练</h4>
+            <p class="text-xs text-gray-600 mb-2">实战演练提升安全防护能力</p>
+            <div class="flex items-center justify-between text-xs text-gray-600">
+              <span>安全团队</span>
+              <span>850人观看</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 培训资源专区 -->
+  <section class="section-anchor py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6">
+      <div class="text-center mb-12 lg:mb-16">
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">培训资源专区</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          汇集优质培训资源，包括学习资料、工具库、案例库等，助力您的学习成长
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- 学习资料库 -->
+        <a href="doc-library.html"
+           class="relative overflow-hidden rounded-3xl border border-gray-300 glass-card hover:border-blue-500/80 hover:-translate-y-0.5 transition group">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="relative p-6">
+            <div class="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-4">
+              <i class="fa fa-book text-xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">学习资料库</h3>
+            <p class="text-sm text-gray-600 mb-4">
+              包含技术文档、操作手册、最佳实践等丰富的学习资料。
+            </p>
+            <div class="flex items-center text-blue-500 text-sm font-medium">
+              立即访问
+              <i class="fa fa-arrow-right ml-2 text-xs"></i>
+            </div>
+          </div>
+        </a>
+
+        <!-- 技术工具库 -->
+        <a href="tech-tool-library.html"
+           class="relative overflow-hidden rounded-3xl border border-gray-300 glass-card hover:border-green-500/80 hover:-translate-y-0.5 transition group">
+          <div class="absolute inset-0 bg-gradient-to-br from-green-500/10 to-green-600/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="relative p-6">
+            <div class="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-500 mb-4">
+              <i class="fa fa-tools text-xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">技术工具库</h3>
+            <p class="text-sm text-gray-600 mb-4">
+              提供各类实用工具，包括配置生成器、性能测试工具等。
+            </p>
+            <div class="flex items-center text-green-500 text-sm font-medium">
+              立即访问
+              <i class="fa fa-arrow-right ml-2 text-xs"></i>
+            </div>
+          </div>
+        </a>
+
+        <!-- 案例库 -->
+        <a href="case-library.html"
+           class="relative overflow-hidden rounded-3xl border border-gray-300 glass-card hover:border-purple-500/80 hover:-translate-y-0.5 transition group">
+          <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="relative p-6">
+            <div class="w-12 h-12 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-500 mb-4">
+              <i class="fa fa-clipboard-list text-xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">案例库</h3>
+            <p class="text-sm text-gray-600 mb-4">
+              收录各行各业的成功案例，为您提供实践参考。
+            </p>
+            <div class="flex items-center text-purple-500 text-sm font-medium">
+              立即访问
+              <i class="fa fa-arrow-right ml-2 text-xs"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+
+<script>
+  // 平滑滚动到锚点
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // 页面滚动时高亮当前区域
+  window.addEventListener('scroll', function() {
+    const sections = document.querySelectorAll('section[id]');
+    // 只选择页面内部的锚点链接，排除导航栏中的外部链接
+    const navLinks = document.querySelectorAll('a[href^="#"]:not(header a)');
+    
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      if (window.scrollY >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('tab-active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('tab-active');
+      }
+    });
+  });
+
+  // PC端下载功能
+  function downloadPCClient() {
+    // 这里可以替换为实际的下载链接
+    const downloadUrl = '#'; // 替换为实际下载链接
+    
+    // 创建下载链接
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = '光圈PC客户端.exe';
+    link.target = '_blank';
+    
+    // 模拟点击下载
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // 显示下载提示
+    alert('正在下载光圈PC客户端...');
+  }
+
+  // 移动端二维码点击事件
+  document.querySelector('.mobile-download').addEventListener('click', function(e) {
+    e.stopPropagation(); // 阻止事件冒泡
+    // 可以在这里添加二维码放大显示等功能
+    console.log('移动端下载二维码区域被点击');
+  });
+</script>
+</body>
+</html>
