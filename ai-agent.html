@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI智能体 - 曙光学习平台</title>
+    <link rel="stylesheet" href="css/tailwind.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- 页面头部 -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-robot text-blue-600 text-xl"></i>
+                <h1 class="text-xl font-bold text-gray-800">AI 智能体</h1>
+            </div>
+            <nav>
+                <a href="index.html" class="text-gray-600 hover:text-blue-600 font-medium">返回首页</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- AI智能体对话框 -->
+            <div class="bg-white rounded-2xl rounded-bl-2xl shadow-2xl w-full flex flex-col h-[70vh]">
+                <!-- 对话框头部 -->
+                <div class="flex items-center justify-between p-6 border-b border-gray-200">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
+                            <i class="fa fa-robot text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">AI智能助手</h3>
+                            <p class="text-sm text-gray-500">问你所惑，解你所需</p>
+                        </div>
+                    </div>
+                    <a href="index.html" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                
+                <!-- 对话框内容区域 -->
+                <div class="flex-1 overflow-hidden flex">
+                    <!-- 左侧导航区域 -->
+                    <div class="w-1/4 border-r border-gray-200 p-4 bg-gray-50 rounded-bl-2xl">
+                        <div class="space-y-3">
+                            <button class="w-full flex items-center space-x-3 p-3 rounded-lg bg-blue-500 text-white transition">
+                                <i class="fa fa-plus text-sm"></i>
+                                <span class="text-sm font-medium">新对话</span>
+                            </button>
+                            <button class="w-full flex items-center space-x-3 p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition text-gray-700">
+                                <i class="fa fa-star text-sm"></i>
+                                <span class="text-sm font-medium">我的收藏</span>
+                            </button>
+                            <button class="w-full flex items-center space-x-3 p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition text-gray-700">
+                                <i class="fa fa-history text-sm"></i>
+                                <span class="text-sm font-medium">历史对话</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 对话区域 -->
+                    <div class="flex-1 flex flex-col relative">
+                        <!-- 消息区域 -->
+                        <div id="ai-messages" class="flex-1 p-4 overflow-y-auto min-h-[60vh]">
+                            <div class="space-y-4">
+                                <div class="flex justify-start">
+                                    <div class="max-w-[80%] bg-gray-100 rounded-2xl px-4 py-3">
+                                        <p class="text-gray-700">您好！我是AI智能助手，有什么可以帮助您的吗？</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 输入区域 -->
+                        <div class="p-4 border-t border-gray-200">
+                            <!-- 快速提问标签（输入框上方横排） -->
+                            <div id="ai-quick-questions" class="mb-3">
+                                <div class="flex flex-wrap gap-2">
+                                    <button class="px-3 py-1.5 text-sm text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-all duration-200">
+                                        如何参加考试？
+                                    </button>
+                                    <button class="px-3 py-1.5 text-sm text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-all duration-200">
+                                        如何认证成为高级云架构师？
+                                    </button>
+                                    <button class="px-3 py-1.5 text-sm text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-all duration-200">
+                                        如何查看和下载证书
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="flex space-x-3">
+                                <input 
+                                    type="text" 
+                                    id="ai-input" 
+                                    placeholder="输入您的问题..." 
+                                    class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-400 transition"
+                                >
+                                <button id="ai-send" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:from-blue-600 hover:to-purple-600 transition">
+                                    发送
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+    // AI智能体功能
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM加载完成，开始初始化AI智能体功能');
+        
+        const aiInput = document.getElementById('ai-input');
+        const aiSend = document.getElementById('ai-send');
+        const aiMessages = document.getElementById('ai-messages');
+        
+        // 添加消息到对话框
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
+            
+            const messageBubble = document.createElement('div');
+            messageBubble.className = `max-w-[80%] ${isUser ? 'bg-blue-500 text-white rounded-2xl rounded-br-none' : 'bg-gray-100 text-gray-700 rounded-2xl'} px-4 py-3`;
+            messageBubble.innerHTML = `<p>${text}</p>`;
+            
+            messageDiv.appendChild(messageBubble);
+            aiMessages.appendChild(messageDiv);
+            
+            // 滚动到底部
+            aiMessages.scrollTop = aiMessages.scrollHeight;
+        }
+
+        // 处理AI回复
+        function handleAIResponse(userMessage) {
+            // 模拟AI思考时间
+            setTimeout(() => {
+                const responses = {
+                  '如何参加考试？': `
+                    <div class="space-y-3">
+                      <p>参加考试的具体流程如下：</p>
+                      <ul class="list-disc list-inside space-y-1 text-gray-600">
+                        <li>登录平台，进入"我的考试"页面</li>
+                        <li>选择需要参加的考试科目</li>
+                        <li>确认考试时间和要求</li>
+                        <li>完成在线考试或预约线下考试</li>
+                        <li>提交答卷后等待成绩公布</li>
+                      </ul>
+                      <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <div class="flex items-center gap-3">
+                          <img src="https://images.unsplash.com/photo-1581093458791-8a0a5d5c5f5a?auto=format&fit=crop&w=100&q=80" 
+                               class="w-12 h-12 rounded-lg object-cover" 
+                               alt="考试流程">
+                          <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-800">考试流程详解视频</p>
+                            <p class="text-xs text-gray-600">详细讲解考试报名和参加流程</p>
+                          </div>
+                          <button class="px-3 py-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition text-xs flex items-center gap-1">
+                            <i class="fa fa-play"></i>
+                            播放
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  `,
+                  '如何认证成为高级云架构师？': `
+                    <div class="space-y-3">
+                      <p>成为高级云架构师的认证路径：</p>
+                      <ul class="list-disc list-inside space-y-1 text-gray-600">
+                        <li>具备相关工作经验（3年以上云计算经验）</li>
+                        <li>完成高级云架构师培训课程</li>
+                        <li>通过理论考试和实操考核</li>
+                        <li>提交项目案例和设计方案</li>
+                        <li>通过专家评审委员会的审核</li>
+                      </ul>
+                      <div class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                        <div class="flex items-center gap-3">
+                          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=100&q=80" 
+                               class="w-12 h-12 rounded-lg object-cover" 
+                               alt="云架构师认证">
+                          <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-800">高级云架构师认证指南</p>
+                            <p class="text-xs text-gray-600">完整认证流程和备考策略</p>
+                          </div>
+                          <button class="px-3 py-1.5 bg-green-500 text-white rounded-lg hover:bg-green-600 transition text-xs flex items-center gap-1">
+                            <i class="fa fa-play"></i>
+                            播放
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  `,
+                  '如何查看和下载证书': `
+                    <div class="space-y-3">
+                      <p>查看和下载证书的操作步骤：</p>
+                      <ul class="list-disc list-inside space-y-1 text-gray-600">
+                        <li>登录个人中心，进入"我的证书"页面</li>
+                        <li>查看已获得的证书列表</li>
+                        <li>点击证书查看详细信息</li>
+                        <li>选择下载格式（PDF/图片）</li>
+                        <li>验证证书真伪（可选）</li>
+                      </ul>
+                      <div class="mt-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
+                        <div class="flex items-center gap-3">
+                          <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=100&q=80" 
+                               class="w-12 h-12 rounded-lg object-cover" 
+                               alt="证书管理">
+                          <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-800">证书管理操作教程</p>
+                            <p class="text-xs text-gray-600">详细演示证书查看和下载流程</p>
+                          </div>
+                          <button class="px-3 py-1.5 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition text-xs flex items-center gap-1">
+                            <i class="fa fa-play"></i>
+                            播放
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  `
+                };
+                
+                const response = responses[userMessage] || '感谢您的提问！我会尽力为您提供帮助。如果您有更具体的问题，请详细描述，我会给出更精准的回答。';
+                addMessage(response, false);
+            }, 1000);
+        }
+
+        // 发送按钮点击事件
+        if (aiSend) {
+            aiSend.addEventListener('click', function() {
+                const message = aiInput.value.trim();
+                if (message) {
+                    addMessage(message, true);
+                    aiInput.value = '';
+                    handleAIResponse(message);
+                }
+            });
+        }
+
+        // 输入框回车发送
+        if (aiInput) {
+            aiInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    aiSend.click();
+                }
+            });
+        }
+
+        // 预设标签点击事件
+        const presetButtons = document.querySelectorAll('#ai-quick-questions button');
+        presetButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const message = this.textContent.trim();
+                addMessage(message, true);
+                handleAIResponse(message);
+            });
+        });
+
+        // 新对话按钮点击事件
+        const newChatBtn = document.querySelector('.fa-plus').closest('button');
+        if (newChatBtn) {
+            newChatBtn.addEventListener('click', function() {
+                // 清空消息区域
+                aiMessages.innerHTML = `
+                  <div class="space-y-4">
+                    <div class="flex justify-start">
+                      <div class="max-w-[80%] bg-gray-100 rounded-2xl rounded-bl-none px-4 py-3">
+                        <p class="text-gray-700">您好！我是AI智能助手，有什么可以帮助您的吗？</p>
+                      </div>
+                    </div>
+                  </div>
+                `;
+            });
+        }
+    });
+    </script>
+</body>
+</html>

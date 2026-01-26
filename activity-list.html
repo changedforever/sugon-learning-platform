@@ -276,14 +276,115 @@
                  placeholder="搜索活动名称 / 地点"
                  class="w-52 md:w-64 rounded-full bg-white border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]" />
         </div>
+        <!-- 排序 -->
+        <div class="flex items-center gap-1 text-xs">
+            <span class="text-gray-600">排序：</span>
+            <select id="sort-select"
+                class="rounded-full bg-white/80 border border-gray-300 px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-[#2D874B]">
+                <option value="newest">最新</option>
+                <option value="most-popular">最热</option>
+            </select>
+        </div>
       </div>
     </div>
 
-    <!-- 活动网格卡片 -->
-    <section id="activity-grid"
-             class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      <!-- 卡片由 JS 注入 -->
-    </section>
+        <!-- 高级筛选区：类型 / 状态 / 时间 -->
+        <section class="max-w-7xl mx-auto px-4 lg:px-6 mb-6">
+            <div class="glass-card rounded-3xl p-4 space-y-3">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                    </div>
+                    <span id="active-filter-text" class="text-[11px] text-gray-600">
+                        已选条件：全部
+                    </span>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-3 text-xs">
+                    <!-- 类型 -->
+                    <div>
+                        <div class="text-gray-600 mb-1 flex items-center justify-between">
+                            <span>类型</span>
+                        </div>
+                        <div class="flex flex-wrap gap-1">
+                            <button
+                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-gray-800"
+                                data-filter="type" data-value="all">
+                                全部
+                            </button>
+                            <button
+                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
+                                data-filter="type" data-value="online">
+                                线上活动
+                            </button>
+                            <button
+                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
+                                data-filter="type" data-value="offline">
+                                线下活动
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 状态 -->
+                    <div>
+                        <div class="text-gray-600 mb-1 flex items-center justify-between">
+                            <span>状态</span>
+                        </div>
+                        <div class="flex flex-wrap gap-1">
+                            <button
+                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-gray-800"
+                                data-filter="status" data-value="all">
+                                全部
+                            </button>
+                            <button
+                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
+                                data-filter="status" data-value="upcoming">
+                                即将开始
+                            </button>
+                            <button
+                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
+                                data-filter="status" data-value="live">
+                                进行中
+                            </button>
+                            <button
+                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
+                                data-filter="status" data-value="ended">
+                                已结束
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 时间 -->
+                    <div>
+                        <div class="text-gray-600 mb-1 flex items-center justify-between">
+                            <span>时间</span>
+                        </div>
+                        <div class="flex flex-wrap gap-1">
+                            <button
+                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-gray-800"
+                                data-filter="timeframe" data-value="all">
+                                全部
+                            </button>
+                            <button
+                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
+                                data-filter="timeframe" data-value="this-week">
+                                本周
+                            </button>
+                            <button
+                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
+                                data-filter="timeframe" data-value="this-month">
+                                本月
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 活动网格卡片 -->
+        <section id="activity-grid"
+                 class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <!-- 卡片由 JS 注入 -->
+        </section>
   </section>
 </main>
 
@@ -401,20 +502,42 @@
   // ========== 3. 渲染活动卡片 ==========
   const gridEl = document.getElementById('activity-grid');
   const searchInput = document.getElementById('search-input');
+  const sortSelect = document.getElementById('sort-select');
+  const activeFilterText = document.getElementById('active-filter-text');
+  const filterChips = document.querySelectorAll('.filter-chip');
+  
+  // 添加筛选参数
+  const filters = {
+    type: 'all',
+    status: 'all',
+    timeframe: 'all',
+    search: ''
+  };
 
   function renderActivities() {
     gridEl.innerHTML = '';
 
-    const keyword = searchInput.value.trim().toLowerCase();
-    const list = activities.filter(act => {
-      if (!keyword) return true;
-      return (
-        act.title.toLowerCase().includes(keyword) ||
-        act.place.toLowerCase().includes(keyword)
-      );
+    // 应用筛选条件
+    let filteredActivities = activities.filter(act => {
+      const matchType = filters.type === 'all' || act.type === filters.type;
+      const matchStatus = filters.status === 'all' || act.status === filters.status;
+      const matchTimeframe = filters.timeframe === 'all' || matchTimeFrameFilter(act.datetime, filters.timeframe);
+      const kw = filters.search;
+      const matchSearch = !kw ||
+        act.title.toLowerCase().includes(kw) ||
+        act.place.toLowerCase().includes(kw);
+
+      return matchType && matchStatus && matchTimeframe && matchSearch;
     });
 
-    list.forEach(act => {
+    // 排序
+    if (sortSelect.value === 'newest') {
+      filteredActivities.sort((a, b) => b.datetime.localeCompare(a.datetime));
+    } else {
+      filteredActivities.sort((a, b) => b.attendees - a.attendees);
+    }
+
+    filteredActivities.forEach(act => {
       const card = document.createElement('article');
       card.className = 'glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#2D874B]/80 transition';
 
@@ -501,13 +624,94 @@
     });
   }
 
-  // 搜索联动
+  // 检查活动时间是否符合时间范围筛选条件
+  function matchTimeFrameFilter(datetimeStr, timeframe) {
+    // 提取日期部分（忽略时间），格式为 YYYY-MM-DD HH:MM-SS
+    const datePart = datetimeStr.split(' ')[0]; // 获取 "YYYY-MM-DD" 部分
+    const activityDate = new Date(datePart);
+    const now = new Date();
+    
+    switch(timeframe) {
+      case 'this-week':
+        const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        return activityDate >= oneWeekAgo;
+      case 'this-month':
+        const oneMonthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+        return activityDate >= oneMonthAgo;
+      default:
+        return true;
+    }
+  }
+
+  // 绑定筛选 chip 点击事件（单选）
+  filterChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const type = chip.dataset.filter;
+      const value = chip.dataset.value;
+      // 取消同类的 active
+      document.querySelectorAll(`.filter-chip[data-filter="${type}"]`)
+          .forEach(c => c.classList.remove('filter-chip-active'));
+      // 激活当前
+      chip.classList.add('filter-chip-active');
+      filters[type] = value;
+      applyFiltersAndRender();
+    });
+  });
+
+  // 搜索输入
   searchInput.addEventListener('input', () => {
+    filters.search = searchInput.value.trim().toLowerCase();
+    applyFiltersAndRender();
+  });
+
+  // 排序变更
+  sortSelect.addEventListener('change', () => {
+    applyFiltersAndRender();
+  });
+
+  // 应用筛选 + 排序
+  function applyFiltersAndRender() {
     renderActivities();
+    updateFilterText();
+  }
+
+  // 更新顶部"已选条件"文案
+  function updateFilterText() {
+    const parts = [];
+    if (filters.type !== 'all') parts.push(`类型：${filters.type === 'online' ? '线上活动' : '线下活动'}`);
+    if (filters.status !== 'all') parts.push(`状态：${getStatusText(filters.status)}`);
+    if (filters.timeframe !== 'all') parts.push(`时间：${getTimeframeText(filters.timeframe)}`);
+    if (filters.search) parts.push(`关键词："${filters.search}"`);
+    activeFilterText.textContent = '已选条件：' + (parts.length ? parts.join(' / ') : '全部');
+  }
+
+  // 获取状态文本
+  function getStatusText(status) {
+    switch(status) {
+      case 'upcoming': return '即将开始';
+      case 'live': return '进行中';
+      case 'ended': return '已结束';
+      default: return status;
+    }
+  }
+
+  // 获取时间范围文本
+  function getTimeframeText(timeframe) {
+    switch(timeframe) {
+      case 'this-week': return '本周';
+      case 'this-month': return '本月';
+      default: return timeframe;
+    }
+  }
+
+  // 初始设置：激活"全部"筛选项
+  document.querySelectorAll('.filter-chip[data-value="all"]').forEach(chip => {
+    chip.classList.add('filter-chip-active');
   });
 
   // 初始渲染
   renderActivities();
+  updateFilterText();
 </script>
 
 </body>

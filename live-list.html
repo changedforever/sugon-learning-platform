@@ -747,10 +747,23 @@
 
     // 显示第一个（最近的）直播的简介
     const descriptionHtml = `
-      <h3 class="text-lg font-semibold text-gray-800 mb-3">${firstUpcoming.title}</h3>
-      <p class="text-sm text-gray-600 leading-relaxed">
-        本次直播将深入讲解云原生架构设计理念、微服务拆分原则、容器编排最佳实践，并结合真实项目 DEMO 演示，帮助伙伴快速掌握云原生落地方法。
-      </p>
+      <div class="relative h-full flex flex-col">
+        <h3 class="text-lg font-semibold text-gray-800 mb-3">${firstUpcoming.title}</h3>
+        <p class="text-sm text-gray-600 leading-relaxed flex-grow">
+          本次直播将深入讲解云原生架构设计理念、微服务拆分原则、容器编排最佳实践，并结合真实项目 DEMO 演示，帮助伙伴快速掌握云原生落地方法。
+        </p>
+        <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-200">
+          <span class="text-xs text-gray-600">主讲人：王云</span>
+          <button class="enroll-btn px-2 py-1 rounded-full text-[10px] font-medium
+                   ${(firstUpcoming.status === 'ended' || !enrolledIds.has(firstUpcoming.id))
+                      ? 'bg-[#2D874B] text-white hover:opacity-90'
+                      : 'bg-white border border-[#B01F24] text-[#B01F24] hover:bg-gray-50'}"
+            data-id="${firstUpcoming.id}"
+            data-status="${firstUpcoming.status}">
+            ${(firstUpcoming.status === 'ended' || !enrolledIds.has(firstUpcoming.id)) ? '预约' : '取消预约'}
+          </button>
+        </div>
+      </div>
     `;
     document.getElementById('upcoming-description').innerHTML = descriptionHtml;
 
@@ -772,17 +785,7 @@
               <div class="font-medium text-gray-800">${year}-${month}-${day} ${hours}:${minutes}</div>
               <div class="text-sm text-gray-600 truncate mt-1">${l.title}</div>
             </div>
-            <div class="flex gap-1 ml-2">
-              <button class="enroll-btn text-xs px-2 py-1 rounded-full font-medium
-                       ${l.status === 'ended'
-                          ? 'bg-gray-200 text-gray-500 border border-gray-300 cursor-not-allowed opacity-60'
-                          : (isEnrolled
-                              ? 'bg-white border border-[#B01F24] text-[#B01F24] hover:bg-gray-50'
-                              : 'bg-[#2D874B] text-white hover:opacity-90')}"
-                data-id="${l.id}"
-                data-status="${l.status}">
-                ${l.status === 'ended' ? '已结束' : (isEnrolled ? '取消预约' : '预约')}
-              </button>
+            <div class="ml-2">
               <a href="live-detail.html" class="text-xs px-2 py-1 rounded-full font-medium bg-white border border-gray-300 hover:bg-gray-50">
                 详情
               </a>
@@ -815,10 +818,23 @@
         
         // 更新简介内容
         const descriptionHtml = `
-          <h3 class="text-lg font-semibold text-gray-800 mb-3">${selectedLive.title}</h3>
-          <p class="text-sm text-gray-600 leading-relaxed">
-            本次直播将深入讲解云原生架构设计理念、微服务拆分原则、容器编排最佳实践，并结合真实项目 DEMO 演示，帮助伙伴快速掌握云原生落地方法。
-          </p>
+          <div class="relative h-full flex flex-col">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3">${selectedLive.title}</h3>
+            <p class="text-sm text-gray-600 leading-relaxed flex-grow">
+              本次直播将深入讲解云原生架构设计理念、微服务拆分原则、容器编排最佳实践，并结合真实项目 DEMO 演示，帮助伙伴快速掌握云原生落地方法。
+            </p>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-200">
+              <span class="text-xs text-gray-600">主讲人：王云</span>
+              <button class="enroll-btn px-2 py-1 rounded-full text-[10px] font-medium
+                       ${(selectedLive.status === 'ended' || !enrolledIds.has(selectedLive.id))
+                          ? 'bg-[#2D874B] text-white hover:opacity-90'
+                          : 'bg-white border border-[#B01F24] text-[#B01F24] hover:bg-gray-50'}"
+                data-id="${selectedLive.id}"
+                data-status="${selectedLive.status}">
+                ${(selectedLive.status === 'ended' || !enrolledIds.has(selectedLive.id)) ? '预约' : '取消预约'}
+              </button>
+            </div>
+          </div>
         `;
         document.getElementById('upcoming-description').innerHTML = descriptionHtml;
         
