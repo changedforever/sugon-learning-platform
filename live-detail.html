@@ -94,47 +94,47 @@
       <div class="lg:col-span-2 space-y-4">
         <!-- 封面区域 -->
         <div class="relative overflow-hidden rounded-3xl border border-gray-300 glass-card">
-          <div class="relative h-48 md:h-60 lg:h-72">
+          <div class="relative h-64 md:h-80 lg:h-96">
             <img
               id="cover-img"
               src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1600&q=80"
               alt="直播封面"
               class="w-full h-full object-cover opacity-70">
-            <div class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/10"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-black/30 via-black/20 to-transparent"></div>
 
-            <div class="absolute inset-0 flex flex-col justify-center px-5 md:px-8 lg:px-10 space-y-3 z-10">
+            <div class="absolute inset-0 flex flex-col justify-center px-5 md:px-8 lg:px-10 space-y-4 z-10">
               <div class="flex flex-wrap items-center gap-2 text-[11px]">
                 <span id="tag-category"
-                      class="inline-flex items-center px-2 py-1 rounded-full bg-white/90 border border-gray-300 text-gray-700">
+                      class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-sm border border-white/30 text-gray-700 font-medium">
                   <i class="fa fa-layer-group mr-1 text-[10px] text-[#B01F24]"></i>
                   云基础设施
                 </span>
                 <span id="tag-track"
-                      class="inline-flex items-center px-2 py-1 rounded-full bg-white/90 border border-gray-300 text-gray-700">
+                      class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-sm border border-white/30 text-gray-700 font-medium">
                   <i class="fa fa-road mr-1 text-[10px] text-[#B01F24]"></i> DevOps 赛道
                 </span>
                 <span id="tag-status"
-                      class="inline-flex items-center px-2 py-1 rounded-full border text-[#B01F24] status-badge-upcoming">
+                      class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-sm border text-[#B01F24] status-badge-upcoming font-medium">
                   <i class="fa fa-broadcast-tower mr-1 text-[10px]"></i>
                   未开始
                 </span>
               </div>
-              <h1 id="live-title" class="text-xl md:text-2xl lg:text-3xl font-semibold leading-snug line-clamp-2 text-white">
+              <h1 id="live-title" class="text-xl md:text-2xl lg:text-3xl font-bold leading-tight line-clamp-2 text-white drop-shadow-lg">
                 云原生架构设计实战分享
               </h1>
-              <p id="live-desc" class="text-xs md:text-sm text-white max-w-2xl">
+              <p id="live-desc" class="text-sm md:text-base text-white max-w-2xl leading-relaxed drop-shadow-md">
                 本次直播将深入讲解云原生架构设计理念、微服务拆分原则、容器编排最佳实践，并结合真实项目 DEMO 演示，帮助伙伴快速掌握云原生落地方法。
               </p>
-              <!-- 开播时间包含日期+报名人数 -->
-              <div class="flex flex-wrap items-center gap-3 text-[11px] text-white">
-                <span id="live-time">
-                  <i class="fa fa-clock mr-1 text-[#B01F24]"></i>
-                  开播时间：2026-01-15 19:00–21:00
-                </span>
-                <span id="live-attendees">
-                  <i class="fa fa-users mr-1 text-[#B01F24]"></i>
-                  报名人数：12,345 人
-                </span>
+              <!-- 开播时间包含日期预约人数 -->
+              <div class="flex flex-wrap items-center gap-4 text-sm text-white font-medium">
+                <div class="flex items-center">
+                  <i class="fa fa-clock mr-2 text-[#B01F24] text-base"></i>
+                  <span>2026-01-15 19:00–21:00</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-users mr-2 text-[#B01F24] text-base"></i>
+                  <span>12,345 人已预约</span>
+                </div>
               </div>
             </div>
           </div>
@@ -359,7 +359,7 @@
         </article>
       </div>
 
-      <!-- 右侧：关键信息 + 提醒、预约（恢复“时长”“报名人数”） -->
+      <!-- 右侧：关键信息 + 提醒、预约（恢复“时长”“预约人数”） -->
       <aside class="lg:col-span-1 space-y-4">
         <div class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5 space-y-3 text-xs text-gray-600">
           <div class="flex items-center justify-between mb-1">
@@ -376,7 +376,7 @@
           </div>
 
           <div class="flex items-center justify-between">
-            <span class="text-gray-400">报名人数</span>
+            <span class="text-gray-400">预约人数</span>
             <span id="side-attendees">12,345 人</span>
           </div>
 
