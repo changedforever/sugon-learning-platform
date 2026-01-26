@@ -190,18 +190,18 @@
     </section>
 
 
-    <!-- 第二行：学习概览 / 能力概览 -->
+    <!-- 第二行：支持概览 / 能力概览 -->
     <section class="grid gap-6 md:grid-cols-2">
-      <!-- 学习概览 -->
+      <!-- 支持概览 -->
       <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5 space-y-3">
         <div class="flex items-center justify-between mb-1">
           <h2 class="text-sm md:text-base font-semibold text-gray-800 flex items-center gap-2">
-            <i class="fa fa-chart-line text-[#B01F24]"></i> 学习概览
+            <i class="fa fa-chart-line text-[#B01F24]"></i> 支持概览
           </h2>
         </div>
         <div class="grid grid-cols-2 gap-3 text-xs">
           <div class="rounded-2xl bg-white border border-gray-300 p-3">
-            <div class="text-gray-400 mb-1">专家支持</div>
+            <div class="text-gray-400 mb-1">已获专家支持</div>
             <div id="overview-expert-support" class="text-lg font-semibold text-[#B01F24]">12</div>
           </div>
           <div class="rounded-2xl bg-white border border-gray-300 p-3">
@@ -543,7 +543,7 @@
     // 添加积分数据，默认为1,280，可以从本地存储中读取或根据实际业务逻辑设定
     const points = p.points !== undefined ? p.points : 1280;
 
-    $('profile-name-display').textContent = p.name || '周圆圆';
+    $('profile-name-display').textContent = p.name || '张合作';
     $('profile-role-display').textContent = p.role || '岗位角色未填写';
     $('profile-company-display').textContent = p.company || '公司未填写';
     $('profile-points').textContent = points.toLocaleString(); // 格式化数字，如1,280
