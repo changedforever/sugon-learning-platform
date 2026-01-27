@@ -387,40 +387,7 @@
           </div>
         </div>
 
-        <!-- 专家领域分类 -->
-        <div class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-800 mb-6">专家领域分类</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="domain-card bg-white rounded-xl p-6 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-              <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <i class="fa fa-microchip text-blue-600"></i>
-              </div>
-              <h3 class="font-semibold text-gray-800">CPU</h3>
-              <p class="text-sm text-gray-500 mt-1">8位专家</p>
-            </div>
-            <div class="domain-card bg-white rounded-xl p-6 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-              <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <i class="fa fa-memory text-purple-600"></i>
-              </div>
-              <h3 class="font-semibold text-gray-800">DCU</h3>
-              <p class="text-sm text-gray-500 mt-1">6位专家</p>
-            </div>
-            <div class="domain-card bg-white rounded-xl p-6 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-              <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <i class="fa fa-server text-green-600"></i>
-              </div>
-              <h3 class="font-semibold text-gray-800">操作系统/数据库/云</h3>
-              <p class="text-sm text-gray-500 mt-1">12位专家</p>
-            </div>
-            <div class="domain-card bg-white rounded-xl p-6 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-              <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <i class="fa fa-globe text-yellow-600"></i>
-              </div>
-              <h3 class="font-semibold text-gray-800">通用</h3>
-              <p class="text-sm text-gray-500 mt-1">9位专家</p>
-            </div>
-          </div>
-        </div>
+
 
         <!-- 专家列表 -->
         <div class="mb-8">
@@ -428,6 +395,65 @@
             <h2 class="text-2xl font-bold text-gray-800">专家列表</h2>
             <div class="text-sm text-gray-500">
               共 <span id="expert-count">35</span> 位专家
+            </div>
+          </div>
+          
+          <!-- 专家领域分类按钮 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fa fa-list text-gray-600"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="font-semibold text-gray-800">全部</h3>
+                  <p class="text-xs text-gray-500">35位专家</p>
+                </div>
+              </div>
+            </div>
+            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fa fa-microchip text-blue-600"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="font-semibold text-gray-800">CPU</h3>
+                  <p class="text-xs text-gray-500">8位专家</p>
+                </div>
+              </div>
+            </div>
+            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fa fa-memory text-purple-600"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="font-semibold text-gray-800">DCU</h3>
+                  <p class="text-xs text-gray-500">6位专家</p>
+                </div>
+              </div>
+            </div>
+            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fa fa-server text-green-600"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="font-semibold text-gray-800">操作系统/数据库/云</h3>
+                  <p class="text-xs text-gray-500">12位专家</p>
+                </div>
+              </div>
+            </div>
+            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fa fa-globe text-yellow-600"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="font-semibold text-gray-800">通用</h3>
+                  <p class="text-xs text-gray-500">9位专家</p>
+                </div>
+              </div>
             </div>
           </div>
           
@@ -642,6 +668,15 @@
                 <option value="">全部类型</option>
                 <option value="personal">个人服务</option>
                 <option value="company">公司服务</option>
+              </select>
+            </div>
+            <div class="md:w-48">
+              <select id="record-domain-filter" class="w-full py-3 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2D874B] focus:border-transparent">
+                <option value="">全部领域</option>
+                <option value="cpu">CPU</option>
+                <option value="dcu">DCU</option>
+                <option value="os-db-cloud">操作系统/数据库/云</option>
+                <option value="general">通用</option>
               </select>
             </div>
             <div class="md:w-40">
@@ -927,16 +962,19 @@
   const recordSearchInput = document.getElementById('record-search');
   const recordTypeFilter = document.getElementById('record-type-filter');
   const recordStatusFilter = document.getElementById('record-status-filter');
+  const recordDomainFilter = document.getElementById('record-domain-filter');
   
-  if(recordSearchInput && recordTypeFilter && recordStatusFilter) {
+  if(recordSearchInput && recordTypeFilter && recordStatusFilter && recordDomainFilter) {
     recordSearchInput.addEventListener('input', filterRecords);
     recordTypeFilter.addEventListener('change', filterRecords);
     recordStatusFilter.addEventListener('change', filterRecords);
+    recordDomainFilter.addEventListener('change', filterRecords);
     
     function filterRecords() {
       const searchTerm = recordSearchInput.value.toLowerCase();
       const selectedType = recordTypeFilter.value;
       const selectedStatus = recordStatusFilter.value;
+      const selectedDomain = recordDomainFilter.value;
       const recordCards = document.querySelectorAll('#record-list .service-record-card');
       
       recordCards.forEach(card => {
@@ -944,9 +982,11 @@
         const description = card.querySelector('.text-gray-600').textContent.toLowerCase();
         const typeBadge = card.querySelector('.status-personal, .status-company');
         const statusBadge = card.querySelector('.status-badge:not(.status-personal):not(.status-company)');
+        const domainBadge = card.querySelector('.domain-badge');
         
         const typeText = typeBadge ? typeBadge.textContent.toLowerCase() : '';
         const statusText = statusBadge ? statusBadge.textContent.toLowerCase() : '';
+        const domainText = domainBadge ? domainBadge.textContent.toLowerCase() : '';
         
         const matchesSearch = !searchTerm || 
                              expertName.includes(searchTerm) || 
@@ -954,8 +994,9 @@
         
         const matchesType = !selectedType || typeText.includes(selectedType);
         const matchesStatus = !selectedStatus || statusText.includes(selectedStatus);
+        const matchesDomain = !selectedDomain || domainText.includes(selectedDomain);
         
-        if (matchesSearch && matchesType && matchesStatus) {
+        if (matchesSearch && matchesType && matchesStatus && matchesDomain) {
           card.style.display = 'block';
         } else {
           card.style.display = 'none';

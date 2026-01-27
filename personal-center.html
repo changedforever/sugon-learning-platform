@@ -87,6 +87,12 @@
       color: #fbbf24;
       border-color: rgba(251,191,36,0.5);
     }
+    
+    .status-badge {
+      font-size: 0.75rem; /* text-sm equivalent but slightly smaller */
+      padding: 0.125rem 0.5rem; /* py-0.5 px-2 equivalent */
+      border-radius: 9999px; /* full round for pill shape */
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -236,10 +242,14 @@
       </article>
     </section>
 
-    <!-- Tab：我的任务 / 我的课程 / 我的证书 / 我的直播 / 我的活动 / 我的收藏 / 消息中心 -->
+    <!-- Tab：我的服务 / 我的任务 / 我的课程 / 我的证书 / 我的直播 / 我的活动 / 我的收藏 / 消息中心 -->
     <section class="space-y-4">
       <div class="flex flex-wrap gap-2 text-xs">
         <button class="main-tab main-tab-active px-3 py-1.5 rounded-full bg-white border border-[#B01F24]"
+                data-target="tab-service">
+          <i class="fa fa-headset mr-1 text-[11px] text-[#B01F24]"></i> 我的服务
+        </button>
+        <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
                 data-target="tab-tasks">
           <i class="fa fa-tasks mr-1 text-[11px] text-[#B01F24]"></i> 我的任务
         </button>
@@ -277,8 +287,175 @@
         </button>
       </div>
 
+      <!-- 我的服务：服务记录列表 -->
+      <section id="tab-service" class="main-panel">
+        <!-- 搜索框和筛选器 -->
+        <div class="search-box bg-white rounded-xl p-4 mb-8 shadow-sm">
+          <div class="flex flex-col md:flex-row gap-4">
+            <div class="flex-1">
+              <div class="relative">
+                <input 
+                  type="text" 
+                  id="service-search" 
+                  placeholder="搜索专家姓名、问题描述..." 
+                  class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#B01F24] focus:border-transparent"
+                >
+                <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+              </div>
+            </div>
+
+            <div class="md:w-40">
+              <select id="service-domain-filter" class="w-full py-3 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#B01F24] focus:border-transparent">
+                <option value="">全部领域</option>
+                <option value="cpu">CPU</option>
+                <option value="dcu">DCU</option>
+                <option value="os-db-cloud">操作系统/数据库/云</option>
+                <option value="general">通用</option>
+              </select>
+            </div>
+            <div class="md:w-40">
+              <select id="service-status-filter" class="w-full py-3 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#B01F24] focus:border-transparent">
+                <option value="">全部状态</option>
+                <option value="resolved">已解决</option>
+                <option value="pending">待处理</option>
+                <option value="in-progress">处理中</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 服务记录列表 -->
+        <div class="mb-8">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">专家服务记录</h2>
+            <div class="text-sm text-gray-500">
+              共 <span id="service-count">12</span> 条服务记录
+            </div>
+          </div>
+          
+          <div class="space-y-4" id="service-list">
+            <!-- 服务记录示例 -->
+            <div class="service-record-card bg-white rounded-xl p-6 border-l-4 border-[#2D874B] fade-in">
+              <div class="flex flex-col md:flex-row md:items-center justify-between">
+                <div class="flex-1 mb-4 md:mb-0">
+                  <div class="flex items-center flex-wrap gap-2">
+                    <h3 class="text-lg font-semibold text-gray-800">张明 - 云计算专家</h3>
+                    <span class="status-badge bg-green-100 text-green-700 border border-green-300">已解决</span>
+                  </div>
+                  <p class="text-gray-600 mt-2">关于Kubernetes集群性能优化的问题，涉及资源配置和调度策略优化</p>
+                  <div class="flex items-center text-sm text-gray-500 mt-2 flex-wrap gap-4">
+                    <span class="flex items-center"><i class="fa fa-clock mr-1"></i> 2024-01-15 14:30</span>
+                    <span class="flex items-center"><i class="fa fa-tag mr-1"></i> 性能优化</span>
+                    <span class="flex items-center"><i class="fa fa-star mr-1"></i> 评分: 4.8</span>
+                  </div>
+                </div>
+                <div class="flex space-x-2">
+                  <button class="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition">
+                    <i class="fa fa-eye mr-1"></i> 查看
+                  </button>
+                  <button class="px-4 py-2 text-sm bg-[#2D874B] text-white rounded-lg hover:bg-[#256e3d] transition">
+                    <i class="fa fa-comments mr-1"></i> 回复
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="service-record-card bg-white rounded-xl p-6 border-l-4 border-[#2D874B] fade-in">
+              <div class="flex flex-col md:flex-row md:items-center justify-between">
+                <div class="flex-1 mb-4 md:mb-0">
+                  <div class="flex items-center flex-wrap gap-2">
+                    <h3 class="text-lg font-semibold text-gray-800">李华 - 运维专家</h3>
+                    <span class="status-badge bg-orange-100 text-orange-600 border border-orange-300">处理中</span>
+                  </div>
+                  <p class="text-gray-600 mt-2">生产环境服务器异常重启问题排查，涉及日志分析和系统监控</p>
+                  <div class="flex items-center text-sm text-gray-500 mt-2 flex-wrap gap-4">
+                    <span class="flex items-center"><i class="fa fa-clock mr-1"></i> 2024-01-14 09:15</span>
+                    <span class="flex items-center"><i class="fa fa-tag mr-1"></i> 故障排查</span>
+                    <span class="flex items-center"><i class="fa fa-star mr-1"></i> 评分: 4.5</span>
+                  </div>
+                </div>
+                <div class="flex space-x-2">
+                  <button class="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition">
+                    <i class="fa fa-eye mr-1"></i> 查看
+                  </button>
+                  <button class="px-4 py-2 text-sm bg-[#2D874B] text-white rounded-lg hover:bg-[#256e3d] transition">
+                    <i class="fa fa-comments mr-1"></i> 回复
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="service-record-card bg-white rounded-xl p-6 border-l-4 border-[#2D874B] fade-in">
+              <div class="flex flex-col md:flex-row md:items-center justify-between">
+                <div class="flex-1 mb-4 md:mb-0">
+                  <div class="flex items-center flex-wrap gap-2">
+                    <h3 class="text-lg font-semibold text-gray-800">王强 - 安全专家</h3>
+                    <span class="status-badge bg-green-100 text-green-700 border border-green-300">已解决</span>
+                  </div>
+                  <p class="text-gray-600 mt-2">Web应用安全漏洞扫描结果分析及修复建议</p>
+                  <div class="flex items-center text-sm text-gray-500 mt-2 flex-wrap gap-4">
+                    <span class="flex items-center"><i class="fa fa-clock mr-1"></i> 2024-01-13 16:45</span>
+                    <span class="flex items-center"><i class="fa fa-tag mr-1"></i> 安全审计</span>
+                    <span class="flex items-center"><i class="fa fa-star mr-1"></i> 评分: 5.0</span>
+                  </div>
+                </div>
+                <div class="flex space-x-2">
+                  <button class="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition">
+                    <i class="fa fa-eye mr-1"></i> 查看
+                  </button>
+                  <button class="px-4 py-2 text-sm bg-[#2D874B] text-white rounded-lg hover:bg-[#256e3d] transition">
+                    <i class="fa fa-comments mr-1"></i> 回复
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 分页 -->
+        <div class="flex justify-center mt-8">
+          <div class="flex items-center space-x-2">
+            <button class="pagination-button w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-100">
+              <i class="fa fa-chevron-left text-sm"></i>
+            </button>
+            <button class="pagination-button w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-100 active">1</button>
+            <button class="pagination-button w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-100">2</button>
+            <button class="pagination-button w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-100">3</button>
+            <button class="pagination-button w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-100">...</button>
+            <button class="pagination-button w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-100">8</button>
+            <button class="pagination-button w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-100">
+              <i class="fa fa-chevron-right text-sm"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
       <!-- 我的任务：任务列表 -->
-      <section id="tab-tasks" class="main-panel">
+      <section id="tab-tasks" class="main-panel hidden">
+        <!-- 筛选按钮 -->
+        <div class="mb-4 flex flex-wrap gap-2">
+          <button class="filter-btn-task active px-3 py-1.5 rounded-full bg-white border border-[#B01F24] text-[#B01F24] text-sm" data-filter="all">
+            全部
+          </button>
+          <button class="filter-btn-task px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-600 text-sm" data-filter="派发">
+            派发
+          </button>
+          <button class="filter-btn-task px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-600 text-sm" data-filter="自主申请">
+            自主申请
+          </button>
+          <button class="filter-btn-task px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-600 text-sm" data-filter="待开始">
+            待开始
+          </button>
+          <button class="filter-btn-task px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-600 text-sm" data-filter="进行中">
+            进行中
+          </button>
+          <button class="filter-btn-task px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-600 text-sm" data-filter="已完成">
+            已完成
+          </button>
+          <button class="filter-btn-task px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-600 text-sm" data-filter="已超时">
+            已超时
+          </button>
+        </div>
         <!-- 搜索框 -->
         <div class="mb-4 flex">
           <input 
@@ -336,6 +513,17 @@
 
       <!-- 我的收藏 -->
       <section id="tab-favorites" class="main-panel hidden">
+        <!-- 分类筛选器 -->
+        <div class="mb-6">
+          <div class="flex flex-wrap gap-2">
+            <button class="filter-btn px-4 py-2 rounded-full bg-[#2D874B] text-white text-sm font-medium active" data-filter="all">全部</button>
+            <button class="filter-btn px-4 py-2 rounded-full bg-white border border-gray-300 text-gray-700 text-sm font-medium" data-filter="course">课程</button>
+            <button class="filter-btn px-4 py-2 rounded-full bg-white border border-gray-300 text-gray-700 text-sm font-medium" data-filter="live">直播</button>
+            <button class="filter-btn px-4 py-2 rounded-full bg-white border border-gray-300 text-gray-700 text-sm font-medium" data-filter="news">资讯</button>
+            <button class="filter-btn px-4 py-2 rounded-full bg-white border border-gray-300 text-gray-700 text-sm font-medium" data-filter="resource">资源</button>
+          </div>
+        </div>
+        
         <div id="favorite-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <!-- JS 注入 -->
         </div>
@@ -734,6 +922,45 @@
     if (searchBtn) {
       searchBtn.addEventListener('click', performSearch);
     }
+    
+    // 添加任务筛选功能
+    const filterButtons = document.querySelectorAll('#tab-tasks .filter-btn-task');
+    
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        // 移除所有按钮的激活状态
+        filterButtons.forEach(btn => btn.classList.remove('active', 'border-[#B01F24]', 'text-[#B01F24]'));
+        // 添加当前按钮的激活状态
+        this.classList.add('active', 'border-[#B01F24]', 'text-[#B01F24]');
+        
+        const filterValue = this.dataset.filter;
+        
+        let filteredTasks = [];
+        if (filterValue === 'all') {
+          filteredTasks = tasks;
+        } else if (['派发', '自主申请'].includes(filterValue)) {
+          // 按标签筛选
+          filteredTasks = tasks.filter(task => task.tag === filterValue);
+        } else if (['待开始', '进行中', '已完成', '已超时'].includes(filterValue)) {
+          // 按状态筛选
+          filteredTasks = tasks.filter(task => {
+            // 处理任务状态
+            let taskStatus = task.status;
+            
+            // 如果是已超时，需要比较截止日期和当前日期
+            if (filterValue === '已超时' && task.deadline) {
+              const deadlineDate = new Date(task.deadline);
+              const currentDate = new Date();
+              return task.status !== '已完成' && deadlineDate < currentDate;
+            }
+            
+            return taskStatus === filterValue;
+          });
+        }
+        
+        renderTasks(filteredTasks);
+      });
+    });
 
     // 我的学习
     const learn = [
@@ -869,26 +1096,87 @@
     });
 
     // 我的收藏
-    const favs = [
-      {title:'课程：Kubernetes 入门实战', type:'课程'},
-      {title:'直播：云成本优化与 FinOps', type:'直播'},
-      {title:'资讯：2026 认证体系升级公告', type:'资讯'}
+    let favorites = [
+      {id: 1, title:'课程：Kubernetes 入门实战', type:'course', typeLabel: '课程'},
+      {id: 2, title:'直播：云成本优化与 FinOps', type:'live', typeLabel: '直播'},
+      {id: 3, title:'资讯：2026 认证体系升级公告', type:'news', typeLabel: '资讯'},
+      {id: 4, title:'资源：云原生技术白皮书', type:'resource', typeLabel: '资源'},
+      {id: 5, title:'课程：Docker 容器化最佳实践', type:'course', typeLabel: '课程'},
+      {id: 6, title:'直播：AI算力优化策略', type:'live', typeLabel: '直播'},
+      {id: 7, title:'资讯：最新技术趋势解读', type:'news', typeLabel: '资讯'},
+      {id: 8, title:'资源：系统架构设计模板', type:'resource', typeLabel: '资源'},
+      {id: 9, title:'课程：微服务架构实战', type:'course', typeLabel: '课程'},
+      {id: 10, title:'直播：DevOps工具链解析', type:'live', typeLabel: '直播'}
     ];
-    const favWrap = $('favorite-list');
-    favWrap.innerHTML = '';
-    favs.forEach(f=>{
-      const card = document.createElement('article');
-      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 space-y-2 hover:-translate-y-1 hover:border-[#B01F24]/80 transition';
-      card.innerHTML = `
-        <div class="flex items-center justify-between">
-          <span class="text-sm font-medium">${f.title}</span>
-          <span class="text-[11px] text-slate-400">${f.type}</span>
-        </div>
-        <button class="w-full mt-1 py-1.5 rounded-full bg-white border border-gray-300 hover:bg-gray-100 text-[11px]">
-          进入查看
-        </button>
-      `;
-      favWrap.appendChild(card);
+    
+    // 渲染收藏列表的函数
+    function renderFavorites(filter = 'all') {
+      const favWrap = $('favorite-list');
+      favWrap.innerHTML = '';
+      
+      const filteredFavorites = filter === 'all' ? favorites : favorites.filter(f => f.type === filter);
+      
+      filteredFavorites.forEach(f => {
+        const card = document.createElement('article');
+        card.className = 'glass-card rounded-3xl border border-gray-300 p-4 space-y-2 hover:-translate-y-1 hover:border-[#B01F24]/80 transition relative';
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-medium">${f.title}</span>
+            <span class="text-[11px] text-slate-400">${f.typeLabel}</span>
+          </div>
+          <div class="flex space-x-2">
+            <button class="w-full py-1.5 rounded-full bg-white border border-gray-300 hover:bg-gray-100 text-[11px] enter-btn" data-id="${f.id}">
+              进入查看
+            </button>
+            <button class="remove-fav-btn w-8 h-8 rounded-full bg-red-500 flex items-center justify-center text-white hover:bg-red-600 transition" data-id="${f.id}">
+              <i class="fa fa-heart text-xs"></i>
+            </button>
+          </div>
+        `;
+        favWrap.appendChild(card);
+      });
+      
+      // 为进入查看按钮添加事件
+      document.querySelectorAll('.enter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const id = parseInt(this.getAttribute('data-id'));
+          const fav = favorites.find(f => f.id === id);
+          if (fav) {
+            // 这里可以根据不同类型跳转到相应页面
+            alert(`进入查看: ${fav.title}`);
+          }
+        });
+      });
+      
+      // 为取消收藏按钮添加事件
+      document.querySelectorAll('.remove-fav-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation(); // 防止触发卡片点击事件
+          const id = parseInt(this.getAttribute('data-id'));
+          if (confirm('确定要取消收藏吗？')) {
+            // 从数组中移除该项
+            favorites = favorites.filter(f => f.id !== id);
+            // 重新渲染列表
+            renderFavorites($('tab-favorites').querySelector('.filter-btn.active').dataset.filter);
+          }
+        });
+      });
+    }
+    
+    // 初始化渲染全部收藏
+    renderFavorites();
+    
+    // 为筛选按钮添加事件
+    document.querySelectorAll('#tab-favorites .filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        // 移除所有激活状态
+        document.querySelectorAll('#tab-favorites .filter-btn').forEach(b => b.classList.remove('active'));
+        // 添加当前激活状态
+        this.classList.add('active');
+        // 获取筛选类型并重新渲染
+        const filterType = this.dataset.filter;
+        renderFavorites(filterType);
+      });
     });
 
     // 我的点赞
@@ -954,10 +1242,10 @@
     });
 
     // 概览统计（简单基于上面的假数据统计）
-    $('overview-learning').textContent = learn.filter(c=>!c.completed).length;
-    $('overview-completed').textContent = learn.filter(c=>c.completed).length;
-    $('overview-exams-events').textContent = exams.length + acts.filter(a=>a.status!=='已结束').length;
-    $('overview-live').textContent = lives.filter(l=>l.status!=='已结束').length;
+    $('overview-completed-enrolled').textContent = learn.filter(c=>c.completed).length + '/' + learn.length;
+    $('overview-passed-exams').textContent = exams.filter(e=>e.status==='已通过').length + '/' + exams.length;
+    $('overview-watched-live').textContent = lives.filter(l=>l.status==='已观看').length + '/' + lives.length;
+    $('overview-expert-support').textContent = 12; // 已获专家服务数量，与服务记录数量保持一致
 
     $('summary-learning').textContent = learn.length;
     $('summary-cert').textContent = certs.length;

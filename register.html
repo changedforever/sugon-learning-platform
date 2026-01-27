@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用户注册 - 光合组织技术支持平台</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Microsoft YaHei', Arial, sans-serif;
+      background-color: #f5f5f5;
+      min-height: 100vh;
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+      max-width: 100%;
+      height: 90vh;
+      background: white;
+      border-radius: 0;
+      overflow: hidden;
+      box-shadow: none;
+    }
+
+    /* 左侧导航栏 */
+    .sidebar {
+      width: 220px;
+      background: #4A90E2;
+      color: white;
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo {
+      padding: 0 20px 20px;
+      border-bottom: 1px solid #6BA9F0;
+      margin-bottom: 20px;
+    }
+
+    .logo h2 {
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .nav-tabs {
+      flex: 1;
+    }
+
+    .nav-tab {
+      padding: 15px 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .nav-tab:hover {
+      background: #6BA9F0;
+    }
+
+    .nav-tab.active {
+      background: #6BA9F0;
+      border-left: 3px solid #4CAF50;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+      min-width: calc(100% - 220px);
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .page-title {
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: #333;
+      border-bottom: 2px solid #4A90E2;
+      padding-bottom: 15px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="password"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: border 0.3s;
+    }
+    
+    input::placeholder,
+    textarea::placeholder {
+      font-size: 16px;
+      color: #999;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #4A90E2;
+      box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      margin: 20px 0;
+    }
+
+    .checkbox-group input {
+      margin-right: 10px;
+      margin-top: 5px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn-primary {
+      background-color: #4A90E2;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #357ABD;
+    }
+
+    .btn-secondary {
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background-color: #e0e0e0;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .form-grid .form-group {
+      margin-bottom: 0;
+    }
+    
+    .location-selectors {
+      display: flex;
+      gap: 10px;
+      margin-top: 5px;
+    }
+    
+    .location-selectors select {
+      flex: 1;
+      width: auto;
+    }
+    
+    .tooltip-icon {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background-color: #ccc;
+      color: white;
+      text-align: center;
+      line-height: 18px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+    
+    .tooltip {
+      position: absolute;
+      background-color: #333;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      z-index: 1000;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .verification-code-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 8px 12px;
+      background: #4A90E2;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .input-with-button {
+      position: relative;
+    }
+
+    .location-selectors {
+      display: flex;
+      gap: 15px;
+    }
+
+    .location-selectors .form-group {
+      flex: 1;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      width: 500px;
+      max-width: 90%;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .modal h3 {
+      margin-bottom: 15px;
+      color: #4A90E2;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 左侧导航 -->
+    <div class="sidebar">
+      <div class="logo">
+        <h2>光合组织技术支持平台</h2>
+      </div>
+      <div class="nav-tabs">
+        <div class="nav-tab active" data-target="personal-register">个人注册</div>
+        <div class="nav-tab" data-target="upgrade-popup">升级弹窗</div>
+        <div class="nav-tab" data-target="profile-completion">信息完善</div>
+        <div class="nav-tab" data-target="upgrade-partner">升级伙伴</div>
+        <div class="nav-tab" data-target="org-register">组织注册</div>
+      </div>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="main-content">
+      <!-- 个人注册页面 -->
+      <div class="page active" id="personal-register">
+        <h2 class="page-title">个人注册</h2>
+        <form id="personal-register-form">
+          <div class="form-group">
+            <label for="phone">手机号码</label>
+            <div class="input-with-button">
+              <input type="tel" id="phone" name="phone" placeholder="请输入手机号码" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="verification-code">验证码</label>
+            <div class="input-with-button">
+              <input type="text" id="verification-code" name="verification-code" placeholder="请输入验证码" required>
+              <button type="button" class="verification-code-btn">获取验证码</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">设置密码</label>
+            <input type="password" id="password" name="password" placeholder="请设置密码" required>
+          </div>
+
+          <div class="form-group">
+            <label for="confirm-password">确认密码</label>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="请再次输入密码" required>
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="agreement" name="agreement" required>
+            <label for="agreement">我同意光合组织用户条款</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary">注册并登录</button>
+        </form>
+      </div>
+
+      <!-- 升级弹窗页面 -->
+      <div class="page" id="upgrade-popup">
+        <h2 class="page-title">升级弹窗</h2>
+        <div class="popup-content">
+          <h3>账号升级提示</h3>
+          <p>您当前角色为个人注册用户，如您是曙光合作伙伴，请点击【账号升级】以获取更多权限。权限升级后，请重新登录。</p>
+          
+          <div class="modal-buttons">
+            <button class="btn btn-primary">账号升级</button>
+            <button class="btn btn-secondary">不再提醒</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 个人信息完善页面 -->
+      <div class="page" id="profile-completion">
+        <h2 class="page-title">个人信息完善</h2>
+        <form id="profile-completion-form">
+          <div class="form-group">
+            <label for="full-name">姓名</label>
+            <input type="text" id="full-name" name="full-name" placeholder="请输入您的姓名" required>
+          </div>
+
+          <div class="form-group">
+            <label for="identity">身份</label>
+            <select id="identity" name="identity" required>
+              <option value="">请选择身份</option>
+              <option value="individual">个人</option>
+              <option value="student">学生</option>
+              <option value="developer">开发者</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="organization">所属机构</label>
+            <input type="text" id="organization" name="organization" placeholder="请输入所属机构">
+          </div>
+
+          <div class="form-group">
+            <label>所在地</label>
+            <div class="location-selectors">
+              <div class="form-group">
+                <select id="province" name="province" required>
+                  <option value="">选择省份</option>
+                  <option value="beijing">北京市</option>
+                  <option value="shanghai">上海市</option>
+                  <option value="guangdong">广东省</option>
+                  <option value="zhejiang">浙江省</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <select id="city" name="city" required>
+                  <option value="">选择城市</option>
+                  <option value="beijing">北京市</option>
+                  <option value="shanghai">上海市</option>
+                  <option value="guangzhou">广州市</option>
+                  <option value="hangzhou">杭州市</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary">取消</button>
+            <button type="submit" class="btn btn-primary">确定</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- 升级伙伴页面 -->
+      <div class="page" id="upgrade-partner">
+        <h2 class="page-title">升级伙伴</h2>
+        <div class="info-note" style="background-color: #e6f2ff; border: 1px solid #b3d9ff; border-radius: 4px; padding: 15px; margin-bottom: 20px;">
+          <p><strong>1.</strong> 请先完善基本信息，再查找选择您的公司/组织。</p>
+          <p><strong>2.</strong> 您的账号关联到公司/组织后，您所关联的公司/组织将能看到您的基本信息（姓名、账号、电话、邮箱）以及您账号下考取的光合个人证书。</p>
+        </div>
+        
+        <form id="partner-upgrade-form">
+          <h3>填写基本信息</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="country">公司所在地</label>
+              <div class="location-selectors">
+                <select id="country" name="country" required>
+                  <option value="china">中国</option>
+                  <option value="usa">美国</option>
+                  <option value="japan">日本</option>
+                  <option value="korea">韩国</option>
+                </select>
+                <select id="province" name="province" required>
+                  <option value="beijing">北京市</option>
+                  <option value="shanghai">上海市</option>
+                  <option value="guangdong">广东省</option>
+                  <option value="zhejiang">浙江省</option>
+                  <option value="jiangsu">江苏省</option>
+                  <option value="sichuan">四川省</option>
+                </select>
+                <select id="city" name="city" required>
+                  <option value="beijing">北京</option>
+                  <option value="shanghai">上海</option>
+                  <option value="guangzhou">广州</option>
+                  <option value="shenzhen">深圳</option>
+                  <option value="hangzhou">杭州</option>
+                  <option value="nanjing">南京</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="job-title">职务</label>
+              <select id="job-title" name="job-title" required>
+                <option value="">请选择职务</option>
+                <option value="employee">普通员工</option>
+                <option value="manager">部门经理</option>
+                <option value="director">总监</option>
+                <option value="vp">副总裁</option>
+                <option value="cto">CTO</option>
+                <option value="ceo">CEO/总经理</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="contact-email">
+                邮箱
+                <span class="tooltip-icon" style="margin-left: 5px; color: #666; cursor: pointer;" title="此邮箱信息来自您的账号注册邮箱">?</span>
+              </label>
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <input type="email" id="contact-email" name="contact-email" placeholder="请输入您的邮箱地址" required style="flex: 1;">
+                <button type="button" class="btn btn-secondary" style="padding: 8px 12px; font-size: 14px;">去修改</button>
+                <button type="button" class="btn" style="padding: 8px 12px; font-size: 14px; background-color: #f0f0f0; color: #333;">刷新</button>
+              </div>
+            </div>
+          </div>
+
+          <h3 style="margin: 30px 0 20px 0;">选择公司/组织</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="org-name">组织名称</label>
+              <input type="text" id="org-name" name="org-name" placeholder="请输入组织名称">
+            </div>
+            <div class="form-group">
+              <label for="org-code">组织编码</label>
+              <input type="text" id="org-code" name="org-code" placeholder="请输入组织编码或组织管理员账号">
+            </div>
+            <div class="form-group">
+              <label for="admin-email">组织管理员邮箱</label>
+              <input type="email" id="admin-email" name="admin-email" placeholder="请输入组织管理员邮箱">
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary" id="search-org-btn">查询</button>
+
+          <!-- 组织列表 -->
+          <div id="org-list-container" style="margin-top: 30px;">
+            <table class="org-table" style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+              <thead>
+                <tr style="background-color: #f5f5f5;">
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd; width: 8%;">序号</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd; width: 32%;">组织名称</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd; width: 25%;">组织地址</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd; width: 25%;">组织管理员邮箱</th>
+                  <th style="padding: 12px; text-align: center; border: 1px solid #ddd; width: 10%;">操作</th>
+                </tr>
+              </thead>
+              <tbody id="org-list-body">
+                <tr>
+                  <td colspan="5" style="padding: 20px; text-align: center; border: 1px solid #ddd;">暂无内容</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="btn-group" style="margin-top: 30px;">
+            <button type="button" class="btn btn-secondary">取消</button>
+            <button type="submit" class="btn btn-primary">提交申请</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- 公司组织注册页面 -->
+      <div class="page" id="org-register">
+        <h2 class="page-title">光合组织申请表</h2>
+        <form id="org-registration-form">
+          <!-- 一、企业 / 机构基础信息 -->
+          <h3 style="margin: 20px 0 15px 0; color: #1a3a8f;">一、企业 / 机构基础信息</h3>
+          
+          <div class="form-group">
+            <label for="org-name">企业 / 机构名称 <span style="color: red;">*</span></label>
+            <input type="text" id="org-name" name="org-name" placeholder="请输入公司企业机构名称" required>
+          </div>
+
+          <div class="form-group">
+            <label>注册资本（单位：元） <span style="color: red;">*</span></label>
+            <div class="radio-group" style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 5px;">
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="registered-capital" value="below-5m" required> 5 百万以下
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="registered-capital" value="5m-20m"> 5 百万 - 2 千万
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="registered-capital" value="20m-50m"> 2 千万 - 5 千万
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="registered-capital" value="50m-100m"> 5 千万 - 1 亿
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="registered-capital" value="above-100m"> 1 亿以上
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="registered-capital" value="other"> 其他
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>经营规模（单位：元） <span style="color: red;">*</span></label>
+            <div class="radio-group" style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 5px;">
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="operation-scale" value="below-50m" required> 5 千万以下
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="operation-scale" value="50m-100m"> 5 千万 - 1 亿
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="operation-scale" value="100m-1bn"> 1 亿 - 10 亿
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="operation-scale" value="1bn-5bn"> 10 亿 - 50 亿
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="operation-scale" value="5bn-10bn"> 50 亿 - 100 亿
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="operation-scale" value="above-10bn"> 100 亿以上
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="operation-scale" value="other"> 其他
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>人员规模 <span style="color: red;">*</span></label>
+            <div class="radio-group" style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 5px;">
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="staff-scale" value="below-100" required> 100 人以下
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="staff-scale" value="100-500"> 100-500 人
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="staff-scale" value="500-1000"> 500-1000 人
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="staff-scale" value="1000-5000"> 1000-5000 人
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="staff-scale" value="above-5000"> 5000 人以上
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>服务行业（可多选） <span style="color: red;">*</span></label>
+            <div class="checkbox-group" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 5px;">
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="government"> 政府
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="enterprise"> 企业
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="internet"> 互联网
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="emerging"> 新兴行业
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="network-security"> 网络信息安全
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="it"> 信息技术
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="telecom"> 通信及运营商
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="finance"> 金融
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="energy"> 能源
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="power"> 电力
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="manufacturing"> 制造
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="health"> 卫生
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="research"> 科研
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="education"> 教育
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="transportation"> 交通
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="police"> 公检法
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="security"> 安防
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="media"> 媒体
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="service-industry" value="other"> 其他
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>涉足领域（可多选） <span style="color: red;">*</span></label>
+            <div class="checkbox-group" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 5px;">
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="hardware"> 硬件配件
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="os"> 操作系统
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="database"> 数据库
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="middleware"> 中间件
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="distributed-storage"> 分布式存储
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="cloud-computing"> 云计算
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="big-data"> 大数据
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="ai-framework"> 人工智能框架
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="office"> 办公套件
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="oa"> OA 系统
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="security"> 安全
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="communication"> 即时沟通
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="mail"> 邮件
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="erp"> ERP
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="ops-audit"> 运维审计类
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="artificial-intelligence"> 人工智能
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="finance"> 金融
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="industrial-manufacturing"> 工业制造
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="industrial-design"> 工业设计
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="scientific-research"> 科研
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="education"> 教育
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="medical"> 医疗
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="public-security"> 公安
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="justice"> 司法
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="weather"> 气象环境
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="government"> 政府
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="energy"> 能源
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="power"> 电力
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="telecom"> 通信
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="weather"> 气象
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="industrial-computing"> 工业计算
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="bio-info"> 生物信息
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="involved-field" value="physics"> 物理化学材料
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="official-website">官方网站</label>
+            <input type="url" id="official-website" name="official-website" placeholder="请输入公司官网网址（如果没有网站请填写无）">
+          </div>
+
+          <!-- 二、企业联络人信息 -->
+          <h3 style="margin: 30px 0 15px 0; color: #1a3a8f;">二、企业联络人信息</h3>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="contact-person">企业联络人 <span style="color: red;">*</span></label>
+              <input type="text" id="contact-person" name="contact-person" placeholder="请填写战略、市场、售前、生态合作的中层人员" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-position">职务 <span style="color: red;">*</span></label>
+              <input type="text" id="contact-position" name="contact-position" placeholder="请填写联络人职务" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-phone">手机 <span style="color: red;">*</span></label>
+              <input type="tel" id="contact-phone" name="contact-phone" placeholder="请填写联络人手机号码" required>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="contact-email">邮箱 <span style="color: red;">*</span></label>
+              <input type="email" id="contact-email" name="contact-email" placeholder="请填写联络人邮箱" required>
+            </div>
+            <div class="form-group">
+              <label>收件地址 <span style="color: red;">*</span></label>
+              <div class="location-selectors" style="margin-top: 5px;">
+                <select id="delivery-province" name="delivery-province" required>
+                  <option value="">省</option>
+                  <option value="beijing">北京市</option>
+                  <option value="shanghai">上海市</option>
+                  <option value="guangdong">广东省</option>
+                  <option value="zhejiang">浙江省</option>
+                  <option value="jiangsu">江苏省</option>
+                  <option value="sichuan">四川省</option>
+                </select>
+                <select id="delivery-city" name="delivery-city" required>
+                  <option value="">市</option>
+                  <option value="beijing">北京市</option>
+                  <option value="shanghai">上海市</option>
+                  <option value="guangzhou">广州市</option>
+                  <option value="hangzhou">杭州市</option>
+                  <option value="nanjing">南京市</option>
+                  <option value="chengdu">成都市</option>
+                </select>
+              </div>
+              <input type="text" id="delivery-address" name="delivery-address" placeholder="详细地址" style="margin-top: 10px;" required>
+            </div>
+          </div>
+
+          <!-- 三、推荐人信息 -->
+          <h3 style="margin: 30px 0 15px 0; color: #1a3a8f;">三、推荐人信息</h3>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="referee-name">推荐人</label>
+              <input type="text" id="referee-name" name="referee-name" placeholder="请填写推荐人姓名">
+            </div>
+            <div class="form-group">
+              <label for="referee-company">推荐公司</label>
+              <input type="text" id="referee-company" name="referee-company" placeholder="请填写推荐人公司">
+            </div>
+            <div class="form-group">
+              <label for="referee-phone">推荐人手机</label>
+              <input type="tel" id="referee-phone" name="referee-phone" placeholder="请填写推荐人手机">
+            </div>
+          </div>
+
+          <!-- 四、加入组织相关信息 -->
+          <h3 style="margin: 30px 0 15px 0; color: #1a3a8f;">四、加入组织相关信息</h3>
+          
+          <div class="form-group">
+            <label for="coop-expectation">加入组织的合作期望、诉求及可共享的资源 <span style="color: red;">*</span></label>
+            <textarea id="coop-expectation" name="coop-expectation" rows="5" placeholder="加入组织的合作期望、诉求及可共享的资源" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>希望加入的技术专委会</label>
+            <div class="checkbox-group" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 5px;">
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="tech-committee" value="hpc"> 高性能计算专委会
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="tech-committee" value="ai"> 人工智能专委会
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="tech-committee" value="cloud"> 云计算专委会
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="tech-committee" value="network-security"> 网络可视化与网络安全专委会
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="tech-committee" value="big-data"> 大数据与数据库专委会
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="checkbox" name="tech-committee" value="storage"> 存储专委会
+              </label>
+            </div>
+          </div>
+
+          <!-- 五、附件及协议 -->
+          <h3 style="margin: 30px 0 15px 0; color: #1a3a8f;">五、附件及协议</h3>
+          
+          <div class="form-group">
+            <label for="business-license-file">《企业营业执照 / 机构证书》电子扫描件 <span style="color: red;">*</span></label>
+            <div style="display: flex; align-items: center; margin-top: 5px;">
+              <input type="file" id="business-license-file" name="business-license-file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required style="flex: 1; margin-right: 10px;">
+              <button type="button" class="btn btn-secondary" style="padding: 8px 16px;">浏览</button>
+            </div>
+            <small>上传《企业营业执照 / 机构证书》电子扫描件</small>
+          </div>
+
+          <div class="form-group">
+            <label for="logo-file">企业 logo <span style="color: red;">*</span></label>
+            <div style="display: flex; align-items: center; margin-top: 5px;">
+              <input type="file" id="logo-file" name="logo-file" accept=".jpg,.jpeg,.png" required style="flex: 1; margin-right: 10px;">
+              <button type="button" class="btn btn-secondary" style="padding: 8px 16px;">浏览</button>
+            </div>
+            <small>JPG 文件 100-150K 格式图片【可打水印上传】</small>
+          </div>
+
+          <div class="form-group">
+            <label>Logo 使用授权 <span style="color: red;">*</span></label>
+            <div class="radio-group" style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 5px;">
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="logo-authorization" value="yes" required> 是，可用于生态伙伴展示：网站、展会、展厅等宣传渠道
+              </label>
+              <label style="display: flex; align-items: center;">
+                <input type="radio" name="logo-authorization" value="no"> 否，加入组织但不允许展示 logo
+              </label>
+            </div>
+          </div>
+
+          <div class="checkbox-group" style="margin: 20px 0;">
+            <input type="checkbox" id="agreement" name="agreement" required>
+            <label for="agreement">阅读并同意《光合组织章程》、《光合组织成员协议》</label>
+          </div>
+
+          <!-- 六、操作按钮 -->
+          <div class="btn-group" style="margin-top: 30px;">
+            <button type="button" class="btn btn-secondary">保存</button>
+            <button type="submit" class="btn btn-primary">提交</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab 切换功能
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        // 移除所有激活状态
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        
+        // 添加激活状态到当前tab
+        tab.classList.add('active');
+        
+        // 显示对应页面
+        const target = tab.getAttribute('data-target');
+        document.getElementById(target).classList.add('active');
+      });
+    });
+
+    // 验证码按钮功能
+    document.querySelector('.verification-code-btn').addEventListener('click', function() {
+      const phoneInput = document.getElementById('phone');
+      if (!phoneInput.value || !/^1[3-9]\d{9}$/.test(phoneInput.value)) {
+        alert('请输入正确的手机号码');
+        return;
+      }
+      
+      // 禁用按钮并开始倒计时
+      this.disabled = true;
+      let count = 60;
+      this.textContent = `${count}秒后重试`;
+      
+      const timer = setInterval(() => {
+        count--;
+        this.textContent = `${count}秒后重试`;
+        
+        if (count <= 0) {
+          clearInterval(timer);
+          this.disabled = false;
+          this.textContent = '获取验证码';
+        }
+      }, 1000);
+    });
+
+    // 选择组织函数
+    function selectOrganization(orgId) {
+      alert(`已选择组织ID: ${orgId}`);
+      // 这里可以添加进一步的处理逻辑
+    }
+    
+    // 表单提交处理
+    document.getElementById('personal-register-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+      
+      if (password !== confirmPassword) {
+        alert('两次输入的密码不一致');
+        return;
+      }
+      
+      if (!document.getElementById('agreement').checked) {
+        alert('请同意用户条款');
+        return;
+      }
+      
+      alert('注册成功！');
+    });
+
+    document.getElementById('profile-completion-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('信息完善成功！');
+    });
+    
+    // 升级伙伴表单处理
+    document.getElementById('partner-upgrade-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // 获取公司所在地信息
+      const country = document.getElementById('country').value;
+      const province = document.getElementById('province').value;
+      const city = document.getElementById('city').value;
+      const jobTitle = document.getElementById('job-title').value;
+      const contactEmail = document.getElementById('contact-email').value;
+      
+      // 可以在这里收集所有表单数据并提交
+      console.log({
+        country: country,
+        province: province,
+        city: city,
+        jobTitle: jobTitle,
+        contactEmail: contactEmail
+      });
+      
+      alert('伙伴升级申请已提交，请等待审核！');
+    });
+    
+    // 组织查询功能
+    document.getElementById('search-org-btn').addEventListener('click', function() {
+      // 获取查询参数
+      const orgName = document.getElementById('org-name').value;
+      const orgCode = document.getElementById('org-code').value;
+      const adminEmail = document.getElementById('admin-email').value;
+      
+      // 这里模拟查询逻辑，实际应用中应该发送请求到服务器
+      const orgListContainer = document.getElementById('org-list-container');
+      const orgListBody = document.getElementById('org-list-body');
+      
+      // 如果有查询条件，显示模拟结果
+      if(orgName || orgCode || adminEmail) {
+        // 清空之前的查询结果（包括"暂无内容"行）
+        orgListBody.innerHTML = '';
+        
+        // 模拟查询结果数据
+        const mockResults = [
+          { id: 1, name: '示例科技有限公司', address: '北京市海淀区xxx街道...', adminEmail: 'admin@demo.com' },
+          { id: 2, name: '创新软件开发公司', address: '上海市浦东新区...', adminEmail: 'info@innovation.co' },
+          { id: 3, name: '未来信息技术有限公司', address: '深圳市南山区...', adminEmail: 'contact@future-tech.cn' }
+        ];
+        
+        mockResults.forEach((org, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td style="padding: 12px; border: 1px solid #ddd;">${index + 1}</td>
+            <td style="padding: 12px; border: 1px solid #ddd;">${org.name}</td>
+            <td style="padding: 12px; border: 1px solid #ddd;">${org.address}</td>
+            <td style="padding: 12px; border: 1px solid #ddd;">${org.adminEmail}</td>
+            <td style="padding: 12px; text-align: center; border: 1px solid #ddd;">
+              <button class="btn btn-primary" onclick="selectOrganization(${org.id})" style="padding: 6px 12px; font-size: 14px;">选择</button>
+            </td>
+          `;
+          orgListBody.appendChild(row);
+        });
+      } else {
+        // 如果没有输入查询条件，显示提示信息
+        orgListBody.innerHTML = '<tr><td colspan="5" style="padding: 20px; text-align: center; border: 1px solid #ddd;">请输入查询条件后点击查询</td></tr>';
+        alert('请输入至少一项查询条件');
+      }
+    });
+    
+    // 悬停提示功能
+    document.addEventListener('DOMContentLoaded', function() {
+      const tooltipIcons = document.querySelectorAll('.tooltip-icon');
+      
+      tooltipIcons.forEach(icon => {
+        let tooltip;
+        
+        icon.addEventListener('mouseenter', function(e) {
+          // 创建提示框
+          tooltip = document.createElement('div');
+          tooltip.className = 'tooltip';
+          tooltip.textContent = this.getAttribute('title');
+          document.body.appendChild(tooltip);
+          
+          // 定位提示框
+          const rect = this.getBoundingClientRect();
+          tooltip.style.left = rect.left + 'px';
+          tooltip.style.top = (rect.top - tooltip.offsetHeight - 5) + 'px';
+        });
+        
+        icon.addEventListener('mouseleave', function() {
+          // 移除提示框
+          const existingTooltip = document.querySelector('.tooltip');
+          if (existingTooltip) {
+            document.body.removeChild(existingTooltip);
+          }
+        });
+      });
+    });
+    
+    // 邮箱按钮功能
+    document.addEventListener('DOMContentLoaded', function() {
+      // 去修改按钮功能
+      const modifyBtn = document.querySelector('#contact-email').closest('.form-group').querySelector('.btn-secondary');
+      if(modifyBtn) {
+        modifyBtn.addEventListener('click', function() {
+          alert('跳转到邮箱修改页面');
+          // 这里可以添加跳转到邮箱修改页面的逻辑
+        });
+      }
+      
+      // 刷新按钮功能
+      const refreshBtn = document.querySelector('#contact-email').closest('.form-group').querySelectorAll('.btn')[1];
+      if(refreshBtn && refreshBtn.textContent.trim() === '刷新') {
+        refreshBtn.addEventListener('click', function() {
+          // 模拟刷新邮箱信息
+          const emailInput = document.getElementById('contact-email');
+          // 这里可以添加重新获取邮箱信息的逻辑
+          alert('邮箱信息已刷新');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

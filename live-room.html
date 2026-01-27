@@ -49,6 +49,29 @@
       from { transform: translateX(-100%); opacity: 0; }
       to { transform: translateX(0); opacity: 1; }
     }
+    /* 右侧栏收起展开样式 */
+    .sidebar-collapsed {
+      width: 0 !important;
+      overflow: hidden;
+    }
+    .expand-btn-visible {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+    /* 垂直音量调节条样式 */
+    .vertical-slider {
+      -webkit-appearance: slider-vertical;
+      writing-mode: bt-lr;
+      -webkit-writing-mode: vertical-lr;
+      width: 8px;
+      height: 100px;
+    }
+    input[type=range].vertical-slider {
+      -webkit-appearance: slider-vertical;
+      width: 15px;
+      height: 100px;
+      padding: 0 5px;
+    }
   </style>
 </head>
 <body class="bg-black text-white">
@@ -57,6 +80,13 @@
 <div class="flex h-screen bg-black">
   <!-- 左侧：直播播放区域 -->
   <div class="flex-1 relative">
+    <!-- 右侧栏收起时显示的展开按钮 -->
+    <button id="expandSidebarBtn" class="absolute top-4 right-4 z-20 w-auto h-10 rounded-full bg-gray-800 bg-opacity-70 flex items-center justify-center hover:bg-opacity-90 transition-opacity duration-300 opacity-0 pointer-events-none px-3">
+      <i class="fa fa-chevron-left text-white mr-1"></i>
+      <i class="fa fa-users text-white text-xs"></i>
+      <span class="text-white text-xs ml-1"><span id="expandBtnViewerCount">1.2万</span></span>
+    </button>
+    
     <!-- 直播视频播放器 -->
     <div class="live-player w-full h-full flex items-center justify-center">
       <video id="liveVideo" class="w-full h-full object-cover" controls poster="https://images.unsplash.com/photo-1579546929662-711aa81148cf?auto=format&fit=crop&w=1950&q=80">
@@ -76,32 +106,52 @@
         </div>
       </div>
       
-      <!-- 观众数量 -->
-      <div class="absolute top-4 right-4 z-20 bg-black bg-opacity-50 rounded-full px-3 py-1 flex items-center text-sm">
-        <i class="fa fa-users mr-1 text-red-500"></i>
-        <span id="viewerCount">1.2万</span>
-      </div>
+
       
       <!-- 控制面板 -->
       <div class="absolute bottom-4 left-0 right-0 z-20 control-panel px-4 py-3">
         <div class="flex items-center justify-between">
           <!-- 左侧控制按钮 -->
           <div class="flex items-center space-x-4">
-            <button id="muteBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
-              <i class="fa fa-volume-up"></i>
+            <button id="playPauseBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
+              <i class="fa fa-play"></i>
+            </button>
+            <button id="refreshBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
+              <i class="fa fa-sync"></i>
             </button>
             <button id="giftBtn" class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center hover:from-pink-600 hover:to-red-600 transition">
               <i class="fa fa-gift"></i>
             </button>
-            <button class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
-              <i class="fa fa-share-alt"></i>
+            <button id="shareBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
+              <i class="fa fa-share"></i>
+            </button>
+            <button id="screenShareBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
+              <i class="fa fa-desktop"></i>
+            </button>
+            <button id="raiseHandBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
+              <i class="fa fa-hand-paper"></i>
             </button>
           </div>
           
           <!-- 右侧控制按钮 -->
           <div class="flex items-center space-x-4">
-            <button id="chatToggle" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
+            <button id="rotateBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
+              <i class="fa fa-exchange-alt"></i>
+            </button>
+            <button id="danmakuBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
               <i class="fa fa-comment"></i>
+            </button>
+            <div class="relative group">
+              <button id="volumeBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
+                <i class="fa fa-volume-up"></i>
+              </button>
+              <!-- 音量调节条 -->
+              <div class="absolute bottom-full right-0 mb-2 w-8 h-24 bg-gray-800 bg-opacity-80 rounded-lg p-2 hidden group-hover:block">
+                <input type="range" id="volumeSlider" min="0" max="100" value="80" orient="vertical" class="w-full h-full bg-gray-600 rounded-lg appearance-none cursor-pointer vertical-slider">
+              </div>
+            </div>
+            <button id="pipBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
+              <i class="fa fa-compress"></i>
             </button>
             <button id="fullscreenBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
               <i class="fa fa-expand"></i>
@@ -124,13 +174,23 @@
   </div>
   
   <!-- 右侧：互动面板 -->
-  <div class="w-80 bg-gray-900 bg-opacity-90 backdrop-blur-sm flex flex-col h-full">
+  <div id="sidebar" class="w-80 bg-gray-900 bg-opacity-90 backdrop-blur-sm flex flex-col h-full transition-all duration-300 ease-in-out">
+    <!-- 右侧栏顶部控制按钮 -->
+    <div class="flex justify-between items-center border-b border-gray-700 flex-shrink-0 p-3">
+      <h3 class="text-sm font-semibold">
+        <i class="fa fa-users mr-1"></i>
+        观看人数：<span id="sidebarViewerCount">1.2万</span>人
+      </h3>
+      <button id="collapseSidebarBtn" class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center hover:bg-gray-600">
+        <i class="fa fa-chevron-right text-white text-xs"></i>
+      </button>
+    </div>
     <!-- 聊天室和观众列表切换 -->
     <div class="flex border-b border-gray-700 flex-shrink-0">
       <button id="coursewareTab" class="tab-button flex-1 py-3 text-center font-medium border-b-2 border-red-500 text-red-500">详情</button>
       <button id="chatTab" class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white">聊天</button>
       <button id="audienceTab" class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white">观众</button>
-      <button id="rankTab" class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white">排行榜</button>
+      <button id="rankTab" class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white hidden">排行榜</button>
     </div>
     
     <!-- 主要内容区域 -->
@@ -142,6 +202,7 @@
           <button id="introTab" class="courseware-tab-btn flex-1 py-3 text-center font-medium border-b-2 border-red-500 text-red-500">直播介绍</button>
           <button id="outlineTab" class="courseware-tab-btn flex-1 py-3 text-center font-medium text-gray-400 hover:text-white">直播大纲</button>
           <button id="materialsTab" class="courseware-tab-btn flex-1 py-3 text-center font-medium text-gray-400 hover:text-white">关联资料</button>
+          <button id="replayTab" class="courseware-tab-btn flex-1 py-3 text-center font-medium text-gray-400 hover:text-white">回放</button>
         </div>
         
         <div class="flex-1 overflow-y-auto audience-list">
@@ -248,6 +309,44 @@
                   <div>
                     <h3 class="text-sm font-semibold text-white">直播录播视频</h3>
                     <p class="text-xs text-gray-400">完整直播过程录播文件</p>
+                  </div>
+                </div>
+                <a href="#" class="text-red-500 text-xs font-medium hover:underline">观看</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 回放内容 -->
+          <div id="replayContent" class="courseware-tab-content hidden p-3">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800 border border-gray-700">
+                <div class="flex items-center gap-3">
+                  <i class="fa fa-play-circle text-red-500 text-lg"></i>
+                  <div>
+                    <h3 class="text-sm font-semibold text-white">AI技术前沿分享 - 深度学习实战</h3>
+                    <p class="text-xs text-gray-400">2023-12-15 19:00-21:00</p>
+                  </div>
+                </div>
+                <a href="#" class="text-red-500 text-xs font-medium hover:underline">观看</a>
+              </div>
+              
+              <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800 border border-gray-700">
+                <div class="flex items-center gap-3">
+                  <i class="fa fa-play-circle text-red-500 text-lg"></i>
+                  <div>
+                    <h3 class="text-sm font-semibold text-white">云原生架构设计方法论</h3>
+                    <p class="text-xs text-gray-400">2023-12-08 19:30-20:30</p>
+                  </div>
+                </div>
+                <a href="#" class="text-red-500 text-xs font-medium hover:underline">观看</a>
+              </div>
+              
+              <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800 border border-gray-700">
+                <div class="flex items-center gap-3">
+                  <i class="fa fa-play-circle text-red-500 text-lg"></i>
+                  <div>
+                    <h3 class="text-sm font-semibold text-white">容器化技术深度解析</h3>
+                    <p class="text-xs text-gray-400">2023-12-01 20:00-21:30</p>
                   </div>
                 </div>
                 <a href="#" class="text-red-500 text-xs font-medium hover:underline">观看</a>
@@ -458,13 +557,7 @@
 </div>
 
 <script>
-  // 音量控制
-  const muteBtn = document.getElementById('muteBtn');
-  let muted = false;
-  muteBtn.addEventListener('click', () => {
-    muted = !muted;
-    muteBtn.innerHTML = muted ? '<i class="fa fa-volume-mute"></i>' : '<i class="fa fa-volume-up"></i>';
-  });
+
 
   // 全屏控制
   const fullscreenBtn = document.getElementById('fullscreenBtn');
@@ -495,11 +588,21 @@
 
   // 实时更新观众数
   setInterval(() => {
-    const viewerCount = document.getElementById('viewerCount');
-    const current = parseInt(viewerCount.textContent.replace(/,/g, ''));
+    const sidebarViewerCount = document.getElementById('sidebarViewerCount');
+    const expandBtnViewerCount = document.getElementById('expandBtnViewerCount');
+    
+    // 使用固定值或模拟数据，因为我们删除了原始的viewerCount元素
+    const current = 12000; // 使用固定的初始值
     const increment = Math.floor(Math.random() * 10);
     const newCount = current + increment;
-    viewerCount.textContent = newCount.toLocaleString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const formattedCount = newCount.toLocaleString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    
+    if(sidebarViewerCount) {
+      sidebarViewerCount.textContent = formattedCount;
+    }
+    if(expandBtnViewerCount) {
+      expandBtnViewerCount.textContent = formattedCount;
+    }
   }, 5000);
 
   // 模拟新消息
@@ -635,7 +738,253 @@
         document.getElementById(tabId).classList.remove('hidden');
       });
     });
-  });
+    
+    // 为回放标签添加单独的点击事件处理
+    const replayTabButton = document.getElementById('replayTab');
+    if(replayTabButton) {
+      replayTabButton.addEventListener('click', () => {
+        // 移除所有按钮的活动状态
+        coursewareTabButtons.forEach(btn => {
+          btn.classList.remove('text-red-500', 'border-red-500');
+          btn.classList.add('text-gray-400');
+          btn.classList.remove('hover:text-white'); // 防止悬停样式影响
+        });
+        
+        // 为当前按钮添加活动状态
+        replayTabButton.classList.remove('text-gray-400');
+        replayTabButton.classList.add('text-red-500', 'border-red-500');
+        
+        // 隐藏所有内容区域
+        coursewareTabContents.forEach(content => {
+          content.classList.add('hidden');
+        });
+        
+        // 显示回放内容区域
+        document.getElementById('replayContent').classList.remove('hidden');
+      });
+    }
+    
+    // 添加回放功能相关逻辑
+    const replayItems = document.querySelectorAll('#replayContent .flex');
+    replayItems.forEach(item => {
+      item.addEventListener('click', function() {
+        const videoLink = this.querySelector('a');
+        if (videoLink) {
+          // 这里可以添加跳转到回放视频的逻辑
+          console.log('跳转到回放视频');
+        }
+      });
+    });
+    
+    // 右侧栏收起/展开功能
+    const sidebar = document.getElementById('sidebar');
+    const collapseBtn = document.getElementById('collapseSidebarBtn');
+    const expandBtn = document.getElementById('expandSidebarBtn');
+    
+    if(collapseBtn && expandBtn) {
+      // 收起右侧栏
+      collapseBtn.addEventListener('click', function() {
+        sidebar.classList.add('sidebar-collapsed');
+        expandBtn.classList.add('expand-btn-visible');
+      });
+      
+      // 展开右侧栏
+      expandBtn.addEventListener('click', function() {
+        sidebar.classList.remove('sidebar-collapsed');
+        expandBtn.classList.remove('expand-btn-visible');
+      });
+    }
+    
+    // 播放器功能按钮
+    const videoPlayer = document.getElementById('liveVideo');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const rotateBtn = document.getElementById('rotateBtn');
+    const danmakuBtn = document.getElementById('danmakuBtn');
+    const volumeBtn = document.getElementById('volumeBtn');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const pipBtn = document.getElementById('pipBtn');
+    
+    // 刷新功能
+    if(refreshBtn) {
+      refreshBtn.addEventListener('click', function() {
+        // 执行页面刷新操作
+        window.location.reload();
+      });
+    }
+    
+    // 播放/暂停功能
+    if(playPauseBtn) {
+      // 初始状态为暂停状态，显示播放图标
+      playPauseBtn.innerHTML = '<i class="fa fa-play"></i>';
+      
+      playPauseBtn.addEventListener('click', function() {
+        if(videoPlayer.paused) {
+          videoPlayer.play();
+          playPauseBtn.innerHTML = '<i class="fa fa-pause"></i>';
+        } else {
+          videoPlayer.pause();
+          playPauseBtn.innerHTML = '<i class="fa fa-play"></i>';
+        }
+      });
+      
+      // 监听视频播放/暂停状态变化，同步按钮状态
+      videoPlayer.addEventListener('play', function() {
+        playPauseBtn.innerHTML = '<i class="fa fa-pause"></i>';
+      });
+      
+      videoPlayer.addEventListener('pause', function() {
+        playPauseBtn.innerHTML = '<i class="fa fa-play"></i>';
+      });
+    }
+    
+    // 旋转功能
+    if(rotateBtn) {
+      let rotationAngle = 0;
+      rotateBtn.addEventListener('click', function() {
+        rotationAngle += 90;
+        videoPlayer.style.transform = `rotate(${rotationAngle}deg)`;
+      });
+    }
+    
+    // 弹幕功能
+    if(danmakuBtn) {
+      danmakuBtn.addEventListener('click', function() {
+        // 弹幕功能的实现
+        alert('弹幕功能已开启');
+      });
+    }
+    
+    // 音量控制功能
+    if(volumeBtn && volumeSlider) {
+      // 初始设置音量
+      videoPlayer.volume = volumeSlider.value / 100;
+      
+      // 点击静音按钮切换静音状态
+      volumeBtn.addEventListener('click', function() {
+        if(videoPlayer.muted) {
+          videoPlayer.muted = false;
+          volumeBtn.innerHTML = '<i class="fa fa-volume-up"></i>';
+        } else {
+          videoPlayer.muted = true;
+          volumeBtn.innerHTML = '<i class="fa fa-volume-mute"></i>';
+        }
+      });
+      
+      // 音量滑块变化
+      volumeSlider.addEventListener('input', function() {
+        videoPlayer.volume = volumeSlider.value / 100;
+        if(videoPlayer.volume === 0) {
+          videoPlayer.muted = true;
+          volumeBtn.innerHTML = '<i class="fa fa-volume-mute"></i>';
+        } else {
+          videoPlayer.muted = false;
+          volumeBtn.innerHTML = '<i class="fa fa-volume-up"></i>';
+        }
+      });
+    }
+    
+    // 画中画功能
+    if(pipBtn) {
+      pipBtn.addEventListener('click', async function() {
+        try {
+          if (videoPlayer.requestPictureInPicture) {
+            await videoPlayer.requestPictureInPicture();
+          } else {
+            alert('您的浏览器不支持画中画功能');
+          }
+        } catch (error) {
+          console.error('画中画功能错误:', error);
+        }
+      });
+    }
+     // 分享按钮功能 - 复制链接
+   const shareBtn = document.getElementById('shareBtn');
+   if(shareBtn) {
+     shareBtn.addEventListener('click', async function() {
+       try {
+         // 尝试使用 Clipboard API
+         if (navigator.clipboard) {
+           await navigator.clipboard.writeText(window.location.href);
+           // 显示临时提示
+           const originalHTML = shareBtn.innerHTML;
+           shareBtn.innerHTML = '<i class="fa fa-check"></i>';
+           setTimeout(() => {
+            shareBtn.innerHTML = originalHTML;
+          }, 2000);
+         } else {
+           // 降级方案：使用传统的 execCommand 方法
+           const textArea = document.createElement('textarea');
+           textArea.value = window.location.href;
+           document.body.appendChild(textArea);
+           textArea.select();
+           document.execCommand('copy');
+           document.body.removeChild(textArea);
+           
+           // 显示临时提示
+           const originalHTML = shareBtn.innerHTML;
+           shareBtn.innerHTML = '<i class="fa fa-check"></i>';
+           setTimeout(() => {
+            shareBtn.innerHTML = originalHTML;
+          }, 2000);
+         }
+       } catch (err) {
+         console.error('复制链接失败:', err);
+         alert('链接复制失败，请手动复制');
+       }
+     });
+   }
+   
+   // 屏幕分享功能
+   const screenShareBtn = document.getElementById('screenShareBtn');
+   if(screenShareBtn) {
+     screenShareBtn.addEventListener('click', async function() {
+       try {
+         // 请求屏幕共享
+         const stream = await navigator.mediaDevices.getDisplayMedia({ 
+           video: { mediaSource: 'screen' }
+         });
+         
+         // 显示临时提示
+         const originalHTML = screenShareBtn.innerHTML;
+         screenShareBtn.innerHTML = '<i class="fa fa-stop"></i>';
+         
+         // 监听流结束事件，恢复原始图标
+         stream.getTracks()[0].onended = function() {
+           screenShareBtn.innerHTML = originalHTML;
+         };
+         
+       } catch (err) {
+         console.error('屏幕分享失败:', err);
+         alert('屏幕分享功能需要HTTPS环境或本地环境，且浏览器需支持此功能');
+       }
+     });
+   }
+   
+   // 举手功能
+   const raiseHandBtn = document.getElementById('raiseHandBtn');
+   if(raiseHandBtn) {
+     raiseHandBtn.addEventListener('click', function() {
+       // 显示举手状态
+       const originalHTML = raiseHandBtn.innerHTML;
+       const originalClass = raiseHandBtn.className;
+       
+       // 切换举手状态（激活/取消）
+       if(raiseHandBtn.classList.contains('bg-blue-500')) {
+         // 如果当前是举手状态，则取消举手
+         raiseHandBtn.className = 'w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition';
+         raiseHandBtn.innerHTML = '<i class="fa fa-hand-paper"></i>';
+         alert('您已取消举手');
+       } else {
+         // 设置为举手状态
+         raiseHandBtn.className = 'w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center hover:bg-opacity-70 transition';
+         raiseHandBtn.innerHTML = '<i class="fa fa-hand-paper"></i>';
+         alert('您已举手，请等待主持人响应');
+       }
+     });
+   }
+
+});
 </script>
 
 </body>
