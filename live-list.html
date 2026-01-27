@@ -655,13 +655,13 @@
     card.className = 'glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col';
     card.innerHTML = `
       <div class="relative flex-shrink-0">
-        <img src="${l.cover}" alt="${l.title}" class="w-full aspect-[3/4] object-cover">  <!-- 修改为3:4比例，更适合竖向展示 -->
+        <img src="${l.cover}" alt="${l.title}" class="w-full object-cover" style="aspect-ratio: 590/670;">  <!-- 修改为590:670比例 -->
         <div class="absolute top-2 left-2">
           <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] ${st.cls}">
             <i class="fa fa-broadcast-tower mr-1 text-[8px]"></i>${statusText}
           </span>
         </div>
-        <div class="absolute bottom-2 left-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+        <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
           <span><i class="fa fa-users mr-1"></i> ${l.status === 'live' ? (l.attendees * 1.5).toLocaleString() : l.attendees.toLocaleString()}</span>
         </div>
         <!-- 中间进入直播间按钮 -->
@@ -673,33 +673,31 @@
           </a>
         </div>
         ` : ''}
-      </div>
-      <div class="p-3 flex-grow flex flex-col">
-        <h3 class="text-sm font-semibold line-clamp-2 mb-2 flex-grow"><a href="live-detail.html" target="_blank">${l.title}</a></h3>
-        <div class="flex items-center justify-between text-xs mt-auto pt-2">
-          <span class="text-gray-600">${l.date}</span>
-          ${l.status === 'live' ? `
-            <div class="flex gap-1">
-              <a href="live-detail.html" target="_blank" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
-                进入直播间
-              </a>
-              <a href="live-detail.html" target="_blank" class="px-2 py-1 rounded-full text-[10px] font-medium bg-white border border-gray-300 hover:bg-gray-50">
-                详情
-              </a>
-            </div>
-          ` : `
-            <button
-              class="enroll-btn px-2 py-1 rounded-full text-[10px] font-medium
-                     ${l.status === 'ended'
-                        ? 'bg-gray-200 text-gray-500 border border-gray-300 cursor-not-allowed opacity-60'
-                        : (isEnrolled
-                            ? 'bg-white border border-[#B01F24] text-[#B01F24] hover:bg-gray-50'
-                            : 'bg-[#2D874B] text-white hover:opacity-90')}"
-              data-id="${l.id}"
-              data-status="${l.status}">
-              ${l.status === 'ended' ? '已结束' : (isEnrolled ? '取消预约' : '预约')}
-            </button>
-          `}
+        <!-- 标题和日期覆盖在图片下方 -->
+        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-white">
+          <h3 class="text-sm font-semibold line-clamp-2 mb-1">${l.title}</h3>
+          <div class="flex items-center justify-between text-xs text-gray-200">
+            <span>${l.date}</span>
+            ${l.status === 'live' ? `
+              <div class="flex gap-1">
+                <a href="live-detail.html" target="_blank" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+                  观看
+                </a>
+              </div>
+            ` : `
+              <button
+                class="enroll-btn px-2 py-1 rounded-full text-[10px] font-medium
+                       ${l.status === 'ended'
+                          ? 'bg-gray-200 text-gray-500 border border-gray-300 cursor-not-allowed opacity-60'
+                          : (isEnrolled
+                              ? 'bg-white border border-[#B01F24] text-[#B01F24] hover:bg-gray-50'
+                              : 'bg-[#2D874B] text-white hover:opacity-90')}"
+                data-id="${l.id}"
+                data-status="${l.status}">
+                ${l.status === 'ended' ? '已结束' : (isEnrolled ? '取消预约' : '预约')}
+              </button>
+            `}
+          </div>
         </div>
       </div>
     `;
@@ -880,13 +878,13 @@
           card.className = 'glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col';
           card.innerHTML = `
             <div class="relative flex-shrink-0">
-              <img src="${modifiedLive.cover}" alt="${modifiedLive.title}" class="w-full aspect-[3/4] object-cover">  <!-- 修改为3:4比例，更适合竖向展示 -->
+              <img src="${modifiedLive.cover}" alt="${modifiedLive.title}" class="w-full object-cover" style="aspect-ratio: 590/670;">  <!-- 修改为590:670比例 -->
               <div class="absolute top-2 left-2">
                 <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] ${st.cls}">
                   <i class="fa fa-broadcast-tower mr-1 text-[8px]"></i>${statusText}
                 </span>
               </div>
-              <div class="absolute bottom-2 left-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+              <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
                 <span><i class="fa fa-users mr-1"></i> ${modifiedLive.status === 'live' ? (modifiedLive.attendees * 1.5).toLocaleString() : modifiedLive.attendees.toLocaleString()}</span>
               </div>
               <!-- 中间进入直播间按钮 -->
@@ -898,22 +896,23 @@
                 </a>
               </div>
               ` : ''}
-            </div>
-            <div class="p-3">
-              <h3 class="text-sm font-semibold line-clamp-2 mb-2"><a href="live-detail.html" target="_blank">${modifiedLive.title}</a></h3>
-              <div class="flex items-center justify-between text-xs">
-                <span class="text-gray-600">${modifiedLive.date}</span>
-                <button
-                  class="enroll-btn px-2 py-1 rounded-full text-[10px] font-medium
-                         ${modifiedLive.status === 'ended'
-                            ? 'bg-gray-200 text-gray-500 border border-gray-300 cursor-not-allowed opacity-60'
-                            : (isEnrolled
-                                ? 'bg-white border border-[#B01F24] text-[#B01F24] hover:bg-gray-50'
-                                : 'bg-[#2D874B] text-white hover:opacity-90')}"
-                  data-id="${modifiedLive.id}"
-                  data-status="${modifiedLive.status}">
-                  ${modifiedLive.status === 'ended' ? '已结束' : (isEnrolled ? '取消预约' : (modifiedLive.status === 'live' ? '观看' : '预约'))}
-                </button>
+              <!-- 标题和日期覆盖在图片下方 -->
+              <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-white">
+                <h3 class="text-sm font-semibold line-clamp-2 mb-1">${modifiedLive.title}</h3>
+                <div class="flex items-center justify-between text-xs text-gray-200">
+                  <span>${modifiedLive.date}</span>
+                  <button
+                    class="enroll-btn px-2 py-1 rounded-full text-[10px] font-medium
+                           ${modifiedLive.status === 'ended'
+                              ? 'bg-gray-200 text-gray-500 border border-gray-300 cursor-not-allowed opacity-60'
+                              : (isEnrolled
+                                  ? 'bg-white border border-[#B01F24] text-[#B01F24] hover:bg-gray-50'
+                                  : 'bg-[#2D874B] text-white hover:opacity-90')}"
+                    data-id="${modifiedLive.id}"
+                    data-status="${modifiedLive.status}">
+                    ${modifiedLive.status === 'ended' ? '已结束' : (isEnrolled ? '取消预约' : (modifiedLive.status === 'live' ? '观看' : '预约'))}
+                  </button>
+                </div>
               </div>
             </div>
           `;

@@ -1039,12 +1039,23 @@
           
           <!-- Banner底部导航条 -->
           <div class="absolute bottom-0 left-0 right-0 z-10 bg-gray-800/60 backdrop-blur-sm">
+            <!-- AI智能体按钮 -->
+            <div class="flex justify-center py-2">
+              <a href="ai-agent.html" class="ai-assistant-link">
+                <div class="bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl px-4 py-2 flex items-center space-x-2 border border-gray-300 shadow-lg">
+                  <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                    <i class="fa fa-robot text-white text-xs"></i>
+                  </div>
+                  <span class="text-sm text-white font-medium">AI 智能体：问你所疑，解你所惑</span>
+                </div>
+              </a>
+            </div>
             <div class="flex justify-around items-center py-5 px-6">
               <a href="expert-center.html" class="flex items-center text-white/90 hover:text-white transition text-sm">
                 <i class="fa fa-user-tie mr-2 text-lg"></i>
                 <span>专家支持</span>
               </a>
-              <a href="#" class="flex items-center text-white/90 hover:text-white transition text-sm">
+              <a href="ai-agent.html" class="flex items-center text-white/90 hover:text-white transition text-sm">
                 <i class="fa fa-robot mr-2 text-lg"></i>
                 <span>AI 智能体</span>
               </a>
@@ -1184,7 +1195,7 @@
               </div>
               
               <!-- 快捷入口 -->
-              <div class="flex gap-3 pt-1" id="quick-access-buttons">
+              <div class="flex gap-3 pt-4" id="quick-access-buttons">
                 <!-- 个人中心按钮 -->
                 <a href="personal-center.html"
                    class="flex-1 inline-flex items-center justify-center px-3 py-2 rounded-2xl bg-[#4B8CF5] hover:bg-gray-300 text-xs font-medium text-white">
@@ -2584,7 +2595,7 @@
       
       <!-- 底部查看更多链接 -->
       <div class="text-center mt-8 lg:mt-12">
-        <a href="tech-tool-library.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 hover:underline transition-all duration-300 font-medium">
+        <a href="resource-center.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 hover:underline transition-all duration-300 font-medium">
           <span>查看更多资源</span>
           <i class="fa fa-arrow-right ml-2"></i>
         </a>
@@ -2974,7 +2985,7 @@
       <a href="#" class="block hover:text-[#2D874B]">法律声明</a>
       <a href="#" class="block hover:text-[#2D874B]">知识产权与版权</a>
 
-      <div class="mt-3">
+      <div class="mt-3" style="display: none;">
         <div class="text-[11px] text-gray-600 mb-1">生态应用入口</div>
         <div class="flex flex-wrap gap-2">
           <a href="#"
@@ -3832,36 +3843,6 @@
   });
 
 </script>
-
-  <!-- AI智能体组件 -->
-  <div id="ai-assistant" class="fixed bottom-16 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300">
-    <!-- 展开状态：长条显示 -->
-    <a href="ai-agent.html" class="ai-assistant-link block">
-      <div id="ai-assistant-expanded" class="bg-gradient-to-r from-blue-600 to-green-400 backdrop-blur-sm rounded-2xl px-4 py-3 flex items-center space-x-3 border border-gray-300 shadow-lg">
-        <!-- 左侧小icon -->
-        <div class="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-700 rounded-full flex items-center justify-center">
-          <i class="fa fa-robot text-white text-sm"></i>
-        </div>
-        
-        <!-- 右侧文案 -->
-        <div class="flex-1">
-          <span class="text-sm text-white font-medium">AI智能体上线：问你所惑，解你所需。</span>
-        </div>
-        
-        <!-- 右上角关闭按钮 -->
-        <button id="ai-close-btn" class="w-6 h-6 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white hover:text-white/80 transition">
-          <i class="fa fa-times text-xs"></i>
-        </button>
-      </div>
-    </a>
-    
-    <!-- 收缩状态：仅显示icon -->
-    <a href="ai-agent.html" class="ai-assistant-link block">
-      <div id="ai-assistant-collapsed" class="hidden w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-700 rounded-full flex items-center justify-center shadow-lg cursor-pointer">
-        <i class="fa fa-robot text-white text-base"></i>
-      </div>
-    </a>
-  </div>
 
 
 

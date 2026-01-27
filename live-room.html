@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>直播间 - HIECO 光合技术支持平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标库 -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: #000;
+      overflow: hidden;
+    }
+    .live-player {
+      background: #000;
+      position: relative;
+    }
+    .control-panel {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+    }
+    .gift-item {
+      animation: floatUp 3s ease-in-out forwards;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+    }
+    .audience-list {
+      max-height: calc(100vh - 200px);
+      overflow-y: auto;
+    }
+    .audience-list::-webkit-scrollbar {
+      display: none;
+    }
+    .gift-shop {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .chat-message {
+      animation: slideIn 0.3s ease-out;
+    }
+    @keyframes slideIn {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body class="bg-black text-white">
+
+<!-- 直播间主体 -->
+<div class="flex h-screen bg-black">
+  <!-- 左侧：直播播放区域 -->
+  <div class="flex-1 relative">
+    <!-- 直播视频播放器 -->
+    <div class="live-player w-full h-full flex items-center justify-center">
+      <video id="liveVideo" class="w-full h-full object-cover" controls poster="https://images.unsplash.com/photo-1579546929662-711aa81148cf?auto=format&fit=crop&w=1950&q=80">
+        <source src="#" type="video/mp4">
+        您的浏览器不支持视频播放
+      </video>
+      
+      <!-- 直播间标题和主播信息 -->
+      <div class="absolute top-4 left-4 z-20">
+        <h1 class="text-xl font-bold mb-1">AI技术前沿分享 - 深度学习实战</h1>
+        <div class="flex items-center text-sm opacity-90">
+          <div class="w-6 h-6 rounded-full bg-gradient-to-r from-red-500 to-pink-500 mr-2 flex items-center justify-center">
+            <i class="fa fa-circle text-[8px] text-white"></i>
+          </div>
+          <span>直播中</span>
+          <span class="ml-3">曙光技术专家</span>
+        </div>
+      </div>
+      
+      <!-- 观众数量 -->
+      <div class="absolute top-4 right-4 z-20 bg-black bg-opacity-50 rounded-full px-3 py-1 flex items-center text-sm">
+        <i class="fa fa-users mr-1 text-red-500"></i>
+        <span id="viewerCount">1.2万</span>
+      </div>
+      
+      <!-- 控制面板 -->
+      <div class="absolute bottom-4 left-0 right-0 z-20 control-panel px-4 py-3">
+        <div class="flex items-center justify-between">
+          <!-- 左侧控制按钮 -->
+          <div class="flex items-center space-x-4">
+            <button id="muteBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
+              <i class="fa fa-volume-up"></i>
+            </button>
+            <button id="giftBtn" class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center hover:from-pink-600 hover:to-red-600 transition">
+              <i class="fa fa-gift"></i>
+            </button>
+            <button class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
+              <i class="fa fa-share-alt"></i>
+            </button>
+          </div>
+          
+          <!-- 右侧控制按钮 -->
+          <div class="flex items-center space-x-4">
+            <button id="chatToggle" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
+              <i class="fa fa-comment"></i>
+            </button>
+            <button id="fullscreenBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
+              <i class="fa fa-expand"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- 进度条 -->
+        <div class="mt-3">
+          <div class="w-full bg-gray-700 rounded-full h-1">
+            <div class="bg-red-500 h-1 rounded-full" style="width: 25%"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 礼物飞行动画区域 -->
+      <div id="giftAnimationArea" class="absolute top-0 left-0 w-full h-full pointer-events-none z-10">
+      </div>
+    </div>
+  </div>
+  
+  <!-- 右侧：互动面板 -->
+  <div class="w-80 bg-gray-900 bg-opacity-90 backdrop-blur-sm flex flex-col h-full">
+    <!-- 聊天室和观众列表切换 -->
+    <div class="flex border-b border-gray-700 flex-shrink-0">
+      <button id="coursewareTab" class="tab-button flex-1 py-3 text-center font-medium border-b-2 border-red-500 text-red-500">详情</button>
+      <button id="chatTab" class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white">聊天</button>
+      <button id="audienceTab" class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white">观众</button>
+      <button id="rankTab" class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white">排行榜</button>
+    </div>
+    
+    <!-- 主要内容区域 -->
+    <div class="flex-1 flex flex-col min-h-0 overflow-hidden">
+      <!-- 课件内容区域 -->
+      <div id="coursewareContent" class="tab-content hidden flex-1 overflow-hidden flex flex-col">
+        <!-- Tab 导航 -->
+        <div class="flex border-b border-gray-700 flex-shrink-0 bg-gray-800">
+          <button id="introTab" class="courseware-tab-btn flex-1 py-3 text-center font-medium border-b-2 border-red-500 text-red-500">直播介绍</button>
+          <button id="outlineTab" class="courseware-tab-btn flex-1 py-3 text-center font-medium text-gray-400 hover:text-white">直播大纲</button>
+          <button id="materialsTab" class="courseware-tab-btn flex-1 py-3 text-center font-medium text-gray-400 hover:text-white">关联资料</button>
+        </div>
+        
+        <div class="flex-1 overflow-y-auto audience-list">
+          <!-- 直播介绍 -->
+          <div id="introContent" class="courseware-tab-content p-3">
+            <p class="text-sm leading-relaxed">
+              本场直播面向 HIECO 合作伙伴生态中的云架构师、解决方案顾问和 DevOps 工程师，
+              从实际项目案例出发，梳理一套可复制的云原生架构设计方法论，并通过现场 DEMO
+              展示完整落地过程。直播结束后，将提供录播回看和资料下载。
+            </p>
+            <ul class="mt-3 text-sm space-y-1 list-disc pl-5">
+              <li>适合人群：云架构师 / 解决方案顾问 / DevOps 工程师</li>
+              <li>配套资源：演示项目代码、架构图模板、最佳实践手册</li>
+              <li>关联认证：伙伴云架构工程师（P-Cloud Architect）专业认证</li>
+            </ul>
+          </div>
+          
+          <!-- 直播大纲 -->
+          <div id="outlineContent" class="courseware-tab-content hidden p-3">
+            <div class="space-y-4">
+              <div class="border-l-4 border-red-500 pl-4">
+                <h3 class="text-sm font-semibold text-white mb-1">第一部分：开场与基础概念</h3>
+                <p class="text-xs text-gray-400">19:00–19:15</p>
+                <ul class="mt-2 text-xs text-gray-400 space-y-1 list-disc pl-4">
+                  <li>云原生发展历程与核心价值</li>
+                  <li>微服务架构演进与挑战</li>
+                  <li>容器化技术基础回顾</li>
+                </ul>
+              </div>
+              
+              <div class="border-l-4 border-red-500 pl-4">
+                <h3 class="text-sm font-semibold text-white mb-1">第二部分：架构设计方法论</h3>
+                <p class="text-xs text-gray-400">19:15–20:00</p>
+                <ul class="mt-2 text-xs text-gray-400 space-y-1 list-disc pl-4">
+                  <li>服务拆分原则与边界设计</li>
+                  <li>数据一致性保障方案</li>
+                  <li>可观测性体系建设</li>
+                  <li>安全与合规性考虑</li>
+                </ul>
+              </div>
+              
+              <div class="border-l-4 border-red-500 pl-4">
+                <h3 class="text-sm font-semibold text-white mb-1">第三部分：实战演示</h3>
+                <p class="text-xs text-gray-400">20:00–20:40</p>
+                <ul class="mt-2 text-xs text-gray-400 space-y-1 list-disc pl-4">
+                  <li>从单体应用迁移到微服务</li>
+                  <li>Kubernetes 部署最佳实践</li>
+                  <li>CI/CD 流水线配置</li>
+                  <li>监控告警配置演示</li>
+                </ul>
+              </div>
+              
+              <div class="border-l-4 border-red-500 pl-4">
+                <h3 class="text-sm font-semibold text-white mb-1">第四部分：总结与互动</h3>
+                <p class="text-xs text-gray-400">20:40–21:00</p>
+                <ul class="mt-2 text-xs text-gray-400 space-y-1 list-disc pl-4">
+                  <li>常见问题解答</li>
+                  <li>后续学习路径建议</li>
+                  <li>资料下载与技术支持</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 关联资料 -->
+          <div id="materialsContent" class="courseware-tab-content hidden p-3">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800 border border-gray-700">
+                <div class="flex items-center gap-3">
+                  <i class="fa fa-file-code text-red-500 text-lg"></i>
+                  <div>
+                    <h3 class="text-sm font-semibold text-white">演示项目源码</h3>
+                    <p class="text-xs text-gray-400">包含完整的微服务架构示例代码</p>
+                  </div>
+                </div>
+                <a href="#" class="text-red-500 text-xs font-medium hover:underline">下载</a>
+              </div>
+              
+              <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800 border border-gray-700">
+                <div class="flex items-center gap-3">
+                  <i class="fa fa-diagram-project text-red-500 text-lg"></i>
+                  <div>
+                    <h3 class="text-sm font-semibold text-white">架构图模板</h3>
+                    <p class="text-xs text-gray-400">云原生架构设计常用模板</p>
+                  </div>
+                </div>
+                <a href="#" class="text-red-500 text-xs font-medium hover:underline">下载</a>
+              </div>
+              
+              <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800 border border-gray-700">
+                <div class="flex items-center gap-3">
+                  <i class="fa fa-book text-red-500 text-lg"></i>
+                  <div>
+                    <h3 class="text-sm font-semibold text-white">最佳实践手册</h3>
+                    <p class="text-xs text-gray-400">云原生落地最佳实践指南</p>
+                  </div>
+                </div>
+                <a href="#" class="text-red-500 text-xs font-medium hover:underline">下载</a>
+              </div>
+              
+              <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800 border border-gray-700">
+                <div class="flex items-center gap-3">
+                  <i class="fa fa-video text-red-500 text-lg"></i>
+                  <div>
+                    <h3 class="text-sm font-semibold text-white">直播录播视频</h3>
+                    <p class="text-xs text-gray-400">完整直播过程录播文件</p>
+                  </div>
+                </div>
+                <a href="#" class="text-red-500 text-xs font-medium hover:underline">观看</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 聊天内容区域 -->
+      <div id="chatContent" class="tab-content flex-1 flex flex-col">
+        <!-- 聊天消息列表 -->
+        <div id="chatMessages" class="flex-1 p-3 audience-list">
+          <div class="chat-message mb-2 flex items-start">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80" alt="User" class="w-6 h-6 rounded-full mr-2 mt-0.5">
+            <div>
+              <div class="text-xs text-red-400">技术小白</div>
+              <div class="text-sm">老师讲得真好，受益匪浅！</div>
+            </div>
+          </div>
+          
+          <div class="chat-message mb-2 flex items-start">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=40&q=80" alt="User" class="w-6 h-6 rounded-full mr-2 mt-0.5">
+            <div>
+              <div class="text-xs text-blue-400">代码达人</div>
+              <div class="text-sm">请问这个算法的时间复杂度怎么算？</div>
+            </div>
+          </div>
+          
+          <div class="chat-message mb-2 flex items-start">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=40&q=80" alt="User" class="w-6 h-6 rounded-full mr-2 mt-0.5">
+            <div>
+              <div class="text-xs text-green-400">算法专家</div>
+              <div class="text-sm">关注了，期待更多干货！</div>
+            </div>
+          </div>
+          
+          <div class="chat-message mb-2 flex items-start">
+            <img src="https://images.unsplash.com/photo-1491637639811-60e2756e1df7?auto=format&fit=crop&w=40&q=80" alt="User" class="w-6 h-6 rounded-full mr-2 mt-0.5">
+            <div>
+              <div class="text-xs text-yellow-400">架构师</div>
+              <div class="text-sm">666666，讲得太棒了！</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 发送消息输入框 -->
+        <div class="p-3 border-t border-gray-700 flex-shrink-0">
+          <div class="flex items-center">
+            <input type="text" placeholder="说点什么..." class="flex-1 bg-gray-800 rounded-l-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+            <button class="bg-red-500 hover:bg-red-600 rounded-r-full px-4 py-2 font-medium">发送</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 观众列表 -->
+      <div id="audienceContent" class="tab-content hidden flex-1 overflow-hidden flex flex-col">
+        <div class="p-3 flex-1 audience-list">
+          <h3 class="font-semibold mb-3 flex items-center">
+            <i class="fa fa-users text-red-500 mr-2"></i>
+            在线观众 <span class="text-red-500 ml-1">12,458</span>
+          </h3>
+          <div class="flex items-center mb-2">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
+            <div class="flex-1">
+              <div class="text-sm">技术小白</div>
+            </div>
+            <div class="text-xs text-gray-400">刚刚加入</div>
+          </div>
+          
+          <div class="flex items-center mb-2">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
+            <div class="flex-1">
+              <div class="text-sm">代码达人</div>
+            </div>
+            <div class="text-xs text-gray-400">5分钟前</div>
+          </div>
+          
+          <div class="flex items-center mb-2">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
+            <div class="flex-1">
+              <div class="text-sm">算法专家</div>
+            </div>
+            <div class="text-xs text-gray-400">8分钟前</div>
+          </div>
+          
+          <div class="flex items-center mb-2">
+            <img src="https://images.unsplash.com/photo-1491637639811-60e2756e1df7?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
+            <div class="flex-1">
+              <div class="text-sm">架构师</div>
+            </div>
+            <div class="text-xs text-gray-400">12分钟前</div>
+          </div>
+          
+          <div class="flex items-center mb-2">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
+            <div class="flex-1">
+              <div class="text-sm">数据科学家</div>
+            </div>
+            <div class="text-xs text-gray-400">15分钟前</div>
+          </div>
+          
+          <div class="flex items-center mb-2">
+            <img src="https://images.unsplash.com/photo-1554384645-13eab165c24b?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
+            <div class="flex-1">
+              <div class="text-sm">产品经理</div>
+            </div>
+            <div class="text-xs text-gray-400">18分钟前</div>
+          </div>
+          
+          <div class="flex items-center mb-2">
+            <img src="https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
+            <div class="flex-1">
+              <div class="text-sm">设计师</div>
+            </div>
+            <div class="text-xs text-gray-400">22分钟前</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 排行榜内容 -->
+      <div id="rankContent" class="tab-content hidden flex-1 overflow-hidden flex flex-col">
+        <div class="p-3 flex-1 audience-list">
+          <h3 class="font-semibold mb-3 flex items-center">
+            <i class="fa fa-trophy text-yellow-500 mr-2"></i>
+            贡献排行榜
+          </h3>
+          <div class="mb-3">
+            <div class="flex items-center bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 p-2 rounded-lg">
+              <div class="w-6 h-6 rounded-full bg-yellow-500 text-white flex items-center justify-center text-xs font-bold mr-2">1</div>
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
+              <div class="flex-1">
+                <div class="text-sm">技术小白</div>
+              </div>
+              <div class="text-xs text-yellow-400">贡献值: 15,240</div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <div class="flex items-center bg-gradient-to-r from-gray-400/20 to-gray-500/20 p-2 rounded-lg">
+              <div class="w-6 h-6 rounded-full bg-gray-400 text-white flex items-center justify-center text-xs font-bold mr-2">2</div>
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
+              <div class="flex-1">
+                <div class="text-sm">代码达人</div>
+              </div>
+              <div class="text-xs text-gray-400">贡献值: 12,890</div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <div class="flex items-center bg-gradient-to-r from-amber-700/20 to-amber-800/20 p-2 rounded-lg">
+              <div class="w-6 h-6 rounded-full bg-amber-700 text-white flex items-center justify-center text-xs font-bold mr-2">3</div>
+              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
+              <div class="flex-1">
+                <div class="text-sm">算法专家</div>
+              </div>
+              <div class="text-xs text-amber-400">贡献值: 10,750</div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <div class="flex items-center p-2 rounded-lg hover:bg-gray-800/50">
+              <div class="w-6 h-6 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-bold mr-2">4</div>
+              <img src="https://images.unsplash.com/photo-1491637639811-60e2756e1df7?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
+              <div class="flex-1">
+                <div class="text-sm">架构师</div>
+              </div>
+              <div class="text-xs text-gray-400">贡献值: 8,920</div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <div class="flex items-center p-2 rounded-lg hover:bg-gray-800/50">
+              <div class="w-6 h-6 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-bold mr-2">5</div>
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
+              <div class="flex-1">
+                <div class="text-sm">数据科学家</div>
+              </div>
+              <div class="text-xs text-gray-400">贡献值: 7,650</div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <div class="flex items-center p-2 rounded-lg hover:bg-gray-800/50">
+              <div class="w-6 h-6 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-bold mr-2">6</div>
+              <img src="https://images.unsplash.com/photo-1554384645-13eab165c24b?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
+              <div class="flex-1">
+                <div class="text-sm">产品经理</div>
+              </div>
+              <div class="text-xs text-gray-400">贡献值: 6,340</div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <div class="flex items-center p-2 rounded-lg hover:bg-gray-800/50">
+              <div class="w-6 h-6 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-bold mr-2">7</div>
+              <img src="https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
+              <div class="flex-1">
+                <div class="text-sm">设计师</div>
+              </div>
+              <div class="text-xs text-gray-400">贡献值: 5,210</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 音量控制
+  const muteBtn = document.getElementById('muteBtn');
+  let muted = false;
+  muteBtn.addEventListener('click', () => {
+    muted = !muted;
+    muteBtn.innerHTML = muted ? '<i class="fa fa-volume-mute"></i>' : '<i class="fa fa-volume-up"></i>';
+  });
+
+  // 全屏控制
+  const fullscreenBtn = document.getElementById('fullscreenBtn');
+  fullscreenBtn.addEventListener('click', () => {
+    const elem = document.documentElement;
+    if (!document.fullscreenElement) {
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.mozRequestFullScreen) { /* Firefox */
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { /* IE/Edge */
+        elem.msRequestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozCancelFullScreen) { /* Firefox */
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) { /* Chrome, Safari & Opera */
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) { /* IE/Edge */
+        document.msExitFullscreen();
+      }
+    }
+  });
+
+  // 实时更新观众数
+  setInterval(() => {
+    const viewerCount = document.getElementById('viewerCount');
+    const current = parseInt(viewerCount.textContent.replace(/,/g, ''));
+    const increment = Math.floor(Math.random() * 10);
+    const newCount = current + increment;
+    viewerCount.textContent = newCount.toLocaleString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }, 5000);
+
+  // 模拟新消息
+  setInterval(() => {
+    const messages = [
+      { user: '新同学', text: '刚进来，错过了开头，能讲讲重点吗？', color: 'text-purple-400' },
+      { user: '老粉丝', text: '每期直播都不错过，感谢老师分享！', color: 'text-blue-400' },
+      { user: '学习者', text: '这个知识点记住了，收藏了！', color: 'text-green-400' },
+      { user: '开发者', text: '代码可以贴出来看看吗？', color: 'text-yellow-400' },
+      { user: '架构师', text: '生产环境怎么部署比较稳定？', color: 'text-red-400' }
+    ];
+    
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    const chatMessages = document.getElementById('chatMessages');
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'chat-message mb-2 flex items-start animate-slideIn';
+    messageDiv.innerHTML = `
+      <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=40&q=80" alt="User" class="w-6 h-6 rounded-full mr-2 mt-0.5">
+      <div>
+        <div class="text-xs ${randomMessage.color}">${randomMessage.user}</div>
+        <div class="text-sm">${randomMessage.text}</div>
+      </div>
+    `;
+    
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }, 3000);
+
+  // 礼物动画
+  function showGiftAnimation(giftName, userName) {
+    const giftArea = document.getElementById('giftAnimationArea');
+    const giftDiv = document.createElement('div');
+    giftDiv.className = 'gift-item absolute left-1/4 bottom-20 w-48 h-16 bg-gradient-to-r from-pink-500 to-yellow-500 rounded-lg p-2 flex items-center';
+    giftDiv.innerHTML = `
+      <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80" alt="User" class="w-12 h-12 rounded-full mr-2">
+      <div>
+        <div class="text-xs font-bold">${userName}</div>
+        <div class="text-xs">送出 ${giftName}</div>
+      </div>
+    `;
+    
+    // 随机位置
+    const leftPos = 10 + Math.random() * 30;
+    giftDiv.style.left = `${leftPos}%`;
+    
+    giftArea.appendChild(giftDiv);
+    
+    // 3秒后移除
+    setTimeout(() => {
+      giftDiv.remove();
+    }, 3000);
+  }
+
+  // 点击礼物触发动画
+  const giftButtons = document.querySelectorAll('.gift-item:not(button)');
+  giftButtons.forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+      const giftNames = ['咖啡', '爱心', '星星', '钻石', '火箭', '皇冠'];
+      showGiftAnimation(giftNames[index], '神秘用户');
+    });
+  });
+  
+  // 送礼物按钮
+  const sendGiftBtn = document.querySelector('button.bg-gradient-to-r');
+  sendGiftBtn.addEventListener('click', () => {
+    showGiftAnimation('火箭', '技术小白');
+  });
+  
+  // 标签切换功能
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    // 默认显示课件内容
+    document.getElementById('coursewareContent').classList.remove('hidden');
+    
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // 移除所有按钮的活动状态
+        tabButtons.forEach(btn => {
+          btn.classList.remove('text-red-500', 'border-red-500');
+          btn.classList.add('text-gray-400');
+          btn.classList.remove('hover:text-white'); // 防止悬停样式影响
+        });
+        
+        // 为当前按钮添加活动状态
+        button.classList.remove('text-gray-400');
+        button.classList.add('text-red-500', 'border-red-500');
+        
+        // 获取按钮对应的标签ID
+        const tabId = button.id.replace('Tab', 'Content');
+        
+        // 隐藏所有内容区域
+        tabContents.forEach(content => {
+          content.classList.add('hidden');
+        });
+        
+        // 显示当前内容区域
+        document.getElementById(tabId).classList.remove('hidden');
+      });
+    });
+    
+    // 课件内部标签切换功能
+    const coursewareTabButtons = document.querySelectorAll('.courseware-tab-btn');
+    const coursewareTabContents = document.querySelectorAll('.courseware-tab-content');
+    
+    // 默认显示直播介绍内容
+    document.getElementById('introContent').classList.remove('hidden');
+    
+    coursewareTabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // 移除所有按钮的活动状态
+        coursewareTabButtons.forEach(btn => {
+          btn.classList.remove('text-red-500', 'border-red-500');
+          btn.classList.add('text-gray-400');
+          btn.classList.remove('hover:text-white'); // 防止悬停样式影响
+        });
+        
+        // 为当前按钮添加活动状态
+        button.classList.remove('text-gray-400');
+        button.classList.add('text-red-500', 'border-red-500');
+        
+        // 获取按钮对应的标签ID
+        const tabId = button.id.replace('Tab', 'Content');
+        
+        // 隐藏所有内容区域
+        coursewareTabContents.forEach(content => {
+          content.classList.add('hidden');
+        });
+        
+        // 显示当前内容区域
+        document.getElementById(tabId).classList.remove('hidden');
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

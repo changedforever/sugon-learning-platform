@@ -157,9 +157,9 @@
             </div>
             </div>
             <div class="text-gray-400 flex flex-wrap gap-3">
-              <span id="profile-role-display" class="text-gray-600">岗位角色未填写</span>
+              <span id="profile-role-display" class="text-gray-600">技术人员</span>
               <span class="text-gray-500">·</span>
-              <span id="profile-company-display" class="text-gray-600">公司未填写</span>
+              <span id="profile-company-display" class="text-gray-600">联想集团</span>
             </div>
           </div>
         </div>
@@ -168,10 +168,10 @@
           <div>已获证书：<span class="text-[#B01F24]" id="summary-cert">2</span> 张</div>
           <div>待考试/活动：<span class="text-[#B01F24]" id="summary-todo">0</span> 项</div>
         </div>
-        <!-- 新增：专家支持、在学课程、已获证书横向排列 -->
+        <!-- 新增：专家服务、在学课程、已获证书横向排列 -->
         <div class="grid grid-cols-3 gap-4 mt-4 lg:mt-0 lg:ml-4">
           <div class="text-center lg:text-left">
-            <div class="text-gray-400 text-[11px]">专家支持</div>
+            <div class="text-gray-400 text-[11px]">专家服务</div>
             <div class="text-[#B01F24] text-lg font-semibold">12</div>
             <div class="text-[11px] text-gray-400">次</div>
           </div>
@@ -201,7 +201,7 @@
         </div>
         <div class="grid grid-cols-2 gap-3 text-xs">
           <div class="rounded-2xl bg-white border border-gray-300 p-3">
-            <div class="text-gray-400 mb-1">已获专家支持</div>
+            <div class="text-gray-400 mb-1">已获专家服务</div>
             <div id="overview-expert-support" class="text-lg font-semibold text-[#B01F24]">12</div>
           </div>
           <div class="rounded-2xl bg-white border border-gray-300 p-3">
@@ -544,8 +544,8 @@
     const points = p.points !== undefined ? p.points : 1280;
 
     $('profile-name-display').textContent = p.name || '张合作';
-    $('profile-role-display').textContent = p.role || '岗位角色未填写';
-    $('profile-company-display').textContent = p.company || '公司未填写';
+    $('profile-role-display').textContent = p.role || '技术人员';
+    $('profile-company-display').textContent = p.company || '联想集团';
     $('profile-points').textContent = points.toLocaleString(); // 格式化数字，如1,280
 
     const first = (p.name || 'U').trim()[0] || 'U';

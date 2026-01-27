@@ -7,123 +7,432 @@
     <link rel="stylesheet" href="css/tailwind.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f5f7fb;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
         }
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
+        
+        .chat-container {
+            display: flex;
+            height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
         }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        
+        .sidebar {
+            width: 260px;
+            background: #f8fafd;
+            border-right: 1px solid #eaecef;
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-header {
+            padding: 12px 0;
+            border-bottom: 1px solid #eaecef;
+            margin-bottom: 16px;
+        }
+        
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .sidebar-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .sidebar-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid #eaecef;
+            background: white;
+            color: #333;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .sidebar-btn:hover {
+            background: #f0f4ff;
+            border-color: #b0c4ff;
+        }
+        
+        .sidebar-btn.active {
+            background: #e6eeff;
+            border-color: #4a86ff;
+            color: #1a56db;
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f8fafd;
+        }
+        
+        .chat-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid #eaecef;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+        }
+        
+        .chat-title-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .chat-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .chat-subtitle {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .close-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f0f0;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .close-btn:hover {
+            background: #e0e0e0;
+            color: #333;
+        }
+        
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .message {
+            display: flex;
+            gap: 16px;
+            max-width: 85%;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .user-message {
+            align-self: flex-end;
+        }
+        
+        .avatar-small {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4a86ff, #667eea);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .bot-avatar {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        
+        .message-content {
+            padding: 16px;
+            border-radius: 18px;
+            line-height: 1.5;
+            font-size: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .user-message .message-content {
+            background: linear-gradient(135deg, #4a86ff, #667eea);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .bot-message .message-content {
+            background: white;
+            border: 1px solid #eaecef;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        
+        .quick-question {
+            padding: 8px 16px;
+            background: #f0f4ff;
+            border: 1px solid #d0ddf7;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #4a86ff;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .quick-question:hover {
+            background: #e6eeff;
+            border-color: #b0c4ff;
+        }
+        
+        .input-area {
+            padding: 20px;
+            border-top: 1px solid #eaecef;
+            background: white;
+        }
+        
+        .input-container {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+        
+        .message-input {
+            flex: 1;
+            padding: 14px 16px;
+            border: 1px solid #eaecef;
+            border-radius: 12px;
+            font-size: 15px;
+            resize: none;
+            min-height: 50px;
+            max-height: 120px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .message-input:focus {
+            border-color: #4a86ff;
+            box-shadow: 0 0 0 2px rgba(74, 134, 255, 0.1);
+        }
+        
+        .send-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #4a86ff, #667eea);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .send-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(74, 134, 255, 0.3);
+        }
+        
+        .resource-card {
+            background: #f8fafd;
+            border: 1px solid #eaecef;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+        
+        .resource-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .resource-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .resource-img {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        
+        .resource-info {
+            flex: 1;
+        }
+        
+        .resource-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        
+        .resource-desc {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .resource-btn {
+            padding: 6px 12px;
+            background: #4a86ff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .welcome-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        
+        .welcome-icon {
+            font-size: 48px;
+            color: #a0aec0;
+            margin-bottom: 16px;
+        }
+        
+        .welcome-text {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .welcome-subtext {
+            font-size: 14px;
+            color: #718096;
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <!-- 页面头部 -->
-    <header class="bg-white shadow-sm">
-        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-                <i class="fa fa-robot text-blue-600 text-xl"></i>
-                <h1 class="text-xl font-bold text-gray-800">AI 智能体</h1>
-            </div>
-            <nav>
-                <a href="index.html" class="text-gray-600 hover:text-blue-600 font-medium">返回首页</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- 主要内容 -->
-    <main class="container mx-auto px-4 py-8">
-        <div class="max-w-4xl mx-auto">
-            <!-- AI智能体对话框 -->
-            <div class="bg-white rounded-2xl rounded-bl-2xl shadow-2xl w-full flex flex-col h-[70vh]">
-                <!-- 对话框头部 -->
-                <div class="flex items-center justify-between p-6 border-b border-gray-200">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
-                            <i class="fa fa-robot text-white text-lg"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-gray-800">AI智能助手</h3>
-                            <p class="text-sm text-gray-500">问你所惑，解你所需</p>
-                        </div>
-                    </div>
-                    <a href="index.html" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition">
-                        <i class="fa fa-times"></i>
-                    </a>
+<body>
+    <div class="chat-container">
+        <!-- 侧边栏 -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">
+                    <i class="fas fa-robot"></i>
+                    <span>AI 智能体</span>
                 </div>
-                
-                <!-- 对话框内容区域 -->
-                <div class="flex-1 overflow-hidden flex">
-                    <!-- 左侧导航区域 -->
-                    <div class="w-1/4 border-r border-gray-200 p-4 bg-gray-50 rounded-bl-2xl">
-                        <div class="space-y-3">
-                            <button class="w-full flex items-center space-x-3 p-3 rounded-lg bg-blue-500 text-white transition">
-                                <i class="fa fa-plus text-sm"></i>
-                                <span class="text-sm font-medium">新对话</span>
-                            </button>
-                            <button class="w-full flex items-center space-x-3 p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition text-gray-700">
-                                <i class="fa fa-star text-sm"></i>
-                                <span class="text-sm font-medium">我的收藏</span>
-                            </button>
-                            <button class="w-full flex items-center space-x-3 p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition text-gray-700">
-                                <i class="fa fa-history text-sm"></i>
-                                <span class="text-sm font-medium">历史对话</span>
-                            </button>
-                        </div>
+            </div>
+            <div class="sidebar-actions">
+                <button class="sidebar-btn active">
+                    <i class="fas fa-plus"></i>
+                    <span>新对话</span>
+                </button>
+                <button class="sidebar-btn">
+                    <i class="fas fa-star"></i>
+                    <span>我的收藏</span>
+                </button>
+                <button class="sidebar-btn">
+                    <i class="fas fa-history"></i>
+                    <span>历史对话</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 主内容区域 -->
+        <div class="main-content">
+            <!-- 头部 -->
+            <div class="chat-header">
+                <div class="chat-title-area">
+                    <div class="avatar">
+                        <i class="fas fa-robot"></i>
                     </div>
-                    
-                    <!-- 对话区域 -->
-                    <div class="flex-1 flex flex-col relative">
-                        <!-- 消息区域 -->
-                        <div id="ai-messages" class="flex-1 p-4 overflow-y-auto min-h-[60vh]">
-                            <div class="space-y-4">
-                                <div class="flex justify-start">
-                                    <div class="max-w-[80%] bg-gray-100 rounded-2xl px-4 py-3">
-                                        <p class="text-gray-700">您好！我是AI智能助手，有什么可以帮助您的吗？</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- 输入区域 -->
-                        <div class="p-4 border-t border-gray-200">
-                            <!-- 快速提问标签（输入框上方横排） -->
-                            <div id="ai-quick-questions" class="mb-3">
-                                <div class="flex flex-wrap gap-2">
-                                    <button class="px-3 py-1.5 text-sm text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-all duration-200">
-                                        如何参加考试？
-                                    </button>
-                                    <button class="px-3 py-1.5 text-sm text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-all duration-200">
-                                        如何认证成为高级云架构师？
-                                    </button>
-                                    <button class="px-3 py-1.5 text-sm text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-all duration-200">
-                                        如何查看和下载证书
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div class="flex space-x-3">
-                                <input 
-                                    type="text" 
-                                    id="ai-input" 
-                                    placeholder="输入您的问题..." 
-                                    class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-400 transition"
-                                >
-                                <button id="ai-send" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:from-blue-600 hover:to-purple-600 transition">
-                                    发送
-                                </button>
-                            </div>
-                        </div>
+                    <div>
+                        <div class="chat-title">AI智能助手</div>
+                        <div class="chat-subtitle">问你所惑，解你所需</div>
+                    </div>
+                </div>
+                <a href="index.html" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </a>
+            </div>
+            
+            <!-- 消息区域 -->
+            <div id="ai-messages" class="messages-container">
+                <div class="message bot-message">
+                    <div class="avatar-small bot-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        您好！我是AI智能助手，展示认证流程，包括考试预约、获取与验证证书的入口，以及可能涉及的重认证规则。有什么可以帮助您的吗？
                     </div>
                 </div>
             </div>
+            
+            <!-- 输入区域 -->
+            <div class="input-area">
+                <div class="quick-questions" id="ai-quick-questions">
+                    <button class="quick-question">如何参加考试？</button>
+                    <button class="quick-question">如何认证成为高级云架构师？</button>
+                    <button class="quick-question">如何查看和下载证书</button>
+                </div>
+                <div class="input-container">
+                    <textarea 
+                        id="ai-input" 
+                        placeholder="输入您的问题..." 
+                        class="message-input"
+                        rows="1"
+                    ></textarea>
+                    <button id="ai-send" class="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-    </main>
+    </div>
 
     <script>
     // AI智能体功能
@@ -134,15 +443,26 @@
         const aiSend = document.getElementById('ai-send');
         const aiMessages = document.getElementById('ai-messages');
         
+        // 自动调整文本框高度
+        aiInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight > 120 ? 120 : this.scrollHeight) + 'px';
+        });
+        
         // 添加消息到对话框
         function addMessage(text, isUser = false) {
             const messageDiv = document.createElement('div');
-            messageDiv.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            
+            const avatarDiv = document.createElement('div');
+            avatarDiv.className = `avatar-small ${isUser ? '' : 'bot-avatar'}`;
+            avatarDiv.innerHTML = `<i class="fas ${isUser ? 'fa-user' : 'fa-robot'}"></i>`;
             
             const messageBubble = document.createElement('div');
-            messageBubble.className = `max-w-[80%] ${isUser ? 'bg-blue-500 text-white rounded-2xl rounded-br-none' : 'bg-gray-100 text-gray-700 rounded-2xl'} px-4 py-3`;
-            messageBubble.innerHTML = `<p>${text}</p>`;
+            messageBubble.className = 'message-content';
+            messageBubble.innerHTML = text;
             
+            messageDiv.appendChild(avatarDiv);
             messageDiv.appendChild(messageBubble);
             aiMessages.appendChild(messageDiv);
             
@@ -165,18 +485,17 @@
                         <li>完成在线考试或预约线下考试</li>
                         <li>提交答卷后等待成绩公布</li>
                       </ul>
-                      <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                        <div class="flex items-center gap-3">
+                      <div class="resource-card">
+                        <div class="resource-item">
                           <img src="https://images.unsplash.com/photo-1581093458791-8a0a5d5c5f5a?auto=format&fit=crop&w=100&q=80" 
-                               class="w-12 h-12 rounded-lg object-cover" 
+                               class="resource-img" 
                                alt="考试流程">
-                          <div class="flex-1">
-                            <p class="text-sm font-medium text-gray-800">考试流程详解视频</p>
-                            <p class="text-xs text-gray-600">详细讲解考试报名和参加流程</p>
+                          <div class="resource-info">
+                            <div class="resource-title">考试流程详解视频</div>
+                            <div class="resource-desc">详细讲解考试报名和参加流程</div>
                           </div>
-                          <button class="px-3 py-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition text-xs flex items-center gap-1">
-                            <i class="fa fa-play"></i>
-                            播放
+                          <button class="resource-btn">
+                            <i class="fas fa-play"></i> 播放
                           </button>
                         </div>
                       </div>
@@ -192,18 +511,17 @@
                         <li>提交项目案例和设计方案</li>
                         <li>通过专家评审委员会的审核</li>
                       </ul>
-                      <div class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
-                        <div class="flex items-center gap-3">
+                      <div class="resource-card">
+                        <div class="resource-item">
                           <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=100&q=80" 
-                               class="w-12 h-12 rounded-lg object-cover" 
+                               class="resource-img" 
                                alt="云架构师认证">
-                          <div class="flex-1">
-                            <p class="text-sm font-medium text-gray-800">高级云架构师认证指南</p>
-                            <p class="text-xs text-gray-600">完整认证流程和备考策略</p>
+                          <div class="resource-info">
+                            <div class="resource-title">高级云架构师认证指南</div>
+                            <div class="resource-desc">完整认证流程和备考策略</div>
                           </div>
-                          <button class="px-3 py-1.5 bg-green-500 text-white rounded-lg hover:bg-green-600 transition text-xs flex items-center gap-1">
-                            <i class="fa fa-play"></i>
-                            播放
+                          <button class="resource-btn">
+                            <i class="fas fa-play"></i> 播放
                           </button>
                         </div>
                       </div>
@@ -219,18 +537,17 @@
                         <li>选择下载格式（PDF/图片）</li>
                         <li>验证证书真伪（可选）</li>
                       </ul>
-                      <div class="mt-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
-                        <div class="flex items-center gap-3">
+                      <div class="resource-card">
+                        <div class="resource-item">
                           <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=100&q=80" 
-                               class="w-12 h-12 rounded-lg object-cover" 
+                               class="resource-img" 
                                alt="证书管理">
-                          <div class="flex-1">
-                            <p class="text-sm font-medium text-gray-800">证书管理操作教程</p>
-                            <p class="text-xs text-gray-600">详细演示证书查看和下载流程</p>
+                          <div class="resource-info">
+                            <div class="resource-title">证书管理操作教程</div>
+                            <div class="resource-desc">详细演示证书查看和下载流程</div>
                           </div>
-                          <button class="px-3 py-1.5 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition text-xs flex items-center gap-1">
-                            <i class="fa fa-play"></i>
-                            播放
+                          <button class="resource-btn">
+                            <i class="fas fa-play"></i> 播放
                           </button>
                         </div>
                       </div>
@@ -250,6 +567,7 @@
                 if (message) {
                     addMessage(message, true);
                     aiInput.value = '';
+                    aiInput.style.height = 'auto';
                     handleAIResponse(message);
                 }
             });
@@ -257,8 +575,9 @@
 
         // 输入框回车发送
         if (aiInput) {
-            aiInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
+            aiInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
                     aiSend.click();
                 }
             });
@@ -280,11 +599,12 @@
             newChatBtn.addEventListener('click', function() {
                 // 清空消息区域
                 aiMessages.innerHTML = `
-                  <div class="space-y-4">
-                    <div class="flex justify-start">
-                      <div class="max-w-[80%] bg-gray-100 rounded-2xl rounded-bl-none px-4 py-3">
-                        <p class="text-gray-700">您好！我是AI智能助手，有什么可以帮助您的吗？</p>
-                      </div>
+                  <div class="message bot-message">
+                    <div class="avatar-small bot-avatar">
+                      <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                      您好！我是AI智能助手，有什么可以帮助您的吗？
                     </div>
                   </div>
                 `;
