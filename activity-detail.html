@@ -107,7 +107,7 @@
                 <span id="tag-type"
                       class="inline-flex items-center px-2 py-1 rounded-full bg-white/70 border border-gray-300 text-gray-700">
                   <i class="fa fa-wifi mr-1 text-[10px] text-[#B01F24]"></i>
-                  线上活动
+                  技术分享
                 </span>
                 <span id="tag-status"
                       class="inline-flex items-center px-2 py-1 rounded-full bg-white/70 border border-gray-300 text-[#B01F24] status-badge-upcoming">
@@ -183,10 +183,10 @@
           </p>
         </article>
 
-        <!-- 相关线上课程链接 -->
-        <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-6">
+        <!-- 相关课程链接 -->
+        <article class="glass-card rounded-3xl p-4 md:p-6">
           <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2 text-gray-800">
-            <i class="fa fa-graduation-cap mr-1 text-[#B01F24]"></i> 相关线上课程
+            <i class="fa fa-graduation-cap mr-1 text-[#B01F24]"></i> 相关课程
           </h2>
           <p class="text-[11px] text-gray-500 mb-2">
             建议在参加活动前后，结合以下在线课程系统学习，可在「学习中心」中继续学习。
@@ -224,9 +224,9 @@
           </div>
 
           <div class="flex items-center justify-between">
-            <span class="text-gray-400">形式</span>
+            <span class="text-gray-400">类型</span>
             <span id="side-type" class="inline-flex items-center px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[#B01F24]">
-              <i class="fa fa-wifi mr-1 text-[9px]"></i> 线上
+              <i class="fa fa-wifi mr-1 text-[9px]"></i> 技术分享
             </span>
           </div>
 
@@ -370,11 +370,11 @@
 
     // 类型
     if (activity.type === 'online') {
-      tagType.innerHTML = '<i class="fa fa-wifi mr-1 text-[10px]"></i> 线上活动';
-      sideType.innerHTML = '<i class="fa fa-wifi mr-1 text-[9px]"></i> 线上';
+      tagType.innerHTML = '<i class="fa fa-wifi mr-1 text-[10px]"></i> 技术分享';
+      sideType.innerHTML = '<i class="fa fa-wifi mr-1 text-[9px]"></i> 技术分享';
     } else {
-      tagType.innerHTML = '<i class="fa fa-building mr-1 text-[10px]"></i> 线下活动';
-      sideType.innerHTML = '<i class="fa fa-building mr-1 text-[9px]"></i> 线下';
+      tagType.innerHTML = '<i class="fa fa-building mr-1 text-[10px]"></i> 产品发布';
+      sideType.innerHTML = '<i class="fa fa-building mr-1 text-[9px]"></i> 产品发布';
     }
 
     sideDuration.textContent = activity.durationMinutes + ' 分钟';

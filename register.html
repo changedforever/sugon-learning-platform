@@ -202,7 +202,7 @@
     
     <!-- 模拟官网底部 -->
     <div class="bg-gray-900 text-white rounded-xl p-6 pb-4">
-      <div class="max-w-6xl mx-auto px-4" style="position: relative;">
+      <div class="max-w-6xl mx-auto px-4">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-4">
           <div>
             <h4 class="text-lg font-semibold mb-4">关于我们</h4>
@@ -247,7 +247,7 @@
           <div class="flex-1"></div>
           
           <!-- 光圈下载按钮，悬停显示浮窗 -->
-          <div class="relative group" style="position: absolute;right: 0;bottom: 80px;">
+          <div class="relative group">
             <button id="download-app-btn" class="px-6 py-3 bg-gradient-to-r from-[#2D874B] to-[#34D399] text-white rounded-lg hover:from-[#256e3d] hover:to-[#2dcba2] transition-all duration-300 font-medium">
               <i class="fas fa-download mr-2"></i>光圈下载
             </button>
@@ -372,54 +372,31 @@
     <div class="flex-1 glass-card rounded-xl p-6 shadow-md">
       <!-- 个人注册页面 -->
       <div class="page active" id="personal-register">
-        <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">个人注册</h2>
-        <form id="personal-register-form" class="space-y-6">
-          <div class="form-group">
-            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">手机号码</label>
-            <div class="input-with-button relative">
-              <input type="tel" id="phone" name="phone" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请输入手机号码" required>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="verification-code" class="block text-sm font-medium text-gray-700 mb-1">验证码</label>
-            <div class="input-with-button relative">
-              <input type="text" id="verification-code" name="verification-code" class="form-control w-full px-4 py-2 pl-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请输入验证码" required>
-              <button type="button" class="verification-code-btn">获取验证码</button>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">设置密码</label>
-            <input type="password" id="password" name="password" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请设置密码" required>
-          </div>
-
-          <div class="form-group">
-            <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">确认密码</label>
-            <input type="password" id="confirm-password" name="confirm-password" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请再次输入密码" required>
-          </div>
-
-          <div class="flex items-start">
-            <input type="checkbox" id="agreement" name="agreement" required class="mt-1 h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]">
-            <label for="agreement" class="ml-2 block text-sm text-gray-700">我同意光合组织用户条款</label>
-          </div>
-
-          <button type="submit" class="btn btn-primary w-full py-3 px-4 rounded-lg text-base font-medium">注册并登录</button>
-        </form>
+        <div class="w-full h-[600px]">
+          <img src="images/registration.png" alt="注册" class="w-full h-full object-cover rounded-lg">
+        </div>
       </div>
 
       <!-- 升级弹窗页面 -->
       <div class="page" id="upgrade-popup">
-        <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">升级弹窗</h2>
-        <div class="popup-content">
-          <h3 class="text-lg font-semibold text-gray-800 mb-3">账号升级提示</h3>
-          <p class="text-gray-600 mb-6">您已注册成为光合组织平台用户，为了让您享受光合组织基本权益，需要您【完善用户信息】。
-您的公司如果成为光合组织伙伴，可点击【账号升级】以获取更多权益。权限升级后，请重新登录。</p>
+        <!-- 截图作为底图 -->
+        <div class="relative w-full h-[600px]">
+          <!-- 底图 -->
+          <img src="images/loginpop.png" alt="登录弹窗" class="w-full h-full object-cover rounded-lg">
           
-          <div class="flex justify-center gap-4">
-            <button class="btn btn-primary py-2 px-6 rounded-lg">完善信息</button>
-            <button class="btn btn-primary py-2 px-6 rounded-lg">账号升级</button>
-            <button class="btn btn-secondary py-2 px-6 rounded-lg">不再提醒</button>
+          <!-- 右上角弹窗 -->
+          <div class="absolute top-8 right-8 bg-white rounded-2xl p-4 max-w-sm w-full shadow-xl z-10">
+            <h3 class="text-base font-semibold text-gray-800 mb-2">账号升级提示</h3>
+            <p class="text-gray-600 mb-4 leading-relaxed text-xs">
+              您已注册成为光合组织平台用户，为了让您享受光合组织基本权益，需要您【完善用户信息】。
+              您的公司如果成为光合组织伙伴，可点击【账号升级】以获取更多权益。权限升级后，请重新登录。
+            </p>
+            
+            <div class="flex justify-center gap-2">
+              <button class="py-1 px-3 rounded-lg bg-red-500 text-white hover:bg-red-600 transition text-xs">完善信息</button>
+              <button class="py-1 px-3 rounded-lg bg-red-500 text-white hover:bg-red-600 transition text-xs">账号升级</button>
+              <button class="py-1 px-3 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition text-xs">不再提醒</button>
+            </div>
           </div>
         </div>
       </div>
@@ -500,7 +477,7 @@
         <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">邀请成员</h2>
         
         <!-- 导入方式选择 -->
-        <div class="glass-card rounded-3xl border border-gray-300 p-4 mb-6">
+        <div class="glass-card rounded-3xl border border-gray-300 p-4 mb-6 hidden">
           <h3 class="text-lg font-semibold text-gray-800 mb-4">请选择导入方式</h3>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -530,12 +507,12 @@
 
         <!-- 手动输入区域 -->
         <div id="manual-input-section" class="glass-card rounded-3xl border border-gray-300 p-4 mb-6">
-          <h3 class="text-lg font-semibold text-gray-800 mb-4">手动输入成员信息</h3>
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">输入成员信息</h3>
           
           <div id="members-list" class="space-y-3 mb-4">
             <!-- 成员输入行 -->
             <div class="member-input flex items-center gap-3 p-3 border border-gray-200 rounded-xl">
-              <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div class="flex-1 grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div>
                   <label class="block text-xs font-medium text-gray-700 mb-1">姓名</label>
                   <input type="text" class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent text-sm" placeholder="请输入姓名">
@@ -543,6 +520,23 @@
                 <div>
                   <label class="block text-xs font-medium text-gray-700 mb-1">手机号码</label>
                   <input type="tel" class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent text-sm" placeholder="请输入手机号码">
+                </div>
+                <div>
+                  <label class="block text-xs font-medium text-gray-700 mb-1">岗位类型</label>
+                  <select class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent text-sm">
+                    <option value="">请选择</option>
+                    <option value="technical">技术岗</option>
+                    <option value="management">管理岗</option>
+                    <option value="marketing">市场岗</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-medium text-gray-700 mb-1">邮箱</label>
+                  <input type="email" class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent text-sm" placeholder="请输入邮箱">
+                </div>
+                <div>
+                  <label class="block text-xs font-medium text-gray-700 mb-1">有效期</label>
+                  <input type="date" class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent text-sm">
                 </div>
               </div>
               <button class="remove-member-btn text-red-500 hover:text-red-700 p-1.5">
@@ -590,7 +584,7 @@
         </div>
 
         <!-- 邀请结果区域 -->
-        <div id="invitation-result" class="hidden glass-card rounded-3xl border border-gray-300 p-4">
+        <div id="invitation-result" class=" glass-card rounded-3xl border border-gray-300 p-4">
           <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">邀请链接及海报</h3>
           
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -625,11 +619,7 @@
             </div>
           </div>
           
-          <div class="mt-4 text-center">
-            <button id="new-invitation-btn" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition text-sm">
-              <i class="fa fa-plus mr-1"></i>新建邀请
-            </button>
-          </div>
+          
         </div>
       </div>
 
@@ -741,414 +731,13 @@
       <!-- 公司组织注册页面 -->
       <div class="page" id="org-register">
         <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">光合组织申请表</h2>
-        <form id="org-registration-form" class="space-y-8">
-          <!-- 一、企业 / 机构基础信息 -->
-          <div class="border-b pb-6">
-            <h3 class="text-lg font-semibold text-[#2D874B] mb-4">一、企业 / 机构基础信息</h3>
-            
-            <div class="form-group">
-              <label for="org-name" class="block text-sm font-medium text-gray-700 mb-1">企业 / 机构名称 <span class="text-red-500">*</span></label>
-              <input type="text" id="org-name" name="org-name" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请输入公司企业机构名称" required>
-            </div>
-
-            <div class="form-group mt-4">
-              <label class="block text-sm font-medium text-gray-700 mb-1">注册资本（单位：元） <span class="text-red-500">*</span></label>
-              <div class="flex flex-wrap gap-4 mt-2">
-                <label class="flex items-center">
-                  <input type="radio" name="registered-capital" value="below-5m" required class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">5 百万以下</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="registered-capital" value="5m-20m" class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">5 百万 - 2 千万</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="registered-capital" value="20m-50m" class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">2 千万 - 5 千万</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="registered-capital" value="50m-100m" class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">5 千万 - 1 亿</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="registered-capital" value="above-100m" class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">1 亿以上</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="registered-capital" value="other" class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">其他</span>
-                </label>
-              </div>
-            </div>
-
-            <div class="form-group mt-4">
-              <label class="block text-sm font-medium text-gray-700 mb-1">经营规模（单位：元） <span class="text-red-500">*</span></label>
-              <div class="flex flex-wrap gap-4 mt-2">
-                <label class="flex items-center">
-                  <input type="radio" name="operation-scale" value="below-50m" required class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">5 千万以下</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="operation-scale" value="50m-100m" class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">5 千万 - 1 亿</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="operation-scale" value="100m-1bn" class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">1 亿 - 10 亿</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="operation-scale" value="1bn-5bn" class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">10 亿 - 50 亿</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="operation-scale" value="5bn-10bn" class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">50 亿 - 100 亿</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="operation-scale" value="above-10bn" class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">100 亿以上</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="operation-scale" value="other" class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">其他</span>
-                </label>
-              </div>
-            </div>
-
-            <div class="form-group mt-4">
-              <label class="block text-sm font-medium text-gray-700 mb-1">人员规模 <span class="text-red-500">*</span></label>
-              <div class="flex flex-wrap gap-4 mt-2">
-                <label class="flex items-center">
-                  <input type="radio" name="staff-scale" value="below-100" required class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">100 人以下</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="staff-scale" value="100-500" class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">100-500 人</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="staff-scale" value="500-1000" class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">500-1000 人</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="staff-scale" value="1000-5000" class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">1000-5000 人</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="staff-scale" value="above-5000" class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">5000 人以上</span>
-                </label>
-              </div>
-            </div>
-
-            <div class="form-group mt-4">
-              <label class="block text-sm font-medium text-gray-700 mb-1">服务行业（可多选） <span class="text-red-500">*</span></label>
-              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 mt-2">
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="government" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">政府</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="enterprise" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">企业</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="internet" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">互联网</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="emerging" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">新兴行业</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="network-security" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">网络信息安全</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="it" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">信息技术</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="telecom" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">通信及运营商</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="finance" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">金融</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="energy" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">能源</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="power" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">电力</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="manufacturing" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">制造</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="health" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">卫生</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="research" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">科研</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="education" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">教育</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="transportation" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">交通</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="police" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">公检法</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="security" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">安防</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="media" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">媒体</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="service-industry" value="other" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">其他</span>
-                </label>
-              </div>
-            </div>
-
-            <div class="form-group mt-4">
-              <label class="block text-sm font-medium text-gray-700 mb-1">涉足领域（可多选） <span class="text-red-500">*</span></label>
-              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 mt-2">
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="hardware" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">硬件配件</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="os" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">操作系统</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="database" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">数据库</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="middleware" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">中间件</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="distributed-storage" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">分布式存储</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="cloud-computing" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">云计算</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="big-data" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">大数据</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="ai-framework" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">人工智能框架</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="office" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">办公套件</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="oa" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">OA 系统</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="security" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">安全</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="communication" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">即时沟通</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="mail" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">邮件</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="erp" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">ERP</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="ops-audit" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">运维审计类</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="artificial-intelligence" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">人工智能</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="finance" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">金融</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="industrial-manufacturing" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">工业制造</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="industrial-design" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">工业设计</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="scientific-research" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">科研</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="education" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">教育</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="medical" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">医疗</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="public-security" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">公安</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="justice" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">司法</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="weather" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">气象环境</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="government" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">政府</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="energy" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">能源</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="power" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">电力</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="telecom" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">通信</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="weather" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">气象</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="industrial-computing" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">工业计算</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="bio-info" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">生物信息</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="involved-field" value="physics" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">物理化学材料</span>
-                </label>
-              </div>
-            </div>
-
-            <div class="form-group mt-4">
-              <label for="official-website" class="block text-sm font-medium text-gray-700 mb-1">官方网站</label>
-              <input type="url" id="official-website" name="official-website" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请输入公司官网网址（如果没有网站请填写无）">
-            </div>
-          </div>
-
-          <!-- 二、企业联络人信息 -->
-          <div class="border-b pb-6 mt-6">
-            <h3 class="text-lg font-semibold text-[#2D874B] mb-4">二、企业联络人信息</h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div class="form-group">
-                <label for="contact-person" class="block text-sm font-medium text-gray-700 mb-1">企业联络人 <span class="text-red-500">*</span></label>
-                <input type="text" id="contact-person" name="contact-person" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请填写战略、市场、售前、生态合作的中层人员" required>
-              </div>
-              <div class="form-group">
-                <label for="contact-position" class="block text-sm font-medium text-gray-700 mb-1">职务 <span class="text-red-500">*</span></label>
-                <input type="text" id="contact-position" name="contact-position" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请填写联络人职务" required>
-              </div>
-              <div class="form-group">
-                <label for="contact-phone" class="block text-sm font-medium text-gray-700 mb-1">手机 <span class="text-red-500">*</span></label>
-                <input type="tel" id="contact-phone" name="contact-phone" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请填写联络人手机号码" required>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
-              <div class="form-group md:col-span-1">
-                <label for="contact-email" class="block text-sm font-medium text-gray-700 mb-1">邮箱 <span class="text-red-500">*</span></label>
-                <input type="email" id="contact-email" name="contact-email" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请填写联络人邮箱" required>
-              </div>
-              <div class="form-group md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700 mb-1">收件地址 <span class="text-red-500">*</span></label>
-                <div class="flex gap-3 mt-2">
-                  <select id="delivery-province" name="delivery-province" class="form-control flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" required>
-                    <option value="">省</option>
-                    <option value="beijing">北京市</option>
-                    <option value="shanghai">上海市</option>
-                    <option value="guangdong">广东省</option>
-                    <option value="zhejiang">浙江省</option>
-                    <option value="jiangsu">江苏省</option>
-                    <option value="sichuan">四川省</option>
-                  </select>
-                  <select id="delivery-city" name="delivery-city" class="form-control flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" required>
-                    <option value="">市</option>
-                    <option value="beijing">北京市</option>
-                    <option value="shanghai">上海市</option>
-                    <option value="guangzhou">广州市</option>
-                    <option value="hangzhou">杭州市</option>
-                    <option value="nanjing">南京市</option>
-                    <option value="chengdu">成都市</option>
-                  </select>
-                </div>
-                <input type="text" id="delivery-address" name="delivery-address" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B] mt-2" placeholder="详细地址" required>
-              </div>
-            </div>
-          </div>
-
-          <!-- 三、推荐人信息 -->
-          <div class="border-b pb-6 mt-6">
-            <h3 class="text-lg font-semibold text-[#2D874B] mb-4">三、推荐人信息</h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div class="form-group">
-                <label for="referee-name" class="block text-sm font-medium text-gray-700 mb-1">推荐人</label>
-                <input type="text" id="referee-name" name="referee-name" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请填写推荐人姓名">
-              </div>
-              <div class="form-group">
-                <label for="referee-company" class="block text-sm font-medium text-gray-700 mb-1">推荐公司</label>
-                <input type="text" id="referee-company" name="referee-company" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请填写推荐人公司">
-              </div>
-              <div class="form-group">
-                <label for="referee-phone" class="block text-sm font-medium text-gray-700 mb-1">推荐人手机</label>
-                <input type="tel" id="referee-phone" name="referee-phone" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请填写推荐人手机">
-              </div>
-            </div>
-          </div>
-
-          <!-- 四、加入组织相关信息 -->
-          <div class="border-b pb-6 mt-6">
-            <h3 class="text-lg font-semibold text-[#2D874B] mb-4">四、加入组织相关信息</h3>
-            
-            <div class="form-group">
-              <label for="coop-expectation" class="block text-sm font-medium text-gray-700 mb-1">加入组织的合作期望、诉求及可共享的资源 <span class="text-red-500">*</span></label>
-              <textarea id="coop-expectation" name="coop-expectation" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" rows="5" placeholder="加入组织的合作期望、诉求及可共享的资源" required></textarea>
-            </div>
-
-            <div class="form-group mt-4">
-              <label class="block text-sm font-medium text-gray-700 mb-1">希望加入的技术专委会</label>
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-2">
-                <label class="flex items-center">
-                  <input type="checkbox" name="tech-committee" value="hpc" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">高性能计算专委会</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="tech-committee" value="ai" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">人工智能专委会</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="tech-committee" value="cloud" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">云计算专委会</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="tech-committee" value="network-security" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">网络可视化与网络安全专委会</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="tech-committee" value="big-data" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">大数据与数据库专委会</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="tech-committee" value="storage" class="h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">存储专委会</span>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <!-- 五、附件及协议 -->
-          <div class="mt-6">
-            <h3 class="text-lg font-semibold text-[#2D874B] mb-4">五、附件及协议</h3>
-            
-            <div class="form-group">
-              <label for="business-license-file" class="block text-sm font-medium text-gray-700 mb-1">《企业营业执照 / 机构证书》电子扫描件 <span class="text-red-500">*</span></label>
-              <div class="flex items-center mt-2">
-                <input type="file" id="business-license-file" name="business-license-file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" class="form-control flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" required>
-                <button type="button" class="btn btn-secondary ml-2 px-4 py-2">浏览</button>
-              </div>
-              <small class="text-gray-500">上传《企业营业执照 / 机构证书》电子扫描件</small>
-            </div>
-
-            <div class="form-group mt-4">
-              <label for="logo-file" class="block text-sm font-medium text-gray-700 mb-1">企业 logo <span class="text-red-500">*</span></label>
-              <div class="flex items-center mt-2">
-                <input type="file" id="logo-file" name="logo-file" accept=".jpg,.jpeg,.png" class="form-control flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" required>
-                <button type="button" class="btn btn-secondary ml-2 px-4 py-2">浏览</button>
-              </div>
-              <small class="text-gray-500">JPG 文件 100-150K 格式图片【可打水印上传】</small>
-            </div>
-
-            <div class="form-group mt-4">
-              <label class="block text-sm font-medium text-gray-700 mb-1">Logo 使用授权 <span class="text-red-500">*</span></label>
-              <div class="flex flex-wrap gap-4 mt-2">
-                <label class="flex items-center">
-                  <input type="radio" name="logo-authorization" value="yes" required class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">是，可用于生态伙伴展示：网站、展会、展厅等宣传渠道</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="logo-authorization" value="no" class="h-4 w-4 text-[#2D874B] border-gray-300 focus:ring-[#2D874B]"> <span class="ml-2 text-gray-700">否，加入组织但不允许展示 logo</span>
-                </label>
-              </div>
-            </div>
-
-            <div class="flex items-start mt-4">
-              <input type="checkbox" id="agreement" name="agreement" required class="mt-1 h-4 w-4 text-[#2D874B] border-gray-300 rounded focus:ring-[#2D874B]">
-              <label for="agreement" class="ml-2 block text-sm text-gray-700">阅读并同意《光合组织章程》、《光合组织成员协议》</label>
-            </div>
-
-            <!-- 六、操作按钮 -->
-            <div class="flex gap-4 pt-6">
-              <button type="button" class="btn btn-secondary flex-1 py-2 px-4 rounded-lg">保存</button>
-              <button type="submit" class="btn btn-primary flex-1 py-2 px-4 rounded-lg">提交</button>
-            </div>
-          </div>
-        </form>
-      </div><!-- 下载光圈-注册成功页面 -->
+        <div class="w-full h-[600px] overflow-y-auto rounded-lg border border-gray-200">
+          <img src="images/organization.png" alt="组织注册" class="w-full h-auto">
+        </div>
+      </div>
+    </div>
+  
+  <!-- 下载光圈-注册成功页面 -->
   <div class="page" id="download-app">
     <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">光圈下载</h2>
     
@@ -1206,11 +795,7 @@
       </div>
     </div>
   </div>
-    </div>
-  
-  
-
-  <!-- 下载光圈-官网页面 -->
+<!-- 下载光圈-官网页面 -->
   <div class="page" id="download-official-site">
     <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">下载光圈-官网</h2>
     
@@ -1475,60 +1060,41 @@
         orgListBody.innerHTML = '';
         
         // 模拟查询结果数据
-        const mockResults = [
-          { id: 1, name: '示例科技有限公司', address: '北京市海淀区xxx街道...', adminEmail: 'admin@demo.com' },
-          { id: 2, name: '创新软件开发公司', address: '上海市浦东新区...', adminEmail: 'info@innovation.co' },
-          { id: 3, name: '未来信息技术有限公司', address: '深圳市南山区...', adminEmail: 'contact@future-tech.cn' }
-        ];
+        const mockResults = [];
         
-        mockResults.forEach((org, index) => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td style="padding: 12px; border: 1px solid #ddd;">${index + 1}</td>
-            <td style="padding: 12px; border: 1px solid #ddd;">${org.name}</td>
-            <td style="padding: 12px; border: 1px solid #ddd;">${org.address}</td>
-            <td style="padding: 12px; border: 1px solid #ddd;">${org.adminEmail}</td>
-            <td style="padding: 12px; text-align: center; border: 1px solid #ddd;">
-              <button class="btn btn-primary" onclick="selectOrganization(${org.id})" style="padding: 6px 12px; font-size: 14px;">选择</button>
-            </td>
+        if(mockResults.length > 0) {
+          // 有结果时显示结果列表
+          mockResults.forEach((org, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td style="padding: 12px; border: 1px solid #ddd;">${index + 1}</td>
+              <td style="padding: 12px; border: 1px solid #ddd;">${org.name}</td>
+              <td style="padding: 12px; border: 1px solid #ddd;">${org.address}</td>
+              <td style="padding: 12px; border: 1px solid #ddd;">${org.adminEmail}</td>
+              <td style="padding: 12px; text-align: center; border: 1px solid #ddd;">
+                <button class="btn btn-primary" onclick="selectOrganization(${org.id})" style="padding: 6px 12px; font-size: 14px;">选择</button>
+              </td>
+            `;
+            orgListBody.appendChild(row);
+          });
+        } else {
+          // 无结果时显示注册组织的提示和按钮
+          orgListBody.innerHTML = `
+            <tr>
+              <td colspan="5" style="padding: 30px; text-align: center; border: 1px solid #ddd;">
+                <div style="max-width: 400px; margin: 0 auto;">
+                  <p style="font-size: 16px; margin-bottom: 20px;">没有结果，是否注册组织？</p>
+                  <button onclick="window.location.href='register.html#org-register'" class="btn btn-primary" style="padding: 10px 24px; font-size: 16px;">注册组织</button>
+                </div>
+              </td>
+            </tr>
           `;
-          orgListBody.appendChild(row);
-        });
+        }
       } else {
         // 如果没有输入查询条件，显示提示信息
         orgListBody.innerHTML = '<tr><td colspan="5" style="padding: 20px; text-align: center; border: 1px solid #ddd;">请输入查询条件后点击查询</td></tr>';
         alert('请输入至少一项查询条件');
       }
-    });
-    
-    // 悬停提示功能
-    document.addEventListener('DOMContentLoaded', function() {
-      const tooltipIcons = document.querySelectorAll('.tooltip-icon');
-      
-      tooltipIcons.forEach(icon => {
-        let tooltip;
-        
-        icon.addEventListener('mouseenter', function(e) {
-          // 创建提示框
-          tooltip = document.createElement('div');
-          tooltip.className = 'tooltip';
-          tooltip.textContent = this.getAttribute('title');
-          document.body.appendChild(tooltip);
-          
-          // 定位提示框
-          const rect = this.getBoundingClientRect();
-          tooltip.style.left = rect.left + 'px';
-          tooltip.style.top = (rect.top - tooltip.offsetHeight - 5) + 'px';
-        });
-        
-        icon.addEventListener('mouseleave', function() {
-          // 移除提示框
-          const existingTooltip = document.querySelector('.tooltip');
-          if (existingTooltip) {
-            document.body.removeChild(existingTooltip);
-          }
-        });
-      });
     });
     
     // 邮箱按钮功能
@@ -1624,7 +1190,7 @@
               const newMemberDiv = document.createElement('div');
               newMemberDiv.className = 'member-input flex items-center gap-3 p-3 border border-gray-200 rounded-xl';
               newMemberDiv.innerHTML = `
-                <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="flex-1 grid grid-cols-1 md:grid-cols-3 gap-3">
                   <div>
                     <label class="block text-xs font-medium text-gray-700 mb-1">姓名</label>
                     <input type="text" class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent text-sm" placeholder="请输入姓名">
@@ -1632,6 +1198,23 @@
                   <div>
                     <label class="block text-xs font-medium text-gray-700 mb-1">手机号码</label>
                     <input type="tel" class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent text-sm" placeholder="请输入手机号码">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">岗位类型</label>
+                    <select class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent text-sm">
+                      <option value="">请选择</option>
+                      <option value="technical">技术岗</option>
+                      <option value="management">管理岗</option>
+                      <option value="marketing">市场岗</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">邮箱</label>
+                    <input type="email" class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent text-sm" placeholder="请输入邮箱">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">有效期</label>
+                    <input type="date" class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent text-sm">
                   </div>
                 </div>
                 <button class="remove-member-btn text-red-500 hover:text-red-700 p-1.5">

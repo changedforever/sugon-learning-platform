@@ -313,12 +313,12 @@
                         <button
                             class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
                             data-filter="type" data-value="online">
-                            线上活动
+                            技术分享
                         </button>
                         <button
                             class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
                             data-filter="type" data-value="offline">
-                            线下活动
+                            产品发布
                         </button>
                     </div>
                 </div>
@@ -405,7 +405,7 @@
       id: 1,
       title: "云原生架构设计实战工作坊",
       datetime: "2026-01-20 19:00-21:00",
-      place: "线上 · 直播间",
+      place: "上海 · 陆家嘴",
       type: "online",
       status: "upcoming", // upcoming: 倒计时, live: 活动中, ended: 已结束
       attendees: 1234
@@ -441,7 +441,7 @@
       id: 5,
       title: "生态技术领袖闭门交流会",
       datetime: "2025-12-25 18:30-21:00",
-      place: "线上 · 专属会议室",
+      place: "北京 · 中关村会议中心",
       type: "online",
       status: "ended",
       attendees: 210
@@ -556,7 +556,7 @@
                 isOnline ? 'text-[#2D874B]' : 'text-[#2D874B]'
               }">
                 <i class="fa ${isOnline ? 'fa-wifi' : 'fa-building'} mr-1 text-[9px] text-[#2D874B]"></i>
-                ${isOnline ? '线上活动' : '线下活动'}
+                ${isOnline ? '技术分享' : '产品发布'}
               </span>
               <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] ${statusCfg.cls}">
                 <i class="fa ${statusCfg.icon} mr-1 text-[9px]"></i>${statusCfg.text}
@@ -676,7 +676,7 @@
   // 更新顶部"已选条件"文案
   function updateFilterText() {
     const parts = [];
-    if (filters.type !== 'all') parts.push(`类型：${filters.type === 'online' ? '线上活动' : '线下活动'}`);
+    if (filters.type !== 'all') parts.push(`类型：${filters.type === 'online' ? '技术分享' : '产品发布'}`);
     if (filters.status !== 'all') parts.push(`状态：${getStatusText(filters.status)}`);
     if (filters.timeframe !== 'all') parts.push(`时间：${getTimeframeText(filters.timeframe)}`);
     if (filters.search) parts.push(`关键词："${filters.search}"`);
