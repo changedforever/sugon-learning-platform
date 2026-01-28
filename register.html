@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>用户注册 - 光合技术支持平台</title>
+  <title>用户注册 - 光合官网</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -118,14 +118,14 @@
     
     .verification-code-btn {
       position: absolute;
-      right: 10px;
+      right: 0;
       top: 50%;
       transform: translateY(-50%);
       padding: 8px 12px;
       background: #2D874B;
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 0 4px 4px 0;
       cursor: pointer;
       transition: all 0.3s ease;
     }
@@ -157,144 +157,178 @@
         </a>
         <div>
           <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
-            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200">光合技术支持平台</div>
+            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200">光合官网</div>
           </a>
         </div>
       </div>
 
-      <!-- 导航入口（桌面端） -->
-      <nav class="hidden md:flex items-center space-x-3 text-sm">
-        <!-- 专家 - 无下拉 -->
-        <a href="expert-center.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">
-          专家
-        </a>
 
-        <!-- 培训 - 带下拉浮窗（合并培训、考试、认证、讲师） -->
-        <div class="nav-dropdown relative group">
-          <span class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer">
-            培训
-            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
-          </span>
-          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-96 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-            <div class="p-4">
-              <div class="grid grid-cols-2 gap-4">
-                <!-- 左侧：二级菜单 -->
-                <div class="space-y-3">
-                  <!-- 课程（原培训） -->
-                  <div class="nav-item group/item relative">
-                    <a href="course-list2.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between">
-                      课程
-                      <i class="fa fa-chevron-right text-xs opacity-0 group-hover/item:opacity-100"></i>
-                    </a>
-                    <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
-                      <div class="p-3">
-                        <h4 class="text-sm font-semibold text-gray-800 mb-2">课程分类</h4>
-                        <div class="grid grid-cols-2 gap-2">
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">云基础设施</a>
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">AI与数据智能</a>
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">解决方案</a>
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">安全技术</a>
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">运维管理</a>
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">开发技术</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <!-- 考试 -->
-                  <div class="nav-item group/item relative">
-                    <a href="exam-list.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between">
-                      考试
-                      <i class="fa fa-chevron-right text-xs opacity-0 group-hover/item:opacity-100"></i>
-                    </a>
-                    <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
-                      <div class="p-3">
-                        <h4 class="text-sm font-semibold text-gray-800 mb-2">考试分类</h4>
-                        <div class="grid grid-cols-2 gap-2">
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">资格认证考试</a>
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">技能水平考试</a>
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">岗位能力考试</a>
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">产品认证考试</a>
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">在线考试</a>
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">线下考试</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <!-- 认证 -->
-                  <div class="nav-item group/item relative">
-                    <a href="certification.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between">
-                      认证
-                      <i class="fa fa-chevron-right text-xs opacity-0 group-hover/item:opacity-100"></i>
-                    </a>
-                    <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover:item:visible transition-all duration-300 z-50">
-                      <div class="p-3">
-                        <h4 class="text-sm font-semibold text-gray-800 mb-2">认证分类</h4>
-                        <div class="grid grid-cols-2 gap-2">
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">通用计算认证</a>
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">智能计算认证</a>
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">行业解决方案认证</a>
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">专业技术认证</a>
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">初级认证</a>
-                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">高级认证</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <!-- 讲师 -->
-                  <a href="lecturer-list.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] block">
-                    讲师
-                  </a>
-                </div>
-                
-                <!-- 右侧：快速入口 -->
-                <div class="space-y-3">
-                  <h3 class="text-sm font-semibold text-gray-800 mb-2">快速入口</h3>
-                  <div class="space-y-2">
-                    <a href="personal-center.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
-                      <i class="fa fa-user text-[#2D874B] text-xs"></i>
-                      个人中心
-                    </a>
-                    <a href="task-detail.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
-                      <i class="fa fa-tasks text-[#2D874B] text-xs"></i>
-                      我的任务
-                    </a>
-                    <a href="course-learning.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
-                      <i class="fa fa-book text-[#2D874B] text-xs"></i>
-                      继续学习
-                    </a>
-                    <a href="certification.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
-                      <i class="fa fa-certificate text-[#2D874B] text-xs"></i>
-                      我的证书
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 资源 -->
-        <a href="resource-center.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">
-          资源
-        </a>
-
-        <!-- 登录/注册 -->
-        <a href="login.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">
-          登录
-        </a>
-        <a href="register.html" class="px-3 py-1.5 rounded-full bg-[#2D874B] text-white hover:bg-[#256e3d] transition">
-          注册
-        </a>
-      </nav>
 
       <!-- 移动端菜单按钮 -->
       <button id="mobile-menu-btn" class="md:hidden text-gray-800">
         <i class="fas fa-bars text-xl"></i>
       </button>
     </div>
+  
+  <!-- 下载光圈-官网页面 -->
+  <div class="page" id="download-official-site">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">下载光圈-官网</h2>
+    
+    <!-- 页面内容区域（模拟官网内容） -->
+    <div class="space-y-6 mb-16">
+      <div class="bg-gray-100 rounded-xl p-8 text-center">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">光合组织</h3>
+        <p class="text-gray-600 mb-6">致力于构建开放、协作、共赢的技术生态圈</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <i class="fas fa-graduation-cap text-2xl text-[#2D874B] mb-2"></i>
+            <p class="text-sm text-gray-700">培训课程</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <i class="fas fa-chalkboard-teacher text-2xl text-[#2D874B] mb-2"></i>
+            <p class="text-sm text-gray-700">专家讲座</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <i class="fas fa-certificate text-2xl text-[#2D874B] mb-2"></i>
+            <p class="text-sm text-gray-700">技术认证</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <i class="fas fa-book text-2xl text-[#2D874B] mb-2"></i>
+            <p class="text-sm text-gray-700">资源中心</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 模拟官网底部 -->
+    <div class="bg-gray-900 text-white rounded-xl p-6 pb-4">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-4">
+          <div>
+            <h4 class="text-lg font-semibold mb-4">关于我们</h4>
+            <ul class="space-y-2 text-gray-400 text-sm">
+              <li><a href="#" class="hover:text-white transition">公司简介</a></li>
+              <li><a href="#" class="hover:text-white transition">发展历程</a></li>
+              <li><a href="#" class="hover:text-white transition">企业文化</a></li>
+              <li><a href="#" class="hover:text-white transition">联系我们</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-4">产品服务</h4>
+            <ul class="space-y-2 text-gray-400 text-sm">
+              <li><a href="#" class="hover:text-white transition">技术培训</a></li>
+              <li><a href="#" class="hover:text-white transition">认证考试</a></li>
+              <li><a href="#" class="hover:text-white transition">资源中心</a></li>
+              <li><a href="#" class="hover:text-white transition">合作伙伴</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-4">支持中心</h4>
+            <ul class="space-y-2 text-gray-400 text-sm">
+              <li><a href="#" class="hover:text-white transition">帮助文档</a></li>
+              <li><a href="#" class="hover:text-white transition">开发者中心</a></li>
+              <li><a href="#" class="hover:text-white transition">API文档</a></li>
+              <li><a href="#" class="hover:text-white transition">常见问题</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-4">关注我们</h4>
+            <ul class="space-y-2 text-gray-400 text-sm">
+              <li><a href="#" class="hover:text-white transition">官方微信</a></li>
+              <li><a href="#" class="hover:text-white transition">官方微博</a></li>
+              <li><a href="#" class="hover:text-white transition">技术博客</a></li>
+              <li><a href="#" class="hover:text-white transition">招聘信息</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="flex flex-col md:flex-row justify-between items-start mb-6">
+          <!-- 左侧空白区域，保持布局平衡 -->
+          <div class="flex-1"></div>
+          
+          <!-- 光圈下载按钮，悬停显示浮窗 -->
+          <div class="relative group">
+            <button id="download-app-btn" class="px-6 py-3 bg-gradient-to-r from-[#2D874B] to-[#34D399] text-white rounded-lg hover:from-[#256e3d] hover:to-[#2dcba2] transition-all duration-300 font-medium">
+              <i class="fas fa-download mr-2"></i>光圈下载
+            </button>
+            
+            <!-- 浮窗内容 -->
+            <div id="download-tooltip" class="absolute bottom-full left-1/2 transform -translate-x-1/2 -translate-y-2 w-96 bg-white rounded-xl shadow-2xl border border-gray-200 p-6 mb-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+              <div class="text-center">
+                <!-- 成功图标 -->
+                <div class="flex justify-center mb-4">
+                  <div class="h-16 w-16 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                    <i class="fa fa-check-circle text-[#2D874B] text-3xl"></i>
+                  </div>
+                </div>
+                
+                <!-- 主标题 -->
+                <h1 class="text-xl md:text-2xl font-bold text-gray-800 mb-2">注册成功！</h1>
+                
+                <!-- 副标题 -->
+                <h2 class="text-lg md:text-xl font-semibold text-[#2D874B] mb-4">
+                  欢迎加入 HIECO 光合组织
+                </h2>
+                
+                <!-- 详细说明 -->
+                <div class="max-w-xs mx-auto space-y-2 mb-6">
+                  <p class="text-sm text-gray-600 leading-relaxed">
+                    恭喜您成功完成注册，现在您已成为 HIECO 光合组织的正式成员。
+                  </p>
+                  <p class="text-sm text-gray-600 leading-relaxed">
+                    为了获得更完整、更便捷的生态体验，我们强烈建议您下载「光圈」APP。
+                  </p>
+                </div>
+                
+                <!-- 下载区域 -->
+                <div class="space-y-4">
+                  <!-- PC端下载 -->
+                  <div class="text-center">
+                    <h4 class="text-base font-semibold text-gray-800 mb-2">PC端下载</h4>
+                    <a href="#" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 font-medium text-sm">
+                      <i class="fa fa-desktop mr-1.5"></i>
+                      <span>下载PC客户端</span>
+                    </a>
+                  </div>
+                  
+                  <!-- 移动端下载 -->
+                  <div class="flex flex-col items-center">
+                    <!-- 二维码 -->
+                    <div class="bg-white p-3 rounded-xl border border-gray-300 shadow-sm mb-2">
+                      <div class="w-24 h-24 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <div class="text-center text-gray-500">
+                          <i class="fa fa-qrcode text-xl mb-1"></i>
+                          <p class="text-xs">下载二维码</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- 移动端下载说明 -->
+                    <div class="text-center">
+                      <h4 class="text-sm font-semibold text-gray-800 mb-1">移动端下载</h4>
+                      <p class="text-xs text-gray-600">扫描二维码下载手机APP</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 关闭按钮 -->
+                <button id="close-tooltip" class="mt-4 px-4 py-1.5 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 text-sm">
+                  关闭
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="border-t border-gray-700 pt-4">
+          <div class="text-gray-400 text-sm">
+            © 2026 HIECO 光合组织. 保留所有权利。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   </div>
 </header>
 
@@ -321,6 +355,15 @@
         </div>
         <div class="nav-tab px-4 py-3 rounded-lg cursor-pointer" data-target="org-register">
           <i class="fas fa-building mr-2"></i>组织注册
+        </div>
+        <div class="nav-tab px-4 py-3 rounded-lg cursor-pointer" data-target="invite-members">
+          <i class="fas fa-user-plus mr-2"></i>邀请成员
+        </div>
+        <div class="nav-tab px-4 py-3 rounded-lg cursor-pointer" data-target="download-app">
+          <i class="fas fa-download mr-2"></i>下载光圈-注册成功
+        </div>
+        <div class="nav-tab px-4 py-3 rounded-lg cursor-pointer" data-target="download-official-site">
+          <i class="fas fa-globe mr-2"></i>下载光圈-官网
         </div>
       </div>
     </div>
@@ -370,9 +413,11 @@
         <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">升级弹窗</h2>
         <div class="popup-content">
           <h3 class="text-lg font-semibold text-gray-800 mb-3">账号升级提示</h3>
-          <p class="text-gray-600 mb-6">您当前角色为个人注册用户，如您是曙光合作伙伴，请点击【账号升级】以获取更多权限。权限升级后，请重新登录。</p>
+          <p class="text-gray-600 mb-6">您已注册成为光合组织平台用户，为了让您享受光合组织基本权益，需要您【完善用户信息】。
+您的公司如果成为光合组织伙伴，可点击【账号升级】以获取更多权益。权限升级后，请重新登录。</p>
           
           <div class="flex justify-center gap-4">
+            <button class="btn btn-primary py-2 px-6 rounded-lg">完善信息</button>
             <button class="btn btn-primary py-2 px-6 rounded-lg">账号升级</button>
             <button class="btn btn-secondary py-2 px-6 rounded-lg">不再提醒</button>
           </div>
@@ -434,6 +479,160 @@
         </form>
       </div>
 
+      <!-- 邀请成员页面 -->
+      <div class="page" id="invite-members">
+        <!-- 个人中心头部 -->
+        <div class="mb-6 p-4 bg-gradient-to-r from-[#2D874B] to-[#34D399] rounded-xl text-white">
+          <div class="flex items-center mb-3">
+            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-3">
+              <i class="fas fa-user text-xl"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold">张伟</h3>
+              <p class="text-xs opacity-80">产品经理</p>
+            </div>
+          </div>
+          <div class="text-xs bg-white bg-opacity-20 rounded-lg py-1 px-2 inline-block">
+            <i class="fas fa-building mr-1"></i>联想集团
+          </div>
+        </div>
+        
+        <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">邀请成员</h2>
+        
+        <!-- 导入方式选择 -->
+        <div class="glass-card rounded-3xl border border-gray-300 p-4 mb-6">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">请选择导入方式</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- 手动输入方式 -->
+            <div class="border-2 border-dashed border-gray-300 rounded-2xl p-3 text-center cursor-pointer import-method active flex flex-col justify-center" data-method="manual">
+              <div class="flex items-center justify-center">
+                <i class="fa fa-keyboard text-xl text-[#2D874B] mr-2"></i>
+                <div class="text-left">
+                  <h4 class="text-sm font-semibold text-gray-800">手动输入</h4>
+                  <p class="text-xs text-gray-600">逐个输入成员姓名和手机号码</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 文件导入方式 -->
+            <div class="border-2 border-dashed border-gray-300 rounded-2xl p-3 text-center cursor-pointer import-method flex flex-col justify-center" data-method="file">
+              <div class="flex items-center justify-center">
+                <i class="fa fa-file-upload text-xl text-[#2D874B] mr-2"></i>
+                <div class="text-left">
+                  <h4 class="text-sm font-semibold text-gray-800">文件导入</h4>
+                  <p class="text-xs text-gray-600">批量上传包含姓名和手机号的文件</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 手动输入区域 -->
+        <div id="manual-input-section" class="glass-card rounded-3xl border border-gray-300 p-4 mb-6">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">手动输入成员信息</h3>
+          
+          <div id="members-list" class="space-y-3 mb-4">
+            <!-- 成员输入行 -->
+            <div class="member-input flex items-center gap-3 p-3 border border-gray-200 rounded-xl">
+              <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-medium text-gray-700 mb-1">姓名</label>
+                  <input type="text" class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent text-sm" placeholder="请输入姓名">
+                </div>
+                <div>
+                  <label class="block text-xs font-medium text-gray-700 mb-1">手机号码</label>
+                  <input type="tel" class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent text-sm" placeholder="请输入手机号码">
+                </div>
+              </div>
+              <button class="remove-member-btn text-red-500 hover:text-red-700 p-1.5">
+                <i class="fa fa-trash text-sm"></i>
+              </button>
+            </div>
+          </div>
+          
+          <button id="add-member-btn" class="w-full md:w-auto px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition flex items-center justify-center text-sm">
+            <i class="fa fa-plus mr-1 text-xs"></i> 添加成员
+          </button>
+        </div>
+
+        <!-- 文件导入区域 -->
+        <div id="file-input-section" class="glass-card rounded-3xl border border-gray-300 p-4 mb-6 hidden">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">文件批量导入</h3>
+          
+          <div class="border-2 border-dashed border-gray-300 rounded-2xl p-4 text-center mb-4">
+            <i class="fa fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+            <p class="text-sm text-gray-600 mb-1">拖拽文件到此处或点击上传</p>
+            <p class="text-xs text-gray-500 mb-2">支持Excel(.xlsx)、CSV文件格式</p>
+            <input type="file" id="file-upload" accept=".xlsx,.xls,.csv" class="hidden">
+            <button id="upload-btn" class="px-4 py-1.5 bg-[#2D874B] text-white rounded-lg hover:bg-[#256e3d] transition text-sm">
+              选择文件
+            </button>
+          </div>
+          
+          <div class="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-4">
+            <div class="flex items-start">
+              <i class="fa fa-info-circle text-blue-500 text-lg mt-0.5 mr-2"></i>
+              <div>
+                <h4 class="font-medium text-blue-800 mb-0.5 text-sm">模板下载</h4>
+                <p class="text-xs text-blue-700 mb-1">请使用标准模板录入成员信息，确保姓名和手机号码字段正确</p>
+                <a href="#" class="text-xs text-blue-600 hover:text-blue-800 font-medium">下载模板文件 <i class="fa fa-download ml-1"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 确认导入按钮 -->
+        <div class="text-center mb-6">
+          <button id="confirm-import-btn" class="px-8 py-2.5 bg-[#2D874B] text-white rounded-xl text-base font-semibold hover:bg-[#256e3d] transition">
+            <i class="fa fa-paper-plane mr-1"></i>确认导入，邀请入驻
+          </button>
+        </div>
+
+        <!-- 邀请结果区域 -->
+        <div id="invitation-result" class="hidden glass-card rounded-3xl border border-gray-300 p-4">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">邀请链接及海报</h3>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- 邀请链接 -->
+            <div class="bg-gray-50 rounded-2xl p-4">
+              <h4 class="text-md font-semibold text-gray-800 mb-3 flex items-center text-sm">
+                <i class="fa fa-link text-[#2D874B] mr-1.5"></i> 邀请链接
+              </h4>
+              <div class="flex">
+                <input type="text" id="invitation-link" class="flex-1 px-3 py-2 rounded-l-lg border border-gray-300 bg-white text-sm" value="https://platform.hieco.com/invite/abc123def456" readonly>
+                <button id="copy-link-btn" class="px-3 py-2 bg-[#2D874B] text-white rounded-r-lg hover:bg-[#256e3d] transition copy-btn text-sm">
+                  <i class="fa fa-copy"></i> 复制
+                </button>
+              </div>
+              <p class="text-xs text-gray-600 mt-1">将此链接发送给团队成员，他们可以通过链接直接注册</p>
+            </div>
+            
+            <!-- 二维码海报 -->
+            <div class="bg-gray-50 rounded-2xl p-4">
+              <h4 class="text-md font-semibold text-gray-800 mb-3 flex items-center text-sm">
+                <i class="fa fa-qrcode text-[#2D874B] mr-1.5"></i> 邀请海报
+              </h4>
+              <div class="flex flex-col items-center">
+                <div class="bg-white p-2 rounded-xl mb-2">
+                  <canvas id="qr-canvas" width="120" height="120" class="bg-white p-1"></canvas>
+                </div>
+                <button id="download-poster-btn" class="px-3 py-1.5 bg-[#2D874B] text-white rounded-lg hover:bg-[#256e3d] transition text-sm">
+                  <i class="fa fa-download mr-1"></i>下载海报
+                </button>
+                <p class="text-xs text-gray-600 mt-1 text-center">扫描二维码即可访问邀请页面</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-4 text-center">
+            <button id="new-invitation-btn" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition text-sm">
+              <i class="fa fa-plus mr-1"></i>新建邀请
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- 升级伙伴页面 -->
       <div class="page" id="upgrade-partner">
         <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">升级伙伴</h2>
@@ -447,7 +646,7 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="form-group">
               <label for="country" class="block text-sm font-medium text-gray-700 mb-1">公司所在地</label>
-              <div class="flex gap-3">
+              <div class="flex gap-2">
                 <select id="country" name="country" class="form-control flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" required>
                   <option value="china">中国</option>
                   <option value="usa">美国</option>
@@ -486,12 +685,10 @@
             </div>
             <div class="form-group">
               <label for="contact-email" class="block text-sm font-medium text-gray-700 mb-1">邮箱
-                <span class="tooltip-icon ml-1 text-gray-400 cursor-pointer" title="此邮箱信息来自您的账号注册邮箱">?</span>
+                <span class="tooltip-icon ml-1 text-gray-400 cursor-pointer" title="请使用公司邮箱">?</span>
               </label>
               <div class="flex gap-2 items-center">
                 <input type="email" id="contact-email" name="contact-email" class="form-control flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请输入您的邮箱地址" required>
-                <button type="button" class="btn btn-secondary px-3 py-2 text-sm">去修改</button>
-                <button type="button" class="btn btn-secondary px-3 py-2 text-sm">刷新</button>
               </div>
             </div>
           </div>
@@ -953,6 +1150,216 @@
         </form>
       </div>
     </div>
+  
+  <!-- 下载光圈-注册成功页面 -->
+  <div class="page" id="download-app">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">光圈下载</h2>
+    
+    <div class="space-y-6">
+      <!-- 成功图标 -->
+      <div class="flex justify-center mb-4">
+        <div class="h-16 w-16 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+          <i class="fa fa-check-circle text-[#2D874B] text-3xl"></i>
+        </div>
+      </div>
+      
+      <!-- 注册成功信息 -->
+      <div class="text-center space-y-4">
+        <h3 class="text-xl font-bold text-gray-800">注册成功！</h3>
+        <h4 class="text-lg font-semibold text-[#2D874B]">欢迎加入 HIECO 光技术支持平台合</h4>
+        <div class="max-w-2xl mx-auto">
+          <p class="text-gray-600 mb-4">恭喜您成功完成注册，现在您已成为 HIECO 光合组织的正式成员。</p>
+          <p class="text-gray-600">为了获得更完整、更便捷的生态体验，我们强烈建议您下载「光圈」APP， 开启光合伙伴生态圈的精彩旅程。</p>
+        </div>
+      </div>
+      
+      <!-- 下载区域 -->
+      <div class="space-y-8 mt-8">
+        <!-- PC端下载 -->
+        <div class="text-center">
+          <h4 class="text-lg font-semibold text-gray-800 mb-4">PC端下载</h4>
+          <button class="btn btn-primary px-6 py-3 rounded-lg text-base font-medium">
+            <i class="fas fa-desktop mr-2"></i>PC端下载按钮
+          </button>
+        </div>
+        
+        <!-- 移动端下载 -->
+        <div class="text-center">
+          <h4 class="text-lg font-semibold text-gray-800 mb-4">移动端下载</h4>
+          <p class="text-gray-600 mb-4">扫描二维码下载手机APP</p>
+          <div class="flex justify-center">
+            <div class="w-40 h-40 bg-gray-200 rounded-lg flex items-center justify-center">
+              <div class="text-center text-gray-500">
+                <i class="fa fa-qrcode text-4xl mb-2"></i>
+                <p class="text-sm">移动端下载二维码</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 操作按钮 -->
+      <div class="flex justify-center gap-4 mt-10">
+        <a href="index.html" class="btn btn-secondary px-6 py-2.5 rounded-lg text-base font-medium">
+          返回首页
+        </a>
+        <a href="personal-center.html" class="btn btn-primary px-6 py-2.5 rounded-lg text-base font-medium">
+          个人中心
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 下载光圈-官网页面 -->
+  <div class="page" id="download-official-site">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">下载光圈-官网</h2>
+    
+    <div class="space-y-6">
+      <!-- 页面内容区域（模拟官网内容） -->
+      <div class="bg-gray-100 rounded-xl p-8 text-center">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">光合技术支持平台</h3>
+        <p class="text-gray-600 mb-6">致力于构建开放、协作、共赢的技术生态圈</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <i class="fas fa-graduation-cap text-2xl text-[#2D874B] mb-2"></i>
+            <p class="text-sm text-gray-700">培训课程</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <i class="fas fa-chalkboard-teacher text-2xl text-[#2D874B] mb-2"></i>
+            <p class="text-sm text-gray-700">专家讲座</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <i class="fas fa-certificate text-2xl text-[#2D874B] mb-2"></i>
+            <p class="text-sm text-gray-700">技术认证</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <i class="fas fa-book text-2xl text-[#2D874B] mb-2"></i>
+            <p class="text-sm text-gray-700">资源中心</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 模拟官网底部内容 -->
+      <div class="bg-gray-900 text-white rounded-xl p-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-4">
+          <div>
+            <h4 class="text-lg font-semibold mb-3">关于我们</h4>
+            <ul class="space-y-1 text-gray-400 text-sm">
+              <li><a href="#" class="hover:text-white transition">公司简介</a></li>
+              <li><a href="#" class="hover:text-white transition">发展历程</a></li>
+              <li><a href="#" class="hover:text-white transition">企业文化</a></li>
+              <li><a href="#" class="hover:text-white transition">联系我们</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-3">产品服务</h4>
+            <ul class="space-y-1 text-gray-400 text-sm">
+              <li><a href="#" class="hover:text-white transition">技术培训</a></li>
+              <li><a href="#" class="hover:text-white transition">认证考试</a></li>
+              <li><a href="#" class="hover:text-white transition">资源中心</a></li>
+              <li><a href="#" class="hover:text-white transition">合作伙伴</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-3">支持中心</h4>
+            <ul class="space-y-1 text-gray-400 text-sm">
+              <li><a href="#" class="hover:text-white transition">帮助文档</a></li>
+              <li><a href="#" class="hover:text-white transition">开发者中心</a></li>
+              <li><a href="#" class="hover:text-white transition">API文档</a></li>
+              <li><a href="#" class="hover:text-white transition">常见问题</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-3">关注我们</h4>
+            <ul class="space-y-1 text-gray-400 text-sm">
+              <li><a href="#" class="hover:text-white transition">官方微信</a></li>
+              <li><a href="#" class="hover:text-white transition">官方微博</a></li>
+              <li><a href="#" class="hover:text-white transition">技术博客</a></li>
+              <li><a href="#" class="hover:text-white transition">招聘信息</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="border-t border-gray-700 pt-4 flex flex-col md:flex-row justify-between items-center">
+          <div class="text-gray-400 text-sm mb-3 md:mb-0">
+            © 2026 HIECO 光合技术支持平台. 保留所有权利。
+          </div>
+          
+          <!-- 光圈下载按钮，悬停显示浮窗 -->
+          <div class="relative group inline-block">
+            <button class="px-5 py-2.5 bg-gradient-to-r from-[#2D874B] to-[#34D399] text-white rounded-lg hover:from-[#256e3d] hover:to-[#2dcba2] transition-all duration-300 font-medium text-sm">
+              <i class="fas fa-download mr-1.5"></i>光圈下载
+            </button>
+            
+            <!-- 浮窗内容 -->
+            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 -translate-y-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4 mb-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+              <div class="text-center">
+                <!-- 成功图标 -->
+                <div class="flex justify-center mb-2">
+                  <div class="h-12 w-12 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                    <i class="fa fa-check-circle text-[#2D874B] text-xl"></i>
+                  </div>
+                </div>
+                
+                <!-- 主标题 -->
+                <h1 class="text-lg md:text-xl font-bold text-gray-800 mb-1">注册成功！</h1>
+                
+                <!-- 副标题 -->
+                <h2 class="text-base md:text-lg font-semibold text-[#2D874B] mb-2">
+                  欢迎加入 HIECO 光合技术支持平台
+                </h2>
+                
+                <!-- 详细说明 -->
+                <div class="max-w-xs mx-auto space-y-1 mb-3">
+                  <p class="text-xs text-gray-600 leading-relaxed">
+                    恭喜您成功完成注册，现在您已成为 HIECO 光合技术支持平台的正式成员。
+                  </p>
+                  <p class="text-xs text-gray-600 leading-relaxed">
+                    为了获得更完整、更便捷的生态体验，我们强烈建议您下载「光圈」APP。
+                  </p>
+                </div>
+                
+                <!-- 下载区域 -->
+                <div class="space-y-3">
+                  <!-- PC端下载 -->
+                  <div class="text-center">
+                    <h4 class="text-sm font-semibold text-gray-800 mb-1">PC端下载</h4>
+                    <a href="#" class="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded text-xs hover:from-blue-600 hover:to-purple-600 transition-all duration-300 font-medium">
+                      <i class="fa fa-desktop mr-1"></i>
+                      <span>下载PC客户端</span>
+                    </a>
+                  </div>
+                  
+                  <!-- 移动端下载 -->
+                  <div class="flex flex-col items-center">
+                    <!-- 二维码 -->
+                    <div class="bg-white p-2 rounded border border-gray-300 shadow-sm mb-1">
+                      <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
+                        <div class="text-center text-gray-500">
+                          <i class="fa fa-qrcode text-sm mb-0.5"></i>
+                          <p class="text-[8px]">下载二维码</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- 移动端下载说明 -->
+                    <div class="text-center">
+                      <h4 class="text-xs font-semibold text-gray-800 mb-0.5">移动端下载</h4>
+                      <p class="text-[10px] text-gray-600">扫描二维码下载手机APP</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 关闭按钮 -->
+                <button id="close-tooltip" class="mt-2 px-3 py-1 rounded text-xs bg-gray-200 text-gray-700 hover:bg-gray-300">
+                  关闭
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -1177,6 +1584,226 @@
         });
       });
     });
-  </script>
+    
+    // 邀请成员页面交互功能
+    document.addEventListener('DOMContentLoaded', function() {
+      // 检查邀请成员页面元素是否存在
+      if(document.getElementById('invite-members')) {
+        // 导入方式切换
+        const importMethods = document.querySelectorAll('#invite-members .import-method');
+        const manualSection = document.getElementById('manual-input-section');
+        const fileSection = document.getElementById('file-input-section');
+        
+        if(importMethods.length > 0) {
+          importMethods.forEach(method => {
+            method.addEventListener('click', function() {
+              const selectedMethod = this.getAttribute('data-method');
+              
+              // 更新选中状态
+              importMethods.forEach(m => m.classList.remove('active'));
+              this.classList.add('active');
+              
+              // 显示对应区域
+              if (selectedMethod === 'manual') {
+                if(manualSection) manualSection.classList.remove('hidden');
+                if(fileSection) fileSection.classList.add('hidden');
+              } else {
+                if(manualSection) manualSection.classList.add('hidden');
+                if(fileSection) fileSection.classList.remove('hidden');
+              }
+            });
+          });
+        }
+        
+        // 添加成员按钮
+        const addMemberBtn = document.getElementById('add-member-btn');
+        if(addMemberBtn) {
+          addMemberBtn.addEventListener('click', function() {
+            const membersList = document.getElementById('members-list');
+            if(membersList) {
+              const newMemberDiv = document.createElement('div');
+              newMemberDiv.className = 'member-input flex items-center gap-3 p-3 border border-gray-200 rounded-xl';
+              newMemberDiv.innerHTML = `
+                <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">姓名</label>
+                    <input type="text" class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent text-sm" placeholder="请输入姓名">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">手机号码</label>
+                    <input type="tel" class="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-transparent text-sm" placeholder="请输入手机号码">
+                  </div>
+                </div>
+                <button class="remove-member-btn text-red-500 hover:text-red-700 p-1.5">
+                  <i class="fa fa-trash text-sm"></i>
+                </button>
+              `;
+              membersList.appendChild(newMemberDiv);
+              
+              // 为新添加的删除按钮添加事件
+              newMemberDiv.querySelector('.remove-member-btn').addEventListener('click', function() {
+                newMemberDiv.remove();
+              });
+            }
+          });
+        }
+        
+        // 为初始的删除按钮添加事件
+        document.querySelectorAll('#invite-members .remove-member-btn').forEach(button => {
+          button.addEventListener('click', function() {
+            this.closest('.member-input').remove();
+          });
+        });
+        
+        // 文件上传功能
+        const uploadBtn = document.getElementById('upload-btn');
+        const fileUpload = document.getElementById('file-upload');
+        if(uploadBtn && fileUpload) {
+          uploadBtn.addEventListener('click', function() {
+            fileUpload.click();
+          });
+          
+          fileUpload.addEventListener('change', function(e) {
+            if (this.files.length > 0) {
+              alert('文件已选择，您可以在此处添加文件解析逻辑');
+            }
+          });
+        }
+        
+        // 确认导入按钮
+        const confirmImportBtn = document.getElementById('confirm-import-btn');
+        if(confirmImportBtn) {
+          confirmImportBtn.addEventListener('click', function() {
+            // 获取当前选择的导入方式
+            const selectedMethod = document.querySelector('#invite-members .import-method.active');
+            if(!selectedMethod) return;
+            
+            const selectedMethodValue = selectedMethod.getAttribute('data-method');
+            
+            if (selectedMethodValue === 'manual') {
+              // 验证手动输入的数据
+              const memberInputs = document.querySelectorAll('#members-list .member-input');
+              let hasValidData = false;
+              
+              memberInputs.forEach(input => {
+                const name = input.querySelector('input[type="text"]').value.trim();
+                const phone = input.querySelector('input[type="tel"]').value.trim();
+                
+                if (name && phone) {
+                  hasValidData = true;
+                }
+              });
+              
+              if (!hasValidData) {
+                alert('请至少输入一位成员的信息');
+                return;
+              }
+            } else {
+              // 文件导入方式，检查是否选择了文件
+              const fileUpload = document.getElementById('file-upload');
+              if (fileUpload && !fileUpload.value) {
+                alert('请选择要上传的文件');
+                return;
+              }
+            }
+            
+            // 显示邀请结果
+            const invitationResult = document.getElementById('invitation-result');
+            if(invitationResult) {
+              invitationResult.classList.remove('hidden');
+              
+              // 滚动到邀请结果区域
+              invitationResult.scrollIntoView({ behavior: 'smooth' });
+              
+              // 生成二维码
+              generateQRCode();
+            }
+          });
+        }
+        
+        // 复制链接功能
+        const copyLinkBtn = document.getElementById('copy-link-btn');
+        if(copyLinkBtn) {
+          copyLinkBtn.addEventListener('click', function() {
+            const linkInput = document.getElementById('invitation-link');
+            if(linkInput) {
+              linkInput.select();
+              document.execCommand('copy');
+              
+              // 显示复制成功的提示
+              const originalText = this.innerHTML;
+              this.innerHTML = '<i class="fa fa-check"></i> 已复制';
+              setTimeout(() => {
+                this.innerHTML = originalText;
+              }, 2000);
+            }
+          });
+        }
+        
+        // 重新开始邀请
+        const newInvitationBtn = document.getElementById('new-invitation-btn');
+        if(newInvitationBtn) {
+          newInvitationBtn.addEventListener('click', function() {
+            const invitationResult = document.getElementById('invitation-result');
+            if(invitationResult) {
+              invitationResult.classList.add('hidden');
+              
+              // 清空手动输入的数据
+              const memberInputs = document.querySelectorAll('#members-list .member-input');
+              memberInputs.forEach((input, index) => {
+                if (index > 0) { // 保留第一个输入行
+                  input.remove();
+                } else {
+                  const nameInput = input.querySelector('input[type="text"]');
+                  const phoneInput = input.querySelector('input[type="tel"]');
+                  if(nameInput) nameInput.value = '';
+                  if(phoneInput) phoneInput.value = '';
+                }
+              });
+            }
+          });
+        }
+        
+        // 生成二维码的模拟函数
+        function generateQRCode() {
+          const canvas = document.getElementById('qr-canvas');
+          if(!canvas) return;
+          
+          const ctx = canvas.getContext('2d');
+          
+          // 清空画布
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          
+          ctx.fillStyle = '#000000';
+          // 绘制一些方块来模拟二维码
+          for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 10; j++) {
+              if ((i + j) % 2 === 0) {
+                ctx.fillRect(j * 12, i * 12, 9, 9);
+              }
+            }
+          }
+        }
+      }
+    });
+    
+    // 处理第八个tab中浮窗的关闭功能
+    document.addEventListener('DOMContentLoaded', function() {
+      const closeTooltipBtn = document.getElementById('close-tooltip');
+      if(closeTooltipBtn) {
+        closeTooltipBtn.addEventListener('click', function(e) {
+          e.stopPropagation(); // 阻止事件冒泡，防止触发悬停效果
+          const tooltip = document.getElementById('download-tooltip');
+          if(tooltip) {
+            tooltip.classList.add('opacity-0', 'invisible');
+          }
+        });
+      }
+    });
+    
+</script>
 </body>
 </html>

@@ -281,8 +281,231 @@
         <span class="inline-flex h-5 w-1 rounded-full bg-red-500"></span>
         正在直播
       </h3>
-      <div id="live-now-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 pb-4">
-        <!-- 由 JS 注入 -->
+      <div class="flex flex-col lg:flex-row gap-4 pb-4">
+        <!-- 左侧：主要直播卡片区域 -->
+        <div id="live-now-list" class="lg:w-3/5 flex-grow">  <!-- 增大左侧卡片区域比例 -->
+          <!-- JS 将在此处注入主要直播卡片 -->
+        </div>
+        <!-- 右侧：四个小卡片区域 -->
+        <div class="lg:w-2/5 grid grid-cols-2 gap-4">
+          <div class="glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col">
+            <div class="relative flex-shrink-0">
+              <div class="aspect-[590/412] bg-gray-200 flex items-center justify-center">  <!-- 调整宽高比以匹配左侧大卡片高度的一半 -->
+                <span class="text-gray-500 text-sm">直播封面图</span>
+              </div>
+              <div class="absolute top-2 left-2">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] status-badge-live">
+                  <i class="fa fa-broadcast-tower mr-1 text-[8px]"></i>直播中
+                </span>
+              </div>
+              <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+                <span><i class="fa fa-users mr-1"></i> 1.2k</span>
+              </div>
+              <!-- 右下角观看按钮 -->
+              <div class="absolute bottom-2 right-2">
+                <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+                  观看
+                </a>
+              </div>
+            </div>
+            <div class="p-3">
+              <h3 class="text-sm font-semibold line-clamp-1 mb-1">AI技术前沿分享</h3>
+              <div class="text-xs text-gray-500">2024-01-28 14:00</div>
+            </div>
+          </div>
+          <div class="glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col">
+            <div class="relative flex-shrink-0">
+              <div class="aspect-[590/412] bg-gray-200 flex items-center justify-center">  <!-- 调整宽高比以匹配左侧大卡片高度的一半 -->
+                <span class="text-gray-500 text-sm">直播封面图</span>
+              </div>
+              <div class="absolute top-2 left-2">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] status-badge-live">
+                  <i class="fa fa-broadcast-tower mr-1 text-[8px]"></i>直播中
+                </span>
+              </div>
+              <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+                <span><i class="fa fa-users mr-1"></i> 856</span>
+              </div>
+              <!-- 右下角观看按钮 -->
+              <div class="absolute bottom-2 right-2">
+                <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+                  观看
+                </a>
+              </div>
+            </div>
+            <div class="p-3">
+              <h3 class="text-sm font-semibold line-clamp-1 mb-1">云计算架构设计实战</h3>
+              <div class="text-xs text-gray-500">2024-01-28 15:30</div>
+            </div>
+          </div>
+          <div class="glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col">
+            <div class="relative flex-shrink-0">
+              <div class="aspect-[590/412] bg-gray-200 flex items-center justify-center">  <!-- 调整宽高比以匹配左侧大卡片高度的一半 -->
+                <span class="text-gray-500 text-sm">直播封面图</span>
+              </div>
+              <div class="absolute top-2 left-2">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] status-badge-live">
+                  <i class="fa fa-broadcast-tower mr-1 text-[8px]"></i>直播中
+                </span>
+              </div>
+              <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+                <span><i class="fa fa-users mr-1"></i> 2.1k</span>
+              </div>
+              <!-- 右下角观看按钮 -->
+              <div class="absolute bottom-2 right-2">
+                <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+                  观看
+                </a>
+              </div>
+            </div>
+            <div class="p-3">
+              <h3 class="text-sm font-semibold line-clamp-1 mb-1">大数据处理技术解析</h3>
+              <div class="text-xs text-gray-500">2024-01-28 16:00</div>
+            </div>
+          </div>
+          <div class="glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col">
+            <div class="relative flex-shrink-0">
+              <div class="aspect-[590/412] bg-gray-200 flex items-center justify-center">  <!-- 调整宽高比以匹配左侧大卡片高度的一半 -->
+                <span class="text-gray-500 text-sm">直播封面图</span>
+              </div>
+              <div class="absolute top-2 left-2">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] status-badge-live">
+                  <i class="fa fa-broadcast-tower mr-1 text-[8px]"></i>直播中
+                </span>
+              </div>
+              <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+                <span><i class="fa fa-users mr-1"></i> 543</span>
+              </div>
+              <!-- 右下角观看按钮 -->
+              <div class="absolute bottom-2 right-2">
+                <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+                  观看
+                </a>
+              </div>
+            </div>
+            <div class="p-3">
+              <h3 class="text-sm font-semibold line-clamp-1 mb-1">容器化部署最佳实践</h3>
+              <div class="text-xs text-gray-500">2024-01-28 17:00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 我的关注区域 -->
+    <section class="mb-8">
+      <h3 class="text-base font-semibold mb-4 flex items-center gap-2">
+        <span class="inline-flex h-5 w-1 rounded-full bg-[#B01F24]"></span>
+        我的关注
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <!-- 卡片1：直播中 -->
+        <div class="glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col">
+          <div class="relative flex-shrink-0">
+            <div class="aspect-[586/672] bg-gray-200 flex items-center justify-center">
+              <span class="text-gray-500 text-sm">直播封面图</span>
+            </div>
+            <div class="absolute top-2 left-2">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] status-badge-live">
+                <i class="fa fa-broadcast-tower mr-1 text-[8px]"></i>直播中
+              </span>
+            </div>
+            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+              <span><i class="fa fa-users mr-1"></i> 1.2k</span>
+            </div>
+            <!-- 右下角观看按钮 -->
+            <div class="absolute bottom-2 right-2">
+              <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+                观看
+              </a>
+            </div>
+          </div>
+          <div class="p-3">
+            <h3 class="text-sm font-semibold line-clamp-1 mb-1">AI技术前沿分享</h3>
+            <div class="text-xs text-gray-500">2024-01-28 14:00</div>
+          </div>
+        </div>
+        
+        <!-- 卡片2：倒计时1天 -->
+        <div class="glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col">
+          <div class="relative flex-shrink-0">
+            <div class="aspect-[586/672] bg-gray-200 flex items-center justify-center">
+              <span class="text-gray-500 text-sm">直播封面图</span>
+            </div>
+            <div class="absolute top-2 left-2">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] status-badge-upcoming">
+                <i class="fa fa-clock mr-1 text-[8px]"></i>倒计时 1 天
+              </span>
+            </div>
+            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+              <span><i class="fa fa-users mr-1"></i> 856</span>
+            </div>
+            <!-- 右下角预约按钮 -->
+            <div class="absolute bottom-2 right-2">
+              <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+                预约
+              </a>
+            </div>
+          </div>
+          <div class="p-3">
+            <h3 class="text-sm font-semibold line-clamp-1 mb-1">云计算架构设计</h3>
+            <div class="text-xs text-gray-500">2024-01-29 10:00</div>
+          </div>
+        </div>
+        
+        <!-- 卡片3：精彩回顾 -->
+        <div class="glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col">
+          <div class="relative flex-shrink-0">
+            <div class="aspect-[586/672] bg-gray-200 flex items-center justify-center">
+              <span class="text-gray-500 text-sm">直播封面图</span>
+            </div>
+            <div class="absolute top-2 left-2">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] status-badge-ended">
+                <i class="fa fa-history mr-1 text-[8px]"></i>精彩回顾
+              </span>
+            </div>
+            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+              <span><i class="fa fa-users mr-1"></i> 2.1k</span>
+            </div>
+            <!-- 右下角回放按钮 -->
+            <div class="absolute bottom-2 right-2">
+              <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+                回放
+              </a>
+            </div>
+          </div>
+          <div class="p-3">
+            <h3 class="text-sm font-semibold line-clamp-1 mb-1">大数据处理技术</h3>
+            <div class="text-xs text-gray-500">2024-01-27 15:00</div>
+          </div>
+        </div>
+        
+        <!-- 卡片4：已结束 -->
+        <div class="glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col">
+          <div class="relative flex-shrink-0">
+            <div class="aspect-[586/672] bg-gray-200 flex items-center justify-center">
+              <span class="text-gray-500 text-sm">直播封面图</span>
+            </div>
+            <div class="absolute top-2 left-2">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] status-badge-ended">
+                <i class="fa fa-check-circle mr-1 text-[8px]"></i>已结束
+              </span>
+            </div>
+            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+              <span><i class="fa fa-users mr-1"></i> 543</span>
+            </div>
+            <!-- 右下角按钮（已结束） -->
+            <div class="absolute bottom-2 right-2">
+              <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-gray-200 text-gray-500 border border-gray-300 cursor-not-allowed opacity-60">
+                已结束
+              </a>
+            </div>
+          </div>
+          <div class="p-3">
+            <h3 class="text-sm font-semibold line-clamp-1 mb-1">容器化部署实践</h3>
+            <div class="text-xs text-gray-500">2024-01-26 16:00</div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -294,16 +517,16 @@
       </h3>
       <div class="flex flex-col lg:flex-row gap-4">
         <!-- 左侧：单一直播卡片 -->
-        <div class="lg:w-1/3">
-          <div id="upcoming-main-card" class="flex justify-center">
+        <div class="lg:w-1/3 flex">
+          <div id="upcoming-main-card" class="flex justify-center flex-grow">
             <!-- 左侧主卡片将由JS注入 -->
           </div>
         </div>
         <!-- 右侧：日期列表 -->
-        <div id="upcoming-date-list-container" class="hidden lg:block lg:w-2/3 h-full">
+        <div id="upcoming-date-list-container" class="hidden lg:block lg:w-2/3">
           <div class="flex h-full">
             <!-- 右侧日期列表的左侧：直播简介 -->
-            <div id="upcoming-description" class="lg:w-1/2 glass-card rounded-3xl border border-gray-300 p-4 overflow-y-auto">
+            <div id="upcoming-description" class="lg:w-1/2 glass-card rounded-3xl border border-gray-300 p-4 overflow-y-auto flex-grow">
               <!-- 直播简介将由JS注入 -->
             </div>
             <!-- 右侧日期列表的右侧：日期列表 -->
@@ -317,7 +540,7 @@
 
     <!-- 多维筛选：类别、赛道 -->
     <section class="mb-6">
-      <div class="glass-card rounded-3xl border border-gray-300 p-4 space-y-3">
+      <div class="glass-card rounded-3xl border border-gray-300 p-4">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <!--i class="fa fa-filter text-indigo-400 text-sm"></i>
@@ -328,53 +551,55 @@
           </span>
         </div>
 
-        <!-- 类别 -->
-        <div>
-          <div class="text-gray-600 mb-1 flex items-center justify-between">
-            <span>类别</span>
+        <div class="flex flex-col md:flex-row gap-6 mt-3">
+          <!-- 类别 -->
+          <div class="flex-1">
+            <div class="flex items-center flex-wrap gap-1">
+              <span class="text-gray-600 mr-2 whitespace-nowrap">类别</span>
+              <div class="flex flex-wrap gap-1">
+                <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px]"
+                        data-filter="category" data-value="all">
+                  全部
+                </button>
+                <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-indigo-600"
+                        data-filter="category" data-value="云基础设施">
+                  云基础设施
+                </button>
+                <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#B01F24]"
+                        data-filter="category" data-value="AI与数据智能">
+                  AI 与数据智能
+                </button>
+                <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-amber-600"
+                        data-filter="category" data-value="解决方案">
+                  解决方案
+                </button>
+              </div>
+            </div>
           </div>
-          <div class="flex flex-wrap gap-1">
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px]"
-                    data-filter="category" data-value="all">
-              全部
-            </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-indigo-600"
-                    data-filter="category" data-value="云基础设施">
-              云基础设施
-            </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#B01F24]"
-                    data-filter="category" data-value="AI与数据智能">
-              AI 与数据智能
-            </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-amber-600"
-                    data-filter="category" data-value="解决方案">
-              解决方案
-            </button>
-          </div>
-        </div>
 
-        <!-- 赛道 -->
-        <div>
-          <div class="text-gray-600 mb-1 flex items-center justify-between">
-            <span>赛道</span>
-          </div>
-          <div class="flex flex-wrap gap-1">
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px]"
-                    data-filter="track" data-value="all">
-              全部
-            </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#B01F24]"
-                    data-filter="track" data-value="DevOps">
-              DevOps
-            </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-purple-600"
-                    data-filter="track" data-value="AI">
-              AI 赛道
-            </button>
-            <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-amber-600"
-                    data-filter="track" data-value="业务运营">
-              业务运营
-            </button>
+          <!-- 赛道 -->
+          <div class="flex-1">
+            <div class="flex items-center flex-wrap gap-1">
+              <span class="text-gray-600 mr-2 whitespace-nowrap">赛道</span>
+              <div class="flex flex-wrap gap-1">
+                <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px]"
+                        data-filter="track" data-value="all">
+                  全部
+                </button>
+                <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#B01F24]"
+                        data-filter="track" data-value="DevOps">
+                  DevOps
+                </button>
+                <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-purple-600"
+                        data-filter="track" data-value="AI">
+                  AI 赛道
+                </button>
+                <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-amber-600"
+                        data-filter="track" data-value="业务运营">
+                  业务运营
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -385,7 +610,7 @@
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
         <h3 class="text-base font-semibold flex items-center gap-2">
           <span class="inline-flex h-5 w-1 rounded-full bg-gray-500"></span>
-          全部直播
+          更多直播
         </h3>
         <div class="flex flex-wrap items-center gap-2 justify-end mt-2 sm:mt-0">
           <!-- 搜索框 -->
@@ -675,7 +900,9 @@
         ` : ''}
         <!-- 标题和日期覆盖在图片下方 -->
         <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-white">
-          <h3 class="text-sm font-semibold line-clamp-2 mb-1">${l.title}</h3>
+          <a href="live-detail.html" target="_blank" class="block hover:opacity-90 transition-opacity">
+            <h3 class="text-sm font-semibold line-clamp-2 mb-1">${l.title}</h3>
+          </a>
           <div class="flex items-center justify-between text-xs text-gray-200">
             <span>${l.date}</span>
             ${l.status === 'live' ? `
@@ -705,6 +932,123 @@
     return card;
   }
 
+  // 渲染正在直播卡片（特殊函数，使用1274:824比例）
+  function createLiveNowCard(l) {
+    const card = document.createElement('article');
+    const statusMap = {
+      upcoming: { text: '未开始', cls: 'status-badge-upcoming' },
+      live: { text: '直播中', cls: 'status-badge-live' },
+      ended: { text: '精彩回顾', cls: 'status-badge-ended' }
+    };
+    const st = statusMap[l.status] || statusMap.upcoming;
+    const isEnrolled = enrolledIds.has(l.id);
+    const countdownDays = l.status === 'upcoming' ? getCountdownDays(l.date) : 0;
+    const statusText = l.status === 'upcoming' ? `倒计时 ${countdownDays} 天` : st.text;
+
+    card.className = 'glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col';
+    card.innerHTML = `
+      <div class="relative flex-shrink-0">
+        <img src="${l.cover}" alt="${l.title}" class="w-full object-cover" style="aspect-ratio: 1274/824;">  <!-- 专门用于正在直播区域的1274:824比例 -->
+        <div class="absolute top-2 left-2">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] ${st.cls}">
+            <i class="fa fa-broadcast-tower mr-1 text-[8px]"></i>${statusText}
+          </span>
+        </div>
+        <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+          <span><i class="fa fa-users mr-1"></i> ${l.status === 'live' ? (l.attendees * 1.5).toLocaleString() : l.attendees.toLocaleString()}</span>
+        </div>
+        <!-- 中间进入直播间按钮 -->
+        ${l.status === 'live' ? `
+        <div class="absolute inset-0 flex items-center justify-center">
+          <a href="live-room.html" target="_blank" class="flex items-center justify-center bg-black bg-opacity-50 text-white px-6 py-4 rounded-full hover:bg-opacity-70 transition-all">
+            <i class="fa fa-music text-2xl mr-2"></i>
+            <span class="text-sm font-medium">进入直播间</span>
+          </a>
+        </div>
+        ` : ''}
+        <!-- 标题和日期覆盖在图片下方 -->
+        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-white">
+          <a href="live-detail.html" target="_blank" class="block hover:opacity-90 transition-opacity">
+            <h3 class="text-sm font-semibold line-clamp-2 mb-1">${l.title}</h3>
+          </a>
+          <div class="flex items-center justify-between text-xs text-gray-200">
+            <span>${l.date}</span>
+            ${l.status === 'live' ? `
+              <div class="flex gap-1">
+                <a href="live-detail.html" target="_blank" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+                  观看
+                </a>
+              </div>
+            ` : `
+              <button
+                class="enroll-btn px-2 py-1 rounded-full text-[10px] font-medium
+                       ${l.status === 'ended'
+                          ? 'bg-gray-200 text-gray-500 border border-gray-300 cursor-not-allowed opacity-60'
+                          : (isEnrolled
+                              ? 'bg-white border border-[#B01F24] text-[#B01F24] hover:bg-gray-50'
+                              : 'bg-[#2D874B] text-white hover:opacity-90')}"
+                data-id="${l.id}"
+                data-status="${l.status}">
+                ${l.status === 'ended' ? '已结束' : (isEnrolled ? '取消预约' : '预约')}
+              </button>
+            `}
+          </div>
+        </div>
+      </div>
+    `;
+
+    return card;
+  }
+
+  // 渲染即将直播主卡片（特殊函数，使用1274:824比例但尺寸较小）
+  function createUpcomingMainCard(l) {
+    const card = document.createElement('article');
+    const statusMap = {
+      upcoming: { text: '未开始', cls: 'status-badge-upcoming' },
+      live: { text: '直播中', cls: 'status-badge-live' },
+      ended: { text: '精彩回顾', cls: 'status-badge-ended' }
+    };
+    const st = statusMap[l.status] || statusMap.upcoming;
+    const isEnrolled = enrolledIds.has(l.id);
+    const countdownDays = l.status === 'upcoming' ? getCountdownDays(l.date) : 0;
+    const statusText = l.status === 'upcoming' ? `倒计时 ${countdownDays} 天` : st.text;
+
+    card.className = 'glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col max-w-md';  /* 添加最大宽度限制，使卡片小一点 */
+    card.innerHTML = `
+      <div class="relative flex-shrink-0">
+        <img src="${l.cover}" alt="${l.title}" class="w-full object-cover" style="aspect-ratio: 1274/824;">  <!-- 与正在直播相同的1274:824比例，但尺寸较小 -->
+        <div class="absolute top-2 left-2">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] ${st.cls}">
+            <i class="fa fa-broadcast-tower mr-1 text-[8px]"></i>${statusText}
+          </span>
+        </div>
+        <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+          <span><i class="fa fa-users mr-1"></i> ${l.attendees.toLocaleString()}</span>
+        </div>
+        <!-- 标题和日期覆盖在图片下方 -->
+        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-white">
+          <a href="live-detail.html" target="_blank" class="block hover:opacity-90 transition-opacity">
+            <h3 class="text-sm font-semibold line-clamp-2 mb-1">${l.title}</h3>
+          </a>
+          <div class="flex items-center justify-between text-xs text-gray-200">
+            <span>${l.date}</span>
+            <button
+              class="enroll-btn px-2 py-1 rounded-full text-[10px] font-medium
+                     ${isEnrolled
+                        ? 'bg-white border border-[#B01F24] text-[#B01F24] hover:bg-gray-50'
+                        : 'bg-[#2D874B] text-white hover:opacity-90'}"
+              data-id="${l.id}"
+              data-status="${l.status}">
+              ${isEnrolled ? '取消预约' : '预约'}
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    return card;
+  }
+
   // 渲染正在直播列表
   function renderLiveNowList() {
     liveNowList.innerHTML = '';
@@ -716,7 +1060,7 @@
     }
 
     liveNowData.forEach(l => {
-      const card = createLiveCard(l);
+      const card = createLiveNowCard(l);  // 使用专门的函数，带有1274:824比例
       liveNowList.appendChild(card);
     });
 
@@ -739,7 +1083,7 @@
 
     // 显示第一个（最近的）直播作为主卡片
     const firstUpcoming = upcomingData[0];
-    const mainCard = createLiveCard(firstUpcoming);
+    const mainCard = createUpcomingMainCard(firstUpcoming);  // 使用专门的函数，带有1274:824比例但尺寸较小
     document.getElementById('upcoming-main-card').innerHTML = '';
     document.getElementById('upcoming-main-card').appendChild(mainCard);
 
@@ -809,7 +1153,7 @@
         // 获取索引并显示相应的直播卡片
         const index = parseInt(this.getAttribute('data-index'));
         const selectedLive = upcomingData[index];
-        const selectedCard = createLiveCard(selectedLive);
+        const selectedCard = createUpcomingMainCard(selectedLive);  // 使用统一的函数保持比例一致
         
         document.getElementById('upcoming-main-card').innerHTML = '';
         document.getElementById('upcoming-main-card').appendChild(selectedCard);
