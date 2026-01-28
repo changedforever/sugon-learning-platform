@@ -291,435 +291,105 @@
                 培训
                 <i class="fa fa-chevron-down text-sm text-white"></i>
             </a>
-            <div class="full-width-dropdown fixed top-0 left-0 w-screen bg-white shadow-xl border-t border-gray-200 opacity-0 invisible transition-all duration-300 z-40" id="training-full-dropdown">
-                <div class="container mx-auto px-4 py-16">
-                <div class="flex">
-                    <!-- 左侧导航 -->
-                    <div class="w-48 pr-6 border-r border-gray-200">
-                    <div class="space-y-2">
-                        <a href="course-list2.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 active-nav-item nav-item selected" data-target="course">课程</a>
-                        <a href="exam-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="exam">考试</a>
-                        <a href="certification.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="certification">认证</a>
-                        <a href="lecturer-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="live">直播</a>
-                    </div>
-                    </div>
-                    
-                    <!-- 分隔线 -->
-                    <div class="mx-6 h-full w-px bg-gray-200"></div>
-                    
-                    <!-- 右侧分类内容 -->
-                    <div class="flex-1 pl-6">
-                    <div id="course-content" class="nav-content active-content">
-                        <h3 class="text-lg font-semibold mb-6">课程分类</h3>
-                        <div class="grid grid-cols-3 gap-6">
-                        <div>
-                            <h4 class="font-medium text-gray-800 mb-2 text-base">技术方向</h4>
-                            <ul class="space-y-1">
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">云计算</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">公有云服务</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">私有云搭建</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">混合云管理</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">容器技术</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">网络安全</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">防火墙技术</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">入侵检测</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">数据加密</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">渗透测试</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">人工智能</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">机器学习</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">深度学习</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">计算机视觉</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">自然语言处理</a></li>
-                                </ul>
-                            </li>
-                            </ul>
+            <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-96 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="p-4">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <!-- 左侧：二级菜单 -->
+                                    <div class="space-y-3">
+                                        <!-- 课程（原培训） -->
+                                        <div class="nav-item group/item relative">
+                                            <a href="course-list2.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between">
+                                                课程
+                                                <i class="fa fa-chevron-right text-xs opacity-0 group-hover/item:opacity-100"></i>
+                                            </a>
+                                            <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
+                                                <div class="p-3">
+                                                    <h4 class="text-sm font-semibold text-gray-800 mb-2">课程分类</h4>
+                                                    <div class="grid grid-cols-2 gap-2">
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">云基础设施</a>
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">AI与数据智能</a>
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">解决方案</a>
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">安全技术</a>
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">运维管理</a>
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">开发技术</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 考试 -->
+                                        <div class="nav-item group/item relative">
+                                            <a href="exam-list.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between">
+                                                考试
+                                                <i class="fa fa-chevron-right text-xs opacity-0 group-hover/item:opacity-100"></i>
+                                            </a>
+                                            <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
+                                                <div class="p-3">
+                                                    <h4 class="text-sm font-semibold text-gray-800 mb-2">考试分类</h4>
+                                                    <div class="grid grid-cols-2 gap-2">
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">资格认证考试</a>
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">技能水平考试</a>
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">岗位能力考试</a>
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">产品认证考试</a>
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">在线考试</a>
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">线下考试</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 认证 -->
+                                        <div class="nav-item group/item relative">
+                                            <a href="certification.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between">
+                                                认证
+                                                <i class="fa fa-chevron-right text-xs opacity-0 group-hover/item:opacity-100"></i>
+                                            </a>
+                                            <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
+                                                <div class="p-3">
+                                                    <h4 class="text-sm font-semibold text-gray-800 mb-2">认证分类</h4>
+                                                    <div class="grid grid-cols-2 gap-2">
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">通用计算认证</a>
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">智能计算认证</a>
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">行业解决方案认证</a>
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">专业技术认证</a>
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">初级认证</a>
+                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">高级认证</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 讲师 -->
+                                        <a href="lecturer-list.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] block">
+                                            讲师
+                                        </a>
+                                    </div>
+                                    
+                                    <!-- 右侧：快速入口 -->
+                                    <div class="space-y-3">
+                                        <h3 class="text-sm font-semibold text-gray-800 mb-2">快速入口</h3>
+                                        <div class="space-y-2">
+                                            <a href="personal-center.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
+                                                <i class="fa fa-user text-[#2D874B] text-xs"></i>
+                                                个人中心
+                                            </a>
+                                            <a href="task-detail.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
+                                                <i class="fa fa-tasks text-[#2D874B] text-xs"></i>
+                                                我的任务
+                                            </a>
+                                            <a href="course-learning.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
+                                                <i class="fa fa-book text-[#2D874B] text-xs"></i>
+                                                继续学习
+                                            </a>
+                                            <a href="certification.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
+                                                <i class="fa fa-certificate text-[#2D874B] text-xs"></i>
+                                                我的证书
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="font-medium text-gray-800 mb-2 text-base">行业应用</h4>
-                            <ul class="space-y-1">
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">金融科技</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">区块链技术</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">数字货币</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">智能风控</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">支付系统</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">智慧医疗</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">医疗影像AI</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">电子病历</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">远程诊疗</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">健康监测</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">智能制造</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">工业物联网</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">自动化控制</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">数字化工厂</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">质量管控</a></li>
-                                </ul>
-                            </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-medium text-gray-800 mb-2 text-base">认证体系</h4>
-                            <ul class="space-y-1">
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">厂商认证</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">曙光认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">红帽认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">思科认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">阿里云认证</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">技能等级</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">初级认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">中级认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">高级认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">专家认证</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">专业领域</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">网络安全</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">云计算</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">数据分析</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">人工智能</a></li>
-                                </ul>
-                            </li>
-                            </ul>
-                        </div>
-                        </div>
-                    </div>
-                    
-                    <div id="exam-content" class="nav-content hidden">
-                        <h3 class="text-lg font-semibold mb-6">考试分类</h3>
-                        <div class="grid grid-cols-3 gap-6">
-                        <div>
-                            <h4 class="font-medium text-gray-800 mb-2 text-base">厂商认证</h4>
-                            <ul class="space-y-1">
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">曙光认证</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCIA考试</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCIP考试</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCIE考试</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCSE考试</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">红帽认证</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCSA考试</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCE考试</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCA考试</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCSS考试</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">思科认证</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CCNA考试</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CCNP考试</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CCIE考试</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">DevNet考试</a></li>
-                                </ul>
-                            </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-medium text-gray-800 mb-2 text-base">技能评估</h4>
-                            <ul class="space-y-1">
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">系统技能</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">Linux系统管理</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">Windows管理</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">虚拟化技术</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">容器技术</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">网络技能</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">路由交换</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">网络安全</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">无线网络</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">SDN技术</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">安全技能</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">渗透测试</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">安全防护</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">风险评估</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">合规审计</a></li>
-                                </ul>
-                            </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-medium text-gray-800 mb-2 text-base">模拟考试</h4>
-                            <ul class="space-y-1">
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">难度级别</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">初级模拟</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">中级模拟</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">高级模拟</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">专家级模拟</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">专项练习</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">选择题练习</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">实操题练习</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">综合测评</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">限时考试</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">历年真题</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">2023年真题</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">2024年真题</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">2025年真题</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">模拟预测</a></li>
-                                </ul>
-                            </li>
-                            </ul>
-                        </div>
-                        </div>
-                    </div>
-                    
-                    <div id="certification-content" class="nav-content hidden">
-                        <h3 class="text-lg font-semibold mb-6">认证分类</h3>
-                        <div class="grid grid-cols-3 gap-6">
-                        <div>
-                            <h4 class="font-medium text-gray-800 mb-2 text-base">厂商认证</h4>
-                            <ul class="space-y-1">
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">曙光认证</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCIA认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCIP认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCIE认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCSE认证</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">红帽认证</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCSA认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCE认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCA认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCSS认证</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">思科认证</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CCNA认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CCNP认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CCIE认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">DevNet认证</a></li>
-                                </ul>
-                            </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-medium text-gray-800 mb-2 text-base">技术认证</h4>
-                            <ul class="space-y-1">
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">云计算认证</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">AWS认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">Azure认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">GCP认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">阿里云认证</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">安全认证</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CISSP认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CISA认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CEH认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CISM认证</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">数据认证</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CDMP认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CDF认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CDA认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">SAS认证</a></li>
-                                </ul>
-                            </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-medium text-gray-800 mb-2 text-base">行业认证</h4>
-                            <ul class="space-y-1">
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">金融行业</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">FRM认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CFA认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CIIA认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CFP认证</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">医疗行业</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HIMSS认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CHIME认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CPSI认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RN认证</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">教育行业</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CETL认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">IBCLC认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">ACSD认证</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">NBCT认证</a></li>
-                                </ul>
-                            </li>
-                            </ul>
-                        </div>
-                        </div>
-                    </div>
-                    
-                    <div id="live-content" class="nav-content hidden">
-                        <h3 class="text-lg font-semibold mb-6">直播分类</h3>
-                        <div class="grid grid-cols-3 gap-6">
-                        <div>
-                            <h4 class="font-medium text-gray-800 mb-2 text-base">技术直播</h4>
-                            <ul class="space-y-1">
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">云计算技术</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">Kubernetes实践</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">Docker容器化</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">微服务架构</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">Serverless技术</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">网络安全</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">零信任架构</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">威胁检测</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">数据保护</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">合规实践</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">人工智能</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">机器学习算法</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">深度学习框架</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">大模型应用</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">AI工程实践</a></li>
-                                </ul>
-                            </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-medium text-gray-800 mb-2 text-base">认证直播</h4>
-                            <ul class="space-y-1">
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">曙光认证</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCIA备考指导</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCIP实验讲解</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCIE面试技巧</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">曙光认证经验分享</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">红帽认证</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCSA实战演练</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCE考题解析</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCA专题讲座</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">红帽认证规划</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">思科认证</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CCNA理论精讲</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CCNP实验操作</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CCIE技术研讨</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">思科认证路径</a></li>
-                                </ul>
-                            </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-medium text-gray-800 mb-2 text-base">专题直播</h4>
-                            <ul class="space-y-1">
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">行业趋势</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">新技术展望</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">市场动态分析</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">技术发展路线</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">产业变革解读</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">实战案例</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">企业实践分享</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">项目实施经验</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">故障排查实战</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">优化方案解析</a></li>
-                                </ul>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">专家访谈</a>
-                                <ul class="mt-1 space-y-1 pl-2">
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">技术大咖对话</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">行业领袖观点</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">职业发展指导</a></li>
-                                <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">创新思维启发</a></li>
-                                </ul>
-                            </li>
-                            </ul>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
             </div>
 
             <!-- 直播 - 带下拉浮窗 -->
