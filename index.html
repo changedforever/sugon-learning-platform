@@ -3126,6 +3126,39 @@
           覆盖光合生态领域常见问题（DCU/CPU/基础软件等）
         </div>
       </div>
+      <!-- 浮动 -->
+      <div class="float-icon-box mr-2">
+        <div class="group">
+          <button id="float-icon-btn" class="icon-button relative p-2 rounded-full hover:bg-gray-100 transition-all duration-300">
+            <i class="fa fa-arrows text-gray-600"></i>
+            <span class="icon-tooltip absolute right-full mr-2 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap">浮动</span>
+          </button>
+        </div>
+      </div>
+      <!-- 吸附 -->
+      <div class="stick-icon-box mr-2 hidden">
+        <div class="group">
+          <button id="stick-icon-btn" class="icon-button relative p-2 rounded-full hover:bg-gray-100 transition-all duration-300">
+            <i class="fa fa-thumbtack text-gray-600"></i>
+            <span class="icon-tooltip absolute right-full mr-2 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap">吸附</span>
+          </button>
+        </div>
+      </div>
+
+      <script>
+        // 切换浮动和吸附按钮的显示
+        document.getElementById('float-icon-btn').addEventListener('click', function() {
+          document.querySelector('.float-icon-box').classList.add('hidden');
+          document.querySelector('.stick-icon-box').classList.remove('hidden');
+        });
+
+        document.getElementById('stick-icon-btn').addEventListener('click', function() {
+          document.querySelector('.stick-icon-box').classList.add('hidden');
+          document.querySelector('.float-icon-box').classList.remove('hidden');
+        });
+      </script>
+
+
       <button id="ai-chat-close" class="text-gray-700 hover:text-gray-900">
         <i class="fa fa-times text-sm"></i>
       </button>
