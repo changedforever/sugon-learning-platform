@@ -124,7 +124,7 @@
 
       <!-- 右侧：设置入口 -->
       <div class="flex items-center space-x-2 text-xs">
-        <button id="account-settings-btn" class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
+        <button id="account-settings-btn" class="hidden px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
           <i class="fa fa-gear text-xs mr-1 text-[#2D874B]"></i> 账号设置
         </button>
       </div>
@@ -276,6 +276,10 @@
         <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
                 data-target="tab-favorites">
           <i class="fa fa-heart mr-1 text-[11px] text-[#B01F24]"></i> 我的收藏
+        </button>
+        <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
+                data-target="tab-following">
+          <i class="fa fa-user-plus mr-1 text-[11px] text-[#B01F24]"></i> 我的关注
         </button>
         <button class="main-tab px-3 py-1.5 rounded-full bg-white border border-gray-300"
                 data-target="tab-likes">
@@ -525,6 +529,13 @@
         </div>
         
         <div id="favorite-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </section>
+
+      <!-- 我的关注 -->
+      <section id="tab-following" class="main-panel hidden">
+        <div id="following-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <!-- JS 注入 -->
         </div>
       </section>
@@ -1177,6 +1188,46 @@
         const filterType = this.dataset.filter;
         renderFavorites(filterType);
       });
+    });
+
+    // 我的关注
+    const following = [
+      {name:'张明', title:'云计算专家', company:'曙光云计算', courses:12, followers:2580},
+      {name:'李华', title:'运维专家', company:'联想集团', courses:8, followers:1820},
+      {name:'王强', title:'安全专家', company:'腾讯云', courses:15, followers:3200},
+      {name:'赵静', title:'AI专家', company:'百度智能云', courses:10, followers:2100}
+    ];
+    const followingWrap = $('following-list');
+    followingWrap.innerHTML = '';
+    following.forEach(f=>{
+      const card = document.createElement('article');
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 space-y-2 hover:-translate-y-1 hover:border-[#B01F24]/80 transition';
+      card.innerHTML = `
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-semibold">
+            ${f.name[0]}
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <span class="text-sm font-semibold">${f.name}</span>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-white border border-gray-300">${f.title}</span>
+            </div>
+            <div class="text-xs text-gray-500">${f.company}</div>
+            <div class="flex items-center gap-3 mt-1 text-xs text-gray-600">
+              <span>课程：${f.courses}</span>
+              <span>粉丝：${f.followers}</span>
+            </div>
+          </div>
+          <button class="text-xs px-3 py-1.5 rounded-full bg-white border border-gray-300 hover:border-[#B01F24] hover:text-[#B01F24]">
+            已关注
+          </button>
+        </div>
+        <button class="w-full mt-1 py-1.5 rounded-full bg-white border border-gray-300 hover:bg-gray-100 text-[11px]"
+                onclick="window.location.href='lecturer-detail.html'">
+          查看详情
+        </button>
+      `;
+      followingWrap.appendChild(card);
     });
 
     // 我的点赞

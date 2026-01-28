@@ -261,19 +261,24 @@
             <span class="text-[10px] px-2 py-1 rounded-full bg-amber-100 text-amber-700">容器技术</span>
           </div>
 
-          <!-- 
           <div class="mt-4 space-y-2">
+            <!-- 关注状态按钮容器 -->
+            <div id="followed-buttons" class="flex gap-2 hidden">
+              <button class="flex-1 py-2.5 rounded-xl bg-[#B01F24] text-white text-sm font-medium hover:opacity-90">
+                <i class="fa fa-heart mr-1"></i>
+                已关注
+              </button>
+              <button id="unfollow-btn" class="w-28 py-2.5 rounded-xl border border-[#B01F24] text-[#B01F24] text-sm font-medium hover:bg-[#B01F24]/10">
+                取消关注
+              </button>
+            </div>
+            <!-- 未关注状态按钮 -->
             <button id="follow-btn"
                     class="w-full py-2.5 rounded-xl bg-[#B01F24] text-white text-sm font-medium hover:opacity-90">
               <i class="fa fa-heart mr-1"></i>
               关注讲师
             </button>
-            <button class="w-full py-2.5 rounded-xl border border-[#B01F24] text-[#B01F24] text-sm font-medium hover:bg-[#B01F24]/10">
-              <i class="fa fa-envelope mr-1"></i>
-              发送私信
-            </button>
           </div>
-          -->
         </div>
       </article>
 
@@ -358,27 +363,30 @@
 
 <script>
   // 关注按钮功能
-  /*
-  document.getElementById('follow-btn').addEventListener('click', function() {
-    const isFollowing = this.innerHTML.includes('取消关注');
+  const followBtn = document.getElementById('follow-btn');
+  const followedButtons = document.getElementById('followed-buttons');
+  const unfollowBtn = document.getElementById('unfollow-btn');
+  const headerFollowBadge = document.getElementById('header-follow-badge');
+  
+  // 关注按钮点击事件
+  followBtn.addEventListener('click', function() {
+    // 隐藏关注按钮，显示已关注状态的两个按钮
+    followBtn.classList.add('hidden');
+    followedButtons.classList.remove('hidden');
     
-    if (isFollowing) {
-      // 取消关注
-      this.innerHTML = '<i class="fa fa-heart mr-1"></i> 关注讲师';
-      this.className = 'w-full py-2.5 rounded-xl bg-[#B01F24] text-white text-sm font-medium hover:opacity-90';
-      
-      // 隐藏顶部关注状态徽章
-      document.getElementById('header-follow-badge').classList.add('hidden');
-    } else {
-      // 关注
-      this.innerHTML = '<i class="fa fa-heart-circle-xmark mr-1"></i> 取消关注';
-      this.className = 'w-full py-2.5 rounded-xl bg-white border border-[#B01F24] text-[#B01F24] text-sm font-medium hover:bg-[#B01F24]/10';
-      
-      // 显示顶部关注状态徽章
-      document.getElementById('header-follow-badge').classList.remove('hidden');
-    }
+    // 显示顶部关注状态徽章
+    headerFollowBadge.classList.remove('hidden');
   });
-  */
+  
+  // 取消关注按钮点击事件
+  unfollowBtn.addEventListener('click', function() {
+    // 隐藏已关注状态的两个按钮，显示关注按钮
+    followedButtons.classList.add('hidden');
+    followBtn.classList.remove('hidden');
+    
+    // 隐藏顶部关注状态徽章
+    headerFollowBadge.classList.add('hidden');
+  });
 
   // 课程卡片点击事件
   const courseCards = document.querySelectorAll('.flex.items-center.p-3.rounded-2xl.border');
