@@ -246,9 +246,9 @@
         
         <!-- 头像 -->
         <div class="relative">
-          <button class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+          <a href="personal-center.html" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
             <i class="fa fa-user text-sm"></i>
-          </button>
+          </a>
         </div>
       </div>
     </div>
@@ -289,96 +289,94 @@
     </div>
 
         <!-- 高级筛选区：类型 / 状态 / 时间 -->
-        <section class="max-w-7xl mx-auto px-4 lg:px-6 mb-6">
-            <div class="glass-card rounded-3xl p-4 space-y-3">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
+        <div class="glass-card rounded-3xl p-4 space-y-3 mb-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                </div>
+                <span id="active-filter-text" class="text-[11px] text-gray-600">
+                    已选条件：全部
+                </span>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-3 text-xs">
+                <!-- 类型 -->
+                <div class="flex items-center gap-2">
+                    <div class="text-gray-600 min-w-[30px]">
+                        <span>类型</span>
                     </div>
-                    <span id="active-filter-text" class="text-[11px] text-gray-600">
-                        已选条件：全部
-                    </span>
+                    <div class="flex flex-wrap gap-1 flex-1">
+                        <button
+                            class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-gray-800"
+                            data-filter="type" data-value="all">
+                            全部
+                        </button>
+                        <button
+                            class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
+                            data-filter="type" data-value="online">
+                            线上活动
+                        </button>
+                        <button
+                            class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
+                            data-filter="type" data-value="offline">
+                            线下活动
+                        </button>
+                    </div>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-3 text-xs">
-                    <!-- 类型 -->
-                    <div>
-                        <div class="text-gray-600 mb-1 flex items-center justify-between">
-                            <span>类型</span>
-                        </div>
-                        <div class="flex flex-wrap gap-1">
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-gray-800"
-                                data-filter="type" data-value="all">
-                                全部
-                            </button>
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                                data-filter="type" data-value="online">
-                                线上活动
-                            </button>
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                                data-filter="type" data-value="offline">
-                                线下活动
-                            </button>
-                        </div>
+                <!-- 状态 -->
+                <div class="flex items-center gap-2">
+                    <div class="text-gray-600 min-w-[30px]">
+                        <span>状态</span>
                     </div>
-
-                    <!-- 状态 -->
-                    <div>
-                        <div class="text-gray-600 mb-1 flex items-center justify-between">
-                            <span>状态</span>
-                        </div>
-                        <div class="flex flex-wrap gap-1">
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-gray-800"
-                                data-filter="status" data-value="all">
-                                全部
-                            </button>
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                                data-filter="status" data-value="upcoming">
-                                即将开始
-                            </button>
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                                data-filter="status" data-value="live">
-                                进行中
-                            </button>
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                                data-filter="status" data-value="ended">
-                                已结束
-                            </button>
-                        </div>
+                    <div class="flex flex-wrap gap-1 flex-1">
+                        <button
+                            class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-gray-800"
+                            data-filter="status" data-value="all">
+                            全部
+                        </button>
+                        <button
+                            class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
+                            data-filter="status" data-value="upcoming">
+                            即将开始
+                        </button>
+                        <button
+                            class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
+                            data-filter="status" data-value="live">
+                            进行中
+                        </button>
+                        <button
+                            class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
+                            data-filter="status" data-value="ended">
+                            已结束
+                        </button>
                     </div>
+                </div>
 
-                    <!-- 时间 -->
-                    <div>
-                        <div class="text-gray-600 mb-1 flex items-center justify-between">
-                            <span>时间</span>
-                        </div>
-                        <div class="flex flex-wrap gap-1">
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-gray-800"
-                                data-filter="timeframe" data-value="all">
-                                全部
-                            </button>
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                                data-filter="timeframe" data-value="this-week">
-                                本周
-                            </button>
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                                data-filter="timeframe" data-value="this-month">
-                                本月
-                            </button>
-                        </div>
+                <!-- 时间 -->
+                <div class="flex items-center gap-2">
+                    <div class="text-gray-600 min-w-[30px]">
+                        <span>时间</span>
+                    </div>
+                    <div class="flex flex-wrap gap-1 flex-1">
+                        <button
+                            class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-gray-800"
+                            data-filter="timeframe" data-value="all">
+                            全部
+                        </button>
+                        <button
+                            class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
+                            data-filter="timeframe" data-value="this-week">
+                            本周
+                        </button>
+                        <button
+                            class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
+                            data-filter="timeframe" data-value="this-month">
+                            本月
+                        </button>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
         <!-- 活动网格卡片 -->
         <section id="activity-grid"
