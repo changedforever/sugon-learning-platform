@@ -735,9 +735,7 @@
           <img src="images/organization.png" alt="组织注册" class="w-full h-auto">
         </div>
       </div>
-    </div>
-  
-  <!-- 下载光圈-注册成功页面 -->
+      <!-- 下载光圈-注册成功页面 -->
   <div class="page" id="download-app">
     <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">光圈下载</h2>
     
@@ -795,6 +793,9 @@
       </div>
     </div>
   </div>
+    </div>
+  
+  
 <!-- 下载光圈-官网页面 -->
   <div class="page" id="download-official-site">
     <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">下载光圈-官网</h2>
@@ -963,7 +964,7 @@
         document.getElementById(target).classList.add('active');
       });
     });
-
+    try {
     // 验证码按钮功能
     document.querySelector('.verification-code-btn').addEventListener('click', function() {
       const phoneInput = document.getElementById('phone');
@@ -988,13 +989,15 @@
         }
       }, 1000);
     });
-
+    } catch (error) {
+      
+    }
     // 选择组织函数
     function selectOrganization(orgId) {
       alert(`已选择组织ID: ${orgId}`);
       // 这里可以添加进一步的处理逻辑
     }
-    
+    try {
     // 表单提交处理
     document.getElementById('personal-register-form').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -1014,7 +1017,9 @@
       
       alert('注册成功！');
     });
-
+    } catch (error) {
+      
+    }
     document.getElementById('profile-completion-form').addEventListener('submit', function(e) {
       e.preventDefault();
       alert('信息完善成功！');
