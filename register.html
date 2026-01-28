@@ -964,7 +964,7 @@
         document.getElementById(target).classList.add('active');
       });
     });
-
+    try {
     // 验证码按钮功能
     document.querySelector('.verification-code-btn').addEventListener('click', function() {
       const phoneInput = document.getElementById('phone');
@@ -989,13 +989,15 @@
         }
       }, 1000);
     });
-
+    } catch (error) {
+      
+    }
     // 选择组织函数
     function selectOrganization(orgId) {
       alert(`已选择组织ID: ${orgId}`);
       // 这里可以添加进一步的处理逻辑
     }
-    
+    try {
     // 表单提交处理
     document.getElementById('personal-register-form').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -1015,7 +1017,9 @@
       
       alert('注册成功！');
     });
-
+    } catch (error) {
+      
+    }
     document.getElementById('profile-completion-form').addEventListener('submit', function(e) {
       e.preventDefault();
       alert('信息完善成功！');
