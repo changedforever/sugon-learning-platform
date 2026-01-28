@@ -159,7 +159,7 @@
         <div>
           <!--div class="text-xs uppercase tracking-widest text-white">HIECO</div-->
           <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
-            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200">光合技术支持平台</div>
+            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200" style="font-size: 18px;">光合技术支持平台</div>
           </a>
         </div>
       </div>
@@ -1038,9 +1038,8 @@
           </div>
           
           <!-- Banner底部导航条 -->
-          <div class="absolute bottom-0 left-0 right-0 z-10 bg-gray-800/60 backdrop-blur-sm">
-            <!-- AI智能体按钮 -->
-            <div class="flex justify-center py-2">
+           <!-- AI智能体按钮 -->
+            <div class="flex justify-center py-2" style="z-index: 9999; position: relative; bottom: 101px;">
               <a href="ai-agent.html" class="ai-assistant-link">
                 <div class="bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl px-4 py-2 flex items-center space-x-2 border border-gray-300 shadow-lg">
                   <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
@@ -1050,22 +1049,24 @@
                 </div>
               </a>
             </div>
+          <div class="absolute bottom-0 left-0 right-0 z-10 bg-gray-800/60 backdrop-blur-sm">
+            
             <div class="flex justify-around items-center py-5 px-6">
-              <a href="expert-center.html" class="flex items-center text-white/90 hover:text-white transition text-sm">
-                <i class="fa fa-user-tie mr-2 text-lg"></i>
-                <span>专家支持</span>
+              <a href="expert-center.html" class="flex flex-col items-center text-white/90 hover:text-white transition text-sm">
+                <i class="fa fa-user-tie mr-2 text-lg"  style="font-size: 30px;padding-bottom: 10px;"></i>
+                <span style="font-size: 20px;display: block;">专家支持</span>
               </a>
-              <a href="ai-agent.html" class="flex items-center text-white/90 hover:text-white transition text-sm">
-                <i class="fa fa-robot mr-2 text-lg"></i>
-                <span>AI 智能体</span>
+              <a href="ai-agent.html" class="flex flex-col items-center text-white/90 hover:text-white transition text-sm">
+                <i class="fa fa-robot mr-2 text-lg" style="font-size: 30px;padding-bottom: 10px;"></i>
+                <span style="font-size: 20px;display: block;">AI 智能体</span>
               </a>
-              <a href="course-list2.html" class="flex items-center text-white/90 hover:text-white transition text-sm">
-                <i class="fa fa-graduation-cap mr-2 text-lg"></i>
-                <span>培训认证</span>
+              <a href="course-list2.html" class="flex flex-col items-center text-white/90 hover:text-white transition text-sm">
+                <i class="fa fa-graduation-cap mr-2 text-lg" style="font-size: 30px;padding-bottom: 10px;"></i>
+                <span style="font-size: 20px;display: block;">培训认证</span>
               </a>
-              <a href="resource-center.html" class="flex items-center text-white/90 hover:text-white transition text-sm">
-                <i class="fa fa-th-large mr-2 text-lg"></i>
-                <span>资源中心</span>
+              <a href="resource-center.html" class="flex flex-col items-center text-white/90 hover:text-white transition text-sm">
+                <i class="fa fa-th-large mr-2 text-lg" style="font-size: 30px;padding-bottom: 10px;"></i>
+                <span style="font-size: 20px;display: block;">资源中心</span>
               </a>
             </div>
           </div>
@@ -1224,6 +1225,9 @@
         <h2 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-3">专家支持</h2>
         <p class="text-base lg:text-lg text-gray-600 max-w-3xl mx-auto">
           认识我们各个领域的技术专家，他们拥有丰富的行业经验和深厚的技术底蕴
+           <a href="expert-center.html" class="text-blue-0 hover:text-blue-800 hover:underline transition-all duration-300 font-medium">
+            <i class="fa fa-arrow-right ml-2 cursor-pointer transition-all duration-300 hover:text-[#2D874B] hover:translate-x-1"></i>
+          </a> 
         </p>
       </div>
       
@@ -1657,7 +1661,7 @@
       </div>
       
       <!-- 底部查看更多专家链接 -->
-      <div class="text-center mt-10 lg:mt-12">
+      <div class="text-center mt-10 lg:mt-12" style="display: none;">
         <a href="expert-center.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 hover:underline transition-all duration-300 font-medium">
           <span>查看更多专家</span>
           <i class="fa fa-arrow-right ml-2"></i>
@@ -1919,7 +1923,10 @@
       <div class="text-center mb-8 lg:mb-12">
         <h2 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-3">按资源找支持</h2>
         <p class="text-base lg:text-lg text-gray-600 max-w-3xl mx-auto">
-          根据您的需求类型，快速找到最适合的技术支持和解决方案
+          根据您的需求类型，快速找到最适合的技术支持和解决方案 
+          <a href="resource-center.html" class="text-blue-0 hover:text-blue-800 hover:underline transition-all duration-300 font-medium">
+            <i class="fa fa-arrow-right ml-2 cursor-pointer transition-all duration-300 hover:text-[#2D874B] hover:translate-x-1"></i>
+          </a> 
         </p>
       </div>
       
@@ -2495,7 +2502,7 @@
       </div>
       
       <!-- 底部查看更多链接 -->
-      <div class="text-center mt-8 lg:mt-12">
+      <div class="text-center mt-8 lg:mt-12" style="display: none;">
         <a href="resource-center.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 hover:underline transition-all duration-300 font-medium">
           <span>查看更多资源</span>
           <i class="fa fa-arrow-right ml-2"></i>
