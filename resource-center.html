@@ -66,6 +66,17 @@
         grid-template-columns: 1fr;
       }
     }
+    .text-more {
+      a {
+        text-decoration: none;
+      }
+    }
+    .top-head {
+      background-image: url("images/resource-center/resource-center.webp");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -289,8 +300,8 @@
 
 <!-- 页面内容 -->
 <main class="pt-16 min-h-screen">
-  <!-- 页面标题区域 -->
-  <section class="bg-gradient-to-br from-blue-50 to-green-50 py-16 lg:py-20">
+  <!-- 页面标题区域 bg-gradient-to-br-->
+  <section class=" from-blue-50 to-green-50 py-16 lg:py-20 top-head">
     <div class="max-w-7xl mx-auto px-4 lg:px-6">
       <div class="text-center">
         <h1 class="text-4xl lg:text-5xl font-bold text-gray-800 mb-4">资源中心</h1>
@@ -471,6 +482,12 @@
         </div>
       </div>
     </div>
+    <div class="text-center mt-8 text-more">
+      <a href="tech-tool-library.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium underline">
+        查看更多案例
+        <i class="fa fa-arrow-right ml-2"></i>
+      </a>
+    </div>
   </section>
 
   <!-- 文档资源模块 -->
@@ -621,7 +638,7 @@
             </div>
           </div>
           <p class="text-gray-600 mb-4 text-sm">
-            常见技术问题、故障排除、配置问题等实用解决方案。
+            常见技术问题、故障排除、配置问题等实用解决方案列表。
           </p>
           <div class="flex items-center justify-between">
             <span class="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded-full">常见问题</span>
@@ -653,6 +670,12 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="text-center mt-8 text-more">
+      <a href="doc-library.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium underline">
+        查看更多案例
+        <i class="fa fa-arrow-right ml-2"></i>
+      </a>
     </div>
   </section>
 
@@ -827,7 +850,7 @@
           </div>
         </div>
       </div>
-      <div class="text-center mt-8">
+      <div class="text-center mt-8 text-more">
         <a href="case-library.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium underline">
           查看更多案例
           <i class="fa fa-arrow-right ml-2"></i>
