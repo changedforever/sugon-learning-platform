@@ -311,14 +311,14 @@
         
         <!-- 快速导航标签 -->
         <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <a href="#cases" class="px-6 py-2 bg-white rounded-full border border-gray-300 hover:border-[#2D874B] hover:text-[#2D874B] transition-all duration-300 font-medium">
+            <i class="fa fa-lightbulb mr-2"></i>案例分享
+          </a>
           <a href="#tools" class="px-6 py-2 bg-white rounded-full border border-gray-300 hover:border-[#2D874B] hover:text-[#2D874B] transition-all duration-300 font-medium">
             <i class="fa fa-tools mr-2"></i>技术工具
           </a>
           <a href="#docs" class="px-6 py-2 bg-white rounded-full border border-gray-300 hover:border-[#2D874B] hover:text-[#2D874B] transition-all duration-300 font-medium">
             <i class="fa fa-book mr-2"></i>技术文档
-          </a>
-          <a href="#cases" class="px-6 py-2 bg-white rounded-full border border-gray-300 hover:border-[#2D874B] hover:text-[#2D874B] transition-all duration-300 font-medium">
-            <i class="fa fa-lightbulb mr-2"></i>案例分享
           </a>
         </div>
       <!-- 资源库搜索区域 -->
@@ -362,6 +362,186 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 案例资源模块 -->
+  <section id="cases" class="py-16 lg:py-15">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6">
+      <!-- 标题区域 -->
+      <div class="text-center mb-12 lg:mb-16" style="margin-bottom: 30px;">
+        <!-- <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-100 to-purple-200 rounded-full mb-4">
+          <i class="fa fa-lightbulb text-purple-600 text-xl mr-2"></i>
+          <span class="text-purple-700 font-semibold">案例分享</span>
+        </div> -->
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">成功案例与实践经验</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          真实项目案例、最佳实践、经验分享，助力技术成长
+        </p>
+      </div>
+
+      <!-- 案例标签筛选 -->
+      <div class="flex flex-wrap justify-center gap-3 mb-8">
+        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200 active" data-tag="all">
+          全部案例
+        </button>
+        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="cloud">
+          云计算案例
+        </button>
+        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="ai">
+          AI应用案例
+        </button>
+        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="bigdata">
+          大数据案例
+        </button>
+        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="security">
+          安全案例
+        </button>
+        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="migration">
+          迁移案例
+        </button>
+      </div>
+
+      <!-- 案例资源网格 -->
+      <div class="resource-grid">
+        <!-- 案例1 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="cloud">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-cloud text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">金融云架构实践</h3>
+              <p class="text-sm text-gray-500">云计算 · 金融行业</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            某大型金融机构云架构改造案例，实现高可用、高安全的云服务平台。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">云计算</span>
+            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+              查看 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 案例2 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="ai">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-robot text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">智能客服系统</h3>
+              <p class="text-sm text-gray-500">AI应用 · 客服系统</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            基于AI技术的智能客服系统建设案例，提升客户服务效率和质量。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-pink-100 text-pink-700 text-xs rounded-full">AI应用</span>
+            <a href="#" class="text-pink-600 hover:text-pink-800 text-sm font-medium">
+              查看 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 案例3 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="bigdata">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-chart-bar text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">大数据分析平台</h3>
+              <p class="text-sm text-gray-500">大数据 · 分析平台</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            企业级大数据分析平台建设案例，实现数据驱动的业务决策。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">大数据</span>
+            <a href="#" class="text-green-600 hover:text-green-800 text-sm font-medium">
+              查看 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 案例4 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="security">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-shield-alt text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">安全防护体系</h3>
+              <p class="text-sm text-gray-500">安全 · 防护体系</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            企业级安全防护体系建设案例，构建全方位安全防护能力。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-red-100 text-red-700 text-xs rounded-full">安全</span>
+            <a href="#" class="text-red-600 hover:text-red-800 text-sm font-medium">
+              查看 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 案例5 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="migration">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-exchange-alt text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">系统迁移实践</h3>
+              <p class="text-sm text-gray-500">迁移 · 系统升级</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            传统系统向云平台迁移的完整实践案例，确保业务连续性。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded-full">迁移</span>
+            <a href="#" class="text-orange-600 hover:text-orange-800 text-sm font-medium">
+              查看 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 案例6 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="cloud">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-network-wired text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">混合云架构设计</h3>
+              <p class="text-sm text-gray-500">云计算 · 混合云</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            混合云架构设计与实施案例，平衡公有云与私有云的优势。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full">混合云</span>
+            <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+              查看 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-8 text-more">
+        <a href="case-library.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium underline">
+          查看更多案例
+          <i class="fa fa-arrow-right ml-2"></i>
+        </a>
       </div>
     </div>
   </section>
@@ -484,7 +664,7 @@
     </div>
     <div class="text-center mt-8 text-more">
       <a href="tech-tool-library.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium underline">
-        查看更多案例
+        查看更多工具
         <i class="fa fa-arrow-right ml-2"></i>
       </a>
     </div>
@@ -673,189 +853,9 @@
     </div>
     <div class="text-center mt-8 text-more">
       <a href="doc-library.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium underline">
-        查看更多案例
+        查看更多文档
         <i class="fa fa-arrow-right ml-2"></i>
       </a>
-    </div>
-  </section>
-
-  <!-- 案例资源模块 -->
-  <section id="cases" class="py-16 lg:py-15">
-    <div class="max-w-7xl mx-auto px-4 lg:px-6">
-      <!-- 标题区域 -->
-      <div class="text-center mb-12 lg:mb-16" style="margin-bottom: 30px;">
-        <!-- <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-100 to-purple-200 rounded-full mb-4">
-          <i class="fa fa-lightbulb text-purple-600 text-xl mr-2"></i>
-          <span class="text-purple-700 font-semibold">案例分享</span>
-        </div> -->
-        <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">成功案例与实践经验</h2>
-        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-          真实项目案例、最佳实践、经验分享，助力技术成长
-        </p>
-      </div>
-
-      <!-- 案例标签筛选 -->
-      <div class="flex flex-wrap justify-center gap-3 mb-8">
-        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200 active" data-tag="all">
-          全部案例
-        </button>
-        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="cloud">
-          云计算案例
-        </button>
-        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="ai">
-          AI应用案例
-        </button>
-        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="bigdata">
-          大数据案例
-        </button>
-        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="security">
-          安全案例
-        </button>
-        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="migration">
-          迁移案例
-        </button>
-      </div>
-
-      <!-- 案例资源网格 -->
-      <div class="resource-grid">
-        <!-- 案例1 -->
-        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="cloud">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-4">
-              <i class="fa fa-cloud text-white text-xl"></i>
-            </div>
-            <div>
-              <h3 class="text-lg font-semibold text-gray-800">金融云架构实践</h3>
-              <p class="text-sm text-gray-500">云计算 · 金融行业</p>
-            </div>
-          </div>
-          <p class="text-gray-600 mb-4 text-sm">
-            某大型金融机构云架构改造案例，实现高可用、高安全的云服务平台。
-          </p>
-          <div class="flex items-center justify-between">
-            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">云计算</span>
-            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
-              查看 <i class="fa fa-arrow-right ml-1"></i>
-            </a>
-          </div>
-        </div>
-        
-        <!-- 案例2 -->
-        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="ai">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mr-4">
-              <i class="fa fa-robot text-white text-xl"></i>
-            </div>
-            <div>
-              <h3 class="text-lg font-semibold text-gray-800">智能客服系统</h3>
-              <p class="text-sm text-gray-500">AI应用 · 客服系统</p>
-            </div>
-          </div>
-          <p class="text-gray-600 mb-4 text-sm">
-            基于AI技术的智能客服系统建设案例，提升客户服务效率和质量。
-          </p>
-          <div class="flex items-center justify-between">
-            <span class="px-2 py-1 bg-pink-100 text-pink-700 text-xs rounded-full">AI应用</span>
-            <a href="#" class="text-pink-600 hover:text-pink-800 text-sm font-medium">
-              查看 <i class="fa fa-arrow-right ml-1"></i>
-            </a>
-          </div>
-        </div>
-        
-        <!-- 案例3 -->
-        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="bigdata">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mr-4">
-              <i class="fa fa-chart-bar text-white text-xl"></i>
-            </div>
-            <div>
-              <h3 class="text-lg font-semibold text-gray-800">大数据分析平台</h3>
-              <p class="text-sm text-gray-500">大数据 · 分析平台</p>
-            </div>
-          </div>
-          <p class="text-gray-600 mb-4 text-sm">
-            企业级大数据分析平台建设案例，实现数据驱动的业务决策。
-          </p>
-          <div class="flex items-center justify-between">
-            <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">大数据</span>
-            <a href="#" class="text-green-600 hover:text-green-800 text-sm font-medium">
-              查看 <i class="fa fa-arrow-right ml-1"></i>
-            </a>
-          </div>
-        </div>
-        
-        <!-- 案例4 -->
-        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="security">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mr-4">
-              <i class="fa fa-shield-alt text-white text-xl"></i>
-            </div>
-            <div>
-              <h3 class="text-lg font-semibold text-gray-800">安全防护体系</h3>
-              <p class="text-sm text-gray-500">安全 · 防护体系</p>
-            </div>
-          </div>
-          <p class="text-gray-600 mb-4 text-sm">
-            企业级安全防护体系建设案例，构建全方位安全防护能力。
-          </p>
-          <div class="flex items-center justify-between">
-            <span class="px-2 py-1 bg-red-100 text-red-700 text-xs rounded-full">安全</span>
-            <a href="#" class="text-red-600 hover:text-red-800 text-sm font-medium">
-              查看 <i class="fa fa-arrow-right ml-1"></i>
-            </a>
-          </div>
-        </div>
-        
-        <!-- 案例5 -->
-        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="migration">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mr-4">
-              <i class="fa fa-exchange-alt text-white text-xl"></i>
-            </div>
-            <div>
-              <h3 class="text-lg font-semibold text-gray-800">系统迁移实践</h3>
-              <p class="text-sm text-gray-500">迁移 · 系统升级</p>
-            </div>
-          </div>
-          <p class="text-gray-600 mb-4 text-sm">
-            传统系统向云平台迁移的完整实践案例，确保业务连续性。
-          </p>
-          <div class="flex items-center justify-between">
-            <span class="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded-full">迁移</span>
-            <a href="#" class="text-orange-600 hover:text-orange-800 text-sm font-medium">
-              查看 <i class="fa fa-arrow-right ml-1"></i>
-            </a>
-          </div>
-        </div>
-        
-        <!-- 案例6 -->
-        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="cloud">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center mr-4">
-              <i class="fa fa-network-wired text-white text-xl"></i>
-            </div>
-            <div>
-              <h3 class="text-lg font-semibold text-gray-800">混合云架构设计</h3>
-              <p class="text-sm text-gray-500">云计算 · 混合云</p>
-            </div>
-          </div>
-          <p class="text-gray-600 mb-4 text-sm">
-            混合云架构设计与实施案例，平衡公有云与私有云的优势。
-          </p>
-          <div class="flex items-center justify-between">
-            <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full">混合云</span>
-            <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
-              查看 <i class="fa fa-arrow-right ml-1"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="text-center mt-8 text-more">
-        <a href="case-library.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium underline">
-          查看更多案例
-          <i class="fa fa-arrow-right ml-2"></i>
-        </a>
-      </div>
     </div>
   </section>
 
