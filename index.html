@@ -1915,10 +1915,9 @@
           </div>
         </div>
       </div>
-      </div>
       
       <!-- 课程互动区域 (第二行) - 整体容器 -->
-      <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-200 hover:shadow-lg transition-all duration-300 mb-10 lg:mb-12 mx-6">
+      <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-200 hover:shadow-lg transition-all duration-300 mb-10 lg:mb-12">
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center">
             <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-3">
@@ -2006,6 +2005,7 @@
       </div>
       
 
+      </div>
       
 
     </div>
@@ -3101,7 +3101,7 @@
       <span class="absolute right-14 bg-blue-300 text-white px-3 py-2 rounded-l-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap text-sm font-medium">
         互动社区
       </span>
-      <div class="w-14 h-14 text-gray-500
+      <div id="interactive-community-btn" class="w-14 h-14 text-gray-500
               flex items-center justify-center cursor-pointer transition-all duration-300 group-hover:translate-x-[-10px] group-hover:bg-blue-50 group-hover:text-blue-600">
         <i class="fa fa-comments text-xl"></i>
       </div>
@@ -4217,6 +4217,8 @@
     // 专家支持 - 光圈下载弹窗功能
     document.addEventListener('DOMContentLoaded', function() {
       const expertSupportBtn = document.getElementById('expert-support-btn');
+      const interactiveCommunityBtn = document.getElementById('interactive-community-btn');
+      
       const downloadModal = document.getElementById('download-modal');
       const downloadModalClose = document.getElementById('download-modal-close');
       const pcDownload = document.querySelector('.pc-download');
@@ -4229,7 +4231,11 @@
           document.body.style.overflow = 'hidden';
         });
       }
-      
+      if (interactiveCommunityBtn) {
+        interactiveCommunityBtn.addEventListener('click', function() {
+          window.open('https://forum.sourcefind.cn', '_blank');
+        });
+      }
       // 关闭弹窗
       if (downloadModalClose) {
         downloadModalClose.addEventListener('click', function() {
