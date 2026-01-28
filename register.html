@@ -202,7 +202,7 @@
     
     <!-- 模拟官网底部 -->
     <div class="bg-gray-900 text-white rounded-xl p-6 pb-4">
-      <div class="max-w-6xl mx-auto px-4">
+      <div class="max-w-6xl mx-auto px-4" style="position: relative;">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-4">
           <div>
             <h4 class="text-lg font-semibold mb-4">关于我们</h4>
@@ -247,7 +247,7 @@
           <div class="flex-1"></div>
           
           <!-- 光圈下载按钮，悬停显示浮窗 -->
-          <div class="relative group">
+          <div class="relative group" style="position: absolute;right: 0;bottom: 80px;">
             <button id="download-app-btn" class="px-6 py-3 bg-gradient-to-r from-[#2D874B] to-[#34D399] text-white rounded-lg hover:from-[#256e3d] hover:to-[#2dcba2] transition-all duration-300 font-medium">
               <i class="fas fa-download mr-2"></i>光圈下载
             </button>
@@ -1148,10 +1148,7 @@
             </div>
           </div>
         </form>
-      </div>
-    </div>
-  
-  <!-- 下载光圈-注册成功页面 -->
+      </div><!-- 下载光圈-注册成功页面 -->
   <div class="page" id="download-app">
     <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">光圈下载</h2>
     
@@ -1209,6 +1206,9 @@
       </div>
     </div>
   </div>
+    </div>
+  
+  
 
   <!-- 下载光圈-官网页面 -->
   <div class="page" id="download-official-site">
