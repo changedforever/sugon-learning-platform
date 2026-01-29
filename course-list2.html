@@ -876,10 +876,9 @@
             const endIndex = Math.min(startIndex + pageSize, total);
 
             const pageData = filteredCourses.slice(startIndex, endIndex);
-            pageData.forEach(course => {
+            pageData.forEach((course, index) => {
                 const card = document.createElement('article');
                 card.className = 'glass-card rounded-3xl p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer';
-
                 card.innerHTML = `
   <!-- 顶部：来源 + 热度 -->
   <div class="flex items-center justify-between mb-2">
@@ -926,7 +925,7 @@
       </span>
     </div>
     <!-- 报名按钮：底色 B01F24 + 白字 -->
-    <div class="flex justify-end">
+    <div class="flex justify-end items-center">
       <button class="enroll-btn px-3 py-1.5 rounded-full bg-[#2D874B] text-white text-[11px] font-medium hover:opacity-90"
               data-id="${course.id}">
         立即报名

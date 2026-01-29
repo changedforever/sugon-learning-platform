@@ -113,14 +113,17 @@
         <div class="flex items-center justify-between">
           <!-- 左侧控制按钮 -->
           <div class="flex items-center space-x-4">
-            <button id="playPauseBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
+            <!-- <button id="playPauseBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
               <i class="fa fa-play"></i>
-            </button>
+            </button> -->
             <button id="refreshBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
               <i class="fa fa-sync"></i>
             </button>
             <button id="giftBtn" class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center hover:from-pink-600 hover:to-red-600 transition">
               <i class="fa fa-gift"></i>
+            </button>
+            <button id="micLinkBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition" title="在线连麦">
+              <i class="fa fa-microphone"></i>
             </button>
             <button id="shareBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
               <i class="fa fa-share"></i>
@@ -556,6 +559,111 @@
   </div>
 </div>
 
+<!-- 礼物弹窗 -->
+<div id="giftModal" class="fixed inset-0 z-[999] hidden">
+  <!-- 遮罩 -->
+  <div id="giftModalBackdrop" class="absolute inset-0 bg-black/60"></div>
+  <!-- 弹窗内容 -->
+  <div class="absolute inset-0 flex items-center justify-center p-4">
+    <div class="w-full max-w-md rounded-2xl bg-white shadow-2xl overflow-hidden">
+      <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+        <div class="text-sm font-semibold text-gray-800">选择礼物</div>
+        <button id="giftModalClose" class="h-8 w-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+
+      <div class="p-4">
+        <div class="text-xs text-gray-500 mb-3">点击选择一种礼物后再赠送</div>
+        <div id="giftGrid" class="grid grid-cols-3 gap-3">
+          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="咖啡">
+            <div class="text-lg">☕</div>
+            <div class="text-xs text-gray-700 mt-1">咖啡</div>
+          </button>
+          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="爱心">
+            <div class="text-lg">❤️</div>
+            <div class="text-xs text-gray-700 mt-1">爱心</div>
+          </button>
+          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="星星">
+            <div class="text-lg">⭐</div>
+            <div class="text-xs text-gray-700 mt-1">星星</div>
+          </button>
+          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="钻石">
+            <div class="text-lg">💎</div>
+            <div class="text-xs text-gray-700 mt-1">钻石</div>
+          </button>
+          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="火箭">
+            <div class="text-lg">🚀</div>
+            <div class="text-xs text-gray-700 mt-1">火箭</div>
+          </button>
+          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="皇冠">
+            <div class="text-lg">👑</div>
+            <div class="text-xs text-gray-700 mt-1">皇冠</div>
+          </button>
+        </div>
+      </div>
+
+      <div class="px-4 py-3 border-t border-gray-200 flex items-center justify-between bg-gray-50">
+        <div class="text-xs text-gray-600">
+          已选：<span id="selectedGiftText" class="font-semibold text-gray-800">未选择</span>
+        </div>
+        <div class="flex gap-2">
+          <!-- <button id="giftCancelBtn" class="px-3 py-2 text-xs rounded-xl border border-gray-300 bg-white hover:bg-gray-100">取消</button> -->
+          <button id="giftSendBtn" class="px-3 py-2 text-xs rounded-xl bg-[#B01F24] text-white hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed" disabled>赠送</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 连麦弹窗（仅页面效果） -->
+<div id="micLinkModal" class="fixed inset-0 z-[1000] hidden">
+  <div id="micLinkBackdrop" class="absolute inset-0 bg-black/60"></div>
+  <div class="absolute inset-0 flex items-center justify-center p-4">
+    <div class="w-full max-w-sm rounded-2xl bg-white shadow-2xl overflow-hidden">
+      <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+        <div class="text-sm font-semibold text-gray-800">在线连麦</div>
+        <button id="micLinkClose" class="h-8 w-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+
+      <div class="p-4 space-y-3">
+        <div class="flex items-center gap-3">
+          <div class="h-10 w-10 rounded-full bg-gradient-to-r from-red-500 to-pink-500 flex items-center justify-center text-white">
+            <i class="fa fa-headset"></i>
+          </div>
+          <div class="flex-1">
+            <div class="text-sm font-medium text-gray-800">与主播连麦</div>
+            <div id="micLinkStatusText" class="text-xs text-gray-500">未连麦</div>
+          </div>
+          <span id="micLinkBadge" class="text-[11px] px-2 py-1 rounded-full border border-gray-300 text-gray-600 bg-gray-50">空闲</span>
+        </div>
+
+        <!-- 伪“音频波形/连麦中”展示 -->
+        <div id="micLinkWave" class="hidden rounded-xl border border-gray-200 bg-gray-50 p-3">
+          <div class="text-xs text-gray-600 mb-2">连麦中（示意）</div>
+          <div class="flex items-end gap-1 h-10">
+            <div class="w-1.5 bg-[#B01F24] rounded" style="height: 40%"></div>
+            <div class="w-1.5 bg-[#B01F24] rounded" style="height: 80%"></div>
+            <div class="w-1.5 bg-[#B01F24] rounded" style="height: 55%"></div>
+            <div class="w-1.5 bg-[#B01F24] rounded" style="height: 90%"></div>
+            <div class="w-1.5 bg-[#B01F24] rounded" style="height: 60%"></div>
+            <div class="w-1.5 bg-[#B01F24] rounded" style="height: 75%"></div>
+            <div class="w-1.5 bg-[#B01F24] rounded" style="height: 45%"></div>
+            <div class="w-1.5 bg-[#B01F24] rounded" style="height: 85%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="px-4 py-3 border-t border-gray-200 flex items-center justify-end gap-2 bg-gray-50">
+        <button id="micLinkHangupBtn" class="px-3 py-2 text-xs rounded-xl bg-[#B01F24] text-white hover:bg-[#8f191d] transition hidden">挂断</button>
+        <button id="micLinkApplyBtn" class="px-3 py-2 text-xs rounded-xl bg-[#2D874B] text-white hover:opacity-90">申请连麦</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 
 
@@ -657,20 +765,154 @@
     }, 3000);
   }
 
-  // 点击礼物触发动画
-  const giftButtons = document.querySelectorAll('.gift-item:not(button)');
-  giftButtons.forEach((btn, index) => {
+  // giftBtn：弹窗选择礼物并赠送
+  const giftBtn = document.getElementById('giftBtn');
+  const giftModal = document.getElementById('giftModal');
+  const giftModalBackdrop = document.getElementById('giftModalBackdrop');
+  const giftModalClose = document.getElementById('giftModalClose');
+  const giftCancelBtn = document.getElementById('giftCancelBtn');
+  const giftSendBtn = document.getElementById('giftSendBtn');
+  const selectedGiftText = document.getElementById('selectedGiftText');
+  const giftOptions = document.querySelectorAll('#giftGrid .gift-option');
+  const micLinkBtn = document.getElementById('micLinkBtn');
+
+  let selectedGiftName = '';
+
+  function openGiftModal() {
+    selectedGiftName = '';
+    selectedGiftText.textContent = '未选择';
+    giftSendBtn.disabled = true;
+    giftOptions.forEach(btn => btn.classList.remove('ring-2', 'ring-[#B01F24]', 'border-[#B01F24]'));
+    giftModal.classList.remove('hidden');
+  }
+
+  function closeGiftModal() {
+    giftModal.classList.add('hidden');
+  }
+
+  if (giftBtn) giftBtn.addEventListener('click', openGiftModal);
+  if (giftModalBackdrop) giftModalBackdrop.addEventListener('click', closeGiftModal);
+  if (giftModalClose) giftModalClose.addEventListener('click', closeGiftModal);
+  if (giftCancelBtn) giftCancelBtn.addEventListener('click', closeGiftModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && giftModal && !giftModal.classList.contains('hidden')) {
+      closeGiftModal();
+    }
+  });
+
+  // 在线连麦（仅页面效果）
+  const micLinkModal = document.getElementById('micLinkModal');
+  const micLinkBackdrop = document.getElementById('micLinkBackdrop');
+  const micLinkClose = document.getElementById('micLinkClose');
+  const micLinkStatusText = document.getElementById('micLinkStatusText');
+  const micLinkBadge = document.getElementById('micLinkBadge');
+  const micLinkWave = document.getElementById('micLinkWave');
+  const micLinkApplyBtn = document.getElementById('micLinkApplyBtn');
+  const micLinkHangupBtn = document.getElementById('micLinkHangupBtn');
+  let micLinkState = 'idle'; // idle | connecting | connected
+  let micLinkTimer = null;
+
+  function setMicLinkState(next) {
+    micLinkState = next;
+    if (!micLinkStatusText || !micLinkBadge || !micLinkWave || !micLinkApplyBtn || !micLinkHangupBtn) return;
+
+    if (micLinkTimer) {
+      clearTimeout(micLinkTimer);
+      micLinkTimer = null;
+    }
+
+    if (micLinkState === 'idle') {
+      micLinkStatusText.textContent = '未连麦';
+      micLinkBadge.textContent = '空闲';
+      micLinkBadge.className = 'text-[11px] px-2 py-1 rounded-full border border-gray-300 text-gray-600 bg-gray-50';
+      micLinkWave.classList.add('hidden');
+      micLinkApplyBtn.disabled = false;
+      micLinkApplyBtn.textContent = '申请连麦';
+      micLinkHangupBtn.classList.add('hidden');
+      return;
+    }
+
+    if (micLinkState === 'connecting') {
+      micLinkStatusText.textContent = '申请中...';
+      micLinkBadge.textContent = '连接中';
+      micLinkBadge.className = 'text-[11px] px-2 py-1 rounded-full border border-amber-300 text-amber-700 bg-amber-50';
+      micLinkWave.classList.add('hidden');
+      micLinkApplyBtn.disabled = true;
+      micLinkApplyBtn.textContent = '申请中...';
+      micLinkHangupBtn.classList.add('hidden');
+
+      // 仅演示：1.2 秒后自动“连上”
+      micLinkTimer = setTimeout(() => setMicLinkState('connected'), 1200);
+      return;
+    }
+
+    if (micLinkState === 'connected') {
+      micLinkStatusText.textContent = '已连麦（演示）';
+      micLinkBadge.textContent = '连麦中';
+      micLinkBadge.className = 'text-[11px] px-2 py-1 rounded-full border border-emerald-300 text-emerald-700 bg-emerald-50';
+      micLinkWave.classList.remove('hidden');
+      micLinkApplyBtn.disabled = true;
+      micLinkApplyBtn.textContent = '已连麦';
+      micLinkHangupBtn.classList.remove('hidden');
+    }
+  }
+
+  function openMicLinkModal() {
+    if (!micLinkModal) return;
+    micLinkModal.classList.remove('hidden');
+    setMicLinkState('idle');
+  }
+  function closeMicLinkModal() {
+    if (!micLinkModal) return;
+    micLinkModal.classList.add('hidden');
+  }
+
+  if (micLinkBtn) micLinkBtn.addEventListener('click', openMicLinkModal);
+  if (micLinkBackdrop) micLinkBackdrop.addEventListener('click', closeMicLinkModal);
+  if (micLinkClose) micLinkClose.addEventListener('click', closeMicLinkModal);
+  if (micLinkApplyBtn) micLinkApplyBtn.addEventListener('click', () => setMicLinkState('connecting'));
+  if (micLinkHangupBtn) micLinkHangupBtn.addEventListener('click', () => setMicLinkState('idle'));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && micLinkModal && !micLinkModal.classList.contains('hidden')) {
+      closeMicLinkModal();
+    }
+  });
+
+  giftOptions.forEach(btn => {
     btn.addEventListener('click', () => {
-      const giftNames = ['咖啡', '爱心', '星星', '钻石', '火箭', '皇冠'];
-      showGiftAnimation(giftNames[index], '神秘用户');
+      selectedGiftName = btn.dataset.gift || '';
+      selectedGiftText.textContent = selectedGiftName || '未选择';
+      giftSendBtn.disabled = !selectedGiftName;
+      giftOptions.forEach(b => b.classList.remove('ring-2', 'ring-[#B01F24]', 'border-[#B01F24]'));
+      btn.classList.add('ring-2', 'ring-[#B01F24]', 'border-[#B01F24]');
     });
   });
-  
-  // 送礼物按钮
-  const sendGiftBtn = document.querySelector('button.bg-gradient-to-r');
-  sendGiftBtn.addEventListener('click', () => {
-    showGiftAnimation('火箭', '技术小白');
-  });
+
+  if (giftSendBtn) {
+    giftSendBtn.addEventListener('click', () => {
+      if (!selectedGiftName) return;
+      // 触发礼物动画
+      showGiftAnimation(selectedGiftName, '我');
+
+      // 同步写入聊天室（模拟）
+      const chatMessages = document.getElementById('chatMessages');
+      if (chatMessages) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'chat-message mb-2 flex items-start animate-slideIn';
+        messageDiv.innerHTML = `
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=40&q=80" alt="User" class="w-6 h-6 rounded-full mr-2 mt-0.5">
+          <div>
+            <div class="text-xs text-emerald-400">我</div>
+            <div class="text-sm">送出 ${selectedGiftName}</div>
+          </div>
+        `;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      closeGiftModal();
+    });
+  }
   
   // 标签切换功能
   document.addEventListener('DOMContentLoaded', function() {
