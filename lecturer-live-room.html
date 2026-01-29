@@ -1,1241 +1,1535 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <title>直播间 - HIECO 光合技术支持平台</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- 图标库 -->
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    body {
-      background: #000;
-      overflow: hidden;
-    }
-    .live-player {
-      background: #000;
-      position: relative;
-    }
-    .control-panel {
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(10px);
-    }
-    .gift-item {
-      animation: floatUp 3s ease-in-out forwards;
-    }
-    @keyframes floatUp {
-      0% { transform: translateY(0) scale(1); opacity: 1; }
-      100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
-    }
-    .audience-list {
-      max-height: calc(100vh - 200px);
-      overflow-y: auto;
-    }
-    .audience-list::-webkit-scrollbar {
-      display: none;
-    }
-    .gift-shop {
-      max-height: 300px;
-      overflow-y: auto;
-    }
-    .chat-message {
-      animation: slideIn 0.3s ease-out;
-    }
-    @keyframes slideIn {
-      from { transform: translateX(-100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-    /* 右侧栏收起展开样式 */
-    .sidebar-collapsed {
-      width: 0 !important;
-      overflow: hidden;
-    }
-    .expand-btn-visible {
-      opacity: 1 !important;
-      pointer-events: auto !important;
-    }
-    /* 垂直音量调节条样式 */
-    .vertical-slider {
-      -webkit-appearance: slider-vertical;
-      writing-mode: bt-lr;
-      -webkit-writing-mode: vertical-lr;
-      width: 8px;
-      height: 100px;
-    }
-    input[type=range].vertical-slider {
-      -webkit-appearance: slider-vertical;
-      width: 15px;
-      height: 100px;
-      padding: 0 5px;
-    }
-  </style>
-</head>
-<body class="bg-black text-white">
+    <head>
+        <meta charset="UTF-8" />
+        <title>直播间 - HIECO 光合技术支持平台</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Tailwind CSS CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- 图标库 -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <style>
+            body {
+                background: #000;
+                overflow: hidden;
+            }
+            .live-player {
+                background: #000;
+                position: relative;
+            }
+            .control-panel {
+                background: rgba(0, 0, 0, 0.7);
+                backdrop-filter: blur(10px);
+            }
+            .gift-item {
+                animation: floatUp 3s ease-in-out forwards;
+            }
+            @keyframes floatUp {
+                0% {
+                    transform: translateY(0) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-100px) scale(0.5);
+                    opacity: 0;
+                }
+            }
+            .audience-list {
+                max-height: calc(100vh - 200px);
+                overflow-y: auto;
+            }
+            .audience-list::-webkit-scrollbar {
+                display: none;
+            }
+            .gift-shop {
+                max-height: 300px;
+                overflow-y: auto;
+            }
+            .chat-message {
+                animation: slideIn 0.3s ease-out;
+            }
+            @keyframes slideIn {
+                from {
+                    transform: translateX(-100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            /* 右侧栏收起展开样式 */
+            .sidebar-collapsed {
+                width: 0 !important;
+                overflow: hidden;
+            }
+            .expand-btn-visible {
+                opacity: 1 !important;
+                pointer-events: auto !important;
+            }
+            /* 垂直音量调节条样式 */
+            .vertical-slider {
+                -webkit-appearance: slider-vertical;
+                writing-mode: bt-lr;
+                -webkit-writing-mode: vertical-lr;
+                width: 8px;
+                height: 100px;
+            }
+            input[type='range'].vertical-slider {
+                -webkit-appearance: slider-vertical;
+                width: 15px;
+                height: 100px;
+                padding: 0 5px;
+            }
+        </style>
+    </head>
+    <body class="bg-black text-white">
+        <!-- 直播间主体 -->
+        <div class="flex h-screen bg-black">
+            <!-- 左侧：直播播放区域 -->
+            <div class="flex-1 relative">
+                <!-- 右侧栏收起时显示的展开按钮 -->
+                <button
+                    id="expandSidebarBtn"
+                    class="absolute top-4 right-4 z-20 w-auto h-10 rounded-full bg-gray-800 bg-opacity-70 flex items-center justify-center hover:bg-opacity-90 transition-opacity duration-300 opacity-0 pointer-events-none px-3"
+                >
+                    <i class="fa fa-chevron-left text-white mr-1"></i>
+                    <i class="fa fa-users text-white text-xs"></i>
+                    <span class="text-white text-xs ml-1"
+                        ><span id="expandBtnViewerCount">1.2万</span></span
+                    >
+                </button>
 
-<!-- 直播间主体 -->
-<div class="flex h-screen bg-black">
-  <!-- 左侧：直播播放区域 -->
-  <div class="flex-1 relative">
-    <!-- 右侧栏收起时显示的展开按钮 -->
-    <button id="expandSidebarBtn" class="absolute top-4 right-4 z-20 w-auto h-10 rounded-full bg-gray-800 bg-opacity-70 flex items-center justify-center hover:bg-opacity-90 transition-opacity duration-300 opacity-0 pointer-events-none px-3">
-      <i class="fa fa-chevron-left text-white mr-1"></i>
-      <i class="fa fa-users text-white text-xs"></i>
-      <span class="text-white text-xs ml-1"><span id="expandBtnViewerCount">1.2万</span></span>
-    </button>
-    
-    <!-- 直播视频播放器 -->
-    <div class="live-player w-full h-full flex items-center justify-center">
-      <video id="liveVideo" class="w-full h-full object-cover" controls poster="https://images.unsplash.com/photo-1579546929662-711aa81148cf?auto=format&fit=crop&w=1950&q=80">
-        <source src="#" type="video/mp4">
-        您的浏览器不支持视频播放
-      </video>
-      
-      <!-- 切换 -->
-      <div class="switch absolute top-24 left-4 z-20">
-        <a href="live-room.html" class="bg-[#2D874B] hover:bg-[#24703a] text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 shadow-lg hover:shadow-xl">
-          <i class="fa fa-exchange"></i>
-          切换到观众直播间
-        </a>
-      </div>
+                <!-- 直播视频播放器 -->
+                <div class="live-player w-full h-full flex items-center justify-center">
+                    <video
+                        id="liveVideo"
+                        class="w-full h-full object-cover"
+                        controls
+                        poster="https://images.unsplash.com/photo-1579546929662-711aa81148cf?auto=format&fit=crop&w=1950&q=80"
+                    >
+                        <source src="#" type="video/mp4" />
+                        您的浏览器不支持视频播放
+                    </video>
 
-      <!-- 直播间标题和主播信息 -->
-      <div class="absolute top-4 left-4 z-20">
-        <h1 class="text-xl font-bold mb-1">AI技术前沿分享 - 深度学习实战</h1>
-        <div class="flex items-center text-sm opacity-90">
-          <div class="w-6 h-6 rounded-full bg-gradient-to-r from-red-500 to-pink-500 mr-2 flex items-center justify-center">
-            <i class="fa fa-circle text-[8px] text-white"></i>
-          </div>
-          <span>直播中</span>
-          <span class="ml-3">曙光技术专家</span>
-        </div>
-      </div>
-      
+                    <!-- 切换 -->
+                    <div class="switch absolute top-24 left-4 z-20">
+                        <a
+                            href="live-room.html"
+                            class="bg-[#2D874B] hover:bg-[#24703a] text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
+                        >
+                            <i class="fa fa-exchange"></i>
+                            切换到观众直播间
+                        </a>
+                    </div>
 
-      
-      <!-- 控制面板 -->
-      <div class="absolute bottom-4 left-0 right-0 z-20 control-panel px-4 py-3">
-        <div class="flex items-center justify-between">
-          <!-- 左侧控制按钮 -->
-          <div class="flex items-center space-x-4">
-            <!-- <button id="playPauseBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
+                    <!-- 直播间标题和主播信息 -->
+                    <div class="absolute top-4 left-4 z-20">
+                        <h1 class="text-xl font-bold mb-1">AI技术前沿分享 - 深度学习实战</h1>
+                        <div class="flex items-center text-sm opacity-90">
+                            <div
+                                class="w-6 h-6 rounded-full bg-gradient-to-r from-red-500 to-pink-500 mr-2 flex items-center justify-center"
+                            >
+                                <i class="fa fa-circle text-[8px] text-white"></i>
+                            </div>
+                            <span>直播中</span>
+                            <span class="ml-3">曙光技术专家</span>
+                        </div>
+                    </div>
+
+                    <!-- 控制面板 -->
+                    <div class="absolute bottom-4 left-0 right-0 z-20 control-panel px-4 py-3">
+                        <div class="flex items-center justify-between">
+                            <!-- 左侧控制按钮 -->
+                            <div class="flex items-center space-x-4">
+                                <!-- <button id="playPauseBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
               <i class="fa fa-play"></i>
             </button> -->
-            <button id="refreshBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
-              <i class="fa fa-sync"></i>
-            </button>
-            <button id="giftBtn" class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center hover:from-pink-600 hover:to-red-600 transition">
-              <i class="fa fa-gift"></i>
-            </button>
-            <button id="micLinkBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition" title="在线连麦">
-              <i class="fa fa-microphone"></i>
-            </button>
-            <button id="shareBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
-              <i class="fa fa-share"></i>
-            </button>
-            <button id="screenShareBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
-              <i class="fa fa-desktop"></i>
-            </button>
-            <button id="raiseHandBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
-              <i class="fa fa-hand-paper"></i>
-            </button>
-          </div>
-          
-          <!-- 右侧控制按钮 -->
-          <div class="flex items-center space-x-4">
-            <button id="rotateBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
-              <i class="fa fa-exchange-alt"></i>
-            </button>
-            <button id="danmakuBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
-              <i class="fa fa-comment"></i>
-            </button>
-            <div class="relative group">
-              <button id="volumeBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
-                <i class="fa fa-volume-up"></i>
-              </button>
-              <!-- 音量调节条 -->
-              <div class="absolute bottom-full right-0 mb-2 w-8 h-24 bg-gray-800 bg-opacity-80 rounded-lg p-2 hidden group-hover:block">
-                <input type="range" id="volumeSlider" min="0" max="100" value="80" orient="vertical" class="w-full h-full bg-gray-600 rounded-lg appearance-none cursor-pointer vertical-slider">
-              </div>
-            </div>
-            <button id="pipBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
-              <i class="fa fa-compress"></i>
-            </button>
-            <button id="fullscreenBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
-              <i class="fa fa-expand"></i>
-            </button>
-          </div>
-        </div>
-        
-        <!-- 进度条 -->
-        <div class="mt-3">
-          <div class="w-full bg-gray-700 rounded-full h-1">
-            <div class="bg-red-500 h-1 rounded-full" style="width: 25%"></div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- 礼物飞行动画区域 -->
-      <div id="giftAnimationArea" class="absolute top-0 left-0 w-full h-full pointer-events-none z-10">
-      </div>
-    </div>
-  </div>
-  
-  <!-- 右侧：互动面板 -->
-  <div id="sidebar" class="w-80 bg-gray-900 bg-opacity-90 backdrop-blur-sm flex flex-col h-full transition-all duration-300 ease-in-out">
-    <!-- 右侧栏顶部控制按钮 -->
-    <div class="flex justify-between items-center border-b border-gray-700 flex-shrink-0 p-3">
-      <h3 class="text-sm font-semibold">
-        <i class="fa fa-users mr-1"></i>
-        观看人数：<span id="sidebarViewerCount">1.2万</span>人
-      </h3>
-      <button id="collapseSidebarBtn" class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center hover:bg-gray-600">
-        <i class="fa fa-chevron-right text-white text-xs"></i>
-      </button>
-    </div>
-    <!-- 聊天室和观众列表切换 -->
-    <div class="flex border-b border-gray-700 flex-shrink-0">
-      <button id="coursewareTab" class="tab-button flex-1 py-3 text-center font-medium border-b-2 border-red-500 text-red-500">详情</button>
-      <button id="chatTab" class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white">聊天</button>
-      <button id="audienceTab" class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white">观众</button>
-      <button id="rankTab" class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white hidden">排行榜</button>
-    </div>
-    
-    <!-- 主要内容区域 -->
-    <div class="flex-1 flex flex-col min-h-0 overflow-hidden">
-      <!-- 课件内容区域 -->
-      <div id="coursewareContent" class="tab-content hidden flex-1 overflow-hidden flex flex-col">
-        <!-- Tab 导航 -->
-        <div class="flex border-b border-gray-700 flex-shrink-0 bg-gray-800">
-          <button id="introTab" class="courseware-tab-btn flex-1 py-3 text-center font-medium border-b-2 border-red-500 text-red-500">直播介绍</button>
-          <button id="outlineTab" class="courseware-tab-btn flex-1 py-3 text-center font-medium text-gray-400 hover:text-white">直播大纲</button>
-          <button id="materialsTab" class="courseware-tab-btn flex-1 py-3 text-center font-medium text-gray-400 hover:text-white">关联资料</button>
-          <button id="replayTab" class="courseware-tab-btn flex-1 py-3 text-center font-medium text-gray-400 hover:text-white">回放</button>
-        </div>
-        
-        <div class="flex-1 overflow-y-auto audience-list">
-          <!-- 直播介绍 -->
-          <div id="introContent" class="courseware-tab-content p-3">
-            <p class="text-sm leading-relaxed">
-              本场直播面向 HIECO 合作伙伴生态中的云架构师、解决方案顾问和 DevOps 工程师，
-              从实际项目案例出发，梳理一套可复制的云原生架构设计方法论，并通过现场 DEMO
-              展示完整落地过程。直播结束后，将提供录播回看和资料下载。
-            </p>
-            <ul class="mt-3 text-sm space-y-1 list-disc pl-5">
-              <li>适合人群：云架构师 / 解决方案顾问 / DevOps 工程师</li>
-              <li>配套资源：演示项目代码、架构图模板、最佳实践手册</li>
-              <li>关联认证：伙伴云架构工程师（P-Cloud Architect）专业认证</li>
-            </ul>
-          </div>
-          
-          <!-- 直播大纲 -->
-          <div id="outlineContent" class="courseware-tab-content hidden p-3">
-            <div class="space-y-4">
-              <div class="border-l-4 border-red-500 pl-4">
-                <h3 class="text-sm font-semibold text-white mb-1">第一部分：开场与基础概念</h3>
-                <p class="text-xs text-gray-400">19:00–19:15</p>
-                <ul class="mt-2 text-xs text-gray-400 space-y-1 list-disc pl-4">
-                  <li>云原生发展历程与核心价值</li>
-                  <li>微服务架构演进与挑战</li>
-                  <li>容器化技术基础回顾</li>
-                </ul>
-              </div>
-              
-              <div class="border-l-4 border-red-500 pl-4">
-                <h3 class="text-sm font-semibold text-white mb-1">第二部分：架构设计方法论</h3>
-                <p class="text-xs text-gray-400">19:15–20:00</p>
-                <ul class="mt-2 text-xs text-gray-400 space-y-1 list-disc pl-4">
-                  <li>服务拆分原则与边界设计</li>
-                  <li>数据一致性保障方案</li>
-                  <li>可观测性体系建设</li>
-                  <li>安全与合规性考虑</li>
-                </ul>
-              </div>
-              
-              <div class="border-l-4 border-red-500 pl-4">
-                <h3 class="text-sm font-semibold text-white mb-1">第三部分：实战演示</h3>
-                <p class="text-xs text-gray-400">20:00–20:40</p>
-                <ul class="mt-2 text-xs text-gray-400 space-y-1 list-disc pl-4">
-                  <li>从单体应用迁移到微服务</li>
-                  <li>Kubernetes 部署最佳实践</li>
-                  <li>CI/CD 流水线配置</li>
-                  <li>监控告警配置演示</li>
-                </ul>
-              </div>
-              
-              <div class="border-l-4 border-red-500 pl-4">
-                <h3 class="text-sm font-semibold text-white mb-1">第四部分：总结与互动</h3>
-                <p class="text-xs text-gray-400">20:40–21:00</p>
-                <ul class="mt-2 text-xs text-gray-400 space-y-1 list-disc pl-4">
-                  <li>常见问题解答</li>
-                  <li>后续学习路径建议</li>
-                  <li>资料下载与技术支持</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          
-          <!-- 关联资料 -->
-          <div id="materialsContent" class="courseware-tab-content hidden p-3">
-            <div class="space-y-3">
-              <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800 border border-gray-700">
-                <div class="flex items-center gap-3">
-                  <i class="fa fa-file-code text-red-500 text-lg"></i>
-                  <div>
-                    <h3 class="text-sm font-semibold text-white">演示项目源码</h3>
-                    <p class="text-xs text-gray-400">包含完整的微服务架构示例代码</p>
-                  </div>
+                                <button
+                                    id="refreshBtn"
+                                    class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                >
+                                    <i class="fa fa-sync"></i>
+                                </button>
+                                <button
+                                    id="giftBtn"
+                                    class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center hover:from-pink-600 hover:to-red-600 transition"
+                                >
+                                    <i class="fa fa-gift"></i>
+                                </button>
+                                <button
+                                    id="micLinkBtn"
+                                    class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                    title="在线连麦"
+                                >
+                                    <i class="fa fa-microphone"></i>
+                                </button>
+                                <button
+                                    id="shareBtn"
+                                    class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                >
+                                    <i class="fa fa-share"></i>
+                                </button>
+                                <button
+                                    id="screenShareBtn"
+                                    class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                >
+                                    <i class="fa fa-desktop"></i>
+                                </button>
+                                <div class="relative">
+                                    <button
+                                        id="raiseHandBtn"
+                                        class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                    >
+                                        <i class="fa fa-hand-paper"></i>
+                                    </button>
+                                    <!-- 举手人员列表 -->
+                                    <div id="handUpList" class="absolute bottom-full right-0 mb-2 w-64 bg-gray-800 rounded-lg shadow-lg p-3 hidden z-50">
+                                        <div class="flex justify-between items-center mb-3">
+                                            <h3 class="text-sm font-medium text-white">已经举手</h3>
+                                            <button id="closeHandUpList" class="text-gray-300 hover:text-white">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <!-- 举手人员项 -->
+                                            <div class="flex justify-between items-center p-2 border-b border-gray-700">
+                                                <span class="text-sm text-white">健康同学</span>
+                                                <button class="text-xs px-2 py-1 bg-[#2D874B] text-white rounded">邀请发言</button>
+                                            </div>
+                                            <div class="flex justify-between items-center p-2 border-b border-gray-700">
+                                                <span class="text-sm text-white">张三同学</span>
+                                                <button class="text-xs px-2 py-1 bg-[#2D874B] text-white rounded">邀请发言</button>
+                                            </div>
+                                            <div class="flex justify-between items-center p-2">
+                                                <span class="text-sm text-white">李四同学</span>
+                                                <button class="text-xs px-2 py-1 bg-[#2D874B] text-white rounded">邀请发言</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 右侧控制按钮 -->
+                            <div class="flex items-center space-x-4">
+                                <button
+                                    id="rotateBtn"
+                                    class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                >
+                                    <i class="fa fa-exchange-alt"></i>
+                                </button>
+                                <button
+                                    id="danmakuBtn"
+                                    class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                >
+                                    <i class="fa fa-comment"></i>
+                                </button>
+                                <div class="relative group">
+                                    <button
+                                        id="volumeBtn"
+                                        class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                    >
+                                        <i class="fa fa-volume-up"></i>
+                                    </button>
+                                    <!-- 音量调节条 -->
+                                    <div
+                                        class="absolute bottom-full right-0 mb-2 w-8 h-24 bg-gray-800 bg-opacity-80 rounded-lg p-2 hidden group-hover:block"
+                                    >
+                                        <input
+                                            type="range"
+                                            id="volumeSlider"
+                                            min="0"
+                                            max="100"
+                                            value="80"
+                                            orient="vertical"
+                                            class="w-full h-full bg-gray-600 rounded-lg appearance-none cursor-pointer vertical-slider"
+                                        />
+                                    </div>
+                                </div>
+                                <button
+                                    id="pipBtn"
+                                    class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                >
+                                    <i class="fa fa-compress"></i>
+                                </button>
+                                <button
+                                    id="fullscreenBtn"
+                                    class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                >
+                                    <i class="fa fa-expand"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 进度条 -->
+                        <div class="mt-3">
+                            <div class="w-full bg-gray-700 rounded-full h-1">
+                                <div class="bg-red-500 h-1 rounded-full" style="width: 25%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 礼物飞行动画区域 -->
+                    <div
+                        id="giftAnimationArea"
+                        class="absolute top-0 left-0 w-full h-full pointer-events-none z-10"
+                    ></div>
                 </div>
-                <a href="#" class="text-red-500 text-xs font-medium hover:underline">下载</a>
-              </div>
+            </div>
+
+            <!-- 右侧：互动面板 -->
+            <div
+                id="sidebar"
+                class="w-80 bg-gray-900 bg-opacity-90 backdrop-blur-sm flex flex-col h-full transition-all duration-300 ease-in-out"
+            >
+                <!-- 右侧栏顶部控制按钮 -->
+                <div
+                    class="flex justify-between items-center border-b border-gray-700 flex-shrink-0 p-3"
+                >
+                    <h3 class="text-sm font-semibold">
+                        <i class="fa fa-users mr-1"></i>
+                        观看人数：<span id="sidebarViewerCount">1.2万</span>人
+                    </h3>
+                    <button
+                        id="collapseSidebarBtn"
+                        class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center hover:bg-gray-600"
+                    >
+                        <i class="fa fa-chevron-right text-white text-xs"></i>
+                    </button>
+                </div>
+                <!-- 聊天室和观众列表切换 -->
+                <div class="flex border-b border-gray-700 flex-shrink-0">
+                    <button
+                        id="coursewareTab"
+                        class="tab-button flex-1 py-3 text-center font-medium border-b-2 border-red-500 text-red-500"
+                    >
+                        弹幕
+                    </button>
+                    <button
+                        id="chatTab"
+                        class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white"
+                    >
+                        聊天
+                    </button>
+                    <button
+                        id="audienceTab"
+                        class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white"
+                    >
+                        用户
+                    </button>
+                </div>
+
+                <!-- 主要内容区域 -->
+                <div class="flex-1 flex flex-col min-h-0 overflow-hidden">
+                    <!-- 弹幕区域 -->
+                    <div
+                        id="coursewareContent"
+                        class="tab-content hidden flex-1 overflow-hidden flex flex-col hidden"
+                    >
+                        <!-- 聊天消息列表 -->
+                        <div id="chatMessages" class="flex-1 p-3 audience-list">
+                            <div class="chat-message mb-2 flex items-start">
+                                <img
+                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-6 h-6 rounded-full mr-2 mt-0.5"
+                                />
+                                <div>
+                                    <div class="text-xs text-red-400">技术小白</div>
+                                    <div class="text-sm">老师讲得真好，受益匪浅！</div>
+                                </div>
+                            </div>
+
+                            <div class="chat-message mb-2 flex items-start">
+                                <img
+                                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-6 h-6 rounded-full mr-2 mt-0.5"
+                                />
+                                <div>
+                                    <div class="text-xs text-blue-400">代码达人</div>
+                                    <div class="text-sm">请问这个算法的时间复杂度怎么算？</div>
+                                </div>
+                            </div>
+
+                            <div class="chat-message mb-2 flex items-start">
+                                <img
+                                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-6 h-6 rounded-full mr-2 mt-0.5"
+                                />
+                                <div>
+                                    <div class="text-xs text-green-400">算法专家</div>
+                                    <div class="text-sm">关注了，期待更多干货！</div>
+                                </div>
+                            </div>
+
+                            <div class="chat-message mb-2 flex items-start">
+                                <img
+                                    src="https://images.unsplash.com/photo-1491637639811-60e2756e1df7?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-6 h-6 rounded-full mr-2 mt-0.5"
+                                />
+                                <div>
+                                    <div class="text-xs text-yellow-400">架构师</div>
+                                    <div class="text-sm">666666，讲得太棒了！</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 发送消息输入框 -->
+                        <div class="p-3 border-t border-gray-700 flex-shrink-0">
+                            <div class="flex items-center">
+                                <input
+                                    type="text"
+                                    placeholder="说点什么..."
+                                    class="flex-1 bg-gray-800 rounded-l-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                />
+                                <button
+                                    class="bg-red-500 hover:bg-red-600 rounded-r-full px-4 py-2 font-medium"
+                                >
+                                    发送
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 聊天内容区域 -->
+                    <div id="chatContent" class="tab-content flex-1 flex flex-col hidden">
+                        <!-- 聊天消息列表 -->
+                        <div id="chatMessages" class="flex-1 p-3 audience-list">
+                            <div class="chat-message mb-2 flex items-start">
+                                <img
+                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-6 h-6 rounded-full mr-2 mt-0.5"
+                                />
+                                <div>
+                                    <div class="text-xs text-red-400">技术小白</div>
+                                    <div class="text-sm">老师讲得真好，受益匪浅！</div>
+                                </div>
+                            </div>
+
+                            <div class="chat-message mb-2 flex items-start">
+                                <img
+                                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-6 h-6 rounded-full mr-2 mt-0.5"
+                                />
+                                <div>
+                                    <div class="text-xs text-blue-400">代码达人</div>
+                                    <div class="text-sm">请问这个算法的时间复杂度怎么算？</div>
+                                </div>
+                            </div>
+
+                            <div class="chat-message mb-2 flex items-start">
+                                <img
+                                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-6 h-6 rounded-full mr-2 mt-0.5"
+                                />
+                                <div>
+                                    <div class="text-xs text-green-400">算法专家</div>
+                                    <div class="text-sm">关注了，期待更多干货！</div>
+                                </div>
+                            </div>
+
+                            <div class="chat-message mb-2 flex items-start">
+                                <img
+                                    src="https://images.unsplash.com/photo-1491637639811-60e2756e1df7?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-6 h-6 rounded-full mr-2 mt-0.5"
+                                />
+                                <div>
+                                    <div class="text-xs text-yellow-400">架构师</div>
+                                    <div class="text-sm">666666，讲得太棒了！</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 发送消息输入框 -->
+                        <div class="p-3 border-t border-gray-700 flex-shrink-0">
+                            <div class="flex items-center">
+                                <input
+                                    type="text"
+                                    placeholder="说点什么..."
+                                    class="flex-1 bg-gray-800 rounded-l-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                />
+                                <button
+                                    class="bg-red-500 hover:bg-red-600 rounded-r-full px-4 py-2 font-medium"
+                                >
+                                    发送
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 观众列表 -->
+                    <div
+                        id="audienceContent"
+                        class="tab-content hidden flex-1 overflow-hidden flex flex-col"
+                    >
+                        <div class="p-3 flex-1 audience-list">
+                            <h3 class="font-semibold mb-3 flex items-center">
+                                <i class="fa fa-users text-red-500 mr-2"></i>
+                                在线观众 <span class="text-red-500 ml-1">12,458</span>
+                            </h3>
+                            <div class="flex items-center mb-2">
+                                <img
+                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">技术小白</div>
+                                </div>
+                                <div class="text-xs text-gray-400">刚刚加入</div>
+                            </div>
+
+                            <div class="flex items-center mb-2">
+                                <img
+                                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">代码达人</div>
+                                </div>
+                                <div class="text-xs text-gray-400">5分钟前</div>
+                            </div>
+
+                            <div class="flex items-center mb-2">
+                                <img
+                                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">算法专家</div>
+                                </div>
+                                <div class="text-xs text-gray-400">8分钟前</div>
+                            </div>
+
+                            <div class="flex items-center mb-2">
+                                <img
+                                    src="https://images.unsplash.com/photo-1491637639811-60e2756e1df7?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">架构师</div>
+                                </div>
+                                <div class="text-xs text-gray-400">12分钟前</div>
+                            </div>
+
+                            <div class="flex items-center mb-2">
+                                <img
+                                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">数据科学家</div>
+                                </div>
+                                <div class="text-xs text-gray-400">15分钟前</div>
+                            </div>
+
+                            <div class="flex items-center mb-2">
+                                <img
+                                    src="https://images.unsplash.com/photo-1554384645-13eab165c24b?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">产品经理</div>
+                                </div>
+                                <div class="text-xs text-gray-400">18分钟前</div>
+                            </div>
+
+                            <div class="flex items-center mb-2">
+                                <img
+                                    src="https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">设计师</div>
+                                </div>
+                                <div class="text-xs text-gray-400">22分钟前</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 排行榜内容 -->
+                    <div
+                        id="rankContent"
+                        class="tab-content hidden flex-1 overflow-hidden flex flex-col"
+                    >
+                        <div class="p-3 flex-1 audience-list">
+                            <h3 class="font-semibold mb-3 flex items-center">
+                                <i class="fa fa-trophy text-yellow-500 mr-2"></i>
+                                贡献排行榜
+                            </h3>
+                            <div class="mb-3">
+                                <div
+                                    class="flex items-center bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 p-2 rounded-lg"
+                                >
+                                    <div
+                                        class="w-6 h-6 rounded-full bg-yellow-500 text-white flex items-center justify-center text-xs font-bold mr-2"
+                                    >
+                                        1
+                                    </div>
+                                    <img
+                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80"
+                                        alt="User"
+                                        class="w-8 h-8 rounded-full mr-2"
+                                    />
+                                    <div class="flex-1">
+                                        <div class="text-sm">技术小白</div>
+                                    </div>
+                                    <div class="text-xs text-yellow-400">贡献值: 15,240</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div
+                                    class="flex items-center bg-gradient-to-r from-gray-400/20 to-gray-500/20 p-2 rounded-lg"
+                                >
+                                    <div
+                                        class="w-6 h-6 rounded-full bg-gray-400 text-white flex items-center justify-center text-xs font-bold mr-2"
+                                    >
+                                        2
+                                    </div>
+                                    <img
+                                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=40&q=80"
+                                        alt="User"
+                                        class="w-8 h-8 rounded-full mr-2"
+                                    />
+                                    <div class="flex-1">
+                                        <div class="text-sm">代码达人</div>
+                                    </div>
+                                    <div class="text-xs text-gray-400">贡献值: 12,890</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div
+                                    class="flex items-center bg-gradient-to-r from-amber-700/20 to-amber-800/20 p-2 rounded-lg"
+                                >
+                                    <div
+                                        class="w-6 h-6 rounded-full bg-amber-700 text-white flex items-center justify-center text-xs font-bold mr-2"
+                                    >
+                                        3
+                                    </div>
+                                    <img
+                                        src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=40&q=80"
+                                        alt="User"
+                                        class="w-8 h-8 rounded-full mr-2"
+                                    />
+                                    <div class="flex-1">
+                                        <div class="text-sm">算法专家</div>
+                                    </div>
+                                    <div class="text-xs text-amber-400">贡献值: 10,750</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="flex items-center p-2 rounded-lg hover:bg-gray-800/50">
+                                    <div
+                                        class="w-6 h-6 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-bold mr-2"
+                                    >
+                                        4
+                                    </div>
+                                    <img
+                                        src="https://images.unsplash.com/photo-1491637639811-60e2756e1df7?auto=format&fit=crop&w=40&q=80"
+                                        alt="User"
+                                        class="w-8 h-8 rounded-full mr-2"
+                                    />
+                                    <div class="flex-1">
+                                        <div class="text-sm">架构师</div>
+                                    </div>
+                                    <div class="text-xs text-gray-400">贡献值: 8,920</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="flex items-center p-2 rounded-lg hover:bg-gray-800/50">
+                                    <div
+                                        class="w-6 h-6 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-bold mr-2"
+                                    >
+                                        5
+                                    </div>
+                                    <img
+                                        src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=40&q=80"
+                                        alt="User"
+                                        class="w-8 h-8 rounded-full mr-2"
+                                    />
+                                    <div class="flex-1">
+                                        <div class="text-sm">数据科学家</div>
+                                    </div>
+                                    <div class="text-xs text-gray-400">贡献值: 7,650</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="flex items-center p-2 rounded-lg hover:bg-gray-800/50">
+                                    <div
+                                        class="w-6 h-6 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-bold mr-2"
+                                    >
+                                        6
+                                    </div>
+                                    <img
+                                        src="https://images.unsplash.com/photo-1554384645-13eab165c24b?auto=format&fit=crop&w=40&q=80"
+                                        alt="User"
+                                        class="w-8 h-8 rounded-full mr-2"
+                                    />
+                                    <div class="flex-1">
+                                        <div class="text-sm">产品经理</div>
+                                    </div>
+                                    <div class="text-xs text-gray-400">贡献值: 6,340</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="flex items-center p-2 rounded-lg hover:bg-gray-800/50">
+                                    <div
+                                        class="w-6 h-6 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-bold mr-2"
+                                    >
+                                        7
+                                    </div>
+                                    <img
+                                        src="https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=40&q=80"
+                                        alt="User"
+                                        class="w-8 h-8 rounded-full mr-2"
+                                    />
+                                    <div class="flex-1">
+                                        <div class="text-sm">设计师</div>
+                                    </div>
+                                    <div class="text-xs text-gray-400">贡献值: 5,210</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 礼物弹窗 -->
+        <div id="giftModal" class="fixed inset-0 z-[999] hidden">
+            <!-- 遮罩 -->
+            <div id="giftModalBackdrop" class="absolute inset-0 bg-black/60"></div>
+            <!-- 弹窗内容 -->
+            <div class="absolute inset-0 flex items-center justify-center p-4">
+                <div class="w-full max-w-md rounded-2xl bg-white shadow-2xl overflow-hidden">
+                    <div
+                        class="px-4 py-3 border-b border-gray-200 flex items-center justify-between"
+                    >
+                        <div class="text-sm font-semibold text-gray-800">选择礼物</div>
+                        <button
+                            id="giftModalClose"
+                            class="h-8 w-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center"
+                        >
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="p-4">
+                        <div class="text-xs text-gray-500 mb-3">点击选择一种礼物后再赠送</div>
+                        <div id="giftGrid" class="grid grid-cols-3 gap-3">
+                            <button
+                                class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left"
+                                data-gift="咖啡"
+                            >
+                                <div class="text-lg">☕</div>
+                                <div class="text-xs text-gray-700 mt-1">咖啡</div>
+                            </button>
+                            <button
+                                class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left"
+                                data-gift="爱心"
+                            >
+                                <div class="text-lg">❤️</div>
+                                <div class="text-xs text-gray-700 mt-1">爱心</div>
+                            </button>
+                            <button
+                                class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left"
+                                data-gift="星星"
+                            >
+                                <div class="text-lg">⭐</div>
+                                <div class="text-xs text-gray-700 mt-1">星星</div>
+                            </button>
+                            <button
+                                class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left"
+                                data-gift="钻石"
+                            >
+                                <div class="text-lg">💎</div>
+                                <div class="text-xs text-gray-700 mt-1">钻石</div>
+                            </button>
+                            <button
+                                class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left"
+                                data-gift="火箭"
+                            >
+                                <div class="text-lg">🚀</div>
+                                <div class="text-xs text-gray-700 mt-1">火箭</div>
+                            </button>
+                            <button
+                                class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left"
+                                data-gift="皇冠"
+                            >
+                                <div class="text-lg">👑</div>
+                                <div class="text-xs text-gray-700 mt-1">皇冠</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div
+                        class="px-4 py-3 border-t border-gray-200 flex items-center justify-between bg-gray-50"
+                    >
+                        <div class="text-xs text-gray-600">
+                            已选：<span id="selectedGiftText" class="font-semibold text-gray-800"
+                                >未选择</span
+                            >
+                        </div>
+                        <div class="flex gap-2">
+                            <!-- <button id="giftCancelBtn" class="px-3 py-2 text-xs rounded-xl border border-gray-300 bg-white hover:bg-gray-100">取消</button> -->
+                            <button
+                                id="giftSendBtn"
+                                class="px-3 py-2 text-xs rounded-xl bg-[#B01F24] text-white hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
+                                disabled
+                            >
+                                赠送
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 连麦弹窗（仅页面效果） -->
+        <div id="micLinkModal" class="fixed inset-0 z-[1000] hidden">
+            <div id="micLinkBackdrop" class="absolute inset-0 bg-black/60"></div>
+            <div class="absolute inset-0 flex items-center justify-center p-4">
+                <div class="w-full max-w-sm rounded-2xl bg-white shadow-2xl overflow-hidden">
+                    <div
+                        class="px-4 py-3 border-b border-gray-200 flex items-center justify-between"
+                    >
+                        <div class="text-sm font-semibold text-gray-800">在线连麦</div>
+                        <button
+                            id="micLinkClose"
+                            class="h-8 w-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center"
+                        >
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="p-4 space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="h-10 w-10 rounded-full bg-gradient-to-r from-red-500 to-pink-500 flex items-center justify-center text-white"
+                            >
+                                <i class="fa fa-headset"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium text-gray-800">与主播连麦</div>
+                                <div id="micLinkStatusText" class="text-xs text-gray-500">
+                                    未连麦
+                                </div>
+                            </div>
+                            <span
+                                id="micLinkBadge"
+                                class="text-[11px] px-2 py-1 rounded-full border border-gray-300 text-gray-600 bg-gray-50"
+                                >空闲</span
+                            >
+                        </div>
+
+                        <!-- 伪“音频波形/连麦中”展示 -->
+                        <div
+                            id="micLinkWave"
+                            class="hidden rounded-xl border border-gray-200 bg-gray-50 p-3"
+                        >
+                            <div class="text-xs text-gray-600 mb-2">连麦中（示意）</div>
+                            <div class="flex items-end gap-1 h-10">
+                                <div class="w-1.5 bg-[#B01F24] rounded" style="height: 40%"></div>
+                                <div class="w-1.5 bg-[#B01F24] rounded" style="height: 80%"></div>
+                                <div class="w-1.5 bg-[#B01F24] rounded" style="height: 55%"></div>
+                                <div class="w-1.5 bg-[#B01F24] rounded" style="height: 90%"></div>
+                                <div class="w-1.5 bg-[#B01F24] rounded" style="height: 60%"></div>
+                                <div class="w-1.5 bg-[#B01F24] rounded" style="height: 75%"></div>
+                                <div class="w-1.5 bg-[#B01F24] rounded" style="height: 45%"></div>
+                                <div class="w-1.5 bg-[#B01F24] rounded" style="height: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="px-4 py-3 border-t border-gray-200 flex items-center justify-end gap-2 bg-gray-50"
+                    >
+                        <button
+                            id="micLinkHangupBtn"
+                            class="px-3 py-2 text-xs rounded-xl bg-[#B01F24] text-white hover:bg-[#8f191d] transition hidden"
+                        >
+                            挂断
+                        </button>
+                        <button
+                            id="micLinkApplyBtn"
+                            class="px-3 py-2 text-xs rounded-xl bg-[#2D874B] text-white hover:opacity-90"
+                        >
+                            申请连麦
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 举手弹框区域 -->
+        <div id="handUp">
+          <!-- 举手提示区域 -->
+          <div id="handUpNotification" class="fixed right-4 bottom-24 z-50 opacity-0 transform translate-y-10 transition-all duration-1000 flex items-center gap-2 bg-transparent rounded-lg shadow-lg p-3 border border-gray-200">
+            <i class="fa-solid fa-hand text-white text-xl" style="font-size: 24px;"></i>
+            <span class="text-sm">健康同学举手了</span>
+          </div>
+        </div>
+
+
+        <!-- 举手弹框js -->
+        <script>
+          // 举手提示功能
+          function showHandUpNotification() {
+            const notification = document.getElementById('handUpNotification');
+            // 显示通知
+            notification.style.opacity = '1';
+            notification.style.transform = 'translateY(0)';
+            
+            // 3秒后开始上升并消失
+            setTimeout(() => {
+              notification.style.transform = 'translateY(-100px)';
+              notification.style.opacity = '0';
               
-              <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800 border border-gray-700">
-                <div class="flex items-center gap-3">
-                  <i class="fa fa-diagram-project text-red-500 text-lg"></i>
-                  <div>
-                    <h3 class="text-sm font-semibold text-white">架构图模板</h3>
-                    <p class="text-xs text-gray-400">云原生架构设计常用模板</p>
-                  </div>
-                </div>
-                <a href="#" class="text-red-500 text-xs font-medium hover:underline">下载</a>
-              </div>
-              
-              <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800 border border-gray-700">
-                <div class="flex items-center gap-3">
-                  <i class="fa fa-book text-red-500 text-lg"></i>
-                  <div>
-                    <h3 class="text-sm font-semibold text-white">最佳实践手册</h3>
-                    <p class="text-xs text-gray-400">云原生落地最佳实践指南</p>
-                  </div>
-                </div>
-                <a href="#" class="text-red-500 text-xs font-medium hover:underline">下载</a>
-              </div>
-              
-              <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800 border border-gray-700">
-                <div class="flex items-center gap-3">
-                  <i class="fa fa-video text-red-500 text-lg"></i>
-                  <div>
-                    <h3 class="text-sm font-semibold text-white">直播录播视频</h3>
-                    <p class="text-xs text-gray-400">完整直播过程录播文件</p>
-                  </div>
-                </div>
-                <a href="#" class="text-red-500 text-xs font-medium hover:underline">观看</a>
-              </div>
-            </div>
-          </div>
+              // 重置位置，以便下次使用
+              setTimeout(() => {
+                notification.style.transform = 'translateY(10px)';
+              }, 1000);
+            }, 3000);
+          }
           
-          <!-- 回放内容 -->
-          <div id="replayContent" class="courseware-tab-content hidden p-3">
-            <div class="space-y-3">
-              <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800 border border-gray-700">
-                <div class="flex items-center gap-3">
-                  <i class="fa fa-play-circle text-red-500 text-lg"></i>
-                  <div>
-                    <h3 class="text-sm font-semibold text-white">AI技术前沿分享 - 深度学习实战</h3>
-                    <p class="text-xs text-gray-400">2023-12-15 19:00-21:00</p>
-                  </div>
-                </div>
-                <a href="#" class="text-red-500 text-xs font-medium hover:underline">观看</a>
-              </div>
-              
-              <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800 border border-gray-700">
-                <div class="flex items-center gap-3">
-                  <i class="fa fa-play-circle text-red-500 text-lg"></i>
-                  <div>
-                    <h3 class="text-sm font-semibold text-white">云原生架构设计方法论</h3>
-                    <p class="text-xs text-gray-400">2023-12-08 19:30-20:30</p>
-                  </div>
-                </div>
-                <a href="#" class="text-red-500 text-xs font-medium hover:underline">观看</a>
-              </div>
-              
-              <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800 border border-gray-700">
-                <div class="flex items-center gap-3">
-                  <i class="fa fa-play-circle text-red-500 text-lg"></i>
-                  <div>
-                    <h3 class="text-sm font-semibold text-white">容器化技术深度解析</h3>
-                    <p class="text-xs text-gray-400">2023-12-01 20:00-21:30</p>
-                  </div>
-                </div>
-                <a href="#" class="text-red-500 text-xs font-medium hover:underline">观看</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- 聊天内容区域 -->
-      <div id="chatContent" class="tab-content flex-1 flex flex-col">
-        <!-- 聊天消息列表 -->
-        <div id="chatMessages" class="flex-1 p-3 audience-list">
-          <div class="chat-message mb-2 flex items-start">
-            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80" alt="User" class="w-6 h-6 rounded-full mr-2 mt-0.5">
-            <div>
-              <div class="text-xs text-red-400">技术小白</div>
-              <div class="text-sm">老师讲得真好，受益匪浅！</div>
-            </div>
-          </div>
+          // 示例：模拟举手事件
+          // 实际项目中，这里会通过WebSocket或其他方式接收真实的举手事件
+          // 例如：socket.on('handUp', showHandUpNotification);
           
-          <div class="chat-message mb-2 flex items-start">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=40&q=80" alt="User" class="w-6 h-6 rounded-full mr-2 mt-0.5">
-            <div>
-              <div class="text-xs text-blue-400">代码达人</div>
-              <div class="text-sm">请问这个算法的时间复杂度怎么算？</div>
-            </div>
-          </div>
-          
-          <div class="chat-message mb-2 flex items-start">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=40&q=80" alt="User" class="w-6 h-6 rounded-full mr-2 mt-0.5">
-            <div>
-              <div class="text-xs text-green-400">算法专家</div>
-              <div class="text-sm">关注了，期待更多干货！</div>
-            </div>
-          </div>
-          
-          <div class="chat-message mb-2 flex items-start">
-            <img src="https://images.unsplash.com/photo-1491637639811-60e2756e1df7?auto=format&fit=crop&w=40&q=80" alt="User" class="w-6 h-6 rounded-full mr-2 mt-0.5">
-            <div>
-              <div class="text-xs text-yellow-400">架构师</div>
-              <div class="text-sm">666666，讲得太棒了！</div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- 发送消息输入框 -->
-        <div class="p-3 border-t border-gray-700 flex-shrink-0">
-          <div class="flex items-center">
-            <input type="text" placeholder="说点什么..." class="flex-1 bg-gray-800 rounded-l-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
-            <button class="bg-red-500 hover:bg-red-600 rounded-r-full px-4 py-2 font-medium">发送</button>
-          </div>
-        </div>
-      </div>
-      
-      <!-- 观众列表 -->
-      <div id="audienceContent" class="tab-content hidden flex-1 overflow-hidden flex flex-col">
-        <div class="p-3 flex-1 audience-list">
-          <h3 class="font-semibold mb-3 flex items-center">
-            <i class="fa fa-users text-red-500 mr-2"></i>
-            在线观众 <span class="text-red-500 ml-1">12,458</span>
-          </h3>
-          <div class="flex items-center mb-2">
-            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
-            <div class="flex-1">
-              <div class="text-sm">技术小白</div>
-            </div>
-            <div class="text-xs text-gray-400">刚刚加入</div>
-          </div>
-          
-          <div class="flex items-center mb-2">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
-            <div class="flex-1">
-              <div class="text-sm">代码达人</div>
-            </div>
-            <div class="text-xs text-gray-400">5分钟前</div>
-          </div>
-          
-          <div class="flex items-center mb-2">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
-            <div class="flex-1">
-              <div class="text-sm">算法专家</div>
-            </div>
-            <div class="text-xs text-gray-400">8分钟前</div>
-          </div>
-          
-          <div class="flex items-center mb-2">
-            <img src="https://images.unsplash.com/photo-1491637639811-60e2756e1df7?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
-            <div class="flex-1">
-              <div class="text-sm">架构师</div>
-            </div>
-            <div class="text-xs text-gray-400">12分钟前</div>
-          </div>
-          
-          <div class="flex items-center mb-2">
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
-            <div class="flex-1">
-              <div class="text-sm">数据科学家</div>
-            </div>
-            <div class="text-xs text-gray-400">15分钟前</div>
-          </div>
-          
-          <div class="flex items-center mb-2">
-            <img src="https://images.unsplash.com/photo-1554384645-13eab165c24b?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
-            <div class="flex-1">
-              <div class="text-sm">产品经理</div>
-            </div>
-            <div class="text-xs text-gray-400">18分钟前</div>
-          </div>
-          
-          <div class="flex items-center mb-2">
-            <img src="https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
-            <div class="flex-1">
-              <div class="text-sm">设计师</div>
-            </div>
-            <div class="text-xs text-gray-400">22分钟前</div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- 排行榜内容 -->
-      <div id="rankContent" class="tab-content hidden flex-1 overflow-hidden flex flex-col">
-        <div class="p-3 flex-1 audience-list">
-          <h3 class="font-semibold mb-3 flex items-center">
-            <i class="fa fa-trophy text-yellow-500 mr-2"></i>
-            贡献排行榜
-          </h3>
-          <div class="mb-3">
-            <div class="flex items-center bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 p-2 rounded-lg">
-              <div class="w-6 h-6 rounded-full bg-yellow-500 text-white flex items-center justify-center text-xs font-bold mr-2">1</div>
-              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
-              <div class="flex-1">
-                <div class="text-sm">技术小白</div>
-              </div>
-              <div class="text-xs text-yellow-400">贡献值: 15,240</div>
-            </div>
-          </div>
-          
-          <div class="mb-3">
-            <div class="flex items-center bg-gradient-to-r from-gray-400/20 to-gray-500/20 p-2 rounded-lg">
-              <div class="w-6 h-6 rounded-full bg-gray-400 text-white flex items-center justify-center text-xs font-bold mr-2">2</div>
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
-              <div class="flex-1">
-                <div class="text-sm">代码达人</div>
-              </div>
-              <div class="text-xs text-gray-400">贡献值: 12,890</div>
-            </div>
-          </div>
-          
-          <div class="mb-3">
-            <div class="flex items-center bg-gradient-to-r from-amber-700/20 to-amber-800/20 p-2 rounded-lg">
-              <div class="w-6 h-6 rounded-full bg-amber-700 text-white flex items-center justify-center text-xs font-bold mr-2">3</div>
-              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
-              <div class="flex-1">
-                <div class="text-sm">算法专家</div>
-              </div>
-              <div class="text-xs text-amber-400">贡献值: 10,750</div>
-            </div>
-          </div>
-          
-          <div class="mb-3">
-            <div class="flex items-center p-2 rounded-lg hover:bg-gray-800/50">
-              <div class="w-6 h-6 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-bold mr-2">4</div>
-              <img src="https://images.unsplash.com/photo-1491637639811-60e2756e1df7?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
-              <div class="flex-1">
-                <div class="text-sm">架构师</div>
-              </div>
-              <div class="text-xs text-gray-400">贡献值: 8,920</div>
-            </div>
-          </div>
-          
-          <div class="mb-3">
-            <div class="flex items-center p-2 rounded-lg hover:bg-gray-800/50">
-              <div class="w-6 h-6 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-bold mr-2">5</div>
-              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
-              <div class="flex-1">
-                <div class="text-sm">数据科学家</div>
-              </div>
-              <div class="text-xs text-gray-400">贡献值: 7,650</div>
-            </div>
-          </div>
-          
-          <div class="mb-3">
-            <div class="flex items-center p-2 rounded-lg hover:bg-gray-800/50">
-              <div class="w-6 h-6 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-bold mr-2">6</div>
-              <img src="https://images.unsplash.com/photo-1554384645-13eab165c24b?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
-              <div class="flex-1">
-                <div class="text-sm">产品经理</div>
-              </div>
-              <div class="text-xs text-gray-400">贡献值: 6,340</div>
-            </div>
-          </div>
-          
-          <div class="mb-3">
-            <div class="flex items-center p-2 rounded-lg hover:bg-gray-800/50">
-              <div class="w-6 h-6 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-bold mr-2">7</div>
-              <img src="https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=40&q=80" alt="User" class="w-8 h-8 rounded-full mr-2">
-              <div class="flex-1">
-                <div class="text-sm">设计师</div>
-              </div>
-              <div class="text-xs text-gray-400">贡献值: 5,210</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 礼物弹窗 -->
-<div id="giftModal" class="fixed inset-0 z-[999] hidden">
-  <!-- 遮罩 -->
-  <div id="giftModalBackdrop" class="absolute inset-0 bg-black/60"></div>
-  <!-- 弹窗内容 -->
-  <div class="absolute inset-0 flex items-center justify-center p-4">
-    <div class="w-full max-w-md rounded-2xl bg-white shadow-2xl overflow-hidden">
-      <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
-        <div class="text-sm font-semibold text-gray-800">选择礼物</div>
-        <button id="giftModalClose" class="h-8 w-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center">
-          <i class="fa fa-times"></i>
-        </button>
-      </div>
-
-      <div class="p-4">
-        <div class="text-xs text-gray-500 mb-3">点击选择一种礼物后再赠送</div>
-        <div id="giftGrid" class="grid grid-cols-3 gap-3">
-          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="咖啡">
-            <div class="text-lg">☕</div>
-            <div class="text-xs text-gray-700 mt-1">咖啡</div>
-          </button>
-          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="爱心">
-            <div class="text-lg">❤️</div>
-            <div class="text-xs text-gray-700 mt-1">爱心</div>
-          </button>
-          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="星星">
-            <div class="text-lg">⭐</div>
-            <div class="text-xs text-gray-700 mt-1">星星</div>
-          </button>
-          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="钻石">
-            <div class="text-lg">💎</div>
-            <div class="text-xs text-gray-700 mt-1">钻石</div>
-          </button>
-          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="火箭">
-            <div class="text-lg">🚀</div>
-            <div class="text-xs text-gray-700 mt-1">火箭</div>
-          </button>
-          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="皇冠">
-            <div class="text-lg">👑</div>
-            <div class="text-xs text-gray-700 mt-1">皇冠</div>
-          </button>
-        </div>
-      </div>
-
-      <div class="px-4 py-3 border-t border-gray-200 flex items-center justify-between bg-gray-50">
-        <div class="text-xs text-gray-600">
-          已选：<span id="selectedGiftText" class="font-semibold text-gray-800">未选择</span>
-        </div>
-        <div class="flex gap-2">
-          <!-- <button id="giftCancelBtn" class="px-3 py-2 text-xs rounded-xl border border-gray-300 bg-white hover:bg-gray-100">取消</button> -->
-          <button id="giftSendBtn" class="px-3 py-2 text-xs rounded-xl bg-[#B01F24] text-white hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed" disabled>赠送</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 连麦弹窗（仅页面效果） -->
-<div id="micLinkModal" class="fixed inset-0 z-[1000] hidden">
-  <div id="micLinkBackdrop" class="absolute inset-0 bg-black/60"></div>
-  <div class="absolute inset-0 flex items-center justify-center p-4">
-    <div class="w-full max-w-sm rounded-2xl bg-white shadow-2xl overflow-hidden">
-      <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
-        <div class="text-sm font-semibold text-gray-800">在线连麦</div>
-        <button id="micLinkClose" class="h-8 w-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center">
-          <i class="fa fa-times"></i>
-        </button>
-      </div>
-
-      <div class="p-4 space-y-3">
-        <div class="flex items-center gap-3">
-          <div class="h-10 w-10 rounded-full bg-gradient-to-r from-red-500 to-pink-500 flex items-center justify-center text-white">
-            <i class="fa fa-headset"></i>
-          </div>
-          <div class="flex-1">
-            <div class="text-sm font-medium text-gray-800">与主播连麦</div>
-            <div id="micLinkStatusText" class="text-xs text-gray-500">未连麦</div>
-          </div>
-          <span id="micLinkBadge" class="text-[11px] px-2 py-1 rounded-full border border-gray-300 text-gray-600 bg-gray-50">空闲</span>
-        </div>
-
-        <!-- 伪“音频波形/连麦中”展示 -->
-        <div id="micLinkWave" class="hidden rounded-xl border border-gray-200 bg-gray-50 p-3">
-          <div class="text-xs text-gray-600 mb-2">连麦中（示意）</div>
-          <div class="flex items-end gap-1 h-10">
-            <div class="w-1.5 bg-[#B01F24] rounded" style="height: 40%"></div>
-            <div class="w-1.5 bg-[#B01F24] rounded" style="height: 80%"></div>
-            <div class="w-1.5 bg-[#B01F24] rounded" style="height: 55%"></div>
-            <div class="w-1.5 bg-[#B01F24] rounded" style="height: 90%"></div>
-            <div class="w-1.5 bg-[#B01F24] rounded" style="height: 60%"></div>
-            <div class="w-1.5 bg-[#B01F24] rounded" style="height: 75%"></div>
-            <div class="w-1.5 bg-[#B01F24] rounded" style="height: 45%"></div>
-            <div class="w-1.5 bg-[#B01F24] rounded" style="height: 85%"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="px-4 py-3 border-t border-gray-200 flex items-center justify-end gap-2 bg-gray-50">
-        <button id="micLinkHangupBtn" class="px-3 py-2 text-xs rounded-xl bg-[#B01F24] text-white hover:bg-[#8f191d] transition hidden">挂断</button>
-        <button id="micLinkApplyBtn" class="px-3 py-2 text-xs rounded-xl bg-[#2D874B] text-white hover:opacity-90">申请连麦</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
+          // 每隔十秒显示一次举手提示
+          setInterval(showHandUpNotification, 6000);
+        </script>
 
 
-  // 全屏控制
-  const fullscreenBtn = document.getElementById('fullscreenBtn');
-  fullscreenBtn.addEventListener('click', () => {
-    const elem = document.documentElement;
-    if (!document.fullscreenElement) {
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.mozRequestFullScreen) { /* Firefox */
-        elem.mozRequestFullScreen();
-      } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-        elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) { /* IE/Edge */
-        elem.msRequestFullscreen();
-      }
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.mozCancelFullScreen) { /* Firefox */
-        document.mozCancelFullScreen();
-      } else if (document.webkitExitFullscreen) { /* Chrome, Safari & Opera */
-        document.webkitExitFullscreen();
-      } else if (document.msExitFullscreen) { /* IE/Edge */
-        document.msExitFullscreen();
-      }
-    }
-  });
+        <script>
+            // 全屏控制
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            fullscreenBtn.addEventListener('click', () => {
+                const elem = document.documentElement;
+                if (!document.fullscreenElement) {
+                    if (elem.requestFullscreen) {
+                        elem.requestFullscreen();
+                    } else if (elem.mozRequestFullScreen) {
+                        /* Firefox */
+                        elem.mozRequestFullScreen();
+                    } else if (elem.webkitRequestFullscreen) {
+                        /* Chrome, Safari & Opera */
+                        elem.webkitRequestFullscreen();
+                    } else if (elem.msRequestFullscreen) {
+                        /* IE/Edge */
+                        elem.msRequestFullscreen();
+                    }
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        /* Firefox */
+                        document.mozCancelFullScreen();
+                    } else if (document.webkitExitFullscreen) {
+                        /* Chrome, Safari & Opera */
+                        document.webkitExitFullscreen();
+                    } else if (document.msExitFullscreen) {
+                        /* IE/Edge */
+                        document.msExitFullscreen();
+                    }
+                }
+            });
 
-  // 实时更新观众数
-  setInterval(() => {
-    const sidebarViewerCount = document.getElementById('sidebarViewerCount');
-    const expandBtnViewerCount = document.getElementById('expandBtnViewerCount');
-    
-    // 使用固定值或模拟数据，因为我们删除了原始的viewerCount元素
-    const current = 12000; // 使用固定的初始值
-    const increment = Math.floor(Math.random() * 10);
-    const newCount = current + increment;
-    const formattedCount = newCount.toLocaleString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    
-    if(sidebarViewerCount) {
-      sidebarViewerCount.textContent = formattedCount;
-    }
-    if(expandBtnViewerCount) {
-      expandBtnViewerCount.textContent = formattedCount;
-    }
-  }, 5000);
+            // 实时更新观众数
+            setInterval(() => {
+                const sidebarViewerCount = document.getElementById('sidebarViewerCount');
+                const expandBtnViewerCount = document.getElementById('expandBtnViewerCount');
 
-  // 模拟新消息
-  setInterval(() => {
-    const messages = [
-      { user: '新同学', text: '刚进来，错过了开头，能讲讲重点吗？', color: 'text-purple-400' },
-      { user: '老粉丝', text: '每期直播都不错过，感谢老师分享！', color: 'text-blue-400' },
-      { user: '学习者', text: '这个知识点记住了，收藏了！', color: 'text-green-400' },
-      { user: '开发者', text: '代码可以贴出来看看吗？', color: 'text-yellow-400' },
-      { user: '架构师', text: '生产环境怎么部署比较稳定？', color: 'text-red-400' }
-    ];
-    
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    const chatMessages = document.getElementById('chatMessages');
-    
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'chat-message mb-2 flex items-start animate-slideIn';
-    messageDiv.innerHTML = `
+                // 使用固定值或模拟数据，因为我们删除了原始的viewerCount元素
+                const current = 12000; // 使用固定的初始值
+                const increment = Math.floor(Math.random() * 10);
+                const newCount = current + increment;
+                const formattedCount = newCount
+                    .toLocaleString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+                if (sidebarViewerCount) {
+                    sidebarViewerCount.textContent = formattedCount;
+                }
+                if (expandBtnViewerCount) {
+                    expandBtnViewerCount.textContent = formattedCount;
+                }
+            }, 5000);
+
+            // 模拟新消息
+            setInterval(() => {
+                const messages = [
+                    {
+                        user: '新同学',
+                        text: '刚进来，错过了开头，能讲讲重点吗？',
+                        color: 'text-purple-400',
+                    },
+                    {
+                        user: '老粉丝',
+                        text: '每期直播都不错过，感谢老师分享！',
+                        color: 'text-blue-400',
+                    },
+                    { user: '学习者', text: '这个知识点记住了，收藏了！', color: 'text-green-400' },
+                    { user: '开发者', text: '代码可以贴出来看看吗？', color: 'text-yellow-400' },
+                    { user: '架构师', text: '生产环境怎么部署比较稳定？', color: 'text-red-400' },
+                ];
+
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                const chatMessages = document.getElementById('chatMessages');
+
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'chat-message mb-2 flex items-start animate-slideIn';
+                messageDiv.innerHTML = `
       <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=40&q=80" alt="User" class="w-6 h-6 rounded-full mr-2 mt-0.5">
       <div>
         <div class="text-xs ${randomMessage.color}">${randomMessage.user}</div>
         <div class="text-sm">${randomMessage.text}</div>
       </div>
     `;
-    
-    chatMessages.appendChild(messageDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }, 3000);
 
-  // 礼物动画
-  function showGiftAnimation(giftName, userName) {
-    const giftArea = document.getElementById('giftAnimationArea');
-    const giftDiv = document.createElement('div');
-    giftDiv.className = 'gift-item absolute left-1/4 bottom-20 w-48 h-16 bg-gradient-to-r from-pink-500 to-yellow-500 rounded-lg p-2 flex items-center';
-    giftDiv.innerHTML = `
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 3000);
+
+            // 礼物动画
+            function showGiftAnimation(giftName, userName) {
+                const giftArea = document.getElementById('giftAnimationArea');
+                const giftDiv = document.createElement('div');
+                giftDiv.className =
+                    'gift-item absolute left-1/4 bottom-20 w-48 h-16 bg-gradient-to-r from-pink-500 to-yellow-500 rounded-lg p-2 flex items-center';
+                giftDiv.innerHTML = `
       <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80" alt="User" class="w-12 h-12 rounded-full mr-2">
       <div>
         <div class="text-xs font-bold">${userName}</div>
         <div class="text-xs">送出 ${giftName}</div>
       </div>
     `;
-    
-    // 随机位置
-    const leftPos = 10 + Math.random() * 30;
-    giftDiv.style.left = `${leftPos}%`;
-    
-    giftArea.appendChild(giftDiv);
-    
-    // 3秒后移除
-    setTimeout(() => {
-      giftDiv.remove();
-    }, 3000);
-  }
 
-  // giftBtn：弹窗选择礼物并赠送
-  const giftBtn = document.getElementById('giftBtn');
-  const giftModal = document.getElementById('giftModal');
-  const giftModalBackdrop = document.getElementById('giftModalBackdrop');
-  const giftModalClose = document.getElementById('giftModalClose');
-  const giftCancelBtn = document.getElementById('giftCancelBtn');
-  const giftSendBtn = document.getElementById('giftSendBtn');
-  const selectedGiftText = document.getElementById('selectedGiftText');
-  const giftOptions = document.querySelectorAll('#giftGrid .gift-option');
-  const micLinkBtn = document.getElementById('micLinkBtn');
+                // 随机位置
+                const leftPos = 10 + Math.random() * 30;
+                giftDiv.style.left = `${leftPos}%`;
 
-  let selectedGiftName = '';
+                giftArea.appendChild(giftDiv);
 
-  function openGiftModal() {
-    selectedGiftName = '';
-    selectedGiftText.textContent = '未选择';
-    giftSendBtn.disabled = true;
-    giftOptions.forEach(btn => btn.classList.remove('ring-2', 'ring-[#B01F24]', 'border-[#B01F24]'));
-    giftModal.classList.remove('hidden');
-  }
+                // 3秒后移除
+                setTimeout(() => {
+                    giftDiv.remove();
+                }, 3000);
+            }
 
-  function closeGiftModal() {
-    giftModal.classList.add('hidden');
-  }
+            // giftBtn：弹窗选择礼物并赠送
+            const giftBtn = document.getElementById('giftBtn');
+            const giftModal = document.getElementById('giftModal');
+            const giftModalBackdrop = document.getElementById('giftModalBackdrop');
+            const giftModalClose = document.getElementById('giftModalClose');
+            const giftCancelBtn = document.getElementById('giftCancelBtn');
+            const giftSendBtn = document.getElementById('giftSendBtn');
+            const selectedGiftText = document.getElementById('selectedGiftText');
+            const giftOptions = document.querySelectorAll('#giftGrid .gift-option');
+            const micLinkBtn = document.getElementById('micLinkBtn');
 
-  if (giftBtn) giftBtn.addEventListener('click', openGiftModal);
-  if (giftModalBackdrop) giftModalBackdrop.addEventListener('click', closeGiftModal);
-  if (giftModalClose) giftModalClose.addEventListener('click', closeGiftModal);
-  if (giftCancelBtn) giftCancelBtn.addEventListener('click', closeGiftModal);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && giftModal && !giftModal.classList.contains('hidden')) {
-      closeGiftModal();
-    }
-  });
+            let selectedGiftName = '';
 
-  // 在线连麦（仅页面效果）
-  const micLinkModal = document.getElementById('micLinkModal');
-  const micLinkBackdrop = document.getElementById('micLinkBackdrop');
-  const micLinkClose = document.getElementById('micLinkClose');
-  const micLinkStatusText = document.getElementById('micLinkStatusText');
-  const micLinkBadge = document.getElementById('micLinkBadge');
-  const micLinkWave = document.getElementById('micLinkWave');
-  const micLinkApplyBtn = document.getElementById('micLinkApplyBtn');
-  const micLinkHangupBtn = document.getElementById('micLinkHangupBtn');
-  let micLinkState = 'idle'; // idle | connecting | connected
-  let micLinkTimer = null;
+            function openGiftModal() {
+                selectedGiftName = '';
+                selectedGiftText.textContent = '未选择';
+                giftSendBtn.disabled = true;
+                giftOptions.forEach(btn =>
+                    btn.classList.remove('ring-2', 'ring-[#B01F24]', 'border-[#B01F24]'),
+                );
+                giftModal.classList.remove('hidden');
+            }
 
-  function setMicLinkState(next) {
-    micLinkState = next;
-    if (!micLinkStatusText || !micLinkBadge || !micLinkWave || !micLinkApplyBtn || !micLinkHangupBtn) return;
+            function closeGiftModal() {
+                giftModal.classList.add('hidden');
+            }
 
-    if (micLinkTimer) {
-      clearTimeout(micLinkTimer);
-      micLinkTimer = null;
-    }
+            if (giftBtn) giftBtn.addEventListener('click', openGiftModal);
+            if (giftModalBackdrop) giftModalBackdrop.addEventListener('click', closeGiftModal);
+            if (giftModalClose) giftModalClose.addEventListener('click', closeGiftModal);
+            if (giftCancelBtn) giftCancelBtn.addEventListener('click', closeGiftModal);
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape' && giftModal && !giftModal.classList.contains('hidden')) {
+                    closeGiftModal();
+                }
+            });
 
-    if (micLinkState === 'idle') {
-      micLinkStatusText.textContent = '未连麦';
-      micLinkBadge.textContent = '空闲';
-      micLinkBadge.className = 'text-[11px] px-2 py-1 rounded-full border border-gray-300 text-gray-600 bg-gray-50';
-      micLinkWave.classList.add('hidden');
-      micLinkApplyBtn.disabled = false;
-      micLinkApplyBtn.textContent = '申请连麦';
-      micLinkHangupBtn.classList.add('hidden');
-      return;
-    }
+            // 在线连麦（仅页面效果）
+            const micLinkModal = document.getElementById('micLinkModal');
+            const micLinkBackdrop = document.getElementById('micLinkBackdrop');
+            const micLinkClose = document.getElementById('micLinkClose');
+            const micLinkStatusText = document.getElementById('micLinkStatusText');
+            const micLinkBadge = document.getElementById('micLinkBadge');
+            const micLinkWave = document.getElementById('micLinkWave');
+            const micLinkApplyBtn = document.getElementById('micLinkApplyBtn');
+            const micLinkHangupBtn = document.getElementById('micLinkHangupBtn');
+            let micLinkState = 'idle'; // idle | connecting | connected
+            let micLinkTimer = null;
 
-    if (micLinkState === 'connecting') {
-      micLinkStatusText.textContent = '申请中...';
-      micLinkBadge.textContent = '连接中';
-      micLinkBadge.className = 'text-[11px] px-2 py-1 rounded-full border border-amber-300 text-amber-700 bg-amber-50';
-      micLinkWave.classList.add('hidden');
-      micLinkApplyBtn.disabled = true;
-      micLinkApplyBtn.textContent = '申请中...';
-      micLinkHangupBtn.classList.add('hidden');
+            function setMicLinkState(next) {
+                micLinkState = next;
+                if (
+                    !micLinkStatusText ||
+                    !micLinkBadge ||
+                    !micLinkWave ||
+                    !micLinkApplyBtn ||
+                    !micLinkHangupBtn
+                )
+                    return;
 
-      // 仅演示：1.2 秒后自动“连上”
-      micLinkTimer = setTimeout(() => setMicLinkState('connected'), 1200);
-      return;
-    }
+                if (micLinkTimer) {
+                    clearTimeout(micLinkTimer);
+                    micLinkTimer = null;
+                }
 
-    if (micLinkState === 'connected') {
-      micLinkStatusText.textContent = '已连麦（演示）';
-      micLinkBadge.textContent = '连麦中';
-      micLinkBadge.className = 'text-[11px] px-2 py-1 rounded-full border border-emerald-300 text-emerald-700 bg-emerald-50';
-      micLinkWave.classList.remove('hidden');
-      micLinkApplyBtn.disabled = true;
-      micLinkApplyBtn.textContent = '已连麦';
-      micLinkHangupBtn.classList.remove('hidden');
-    }
-  }
+                if (micLinkState === 'idle') {
+                    micLinkStatusText.textContent = '未连麦';
+                    micLinkBadge.textContent = '空闲';
+                    micLinkBadge.className =
+                        'text-[11px] px-2 py-1 rounded-full border border-gray-300 text-gray-600 bg-gray-50';
+                    micLinkWave.classList.add('hidden');
+                    micLinkApplyBtn.disabled = false;
+                    micLinkApplyBtn.textContent = '申请连麦';
+                    micLinkHangupBtn.classList.add('hidden');
+                    return;
+                }
 
-  function openMicLinkModal() {
-    if (!micLinkModal) return;
-    micLinkModal.classList.remove('hidden');
-    setMicLinkState('idle');
-  }
-  function closeMicLinkModal() {
-    if (!micLinkModal) return;
-    micLinkModal.classList.add('hidden');
-  }
+                if (micLinkState === 'connecting') {
+                    micLinkStatusText.textContent = '申请中...';
+                    micLinkBadge.textContent = '连接中';
+                    micLinkBadge.className =
+                        'text-[11px] px-2 py-1 rounded-full border border-amber-300 text-amber-700 bg-amber-50';
+                    micLinkWave.classList.add('hidden');
+                    micLinkApplyBtn.disabled = true;
+                    micLinkApplyBtn.textContent = '申请中...';
+                    micLinkHangupBtn.classList.add('hidden');
 
-  if (micLinkBtn) micLinkBtn.addEventListener('click', openMicLinkModal);
-  if (micLinkBackdrop) micLinkBackdrop.addEventListener('click', closeMicLinkModal);
-  if (micLinkClose) micLinkClose.addEventListener('click', closeMicLinkModal);
-  if (micLinkApplyBtn) micLinkApplyBtn.addEventListener('click', () => setMicLinkState('connecting'));
-  if (micLinkHangupBtn) micLinkHangupBtn.addEventListener('click', () => setMicLinkState('idle'));
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && micLinkModal && !micLinkModal.classList.contains('hidden')) {
-      closeMicLinkModal();
-    }
-  });
+                    // 仅演示：1.2 秒后自动“连上”
+                    micLinkTimer = setTimeout(() => setMicLinkState('connected'), 1200);
+                    return;
+                }
 
-  giftOptions.forEach(btn => {
-    btn.addEventListener('click', () => {
-      selectedGiftName = btn.dataset.gift || '';
-      selectedGiftText.textContent = selectedGiftName || '未选择';
-      giftSendBtn.disabled = !selectedGiftName;
-      giftOptions.forEach(b => b.classList.remove('ring-2', 'ring-[#B01F24]', 'border-[#B01F24]'));
-      btn.classList.add('ring-2', 'ring-[#B01F24]', 'border-[#B01F24]');
-    });
-  });
+                if (micLinkState === 'connected') {
+                    micLinkStatusText.textContent = '已连麦（演示）';
+                    micLinkBadge.textContent = '连麦中';
+                    micLinkBadge.className =
+                        'text-[11px] px-2 py-1 rounded-full border border-emerald-300 text-emerald-700 bg-emerald-50';
+                    micLinkWave.classList.remove('hidden');
+                    micLinkApplyBtn.disabled = true;
+                    micLinkApplyBtn.textContent = '已连麦';
+                    micLinkHangupBtn.classList.remove('hidden');
+                }
+            }
 
-  if (giftSendBtn) {
-    giftSendBtn.addEventListener('click', () => {
-      if (!selectedGiftName) return;
-      // 触发礼物动画
-      showGiftAnimation(selectedGiftName, '我');
+            function openMicLinkModal() {
+                if (!micLinkModal) return;
+                micLinkModal.classList.remove('hidden');
+                setMicLinkState('idle');
+            }
+            function closeMicLinkModal() {
+                if (!micLinkModal) return;
+                micLinkModal.classList.add('hidden');
+            }
 
-      // 同步写入聊天室（模拟）
-      const chatMessages = document.getElementById('chatMessages');
-      if (chatMessages) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'chat-message mb-2 flex items-start animate-slideIn';
-        messageDiv.innerHTML = `
+            if (micLinkBtn) micLinkBtn.addEventListener('click', openMicLinkModal);
+            if (micLinkBackdrop) micLinkBackdrop.addEventListener('click', closeMicLinkModal);
+            if (micLinkClose) micLinkClose.addEventListener('click', closeMicLinkModal);
+            if (micLinkApplyBtn)
+                micLinkApplyBtn.addEventListener('click', () => setMicLinkState('connecting'));
+            if (micLinkHangupBtn)
+                micLinkHangupBtn.addEventListener('click', () => setMicLinkState('idle'));
+            document.addEventListener('keydown', e => {
+                if (
+                    e.key === 'Escape' &&
+                    micLinkModal &&
+                    !micLinkModal.classList.contains('hidden')
+                ) {
+                    closeMicLinkModal();
+                }
+            });
+
+            giftOptions.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    selectedGiftName = btn.dataset.gift || '';
+                    selectedGiftText.textContent = selectedGiftName || '未选择';
+                    giftSendBtn.disabled = !selectedGiftName;
+                    giftOptions.forEach(b =>
+                        b.classList.remove('ring-2', 'ring-[#B01F24]', 'border-[#B01F24]'),
+                    );
+                    btn.classList.add('ring-2', 'ring-[#B01F24]', 'border-[#B01F24]');
+                });
+            });
+
+            if (giftSendBtn) {
+                giftSendBtn.addEventListener('click', () => {
+                    if (!selectedGiftName) return;
+                    // 触发礼物动画
+                    showGiftAnimation(selectedGiftName, '我');
+
+                    // 同步写入聊天室（模拟）
+                    const chatMessages = document.getElementById('chatMessages');
+                    if (chatMessages) {
+                        const messageDiv = document.createElement('div');
+                        messageDiv.className = 'chat-message mb-2 flex items-start animate-slideIn';
+                        messageDiv.innerHTML = `
           <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=40&q=80" alt="User" class="w-6 h-6 rounded-full mr-2 mt-0.5">
           <div>
             <div class="text-xs text-emerald-400">我</div>
             <div class="text-sm">送出 ${selectedGiftName}</div>
           </div>
         `;
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      }
+                        chatMessages.appendChild(messageDiv);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }
 
-      closeGiftModal();
-    });
-  }
-  
-  // 标签切换功能
-  document.addEventListener('DOMContentLoaded', function() {
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
-    
-    // 默认显示课件内容
-    document.getElementById('coursewareContent').classList.remove('hidden');
-    
-    tabButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        // 移除所有按钮的活动状态
-        tabButtons.forEach(btn => {
-          btn.classList.remove('text-red-500', 'border-red-500');
-          btn.classList.add('text-gray-400');
-          btn.classList.remove('hover:text-white'); // 防止悬停样式影响
-        });
-        
-        // 为当前按钮添加活动状态
-        button.classList.remove('text-gray-400');
-        button.classList.add('text-red-500', 'border-red-500');
-        
-        // 获取按钮对应的标签ID
-        const tabId = button.id.replace('Tab', 'Content');
-        
-        // 隐藏所有内容区域
-        tabContents.forEach(content => {
-          content.classList.add('hidden');
-        });
-        
-        // 显示当前内容区域
-        document.getElementById(tabId).classList.remove('hidden');
-      });
-    });
-    
-    // 课件内部标签切换功能
-    const coursewareTabButtons = document.querySelectorAll('.courseware-tab-btn');
-    const coursewareTabContents = document.querySelectorAll('.courseware-tab-content');
-    
-    // 默认显示直播介绍内容
-    document.getElementById('introContent').classList.remove('hidden');
-    
-    coursewareTabButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        // 移除所有按钮的活动状态
-        coursewareTabButtons.forEach(btn => {
-          btn.classList.remove('text-red-500', 'border-red-500');
-          btn.classList.add('text-gray-400');
-          btn.classList.remove('hover:text-white'); // 防止悬停样式影响
-        });
-        
-        // 为当前按钮添加活动状态
-        button.classList.remove('text-gray-400');
-        button.classList.add('text-red-500', 'border-red-500');
-        
-        // 获取按钮对应的标签ID
-        const tabId = button.id.replace('Tab', 'Content');
-        
-        // 隐藏所有内容区域
-        coursewareTabContents.forEach(content => {
-          content.classList.add('hidden');
-        });
-        
-        // 显示当前内容区域
-        document.getElementById(tabId).classList.remove('hidden');
-      });
-    });
-    
-    // 为回放标签添加单独的点击事件处理
-    const replayTabButton = document.getElementById('replayTab');
-    if(replayTabButton) {
-      replayTabButton.addEventListener('click', () => {
-        // 移除所有按钮的活动状态
-        coursewareTabButtons.forEach(btn => {
-          btn.classList.remove('text-red-500', 'border-red-500');
-          btn.classList.add('text-gray-400');
-          btn.classList.remove('hover:text-white'); // 防止悬停样式影响
-        });
-        
-        // 为当前按钮添加活动状态
-        replayTabButton.classList.remove('text-gray-400');
-        replayTabButton.classList.add('text-red-500', 'border-red-500');
-        
-        // 隐藏所有内容区域
-        coursewareTabContents.forEach(content => {
-          content.classList.add('hidden');
-        });
-        
-        // 显示回放内容区域
-        document.getElementById('replayContent').classList.remove('hidden');
-      });
-    }
-    
-    // 添加回放功能相关逻辑
-    const replayItems = document.querySelectorAll('#replayContent .flex');
-    replayItems.forEach(item => {
-      item.addEventListener('click', function() {
-        const videoLink = this.querySelector('a');
-        if (videoLink) {
-          // 这里可以添加跳转到回放视频的逻辑
-          console.log('跳转到回放视频');
-        }
-      });
-    });
-    
-    // 右侧栏收起/展开功能
-    const sidebar = document.getElementById('sidebar');
-    const collapseBtn = document.getElementById('collapseSidebarBtn');
-    const expandBtn = document.getElementById('expandSidebarBtn');
-    
-    if(collapseBtn && expandBtn) {
-      // 收起右侧栏
-      collapseBtn.addEventListener('click', function() {
-        sidebar.classList.add('sidebar-collapsed');
-        expandBtn.classList.add('expand-btn-visible');
-      });
-      
-      // 展开右侧栏
-      expandBtn.addEventListener('click', function() {
-        sidebar.classList.remove('sidebar-collapsed');
-        expandBtn.classList.remove('expand-btn-visible');
-      });
-    }
-    
-    // 播放器功能按钮
-    const videoPlayer = document.getElementById('liveVideo');
-    const playPauseBtn = document.getElementById('playPauseBtn');
-    const refreshBtn = document.getElementById('refreshBtn');
-    const rotateBtn = document.getElementById('rotateBtn');
-    const danmakuBtn = document.getElementById('danmakuBtn');
-    const volumeBtn = document.getElementById('volumeBtn');
-    const volumeSlider = document.getElementById('volumeSlider');
-    const pipBtn = document.getElementById('pipBtn');
-    
-    // 刷新功能
-    if(refreshBtn) {
-      refreshBtn.addEventListener('click', function() {
-        // 执行页面刷新操作
-        window.location.reload();
-      });
-    }
-    
-    // 播放/暂停功能
-    if(playPauseBtn) {
-      // 初始状态为暂停状态，显示播放图标
-      playPauseBtn.innerHTML = '<i class="fa fa-play"></i>';
-      
-      playPauseBtn.addEventListener('click', function() {
-        if(videoPlayer.paused) {
-          videoPlayer.play();
-          playPauseBtn.innerHTML = '<i class="fa fa-pause"></i>';
-        } else {
-          videoPlayer.pause();
-          playPauseBtn.innerHTML = '<i class="fa fa-play"></i>';
-        }
-      });
-      
-      // 监听视频播放/暂停状态变化，同步按钮状态
-      videoPlayer.addEventListener('play', function() {
-        playPauseBtn.innerHTML = '<i class="fa fa-pause"></i>';
-      });
-      
-      videoPlayer.addEventListener('pause', function() {
-        playPauseBtn.innerHTML = '<i class="fa fa-play"></i>';
-      });
-    }
-    
-    // 旋转功能
-    if(rotateBtn) {
-      let rotationAngle = 0;
-      rotateBtn.addEventListener('click', function() {
-        rotationAngle += 90;
-        videoPlayer.style.transform = `rotate(${rotationAngle}deg)`;
-      });
-    }
-    
-    // 弹幕功能
-    if(danmakuBtn) {
-      danmakuBtn.addEventListener('click', function() {
-        // 弹幕功能的实现
-        alert('弹幕功能已开启');
-      });
-    }
-    
-    // 音量控制功能
-    if(volumeBtn && volumeSlider) {
-      // 初始设置音量
-      videoPlayer.volume = volumeSlider.value / 100;
-      
-      // 点击静音按钮切换静音状态
-      volumeBtn.addEventListener('click', function() {
-        if(videoPlayer.muted) {
-          videoPlayer.muted = false;
-          volumeBtn.innerHTML = '<i class="fa fa-volume-up"></i>';
-        } else {
-          videoPlayer.muted = true;
-          volumeBtn.innerHTML = '<i class="fa fa-volume-mute"></i>';
-        }
-      });
-      
-      // 音量滑块变化
-      volumeSlider.addEventListener('input', function() {
-        videoPlayer.volume = volumeSlider.value / 100;
-        if(videoPlayer.volume === 0) {
-          videoPlayer.muted = true;
-          volumeBtn.innerHTML = '<i class="fa fa-volume-mute"></i>';
-        } else {
-          videoPlayer.muted = false;
-          volumeBtn.innerHTML = '<i class="fa fa-volume-up"></i>';
-        }
-      });
-    }
-    
-    // 画中画功能
-    if(pipBtn) {
-      pipBtn.addEventListener('click', async function() {
-        try {
-          if (videoPlayer.requestPictureInPicture) {
-            await videoPlayer.requestPictureInPicture();
-          } else {
-            alert('您的浏览器不支持画中画功能');
-          }
-        } catch (error) {
-          console.error('画中画功能错误:', error);
-        }
-      });
-    }
-     // 分享按钮功能 - 复制链接
-   const shareBtn = document.getElementById('shareBtn');
-   if(shareBtn) {
-     shareBtn.addEventListener('click', async function() {
-       try {
-         // 尝试使用 Clipboard API
-         if (navigator.clipboard) {
-           await navigator.clipboard.writeText(window.location.href);
-           // 显示临时提示
-           const originalHTML = shareBtn.innerHTML;
-           shareBtn.innerHTML = '<i class="fa fa-check"></i>';
-           setTimeout(() => {
-            shareBtn.innerHTML = originalHTML;
-          }, 2000);
-         } else {
-           // 降级方案：使用传统的 execCommand 方法
-           const textArea = document.createElement('textarea');
-           textArea.value = window.location.href;
-           document.body.appendChild(textArea);
-           textArea.select();
-           document.execCommand('copy');
-           document.body.removeChild(textArea);
-           
-           // 显示临时提示
-           const originalHTML = shareBtn.innerHTML;
-           shareBtn.innerHTML = '<i class="fa fa-check"></i>';
-           setTimeout(() => {
-            shareBtn.innerHTML = originalHTML;
-          }, 2000);
-         }
-       } catch (err) {
-         console.error('复制链接失败:', err);
-         alert('链接复制失败，请手动复制');
-       }
-     });
-   }
-   
-   // 屏幕分享功能
-   const screenShareBtn = document.getElementById('screenShareBtn');
-   if(screenShareBtn) {
-     screenShareBtn.addEventListener('click', async function() {
-       try {
-         // 请求屏幕共享
-         const stream = await navigator.mediaDevices.getDisplayMedia({ 
-           video: { mediaSource: 'screen' }
-         });
-         
-         // 显示临时提示
-         const originalHTML = screenShareBtn.innerHTML;
-         screenShareBtn.innerHTML = '<i class="fa fa-stop"></i>';
-         
-         // 监听流结束事件，恢复原始图标
-         stream.getTracks()[0].onended = function() {
-           screenShareBtn.innerHTML = originalHTML;
-         };
-         
-       } catch (err) {
-         console.error('屏幕分享失败:', err);
-         alert('屏幕分享功能需要HTTPS环境或本地环境，且浏览器需支持此功能');
-       }
-     });
-   }
-   
-   // 举手功能
-   const raiseHandBtn = document.getElementById('raiseHandBtn');
-   if(raiseHandBtn) {
-     raiseHandBtn.addEventListener('click', function() {
-       // 显示举手状态
-       const originalHTML = raiseHandBtn.innerHTML;
-       const originalClass = raiseHandBtn.className;
-       
-       // 切换举手状态（激活/取消）
-       if(raiseHandBtn.classList.contains('bg-blue-500')) {
-         // 如果当前是举手状态，则取消举手
-         raiseHandBtn.className = 'w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition';
-         raiseHandBtn.innerHTML = '<i class="fa fa-hand-paper"></i>';
-         alert('您已取消举手');
-       } else {
-         // 设置为举手状态
-         raiseHandBtn.className = 'w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center hover:bg-opacity-70 transition';
-         raiseHandBtn.innerHTML = '<i class="fa fa-hand-paper"></i>';
-         alert('您已举手，请等待主持人响应');
-       }
-     });
-   }
+                    closeGiftModal();
+                });
+            }
 
-});
-</script>
+            // 标签切换功能
+            document.addEventListener('DOMContentLoaded', function () {
+                const tabButtons = document.querySelectorAll('.tab-button');
+                const tabContents = document.querySelectorAll('.tab-content');
 
-</body>
+                // 默认显示课件内容
+                document.getElementById('coursewareContent').classList.remove('hidden');
+
+                tabButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        // 移除所有按钮的活动状态
+                        tabButtons.forEach(btn => {
+                            btn.classList.remove('text-red-500', 'border-red-500');
+                            btn.classList.add('text-gray-400');
+                            btn.classList.remove('hover:text-white'); // 防止悬停样式影响
+                        });
+
+                        // 为当前按钮添加活动状态
+                        button.classList.remove('text-gray-400');
+                        button.classList.add('text-red-500', 'border-red-500');
+
+                        // 获取按钮对应的标签ID
+                        const tabId = button.id.replace('Tab', 'Content');
+
+                        // 隐藏所有内容区域
+                        tabContents.forEach(content => {
+                            content.classList.add('hidden');
+                        });
+
+                        // 显示当前内容区域
+                        document.getElementById(tabId).classList.remove('hidden');
+                    });
+                });
+
+                // 课件内部标签切换功能
+                const coursewareTabButtons = document.querySelectorAll('.courseware-tab-btn');
+                const coursewareTabContents = document.querySelectorAll('.courseware-tab-content');
+
+                
+
+                coursewareTabButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        // 移除所有按钮的活动状态
+                        coursewareTabButtons.forEach(btn => {
+                            btn.classList.remove('text-red-500', 'border-red-500');
+                            btn.classList.add('text-gray-400');
+                            btn.classList.remove('hover:text-white'); // 防止悬停样式影响
+                        });
+
+                        // 为当前按钮添加活动状态
+                        button.classList.remove('text-gray-400');
+                        button.classList.add('text-red-500', 'border-red-500');
+
+                        // 获取按钮对应的标签ID
+                        const tabId = button.id.replace('Tab', 'Content');
+
+                        // 隐藏所有内容区域
+                        coursewareTabContents.forEach(content => {
+                            content.classList.add('hidden');
+                        });
+
+                        // 显示当前内容区域
+                        document.getElementById(tabId).classList.remove('hidden');
+                    });
+                });
+
+                // 为回放标签添加单独的点击事件处理
+                const replayTabButton = document.getElementById('replayTab');
+                if (replayTabButton) {
+                    replayTabButton.addEventListener('click', () => {
+                        // 移除所有按钮的活动状态
+                        coursewareTabButtons.forEach(btn => {
+                            btn.classList.remove('text-red-500', 'border-red-500');
+                            btn.classList.add('text-gray-400');
+                            btn.classList.remove('hover:text-white'); // 防止悬停样式影响
+                        });
+
+                        // 为当前按钮添加活动状态
+                        replayTabButton.classList.remove('text-gray-400');
+                        replayTabButton.classList.add('text-red-500', 'border-red-500');
+
+                        // 隐藏所有内容区域
+                        coursewareTabContents.forEach(content => {
+                            content.classList.add('hidden');
+                        });
+
+                        // 显示回放内容区域
+                        document.getElementById('replayContent').classList.remove('hidden');
+                    });
+                }
+
+                // 添加回放功能相关逻辑
+                const replayItems = document.querySelectorAll('#replayContent .flex');
+                replayItems.forEach(item => {
+                    item.addEventListener('click', function () {
+                        const videoLink = this.querySelector('a');
+                        if (videoLink) {
+                            // 这里可以添加跳转到回放视频的逻辑
+                            console.log('跳转到回放视频');
+                        }
+                    });
+                });
+
+                // 右侧栏收起/展开功能
+                const sidebar = document.getElementById('sidebar');
+                const collapseBtn = document.getElementById('collapseSidebarBtn');
+                const expandBtn = document.getElementById('expandSidebarBtn');
+
+                if (collapseBtn && expandBtn) {
+                    // 收起右侧栏
+                    collapseBtn.addEventListener('click', function () {
+                        sidebar.classList.add('sidebar-collapsed');
+                        expandBtn.classList.add('expand-btn-visible');
+                    });
+
+                    // 展开右侧栏
+                    expandBtn.addEventListener('click', function () {
+                        sidebar.classList.remove('sidebar-collapsed');
+                        expandBtn.classList.remove('expand-btn-visible');
+                    });
+                }
+
+                // 播放器功能按钮
+                const videoPlayer = document.getElementById('liveVideo');
+                const playPauseBtn = document.getElementById('playPauseBtn');
+                const refreshBtn = document.getElementById('refreshBtn');
+                const rotateBtn = document.getElementById('rotateBtn');
+                const danmakuBtn = document.getElementById('danmakuBtn');
+                const volumeBtn = document.getElementById('volumeBtn');
+                const volumeSlider = document.getElementById('volumeSlider');
+                const pipBtn = document.getElementById('pipBtn');
+
+                // 刷新功能
+                if (refreshBtn) {
+                    refreshBtn.addEventListener('click', function () {
+                        // 执行页面刷新操作
+                        window.location.reload();
+                    });
+                }
+
+                // 播放/暂停功能
+                if (playPauseBtn) {
+                    // 初始状态为暂停状态，显示播放图标
+                    playPauseBtn.innerHTML = '<i class="fa fa-play"></i>';
+
+                    playPauseBtn.addEventListener('click', function () {
+                        if (videoPlayer.paused) {
+                            videoPlayer.play();
+                            playPauseBtn.innerHTML = '<i class="fa fa-pause"></i>';
+                        } else {
+                            videoPlayer.pause();
+                            playPauseBtn.innerHTML = '<i class="fa fa-play"></i>';
+                        }
+                    });
+
+                    // 监听视频播放/暂停状态变化，同步按钮状态
+                    videoPlayer.addEventListener('play', function () {
+                        playPauseBtn.innerHTML = '<i class="fa fa-pause"></i>';
+                    });
+
+                    videoPlayer.addEventListener('pause', function () {
+                        playPauseBtn.innerHTML = '<i class="fa fa-play"></i>';
+                    });
+                }
+
+                // 旋转功能
+                if (rotateBtn) {
+                    let rotationAngle = 0;
+                    rotateBtn.addEventListener('click', function () {
+                        rotationAngle += 90;
+                        videoPlayer.style.transform = `rotate(${rotationAngle}deg)`;
+                    });
+                }
+
+                // 弹幕功能
+                if (danmakuBtn) {
+                    danmakuBtn.addEventListener('click', function () {
+                        // 弹幕功能的实现
+                        alert('弹幕功能已开启');
+                    });
+                }
+
+                // 音量控制功能
+                if (volumeBtn && volumeSlider) {
+                    // 初始设置音量
+                    videoPlayer.volume = volumeSlider.value / 100;
+
+                    // 点击静音按钮切换静音状态
+                    volumeBtn.addEventListener('click', function () {
+                        if (videoPlayer.muted) {
+                            videoPlayer.muted = false;
+                            volumeBtn.innerHTML = '<i class="fa fa-volume-up"></i>';
+                        } else {
+                            videoPlayer.muted = true;
+                            volumeBtn.innerHTML = '<i class="fa fa-volume-mute"></i>';
+                        }
+                    });
+
+                    // 音量滑块变化
+                    volumeSlider.addEventListener('input', function () {
+                        videoPlayer.volume = volumeSlider.value / 100;
+                        if (videoPlayer.volume === 0) {
+                            videoPlayer.muted = true;
+                            volumeBtn.innerHTML = '<i class="fa fa-volume-mute"></i>';
+                        } else {
+                            videoPlayer.muted = false;
+                            volumeBtn.innerHTML = '<i class="fa fa-volume-up"></i>';
+                        }
+                    });
+                }
+
+                // 画中画功能
+                if (pipBtn) {
+                    pipBtn.addEventListener('click', async function () {
+                        try {
+                            if (videoPlayer.requestPictureInPicture) {
+                                await videoPlayer.requestPictureInPicture();
+                            } else {
+                                alert('您的浏览器不支持画中画功能');
+                            }
+                        } catch (error) {
+                            console.error('画中画功能错误:', error);
+                        }
+                    });
+                }
+                // 分享按钮功能 - 复制链接
+                const shareBtn = document.getElementById('shareBtn');
+                if (shareBtn) {
+                    shareBtn.addEventListener('click', async function () {
+                        try {
+                            // 尝试使用 Clipboard API
+                            if (navigator.clipboard) {
+                                await navigator.clipboard.writeText(window.location.href);
+                                // 显示临时提示
+                                const originalHTML = shareBtn.innerHTML;
+                                shareBtn.innerHTML = '<i class="fa fa-check"></i>';
+                                setTimeout(() => {
+                                    shareBtn.innerHTML = originalHTML;
+                                }, 2000);
+                            } else {
+                                // 降级方案：使用传统的 execCommand 方法
+                                const textArea = document.createElement('textarea');
+                                textArea.value = window.location.href;
+                                document.body.appendChild(textArea);
+                                textArea.select();
+                                document.execCommand('copy');
+                                document.body.removeChild(textArea);
+
+                                // 显示临时提示
+                                const originalHTML = shareBtn.innerHTML;
+                                shareBtn.innerHTML = '<i class="fa fa-check"></i>';
+                                setTimeout(() => {
+                                    shareBtn.innerHTML = originalHTML;
+                                }, 2000);
+                            }
+                        } catch (err) {
+                            console.error('复制链接失败:', err);
+                            alert('链接复制失败，请手动复制');
+                        }
+                    });
+                }
+
+                // 屏幕分享功能
+                const screenShareBtn = document.getElementById('screenShareBtn');
+                if (screenShareBtn) {
+                    screenShareBtn.addEventListener('click', async function () {
+                        try {
+                            // 请求屏幕共享
+                            const stream = await navigator.mediaDevices.getDisplayMedia({
+                                video: { mediaSource: 'screen' },
+                            });
+
+                            // 显示临时提示
+                            const originalHTML = screenShareBtn.innerHTML;
+                            screenShareBtn.innerHTML = '<i class="fa fa-stop"></i>';
+
+                            // 监听流结束事件，恢复原始图标
+                            stream.getTracks()[0].onended = function () {
+                                screenShareBtn.innerHTML = originalHTML;
+                            };
+                        } catch (err) {
+                            console.error('屏幕分享失败:', err);
+                            alert('屏幕分享功能需要HTTPS环境或本地环境，且浏览器需支持此功能');
+                        }
+                    });
+                }
+
+                // 举手功能
+                const raiseHandBtn = document.getElementById('raiseHandBtn');
+                const handUpList = document.getElementById('handUpList');
+                const closeHandUpList = document.getElementById('closeHandUpList');
+                
+                if (raiseHandBtn && handUpList && closeHandUpList) {
+                    // 点击举手按钮显示/隐藏人员列表
+                    raiseHandBtn.addEventListener('click', function () {
+                        if (handUpList.classList.contains('hidden')) {
+                            // 显示人员列表
+                            handUpList.classList.remove('hidden');
+                        } else {
+                            // 隐藏人员列表
+                            handUpList.classList.add('hidden');
+                        }
+                    });
+                    
+                    // 点击关闭按钮关闭列表
+                    closeHandUpList.addEventListener('click', function () {
+                        handUpList.classList.add('hidden');
+                    });
+                    
+                    // 点击邀请发言按钮
+                    const inviteButtons = handUpList.querySelectorAll('button:not(#closeHandUpList)');
+                    inviteButtons.forEach(button => {
+                        button.addEventListener('click', function () {
+                            const studentName = this.parentElement.querySelector('span').textContent;
+                            alert(`已邀请 ${studentName} 发言`);
+                        });
+                    });
+                }
+                
+            });
+        </script>
+    </body>
 </html>
