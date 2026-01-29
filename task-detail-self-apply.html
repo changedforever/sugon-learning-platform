@@ -148,92 +148,55 @@
         <i class="fa fa-map text-[#2D874B]"></i> 任务地图
       </h2>
       
-      <div class="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-6">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-          <!-- 地图图示 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- 课程模块 -->
+        <div class="bg-white/80 rounded-2xl p-4 border border-gray-200 flex items-center justify-between">
+          <div class="mr-3 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+            <i class="fa fa-book text-blue-600 text-lg"></i>
+          </div>
           <div class="flex-1">
-            <div class="grid grid-cols-5 gap-3 relative">
-              <!-- 起点 -->
-              <div class="text-center">
-                <div class="h-12 w-12 rounded-full bg-[#2D874B] flex items-center justify-center mx-auto mb-1">
-                  <i class="fa fa-flag text-white text-sm"></i>
-                </div>
-                <span class="text-xs font-medium">开始</span>
-              </div>
-              
-              <!-- 连接线 -->
-              <div class="absolute top-6 left-12 w-3/5 h-0.5 bg-[#2D874B] opacity-30"></div>
-              
-              <!-- 节点1：云基础理论 -->
-              <div class="text-center">
-                <div class="h-12 w-12 rounded-full bg-[#2D874B] flex items-center justify-center mx-auto mb-1">
-                  <i class="fa fa-check text-white text-sm"></i>
-                </div>
-                <span class="text-xs font-medium">云基础理论</span>
-              </div>
-              
-              <!-- 节点2：架构设计 -->
-              <div class="text-center">
-                <div class="h-12 w-12 rounded-full bg-[#2D874B] flex items-center justify-center mx-auto mb-1">
-                  <i class="fa fa-check text-white text-sm"></i>
-                </div>
-                <span class="text-xs font-medium">架构设计</span>
-              </div>
-              
-              <!-- 节点3：安全合规 -->
-              <div class="text-center">
-                <div class="h-12 w-12 rounded-full bg-yellow-400 flex items-center justify-center mx-auto mb-1">
-                  <i class="fa fa-play text-white text-sm"></i>
-                </div>
-                <span class="text-xs font-medium">安全合规</span>
-              </div>
-              
-              <!-- 节点4：性能优化 -->
-              <div class="text-center">
-                <div class="h-12 w-12 rounded-full bg-gray-300 flex items-center justify-center mx-auto mb-1">
-                  <i class="fa fa-clock text-gray-600 text-sm"></i>
-                </div>
-                <span class="text-xs font-medium">性能优化</span>
-              </div>
-              
-              <!-- 节点5：最终认证 -->
-              <div class="text-center">
-                <div class="h-12 w-12 rounded-full bg-gray-300 flex items-center justify-center mx-auto mb-1">
-                  <i class="fa fa-clock text-gray-600 text-sm"></i>
-                </div>
-                <span class="text-xs font-medium">最终认证</span>
-              </div>
-              
-              <!-- 终点 -->
-              <div class="text-center">
-                <div class="h-12 w-12 rounded-full bg-gray-300 flex items-center justify-center mx-auto mb-1">
-                  <i class="fa fa-flag-checkered text-gray-600 text-sm"></i>
-                </div>
-                <span class="text-xs font-medium">完成</span>
-              </div>
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="text-sm font-medium text-gray-800">课程（1/3）</h3>
+              <span class="text-sm font-semibold text-[#2D874B]">30%</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-blue-400 to-blue-600" style="width:30%"></div>
             </div>
           </div>
           
-          <!-- 图例说明 -->
-          <div class="lg:w-48 space-y-2">
-            <h3 class="text-sm font-semibold text-gray-700">图例说明</h3>
-            <div class="flex items-center gap-2 text-xs">
-              <div class="h-3 w-3 rounded-full bg-[#2D874B]"></div>
-              <span>已完成</span>
+        </div>
+        
+        <!-- 考试模块 -->
+        <div class="bg-white/80 rounded-2xl p-4 border border-gray-200 flex items-center justify-between">
+          <div class="mr-3 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+            <i class="fa fa-file-text text-green-600 text-lg"></i>
+          </div>
+          <div class="flex-1">
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="text-sm font-medium text-gray-800">考试（1/2）</h3>
+              <span class="text-sm font-semibold text-[#2D874B]">50%</span>
             </div>
-            <div class="flex items-center gap-2 text-xs">
-              <div class="h-3 w-3 rounded-full bg-gray-300"></div>
-              <span>未开始</span>
-            </div>
-            <div class="flex items-center gap-2 text-xs">
-              <div class="h-3 w-3 rounded-full bg-yellow-400"></div>
-              <span>进行中</span>
-            </div>
-            <div class="flex items-center gap-2 text-xs">
-              <div class="h-3 w-3 rounded-full bg-red-500"></div>
-              <span>已超时</span>
+            <div class="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-green-400 to-green-600" style="width:50%"></div>
             </div>
           </div>
+        </div>
+        
+        <!-- 证书模块 -->
+        <div class="bg-white/80 rounded-2xl p-4 border border-gray-200 flex items-center justify-between">
+          <div class="mr-3 w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+            <i class="fa fa-certificate text-purple-600 text-lg"></i>
+          </div>
+          <div class="flex-1">
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="text-sm font-medium text-gray-800">证书（0/1）</h3>
+              <span class="text-sm font-semibold text-[#2D874B]">0%</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-purple-400 to-purple-600" style="width:0%"></div>
+            </div>
+          </div>
+          
         </div>
       </div>
     </section>
@@ -243,6 +206,14 @@
       <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
         <i class="fa fa-tasks text-[#2D874B]"></i> 子任务列表
       </h2>
+      
+      <!-- 分类切换 -->
+      <div class="flex gap-2 mb-4">
+        <button class="subtask-filter-btn px-3 py-1 rounded-full bg-[#2D874B] text-white text-sm" data-filter="all">全部（2/5）</button>
+        <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="学习">课程（1/3）</button>
+        <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="考试">考试（1/2）</button>
+        <!-- <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="实践">实践</button> -->
+      </div>
       
       <div class="space-y-4" id="subtask-list">
         <!-- 子任务卡片由JS注入 -->
@@ -330,76 +301,101 @@
   ];
 
   // ========== 渲染子任务列表 ==========
-  function renderSubtasks() {
+  function renderSubtasks(filter = 'all') {
     const subtaskList = document.getElementById('subtask-list');
-    subtaskList.innerHTML = '';
+    
+    // 添加淡出效果
+    subtaskList.style.opacity = '0';
+    subtaskList.style.transform = 'translateY(10px)';
+    subtaskList.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    
+    // 等待淡出效果完成后再重新渲染
+    setTimeout(() => {
+      subtaskList.innerHTML = '';
 
-    subtasks.forEach(subtask => {
-      const card = document.createElement('article');
-      card.className = 'glass-card rounded-2xl border border-gray-300 p-4 hover:-translate-y-1 hover:border-[#2D874B]/80 transition';
-      
-      let statusClass = 'status-upcoming';
-      let statusIcon = 'fa-clock';
-      let statusText = '未开始';
-      
-      if (subtask.status === 'completed') {
-        statusClass = 'status-completed';
-        statusIcon = 'fa-check-circle';
-        statusText = '已完成';
-      } else if (subtask.status === 'in-progress') {
-        statusClass = 'status-in-progress';
-        statusIcon = 'fa-play-circle';
-        statusText = '进行中';
-      } else if (subtask.status === 'overdue') {
-        statusClass = 'status-overdue';
-        statusIcon = 'fa-exclamation-circle';
-        statusText = '已超时';
-      }
+      const filteredSubtasks = filter === 'all' ? subtasks : subtasks.filter(subtask => subtask.type === filter);
 
-      card.innerHTML = `
-        <div class="flex items-start justify-between mb-3">
-          <div class="flex-1">
-            <h3 class="text-sm font-semibold text-gray-800 mb-1">${subtask.title}</h3>
-            <p class="text-xs text-gray-600 mb-2">${subtask.description}</p>
-            <div class="flex flex-wrap gap-3 text-xs text-gray-500">
-              <span><i class="fa fa-clock mr-1"></i>预计耗时：${subtask.estimatedTime}</span>
-              <span><i class="fa fa-gem mr-1"></i>积分：${subtask.points}</span>
-              <span><i class="fa fa-calendar mr-1"></i>截止：${subtask.deadline}</span>
+      filteredSubtasks.forEach(subtask => {
+        const card = document.createElement('article');
+        card.className = 'glass-card rounded-2xl border border-gray-300 p-4 hover:-translate-y-1 hover:border-[#2D874B]/80 transition opacity-0 transform translate-y-2';
+        
+        let statusClass = 'status-upcoming';
+        let statusIcon = 'fa-clock';
+        let statusText = '未开始';
+        
+        if (subtask.status === 'completed') {
+          statusClass = 'status-completed';
+          statusIcon = 'fa-check-circle';
+          statusText = '已完成';
+        } else if (subtask.status === 'in-progress') {
+          statusClass = 'status-in-progress';
+          statusIcon = 'fa-play-circle';
+          statusText = '进行中';
+        } else if (subtask.status === 'overdue') {
+          statusClass = 'status-overdue';
+          statusIcon = 'fa-exclamation-circle';
+          statusText = '已超时';
+        }
+
+        card.innerHTML = `
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <h3 class="text-sm font-semibold text-gray-800 mb-1">${subtask.title}</h3>
+              <p class="text-xs text-gray-600 mb-2">${subtask.description}</p>
+              <div class="flex flex-wrap gap-3 text-xs text-gray-500">
+                <span><i class="fa fa-clock mr-1"></i>预计耗时：${subtask.estimatedTime}</span>
+                <span><i class="fa fa-gem mr-1"></i>积分：${subtask.points}</span>
+                <span><i class="fa fa-calendar mr-1"></i>截止：${subtask.deadline}</span>
+              </div>
+            </div>
+            <span class="inline-flex items-center px-2 py-1 rounded-full border text-xs ${statusClass}">
+              <i class="fa ${statusIcon} mr-1 text-[10px]"></i>${statusText}
+            </span>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex-1">
+              <div class="w-full h-1.5 rounded-full bg-gray-200 overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" style="width:${subtask.progress}%"></div>
+              </div>
+              <div class="text-xs text-gray-500 mt-1">进度：${subtask.progress}%</div>
+            </div>
+            <div class="ml-4 flex gap-2">
+              <button class="px-3 py-1 rounded-full bg-white border border-gray-300 hover:border-[#2D874B] text-xs transition"
+                      onclick="startSubtask(${subtask.id})"><i class="fa fa-play mr-1"></i>开始
+              </button>
+              <button class="px-3 py-1 rounded-full bg-[#2D874B] text-white text-xs hover:bg-[#24703a] transition"
+                      onclick="viewSubtaskDetail(${subtask.id})"><i class="fa fa-eye mr-1"></i>详情
+              </button>
             </div>
           </div>
-          <span class="inline-flex items-center px-2 py-1 rounded-full border text-xs ${statusClass}">
-            <i class="fa ${statusIcon} mr-1 text-[10px]"></i>${statusText}
-          </span>
-        </div>
-        
-        <div class="flex items-center justify-between">
-          <div class="flex-1">
-            <div class="w-full h-1.5 rounded-full bg-gray-200 overflow-hidden">
-              <div class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" style="width:${subtask.progress}%"></div>
+          
+          ${subtask.completeTime ? `
+            <div class="mt-2 pt-2 border-t border-gray-200 text-xs text-gray-500">
+              <i class="fa fa-check-circle mr-1 text-green-500"></i>完成时间：${subtask.completeTime}
             </div>
-            <div class="text-xs text-gray-500 mt-1">进度：${subtask.progress}%</div>
-          </div>
-          <div class="ml-4 flex gap-2">
-            <button class="px-3 py-1 rounded-full bg-white border border-gray-300 hover:border-[#2D874B] text-xs transition"
-                    onclick="startSubtask(${subtask.id})">
-              <i class="fa fa-play mr-1"></i>开始
-            </button>
-            <button class="px-3 py-1 rounded-full bg-[#2D874B] text-white text-xs hover:bg-[#24703a] transition"
-                    onclick="viewSubtaskDetail(${subtask.id})">
-              <i class="fa fa-eye mr-1"></i>详情
-            </button>
-          </div>
-        </div>
+          ` : ''}
+        `;
         
-        ${subtask.completeTime ? `
-          <div class="mt-2 pt-2 border-t border-gray-200 text-xs text-gray-500">
-            <i class="fa fa-check-circle mr-1 text-green-500"></i>完成时间：${subtask.completeTime}
-          </div>
-        ` : ''}
-      `;
+        subtaskList.appendChild(card);
+      });
       
-      subtaskList.appendChild(card);
-    });
+      // 添加淡入效果
+      subtaskList.style.opacity = '1';
+      subtaskList.style.transform = 'translateY(0)';
+      
+      // 为每个子任务卡片添加淡入动画
+      setTimeout(() => {
+        const cards = subtaskList.querySelectorAll('article');
+        cards.forEach((card, index) => {
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+            card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+          }, index * 50);
+        });
+      }, 50);
+    }, 300);
   }
 
   // ========== 子任务操作函数 ==========
@@ -431,6 +427,25 @@
     document.querySelector('.bg-gradient-to-r').style.width = progressPercent + '%';
     document.querySelector('.text-xs.text-gray-500.mt-1').textContent = 
       `已完成 ${completedCount}/${totalCount} 个子任务`;
+    
+    // 添加分类按钮点击事件
+    const filterButtons = document.querySelectorAll('.subtask-filter-btn');
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const filter = this.dataset.filter;
+        
+        // 更新按钮样式
+        filterButtons.forEach(btn => {
+          btn.classList.remove('bg-[#2D874B]', 'text-white');
+          btn.classList.add('bg-gray-200', 'text-gray-700');
+        });
+        this.classList.remove('bg-gray-200', 'text-gray-700');
+        this.classList.add('bg-[#2D874B]', 'text-white');
+        
+        // 渲染过滤后的子任务
+        renderSubtasks(filter);
+      });
+    });
   });
 </script>
 
