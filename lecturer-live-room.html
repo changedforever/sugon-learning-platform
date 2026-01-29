@@ -149,8 +149,8 @@
                             <!-- 左侧控制按钮 -->
                             <div class="flex items-center space-x-4">
                                 <!-- <button id="playPauseBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
-              <i class="fa fa-play"></i>
-            </button> -->
+                                    <i class="fa fa-play"></i>
+                                  </button> -->
                                 <button
                                     id="refreshBtn"
                                     class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
@@ -176,54 +176,113 @@
                                 >
                                     <i class="fa fa-share"></i>
                                 </button>
-                                <button
-                                    id="screenShareBtn"
-                                    class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
-                                >
-                                    <i class="fa fa-desktop"></i>
-                                </button>
-                                <div class="relative">
+                                <div class="relative group">
+                                    <button
+                                        id="screenShareBtn"
+                                        class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                    >
+                                        <i class="fa fa-desktop"></i>
+                                    </button>
+                                    <div
+                                        class="absolute bottom-full right-0 mb-2 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                                    >
+                                        分享屏幕
+                                    </div>
+                                </div>
+                                <div class="relative group">
                                     <button
                                         id="raiseHandBtn"
                                         class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
                                     >
                                         <i class="fa fa-hand-paper"></i>
                                     </button>
+                                    <div
+                                        class="absolute bottom-full right-0 mb-2 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                                    >
+                                        申请发言人员
+                                    </div>
                                     <!-- 举手人员列表 -->
-                                    <div id="handUpList" class="absolute bottom-full right-0 mb-2 w-64 bg-gray-800 rounded-lg shadow-lg p-3 hidden z-50">
+                                    <div
+                                        id="handUpList"
+                                        class="absolute bottom-full right-0 mb-2 w-64 bg-gray-800 rounded-lg shadow-lg p-3 hidden z-50"
+                                    >
                                         <div class="flex justify-between items-center mb-3">
-                                            <h3 class="text-sm font-medium text-white">已经举手</h3>
-                                            <button id="closeHandUpList" class="text-gray-300 hover:text-white">
+                                            <h3 class="text-sm font-medium text-white">
+                                                申请发言人员
+                                            </h3>
+                                            <button
+                                                id="closeHandUpList"
+                                                class="text-gray-300 hover:text-white"
+                                            >
                                                 <i class="fa fa-times"></i>
                                             </button>
                                         </div>
                                         <div class="space-y-2">
                                             <!-- 举手人员项 -->
-                                            <div class="flex justify-between items-center p-2 border-b border-gray-700">
-                                                <span class="text-sm text-white">健康同学</span>
-                                                <button class="text-xs px-2 py-1 bg-[#2D874B] text-white rounded">邀请发言</button>
+                                            <div
+                                                class="flex justify-between items-center p-2 border-b border-gray-700"
+                                            >
+                                                <span class="text-sm text-white">王五同学</span>
+                                                <button
+                                                    class="text-xs px-2 py-1 bg-[#2D874B] text-white rounded"
+                                                >
+                                                    同意发言
+                                                </button>
                                             </div>
-                                            <div class="flex justify-between items-center p-2 border-b border-gray-700">
+                                            <div
+                                                class="flex justify-between items-center p-2 border-b border-gray-700"
+                                            >
                                                 <span class="text-sm text-white">张三同学</span>
-                                                <button class="text-xs px-2 py-1 bg-[#2D874B] text-white rounded">邀请发言</button>
+                                                <button
+                                                    class="text-xs px-2 py-1 bg-[#2D874B] text-white rounded"
+                                                >
+                                                    同意发言
+                                                </button>
                                             </div>
                                             <div class="flex justify-between items-center p-2">
                                                 <span class="text-sm text-white">李四同学</span>
-                                                <button class="text-xs px-2 py-1 bg-[#2D874B] text-white rounded">邀请发言</button>
+                                                <button
+                                                    class="text-xs px-2 py-1 bg-[#2D874B] text-white rounded"
+                                                >
+                                                    同意发言
+                                                </button>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <!-- 发布问卷按钮 -->
+                                <div class="relative group">
+                                    <button
+                                        id="surveyBtn"
+                                        class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                    >
+                                        <i class="fa fa-list-alt"></i>
+                                    </button>
+                                    <div
+                                        class="absolute bottom-full right-0 mb-2 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                                    >
+                                        发布问卷
+                                    </div>
+                                </div>
+                                <!-- 发起抽奖按钮 -->
+                                <div class="relative group">
+                                    <button
+                                        id="lotteryBtn"
+                                        class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                    >
+                                        <i class="fa fa-trophy"></i>
+                                    </button>
+                                    <div
+                                        class="absolute bottom-full right-0 mb-2 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                                    >
+                                        发起抽奖
                                     </div>
                                 </div>
                             </div>
 
                             <!-- 右侧控制按钮 -->
                             <div class="flex items-center space-x-4">
-                                <button
-                                    id="rotateBtn"
-                                    class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
-                                >
-                                    <i class="fa fa-exchange-alt"></i>
-                                </button>
                                 <button
                                     id="danmakuBtn"
                                     class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
@@ -480,7 +539,35 @@
                                 <i class="fa fa-users text-red-500 mr-2"></i>
                                 在线观众 <span class="text-red-500 ml-1">12,458</span>
                             </h3>
-                            <div class="flex items-center mb-2">
+                            <!-- 右键菜单 -->
+                            <div
+                                id="userContextMenu"
+                                class="fixed hidden bg-gray-800 rounded-md shadow-lg py-1 z-50"
+                            >
+                                <button
+                                    class="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-700"
+                                    data-action="invite"
+                                >
+                                    邀请发言
+                                </button>
+                                <button
+                                    class="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-700"
+                                    data-action="mute"
+                                >
+                                    禁止聊天
+                                </button>
+                                <button
+                                    class="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-700"
+                                    data-action="remove"
+                                >
+                                    请出教室
+                                </button>
+                            </div>
+
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                                data-username="技术小白"
+                            >
                                 <img
                                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80"
                                     alt="User"
@@ -492,7 +579,66 @@
                                 <div class="text-xs text-gray-400">刚刚加入</div>
                             </div>
 
-                            <div class="flex items-center mb-2">
+                            <script>
+                                // 右键菜单功能
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    const contextMenu = document.getElementById('userContextMenu');
+                                    let selectedUser = null;
+
+                                    // 为所有用户项添加右键点击事件
+                                    const userItems = document.querySelectorAll('.user-item');
+                                    userItems.forEach(item => {
+                                        item.addEventListener('contextmenu', function (e) {
+                                            e.preventDefault(); // 阻止默认右键菜单
+                                            selectedUser = this.dataset.username;
+
+                                            // 显示右键菜单
+                                            contextMenu.style.left = '140px';
+                                            contextMenu.style.top = e.clientY + 'px';
+                                            contextMenu.classList.remove('hidden');
+                                        });
+                                    });
+
+                                    // 点击页面其他地方关闭右键菜单
+                                    document.addEventListener('click', function (e) {
+                                        if (
+                                            !contextMenu.contains(e.target) &&
+                                            !e.target.closest('.user-item')
+                                        ) {
+                                            contextMenu.classList.add('hidden');
+                                        }
+                                    });
+
+                                    // 处理右键菜单项点击
+                                    contextMenu.addEventListener('click', function (e) {
+                                        if (e.target.tagName === 'BUTTON') {
+                                            const action = e.target.dataset.action;
+                                            handleUserAction(selectedUser, action);
+                                            contextMenu.classList.add('hidden');
+                                        }
+                                    });
+
+                                    // 处理用户操作
+                                    function handleUserAction(username, action) {
+                                        switch (action) {
+                                            case 'invite':
+                                                alert(`已邀请 ${username} 发言`);
+                                                break;
+                                            case 'mute':
+                                                alert(`已禁止 ${username} 聊天`);
+                                                break;
+                                            case 'remove':
+                                                alert(`已将 ${username} 请出教室`);
+                                                break;
+                                        }
+                                    }
+                                });
+                            </script>
+
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                                data-username="代码达人"
+                            >
                                 <img
                                     src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=40&q=80"
                                     alt="User"
@@ -504,7 +650,10 @@
                                 <div class="text-xs text-gray-400">5分钟前</div>
                             </div>
 
-                            <div class="flex items-center mb-2">
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                                data-username="算法专家"
+                            >
                                 <img
                                     src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=40&q=80"
                                     alt="User"
@@ -516,7 +665,10 @@
                                 <div class="text-xs text-gray-400">8分钟前</div>
                             </div>
 
-                            <div class="flex items-center mb-2">
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                                data-username="架构师"
+                            >
                                 <img
                                     src="https://images.unsplash.com/photo-1491637639811-60e2756e1df7?auto=format&fit=crop&w=40&q=80"
                                     alt="User"
@@ -528,7 +680,10 @@
                                 <div class="text-xs text-gray-400">12分钟前</div>
                             </div>
 
-                            <div class="flex items-center mb-2">
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                                data-username="数据科学家"
+                            >
                                 <img
                                     src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=40&q=80"
                                     alt="User"
@@ -540,7 +695,10 @@
                                 <div class="text-xs text-gray-400">15分钟前</div>
                             </div>
 
-                            <div class="flex items-center mb-2">
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                                data-username="产品经理"
+                            >
                                 <img
                                     src="https://images.unsplash.com/photo-1554384645-13eab165c24b?auto=format&fit=crop&w=40&q=80"
                                     alt="User"
@@ -552,7 +710,10 @@
                                 <div class="text-xs text-gray-400">18分钟前</div>
                             </div>
 
-                            <div class="flex items-center mb-2">
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                                data-username="设计师"
+                            >
                                 <img
                                     src="https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=40&q=80"
                                     alt="User"
@@ -887,43 +1048,44 @@
         </div>
         <!-- 举手弹框区域 -->
         <div id="handUp">
-          <!-- 举手提示区域 -->
-          <div id="handUpNotification" class="fixed right-4 bottom-24 z-50 opacity-0 transform translate-y-10 transition-all duration-1000 flex items-center gap-2 bg-transparent rounded-lg shadow-lg p-3 border border-gray-200">
-            <i class="fa-solid fa-hand text-white text-xl" style="font-size: 24px;"></i>
-            <span class="text-sm">健康同学举手了</span>
-          </div>
+            <!-- 举手提示区域 -->
+            <div
+                id="handUpNotification"
+                class="fixed right-4 bottom-24 z-50 opacity-0 transform translate-y-10 transition-all duration-1000 flex items-center gap-2 bg-transparent rounded-lg shadow-lg p-3 border border-gray-200"
+            >
+                <i class="fa-solid fa-hand text-white text-xl" style="font-size: 24px"></i>
+                <span class="text-sm">王五同学举手了</span>
+            </div>
         </div>
-
 
         <!-- 举手弹框js -->
         <script>
-          // 举手提示功能
-          function showHandUpNotification() {
-            const notification = document.getElementById('handUpNotification');
-            // 显示通知
-            notification.style.opacity = '1';
-            notification.style.transform = 'translateY(0)';
-            
-            // 3秒后开始上升并消失
-            setTimeout(() => {
-              notification.style.transform = 'translateY(-100px)';
-              notification.style.opacity = '0';
-              
-              // 重置位置，以便下次使用
-              setTimeout(() => {
-                notification.style.transform = 'translateY(10px)';
-              }, 1000);
-            }, 3000);
-          }
-          
-          // 示例：模拟举手事件
-          // 实际项目中，这里会通过WebSocket或其他方式接收真实的举手事件
-          // 例如：socket.on('handUp', showHandUpNotification);
-          
-          // 每隔十秒显示一次举手提示
-          setInterval(showHandUpNotification, 6000);
-        </script>
+            // 举手提示功能
+            function showHandUpNotification() {
+                const notification = document.getElementById('handUpNotification');
+                // 显示通知
+                notification.style.opacity = '1';
+                notification.style.transform = 'translateY(0)';
 
+                // 3秒后开始上升并消失
+                setTimeout(() => {
+                    notification.style.transform = 'translateY(-100px)';
+                    notification.style.opacity = '0';
+
+                    // 重置位置，以便下次使用
+                    setTimeout(() => {
+                        notification.style.transform = 'translateY(10px)';
+                    }, 1000);
+                }, 3000);
+            }
+
+            // 示例：模拟举手事件
+            // 实际项目中，这里会通过WebSocket或其他方式接收真实的举手事件
+            // 例如：socket.on('handUp', showHandUpNotification);
+
+            // 每隔十秒显示一次举手提示
+            setInterval(showHandUpNotification, 6000);
+        </script>
 
         <script>
             // 全屏控制
@@ -1248,8 +1410,6 @@
                 const coursewareTabButtons = document.querySelectorAll('.courseware-tab-btn');
                 const coursewareTabContents = document.querySelectorAll('.courseware-tab-content');
 
-                
-
                 coursewareTabButtons.forEach(button => {
                     button.addEventListener('click', () => {
                         // 移除所有按钮的活动状态
@@ -1336,7 +1496,6 @@
                 const videoPlayer = document.getElementById('liveVideo');
                 const playPauseBtn = document.getElementById('playPauseBtn');
                 const refreshBtn = document.getElementById('refreshBtn');
-                const rotateBtn = document.getElementById('rotateBtn');
                 const danmakuBtn = document.getElementById('danmakuBtn');
                 const volumeBtn = document.getElementById('volumeBtn');
                 const volumeSlider = document.getElementById('volumeSlider');
@@ -1372,15 +1531,6 @@
 
                     videoPlayer.addEventListener('pause', function () {
                         playPauseBtn.innerHTML = '<i class="fa fa-play"></i>';
-                    });
-                }
-
-                // 旋转功能
-                if (rotateBtn) {
-                    let rotationAngle = 0;
-                    rotateBtn.addEventListener('click', function () {
-                        rotationAngle += 90;
-                        videoPlayer.style.transform = `rotate(${rotationAngle}deg)`;
                     });
                 }
 
@@ -1501,7 +1651,7 @@
                 const raiseHandBtn = document.getElementById('raiseHandBtn');
                 const handUpList = document.getElementById('handUpList');
                 const closeHandUpList = document.getElementById('closeHandUpList');
-                
+
                 if (raiseHandBtn && handUpList && closeHandUpList) {
                     // 点击举手按钮显示/隐藏人员列表
                     raiseHandBtn.addEventListener('click', function () {
@@ -1513,22 +1663,24 @@
                             handUpList.classList.add('hidden');
                         }
                     });
-                    
+
                     // 点击关闭按钮关闭列表
                     closeHandUpList.addEventListener('click', function () {
                         handUpList.classList.add('hidden');
                     });
-                    
+
                     // 点击邀请发言按钮
-                    const inviteButtons = handUpList.querySelectorAll('button:not(#closeHandUpList)');
+                    const inviteButtons = handUpList.querySelectorAll(
+                        'button:not(#closeHandUpList)',
+                    );
                     inviteButtons.forEach(button => {
                         button.addEventListener('click', function () {
-                            const studentName = this.parentElement.querySelector('span').textContent;
-                            alert(`已邀请 ${studentName} 发言`);
+                            const studentName =
+                                this.parentElement.querySelector('span').textContent;
+                            alert(`已同意 ${studentName} 发言`);
                         });
                     });
                 }
-                
             });
         </script>
     </body>
