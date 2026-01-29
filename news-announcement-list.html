@@ -566,7 +566,7 @@
 
     pageData.forEach(article => {
       const card = document.createElement('article');
-      card.className = 'glass-card rounded-xl border border-gray-300 p-4 hover:border-[#B01F24]/80 transition cursor-pointer flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3';
+      card.className = 'glass-card rounded-xl border border-gray-300 p-4 hover:border-[#B01F24]/80 transition cursor-pointer flex flex-col sm:flex-row sm:items-start gap-3';
 
       // 类型标签
       const typeTag = article.type === 'news'
@@ -598,7 +598,14 @@
         hour12: false
       });
 
+      // 生成图片URL
+      const imagePrompt = encodeURIComponent(`${article.title} related news image, professional, clear`);
+      const imageUrl = `./images/news-detail.webp`;
+      
       card.innerHTML = `
+        <div class="w-24 h-24 flex-shrink-0">
+          <img src="${imageUrl}" alt="${article.title}" class="w-full h-full object-cover rounded-lg">
+        </div>
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2 mb-2">
             ${typeTag}

@@ -150,7 +150,7 @@
 <!-- 顶部导航 + 全站搜索 -->
 <header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
-    <div class="flex items-center justify-between h-16">
+    <div class="flex items-center justify-between h-16 relative">
       <!-- LOGO + 品牌 -->
       <div class="flex items-center space-x-2">
         <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
@@ -847,6 +847,19 @@
           <i class="fa fa-bars text-lg"></i>
         </button>
       </div>
+
+      <!-- 移动端：APP 下载 -->
+      <div class="group absolute right-[-180px]">
+        <button class="app-download-btn bg-gradient-to-r from-[#2D874B] to-[#34D399] text-white px-4 py-2 rounded-full hover:from-[#256e3d] hover:to-[#2bbd8a] transition-all duration-300 flex items-center gap-2">
+          <span>APP客户端下载</span>
+        </button>
+        <div class="app-qrcode absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-white p-3 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+          <div class="w-32 h-32 bg-gray-200 flex items-center justify-center">
+            <i class="fa fa-qrcode text-4xl text-gray-400"></i>
+          </div>
+          <p class="text-center text-xs text-gray-600 mt-2">扫码下载APP</p>
+        </div>
+      </div>
     </div>
 
     <!-- 移动端：搜索 + 导航 -->
@@ -874,9 +887,21 @@
         <a href="#" class="rounded-xl bg-gray-300/80 px-2 py-2 text-center hover:bg-gray-400 transition text-gray-800">直播</a>
         <a href="#" class="rounded-xl bg-gray-300/80 px-2 py-2 text-center hover:bg-gray-400 transition text-gray-800">活动</a>
         <a href="#" class="rounded-xl bg-gray-300/80 px-2 py-2 text-center hover:bg-gray-400 transition text-gray-800">专区</a>
-        <a href="#" class="rounded-xl bg-gray-300/80 px-2 py-2 text-center hover:bg-gray-400 transition text-gray-800">资讯</a>
+        <div class="relative group">
+          <button class="app-download-btn w-full bg-gradient-to-r from-[#2D874B] to-[#34D399] text-white px-2 py-2 rounded-xl hover:from-[#256e3d] hover:to-[#2bbd8a] transition-all duration-300 flex items-center justify-center gap-2">
+            <i class="fa fa-mobile-alt text-lg"></i>
+            <span>下载APP</span>
+          </button>
+          <div class="app-qrcode absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-white p-3 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="w-40 h-40 bg-gray-200 flex items-center justify-center">
+              <i class="fa fa-qrcode text-4xl text-gray-400"></i>
+            </div>
+            <p class="text-center text-xs text-gray-600 mt-2">扫码下载APP</p>
+          </div>
+        </div>
       </nav>
     </div>
+    
   </div>
 </header>
 
@@ -1242,7 +1267,7 @@
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             >
             <div class="absolute bottom-4 left-4 z-10">
-              <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-800 text-xs font-medium text-white">
+              <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-800/80 text-base font-medium text-white">
                 <i class="fa fa-microchip mr-1"></i> CPU领域
               </span>
             </div>
@@ -1384,7 +1409,7 @@
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             >
             <div class="absolute bottom-4 left-4 z-10">
-              <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-800 text-xs font-medium text-white">
+              <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-800/80 text-base font-medium text-white">
                 <i class="fa fa-brain mr-1"></i> DCU领域
               </span>
             </div>
@@ -1526,7 +1551,7 @@
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             >
             <div class="absolute bottom-4 left-4 z-10">
-              <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-800 text-xs font-medium text-white">
+              <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-800/80 text-base font-medium text-white">
                 <i class="fa fa-server mr-1"></i> 云计算领域
               </span>
             </div>
@@ -1690,7 +1715,7 @@
             </div>
             <h3 class="text-lg lg:text-xl font-semibold text-gray-800">直播互动</h3>
           </div>
-          <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">查看更多直播</a>
+          <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">查看更多</a>
         </div>
         
         <!-- 四个直播卡片 -->
@@ -1830,7 +1855,7 @@
             </div>
             <h3 class="text-lg lg:text-xl font-semibold text-gray-800">课程学习</h3>
           </div>
-          <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">查看更多课程</a>
+          <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">查看更多</a>
         </div>
         
         <!-- 四个课程卡片 -->
@@ -1921,7 +1946,7 @@
     <div class="max-w-7xl mx-auto px-4 lg:px-6">
       <!-- 标题区域 -->
       <div class="text-center mb-8 lg:mb-12">
-        <h2 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-3">按资源找支持</h2>
+        <h2 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-3">按需求找支持</h2>
         <p class="text-base lg:text-lg text-gray-600 max-w-3xl mx-auto">
           根据您的需求类型，快速找到最适合的技术支持和解决方案 
           <a href="resource-center.html" class="text-blue-0 hover:text-blue-800 hover:underline transition-all duration-300 font-medium">
@@ -3011,7 +3036,9 @@
       </span>
       <div id="interactive-community-btn" class="w-14 h-14 text-gray-500
               flex items-center justify-center cursor-pointer transition-all duration-300 group-hover:translate-x-[-10px] group-hover:bg-blue-50 group-hover:text-blue-600">
-        <i class="fa fa-comments text-xl"></i>
+        <div class="relative">
+          <i class="fa fa-home text-xl"></i>
+        </div>
       </div>
     </div>
   </div>
@@ -3019,7 +3046,7 @@
 
 <!-- ================== 智能体聊天侧边栏 ================== -->
 <div id="ai-chat-panel"
-     class="fixed right-0 top-0 w-full sm:w-80 h-full glass-card border-l border-gray-300 shadow-2xl
+     class="fixed right-0 top-0 w-full sm:w-1/3 h-full glass-card border-l border-gray-300 shadow-2xl
             transform translate-x-full transition-transform duration-300 z-50"
      style="display:none;">
   <div class="flex flex-col h-full">

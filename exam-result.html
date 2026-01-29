@@ -23,19 +23,17 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+    /* 注意：按钮本身有 Tailwind utility class（如 text-gray-600 / border-gray-300），
+       这里用 !important 确保 tab 切换时选中态/未选中态肉眼可见。 */
     .tab-btn-active {
-      background: rgba(176, 31, 36, 0.25);
-      border-color: #B01F24;
-      color: #333333;
+      background: rgba(176, 31, 36, 0.25) !important;
+      border-color: #B01F24 !important;
+      color: #333333 !important;
     }
     .tab-btn {
-      background: rgba(255, 255, 255, 0.9);
-      border-color: #d1d5db;
-    }
-    .tab-btn-active {
-      background: rgba(176, 31, 36, 0.25); /* #B01F24 的浅色版本 */
-      border-color: #B01F24;
-      color: #333333;
+      background: rgba(255, 255, 255, 0.9) !important;
+      border-color: #d1d5db !important;
+      color: #4b5563 !important; /* 约等于 text-gray-600 */
     }
     .result-badge-pass {
       background: rgba(16,185,129,0.12);
@@ -478,61 +476,68 @@
   const tabAll = document.getElementById('tab-all');
   const tabWrong = document.getElementById('tab-wrong');
   const tabCorrect = document.getElementById('tab-correct');
+  const questionSummaryBar = document.querySelector('#panel-detail .overflow-x-auto.no-scrollbar');
+  const questionSummarySpans = questionSummaryBar ? questionSummaryBar.querySelectorAll('span') : [];
   const questionArticles = document.querySelectorAll('#panel-detail .space-y-4.text-xs > article');
+
+  function setActiveTab(activeBtn) {
+    [tabAll, tabWrong, tabCorrect].forEach(btn => {
+      if (!btn) return;
+      // 默认都先恢复为未选中态
+      btn.classList.add('tab-btn');
+      btn.classList.remove('tab-btn-active');
+    });
+    if (activeBtn) activeBtn.classList.add('tab-btn-active');
+    // 选中态只保留 tab-btn-active（避免 tab-btn 的样式覆盖 tab-btn-active）
+    if (activeBtn) activeBtn.classList.remove('tab-btn');
+  }
+
+  function filterSummarySpans(allowedNumbers) {
+    // allowedNumbers: Set<number> | null（null 表示展示全部）
+    questionSummarySpans.forEach(span => {
+      const num = Number((span.textContent || '').trim());
+      const show = allowedNumbers === null ? true : allowedNumbers.has(num);
+      span.style.display = show ? '' : 'none';
+    });
+  }
+
+  function getArticleQuestionNumber(article) {
+    // 从“第 X 题 · ...”中解析 X
+    const text = (article.textContent || '').replace(/\s+/g, ' ');
+    const m = text.match(/第\s*(\d+)\s*题/);
+    return m ? Number(m[1]) : NaN;
+  }
+
+  function filterArticlesByNumbers(allowedNumbers) {
+    // allowedNumbers: Set<number> | null（null 表示展示全部）
+    questionArticles.forEach(article => {
+      const num = getArticleQuestionNumber(article);
+      const show = allowedNumbers === null ? true : allowedNumbers.has(num);
+      article.style.display = show ? 'block' : 'none';
+    });
+  }
 
   // 初始化：显示全部题目
   function showAllQuestions() {
-    questionArticles.forEach(article => {
-      article.style.display = 'block';
-    });
-    
-    // 更新按钮样式
-    tabAll.classList.add('tab-btn-active');
-    tabAll.classList.remove('tab-btn');
-    tabWrong.classList.add('tab-btn');
-    tabWrong.classList.remove('tab-btn-active');
-    tabCorrect.classList.add('tab-btn');
-    tabCorrect.classList.remove('tab-btn-active');
+    setActiveTab(tabAll);
+    filterSummarySpans(null); // 全部：展示所有 span
+    filterArticlesByNumbers(null); // 全部：展示所有题目
   }
 
   // 显示错误题目
   function showWrongQuestions() {
-    questionArticles.forEach(article => {
-      const statusSpan = article.querySelector('span');
-      if (statusSpan && (statusSpan.textContent.includes('错误') || statusSpan.textContent.includes('部分正确'))) {
-        article.style.display = 'block';
-      } else {
-        article.style.display = 'none';
-      }
-    });
-    
-    // 更新按钮样式
-    tabWrong.classList.add('tab-btn-active');
-    tabWrong.classList.remove('tab-btn');
-    tabAll.classList.add('tab-btn');
-    tabAll.classList.remove('tab-btn-active');
-    tabCorrect.classList.add('tab-btn');
-    tabCorrect.classList.remove('tab-btn-active');
+    setActiveTab(tabWrong);
+    const wrongNums = new Set([3, 5]);
+    filterSummarySpans(wrongNums); // 错误：展示 3 和 5
+    filterArticlesByNumbers(wrongNums); // 错误：展示第 3/5 题
   }
 
   // 显示正确题目
   function showCorrectQuestions() {
-    questionArticles.forEach(article => {
-      const statusSpan = article.querySelector('span');
-      if (statusSpan && statusSpan.textContent.includes('正确') && !statusSpan.textContent.includes('部分正确')) {
-        article.style.display = 'block';
-      } else {
-        article.style.display = 'none';
-      }
-    });
-    
-    // 更新按钮样式
-    tabCorrect.classList.add('tab-btn-active');
-    tabCorrect.classList.remove('tab-btn');
-    tabAll.classList.add('tab-btn');
-    tabAll.classList.remove('tab-btn-active');
-    tabWrong.classList.add('tab-btn');
-    tabWrong.classList.remove('tab-btn-active');
+    setActiveTab(tabCorrect);
+    const correctNums = new Set([1, 2, 4]);
+    filterSummarySpans(correctNums); // 正确：展示 1、2、4
+    filterArticlesByNumbers(correctNums); // 正确：展示第 1/2/4 题
   }
 
   // 绑定事件监听器

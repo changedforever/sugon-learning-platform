@@ -929,7 +929,7 @@
         </div>
         
         <!-- 轮播控制点 -->
-        <div class="absolute bottom-4 inset-x-0 flex items-center justify-center space-x-2 z-20">
+        <div class="absolute bottom-4 inset-x-0 flex items-center justify-center space-x-2 z-20" style="padding-bottom: 1.5rem;">
           <button class="banner-dot w-2.5 h-2.5 rounded-full bg-gray-300/70 hover:bg-white" data-index="0"></button>
           <button class="banner-dot w-2.5 h-2.5 rounded-full bg-gray-600/70 hover:bg-white" data-index="1"></button>
           <button class="banner-dot w-2.5 h-2.5 rounded-full bg-gray-600/70 hover:bg-white" data-index="2"></button>
@@ -940,21 +940,21 @@
       <!-- Banner底部导航条 -->
       <div class="absolute bottom-0 left-0 right-0 z-10 bg-gray-800/60 backdrop-blur-sm">
         <div class="flex justify-around items-center py-5 px-6">
-          <a href="course-list2.html" class="flex items-center text-white/90 hover:text-white transition text-sm">
-            <i class="fa fa-book mr-2 text-lg"></i>
-            <span>课程</span>
+          <a href="course-list2.html" class="flex flex-col items-center text-white/90 hover:text-white transition text-sm">
+            <i class="fa fa-book mr-2 text-lg" style="font-size: 30px;padding-bottom: 10px;"></i>
+            <span style="font-size: 20px;display: block;">课程</span>
           </a>
-          <a href="exam-list.html" class="flex items-center text-white/90 hover:text-white transition text-sm">
-            <i class="fa fa-file-alt mr-2 text-lg"></i>
-            <span>考试</span>
+          <a href="exam-list.html" class="flex flex-col items-center text-white/90 hover:text-white transition text-sm">
+            <i class="fa fa-file-alt mr-2 text-lg" style="font-size: 30px;padding-bottom: 10px;"></i>
+            <span style="font-size: 20px;display: block;">考试</span>
           </a>
-          <a href="certification.html" class="flex items-center text-white/90 hover:text-white transition text-sm">
-            <i class="fa fa-certificate mr-2 text-lg"></i>
-            <span>认证</span>
+          <a href="certification.html" class="flex flex-col items-center text-white/90 hover:text-white transition text-sm">
+            <i class="fa fa-certificate mr-2 text-lg" style="font-size: 30px;padding-bottom: 10px;"></i>
+            <span style="font-size: 20px;display: block;">认证</span>
           </a>
-          <a href="lecturer-list.html" class="flex items-center text-white/90 hover:text-white transition text-sm">
-            <i class="fa fa-chalkboard-teacher mr-2 text-lg"></i>
-            <span>讲师</span>
+          <a href="lecturer-list.html" class="flex flex-col items-center text-white/90 hover:text-white transition text-sm">
+            <i class="fa fa-chalkboard-teacher mr-2 text-lg" style="font-size: 30px;padding-bottom: 10px;"></i>
+            <span style="font-size: 20px;display: block;">讲师</span>
           </a>
         </div>
       </div>
@@ -971,92 +971,7 @@
       </div>
 
       <!-- 讲师中心 -->
-  <section id="lecturers" class="section-anchor py-4 lg:py-6 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 lg:px-6">
-      <div class="text-center mb-4">
-        <!-- <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-100 to-orange-200 rounded-full mb-4">
-          <i class="fa fa-chalkboard-teacher text-orange-600 text-xl mr-2"></i>
-          <span class="text-orange-700 font-semibold">讲师中心</span>
-        </div> -->
-        <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">优秀讲师风采</h2>
-        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-          汇聚业界顶尖专家，分享前沿技术与实战经验
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-8">
-        <!-- 讲师1 -->
-        <div class="glass-card rounded-3xl border border-gray-300 p-6 text-center hover:shadow-lg transition">
-          <div class="relative mx-auto w-32 h-32 rounded-full overflow-hidden mb-4">
-            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-full" style="height: 128px;"></div>
-          </div>
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">王教授</h3>
-          <p class="text-sm text-gray-600 mb-3">首席架构师</p>
-          <div class="flex flex-wrap justify-center gap-2 mb-4">
-            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">云计算</span>
-            <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">大数据</span>
-          </div>
-          <p class="text-sm text-gray-600">
-            15年IT从业经验，曾就职于多家知名互联网公司，专注云原生架构设计。
-          </p>
-        </div>
-
-        <!-- 讲师2 -->
-        <div class="glass-card rounded-3xl border border-gray-300 p-6 text-center hover:shadow-lg transition">
-          <div class="relative mx-auto w-32 h-32 rounded-full overflow-hidden mb-4">
-            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-full" style="height: 128px;"></div>
-          </div>
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">李博士</h3>
-          <p class="text-sm text-gray-600 mb-3">AI技术专家</p>
-          <div class="flex flex-wrap justify-center gap-2 mb-4">
-            <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">人工智能</span>
-            <span class="bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded-full">机器学习</span>
-          </div>
-          <p class="text-sm text-gray-600">
-            人工智能博士，发表论文30余篇，拥有多项AI相关专利。
-          </p>
-        </div>
-
-        <!-- 讲师3 -->
-        <div class="glass-card rounded-3xl border border-gray-300 p-6 text-center hover:shadow-lg transition">
-          <div class="relative mx-auto w-32 h-32 rounded-full overflow-hidden mb-4">
-            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-full" style="height: 128px;"></div>
-          </div>
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">张总监</h3>
-          <p class="text-sm text-gray-600 mb-3">安全专家</p>
-          <div class="flex flex-wrap justify-center gap-2 mb-4">
-            <span class="bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full">网络安全</span>
-            <span class="bg-indigo-100 text-indigo-800 text-xs px-3 py-1 rounded-full">渗透测试</span>
-          </div>
-          <p class="text-sm text-gray-600">
-            网络安全专家，曾参与多个国家级安全项目，经验丰富。
-          </p>
-        </div>
-
-        <!-- 讲师4 -->
-        <div class="glass-card rounded-3xl border border-gray-300 p-6 text-center hover:shadow-lg transition">
-          <div class="relative mx-auto w-32 h-32 rounded-full overflow-hidden mb-4">
-            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-full" style="height: 128px;"></div>
-          </div>
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">陈工程师</h3>
-          <p class="text-sm text-gray-600 mb-3">资深开发</p>
-          <div class="flex flex-wrap justify-center gap-2 mb-4">
-            <span class="bg-teal-100 text-teal-800 text-xs px-3 py-1 rounded-full">Go语言</span>
-            <span class="bg-orange-100 text-orange-800 text-xs px-3 py-1 rounded-full">微服务</span>
-          </div>
-          <p class="text-sm text-gray-600">
-            资深后端工程师，精通多种编程语言，具有丰富的企业级项目经验。
-          </p>
-        </div>
-      </div>
-    </div>
-      <div class="text-center mt-8">
-        <a href="lecturer-list.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium">
-          查看更多讲师
-          <i class="fa fa-arrow-right ml-2 text-sm"></i>
-        </a>
-      </div>
-  </section>
+  
 
     </div>
   </section>
@@ -1217,12 +1132,6 @@
       </div>
 
     </div>
-      <div class="text-center mt-8">
-        <a href="course-list2.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium">
-          查看更多课程
-          <i class="fa fa-arrow-right ml-2 text-sm"></i>
-        </a>
-      </div>
   </section>
 
 
@@ -1402,12 +1311,6 @@
         </div>
       </div>
     </div>
-      <div class="text-center mt-8">
-        <a href="certification.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium">
-          查看更多认证
-          <i class="fa fa-arrow-right ml-2 text-sm"></i>
-        </a>
-      </div>
   </section>
 
 
