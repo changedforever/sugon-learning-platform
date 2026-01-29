@@ -93,11 +93,12 @@
         <source src="#" type="video/mp4">
         您的浏览器不支持视频播放
       </video>
+      
       <!-- 切换 -->
       <div class="switch absolute top-24 left-4 z-20">
-        <a href="lecturer-live-room.html" class="bg-[#2D874B] hover:bg-[#24703a] text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2">
+        <a href="live-room.html" class="bg-[#2D874B] hover:bg-[#24703a] text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 shadow-lg hover:shadow-xl">
           <i class="fa fa-exchange"></i>
-          切换到讲师直播间
+          切换到观众直播间
         </a>
       </div>
 
@@ -126,61 +127,9 @@
             <button id="refreshBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
               <i class="fa fa-sync"></i>
             </button>
-            <!-- 礼物按钮 + 悬浮礼物面板 -->
-            <div class="relative" id="giftBtnWrapper">
-              <button id="giftBtn" class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center hover:from-pink-600 hover:to-red-600 transition">
-                <i class="fa fa-gift"></i>
-              </button>
-              <!-- 悬浮礼物通栏面板（默认隐藏，鼠标悬停 giftBtn 时出现），效果类似底部礼物栏，带指向礼物按钮的小箭头 -->
-              <div id="giftPopover" style="left: -70px;" class="absolute bottom-full left-1/2  mb-3 w-[640px] max-w-[92vw] rounded-2xl bg-black/80 text-white text-xs shadow-2xl border border-pink-500/40 z-[60] hidden">
-                <div class="flex items-stretch px-3 py-2 gap-4">
-                  <!-- 礼物列表通栏 -->
-                  <div class="flex-1 flex items-center gap-4 overflow-x-auto no-scrollbar">
-                    <div id="giftGrid" class="flex items-end gap-4 py-1">
-                      <button class="gift-option flex flex-col items-center min-w-[52px] px-1.5 py-1.5 rounded-xl hover:bg-white/10 transition" data-gift="咖啡">
-                        <div class="text-2xl leading-none mb-1">☕</div>
-                        <div class="text-[11px]">咖啡</div>
-                        <div class="text-[10px] text-pink-200 mt-0.5">x1</div>
-                      </button>
-                      <button class="gift-option flex flex-col items-center min-w-[52px] px-1.5 py-1.5 rounded-xl hover:bg白/10 transition" data-gift="爱心">
-                        <div class="text-2xl leading-none mb-1">❤️</div>
-                        <div class="text-[11px]">爱心</div>
-                        <div class="text-[10px] text-pink-200 mt-0.5">x1</div>
-                      </button>
-                      <button class="gift-option flex flex-col items-center min-w-[52px] px-1.5 py-1.5 rounded-xl hover:bg-white/10 transition" data-gift="星星">
-                        <div class="text-2xl leading-none mb-1">⭐</div>
-                        <div class="text-[11px]">星星</div>
-                        <div class="text-[10px] text-pink-200 mt-0.5">x1</div>
-                      </button>
-                      <button class="gift-option flex flex-col items-center min-w-[52px] px-1.5 py-1.5 rounded-xl hover:bg-white/10 transition" data-gift="钻石">
-                        <div class="text-2xl leading-none mb-1">💎</div>
-                        <div class="text-[11px]">钻石</div>
-                        <div class="text-[10px] text-pink-200 mt-0.5">x1</div>
-                      </button>
-                      <button class="gift-option flex flex-col items-center min-w-[52px] px-1.5 py-1.5 rounded-xl hover:bg-white/10 transition" data-gift="火箭">
-                        <div class="text-2xl leading-none mb-1">🚀</div>
-                        <div class="text-[11px]">火箭</div>
-                        <div class="text-[10px] text-pink-200 mt-0.5">x1</div>
-                      </button>
-                      <button class="gift-option flex flex-col items-center min-w-[52px] px-1.5 py-1.5 rounded-xl hover:bg-white/10 transition" data-gift="皇冠">
-                        <div class="text-2xl leading-none mb-1">👑</div>
-                        <div class="text-[11px]">皇冠</div>
-                        <div class="text-[10px] text-pink-200 mt-0.5">x1</div>
-                      </button>
-                    </div>
-                  </div>
-                  <!-- 右侧已选+赠送 -->
-                  <div class="flex flex-col items-end justify-center gap-1 pl-3 border-l border-white/10 min-w-[120px]">
-                    <div class="text-[11px] text-gray-200">
-                      已选：<span id="selectedGiftText" class="font-semibold text-white">未选择</span>
-                    </div>
-                    <button id="giftSendBtn" class="px-3 py-1.5 text-[11px] rounded-full bg-[#B01F24] text-white hover:bg-[#8f191d] disabled:opacity-40 disabled:cursor-not-allowed" disabled>赠送</button>
-                  </div>
-                </div>
-                <!-- 指向礼物按钮的小箭头 -->
-                <div style="left:90px" class="absolute left-1/2 -translate-x-1/2 bottom-[-6px] w-3 h-3 bg-black/80 border-b border-r border-pink-500/40 rotate-45"></div>
-              </div>
-            </div>
+            <button id="giftBtn" class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center hover:from-pink-600 hover:to-red-600 transition">
+              <i class="fa fa-gift"></i>
+            </button>
             <button id="micLinkBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition" title="在线连麦">
               <i class="fa fa-microphone"></i>
             </button>
@@ -618,6 +567,63 @@
   </div>
 </div>
 
+<!-- 礼物弹窗 -->
+<div id="giftModal" class="fixed inset-0 z-[999] hidden">
+  <!-- 遮罩 -->
+  <div id="giftModalBackdrop" class="absolute inset-0 bg-black/60"></div>
+  <!-- 弹窗内容 -->
+  <div class="absolute inset-0 flex items-center justify-center p-4">
+    <div class="w-full max-w-md rounded-2xl bg-white shadow-2xl overflow-hidden">
+      <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+        <div class="text-sm font-semibold text-gray-800">选择礼物</div>
+        <button id="giftModalClose" class="h-8 w-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+
+      <div class="p-4">
+        <div class="text-xs text-gray-500 mb-3">点击选择一种礼物后再赠送</div>
+        <div id="giftGrid" class="grid grid-cols-3 gap-3">
+          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="咖啡">
+            <div class="text-lg">☕</div>
+            <div class="text-xs text-gray-700 mt-1">咖啡</div>
+          </button>
+          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="爱心">
+            <div class="text-lg">❤️</div>
+            <div class="text-xs text-gray-700 mt-1">爱心</div>
+          </button>
+          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="星星">
+            <div class="text-lg">⭐</div>
+            <div class="text-xs text-gray-700 mt-1">星星</div>
+          </button>
+          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="钻石">
+            <div class="text-lg">💎</div>
+            <div class="text-xs text-gray-700 mt-1">钻石</div>
+          </button>
+          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="火箭">
+            <div class="text-lg">🚀</div>
+            <div class="text-xs text-gray-700 mt-1">火箭</div>
+          </button>
+          <button class="gift-option border border-gray-200 rounded-xl p-3 hover:border-red-400 hover:bg-red-50 transition text-left" data-gift="皇冠">
+            <div class="text-lg">👑</div>
+            <div class="text-xs text-gray-700 mt-1">皇冠</div>
+          </button>
+        </div>
+      </div>
+
+      <div class="px-4 py-3 border-t border-gray-200 flex items-center justify-between bg-gray-50">
+        <div class="text-xs text-gray-600">
+          已选：<span id="selectedGiftText" class="font-semibold text-gray-800">未选择</span>
+        </div>
+        <div class="flex gap-2">
+          <!-- <button id="giftCancelBtn" class="px-3 py-2 text-xs rounded-xl border border-gray-300 bg-white hover:bg-gray-100">取消</button> -->
+          <button id="giftSendBtn" class="px-3 py-2 text-xs rounded-xl bg-[#B01F24] text-white hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed" disabled>赠送</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- 连麦弹窗（仅页面效果） -->
 <div id="micLinkModal" class="fixed inset-0 z-[1000] hidden">
   <div id="micLinkBackdrop" class="absolute inset-0 bg-black/60"></div>
@@ -767,50 +773,40 @@
     }, 3000);
   }
 
-  // giftBtn：悬浮礼物面板选择礼物并赠送
+  // giftBtn：弹窗选择礼物并赠送
   const giftBtn = document.getElementById('giftBtn');
-  const giftPopover = document.getElementById('giftPopover');
+  const giftModal = document.getElementById('giftModal');
+  const giftModalBackdrop = document.getElementById('giftModalBackdrop');
+  const giftModalClose = document.getElementById('giftModalClose');
+  const giftCancelBtn = document.getElementById('giftCancelBtn');
   const giftSendBtn = document.getElementById('giftSendBtn');
   const selectedGiftText = document.getElementById('selectedGiftText');
   const giftOptions = document.querySelectorAll('#giftGrid .gift-option');
   const micLinkBtn = document.getElementById('micLinkBtn');
 
   let selectedGiftName = '';
-  let giftHoverTimer = null;
 
-  function openGiftPopover() {
-    if (!giftPopover) return;
+  function openGiftModal() {
     selectedGiftName = '';
-    if (selectedGiftText) selectedGiftText.textContent = '未选择';
-    if (giftSendBtn) giftSendBtn.disabled = true;
+    selectedGiftText.textContent = '未选择';
+    giftSendBtn.disabled = true;
     giftOptions.forEach(btn => btn.classList.remove('ring-2', 'ring-[#B01F24]', 'border-[#B01F24]'));
-    giftPopover.classList.remove('hidden');
+    giftModal.classList.remove('hidden');
   }
 
-  function scheduleCloseGiftPopover() {
-    if (!giftPopover) return;
-    if (giftHoverTimer) clearTimeout(giftHoverTimer);
-    giftHoverTimer = setTimeout(() => {
-      giftPopover.classList.add('hidden');
-    }, 150);
+  function closeGiftModal() {
+    giftModal.classList.add('hidden');
   }
 
-  function cancelCloseGiftPopover() {
-    if (giftHoverTimer) {
-      clearTimeout(giftHoverTimer);
-      giftHoverTimer = null;
+  if (giftBtn) giftBtn.addEventListener('click', openGiftModal);
+  if (giftModalBackdrop) giftModalBackdrop.addEventListener('click', closeGiftModal);
+  if (giftModalClose) giftModalClose.addEventListener('click', closeGiftModal);
+  if (giftCancelBtn) giftCancelBtn.addEventListener('click', closeGiftModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && giftModal && !giftModal.classList.contains('hidden')) {
+      closeGiftModal();
     }
-  }
-
-  if (giftBtn && giftPopover) {
-    giftBtn.addEventListener('mouseenter', () => {
-      cancelCloseGiftPopover();
-      openGiftPopover();
-    });
-    giftBtn.addEventListener('mouseleave', scheduleCloseGiftPopover);
-    giftPopover.addEventListener('mouseenter', cancelCloseGiftPopover);
-    giftPopover.addEventListener('mouseleave', scheduleCloseGiftPopover);
-  }
+  });
 
   // 在线连麦（仅页面效果）
   const micLinkModal = document.getElementById('micLinkModal');
@@ -922,10 +918,7 @@
         chatMessages.scrollTop = chatMessages.scrollHeight;
       }
 
-      // 赠送后收起礼物栏
-      if (giftPopover) {
-        giftPopover.classList.add('hidden');
-      }
+      closeGiftModal();
     });
   }
   
