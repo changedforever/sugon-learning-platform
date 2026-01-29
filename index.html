@@ -724,7 +724,7 @@
         </div>
 
         <!-- 其他导航项（无下拉） -->
-        <a href="https://forum.sourcefind.cn/" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">论坛</a>
+        
         <a href="resource-center.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">资源</a>
         <!-- 资讯 - 带下拉浮窗（合并资讯、活动） -->
         <div class="nav-dropdown relative group">
@@ -750,7 +750,7 @@
             </div>
           </div>
         </div>
-        
+        <a href="https://forum.sourcefind.cn/" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">论坛</a>
         <!--a href="auth.html"
            class="ml-1 px-4 py-1.5 rounded-full bg-[#2D874B] text-white text-sm font-medium hover:opacity-90 transition">
           登录
@@ -1260,15 +1260,15 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
         <!-- CPU领域专家 -->
         <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-          <div class="relative h-48 overflow-hidden">
+          <div class="relative h-48 overflow-hidden group">
             <img 
               src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?auto=format&fit=crop&w=600&q=80" 
               alt="CPU架构示意图" 
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             >
-            <div class="absolute bottom-4 left-4 z-10">
-              <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-800/80 text-base font-medium text-white">
-                <i class="fa fa-microchip mr-1"></i> CPU领域
+            <div class="absolute inset-0 flex items-center justify-center z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 bg-gray-800/30 w-full h-full">
+              <span class="inline-flex items-center px-6 py-3 rounded-full text-3xl font-medium text-white shadow-lg">
+                <i class="fa fa-microchip mr-2"></i> CPU领域
               </span>
             </div>
           </div>
@@ -1408,9 +1408,14 @@
               alt="AI深度学习示意图" 
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             >
-            <div class="absolute bottom-4 left-4 z-10">
+            <!-- <div class="absolute bottom-4 left-4 z-10">
               <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-800/80 text-base font-medium text-white">
                 <i class="fa fa-brain mr-1"></i> DCU领域
+              </span>
+            </div> -->
+            <div class="absolute inset-0 flex items-center justify-center z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 bg-gray-800/30 w-full h-full">
+              <span class="inline-flex items-center px-6 py-3 rounded-full text-3xl font-medium text-white shadow-lg">
+                <i class="fa fa-microchip mr-2"></i> DCU领域
               </span>
             </div>
           </div>
@@ -1550,9 +1555,14 @@
               alt="云计算数据中心示意图" 
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             >
-            <div class="absolute bottom-4 left-4 z-10">
+            <!-- <div class="absolute bottom-4 left-4 z-10">
               <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-800/80 text-base font-medium text-white">
                 <i class="fa fa-server mr-1"></i> 云计算领域
+              </span>
+            </div> -->
+            <div class="absolute inset-0 flex items-center justify-center z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 bg-gray-800/30 w-full h-full">
+              <span class="inline-flex items-center px-6 py-3 rounded-full text-3xl font-medium text-white shadow-lg">
+                <i class="fa fa-microchip mr-2"></i> 云计算领域
               </span>
             </div>
           </div>
