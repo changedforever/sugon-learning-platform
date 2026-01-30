@@ -347,14 +347,33 @@
                 data-target="tab-live">
           <i class="fa fa-video mr-1 text-sm text-[#B01F24]"></i> 我的直播
         </button>
-        <!-- 更多按钮（无下拉弹窗） -->
-        <div class="relative" id="more-btn-wrapper">
+        <!-- 更多按钮（带下拉弹窗） -->
+        <div class="relative group" id="more-btn-wrapper">
           <button class="main-tab px-3 py-1.5 flex items-center"
                   id="more-btn">
             <i class="fa fa-ellipsis-h mr-1 text-sm text-[#B01F24]"></i> 更多
           </button>
-          <!-- 预留容器（不再展示下拉弹窗，仅占位，避免误触发） -->
-          <div id="more-menu" class="hidden"></div>
+          <!-- 下拉弹窗 -->
+          <div id="more-menu" class="absolute left-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-300 z-50 hidden group-hover:block">
+            <div class="py-2">
+              <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center"
+                      data-target="tab-events">
+                <i class="fa fa-calendar-check mr-2 text-[#B01F24]"></i> 我的活动
+              </button>
+              <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center"
+                      data-target="tab-favorites">
+                <i class="fa fa-star mr-2 text-[#B01F24]"></i> 我的收藏
+              </button>
+              <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center"
+                      data-target="tab-following">
+                <i class="fa fa-heart mr-2 text-[#B01F24]"></i> 我的关注
+              </button>
+              <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center"
+                      data-target="tab-likes">
+                <i class="fa fa-thumbs-up mr-2 text-[#B01F24]"></i> 我的点赞
+              </button>
+            </div>
+          </div>
         </div>
         <!-- 隐藏的四个tab，点击更多时显示 -->
         <div id="hidden-tabs" class="hidden flex items-center gap-2">
@@ -2315,6 +2334,23 @@
       });
     });
   });
+
+  // 下拉菜单中的按钮点击事件
+  const moreMenu = document.getElementById('more-menu');
+  if (moreMenu) {
+    moreMenu.querySelectorAll('button[data-target]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.target;
+        // 切换 tab
+        document.querySelectorAll('.main-tab').forEach(b=>b.classList.remove('main-tab-active'));
+        document.querySelectorAll('.main-panel').forEach(p=>{
+          p.classList.toggle('hidden', p.id !== target);
+        });
+        // 隐藏下拉菜单
+        moreMenu.classList.add('hidden');
+      });
+    });
+  }
 
   // =============== 事件绑定 ===============
   $('save-profile-btn').addEventListener('click', saveProfile);
