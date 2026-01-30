@@ -233,9 +233,173 @@
         }
         
         .input-area {
-            padding: 20px;
-            border-top: 1px solid #eaecef;
-            background: white;
+            padding: 12px 20px 18px;
+            /* border-top: 1px solid #eaecef; */
+            /* background: white; */
+            margin-top: 0;
+        }
+
+        /* 能力场景 + 猜你想问 卡片区域 */
+        .ability-panels {
+            display: grid;
+            grid-template-columns: 1.1fr 1.1fr;
+            gap: 16px;
+            max-width: 720px;          /* 宽度稍微窄一点 */
+            margin: 40px auto 16px;    /* 在对话区中间偏上的位置居中 */
+        }
+
+        .ability-card {
+            background: linear-gradient(135deg, #fff7f7, #fff9fb);
+            border-radius: 18px;
+            padding: 14px 16px 16px;
+            box-shadow: 0 8px 18px rgba(255, 139, 154, 0.1);
+            border: 1px solid rgba(255, 160, 180, 0.35);
+        }
+
+        .ability-card:nth-child(2) {
+            background: linear-gradient(135deg, #fffaf3, #fff9f0);
+            box-shadow: 0 8px 18px rgba(255, 179, 102, 0.12);
+            border-color: rgba(255, 193, 120, 0.45);
+        }
+
+        .ability-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .ability-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .ability-card-page {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .ability-card-page i {
+            font-size: 11px;
+        }
+
+        .ability-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .ability-item {
+            text-align: left;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: none;
+            background: rgba(255, 255, 255, 0.85);
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+
+        .ability-item:hover {
+            background: #ffffff;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px rgba(255, 160, 180, 0.18);
+        }
+
+        .ability-item-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .ability-item-subtitle {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .guess-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .guess-question {
+            padding: 6px 10px;
+            border-radius: 16px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+
+        .guess-question:hover {
+            background: #ffffff;
+            color: #333;
+            box-shadow: 0 4px 10px rgba(255, 193, 120, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .guess-banner {
+            margin-top: 6px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #fef0ff, #e3f0ff);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .guess-banner-content {
+            flex: 1;
+        }
+
+        .guess-banner-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 2px;
+        }
+
+        .guess-banner-subtitle {
+            font-size: 11px;
+            color: #888;
+        }
+
+        .guess-banner-action {
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff8a4a;
+            font-size: 13px;
+        }
+
+        /* 收起动画：回答问题时隐藏能力场景/猜你想问（以及可选的快捷提问） */
+        .ability-panels,
+        .quick-questions {
+            transition: max-height 0.25s ease, opacity 0.2s ease, margin 0.25s ease;
+            overflow: hidden;
+        }
+
+        .chat-container.panels-collapsed .ability-panels,
+        .chat-container.panels-collapsed .quick-questions {
+            max-height: 0 !important;
+            opacity: 0;
+            margin-bottom: 0 !important;
+            pointer-events: none;
         }
         
         .input-container {
@@ -354,6 +518,49 @@
             font-size: 14px;
             color: #718096;
         }
+
+        /* 对话结束后的进阶问题推荐区域 */
+        .followups-container {
+            margin: 8px 0 4px 46px; /* 与头像/气泡对齐，略微缩进 */
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 80%;
+            align-items: flex-start;
+        }
+
+        .followup-btn {
+            border: none;
+            outline: none;
+            background: #f3f4f6;
+            color: #4b5563;
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .followup-btn:hover {
+            background: #e5e7eb;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(15, 23, 42, 0.12);
+        }
+
+        .followup-btn span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .followup-icon {
+            font-size: 12px;
+            color: #9ca3af;
+        }
     </style>
 </head>
 <body>
@@ -410,10 +617,60 @@
                         您好！我是AI智能助手，展示认证流程，包括考试预约、获取与验证证书的入口，以及可能涉及的重认证规则。有什么可以帮助您的吗？
                     </div>
                 </div>
+
+                <!-- 能力场景 + 猜你想问（移动到中间内容区域） -->
+                <div class="ability-panels">
+                    <!-- 左侧：能力场景 -->
+                    <div class="ability-card">
+                        <div class="ability-card-header">
+                            <span class="ability-card-title">能力场景</span>
+                            <div class="ability-card-page">
+                                <span>2/3</span>
+                                <i class="fas fa-angle-right"></i>
+                            </div>
+                        </div>
+                        <div class="ability-list">
+                            <button class="ability-item" data-question="在线学习">
+                                <div class="ability-item-title">在线学习</div>
+                                <div class="ability-item-subtitle">学习在线课程</div>
+                            </button>
+                            <button class="ability-item" data-question="认证其他问题">
+                                <div class="ability-item-title">认证其他问题</div>
+                                <div class="ability-item-subtitle">发起问题单</div>
+                            </button>
+                            <button class="ability-item" data-question="证书申请流程">
+                                <div class="ability-item-title">证书申请流程</div>
+                                <div class="ability-item-subtitle">认证证书申请流程</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 右侧：猜你想问 -->
+                    <div class="ability-card">
+                        <div class="ability-card-header">
+                            <span class="ability-card-title">猜你想问</span>
+                        </div>
+                        <div class="guess-questions">
+                            <button class="guess-question" data-question="HCIE实验预约及考位查询">实验预约及考位查询</button>
+                            <button class="guess-question" data-question="认证考试证书有效期">认证考试证书有效期</button>
+                            <button class="guess-question" data-question="取消考试政策">取消考试政策</button>
+                        </div>
+                        <div class="guess-banner">
+                            <div class="guess-banner-content">
+                                <div class="guess-banner-title">全新焕变</div>
+                                <div class="guess-banner-subtitle">能力升级 AI 问答更懂你</div>
+                            </div>
+                            <div class="guess-banner-action">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <!-- 输入区域 -->
             <div class="input-area">
+                <!-- 原有快捷提问，仍然保留 -->
                 <div class="quick-questions" id="ai-quick-questions">
                     <button class="quick-question">如何参加考试？</button>
                     <button class="quick-question">如何认证成为高级云架构师？</button>
@@ -442,6 +699,14 @@
         const aiInput = document.getElementById('ai-input');
         const aiSend = document.getElementById('ai-send');
         const aiMessages = document.getElementById('ai-messages');
+        const inputArea = document.querySelector('.input-area');
+        const chatContainer = document.querySelector('.chat-container');
+        const abilityPanels = document.querySelector('.ability-panels');
+
+        function setPanelsCollapsed(collapsed) {
+            if (!chatContainer) return;
+            chatContainer.classList.toggle('panels-collapsed', !!collapsed);
+        }
         
         // 自动调整文本框高度
         aiInput.addEventListener('input', function() {
@@ -552,11 +817,68 @@
                         </div>
                       </div>
                     </div>
-                  `
+                  `,
+                  '在线学习': '您可以通过平台的「课程学习」或「培训中心」模块，选择适合您的在线课程进行自主学习。支持视频课程、实验课程和配套资料下载。',
+                  '认证其他问题': '如果您在认证过程中遇到其他问题，可以在「帮助与支持」或「工单中心」中发起问题单，我们会有专人进行跟进并答复。',
+                  '证书申请流程': '通过考试后，系统会自动生成您的认证信息。您需要完善个人资料并提交证书申请，审核通过后即可在线查看与下载电子证书。',
+                  'HCIE实验预约及考位查询': 'HCIE 实验考试需要提前在考试中心进行预约，您可以在「我的考试」中查看可预约考位与时间，并完成缴费后确认。',
+                  '认证考试证书有效期': '大部分认证证书有效期为 3 年，具体以认证项目规则为准。您可以在「我的证书」中查看每张证书的有效期与到期提醒。',
+                  '取消考试政策': '对于已预约的考试，如需取消或改期，请在考试规定时间前在「我的考试」中操作，逾期将可能无法退款或需要支付改期费用。',
+
+                  // 进阶提问固定回答
+                  '考试报名入口在哪里？': '您可以在平台顶部导航进入「考试中心」或「我的考试」，在「可报名考试」列表中点击对应考试右侧的“立即报名”按钮完成报名。',
+                  '考试报名有哪些条件限制？': '不同考试的报名条件不同，一般包括：已完成指定先修课程、满足工作年限要求以及通过前置级别考试等，具体可在考试详情页查看。',
+                  '如何查看考试成绩与证书获取情况？': '考试结束后，您可以在「我的考试」中查看成绩，在「我的证书」模块查看是否已生成对应证书及其状态。',
+
+                  '高级云架构师培训课有哪些学习路径？': '通常包括基础云计算课程、高级架构设计课程以及实践项目课程，建议按“基础理论→核心技能→场景实践”的路径进行学习。',
+                  '高级云架构师考试都考哪些内容？': '考试一般覆盖云基础架构设计、网络与安全、性能与高可用、成本优化以及典型行业场景设计等内容，具体以考试大纲为准。',
+
+                  '证书到期前需要做哪些准备？': '建议提前 3-6 个月关注证书到期时间，了解重认证规则，规划好补修课程或重认证考试，避免证书失效影响个人资质。'
+                };
+
+                // 每个主问题对应的进阶推荐问题列表
+                const followupsMap = {
+                  '如何参加考试？': [
+                    '考试报名入口在哪里？',
+                    '考试报名有哪些条件限制？',
+                    '如何查看考试成绩与证书获取情况？'
+                  ],
+                  '如何认证成为高级云架构师？': [
+                    '高级云架构师培训课有哪些学习路径？',
+                    '高级云架构师考试都考哪些内容？'
+                  ],
+                  '如何查看和下载证书': [
+                    '证书到期前需要做哪些准备？',
+                    '认证考试证书有效期'
+                  ]
                 };
                 
                 const response = responses[userMessage] || '感谢您的提问！我会尽力为您提供帮助。如果您有更具体的问题，请详细描述，我会给出更精准的回答。';
                 addMessage(response, false);
+
+                // 在回答下方追加进阶问题推荐
+                const followups = followupsMap[userMessage];
+                if (followups && followups.length) {
+                    const container = document.createElement('div');
+                    container.className = 'followups-container';
+                    
+                    followups.forEach(text => {
+                        const btn = document.createElement('button');
+                        btn.className = 'followup-btn';
+                        btn.innerHTML = `<span>${text}</span><i class="fas fa-arrow-right followup-icon"></i>`;
+                        btn.addEventListener('click', () => {
+                            addMessage(text, true);
+                            handleAIResponse(text);
+                        });
+                        container.appendChild(btn);
+                    });
+
+                    aiMessages.appendChild(container);
+                    aiMessages.scrollTop = aiMessages.scrollHeight;
+                }
+
+                // 回答后收起上方卡片区域，给对话腾出空间
+                setPanelsCollapsed(true);
             }, 1000);
         }
 
@@ -566,6 +888,8 @@
                 const message = aiInput.value.trim();
                 if (message) {
                     addMessage(message, true);
+                    // 发送后先收起（等回复出现时也会再次确保收起）
+                    setPanelsCollapsed(true);
                     aiInput.value = '';
                     aiInput.style.height = 'auto';
                     handleAIResponse(message);
@@ -583,12 +907,24 @@
             });
         }
 
-        // 预设标签点击事件
+        // 预设标签点击事件（底部快捷问题）
         const presetButtons = document.querySelectorAll('#ai-quick-questions button');
         presetButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const message = this.textContent.trim();
                 addMessage(message, true);
+                setPanelsCollapsed(true);
+                handleAIResponse(message);
+            });
+        });
+
+        // 能力场景 & 猜你想问卡片点击事件
+        const panelButtons = document.querySelectorAll('.ability-item, .guess-question');
+        panelButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const message = this.getAttribute('data-question') || this.textContent.trim();
+                addMessage(message, true);
+                setPanelsCollapsed(true);
                 handleAIResponse(message);
             });
         });
@@ -597,17 +933,31 @@
         const newChatBtn = document.querySelector('.fa-plus').closest('button');
         if (newChatBtn) {
             newChatBtn.addEventListener('click', function() {
-                // 清空消息区域
-                aiMessages.innerHTML = `
-                  <div class="message bot-message">
-                    <div class="avatar-small bot-avatar">
-                      <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="message-content">
-                      您好！我是AI智能助手，有什么可以帮助您的吗？
-                    </div>
-                  </div>
-                `;
+                // 清空当前消息与进阶推荐，但保留中部能力模块
+                const toRemove = aiMessages.querySelectorAll('.message, .followups-container');
+                toRemove.forEach(node => node.remove());
+
+                // 重新插入欢迎消息到能力模块上方
+                if (abilityPanels) {
+                    const welcome = document.createElement('div');
+                    welcome.className = 'message bot-message';
+
+                    const avatar = document.createElement('div');
+                    avatar.className = 'avatar-small bot-avatar';
+                    avatar.innerHTML = '<i class="fas fa-robot"></i>';
+
+                    const content = document.createElement('div');
+                    content.className = 'message-content';
+                    content.textContent = '您好！我是AI智能助手，展示认证流程，包括考试预约、获取与验证证书的入口，以及可能涉及的重认证规则。有什么可以帮助您的吗？';
+
+                    welcome.appendChild(avatar);
+                    welcome.appendChild(content);
+
+                    aiMessages.insertBefore(welcome, abilityPanels);
+                }
+
+                // 新对话：重新展开
+                setPanelsCollapsed(false);
             });
         }
     });
