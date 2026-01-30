@@ -657,20 +657,35 @@
 
       <!-- 我的学习：课程列表 + 进度 -->
       <section id="tab-learning" class="main-panel hidden">
-        <!-- 筛选标签 -->
-        <div class="mb-4 flex flex-wrap gap-2">
-          <button class="filter-btn-task active px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="all">
-            全部
-          </button>
-          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="进行中">
-            进行中
-          </button>
-          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="已报名">
-            已报名
-          </button>
-          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="已完成">
-            已完成
-          </button>
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <!-- 筛选标签 -->
+          <div class="mb-4 flex flex-wrap gap-2">
+            <button class="filter-btn-task active px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="all">
+              全部
+            </button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="进行中">
+              进行中
+            </button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="已报名">
+              已报名
+            </button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="已完成">
+              已完成
+            </button>
+          </div>
+          <div class="flex items-center">
+            <div class="flex">
+              <input
+                      type="text"
+                      id="task-search-input"
+                      placeholder="搜索..."
+                      class="pl-8 pr-4 py-1.5 text-sm border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-[#B01F24] focus:border-transparent w-48"
+              >
+              <button class="px-3 py-1.5 bg-[#B01F24] text-white rounded-r-lg hover:bg-[#9a1b1f] transition flex items-center justify-center">
+                <i class="fa fa-search text-xs"></i>
+              </button>
+            </div>
+          </div>
         </div>
         <div id="learning-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <!-- JS 注入 -->
@@ -679,20 +694,35 @@
 
       <!-- 考试列表 -->
       <section id="tab-exams" class="main-panel hidden">
-        <!-- 筛选标签 -->
-        <div class="mb-4 flex flex-wrap gap-2">
-          <button class="filter-btn-task active px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="all">
-            全部
-          </button>
-          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="未考试">
-            未考试
-          </button>
-          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="已通过">
-            已通过
-          </button>
-          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="未通过">
-            未通过
-          </button>
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <!-- 筛选标签 -->
+          <div class="mb-4 flex flex-wrap gap-2">
+            <button class="filter-btn-task active px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="all">
+              全部
+            </button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="未考试">
+              未考试
+            </button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="已通过">
+              已通过
+            </button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="未通过">
+              未通过
+            </button>
+          </div>
+          <div class="flex items-center">
+            <div class="flex">
+              <input
+                      type="text"
+                      id="task-search-input"
+                      placeholder="搜索..."
+                      class="pl-8 pr-4 py-1.5 text-sm border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-[#B01F24] focus:border-transparent w-48"
+              >
+              <button class="px-3 py-1.5 bg-[#B01F24] text-white rounded-r-lg hover:bg-[#9a1b1f] transition flex items-center justify-center">
+                <i class="fa fa-search text-xs"></i>
+              </button>
+            </div>
+          </div>
         </div>
         <div id="exam-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <!-- JS 注入 -->
@@ -701,24 +731,40 @@
 
       <!-- 我的直播 -->
       <section id="tab-live" class="main-panel hidden">
-        <!-- 筛选标签 -->
-        <div class="mb-4 flex flex-wrap gap-2">
-          <button class="filter-btn-task active px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="all">
-            全部
-          </button>
-          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="直播中">
-            直播中
-          </button>
-          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="未开始">
-            未开始
-          </button>
-          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="已结束">
-            已结束
-          </button>
-          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="精彩回顾">
-            精彩回顾
-          </button>
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <!-- 筛选标签 -->
+          <div class="mb-4 flex flex-wrap gap-2">
+            <button class="filter-btn-task active px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="all">
+              全部
+            </button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="直播中">
+              直播中
+            </button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="未开始">
+              未开始
+            </button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="已结束">
+              已结束
+            </button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="精彩回顾">
+              精彩回顾
+            </button>
+          </div>
+          <div class="flex items-center">
+            <div class="flex">
+              <input
+                      type="text"
+                      id="task-search-input"
+                      placeholder="搜索..."
+                      class="pl-8 pr-4 py-1.5 text-sm border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-[#B01F24] focus:border-transparent w-48"
+              >
+              <button class="px-3 py-1.5 bg-[#B01F24] text-white rounded-r-lg hover:bg-[#9a1b1f] transition flex items-center justify-center">
+                <i class="fa fa-search text-xs"></i>
+              </button>
+            </div>
+          </div>
         </div>
+
         <div id="live-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <!-- 直播卡片示例 -->
           <!-- 直播中 -->
