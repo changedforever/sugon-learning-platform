@@ -266,6 +266,47 @@
             </div>
         </div>
 
+        <!-- 结束直播确认弹框 -->
+        <div
+            id="endLiveModal"
+            style="z-index: 999"
+            class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center hidden"
+        >
+            <div
+                class="bg-gray-900 border border-gray-700 rounded-2xl w-80 p-6 shadow-2xl transform transition-all"
+            >
+                <div class="flex items-center mb-4">
+                    <div
+                        class="w-10 h-10 rounded-full bg-red-500 bg-opacity-20 flex items-center justify-center mr-3"
+                    >
+                        <i class="fa fa-power-off text-red-500"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-white">结束直播</h3>
+                        <p class="text-xs text-gray-400 mt-1">结束后将跳转到直播结束页面</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-300 mb-5">
+                    确定要结束本次直播吗？观众将无法继续观看当前直播内容。
+                </p>
+                <div class="flex justify-end space-x-3">
+                    <button
+                        id="cancelEndLive"
+                        class="px-4 py-2 border border-gray-700 rounded-full text-gray-300 hover:bg-gray-800 text-sm"
+                    >
+                        再想想
+                    </button>
+                    <button
+                        id="confirmEndLive"
+                        class="px-4 py-2 bg-red-600 text-white rounded-full hover:bg-red-700 text-sm flex items-center"
+                    >
+                        <i class="fa fa-check mr-1 text-xs"></i>
+                        确认结束
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- 权限管理弹框 -->
         <div
             id="permissionModal"
@@ -1264,21 +1305,52 @@
                                 const liveBtn = document.getElementById('liveBtn');
                                 const liveIcon = liveBtn.querySelector('i');
                                 const liveTooltip = liveBtn.nextElementSibling;
+                                const endLiveModal = document.getElementById('endLiveModal');
+                                const cancelEndLive = document.getElementById('cancelEndLive');
+                                const confirmEndLive = document.getElementById('confirmEndLive');
                                 let isLive = false;
 
+                                // 打开/关闭结束直播弹框
+                                function openEndLiveModal() {
+                                    endLiveModal.classList.remove('hidden');
+                                }
+                                function closeEndLiveModal() {
+                                    endLiveModal.classList.add('hidden');
+                                }
+
                                 liveBtn.addEventListener('click', function () {
-                                    isLive = !isLive;
-                                    if (isLive) {
+                                    // 当前未开播 -> 直接开始直播
+                                    if (!isLive) {
+                                        isLive = true;
                                         liveIcon.className = 'fa fa-stop';
                                         liveTooltip.textContent = '结束直播';
                                         liveBtn.className =
                                             'w-12 h-12 rounded-full bg-red-600 flex items-center justify-center hover:bg-red-700 transition';
-                                    } else {
-                                        liveIcon.className = 'fa fa-video-camera';
-                                        liveTooltip.textContent = '开始直播';
-                                        liveBtn.className =
-                                            'w-12 h-12 rounded-full bg-green-600 flex items-center justify-center hover:bg-green-700 transition';
+                                        return;
                                     }
+
+                                    // 当前已开播 -> 打开自定义结束直播弹窗
+                                    openEndLiveModal();
+                                });
+
+                                // 取消结束直播
+                                cancelEndLive.addEventListener('click', function () {
+                                    closeEndLiveModal();
+                                });
+
+                                // 确认结束直播
+                                confirmEndLive.addEventListener('click', function () {
+                                    // 更新按钮状态
+                                    isLive = false;
+                                    liveIcon.className = 'fa fa-video-camera';
+                                    liveTooltip.textContent = '开始直播';
+                                    liveBtn.className =
+                                        'w-12 h-12 rounded-full bg-green-600 flex items-center justify-center hover:bg-green-700 transition';
+
+                                    closeEndLiveModal();
+
+                                    // 跳转到直播结束页面
+                                    window.location.href = 'live-end.html';
                                 });
                             </script>
 
