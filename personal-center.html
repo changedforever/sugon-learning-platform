@@ -348,13 +348,13 @@
           <i class="fa fa-video mr-1 text-sm text-[#B01F24]"></i> 我的直播
         </button>
         <!-- 更多按钮（带下拉弹窗） -->
-        <div class="relative group" id="more-btn-wrapper">
+        <div class="relative" id="more-btn-wrapper">
           <button class="main-tab px-3 py-1.5 flex items-center"
                   id="more-btn">
             <i class="fa fa-ellipsis-h mr-1 text-sm text-[#B01F24]"></i> 更多
           </button>
           <!-- 下拉弹窗 -->
-          <div id="more-menu" class="absolute left-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-300 z-50 hidden group-hover:block">
+          <div id="more-menu" class="absolute left-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-300 z-50 hidden">
             <div class="py-2">
               <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center"
                       data-target="tab-events">
@@ -2355,6 +2355,35 @@
   const moreBtn = document.getElementById('more-btn');
   const moreBtnWrapper = document.getElementById('more-btn-wrapper');
   const hiddenTabs = document.getElementById('hidden-tabs');
+  const moreMenu = document.getElementById('more-menu');
+  
+  // 更多按钮悬浮弹窗控制
+  let moreMenuTimeout = null;
+  if (moreBtnWrapper && moreMenu) {
+    // 鼠标进入按钮或弹窗区域时显示弹窗
+    moreBtnWrapper.addEventListener('mouseenter', () => {
+      if (moreMenuTimeout) {
+        clearTimeout(moreMenuTimeout);
+        moreMenuTimeout = null;
+      }
+      moreMenu.classList.remove('hidden');
+    });
+    
+    // 鼠标离开按钮或弹窗区域时隐藏弹窗（添加小延迟避免快速移动时闪烁）
+    moreBtnWrapper.addEventListener('mouseleave', () => {
+      moreMenuTimeout = setTimeout(() => {
+        moreMenu.classList.add('hidden');
+      }, 100); // 100ms 延迟，给用户时间移动到弹窗
+    });
+    
+    // 鼠标进入弹窗时清除隐藏定时器
+    moreMenu.addEventListener('mouseenter', () => {
+      if (moreMenuTimeout) {
+        clearTimeout(moreMenuTimeout);
+        moreMenuTimeout = null;
+      }
+    });
+  }
 
   document.querySelectorAll('.main-tab').forEach(btn=>{
     btn.addEventListener('click', ()=>{
@@ -2382,7 +2411,6 @@
   });
 
   // 下拉菜单中的按钮点击事件
-  const moreMenu = document.getElementById('more-menu');
   if (moreMenu) {
     moreMenu.querySelectorAll('button[data-target]').forEach(btn => {
       btn.addEventListener('click', () => {
