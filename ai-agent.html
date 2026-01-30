@@ -403,33 +403,49 @@
         }
         
         .input-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border: 1px solid #eaecef;
+            border-radius: 12px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-container:focus-within {
+            border-color: #4a86ff;
+            box-shadow: 0 0 0 2px rgba(74, 134, 255, 0.1);
+        }
+
+        .input-inner-wrapper {
             display: flex;
             gap: 12px;
             align-items: flex-end;
+            padding: 12px;
         }
         
         .message-input {
             flex: 1;
-            padding: 14px 16px;
-            border: 1px solid #eaecef;
-            border-radius: 12px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 0;
             font-size: 15px;
             resize: none;
             min-height: 50px;
             max-height: 120px;
             outline: none;
-            transition: border-color 0.2s;
+            background: transparent;
         }
         
         .message-input:focus {
-            border-color: #4a86ff;
-            box-shadow: 0 0 0 2px rgba(74, 134, 255, 0.1);
+            border: none;
+            box-shadow: none;
         }
         
         .send-btn {
-            width: 46px;
-            height: 46px;
-            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
             background: linear-gradient(135deg, #4a86ff, #667eea);
             color: white;
             border: none;
@@ -438,11 +454,16 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
+            flex-shrink: 0;
         }
         
         .send-btn:hover {
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(74, 134, 255, 0.3);
+        }
+
+        .send-btn:active {
+            transform: translateY(0);
         }
         
         .resource-card {
@@ -576,6 +597,59 @@
             line-height: 1.6;
             font-weight: 500;
         }
+
+        /* 技能选择器样式 */
+        .skill-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .skill-selector::-webkit-scrollbar {
+            display: none;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 16px;
+            background: #f5f7fb;
+            border: 1px solid #eaecef;
+            color: #666;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .skill-item:hover {
+            background: #e6eeff;
+            border-color: #b0c4ff;
+            color: #4a86ff;
+        }
+
+        .skill-item.active {
+            background: linear-gradient(135deg, #4a86ff, #667eea);
+            border-color: #4a86ff;
+            color: white;
+            box-shadow: 0 2px 6px rgba(74, 134, 255, 0.25);
+        }
+
+        .skill-item i {
+            font-size: 12px;
+        }
+
+        .skill-item.active i {
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -692,18 +766,52 @@
                     <button class="quick-question">如何查看和下载证书</button>
                 </div>
                 <div class="input-container" style="position: relative;">
-                    <textarea 
-                        id="ai-input" 
-                        placeholder="输入您的问题..." 
-                        class="message-input"
-                        rows="1"
-                    ></textarea>
-                    <button id="ai-send" class="send-btn">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
+                    <!-- 技能选择器 - 放在文本框内部上方 -->
+                    <div class="skill-selector" id="skill-selector">
+                        <div class="skill-item active" data-skill="通用">
+                            <i class="fas fa-comments"></i>
+                            <span>通用</span>
+                        </div>
+                        <div class="skill-item" data-skill="编程">
+                            <i class="fas fa-code"></i>
+                            <span>编程</span>
+                        </div>
+                        <div class="skill-item" data-skill="写作">
+                            <i class="fas fa-pen"></i>
+                            <span>写作</span>
+                        </div>
+                        <div class="skill-item" data-skill="学习">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>学习</span>
+                        </div>
+                        <div class="skill-item" data-skill="翻译">
+                            <i class="fas fa-language"></i>
+                            <span>翻译</span>
+                        </div>
+                        <div class="skill-item" data-skill="分析">
+                            <i class="fas fa-chart-line"></i>
+                            <span>分析</span>
+                        </div>
+                        <div class="skill-item" data-skill="创意">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>创意</span>
+                        </div>
+                    </div>
+                    <!-- 输入框和发送按钮区域 -->
+                    <div class="input-inner-wrapper">
+                        <textarea 
+                            id="ai-input" 
+                            placeholder="输入您的问题..." 
+                            class="message-input"
+                            rows="1"
+                        ></textarea>
+                        <button id="ai-send" class="send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
                     
                     <!-- 正式联想框样式 - 市面上常见的搜索联想 -->
-                    <div id="suggestion-list" style="position: absolute; bottom: 100%; left: 0; right: 0; margin-bottom: 8px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 9999; display: none; overflow: hidden; width: 94%;">
+                    <div id="suggestion-list" style="position: absolute; bottom: 100%; left: 0; right: 0; margin-bottom: 8px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 9999; display: none; overflow: hidden; width: 100%; border: 1px solid #eaecef;">
                         <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: all 0.2s;"><span style="color: red;">智能</span>天线</div>
                         <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: all 0.2s;">全网<span style="color: red;">智能</span></div>
                         <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; transition: all 0.2s;">体系智<span style="color: red;">能</span>特性</div>
@@ -791,7 +899,7 @@
     </div>
 
     <script>
-    // AI智能体功能
+        // AI智能体功能
     document.addEventListener('DOMContentLoaded', function() {
         console.log('DOM加载完成，开始初始化AI智能体功能');
         
@@ -801,6 +909,37 @@
         const inputArea = document.querySelector('.input-area');
         const chatContainer = document.querySelector('.chat-container');
         const abilityPanels = document.querySelector('.ability-panels');
+        
+        // 当前选中的技能
+        let currentSkill = '通用';
+        
+        // 技能选择器交互
+        const skillItems = document.querySelectorAll('.skill-item');
+        skillItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // 移除所有active状态
+                skillItems.forEach(skill => skill.classList.remove('active'));
+                // 添加当前选中状态
+                this.classList.add('active');
+                // 更新当前技能
+                currentSkill = this.getAttribute('data-skill');
+                
+                // 根据技能更新placeholder
+                const placeholders = {
+                    '通用': '输入您的问题...',
+                    '编程': '输入编程相关问题，如代码调试、算法实现等...',
+                    '写作': '输入写作相关问题，如文章创作、文案优化等...',
+                    '学习': '输入学习相关问题，如课程推荐、学习方法等...',
+                    '翻译': '输入需要翻译的内容...',
+                    '分析': '输入需要分析的问题或数据...',
+                    '创意': '输入创意需求，如头脑风暴、方案设计等...'
+                };
+                aiInput.placeholder = placeholders[currentSkill] || '输入您的问题...';
+                
+                // 聚焦输入框
+                aiInput.focus();
+            });
+        });
 
         function setPanelsCollapsed(collapsed) {
             if (!chatContainer) return;
@@ -835,7 +974,7 @@
         }
 
         // 处理AI回复
-        function handleAIResponse(userMessage) {
+        function handleAIResponse(userMessage, skill = '通用') {
             // 模拟AI思考时间
             setTimeout(() => {
                 const responses = {
@@ -974,7 +1113,7 @@
                         btn.innerHTML = `<span>${text}</span><i class="fas fa-arrow-right followup-icon"></i>`;
                         btn.addEventListener('click', () => {
                             addMessage(text, true);
-                            handleAIResponse(text);
+                            handleAIResponse(text, currentSkill);
                         });
                         container.appendChild(btn);
                     });
@@ -993,12 +1132,14 @@
             aiSend.addEventListener('click', function() {
                 const message = aiInput.value.trim();
                 if (message) {
+                    // 在消息前添加技能标签（可选，用于显示）
+                    const messageWithSkill = currentSkill !== '通用' ? `[${currentSkill}] ${message}` : message;
                     addMessage(message, true);
                     // 发送后先收起（等回复出现时也会再次确保收起）
                     setPanelsCollapsed(true);
                     aiInput.value = '';
                     aiInput.style.height = 'auto';
-                    handleAIResponse(message);
+                    handleAIResponse(message, currentSkill);
                 }
             });
         }
@@ -1012,6 +1153,16 @@
                 }
             });
         }
+        
+        // 点击输入框时，如果技能选择器被隐藏，可以显示它
+        if (aiInput) {
+            aiInput.addEventListener('focus', function() {
+                const skillSelector = document.getElementById('skill-selector');
+                if (skillSelector) {
+                    skillSelector.style.display = 'flex';
+                }
+            });
+        }
 
         // 预设标签点击事件（底部快捷问题）
         const presetButtons = document.querySelectorAll('#ai-quick-questions button');
@@ -1020,7 +1171,7 @@
                 const message = this.textContent.trim();
                 addMessage(message, true);
                 setPanelsCollapsed(true);
-                handleAIResponse(message);
+                handleAIResponse(message, currentSkill);
             });
         });
 
@@ -1031,7 +1182,7 @@
                 const message = this.getAttribute('data-question') || this.textContent.trim();
                 addMessage(message, true);
                 setPanelsCollapsed(true);
-                handleAIResponse(message);
+                handleAIResponse(message, currentSkill);
             });
         });
 
