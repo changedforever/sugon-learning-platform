@@ -692,115 +692,122 @@
             </div>
         </section>
 
-        <!-- 高级筛选区：场景 / 领域 -->
-        <section class="max-w-7xl mx-auto px-4 lg:px-6 mb-6">
-            <div class="glass-card rounded-3xl p-4 space-y-3">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                    </div>
-                    <span id="active-filter-text" class="text-[11px] text-gray-600">
-                        已选条件：全部
-                    </span>
-                </div>
-
-                <div class="space-y-3 text-xs">
-                    <!-- 场景 -->
-                    <div class="flex items-center gap-2">
-                        <span class="text-gray-600 whitespace-nowrap">场景：</span>
-                        <div class="flex flex-wrap gap-1 flex-1">
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-gray-800"
-                                data-filter="scene" data-value="all">
-                                全部
-                            </button>
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                                data-filter="scene" data-value="云原生部署">
-                                云原生部署
-                            </button>
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                                data-filter="scene" data-value="AI大模型训练">
-                                AI 大模型训练
-                            </button>
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                                data-filter="scene" data-value="数据中心运维">
-                                数据中心运维
-                            </button>
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                                data-filter="scene" data-value="企业数字化转型">
-                                企业数字化转型
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- 领域 -->
-                    <div class="flex items-center gap-2">
-                        <span class="text-gray-600 whitespace-nowrap">领域：</span>
-                        <div class="flex flex-wrap gap-1 flex-1">
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-gray-800"
-                                data-filter="domain" data-value="all">
-                                全部
-                            </button>
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                                data-filter="domain" data-value="金融科技">
-                                金融科技
-                            </button>
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                                data-filter="domain" data-value="智能制造">
-                                智能制造
-                            </button>
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                                data-filter="domain" data-value="智慧医疗">
-                                智慧医疗
-                            </button>
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                                data-filter="domain" data-value="教育创新">
-                                教育创新
-                            </button>
-                            <button
-                                class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                                data-filter="domain" data-value="政务服务">
-                                政务服务
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 课程列表 -->
+        <!-- 课程列表与左侧筛选 -->
         <section class="max-w-7xl mx-auto px-4 lg:px-6">
-            <!-- 统计 + 分页信息 -->
-            <div
-                class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 text-[11px] text-gray-600 gap-2">
-                <div>
-                    共 <span id="total-count">0</span> 门课程，当前显示
-                    <span id="current-range">0–0</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <button id="prev-btn"
-                        class="px-2.5 py-1 rounded-full bg白/80 border border-gray-300 hover:bg-gray-200 transition text-gray-800">
-                        上一页
-                    </button>
-                    <span id="page-info">1 / 1</span>
-                    <button id="next-btn"
-                        class="px-2.5 py-1 rounded-full bg白/80 border border-gray-300 hover:bg-gray-200 transition text-gray-800">
-                        下一页
-                    </button>
-                </div>
-            </div>
+            <div class="flex flex-col lg:flex-row gap-6">
+                <!-- 左侧筛选：类别 / 岗位 / 赛道 -->
+                <div class="lg:w-64 shrink-0">
+                    <div class="glass-card rounded-3xl p-4 space-y-4 sticky top-24">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-semibold text-[#2D874B]">筛选条件</span>
+                        </div>
 
-            <!-- 网格卡片 -->
-            <div id="course-list" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                <!-- 卡片由 JS 注入 -->
+                        <!-- 场景 -->
+                        <div>
+                            <div class="text-gray-600 mb-2 flex items-center justify-between">
+                                <span class="text-sm">场景</span>
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <button
+                                    class="filter-chip px-2.5 py-1.5 rounded-lg bg-white/80 border border-gray-300 text-[11px] text-gray-800 text-left"
+                                    data-filter="scene" data-value="all">
+                                    全部
+                                </button>
+                                <button
+                                    class="filter-chip px-2.5 py-1.5 rounded-lg bg-white/80 border border-gray-300 text-[11px] text-[#2D874B] text-left"
+                                    data-filter="scene" data-value="云原生部署">
+                                    云原生部署
+                                </button>
+                                <button
+                                    class="filter-chip px-2.5 py-1.5 rounded-lg bg-white/80 border border-gray-300 text-[11px] text-[#2D874B] text-left"
+                                    data-filter="scene" data-value="AI大模型训练">
+                                    AI 大模型训练
+                                </button>
+                                <button
+                                    class="filter-chip px-2.5 py-1.5 rounded-lg bg-white/80 border border-gray-300 text-[11px] text-[#2D874B] text-left"
+                                    data-filter="scene" data-value="数据中心运维">
+                                    数据中心运维
+                                </button>
+                                <button
+                                    class="filter-chip px-2.5 py-1.5 rounded-lg bg-white/80 border border-gray-300 text-[11px] text-[#2D874B] text-left"
+                                    data-filter="scene" data-value="企业数字化转型">
+                                    企业数字化转型
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 领域 -->
+                        <div>
+                            <div class="text-gray-600 mb-2 flex items-center justify-between">
+                                <span class="text-sm">领域</span>
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <button
+                                    class="filter-chip px-2.5 py-1.5 rounded-lg bg-white/80 border border-gray-300 text-[11px] text-gray-800 text-left"
+                                    data-filter="domain" data-value="all">
+                                    全部
+                                </button>
+                                <button
+                                    class="filter-chip px-2.5 py-1.5 rounded-lg bg-white/80 border border-gray-300 text-[11px] text-[#2D874B] text-left"
+                                    data-filter="domain" data-value="金融科技">
+                                    金融科技
+                                </button>
+                                <button
+                                    class="filter-chip px-2.5 py-1.5 rounded-lg bg-white/80 border border-gray-300 text-[11px] text-[#2D874B] text-left"
+                                    data-filter="domain" data-value="智能制造">
+                                    智能制造
+                                </button>
+                                <button
+                                    class="filter-chip px-2.5 py-1.5 rounded-lg bg-white/80 border border-gray-300 text-[11px] text-[#2D874B] text-left"
+                                    data-filter="domain" data-value="智慧医疗">
+                                    智慧医疗
+                                </button>
+                                <button
+                                    class="filter-chip px-2.5 py-1.5 rounded-lg bg-white/80 border border-gray-300 text-[11px] text-[#2D874B] text-left"
+                                    data-filter="domain" data-value="教育创新">
+                                    教育创新
+                                </button>
+                                <button
+                                    class="filter-chip px-2.5 py-1.5 rounded-lg bg-white/80 border border-gray-300 text-[11px] text-[#2D874B] text-left"
+                                    data-filter="domain" data-value="政务服务">
+                                    政务服务
+                                </button>
+                            </div>
+                        </div>
+
+                        <span id="active-filter-text" class="text-[11px] text-gray-600 block mt-2">
+                            已选条件：全部
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 右侧课程列表 -->
+                <div class="flex-1">
+                    <!-- 统计 + 分页信息 -->
+                    <div
+                        class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 text-[11px] text-gray-600 gap-2">
+                        <div>
+                            共 <span id="total-count">0</span> 门课程，当前显示
+                            <span id="current-range">0–0</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button id="prev-btn"
+                                class="px-2.5 py-1 rounded-full bg白/80 border border-gray-300 hover:bg-gray-200 transition text-gray-800">
+                                上一页
+                            </button>
+                            <span id="page-info">1 / 1</span>
+                            <button id="next-btn"
+                                class="px-2.5 py-1 rounded-full bg白/80 border border-gray-300 hover:bg-gray-200 transition text-gray-800">
+                                下一页
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 网格卡片 -->
+                    <div id="course-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- 卡片由 JS 注入 -->
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -928,13 +935,13 @@
             renderList();
         }
 
-        // 更新顶部“已选条件”文案
+        // 更新顶部"已选条件"文案
         function updateFilterText() {
             const parts = [];
             if (filters.system !== 'all') parts.push(`课程体系：${filters.system}`);
             if (filters.scene !== 'all') parts.push(`场景：${filters.scene}`);
             if (filters.domain !== 'all') parts.push(`领域：${filters.domain}`);
-            if (filters.search) parts.push(`关键词：“${filters.search}”`);
+            if (filters.search) parts.push(`关键词："${filters.search}"`);
             activeFilterText.textContent = '已选条件：' + (parts.length ? parts.join(' / ') : '全部');
         }
 
@@ -1026,7 +1033,7 @@
             });
         }
 
-        // 初始化：默认“全部”chip 激活
+        // 初始化：默认"全部"chip 激活
         document.querySelectorAll('.filter-chip[data-value="all"]').forEach(chip => {
             chip.classList.add('filter-chip-active');
         });
