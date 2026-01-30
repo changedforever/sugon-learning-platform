@@ -691,7 +691,7 @@
                     <button class="quick-question">如何认证成为高级云架构师？</button>
                     <button class="quick-question">如何查看和下载证书</button>
                 </div>
-                <div class="input-container">
+                <div class="input-container" style="position: relative;">
                     <textarea 
                         id="ai-input" 
                         placeholder="输入您的问题..." 
@@ -701,8 +701,92 @@
                     <button id="ai-send" class="send-btn">
                         <i class="fas fa-paper-plane"></i>
                     </button>
+                    
+                    <!-- 正式联想框样式 - 市面上常见的搜索联想 -->
+                    <div id="suggestion-list" style="position: absolute; bottom: 100%; left: 0; right: 0; margin-bottom: 8px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 9999; display: none; overflow: hidden; width: 94%;">
+                        <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: all 0.2s;"><span style="color: red;">智能</span>天线</div>
+                        <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: all 0.2s;">全网<span style="color: red;">智能</span></div>
+                        <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; transition: all 0.2s;">体系智<span style="color: red;">能</span>特性</div>
+                    </div>
                 </div>
             </div>
+
+            <!-- 联想功能脚本 -->
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const input = document.getElementById('ai-input');
+                const suggestion = document.getElementById('suggestion-list');
+                
+                if (input && suggestion) {
+                    // 输入事件 - 输入1个字符就显示联想
+                    input.addEventListener('input', function() {
+                        const value = this.value;
+                        
+                        // 输入1个字符以上显示联想
+                        if (value.length >= 1) {
+                            suggestion.style.display = 'block';
+                            
+                            // 动态高亮匹配的字符（当输入"智能"时）
+                            const items = suggestion.querySelectorAll('div');
+                            items.forEach(item => {
+                                const text = item.textContent;
+                                let highlightedText = text;
+                                
+                                // 如果输入包含"智能"，高亮"智能"中的"能"字
+                                // if (value.includes('智能')) {
+                                //     highlightedText = highlightedText.replace(/智/g, '<span style="color: red;">智</span>');
+                                // }
+                                if (value.includes('智')) {
+                                    highlightedText = highlightedText.replace(/智/g, '<span style="color: red;">智</span>');
+                                }
+                                if (value.includes('能')) {
+                                    highlightedText = highlightedText.replace(/能/g, '<span style="color: red;">能</span>');
+                                }
+
+                                
+                                // 更新HTML内容（注意：这里简单处理，实际应更精确）
+                                if (item.innerHTML !== highlightedText) {
+                                    item.innerHTML = highlightedText;
+                                }
+                            });
+                        } else {
+                            suggestion.style.display = 'none';
+                        }
+                    });
+                    
+                    // 点击联想项
+                    suggestion.addEventListener('click', function(e) {
+                        if (e.target.tagName === 'DIV') {
+                            input.value = e.target.textContent;
+                            suggestion.style.display = 'none';
+                            input.focus();
+                        }
+                    });
+                    
+                    // 悬停效果
+                    const items = suggestion.querySelectorAll('div');
+                    items.forEach(item => {
+                        item.addEventListener('mouseenter', function() {
+                            this.style.background = '#f8fafd';
+                            this.style.color = '#4a86ff';
+                        });
+                        item.addEventListener('mouseleave', function() {
+                            this.style.background = '';
+                            this.style.color = '#333';
+                        });
+                    });
+                    
+                    // 点击外部隐藏
+                    document.addEventListener('click', function(e) {
+                        if (!e.target.closest('.input-container') && !e.target.closest('#suggestion-list')) {
+                            suggestion.style.display = 'none';
+                        }
+                    });
+                    
+                    console.log('✅ 正式联想功能已启用');
+                }
+            });
+            </script>
         </div>
     </div>
 

@@ -133,10 +133,106 @@
             <i class="fa fa-award mr-1 text-[10px]"></i> 关联认证：伙伴云架构工程师（P-Cloud Architect）
           </span>
         </div>
+
+        <!-- ================= 课程体系 ================= -->
+        <div class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5">
+          <h2 class="text-sm md:text-base font-semibold mb-4 flex items-center gap-2 text-gray-800">
+            <i class="fa fa-sitemap mr-1 text-[#2D874B]"></i> 课程体系
+          </h2>
+          <div class="space-y-4">
+            <!-- 当前课程所属体系 -->
+            <div class="flex items-center gap-3">
+              <span class="text-xs text-gray-600 whitespace-nowrap">当前课程所属体系：</span>
+              <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-[#2D874B]/10 border border-[#2D874B]/30 text-[#2D874B] text-sm font-medium">
+                云基础设施学院
+              </span>
+            </div>
+            
+            <!-- 体系下其他课程 -->
+            <div>
+              <div class="flex items-center justify-between text-xs text-gray-600 mb-3">
+                <span>该体系下的其他课程：</span>
+                <a href="course-list2.html" class="text-[#2D874B] hover:underline flex items-center gap-1">
+                  <span>查看更多</span>
+                  <i class="fa fa-chevron-right text-[9px]"></i>
+                </a>
+              </div>
+              <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+                <!-- 课程 1 -->
+                <a href="course-detail.html" class="glass-card rounded-2xl border border-gray-300 p-3 hover:-translate-y-1 hover:border-[#2D874B]/80 transition">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-[11px] text-[#2D874B]">云基础设施学院</span>
+                    <span class="text-[10px] text-gray-500">初级</span>
+                  </div>
+                  <h3 class="text-sm font-semibold text-gray-800 mb-1">云计算基础与容器入门</h3>
+                  <div class="flex items-center justify-between text-[10px] text-gray-500">
+                    <span><i class="fa fa-clock mr-1"></i>4小时</span>
+                    <span><i class="fa fa-users mr-1"></i>8.5k在学</span>
+                  </div>
+                </a>
+                
+                <!-- 课程 2 -->
+                <a href="course-detail.html" class="glass-card rounded-2xl border border-gray-300 p-3 hover:-translate-y-1 hover:border-[#2D874B]/80 transition">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-[11px] text-[#2D874B]">云基础设施学院</span>
+                    <span class="text-[10px] text-gray-500">高级</span>
+                  </div>
+                  <h3 class="text-sm font-semibold text-gray-800 mb-1">云原生高级架构设计</h3>
+                  <div class="flex items-center justify-between text-[10px] text-gray-500">
+                    <span><i class="fa fa-clock mr-1"></i>12小时</span>
+                    <span><i class="fa fa-users mr-1"></i>3.2k在学</span>
+                  </div>
+                </a>
+                
+                <!-- 课程 3 -->
+                <a href="course-detail.html" class="glass-card rounded-2xl border border-gray-300 p-3 hover:-translate-y-1 hover:border-[#2D874B]/80 transition">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-[11px] text-[#2D874B]">云基础设施学院</span>
+                    <span class="text-[10px] text-gray-500">中级</span>
+                  </div>
+                  <h3 class="text-sm font-semibold text-gray-800 mb-1">Kubernetes集群管理与运维</h3>
+                  <div class="flex items-center justify-between text-[10px] text-gray-500">
+                    <span><i class="fa fa-clock mr-1"></i>8小时</span>
+                    <span><i class="fa fa-users mr-1"></i>5.7k在学</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- 右侧：课程信息 & 报名区 -->
       <aside class="lg:col-span-1 glass-card rounded-3xl border border-gray-300 p-4 md:p-5 space-y-4">
+        <!-- 讲师介绍 -->
+        <div>
+          <h2 class="text-sm font-semibold mb-2 flex items-center gap-2 text-gray-800">
+            <i class="fa fa-user-tie mr-1 text-[#2D874B]"></i> 讲师介绍
+          </h2>
+          <div class="flex items-start gap-3 mb-3">
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=80&q=80"
+                 class="h-12 w-12 rounded-full object-cover border border-gray-300" alt="讲师">
+            <div class="flex-1">
+              <div class="text-xs text-gray-600">
+                <div class="font-medium text-gray-800">王云</div>
+                <div class="text-gray-500">首席云架构师 · 云基础设施学院</div>
+                <p class="mt-1 leading-snug text-gray-600">
+                  拥有 10 年云原生项目经验，主导多家头部企业云原生转型项目，对 Kubernetes、服务网格和 DevOps 实践有深入研究。
+                  曾参与多个国家级云原生标准制定，具备丰富的实战经验和理论体系。
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-2 text-[11px] mt-2">
+                <a href="lecturer-detail.html" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#2D874B] hover:border-[#2D874B]">
+                  <i class="fa fa-id-badge mr-1 text-[9px]"></i> 查看讲师主页
+                </a>
+                <a href="#" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#2D874B] hover:border-[#2D874B]">
+                  <i class="fa fa-video mr-1 text-[9px]"></i> 查看讲师更多课程
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
         <!-- 顶部评分 -->
         <div class="flex items-center justify-between">
           <div>
@@ -215,35 +311,6 @@
         </div>
       </aside>
     </div>
-
-    <!-- ================= 讲师介绍 ================= -->
-    <section class="mt-8">
-      <div class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5">
-        <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2 text-gray-800">
-          <i class="fa fa-user-tie mr-1 text-[#2D874B]"></i> 讲师介绍
-        </h2>
-        <div class="flex items-start gap-3 mb-3">
-          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=80&q=80"
-               class="h-12 w-12 rounded-full object-cover border border-gray-300" alt="讲师">
-          <div class="flex-1 text-xs text-gray-600">
-            <div class="font-medium text-gray-800">王云</div>
-            <div class="text-gray-500">首席云架构师 · 云基础设施学院</div>
-            <p class="mt-1 leading-snug text-gray-600">
-              拥有 10 年云原生项目经验，主导多家头部企业云原生转型项目，对 Kubernetes、服务网格和 DevOps 实践有深入研究。
-              曾参与多个国家级云原生标准制定，具备丰富的实战经验和理论体系。
-            </p>
-          </div>
-        </div>
-        <div class="flex flex-wrap gap-2 text-[11px]">
-          <a href="lecturer-detail.html" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#2D874B] hover:border-[#2D874B]">
-            <i class="fa fa-id-badge mr-1 text-[9px]"></i> 查看讲师主页
-          </a>
-          <a href="#" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#2D874B] hover:border-[#2D874B]">
-            <i class="fa fa-video mr-1 text-[9px]"></i> 查看讲师更多课程
-          </a>
-        </div>
-      </div>
-    </section>
 
 
 
@@ -481,6 +548,8 @@
         </div>
       </div>
     </section>
+
+
 
     <!-- ================= 推荐课程 ================= -->
     <section class="mt-12 bg-gray-50 py-8">
