@@ -90,6 +90,83 @@
         </style>
     </head>
     <body class="bg-black text-white">
+        <!-- 禁言踢人选择弹框 -->
+        <div
+            id="muteKickModal"
+            style="z-index: 999;"
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-60 hidden"
+        >
+            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-80">
+                <h3 class="text-lg font-medium mb-4 text-white">选择操作</h3>
+                <div class="mb-4">
+                    <p class="text-sm text-gray-300 mb-3">请选择要执行的操作：</p>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="muteKickOption" value="mute" class="mr-2">
+                            <span class="text-sm text-gray-300">禁言</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="muteKickOption" value="kick" class="mr-2">
+                            <span class="text-sm text-gray-300">踢人</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button
+                        id="cancelMuteKick"
+                        class="px-4 py-2 border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800"
+                    >
+                        取消
+                    </button>
+                    <button
+                        id="confirmMuteKick"
+                        class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                    >
+                        确认
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 上下课选择弹框 -->
+        <div
+            id="classModal"
+            
+            style="z-index: 999;"
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-60 hidden"
+        >
+            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-80">
+                <h3 class="text-lg font-medium mb-4 text-white">选择操作</h3>
+                <div class="mb-4">
+                    <p class="text-sm text-gray-300 mb-3">请选择要执行的操作：</p>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="classOption" value="start" class="mr-2">
+                            <span class="text-sm text-gray-300">上课</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="classOption" value="end" class="mr-2">
+                            <span class="text-sm text-gray-300">下课</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button
+                        id="cancelClass"
+                        class="px-4 py-2 border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800"
+                    >
+                        取消
+                    </button>
+                    <button
+                        id="confirmClass"
+                        class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                    >
+                        确认
+                    </button>
+                </div>
+            </div>
+        </div>
+        
         <!-- 权限管理弹框 -->
         <div
             id="permissionModal"
@@ -106,6 +183,9 @@
                     <table class="w-full">
                         <thead>
                             <tr class="bg-gray-800">
+                                <th class="px-3 py-2 text-center text-sm font-medium text-gray-300">
+                                    <input type="checkbox" id="selectAll">
+                                </th>
                                 <th class="px-3 py-2 text-left text-sm font-medium text-gray-300">用户</th>
                                 <th class="px-3 py-2 text-center text-sm font-medium text-gray-300">禁言与踢人</th>
                                 <th class="px-3 py-2 text-center text-sm font-medium text-gray-300">上下课</th>
@@ -116,18 +196,36 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="flex justify-end space-x-3">
+                <div class="flex flex-wrap justify-end gap-2">
                     <button
-                        id="resetPermission"
-                        class="px-4 py-2 border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800"
+                        id="cancelBatch" 
+                        class="px-3 py-2 border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800"
                     >
-                        重置
+                        取消
                     </button>
                     <button
-                        id="confirmPermission"
-                        class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                        id="muteBatch" 
+                        class="px-3 py-2 border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800"
                     >
-                        确认
+                        禁言
+                    </button>
+                    <button
+                        id="kickBatch" 
+                        class="px-3 py-2 border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800"
+                    >
+                        踢出
+                    </button>
+                    <button
+                        id="startClassBatch" 
+                        class="px-3 py-2 border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800"
+                    >
+                        上课
+                    </button>
+                    <button
+                        id="endClassBatch" 
+                        class="px-3 py-2 border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800"
+                    >
+                        下课
                     </button>
                 </div>
             </div>
@@ -361,14 +459,26 @@
                                     // 权限管理功能
                                     const permissionBtn = document.getElementById('permissionBtn');
                                     const permissionModal = document.getElementById('permissionModal');
-                                    const closePermissionModal = document.getElementById('closePermissionModal');
-                                    const resetPermission = document.getElementById('resetPermission');
-                                    const confirmPermission = document.getElementById('confirmPermission');
+                                    const closePermissionModal = document.getElementById('closePermissionModal'); 
                                     const permissionTableBody = document.getElementById('permissionTableBody');
+                                    const selectAll = document.getElementById('selectAll');
+                                    const muteKickModal = document.getElementById('muteKickModal');
+                                    const cancelMuteKick = document.getElementById('cancelMuteKick');
+                                    const confirmMuteKick = document.getElementById('confirmMuteKick');
+                                    const classModal = document.getElementById('classModal');
+                                    const cancelClass = document.getElementById('cancelClass');
+                                    const confirmClass = document.getElementById('confirmClass');
+                                    // 批量操作按钮
+                                    const cancelBatch = document.getElementById('cancelBatch');
+                                    const muteBatch = document.getElementById('muteBatch');
+                                    const kickBatch = document.getElementById('kickBatch');
+                                    const startClassBatch = document.getElementById('startClassBatch');
+                                    const endClassBatch = document.getElementById('endClassBatch');
+                                    let selectedUserIndex = -1;
                                     
                                     // 模拟观众列表
                                     const audienceList = [
-                                        { name: '健康同学', muted: false, kicked: false },
+                                        { name: '同学', muted: false, kicked: false },
                                         { name: '小明', muted: false, kicked: false },
                                         { name: '小红', muted: false, kicked: false },
                                         { name: '小刚', muted: false, kicked: false },
@@ -388,6 +498,9 @@
                                             // 生成随机头像URL
                                             const avatarUrl = `https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&q=80`;
                                             row.innerHTML = `
+                                                <td class="px-3 py-2 text-center">
+                                                    <input type="checkbox" class="user-checkbox" data-index="${index}">
+                                                </td>
                                                 <td class="px-3 py-2 text-sm">
                                                     <div class="flex items-center">
                                                         <img src="${avatarUrl}" alt="${user.name}" class="w-6 h-6 rounded-full mr-2 object-cover">
@@ -395,25 +508,66 @@
                                                     </div>
                                                 </td>
                                                 <td class="px-3 py-2 text-center">
-                                                    <input type="checkbox" id="mute-${index}" class="permission-mute" data-index="${index}" ${user.muted ? 'checked' : ''}>
+                                                    <button class="mute-kick-btn px-3 py-1 bg-gray-700 rounded hover:bg-gray-600 text-sm" data-index="${index}">操作</button>
                                                 </td>
                                                 <td class="px-3 py-2 text-center">
-                                                    <input type="checkbox" id="kick-${index}" class="permission-kick" data-index="${index}" ${user.kicked ? 'checked' : ''}>
+                                                    <button class="class-btn px-3 py-1 bg-gray-700 rounded hover:bg-gray-600 text-sm" data-index="${index}">操作</button>
                                                 </td>
                                             `;
                                             permissionTableBody.appendChild(row);
                                         });
+                                        
+                                        // 绑定事件监听器
+                                        bindTableEventListeners();
                                     }
                                     
-                                    // 监听复选框变化
-                                    permissionTableBody.addEventListener('change', function(e) {
-                                        if (e.target.classList.contains('permission-mute')) {
-                                            const index = e.target.dataset.index;
-                                            audienceList[index].muted = e.target.checked;
-                                        } else if (e.target.classList.contains('permission-kick')) {
-                                            const index = e.target.dataset.index;
-                                            audienceList[index].kicked = e.target.checked;
-                                        }
+                                    // 绑定表格事件监听器
+                                    function bindTableEventListeners() {
+                                        // 禁言踢人按钮点击事件
+                                        const muteKickBtns = document.querySelectorAll('.mute-kick-btn');
+                                        muteKickBtns.forEach(btn => {
+                                            btn.addEventListener('click', function() {
+                                                const index = this.dataset.index;
+                                                selectedUserIndex = index;
+                                                
+                                                console.log(11111,index);
+                                                muteKickModal.classList.remove('hidden');
+                                                console.log(222222,muteKickModal);
+                                            });
+                                        });
+                                        
+                                        // 上下课按钮点击事件
+                                        const classBtns = document.querySelectorAll('.class-btn');
+                                        classBtns.forEach(btn => {
+                                            btn.addEventListener('click', function() {
+                                                const index = this.dataset.index;
+                                                selectedUserIndex = index;
+                                                classModal.classList.remove('hidden');
+                                            });
+                                        });
+                                        
+                                        // 用户复选框点击事件
+                                        const userCheckboxes = document.querySelectorAll('.user-checkbox');
+                                        userCheckboxes.forEach(checkbox => {
+                                            checkbox.addEventListener('change', function() {
+                                                updateSelectAllStatus();
+                                            });
+                                        });
+                                    }
+                                    
+                                    // 更新全选复选框状态
+                                    function updateSelectAllStatus() {
+                                        const userCheckboxes = document.querySelectorAll('.user-checkbox');
+                                        const checkedBoxes = document.querySelectorAll('.user-checkbox:checked');
+                                        selectAll.checked = userCheckboxes.length > 0 && checkedBoxes.length === userCheckboxes.length;
+                                    }
+                                    
+                                    // 全选复选框点击事件
+                                    selectAll.addEventListener('change', function() {
+                                        const userCheckboxes = document.querySelectorAll('.user-checkbox');
+                                        userCheckboxes.forEach(checkbox => {
+                                            checkbox.checked = selectAll.checked;
+                                        });
                                     });
 
                                     // 打开权限管理弹框
@@ -421,39 +575,147 @@
                                         renderPermissionTable();
                                         permissionModal.classList.remove('hidden');
                                     });
-
-                                    // 重置权限设置
-                                    resetPermission.addEventListener('click', function () {
-                                        audienceList.forEach(user => {
-                                            user.muted = false;
-                                            user.kicked = false;
-                                        });
-                                        renderPermissionTable();
-                                    });
-
-                                    // 确认权限设置
-                                    confirmPermission.addEventListener('click', function () {
-                                        const mutedUsers = audienceList.filter(user => user.muted).map(user => user.name);
-                                        const kickedUsers = audienceList.filter(user => user.kicked).map(user => user.name);
-                                        
-                                        let message = '权限设置已更新：\n';
-                                        if (mutedUsers.length > 0) {
-                                            message += `禁言用户：${mutedUsers.join('、')}\n`;
-                                        }
-                                        if (kickedUsers.length > 0) {
-                                            message += `踢出用户：${kickedUsers.join('、')}`;
-                                        }
-                                        if (mutedUsers.length === 0 && kickedUsers.length === 0) {
-                                            message += '未做任何修改';
-                                        }
-                                        
-                                        alert(message);
-                                        permissionModal.classList.add('hidden');
-                                    });
-
+                                    
                                     // 关闭权限管理弹框
                                     closePermissionModal.addEventListener('click', function () {
                                         permissionModal.classList.add('hidden');
+                                    });
+                                    
+                                    // 批量操作 - 取消按钮
+                                    cancelBatch.addEventListener('click', function() {
+                                        const userCheckboxes = document.querySelectorAll('.user-checkbox');
+                                        userCheckboxes.forEach(checkbox => {
+                                            checkbox.checked = false;
+                                        });
+                                        updateSelectAllStatus();
+                                    });
+                                    
+                                    // 批量操作 - 禁言按钮
+                                    muteBatch.addEventListener('click', function() {
+                                        const selectedCheckboxes = document.querySelectorAll('.user-checkbox:checked');
+                                        if (selectedCheckboxes.length === 0) {
+                                            alert('请先选择用户');
+                                            return;
+                                        }
+                                        const selectedUsers = [];
+                                        selectedCheckboxes.forEach(checkbox => {
+                                            const index = checkbox.dataset.index;
+                                            const user = audienceList[index];
+                                            user.muted = true;
+                                            selectedUsers.push(user.name);
+                                        });
+                                        alert(`已将 ${selectedUsers.join('、')} 禁言`);
+                                        permissionModal.classList.add('hidden');
+                                    });
+                                    
+                                    // 批量操作 - 踢出按钮
+                                    kickBatch.addEventListener('click', function() {
+                                        const selectedCheckboxes = document.querySelectorAll('.user-checkbox:checked');
+                                        if (selectedCheckboxes.length === 0) {
+                                            alert('请先选择用户');
+                                            return;
+                                        }
+                                        const selectedUsers = [];
+                                        selectedCheckboxes.forEach(checkbox => {
+                                            const index = checkbox.dataset.index;
+                                            const user = audienceList[index];
+                                            user.kicked = true;
+                                            selectedUsers.push(user.name);
+                                        });
+                                        alert(`已将 ${selectedUsers.join('、')} 踢出`);
+                                        permissionModal.classList.add('hidden');
+                                    });
+                                    
+                                    // 批量操作 - 上课按钮
+                                    startClassBatch.addEventListener('click', function() {
+                                        const selectedCheckboxes = document.querySelectorAll('.user-checkbox:checked');
+                                        if (selectedCheckboxes.length === 0) {
+                                            alert('请先选择用户');
+                                            return;
+                                        }
+                                        const selectedUsers = [];
+                                        selectedCheckboxes.forEach(checkbox => {
+                                            const index = checkbox.dataset.index;
+                                            const user = audienceList[index];
+                                            selectedUsers.push(user.name);
+                                        });
+                                        alert(`已让 ${selectedUsers.join('、')} 上课`);
+                                        permissionModal.classList.add('hidden');
+                                    });
+                                    
+                                    // 批量操作 - 下课按钮
+                                    endClassBatch.addEventListener('click', function() {
+                                        const selectedCheckboxes = document.querySelectorAll('.user-checkbox:checked');
+                                        if (selectedCheckboxes.length === 0) {
+                                            alert('请先选择用户');
+                                            return;
+                                        }
+                                        const selectedUsers = [];
+                                        selectedCheckboxes.forEach(checkbox => {
+                                            const index = checkbox.dataset.index;
+                                            const user = audienceList[index];
+                                            selectedUsers.push(user.name);
+                                        });
+                                        alert(`已让 ${selectedUsers.join('、')} 下课`);
+                                        permissionModal.classList.add('hidden');
+                                    });
+                                    
+                                    // 禁言踢人选择弹框 - 取消按钮
+                                    cancelMuteKick.addEventListener('click', function() {
+                                        muteKickModal.classList.add('hidden');
+                                        selectedUserIndex = -1;
+                                    });
+                                    
+                                    // 禁言踢人选择弹框 - 确认按钮
+                                    confirmMuteKick.addEventListener('click', function() {
+                                        const selectedOption = document.querySelector('input[name="muteKickOption"]:checked');
+                                        if (selectedOption) {
+                                            const optionValue = selectedOption.value;
+                                            const user = audienceList[selectedUserIndex];
+                                            if (optionValue === 'mute') {
+                                                user.muted = true;
+                                                alert(`已将 ${user.name} 禁言`);
+                                            } else if (optionValue === 'kick') {
+                                                user.kicked = true;
+                                                alert(`已将 ${user.name} 踢出`);
+                                            }
+                                            muteKickModal.classList.add('hidden');
+                                            selectedUserIndex = -1;
+                                            // 重置单选按钮
+                                            document.querySelectorAll('input[name="muteKickOption"]').forEach(radio => {
+                                                radio.checked = false;
+                                            });
+                                        } else {
+                                            alert('请选择操作');
+                                        }
+                                    });
+                                    
+                                    // 上下课选择弹框 - 取消按钮
+                                    cancelClass.addEventListener('click', function() {
+                                        classModal.classList.add('hidden');
+                                        selectedUserIndex = -1;
+                                    });
+                                    
+                                    // 上下课选择弹框 - 确认按钮
+                                    confirmClass.addEventListener('click', function() {
+                                        const selectedOption = document.querySelector('input[name="classOption"]:checked');
+                                        if (selectedOption) {
+                                            const optionValue = selectedOption.value;
+                                            const user = audienceList[selectedUserIndex];
+                                            if (optionValue === 'start') {
+                                                alert(`已让 ${user.name} 上课`);
+                                            } else if (optionValue === 'end') {
+                                                alert(`已让 ${user.name} 下课`);
+                                            }
+                                            classModal.classList.add('hidden');
+                                            selectedUserIndex = -1;
+                                            // 重置单选按钮
+                                            document.querySelectorAll('input[name="classOption"]').forEach(radio => {
+                                                radio.checked = false;
+                                            });
+                                        } else {
+                                            alert('请选择操作');
+                                        }
                                     });
                                 </script>
                                 <div class="relative group">
@@ -585,7 +847,7 @@
 
                                     // 模拟观众列表
                                     const audienceList2 = [
-                                        '健康同学',
+                                        '同学',
                                         '小明',
                                         '小红',
                                         '小刚',
@@ -1565,7 +1827,7 @@
                         </div>
                         <div>
                             <h4 class="text-sm font-medium text-gray-900">观众举手</h4>
-                            <p class="text-sm text-gray-600" id="handUpUserName">健康同学</p>
+                            <p class="text-sm text-gray-600" id="handUpUserName">同学</p>
                         </div>
                     </div>
                     <button id="closeHandUp" class="text-gray-400 hover:text-gray-900">
