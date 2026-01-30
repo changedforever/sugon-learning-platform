@@ -155,10 +155,10 @@
                     <!-- 底部 -->
                     <div class="flex justify-end p-4 border-t border-gray-700">
                         <button
-                            id="closeAttendance"
+                            id="exportAttendance"
                             class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
                         >
-                            关闭
+                            导出
                         </button>
                     </div>
                 </div>
@@ -362,7 +362,7 @@
             <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-80">
                 <h3 class="text-lg font-medium mb-4 text-white">发布问卷</h3>
                 <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-300 mb-1">问题</label>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">填写问卷内容</label>
                     <textarea
                         id="surveyQuestion"
                         class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500"
@@ -1135,7 +1135,7 @@
                                     });
                                 </script>
 
-                                <div class="relative group">
+                                <div class="relative group hidden">
                                     <!-- 发起签到按钮 -->
                                     <button
                                         id="checkInBtn"
@@ -1167,13 +1167,13 @@
 
                                 <script>
                                     // 签到和到场名单功能
-                                    const checkInBtn = document.getElementById('checkInBtn');
+                                    // const checkInBtn = document.getElementById('checkInBtn');
                                     const attendanceBtn = document.getElementById('attendanceBtn');
                                     const checkInModal = document.getElementById('checkInModal');
                                     const attendanceModal = document.getElementById('attendanceModal');
                                     const cancelCheckIn = document.getElementById('cancelCheckIn');
                                     const confirmCheckIn = document.getElementById('confirmCheckIn');
-                                    const closeAttendance = document.getElementById('closeAttendance');
+                                    const exportAttendance = document.getElementById('exportAttendance');
                                     const closeAttendanceBtn = document.getElementById('closeAttendanceBtn');
                                     const attendanceList = document.getElementById('attendanceList');
                                     const checkInDuration = document.getElementById('checkInDuration');
@@ -1193,9 +1193,9 @@
                                     ];
 
                                     // 打开签到弹框
-                                    checkInBtn.addEventListener('click', function () {
-                                        checkInModal.classList.remove('hidden');
-                                    });
+                                    // checkInBtn.addEventListener('click', function () {
+                                    //     checkInModal.classList.remove('hidden');
+                                    // });
 
                                     // 关闭签到弹框
                                     cancelCheckIn.addEventListener('click', function () {
@@ -1215,9 +1215,9 @@
                                         attendanceModal.classList.remove('hidden');
                                     });
 
-                                    // 关闭到场名单弹框
-                                    closeAttendance.addEventListener('click', function () {
-                                        attendanceModal.classList.add('hidden');
+                                    // 导出到场名单
+                                    exportAttendance.addEventListener('click', function () {
+                                        exportAttendanceList();
                                     });
                                     
                                     // 右上角关闭按钮
@@ -1241,6 +1241,33 @@
                                             `;
                                             attendanceList.appendChild(item);
                                         });
+                                    }
+                                    
+                                    // 导出到场名单为CSV
+                                    function exportAttendanceList() {
+                                        // 构建CSV内容
+                                        let csvContent = "排名,姓名,到场时间\n";
+                                        attendees.forEach((attendee, index) => {
+                                            csvContent += `${index + 1},${attendee.name},${attendee.time}\n`;
+                                        });
+                                        
+                                        // 创建Blob对象
+                                        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                                        
+                                        // 创建下载链接
+                                        const link = document.createElement('a');
+                                        if (link.download !== undefined) {
+                                            const url = URL.createObjectURL(blob);
+                                            link.setAttribute('href', url);
+                                            link.setAttribute('download', '到场名单.csv');
+                                            link.style.visibility = 'hidden';
+                                            document.body.appendChild(link);
+                                            link.click();
+                                            document.body.removeChild(link);
+                                            
+                                            // 显示导出成功提示
+                                            alert('到场名单已导出成功');
+                                        }
                                     }
                                 </script>
                             </div>

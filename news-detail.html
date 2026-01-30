@@ -78,7 +78,7 @@
     <article class="glass-card rounded-3xl border border-slate-800 p-4 md:p-6">
       <!-- 顶部图片 -->
       <div class="title-img-box h-32 md:h-80 mb-6">
-        <img src="./images/information.png" alt="新闻详情" class="w-full h-full rounded-2xl">
+        <img src="./images/news-detail.png" alt="新闻详情" class="w-full h-full rounded-2xl">
       </div>
       <!-- 顶部类型 + 分类标签 -->
       <div class="flex flex-wrap items-center justify-between text-[11px] mb-3">
@@ -127,35 +127,148 @@
       <div class="border-t border-gray-300 my-3"></div>
 
       <!-- 正文内容（示例，可替换为后端返回的 HTML） -->
-      <div id="article-content" class="prose max-w-none text-xs leading-6 text-gray-600">
+      <div id="article-content" class="prose max-w-none text-sm leading-7 text-gray-600">
         <p>
           随着云原生技术的快速发展，越来越多的企业开始从传统单体架构向云原生架构演进。
           本文结合 HIECO 在政企、金融等行业的实践经验，总结出一套可复用的云原生架构设计方法论。
         </p>
 
-        <h2 class="text-sm font-medium mt-4 mb-2 text-gray-800">一、云原生架构的设计原则</h2>
-        <p>在整体设计上，我们建议从以下三个维度审视系统：</p>
-        <ul class="list-disc ml-5 space-y-1">
-          <li><strong>服务拆分</strong>：根据业务领域拆分为多个微服务，避免"大而全"的单体系统。</li>
-          <li><strong>弹性伸缩</strong>：结合业务峰谷规律，合理设置 HPA/VPA 策略。</li>
-          <li><strong>可观测性</strong>：在设计阶段即考虑日志、指标、链路追踪的统一方案。</li>
-        </ul>
+        <!-- 图片 -->
+        <div class="my-6">
+          <img 
+            src="./images/information-1.png" 
+            alt="云原生架构 diagram" 
+            class="w-full h-[200px] object-cover rounded-xl shadow-sm"
+          >
+          <p class="text-xs text-center text-gray-500 mt-2">图1：云原生架构参考设计</p>
+        </div>
 
-        <h2 class="text-sm font-medium mt-4 mb-2 text-gray-800">二、典型行业实践案例</h2>
-        <p>
-          在金融行业项目中，我们通过引入服务网格、零信任安全体系，既满足了监管合规要求，
-          又在高峰交易时段保障了系统的稳定性与弹性。
+        <h2 class="text-lg font-medium mt-8 mb-4 text-gray-800">一、云原生架构的设计原则</h2>
+        <p>在整体设计上，我们建议从以下三个维度审视系统：</p>
+        
+        <!-- 卡片式列表 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+          <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+            <div class="w-12 h-12 rounded-full bg-[#2D874B]/10 flex items-center justify-center mb-3">
+              <i class="fa fa-cubes text-[#2D874B] text-xl"></i>
+            </div>
+            <h3 class="text-base font-medium mb-2 text-gray-800">服务拆分</h3>
+            <p class="text-sm text-gray-600">根据业务领域拆分为多个微服务，避免"大而全"的单体系统，提高系统的可维护性和可扩展性。</p>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+            <div class="w-12 h-12 rounded-full bg-[#2D874B]/10 flex items-center justify-center mb-3">
+              <i class="fa fa-expand-arrows-alt text-[#2D874B] text-xl"></i>
+            </div>
+            <h3 class="text-base font-medium mb-2 text-gray-800">弹性伸缩</h3>
+            <p class="text-sm text-gray-600">结合业务峰谷规律，合理设置 HPA/VPA 策略，实现资源的高效利用和系统的稳定运行。</p>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+            <div class="w-12 h-12 rounded-full bg-[#2D874B]/10 flex items-center justify-center mb-3">
+              <i class="fa fa-eye text-[#2D874B] text-xl"></i>
+            </div>
+            <h3 class="text-base font-medium mb-2 text-gray-800">可观测性</h3>
+            <p class="text-sm text-gray-600">在设计阶段即考虑日志、指标、链路追踪的统一方案，提高系统的可观测性和问题定位能力。</p>
+          </div>
+        </div>
+
+        <h2 class="text-lg font-medium mt-8 mb-4 text-gray-800">二、典型行业实践案例</h2>
+        
+        <!-- 引用块 -->
+        <blockquote class="border-l-4 border-[#2D874B] pl-4 italic text-gray-700 my-4">
+          "在金融行业项目中，我们通过引入服务网格、零信任安全体系，既满足了监管合规要求，又在高峰交易时段保障了系统的稳定性与弹性。"
+        </blockquote>
+        
+        <!-- 图片 -->
+        <div class="my-6">
+          <img 
+            src="./images/information-2.png" 
+            alt="金融行业云原生部署" 
+            class="w-full h-[200px] object-cover rounded-xl shadow-sm"
+          >
+          <p class="text-xs text-center text-gray-500 mt-2">图2：金融行业云原生部署架构</p>
+        </div>
+
+        <p class="my-4">
+          某大型银行通过采用云原生架构，实现了核心交易系统的微服务化改造，系统响应时间降低了40%，
+          资源利用率提高了35%，在双十一等高峰时段成功应对了10倍于平时的交易量。
         </p>
 
-        <h2 class="text-sm font-medium mt-4 mb-2 text-gray-800">三、对合作伙伴的建议</h2>
-        <ol class="list-decimal ml-5 space-y-1">
-          <li>在项目前期就与客户共同梳理业务域与非功能性需求；</li>
-          <li>优先选择成熟的开源组件，并结合 HIECO 云平台组件进行集成；</li>
-          <li>通过培训与认证体系，构建稳定的云原生交付团队。</li>
+        <!-- 表格 -->
+        <div class="my-6 overflow-x-auto">
+          <table class="min-w-full border border-gray-200 rounded-lg">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="py-3 px-4 border-b text-left text-sm font-medium text-gray-700">行业</th>
+                <th class="py-3 px-4 border-b text-left text-sm font-medium text-gray-700">痛点</th>
+                <th class="py-3 px-4 border-b text-left text-sm font-medium text-gray-700">云原生解决方案</th>
+                <th class="py-3 px-4 border-b text-left text-sm font-medium text-gray-700">效果</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white">
+              <tr>
+                <td class="py-3 px-4 border-b text-sm">金融</td>
+                <td class="py-3 px-4 border-b text-sm">监管合规、高并发、低延迟</td>
+                <td class="py-3 px-4 border-b text-sm">服务网格、零信任安全、自动扩缩容</td>
+                <td class="py-3 px-4 border-b text-sm">响应时间降低40%</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 border-b text-sm">政企</td>
+                <td class="py-3 px-4 border-b text-sm">数据安全、系统集成复杂</td>
+                <td class="py-3 px-4 border-b text-sm">容器编排、微服务治理、API网关</td>
+                <td class="py-3 px-4 border-b text-sm">部署时间缩短80%</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 text-sm">制造</td>
+                <td class="py-3 px-4 text-sm">IT与OT融合、边缘计算</td>
+                <td class="py-3 px-4 text-sm">边缘容器、混合云架构</td>
+                <td class="py-3 px-4 text-sm">运维成本降低30%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="text-lg font-medium mt-8 mb-4 text-gray-800">三、对合作伙伴的建议</h2>
+        
+        <!-- 图片 -->
+        <div class="my-6">
+          <img 
+            src="./images/information-3.png" 
+            alt="云原生实施路线图" 
+            class="w-full h-[200px] object-cover rounded-xl shadow-sm"
+          >
+          <p class="text-xs text-center text-gray-500 mt-2">图3：云原生实施路线图</p>
+        </div>
+
+        <ol class="list-decimal ml-6 space-y-3 my-4">
+          <li class="pl-2">
+            <strong class="text-gray-800">需求梳理与规划</strong>：在项目前期就与客户共同梳理业务域与非功能性需求，制定详细的云原生转型路线图。
+          </li>
+          <li class="pl-2">
+            <strong class="text-gray-800">技术选型</strong>：优先选择成熟的开源组件，并结合 HIECO 云平台组件进行集成，确保技术栈的稳定性和可维护性。
+          </li>
+          <li class="pl-2">
+            <strong class="text-gray-800">团队建设</strong>：通过培训与认证体系，构建稳定的云原生交付团队，提升团队的技术能力和协作效率。
+          </li>
+          <li class="pl-2">
+            <strong class="text-gray-800">持续优化</strong>：建立完善的监控和反馈机制，持续优化云原生架构，提升系统性能和可靠性。
+          </li>
         </ol>
 
-        <p class="mt-4">
-          更多细节请参考《云原生架构设计白皮书》以及配套在线课程。
+        <!-- 卡片 -->
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 my-6">
+          <h3 class="text-base font-medium mb-3 text-gray-800">云原生架构设计最佳实践</h3>
+          <ul class="list-disc ml-5 space-y-2 text-sm text-gray-700">
+            <li>采用领域驱动设计(DDD)方法进行服务拆分</li>
+            <li>实现基础设施即代码(IaC)，提高环境一致性</li>
+            <li>建立完善的CI/CD pipeline，实现自动化部署</li>
+            <li>采用服务网格技术，简化服务间通信和治理</li>
+            <li>实现混沌工程，提高系统的韧性和可靠性</li>
+          </ul>
+        </div>
+
+        <p class="mt-6">
+          更多细节请参考《云原生架构设计白皮书》以及配套在线课程。HIECO 提供全方位的云原生转型服务，
+          从咨询规划到实施落地，助力企业实现数字化转型目标。
         </p>
       </div>
 
