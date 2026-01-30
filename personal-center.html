@@ -347,32 +347,14 @@
                 data-target="tab-live">
           <i class="fa fa-video mr-1 text-sm text-[#B01F24]"></i> 我的直播
         </button>
-        <!-- 更多按钮 -->
-        <div class="relative group">
+        <!-- 更多按钮（无下拉弹窗） -->
+        <div class="relative" id="more-btn-wrapper">
           <button class="main-tab px-3 py-1.5 flex items-center"
                   id="more-btn">
             <i class="fa fa-ellipsis-h mr-1 text-sm text-[#B01F24]"></i> 更多
           </button>
-          <!-- 下拉菜单 -->
-          <div class="absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-gray-300 py-1 hidden group-hover:block z-50 min-w-[200px]"
-               id="more-menu">
-            <button class="main-tab w-full text-left px-4 py-2 hover:bg-gray-100 whitespace-nowrap"
-                    data-target="tab-events">
-              <i class="fa fa-calendar-check mr-2 text-sm text-[#B01F24]"></i> 我的活动
-            </button>
-            <button class="main-tab w-full text-left px-4 py-2 hover:bg-gray-100 whitespace-nowrap"
-                    data-target="tab-favorites">
-              <i class="fa fa-star mr-2 text-sm text-[#B01F24]"></i> 我的收藏
-            </button>
-            <button class="main-tab w-full text-left px-4 py-2 hover:bg-gray-100 whitespace-nowrap"
-                    data-target="tab-following">
-              <i class="fa fa-heart mr-2 text-sm text-[#B01F24]"></i> 我的关注
-            </button>
-            <button class="main-tab w-full text-left px-4 py-2 hover:bg-gray-100 whitespace-nowrap"
-                    data-target="tab-likes">
-              <i class="fa fa-thumbs-up mr-2 text-sm text-[#B01F24]"></i> 我的点赞
-            </button>
-          </div>
+          <!-- 预留容器（不再展示下拉弹窗，仅占位，避免误触发） -->
+          <div id="more-menu" class="hidden"></div>
         </div>
         <!-- 隐藏的四个tab，点击更多时显示 -->
         <div id="hidden-tabs" class="hidden flex items-center gap-2">
@@ -391,6 +373,11 @@
           <button class="main-tab px-3 py-1.5"
                   data-target="tab-likes">
             <i class="fa fa-thumbs-up mr-1 text-sm text-[#B01F24]"></i> 我的点赞
+          </button>
+          <!-- 收起按钮，排在最后 -->
+          <button class="main-tab px-3 py-1.5"
+                  id="collapse-more-btn">
+            <i class="fa fa-chevron-up mr-1 text-sm text-[#B01F24]"></i> 收起
           </button>
         </div>
       </div>
@@ -2300,15 +2287,23 @@
   }
 
   // =============== Tab 切换 ===============
+  const moreBtn = document.getElementById('more-btn');
+  const moreBtnWrapper = document.getElementById('more-btn-wrapper');
+  const hiddenTabs = document.getElementById('hidden-tabs');
+
   document.querySelectorAll('.main-tab').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      // 如果点击的是"更多"按钮，显示隐藏的tab并隐藏"更多"按钮
+      // 点击“更多”按钮：展开后面的隐藏 Tab，自身隐藏
       if(btn.id === 'more-btn') {
-        const hiddenTabs = document.getElementById('hidden-tabs');
-        const moreBtnContainer = btn.parentElement;
-        
         hiddenTabs.classList.remove('hidden');
-        moreBtnContainer.classList.add('hidden');
+        if(moreBtnWrapper) moreBtnWrapper.classList.add('hidden');
+        return;
+      }
+
+      // 点击“收起”按钮：隐藏额外 Tab，并重新显示“更多”按钮
+      if(btn.id === 'collapse-more-btn') {
+        hiddenTabs.classList.add('hidden');
+        if(moreBtnWrapper) moreBtnWrapper.classList.remove('hidden');
         return;
       }
       
