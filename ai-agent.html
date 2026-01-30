@@ -561,6 +561,21 @@
             font-size: 12px;
             color: #9ca3af;
         }
+
+        /* 提示框样式 - 分割线 */
+        .permission-help-box {
+            margin: 12px 0 8px 46px;
+            max-width: 80%;
+            padding: 14px 16px 14px 0;
+            border-top: 1px solid #eaecef;
+        }
+
+        .permission-help-text {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -940,6 +955,13 @@
                 const response = responses[userMessage] || '感谢您的提问！我会尽力为您提供帮助。如果您有更具体的问题，请详细描述，我会给出更精准的回答。';
                 addMessage(response, false);
 
+                // 在回答后添加红框提示框
+                const helpBox = document.createElement('div');
+                helpBox.className = 'permission-help-box';
+                helpBox.innerHTML = '<div class="permission-help-text">我可以把这些内容整理成简洁的表格版，方便你快速查阅，需要吗？</div>';
+                aiMessages.appendChild(helpBox);
+                aiMessages.scrollTop = aiMessages.scrollHeight;
+
                 // 在回答下方追加进阶问题推荐
                 const followups = followupsMap[userMessage];
                 if (followups && followups.length) {
@@ -1017,8 +1039,8 @@
         const newChatBtn = document.querySelector('.fa-plus').closest('button');
         if (newChatBtn) {
             newChatBtn.addEventListener('click', function() {
-                // 清空当前消息与进阶推荐，但保留中部能力模块
-                const toRemove = aiMessages.querySelectorAll('.message, .followups-container');
+                // 清空当前消息、进阶推荐和提示框，但保留中部能力模块
+                const toRemove = aiMessages.querySelectorAll('.message, .followups-container, .permission-help-box');
                 toRemove.forEach(node => node.remove());
 
                 // 重新插入欢迎消息到能力模块上方

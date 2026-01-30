@@ -428,8 +428,81 @@
           </div>
         </div>
 
-        <!-- 手动输入区域 -->
-        <div id="manual-input-section" class="glass-card rounded-3xl border border-gray-300 p-4 mb-6">
+       
+
+        <!-- 文件导入区域 -->
+        <div id="file-input-section" class="glass-card rounded-3xl border border-gray-300 p-4 mb-6 hidden">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">文件批量导入</h3>
+          
+          <div class="border-2 border-dashed border-gray-300 rounded-2xl p-4 text-center mb-4">
+            <i class="fa fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+            <p class="text-sm text-gray-600 mb-1">拖拽文件到此处或点击上传</p>
+            <p class="text-xs text-gray-500 mb-2">支持Excel(.xlsx)、CSV文件格式</p>
+            <input type="file" id="file-upload" accept=".xlsx,.xls,.csv" class="hidden">
+            <button id="upload-btn" class="px-4 py-1.5 bg-[#2D874B] text-white rounded-lg hover:bg-[#256e3d] transition text-sm">
+              选择文件
+            </button>
+          </div>
+          
+          <div class="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-4">
+            <div class="flex items-start">
+              <i class="fa fa-info-circle text-blue-500 text-lg mt-0.5 mr-2"></i>
+              <div>
+                <h4 class="font-medium text-blue-800 mb-0.5 text-sm">模板下载</h4>
+                <p class="text-xs text-blue-700 mb-1">请使用标准模板录入成员信息，确保姓名和手机号码字段正确</p>
+                <a href="#" class="text-xs text-blue-600 hover:text-blue-800 font-medium">下载模板文件 <i class="fa fa-download ml-1"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- 邀请结果区域 -->
+        <div id="invitation-result" class=" glass-card rounded-3xl border border-gray-300 p-4 mb-6">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">邀请链接及海报</h3>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- 邀请链接 -->
+            <div class="bg-gray-50 rounded-2xl p-4">
+              <h4 class="text-md font-semibold text-gray-800 mb-3 flex items-center text-sm">
+                <i class="fa fa-link text-[#2D874B] mr-1.5"></i> 邀请链接
+              </h4>
+              <div class="flex">
+                <input type="text" id="invitation-link" class="flex-1 px-3 py-2 rounded-l-lg border border-gray-300 bg-white text-sm" value="https://platform.hieco.com/invite/abc123def456" readonly>
+                <button id="copy-link-btn" class="px-3 py-2 bg-[#2D874B] text-white rounded-r-lg hover:bg-[#256e3d] transition copy-btn text-sm">
+                  <i class="fa fa-copy"></i> 复制
+                </button>
+              </div>
+              <p class="text-xs text-gray-600 mt-1">将此链接发送给团队成员，他们可以通过链接直接注册</p>
+            </div>
+            
+            <!-- 二维码海报 -->
+            <div class="bg-gray-50 rounded-2xl p-4">
+              <h4 class="text-md font-semibold text-gray-800 mb-3 flex items-center text-sm">
+                <i class="fa fa-qrcode text-[#2D874B] mr-1.5"></i> 邀请海报
+              </h4>
+              <div class="flex flex-col items-center">
+                <div class="bg-white p-2 rounded-xl mb-2">
+                  <canvas id="qr-canvas" width="120" height="120" class="bg-white p-1"></canvas>
+                </div>
+                <button id="download-poster-btn" class="px-3 py-1.5 bg-[#2D874B] text-white rounded-lg hover:bg-[#256e3d] transition text-sm">
+                  <i class="fa fa-download mr-1"></i>下载海报
+                </button>
+                <p class="text-xs text-gray-600 mt-1 text-center">扫描二维码即可访问邀请页面</p>
+              </div>
+            </div>
+          </div>
+          
+          
+        </div>
+         <!-- 确认导入按钮 -->
+         <div class="text-center mb-6">
+          <button id="confirm-import-btn" class="px-8 py-2.5 bg-[#2D874B] text-white rounded-xl text-base font-semibold hover:bg-[#256e3d] transition">
+            <i class="fa fa-paper-plane mr-1"></i>确认导入，邀请入驻
+          </button>
+        </div>
+         <!-- 手动输入区域 -->
+         <div id="manual-input-section" class="glass-card rounded-3xl border border-gray-300 p-4 mb-6">
           <h3 class="text-lg font-semibold text-gray-800 mb-4">输入成员信息</h3>
           
           <div id="members-list" class="space-y-3 mb-4">
@@ -471,78 +544,6 @@
           <button id="add-member-btn" class="w-full md:w-auto px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition flex items-center justify-center text-sm">
             <i class="fa fa-plus mr-1 text-xs"></i> 添加成员
           </button>
-        </div>
-
-        <!-- 文件导入区域 -->
-        <div id="file-input-section" class="glass-card rounded-3xl border border-gray-300 p-4 mb-6 hidden">
-          <h3 class="text-lg font-semibold text-gray-800 mb-4">文件批量导入</h3>
-          
-          <div class="border-2 border-dashed border-gray-300 rounded-2xl p-4 text-center mb-4">
-            <i class="fa fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
-            <p class="text-sm text-gray-600 mb-1">拖拽文件到此处或点击上传</p>
-            <p class="text-xs text-gray-500 mb-2">支持Excel(.xlsx)、CSV文件格式</p>
-            <input type="file" id="file-upload" accept=".xlsx,.xls,.csv" class="hidden">
-            <button id="upload-btn" class="px-4 py-1.5 bg-[#2D874B] text-white rounded-lg hover:bg-[#256e3d] transition text-sm">
-              选择文件
-            </button>
-          </div>
-          
-          <div class="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-4">
-            <div class="flex items-start">
-              <i class="fa fa-info-circle text-blue-500 text-lg mt-0.5 mr-2"></i>
-              <div>
-                <h4 class="font-medium text-blue-800 mb-0.5 text-sm">模板下载</h4>
-                <p class="text-xs text-blue-700 mb-1">请使用标准模板录入成员信息，确保姓名和手机号码字段正确</p>
-                <a href="#" class="text-xs text-blue-600 hover:text-blue-800 font-medium">下载模板文件 <i class="fa fa-download ml-1"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 确认导入按钮 -->
-        <div class="text-center mb-6">
-          <button id="confirm-import-btn" class="px-8 py-2.5 bg-[#2D874B] text-white rounded-xl text-base font-semibold hover:bg-[#256e3d] transition">
-            <i class="fa fa-paper-plane mr-1"></i>确认导入，邀请入驻
-          </button>
-        </div>
-
-        <!-- 邀请结果区域 -->
-        <div id="invitation-result" class=" glass-card rounded-3xl border border-gray-300 p-4">
-          <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">邀请链接及海报</h3>
-          
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- 邀请链接 -->
-            <div class="bg-gray-50 rounded-2xl p-4">
-              <h4 class="text-md font-semibold text-gray-800 mb-3 flex items-center text-sm">
-                <i class="fa fa-link text-[#2D874B] mr-1.5"></i> 邀请链接
-              </h4>
-              <div class="flex">
-                <input type="text" id="invitation-link" class="flex-1 px-3 py-2 rounded-l-lg border border-gray-300 bg-white text-sm" value="https://platform.hieco.com/invite/abc123def456" readonly>
-                <button id="copy-link-btn" class="px-3 py-2 bg-[#2D874B] text-white rounded-r-lg hover:bg-[#256e3d] transition copy-btn text-sm">
-                  <i class="fa fa-copy"></i> 复制
-                </button>
-              </div>
-              <p class="text-xs text-gray-600 mt-1">将此链接发送给团队成员，他们可以通过链接直接注册</p>
-            </div>
-            
-            <!-- 二维码海报 -->
-            <div class="bg-gray-50 rounded-2xl p-4">
-              <h4 class="text-md font-semibold text-gray-800 mb-3 flex items-center text-sm">
-                <i class="fa fa-qrcode text-[#2D874B] mr-1.5"></i> 邀请海报
-              </h4>
-              <div class="flex flex-col items-center">
-                <div class="bg-white p-2 rounded-xl mb-2">
-                  <canvas id="qr-canvas" width="120" height="120" class="bg-white p-1"></canvas>
-                </div>
-                <button id="download-poster-btn" class="px-3 py-1.5 bg-[#2D874B] text-white rounded-lg hover:bg-[#256e3d] transition text-sm">
-                  <i class="fa fa-download mr-1"></i>下载海报
-                </button>
-                <p class="text-xs text-gray-600 mt-1 text-center">扫描二维码即可访问邀请页面</p>
-              </div>
-            </div>
-          </div>
-          
-          
         </div>
       </div>
 
