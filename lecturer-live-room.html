@@ -92,19 +92,23 @@
     <body class="bg-black text-white">
         <!-- 权限管理弹框 -->
         <div
-            style="color: #333;"
             id="permissionModal"
             class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
         >
-            <div class="bg-white rounded-lg p-6 w-96">
-                <h3 class="text-lg font-medium mb-4">权限管理</h3>
+            <div class="bg-gray-900 rounded-lg p-6 w-96">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-medium text-white">权限管理</h3>
+                    <button id="closePermissionModal" class="text-gray-400 hover:text-white">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
                 <div class="mb-4 overflow-x-auto">
-                    <table class="w-full border-collapse">
+                    <table class="w-full">
                         <thead>
-                            <tr class="bg-gray-100">
-                                <th class="border border-gray-300 px-3 py-2 text-left text-sm font-medium">昵称</th>
-                                <th class="border border-gray-300 px-3 py-2 text-center text-sm font-medium">禁言</th>
-                                <th class="border border-gray-300 px-3 py-2 text-center text-sm font-medium">踢出</th>
+                            <tr class="bg-gray-800">
+                                <th class="px-3 py-2 text-left text-sm font-medium text-gray-300">用户</th>
+                                <th class="px-3 py-2 text-center text-sm font-medium text-gray-300">禁言与踢人</th>
+                                <th class="px-3 py-2 text-center text-sm font-medium text-gray-300">上下课</th>
                             </tr>
                         </thead>
                         <tbody id="permissionTableBody">
@@ -115,7 +119,7 @@
                 <div class="flex justify-end space-x-3">
                     <button
                         id="resetPermission"
-                        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                        class="px-4 py-2 border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800"
                     >
                         重置
                     </button>
@@ -133,12 +137,12 @@
             id="shareSuccess"
             class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
         >
-            <div class="bg-white rounded-lg p-6 w-64 text-center">
+            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-64 text-center">
                 <div class="text-4xl text-green-500 mb-4">
                     <i class="fa fa-check-circle"></i>
                 </div>
-                <h3 class="text-lg font-medium mb-2">分享成功</h3>
-                <p class="text-gray-600 mb-4">链接已成功复制到剪贴板</p>
+                <h3 class="text-lg font-medium mb-2 text-white">分享成功</h3>
+                <p class="text-gray-300 mb-4">链接已成功复制到剪贴板</p>
                 <button
                     id="closeShareSuccess"
                     class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
@@ -149,17 +153,16 @@
         </div>
         <!-- 问卷弹窗 -->
         <div
-            style="color: #333"
             id="surveyModal"
             class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
         >
-            <div class="bg-white rounded-lg p-6 w-80">
-                <h3 class="text-lg font-medium mb-4">发布问卷</h3>
+            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-80">
+                <h3 class="text-lg font-medium mb-4 text-white">发布问卷</h3>
                 <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">问题</label>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">问题</label>
                     <textarea
                         id="surveyQuestion"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500"
                         placeholder="请输入问卷问题"
                         rows="4"
                     ></textarea>
@@ -167,7 +170,7 @@
                 <div class="flex justify-end space-x-3">
                     <button
                         id="cancelSurvey"
-                        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                        class="px-4 py-2 border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800"
                     >
                         取消
                     </button>
@@ -185,12 +188,12 @@
             id="surveySuccess"
             class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
         >
-            <div class="bg-white rounded-lg p-6 w-64 text-center">
+            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-64 text-center">
                 <div class="text-4xl text-green-500 mb-4">
                     <i class="fa fa-check-circle"></i>
                 </div>
-                <h3 class="text-lg font-medium mb-2">发布成功</h3>
-                <p class="text-gray-600 mb-4">问卷已成功发布给所有观众</p>
+                <h3 class="text-lg font-medium mb-2 text-white">发布成功</h3>
+                <p class="text-gray-300 mb-4">问卷已成功发布给所有观众</p>
                 <button
                     id="closeSuccess"
                     class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
@@ -201,27 +204,26 @@
         </div>
         <!-- 抽奖弹窗 -->
         <div
-            style="color: #333"
             id="lotteryModal"
             class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
         >
-            <div class="bg-white rounded-lg p-6 w-80">
-                <h3 class="text-lg font-medium mb-4">发起抽奖</h3>
+            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-80">
+                <h3 class="text-lg font-medium mb-4 text-white">发起抽奖</h3>
                 <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">奖品名称</label>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">奖品名称</label>
                     <input
                         type="text"
                         id="prizeName"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500"
                         placeholder="请输入奖品名称"
                     />
                 </div>
                 <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">奖品个数</label>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">奖品个数</label>
                     <input
                         type="number"
                         id="prizeCount"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500"
                         placeholder="请输入奖品个数"
                         min="1"
                         max="10"
@@ -230,7 +232,7 @@
                 <div class="flex justify-end space-x-3">
                     <button
                         id="cancelLottery"
-                        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                        class="px-4 py-2 border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800"
                     >
                         取消
                     </button>
@@ -246,13 +248,12 @@
 
         <!-- 抽奖结果弹窗 -->
         <div
-            style="color: #333"
             id="lotteryResultModal"
             class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
         >
-            <div class="bg-white rounded-lg p-6 w-80">
-                <h3 class="text-lg font-medium mb-4">抽奖结果</h3>
-                <div id="lotteryResult" class="mb-4 p-3 bg-gray-50 rounded-md">
+            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-80">
+                <h3 class="text-lg font-medium mb-4 text-white">抽奖结果</h3>
+                <div id="lotteryResult" class="mb-4 p-3 bg-gray-800 rounded-md text-gray-300">
                     <!-- 抽奖结果将在这里显示 -->
                 </div>
                 <div class="flex justify-end">
@@ -359,12 +360,10 @@
                                 <script>
                                     // 权限管理功能
                                     const permissionBtn = document.getElementById('permissionBtn');
-                                    const permissionModal =
-                                        document.getElementById('permissionModal');
-                                    const resetPermission =
-                                        document.getElementById('resetPermission');
-                                    const confirmPermission =
-                                        document.getElementById('confirmPermission');
+                                    const permissionModal = document.getElementById('permissionModal');
+                                    const closePermissionModal = document.getElementById('closePermissionModal');
+                                    const resetPermission = document.getElementById('resetPermission');
+                                    const confirmPermission = document.getElementById('confirmPermission');
                                     const permissionTableBody = document.getElementById('permissionTableBody');
                                     
                                     // 模拟观众列表
@@ -386,12 +385,19 @@
                                         permissionTableBody.innerHTML = '';
                                         audienceList.forEach((user, index) => {
                                             const row = document.createElement('tr');
+                                            // 生成随机头像URL
+                                            const avatarUrl = `https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&q=80`;
                                             row.innerHTML = `
-                                                <td class="border border-gray-300 px-3 py-2 text-sm">${user.name}</td>
-                                                <td class="border border-gray-300 px-3 py-2 text-center">
+                                                <td class="px-3 py-2 text-sm">
+                                                    <div class="flex items-center">
+                                                        <img src="${avatarUrl}" alt="${user.name}" class="w-6 h-6 rounded-full mr-2 object-cover">
+                                                        ${user.name}
+                                                    </div>
+                                                </td>
+                                                <td class="px-3 py-2 text-center">
                                                     <input type="checkbox" id="mute-${index}" class="permission-mute" data-index="${index}" ${user.muted ? 'checked' : ''}>
                                                 </td>
-                                                <td class="border border-gray-300 px-3 py-2 text-center">
+                                                <td class="px-3 py-2 text-center">
                                                     <input type="checkbox" id="kick-${index}" class="permission-kick" data-index="${index}" ${user.kicked ? 'checked' : ''}>
                                                 </td>
                                             `;
@@ -442,6 +448,11 @@
                                         }
                                         
                                         alert(message);
+                                        permissionModal.classList.add('hidden');
+                                    });
+
+                                    // 关闭权限管理弹框
+                                    closePermissionModal.addEventListener('click', function () {
                                         permissionModal.classList.add('hidden');
                                     });
                                 </script>
@@ -821,6 +832,30 @@
                 id="sidebar"
                 class="w-80 bg-gray-900 bg-opacity-90 backdrop-blur-sm flex flex-col h-full transition-all duration-300 ease-in-out"
             >
+                <!-- 主播画面区域 -->
+                <div class="p-3 border-b border-gray-700 flex-shrink-0">
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <div class="aspect-video bg-gray-900 flex items-center justify-center">
+                            <img src="./images/lecture-avatar.webp" alt="主播画面" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-2 bg-gray-800">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-sm font-medium">曙光技术专家</h4>
+                                    <p class="text-xs text-gray-400">正在直播</p>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <button class="w-6 h-6 rounded-full bg-gray-700 flex items-center justify-center hover:bg-gray-600">
+                                        <i class="fa fa-microphone text-xs"></i>
+                                    </button>
+                                    <button class="w-6 h-6 rounded-full bg-gray-700 flex items-center justify-center hover:bg-gray-600">
+                                        <i class="fa fa-video text-xs"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- 右侧栏顶部控制按钮 -->
                 <div
                     class="flex justify-between items-center border-b border-gray-700 flex-shrink-0 p-3"
@@ -1521,44 +1556,76 @@
             </div>
         </div>
         <!-- 举手弹框区域 -->
-        <div id="handUp">
-            <!-- 举手提示区域 -->
-            <div
-                id="handUpNotification"
-                class="fixed right-4 bottom-24 z-50 opacity-0 transform translate-y-10 transition-all duration-1000 flex items-center gap-2 bg-transparent rounded-lg shadow-lg p-3 border border-gray-200"
-            >
-                <i class="fa-solid fa-hand text-white text-xl" style="font-size: 24px"></i>
-                <span class="text-sm">王五同学举手了</span>
+        <div id="handUp" class="fixed top-4 right-4 z-50 hidden">
+            <div class="bg-white border border-gray-300 rounded-lg p-4 shadow-lg w-[226px]">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full overflow-hidden mr-3">
+                            <img src="images/lecture-avatar.webp" alt="举手" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-900">观众举手</h4>
+                            <p class="text-sm text-gray-600" id="handUpUserName">健康同学</p>
+                        </div>
+                    </div>
+                    <button id="closeHandUp" class="text-gray-400 hover:text-gray-900">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="flex space-x-3">
+                    <button id="acceptHandUp" class="flex-1 px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md text-sm">
+                        同意提问
+                    </button>
+                    <button id="rejectHandUp" class="flex-1 px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-900 rounded-md text-sm">
+                        拒绝
+                    </button>
+                </div>
             </div>
         </div>
 
         <!-- 举手弹框js -->
         <script>
-            // 举手提示功能
-            function showHandUpNotification() {
-                const notification = document.getElementById('handUpNotification');
-                // 显示通知
-                notification.style.opacity = '1';
-                notification.style.transform = 'translateY(0)';
+            // 举手功能
+            const handUp = document.getElementById('handUp');
+            const handUpUserName = document.getElementById('handUpUserName');
+            const closeHandUp = document.getElementById('closeHandUp');
+            const acceptHandUp = document.getElementById('acceptHandUp');
+            const rejectHandUp = document.getElementById('rejectHandUp');
 
-                // 3秒后开始上升并消失
-                setTimeout(() => {
-                    notification.style.transform = 'translateY(-100px)';
-                    notification.style.opacity = '0';
-
-                    // 重置位置，以便下次使用
-                    setTimeout(() => {
-                        notification.style.transform = 'translateY(10px)';
-                    }, 1000);
-                }, 3000);
+            // 显示举手提示
+            function showHandUpNotification(userName) {
+                handUpUserName.textContent = userName;
+                handUp.classList.remove('hidden');
             }
 
-            // 示例：模拟举手事件
-            // 实际项目中，这里会通过WebSocket或其他方式接收真实的举手事件
-            // 例如：socket.on('handUp', showHandUpNotification);
+            // 隐藏举手提示
+            function hideHandUpNotification() {
+                handUp.classList.add('hidden');
+            }
 
-            // 每隔十秒显示一次举手提示
-            setInterval(showHandUpNotification, 6000);
+            // 关闭按钮点击事件
+            closeHandUp.addEventListener('click', function() {
+                hideHandUpNotification();
+            });
+
+            // 同意提问按钮点击事件
+            acceptHandUp.addEventListener('click', function() {
+                const userName = handUpUserName.textContent;
+                alert(`已同意 ${userName} 的提问请求`);
+                hideHandUpNotification();
+            });
+
+            // 拒绝按钮点击事件
+            rejectHandUp.addEventListener('click', function() {
+                const userName = handUpUserName.textContent;
+                alert(`已拒绝 ${userName} 的提问请求`);
+                hideHandUpNotification();
+            });
+
+            // 模拟观众举手（用于测试）
+            // 可以在其他地方调用 showHandUpNotification('用户名') 来显示举手提示
+            // 例如：setTimeout(() => showHandUpNotification('张三'), 5000);
+            setTimeout(() => showHandUpNotification('张三'), 5000);
         </script>
 
         <script>
