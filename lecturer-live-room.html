@@ -90,6 +90,181 @@
         </style>
     </head>
     <body class="bg-black text-white">
+        <!-- 权限管理弹框 -->
+        <div
+            style="color: #333;"
+            id="permissionModal"
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+        >
+            <div class="bg-white rounded-lg p-6 w-96">
+                <h3 class="text-lg font-medium mb-4">权限管理</h3>
+                <div class="mb-4 overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="border border-gray-300 px-3 py-2 text-left text-sm font-medium">昵称</th>
+                                <th class="border border-gray-300 px-3 py-2 text-center text-sm font-medium">禁言</th>
+                                <th class="border border-gray-300 px-3 py-2 text-center text-sm font-medium">踢出</th>
+                            </tr>
+                        </thead>
+                        <tbody id="permissionTableBody">
+                            <!-- 观众列表将在这里动态生成 -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button
+                        id="resetPermission"
+                        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                    >
+                        重置
+                    </button>
+                    <button
+                        id="confirmPermission"
+                        class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                    >
+                        确认
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- 分享成功提示 -->
+        <div
+            id="shareSuccess"
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+        >
+            <div class="bg-white rounded-lg p-6 w-64 text-center">
+                <div class="text-4xl text-green-500 mb-4">
+                    <i class="fa fa-check-circle"></i>
+                </div>
+                <h3 class="text-lg font-medium mb-2">分享成功</h3>
+                <p class="text-gray-600 mb-4">链接已成功复制到剪贴板</p>
+                <button
+                    id="closeShareSuccess"
+                    class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                >
+                    关闭
+                </button>
+            </div>
+        </div>
+        <!-- 问卷弹窗 -->
+        <div
+            style="color: #333"
+            id="surveyModal"
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+        >
+            <div class="bg-white rounded-lg p-6 w-80">
+                <h3 class="text-lg font-medium mb-4">发布问卷</h3>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">问题</label>
+                    <textarea
+                        id="surveyQuestion"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        placeholder="请输入问卷问题"
+                        rows="4"
+                    ></textarea>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button
+                        id="cancelSurvey"
+                        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                    >
+                        取消
+                    </button>
+                    <button
+                        id="confirmSurvey"
+                        class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                    >
+                        确定
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- 发布成功提示 -->
+        <div
+            id="surveySuccess"
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+        >
+            <div class="bg-white rounded-lg p-6 w-64 text-center">
+                <div class="text-4xl text-green-500 mb-4">
+                    <i class="fa fa-check-circle"></i>
+                </div>
+                <h3 class="text-lg font-medium mb-2">发布成功</h3>
+                <p class="text-gray-600 mb-4">问卷已成功发布给所有观众</p>
+                <button
+                    id="closeSuccess"
+                    class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                >
+                    关闭
+                </button>
+            </div>
+        </div>
+        <!-- 抽奖弹窗 -->
+        <div
+            style="color: #333"
+            id="lotteryModal"
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+        >
+            <div class="bg-white rounded-lg p-6 w-80">
+                <h3 class="text-lg font-medium mb-4">发起抽奖</h3>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">奖品名称</label>
+                    <input
+                        type="text"
+                        id="prizeName"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        placeholder="请输入奖品名称"
+                    />
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">奖品个数</label>
+                    <input
+                        type="number"
+                        id="prizeCount"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        placeholder="请输入奖品个数"
+                        min="1"
+                        max="10"
+                    />
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button
+                        id="cancelLottery"
+                        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                    >
+                        取消
+                    </button>
+                    <button
+                        id="confirmLottery"
+                        class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                    >
+                        确定
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 抽奖结果弹窗 -->
+        <div
+            style="color: #333"
+            id="lotteryResultModal"
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+        >
+            <div class="bg-white rounded-lg p-6 w-80">
+                <h3 class="text-lg font-medium mb-4">抽奖结果</h3>
+                <div id="lotteryResult" class="mb-4 p-3 bg-gray-50 rounded-md">
+                    <!-- 抽奖结果将在这里显示 -->
+                </div>
+                <div class="flex justify-end">
+                    <button
+                        id="closeResult"
+                        class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                    >
+                        关闭
+                    </button>
+                </div>
+            </div>
+        </div>
         <!-- 直播间主体 -->
         <div class="flex h-screen bg-black">
             <!-- 左侧：直播播放区域 -->
@@ -119,13 +294,12 @@
                     </video>
 
                     <!-- 切换 -->
-                    <div class="switch absolute top-24 left-4 z-20">
+                    <div class="switch absolute top-44 left-4 z-20">
                         <a
                             href="live-room.html"
-                            class="bg-[#2D874B] hover:bg-[#24703a] text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
+                            class="text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
                         >
-                            <i class="fa fa-exchange"></i>
-                            切换到观众直播间
+                            <i class="fa fa-exchange text-xs"></i>
                         </a>
                     </div>
 
@@ -151,31 +325,140 @@
                                 <!-- <button id="playPauseBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
                                     <i class="fa fa-play"></i>
                                   </button> -->
-                                <button
+                                <!-- <button
                                     id="refreshBtn"
                                     class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
                                 >
                                     <i class="fa fa-sync"></i>
-                                </button>
-                                <button
-                                    id="giftBtn"
-                                    class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center hover:from-pink-600 hover:to-red-600 transition"
-                                >
-                                    <i class="fa fa-gift"></i>
-                                </button>
-                                <button
-                                    id="micLinkBtn"
-                                    class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
-                                    title="在线连麦"
-                                >
-                                    <i class="fa fa-microphone"></i>
-                                </button>
-                                <button
-                                    id="shareBtn"
-                                    class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
-                                >
-                                    <i class="fa fa-share"></i>
-                                </button>
+                                </button> -->
+                                <!-- <div class="relative group">
+                                    <button
+                                        id="micLinkBtn"
+                                        class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                    >
+                                        <i class="fa fa-microphone"></i>
+                                    </button>
+                                    <div class="absolute bottom-full right-0 mb-2 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                                        静音
+                                    </div>
+                                </div> -->
+                                <div class="relative group">
+                                    <button
+                                        id="permissionBtn"
+                                        class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                    >
+                                        <i class="fa fa-shield"></i>
+                                    </button>
+                                    <div
+                                        class="absolute bottom-full right--10 mb-2 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                                    >
+                                        权限管理
+                                    </div>
+                                </div>
+
+                                <script>
+                                    // 权限管理功能
+                                    const permissionBtn = document.getElementById('permissionBtn');
+                                    const permissionModal =
+                                        document.getElementById('permissionModal');
+                                    const resetPermission =
+                                        document.getElementById('resetPermission');
+                                    const confirmPermission =
+                                        document.getElementById('confirmPermission');
+                                    const permissionTableBody = document.getElementById('permissionTableBody');
+                                    
+                                    // 模拟观众列表
+                                    const audienceList = [
+                                        { name: '健康同学', muted: false, kicked: false },
+                                        { name: '小明', muted: false, kicked: false },
+                                        { name: '小红', muted: false, kicked: false },
+                                        { name: '小刚', muted: false, kicked: false },
+                                        { name: '小丽', muted: false, kicked: false },
+                                        { name: '小张', muted: false, kicked: false },
+                                        { name: '小王', muted: false, kicked: false },
+                                        { name: '小李', muted: false, kicked: false },
+                                        { name: '小刘', muted: false, kicked: false },
+                                        { name: '小陈', muted: false, kicked: false }
+                                    ];
+                                    
+                                    // 渲染权限管理表格
+                                    function renderPermissionTable() {
+                                        permissionTableBody.innerHTML = '';
+                                        audienceList.forEach((user, index) => {
+                                            const row = document.createElement('tr');
+                                            row.innerHTML = `
+                                                <td class="border border-gray-300 px-3 py-2 text-sm">${user.name}</td>
+                                                <td class="border border-gray-300 px-3 py-2 text-center">
+                                                    <input type="checkbox" id="mute-${index}" class="permission-mute" data-index="${index}" ${user.muted ? 'checked' : ''}>
+                                                </td>
+                                                <td class="border border-gray-300 px-3 py-2 text-center">
+                                                    <input type="checkbox" id="kick-${index}" class="permission-kick" data-index="${index}" ${user.kicked ? 'checked' : ''}>
+                                                </td>
+                                            `;
+                                            permissionTableBody.appendChild(row);
+                                        });
+                                    }
+                                    
+                                    // 监听复选框变化
+                                    permissionTableBody.addEventListener('change', function(e) {
+                                        if (e.target.classList.contains('permission-mute')) {
+                                            const index = e.target.dataset.index;
+                                            audienceList[index].muted = e.target.checked;
+                                        } else if (e.target.classList.contains('permission-kick')) {
+                                            const index = e.target.dataset.index;
+                                            audienceList[index].kicked = e.target.checked;
+                                        }
+                                    });
+
+                                    // 打开权限管理弹框
+                                    permissionBtn.addEventListener('click', function () {
+                                        renderPermissionTable();
+                                        permissionModal.classList.remove('hidden');
+                                    });
+
+                                    // 重置权限设置
+                                    resetPermission.addEventListener('click', function () {
+                                        audienceList.forEach(user => {
+                                            user.muted = false;
+                                            user.kicked = false;
+                                        });
+                                        renderPermissionTable();
+                                    });
+
+                                    // 确认权限设置
+                                    confirmPermission.addEventListener('click', function () {
+                                        const mutedUsers = audienceList.filter(user => user.muted).map(user => user.name);
+                                        const kickedUsers = audienceList.filter(user => user.kicked).map(user => user.name);
+                                        
+                                        let message = '权限设置已更新：\n';
+                                        if (mutedUsers.length > 0) {
+                                            message += `禁言用户：${mutedUsers.join('、')}\n`;
+                                        }
+                                        if (kickedUsers.length > 0) {
+                                            message += `踢出用户：${kickedUsers.join('、')}`;
+                                        }
+                                        if (mutedUsers.length === 0 && kickedUsers.length === 0) {
+                                            message += '未做任何修改';
+                                        }
+                                        
+                                        alert(message);
+                                        permissionModal.classList.add('hidden');
+                                    });
+                                </script>
+                                <div class="relative group">
+                                    <button
+                                        id="shareBtn"
+                                        class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                    >
+                                        <i class="fa fa-share"></i>
+                                    </button>
+                                    <div
+                                        class="absolute bottom-full right--10 mb-2 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                                    >
+                                        分享链接
+                                    </div>
+                                </div>
+
                                 <div class="relative group">
                                     <button
                                         id="screenShareBtn"
@@ -189,7 +472,7 @@
                                         分享屏幕
                                     </div>
                                 </div>
-                                <div class="relative group">
+                                <!-- <div class="relative group">
                                     <button
                                         id="raiseHandBtn"
                                         class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
@@ -201,55 +484,7 @@
                                     >
                                         申请发言人员
                                     </div>
-                                    <!-- 举手人员列表 -->
-                                    <div
-                                        id="handUpList"
-                                        class="absolute bottom-full right-0 mb-2 w-64 bg-gray-800 rounded-lg shadow-lg p-3 hidden z-50"
-                                    >
-                                        <div class="flex justify-between items-center mb-3">
-                                            <h3 class="text-sm font-medium text-white">
-                                                申请发言人员
-                                            </h3>
-                                            <button
-                                                id="closeHandUpList"
-                                                class="text-gray-300 hover:text-white"
-                                            >
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
-                                        <div class="space-y-2">
-                                            <!-- 举手人员项 -->
-                                            <div
-                                                class="flex justify-between items-center p-2 border-b border-gray-700"
-                                            >
-                                                <span class="text-sm text-white">王五同学</span>
-                                                <button
-                                                    class="text-xs px-2 py-1 bg-[#2D874B] text-white rounded"
-                                                >
-                                                    同意发言
-                                                </button>
-                                            </div>
-                                            <div
-                                                class="flex justify-between items-center p-2 border-b border-gray-700"
-                                            >
-                                                <span class="text-sm text-white">张三同学</span>
-                                                <button
-                                                    class="text-xs px-2 py-1 bg-[#2D874B] text-white rounded"
-                                                >
-                                                    同意发言
-                                                </button>
-                                            </div>
-                                            <div class="flex justify-between items-center p-2">
-                                                <span class="text-sm text-white">李四同学</span>
-                                                <button
-                                                    class="text-xs px-2 py-1 bg-[#2D874B] text-white rounded"
-                                                >
-                                                    同意发言
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> -->
 
                                 <!-- 发布问卷按钮 -->
                                 <div class="relative group">
@@ -265,30 +500,219 @@
                                         发布问卷
                                     </div>
                                 </div>
+
+                                <script>
+                                    // 问卷发布功能
+                                    const surveyBtn = document.getElementById('surveyBtn');
+                                    const surveyModal = document.getElementById('surveyModal');
+                                    const surveySuccess = document.getElementById('surveySuccess');
+                                    const cancelSurvey = document.getElementById('cancelSurvey');
+                                    const confirmSurvey = document.getElementById('confirmSurvey');
+                                    const closeSuccess = document.getElementById('closeSuccess');
+                                    const surveyQuestion =
+                                        document.getElementById('surveyQuestion');
+
+                                    // 打开问卷弹窗
+                                    surveyBtn.addEventListener('click', function () {
+                                        surveyModal.classList.remove('hidden');
+                                    });
+
+                                    // 关闭问卷弹窗
+                                    cancelSurvey.addEventListener('click', function () {
+                                        surveyModal.classList.add('hidden');
+                                        surveyQuestion.value = '';
+                                    });
+
+                                    // 关闭成功提示
+                                    closeSuccess.addEventListener('click', function () {
+                                        surveySuccess.classList.add('hidden');
+                                    });
+
+                                    // 确认发布问卷
+                                    confirmSurvey.addEventListener('click', function () {
+                                        const question = surveyQuestion.value.trim();
+
+                                        if (!question) {
+                                            alert('请输入问卷问题');
+                                            return;
+                                        }
+
+                                        // 模拟发布成功
+                                        surveyModal.classList.add('hidden');
+                                        surveySuccess.classList.remove('hidden');
+                                        surveyQuestion.value = '';
+                                    });
+                                </script>
                                 <!-- 发起抽奖按钮 -->
                                 <div class="relative group">
                                     <button
-                                        id="lotteryBtn"
-                                        class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                        id="giftBtn"
+                                        class="w-10 h-10 rounded-full flex items-center justify-center transition"
                                     >
-                                        <i class="fa fa-trophy"></i>
+                                        <i class="fa fa-gift"></i>
                                     </button>
                                     <div
-                                        class="absolute bottom-full right-0 mb-2 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                                        class="absolute bottom-10 right--10 -mt-1 -mr-1 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
                                     >
                                         发起抽奖
                                     </div>
                                 </div>
+
+                                <script>
+                                    // 抽奖功能
+                                    const giftBtn = document.getElementById('giftBtn');
+                                    const lotteryModal = document.getElementById('lotteryModal');
+                                    const lotteryResultModal =
+                                        document.getElementById('lotteryResultModal');
+                                    const cancelLottery = document.getElementById('cancelLottery');
+                                    const confirmLottery =
+                                        document.getElementById('confirmLottery');
+                                    const closeResult = document.getElementById('closeResult');
+                                    const prizeName = document.getElementById('prizeName');
+                                    const prizeCount = document.getElementById('prizeCount');
+                                    const lotteryResult = document.getElementById('lotteryResult');
+
+                                    // 模拟观众列表
+                                    const audienceList = [
+                                        '健康同学',
+                                        '小明',
+                                        '小红',
+                                        '小刚',
+                                        '小丽',
+                                        '小张',
+                                        '小王',
+                                        '小李',
+                                        '小刘',
+                                        '小陈',
+                                        '小赵',
+                                        '小孙',
+                                        '小周',
+                                        '小吴',
+                                        '小郑',
+                                    ];
+
+                                    // 打开抽奖弹窗
+                                    giftBtn.addEventListener('click', function () {
+                                        lotteryModal.classList.remove('hidden');
+                                    });
+
+                                    // 关闭抽奖弹窗
+                                    cancelLottery.addEventListener('click', function () {
+                                        lotteryModal.classList.add('hidden');
+                                        prizeName.value = '';
+                                        prizeCount.value = '';
+                                    });
+
+                                    // 关闭结果弹窗
+                                    closeResult.addEventListener('click', function () {
+                                        lotteryResultModal.classList.add('hidden');
+                                    });
+
+                                    // 确认抽奖
+                                    confirmLottery.addEventListener('click', function () {
+                                        const name = prizeName.value.trim();
+                                        const count = parseInt(prizeCount.value);
+
+                                        if (!name) {
+                                            alert('请输入奖品名称');
+                                            return;
+                                        }
+
+                                        if (isNaN(count) || count < 1) {
+                                            alert('请输入有效的奖品个数');
+                                            return;
+                                        }
+
+                                        if (count > audienceList.length) {
+                                            alert('奖品个数不能超过观众人数');
+                                            return;
+                                        }
+
+                                        // 随机抽奖
+                                        const shuffled = audienceList.sort(
+                                            () => 0.5 - Math.random(),
+                                        );
+                                        const winners = shuffled.slice(0, count);
+
+                                        // 显示抽奖结果
+                                        let resultHtml = `<p class="mb-2">奖品：${name}</p>`;
+                                        resultHtml += `<p class="mb-2">中奖人数：${count}</p>`;
+                                        resultHtml += '<p class="font-medium">中奖名单：</p>';
+                                        resultHtml += '<ul class="list-disc pl-5">';
+                                        winners.forEach((winner, index) => {
+                                            resultHtml += `<li>${winner}</li>`;
+                                        });
+                                        resultHtml += '</ul>';
+
+                                        lotteryResult.innerHTML = resultHtml;
+                                        lotteryModal.classList.add('hidden');
+                                        lotteryResultModal.classList.remove('hidden');
+
+                                        // 清空表单
+                                        prizeName.value = '';
+                                        prizeCount.value = '';
+                                    });
+                                </script>
+
+
+                                <div class="relative group">
+                                    <button
+                                        id="layoutBtn"
+                                        class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                    >
+                                        <i class="fa fa-th-large"></i>
+                                    </button>
+                                    <div class="absolute bottom-full right-0 mb-2 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                                        组合模式
+                                    </div>
+                                </div>
+                                
+                                <script>
+                                    
+                                </script>
+
+
                             </div>
+
+                            <!-- 中间按钮 -->
+                            <div class="relative group">
+                                <button
+                                    id="liveBtn"
+                                    class="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center hover:bg-green-700 transition"
+                                >
+                                    <i class="fa fa-video-camera"></i>
+                                </button>
+                                <div
+                                    class="absolute bottom-full right-0 mb-2 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                                >
+                                    开始直播
+                                </div>
+                            </div>
+                            <script>
+                                // 开始/结束直播切换功能
+                                const liveBtn = document.getElementById('liveBtn');
+                                const liveIcon = liveBtn.querySelector('i');
+                                const liveTooltip = liveBtn.nextElementSibling;
+                                let isLive = false;
+
+                                liveBtn.addEventListener('click', function () {
+                                    isLive = !isLive;
+                                    if (isLive) {
+                                        liveIcon.className = 'fa fa-stop';
+                                        liveTooltip.textContent = '结束直播';
+                                        liveBtn.className =
+                                            'w-12 h-12 rounded-full bg-red-600 flex items-center justify-center hover:bg-red-700 transition';
+                                    } else {
+                                        liveIcon.className = 'fa fa-video-camera';
+                                        liveTooltip.textContent = '开始直播';
+                                        liveBtn.className =
+                                            'w-12 h-12 rounded-full bg-green-600 flex items-center justify-center hover:bg-green-700 transition';
+                                    }
+                                });
+                            </script>
 
                             <!-- 右侧控制按钮 -->
                             <div class="flex items-center space-x-4">
-                                <button
-                                    id="danmakuBtn"
-                                    class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
-                                >
-                                    <i class="fa fa-comment"></i>
-                                </button>
                                 <div class="relative group">
                                     <button
                                         id="volumeBtn"
@@ -311,12 +735,13 @@
                                         />
                                     </div>
                                 </div>
-                                <button
+
+                                <!-- <button
                                     id="pipBtn"
                                     class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
                                 >
                                     <i class="fa fa-compress"></i>
-                                </button>
+                                </button> -->
                                 <button
                                     id="fullscreenBtn"
                                     class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
@@ -1204,7 +1629,7 @@
             }
 
             // giftBtn：弹窗选择礼物并赠送
-            const giftBtn = document.getElementById('giftBtn');
+            // const giftBtn = document.getElementById('giftBtn');
             const giftModal = document.getElementById('giftModal');
             const giftModalBackdrop = document.getElementById('giftModalBackdrop');
             const giftModalClose = document.getElementById('giftModalClose');
@@ -1212,7 +1637,7 @@
             const giftSendBtn = document.getElementById('giftSendBtn');
             const selectedGiftText = document.getElementById('selectedGiftText');
             const giftOptions = document.querySelectorAll('#giftGrid .gift-option');
-            const micLinkBtn = document.getElementById('micLinkBtn');
+            // const micLinkBtn = document.getElementById('micLinkBtn');
 
             let selectedGiftName = '';
 
@@ -1230,7 +1655,7 @@
                 giftModal.classList.add('hidden');
             }
 
-            if (giftBtn) giftBtn.addEventListener('click', openGiftModal);
+            // if (giftBtn) giftBtn.addEventListener('click', openGiftModal);
             if (giftModalBackdrop) giftModalBackdrop.addEventListener('click', closeGiftModal);
             if (giftModalClose) giftModalClose.addEventListener('click', closeGiftModal);
             if (giftCancelBtn) giftCancelBtn.addEventListener('click', closeGiftModal);
@@ -1317,7 +1742,7 @@
                 micLinkModal.classList.add('hidden');
             }
 
-            if (micLinkBtn) micLinkBtn.addEventListener('click', openMicLinkModal);
+            // if (micLinkBtn) micLinkBtn.addEventListener('click', openMicLinkModal);
             if (micLinkBackdrop) micLinkBackdrop.addEventListener('click', closeMicLinkModal);
             if (micLinkClose) micLinkClose.addEventListener('click', closeMicLinkModal);
             if (micLinkApplyBtn)
@@ -1499,7 +1924,7 @@
                 const danmakuBtn = document.getElementById('danmakuBtn');
                 const volumeBtn = document.getElementById('volumeBtn');
                 const volumeSlider = document.getElementById('volumeSlider');
-                const pipBtn = document.getElementById('pipBtn');
+                // const pipBtn = document.getElementById('pipBtn');
 
                 // 刷新功能
                 if (refreshBtn) {
@@ -1572,33 +1997,34 @@
                 }
 
                 // 画中画功能
-                if (pipBtn) {
-                    pipBtn.addEventListener('click', async function () {
-                        try {
-                            if (videoPlayer.requestPictureInPicture) {
-                                await videoPlayer.requestPictureInPicture();
-                            } else {
-                                alert('您的浏览器不支持画中画功能');
-                            }
-                        } catch (error) {
-                            console.error('画中画功能错误:', error);
-                        }
-                    });
-                }
+                // try {
+                //     pipBtn.addEventListener('click', async function () {
+                //         try {
+                //             if (videoPlayer.requestPictureInPicture) {
+                //                 await videoPlayer.requestPictureInPicture();
+                //             } else {
+                //                 alert('您的浏览器不支持画中画功能');
+                //             }
+                //         } catch (error) {
+                //             console.error('画中画功能错误:', error);
+                //         }
+                //     });
+                // } catch (error) {
+                //     console.error('画中画功能错误:', error);
+                // }
                 // 分享按钮功能 - 复制链接
                 const shareBtn = document.getElementById('shareBtn');
+                const shareSuccess = document.getElementById('shareSuccess');
+                const closeShareSuccess = document.getElementById('closeShareSuccess');
+
                 if (shareBtn) {
                     shareBtn.addEventListener('click', async function () {
                         try {
                             // 尝试使用 Clipboard API
                             if (navigator.clipboard) {
                                 await navigator.clipboard.writeText(window.location.href);
-                                // 显示临时提示
-                                const originalHTML = shareBtn.innerHTML;
-                                shareBtn.innerHTML = '<i class="fa fa-check"></i>';
-                                setTimeout(() => {
-                                    shareBtn.innerHTML = originalHTML;
-                                }, 2000);
+                                // 显示弹框提示
+                                shareSuccess.classList.remove('hidden');
                             } else {
                                 // 降级方案：使用传统的 execCommand 方法
                                 const textArea = document.createElement('textarea');
@@ -1608,17 +2034,20 @@
                                 document.execCommand('copy');
                                 document.body.removeChild(textArea);
 
-                                // 显示临时提示
-                                const originalHTML = shareBtn.innerHTML;
-                                shareBtn.innerHTML = '<i class="fa fa-check"></i>';
-                                setTimeout(() => {
-                                    shareBtn.innerHTML = originalHTML;
-                                }, 2000);
+                                // 显示弹框提示
+                                shareSuccess.classList.remove('hidden');
                             }
                         } catch (err) {
                             console.error('复制链接失败:', err);
                             alert('链接复制失败，请手动复制');
                         }
+                    });
+                }
+
+                // 关闭分享成功提示
+                if (closeShareSuccess) {
+                    closeShareSuccess.addEventListener('click', function () {
+                        shareSuccess.classList.add('hidden');
                     });
                 }
 
