@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>任务详情 - HIECO 光合技术支持平台</title>
+  <title>认证任务详情 - HIECO 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -60,7 +60,7 @@
           <div class="hidden sm:block">
             <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
             <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
-              个人中心 · 任务详情
+              个人中心 · 认证任务详情
             </div>
           </div>
         </a>
@@ -92,7 +92,7 @@
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div class="flex-1">
           <div class="flex items-center gap-3 mb-2">
-            <h1 class="text-xl font-bold text-gray-800">新员工入职培训任务</h1>
+            <h1 class="text-xl font-bold text-gray-800">高级云架构师认证</h1>
             <span class="inline-flex items-center px-2 py-1 rounded-full bg-[#2D874B] text-white text-xs font-medium">
               派发
             </span>
@@ -120,10 +120,6 @@
             <div class="space-y-1">
               <span class="text-gray-500">完成时间：</span>
               <span class="font-medium text-gray-800" id="complete-time">-</span>
-            </div>
-            <div class="space-y-1">
-              <span class="text-gray-500">任务类型：</span>
-              <span class="font-medium text-gray-800">培训+考试</span>
             </div>
           </div>
         </div>
@@ -240,14 +236,49 @@
 
     <!-- 子任务列表 -->
     <section class="glass-card rounded-3xl border border-gray-300 p-6">
-      <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
-        <i class="fa fa-tasks text-[#2D874B]"></i> 子任务列表
-      </h2>
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold flex items-center gap-2">
+          <i class="fa fa-tasks text-[#2D874B]"></i> 子任务列表
+        </h2>
+        <button id="certificate-btn" class="px-3 py-1.5 rounded-full bg-[#2D874B] text-white text-sm hover:bg-[#24703a] transition">
+          <i class="fa fa-certificate mr-1"></i>已获证书
+        </button>
+      </div>
       
       <div class="space-y-4" id="subtask-list">
         <!-- 子任务卡片由JS注入 -->
       </div>
     </section>
+
+    <!-- 证书弹窗 -->
+    <div id="certificate-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+      <div class="bg-white rounded-2xl p-6 max-w-md w-full mx-4">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-semibold text-gray-800">已获证书</h3>
+          <button id="close-modal" class="h-8 w-8 rounded-full flex items-center justify-center hover:bg-gray-100 transition">
+            <i class="fa fa-times text-gray-600"></i>
+          </button>
+        </div>
+        <div class="mb-6">
+          <div class="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-4 mb-4">
+            <div class="text-center">
+              <i class="fa fa-certificate text-4xl text-[#2D874B] mb-2"></i>
+              <h4 class="font-semibold text-gray-800 mb-1">新员工入职培训证书</h4>
+              <p class="text-sm text-gray-600">颁发日期：2026-01-31</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600">恭喜您完成了所有培训任务，获得此证书。</p>
+        </div>
+        <div class="flex gap-3">
+          <button id="download-certificate" class="flex-1 px-4 py-2 rounded-xl bg-[#2D874B] text-white hover:bg-[#24703a] transition">
+            <i class="fa fa-download mr-1"></i>下载
+          </button>
+          <button id="close-modal-btn" class="flex-1 px-4 py-2 rounded-xl border border-gray-300 hover:border-[#2D874B] transition">
+            关闭
+          </button>
+        </div>
+      </div>
+    </div>
 
   </section>
 </main>
@@ -361,11 +392,6 @@
           <div class="flex-1">
             <h3 class="text-sm font-semibold text-gray-800 mb-1">${subtask.title}</h3>
             <p class="text-xs text-gray-600 mb-2">${subtask.description}</p>
-            <div class="flex flex-wrap gap-3 text-xs text-gray-500">
-              <span><i class="fa fa-clock mr-1"></i>预计耗时：${subtask.estimatedTime}</span>
-              <span><i class="fa fa-gem mr-1"></i>积分：${subtask.points}</span>
-              <span><i class="fa fa-calendar mr-1"></i>截止：${subtask.deadline}</span>
-            </div>
           </div>
           <span class="inline-flex items-center px-2 py-1 rounded-full border text-xs ${statusClass}">
             <i class="fa ${statusIcon} mr-1 text-[10px]"></i>${statusText}
@@ -391,11 +417,18 @@
           </div>
         </div>
         
-        ${subtask.completeTime ? `
-          <div class="mt-2 pt-2 border-t border-gray-200 text-xs text-gray-500">
-            <i class="fa fa-check-circle mr-1 text-green-500"></i>完成时间：${subtask.completeTime}
-          </div>
-        ` : ''}
+        <div class="flex items-center justify-between mt-2">
+          ${subtask.completeTime ? `
+            <div class="text-xs text-gray-500">
+              <i class="fa fa-check-circle mr-1 text-green-500"></i>完成时间：${subtask.completeTime}
+            </div>
+          ` : ''}
+          ${subtask.status !== 'completed' ? `
+            <div class="text-xs text-gray-500">
+              <i class="fa fa-calendar mr-1"></i>截止：${subtask.deadline}
+            </div>
+          ` : ''}
+        </div>
       `;
       
       subtaskList.appendChild(card);
@@ -414,7 +447,7 @@
   function viewSubtaskDetail(id) {
     const subtask = subtasks.find(s => s.id === id);
     if (subtask) {
-      alert(`查看子任务详情：${subtask.title}\n\n描述：${subtask.description}\n类型：${subtask.type}\n状态：${subtask.status}`);
+      alert(`查看子任务详情：${subtask.title}\n\n描述：${subtask.description}\n状态：${subtask.status}`);
     }
   }
 
@@ -431,6 +464,37 @@
     document.querySelector('.bg-gradient-to-r').style.width = progressPercent + '%';
     document.querySelector('.text-xs.text-gray-500.mt-1').textContent = 
       `已完成 ${completedCount}/${totalCount} 个子任务`;
+    
+    // 证书弹窗交互
+    const modal = document.getElementById('certificate-modal');
+    const openBtn = document.getElementById('certificate-btn');
+    const closeBtn = document.getElementById('close-modal');
+    const closeBtn2 = document.getElementById('close-modal-btn');
+    const downloadBtn = document.getElementById('download-certificate');
+    
+    openBtn.addEventListener('click', function() {
+      modal.classList.remove('hidden');
+    });
+    
+    closeBtn.addEventListener('click', function() {
+      modal.classList.add('hidden');
+    });
+    
+    closeBtn2.addEventListener('click', function() {
+      modal.classList.add('hidden');
+    });
+    
+    downloadBtn.addEventListener('click', function() {
+      alert('证书下载功能已触发');
+      // 实际项目中这里会实现证书下载逻辑
+    });
+    
+    // 点击弹窗外部关闭
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+      }
+    });
   });
 </script>
 
