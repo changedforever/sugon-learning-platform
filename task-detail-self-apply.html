@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>任务详情 - HIECO 光合技术支持平台</title>
+  <title>认证任务详情 - HIECO 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -389,7 +389,7 @@
           <span>&gt;</span>
           <a href="certification.html" class="hover:text-[#2D874B]">认证</a>
           <span>&gt;</span>
-          <span class="text-gray-800 font-medium">认证详情</span>
+          <span class="text-gray-800 font-medium">认证任务详情</span>
           <span class="text-gray-400">·</span>
           <span class="text-gray-800 font-medium">高级云架构师认证</span>
         </div>
@@ -430,10 +430,7 @@
               <span class="text-gray-500">完成时间：</span>
               <span class="font-medium text-gray-800" id="complete-time">-</span>
             </div>
-            <div class="space-y-1">
-              <span class="text-gray-500">任务类型：</span>
-              <span class="font-medium text-gray-800">认证考试</span>
-            </div>
+
           </div>
         </div>
         
@@ -517,11 +514,16 @@
       </h2>
       
       <!-- 分类切换 -->
-      <div class="flex gap-2 mb-4">
-        <button class="subtask-filter-btn px-3 py-1 rounded-full bg-[#2D874B] text-white text-sm" data-filter="all">全部（2/5）</button>
-        <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="学习">课程（1/3）</button>
-        <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="考试">考试（1/2）</button>
-        <!-- <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="实践">实践</button> -->
+      <div class="flex justify-between items-center mb-4">
+        <div class="flex gap-2">
+          <button class="subtask-filter-btn px-3 py-1 rounded-full bg-[#2D874B] text-white text-sm" data-filter="all">全部（2/5）</button>
+          <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="学习">课程（1/3）</button>
+          <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="考试">考试（1/2）</button>
+          <!-- <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="实践">实践</button> -->
+        </div>
+        <button id="certificate-btn" class="px-3 py-1.5 rounded-full bg-[#2D874B] text-white text-sm hover:bg-[#24703a] transition">
+          <i class="fa fa-certificate mr-1"></i>已获证书
+        </button>
       </div>
       
       <div class="space-y-4" id="subtask-list">
@@ -624,6 +626,17 @@
 
       const filteredSubtasks = filter === 'all' ? subtasks : subtasks.filter(subtask => subtask.type === filter);
 
+      // 按照状态排序：未完成 > 进行中 > 已完成
+      filteredSubtasks.sort((a, b) => {
+        const statusOrder = {
+          'upcoming': 0,      // 未完成
+          'in-progress': 1,   // 进行中
+          'completed': 2,     // 已完成
+          'overdue': 0        // 已超时也视为未完成
+        };
+        return statusOrder[a.status] - statusOrder[b.status];
+      });
+
       filteredSubtasks.forEach(subtask => {
         const card = document.createElement('article');
         card.className = 'glass-card rounded-2xl border border-gray-300 p-4 hover:-translate-y-1 hover:border-[#2D874B]/80 transition opacity-0 transform translate-y-2';
@@ -651,11 +664,6 @@
             <div class="flex-1">
               <h3 class="text-sm font-semibold text-gray-800 mb-1">${subtask.title}</h3>
               <p class="text-xs text-gray-600 mb-2">${subtask.description}</p>
-              <div class="flex flex-wrap gap-3 text-xs text-gray-500">
-                <span><i class="fa fa-clock mr-1"></i>预计耗时：${subtask.estimatedTime}</span>
-                <span><i class="fa fa-gem mr-1"></i>积分：${subtask.points}</span>
-                <span><i class="fa fa-calendar mr-1"></i>截止：${subtask.deadline}</span>
-              </div>
             </div>
             <span class="inline-flex items-center px-2 py-1 rounded-full border text-xs ${statusClass}">
               <i class="fa ${statusIcon} mr-1 text-[10px]"></i>${statusText}
@@ -679,11 +687,18 @@
             </div>
           </div>
           
-          ${subtask.completeTime ? `
-            <div class="mt-2 pt-2 border-t border-gray-200 text-xs text-gray-500">
-              <i class="fa fa-check-circle mr-1 text-green-500"></i>完成时间：${subtask.completeTime}
-            </div>
-          ` : ''}
+          <div class="flex items-center justify-between mt-2">
+            ${subtask.completeTime ? `
+              <div class="text-xs text-gray-500">
+                <i class="fa fa-check-circle mr-1 text-green-500"></i>完成时间：${subtask.completeTime}
+              </div>
+            ` : ''}
+            ${subtask.status !== 'completed' ? `
+              <div class="text-xs text-gray-500">
+                <i class="fa fa-calendar mr-1"></i>截止：${subtask.deadline}
+              </div>
+            ` : ''}
+          </div>
         `;
         
         subtaskList.appendChild(card);
@@ -719,7 +734,7 @@
   function viewSubtaskDetail(id) {
     const subtask = subtasks.find(s => s.id === id);
     if (subtask) {
-      alert(`查看子任务详情：${subtask.title}\n\n描述：${subtask.description}\n类型：${subtask.type}\n状态：${subtask.status}`);
+      alert(`查看子任务详情：${subtask.title}\n\n描述：${subtask.description}\n状态：${subtask.status}`);
     }
   }
 
@@ -755,8 +770,61 @@
         renderSubtasks(filter);
       });
     });
+    
+    // 证书弹窗功能
+    const certificateModal = document.getElementById('certificate-modal');
+    const certificateBtn = document.getElementById('certificate-btn');
+    const closeModalBtn = document.getElementById('close-modal');
+    const downloadBtn = document.getElementById('download-certificate');
+    
+    // 打开弹窗
+    certificateBtn.addEventListener('click', function() {
+      certificateModal.classList.remove('hidden');
+    });
+    
+    // 关闭弹窗
+    closeModalBtn.addEventListener('click', function() {
+      certificateModal.classList.add('hidden');
+    });
+    
+    // 点击弹窗外部关闭
+    certificateModal.addEventListener('click', function(e) {
+      if (e.target === certificateModal) {
+        certificateModal.classList.add('hidden');
+      }
+    });
+    
+    // 下载证书
+    downloadBtn.addEventListener('click', function() {
+      alert('证书下载功能已触发');
+      // 实际项目中这里会实现证书下载逻辑
+    });
   });
 </script>
+
+  <!-- 证书弹窗 -->
+  <div id="certificate-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-2xl p-6 max-w-md w-full mx-4">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+        <i class="fa fa-certificate text-[#2D874B]"></i> 已获证书
+      </h3>
+      <div class="mb-6 p-4 bg-gray-50 rounded-xl text-center">
+        <div class="w-24 h-24 bg-[#2D874B] text-white rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class="fa fa-certificate text-4xl"></i>
+        </div>
+        <h4 class="text-md font-semibold text-gray-800 mb-1">高级云架构师认证</h4>
+        <p class="text-sm text-gray-600">颁发日期：2026-03-15</p>
+      </div>
+      <div class="flex gap-3 justify-end">
+        <button id="download-certificate" class="px-4 py-2 rounded-lg bg-[#2D874B] text-white text-sm hover:bg-[#24703a] transition">
+          <i class="fa fa-download mr-1"></i> 下载
+        </button>
+        <button id="close-modal" class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 text-sm hover:bg-gray-300 transition">
+          关闭
+        </button>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
