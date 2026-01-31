@@ -1311,6 +1311,21 @@
                                         }
                                     }
                                 </script>
+
+                                <div class="relative group">
+                                    <!-- 我的粉丝团 -->
+                                    <button
+                                        id="fanClubBtn"
+                                        class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                    >
+                                        <i class="fa fa-users"></i>
+                                    </button>
+                                    <div
+                                        class="absolute bottom-full right-0 mb-2 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                                    >
+                                        我的粉丝团
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- 中间按钮 -->
@@ -1500,16 +1515,36 @@
                                     <p class="text-xs text-gray-400">正在直播</p>
                                 </div>
                                 <div class="flex items-center space-x-2">
-                                    <button
-                                        class="w-6 h-6 rounded-full bg-gray-700 flex items-center justify-center hover:bg-gray-600"
-                                    >
-                                        <i class="fa fa-microphone text-xs"></i>
-                                    </button>
-                                    <button
-                                        class="w-6 h-6 rounded-full bg-gray-700 flex items-center justify-center hover:bg-gray-600"
-                                    >
-                                        <i class="fa fa-video text-xs"></i>
-                                    </button>
+                                    <!-- 麦克风按钮 -->
+                                    <div class="relative group">
+                                        <button
+                                            id="micBtn"
+                                            class="w-6 h-6 rounded-full bg-gray-700 flex items-center justify-center hover:bg-gray-600 transition"
+                                            data-state="on"
+                                        >
+                                            <i class="fa fa-microphone text-xs"></i>
+                                        </button>
+                                        <div
+                                            class="absolute bottom-full right-0 mb-1 w-20 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                                        >
+                                            麦克风
+                                        </div>
+                                    </div>
+                                    <!-- 摄像头按钮 -->
+                                    <div class="relative group">
+                                        <button
+                                            id="cameraBtn"
+                                            class="w-6 h-6 rounded-full bg-gray-700 flex items-center justify-center hover:bg-gray-600 transition"
+                                            data-state="on"
+                                        >
+                                            <i class="fa fa-video text-xs"></i>
+                                        </button>
+                                        <div
+                                            class="absolute bottom-full right-0 mb-1 w-20 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                                        >
+                                            摄像头
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1549,6 +1584,18 @@
                         class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white"
                     >
                         用户
+                    </button>
+                    <button
+                        id="fanClubTab"
+                        class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white"
+                    >
+                        粉丝团
+                    </button>
+                    <button
+                        id="likeRankTab"
+                        class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white"
+                    >
+                        点赞排行
                     </button>
                 </div>
 
@@ -1917,154 +1964,184 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- 排行榜内容 -->
+                    <!-- 粉丝团区域 -->
                     <div
-                        id="rankContent"
+                        id="fanClubContent"
                         class="tab-content hidden flex-1 overflow-hidden flex flex-col"
                     >
                         <div class="p-3 flex-1 audience-list">
-                            <h3 class="font-semibold mb-3 flex items-center">
-                                <i class="fa fa-trophy text-yellow-500 mr-2"></i>
-                                贡献排行榜
-                            </h3>
-                            <div class="mb-3">
-                                <div
-                                    class="flex items-center bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 p-2 rounded-lg"
-                                >
-                                    <div
-                                        class="w-6 h-6 rounded-full bg-yellow-500 text-white flex items-center justify-center text-xs font-bold mr-2"
-                                    >
-                                        1
-                                    </div>
-                                    <img
-                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80"
-                                        alt="User"
-                                        class="w-8 h-8 rounded-full mr-2"
-                                    />
-                                    <div class="flex-1">
-                                        <div class="text-sm">技术小白</div>
-                                    </div>
-                                    <div class="text-xs text-yellow-400">贡献值: 15,240</div>
-                                </div>
+                            <div class="flex justify-between mb-3 font-semibold">
+                                <span>昵称</span>
+                                <span>入团时间</span>
                             </div>
-
-                            <div class="mb-3">
-                                <div
-                                    class="flex items-center bg-gradient-to-r from-gray-400/20 to-gray-500/20 p-2 rounded-lg"
-                                >
-                                    <div
-                                        class="w-6 h-6 rounded-full bg-gray-400 text-white flex items-center justify-center text-xs font-bold mr-2"
-                                    >
-                                        2
-                                    </div>
-                                    <img
-                                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=40&q=80"
-                                        alt="User"
-                                        class="w-8 h-8 rounded-full mr-2"
-                                    />
-                                    <div class="flex-1">
-                                        <div class="text-sm">代码达人</div>
-                                    </div>
-                                    <div class="text-xs text-gray-400">贡献值: 12,890</div>
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                            >
+                                <img
+                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">技术小白</div>
                                 </div>
+                                <div class="text-xs text-gray-400">2024-01-15</div>
                             </div>
-
-                            <div class="mb-3">
-                                <div
-                                    class="flex items-center bg-gradient-to-r from-amber-700/20 to-amber-800/20 p-2 rounded-lg"
-                                >
-                                    <div
-                                        class="w-6 h-6 rounded-full bg-amber-700 text-white flex items-center justify-center text-xs font-bold mr-2"
-                                    >
-                                        3
-                                    </div>
-                                    <img
-                                        src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=40&q=80"
-                                        alt="User"
-                                        class="w-8 h-8 rounded-full mr-2"
-                                    />
-                                    <div class="flex-1">
-                                        <div class="text-sm">算法专家</div>
-                                    </div>
-                                    <div class="text-xs text-amber-400">贡献值: 10,750</div>
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                            >
+                                <img
+                                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">代码达人</div>
                                 </div>
+                                <div class="text-xs text-gray-400">2024-01-10</div>
                             </div>
-
-                            <div class="mb-3">
-                                <div class="flex items-center p-2 rounded-lg hover:bg-gray-800/50">
-                                    <div
-                                        class="w-6 h-6 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-bold mr-2"
-                                    >
-                                        4
-                                    </div>
-                                    <img
-                                        src="https://images.unsplash.com/photo-1491637639811-60e2756e1df7?auto=format&fit=crop&w=40&q=80"
-                                        alt="User"
-                                        class="w-8 h-8 rounded-full mr-2"
-                                    />
-                                    <div class="flex-1">
-                                        <div class="text-sm">架构师</div>
-                                    </div>
-                                    <div class="text-xs text-gray-400">贡献值: 8,920</div>
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                            >
+                                <img
+                                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">架构师</div>
                                 </div>
+                                <div class="text-xs text-gray-400">2024-01-05</div>
                             </div>
-
-                            <div class="mb-3">
-                                <div class="flex items-center p-2 rounded-lg hover:bg-gray-800/50">
-                                    <div
-                                        class="w-6 h-6 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-bold mr-2"
-                                    >
-                                        5
-                                    </div>
-                                    <img
-                                        src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=40&q=80"
-                                        alt="User"
-                                        class="w-8 h-8 rounded-full mr-2"
-                                    />
-                                    <div class="flex-1">
-                                        <div class="text-sm">数据科学家</div>
-                                    </div>
-                                    <div class="text-xs text-gray-400">贡献值: 7,650</div>
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                            >
+                                <img
+                                    src="https://images.unsplash.com/photo-1491637639811-60e2756e1df7?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">数据科学家</div>
                                 </div>
+                                <div class="text-xs text-gray-400">2024-01-01</div>
                             </div>
-
-                            <div class="mb-3">
-                                <div class="flex items-center p-2 rounded-lg hover:bg-gray-800/50">
-                                    <div
-                                        class="w-6 h-6 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-bold mr-2"
-                                    >
-                                        6
-                                    </div>
-                                    <img
-                                        src="https://images.unsplash.com/photo-1554384645-13eab165c24b?auto=format&fit=crop&w=40&q=80"
-                                        alt="User"
-                                        class="w-8 h-8 rounded-full mr-2"
-                                    />
-                                    <div class="flex-1">
-                                        <div class="text-sm">产品经理</div>
-                                    </div>
-                                    <div class="text-xs text-gray-400">贡献值: 6,340</div>
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                            >
+                                <img
+                                    src="https://images.unsplash.com/photo-1554384645-13eab165c24b?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">产品经理</div>
                                 </div>
+                                <div class="text-xs text-gray-400">2023-12-28</div>
                             </div>
-
-                            <div class="mb-3">
-                                <div class="flex items-center p-2 rounded-lg hover:bg-gray-800/50">
-                                    <div
-                                        class="w-6 h-6 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-bold mr-2"
-                                    >
-                                        7
-                                    </div>
-                                    <img
-                                        src="https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=40&q=80"
-                                        alt="User"
-                                        class="w-8 h-8 rounded-full mr-2"
-                                    />
-                                    <div class="flex-1">
-                                        <div class="text-sm">设计师</div>
-                                    </div>
-                                    <div class="text-xs text-gray-400">贡献值: 5,210</div>
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                            >
+                                <img
+                                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">设计师</div>
                                 </div>
+                                <div class="text-xs text-gray-400">2023-12-25</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 点赞排行 -->
+                    <div
+                        id="likeRankContent"
+                        class="tab-content hidden flex-1 overflow-hidden flex flex-col"
+                    >
+                        <div class="p-3 flex-1 audience-list">
+                            <div class="flex justify-between mb-3 font-semibold">
+                                <span>昵称</span>
+                                <span>点赞数量</span>
+                            </div>
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                            >
+                                <img
+                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">技术小白</div>
+                                </div>
+                                <div class="text-xs text-gray-400">128</div>
+                            </div>
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                            >
+                                <img
+                                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">代码达人</div>
+                                </div>
+                                <div class="text-xs text-gray-400">96</div>
+                            </div>
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                            >
+                                <img
+                                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">架构师</div>
+                                </div>
+                                <div class="text-xs text-gray-400">85</div>
+                            </div>
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                            >
+                                <img
+                                    src="https://images.unsplash.com/photo-1491637639811-60e2756e1df7?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">数据科学家</div>
+                                </div>
+                                <div class="text-xs text-gray-400">72</div>
+                            </div>
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                            >
+                                <img
+                                    src="https://images.unsplash.com/photo-1554384645-13eab165c24b?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">产品经理</div>
+                                </div>
+                                <div class="text-xs text-gray-400">64</div>
+                            </div>
+                            <div
+                                class="flex cursor-pointer items-center mb-2 user-item"
+                            >
+                                <img
+                                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=40&q=80"
+                                    alt="User"
+                                    class="w-8 h-8 rounded-full mr-2"
+                                />
+                                <div class="flex-1">
+                                    <div class="text-sm">设计师</div>
+                                </div>
+                                <div class="text-xs text-gray-400">58</div>
                             </div>
                         </div>
                     </div>
@@ -2919,6 +2996,144 @@
                     });
                 }
             });
+        </script>
+        <script>  // =============== 直播控制按钮功能 ===============
+            // 麦克风控制
+            const micBtn = document.getElementById('micBtn');
+            if (micBtn) {
+                micBtn.addEventListener('click', function() {
+                const currentState = this.getAttribute('data-state');
+                if (currentState === 'on') {
+                    // 关闭麦克风
+                    this.setAttribute('data-state', 'off');
+                    this.classList.remove('bg-gray-700');
+                    this.classList.add('bg-red-600');
+                    this.querySelector('i').classList.remove('fa-microphone');
+                    this.querySelector('i').classList.add('fa-microphone-slash');
+                    this.querySelector('div').textContent = '麦克风已关闭';
+                } else {
+                    // 打开麦克风
+                    this.setAttribute('data-state', 'on');
+                    this.classList.remove('bg-red-600');
+                    this.classList.add('bg-gray-700');
+                    this.querySelector('i').classList.remove('fa-microphone-slash');
+                    this.querySelector('i').classList.add('fa-microphone');
+                    this.querySelector('div').textContent = '麦克风';
+                }
+                });
+            }
+            
+            // 摄像头控制
+            const cameraBtn = document.getElementById('cameraBtn');
+            if (cameraBtn) {
+                cameraBtn.addEventListener('click', function() {
+                const currentState = this.getAttribute('data-state');
+                if (currentState === 'on') {
+                    // 关闭摄像头
+                    this.setAttribute('data-state', 'off');
+                    this.classList.remove('bg-gray-700');
+                    this.classList.add('bg-red-600');
+                    this.querySelector('i').classList.remove('fa-video');
+                    this.querySelector('i').classList.add('fa-video-slash');
+                    this.querySelector('div').textContent = '摄像头已关闭';
+                } else {
+                    // 打开摄像头
+                    this.setAttribute('data-state', 'on');
+                    this.classList.remove('bg-red-600');
+                    this.classList.add('bg-gray-700');
+                    this.querySelector('i').classList.remove('fa-video-slash');
+                    this.querySelector('i').classList.add('fa-video');
+                    this.querySelector('div').textContent = '摄像头';
+                }
+                });
+            } 
+            // =============== 粉丝团功能 ===============
+            // 点击我的粉丝团按钮，切换到粉丝团标签
+            const fanClubBtn = document.getElementById('fanClubBtn');
+            const fanClubTab = document.getElementById('fanClubTab');
+            const fanClubContent = document.getElementById('fanClubContent');
+            const likeRankTab = document.getElementById('likeRankTab');
+            const likeRankContent = document.getElementById('likeRankContent');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const tabButtons = document.querySelectorAll('[id$="Tab"]');
+
+            if (fanClubBtn) {
+                fanClubBtn.addEventListener('click', function() {
+                    // 隐藏所有标签内容
+                    tabContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    
+                    // 移除所有标签按钮的活跃状态
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('text-white', 'border-b-2', 'border-white');
+                        btn.classList.add('text-gray-400');
+                    });
+                    
+                    // 显示粉丝团内容
+                    if (fanClubContent) {
+                        fanClubContent.classList.remove('hidden');
+                    }
+                    
+                    // 激活粉丝团标签按钮
+                    if (fanClubTab) {
+                        fanClubTab.classList.remove('text-gray-400');
+                        fanClubTab.classList.add('text-white', 'border-b-2', 'border-white');
+                    }
+                });
+            }
+
+            // 标签切换功能
+            if (fanClubTab) {
+                fanClubTab.addEventListener('click', function() {
+                    // 隐藏所有标签内容
+                    tabContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    
+                    // 移除所有标签按钮的活跃状态
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('text-white', 'border-b-2', 'border-white');
+                        btn.classList.add('text-gray-400');
+                    });
+                    
+                    // 显示粉丝团内容
+                    if (fanClubContent) {
+                        fanClubContent.classList.remove('hidden');
+                    }
+                    
+                    // 激活粉丝团标签按钮
+                    this.classList.remove('text-gray-400');
+                    this.classList.add('text-white', 'border-b-2', 'border-white');
+                });
+            }
+
+            // 点赞排行标签切换功能
+            if (likeRankTab) {
+                likeRankTab.addEventListener('click', function() {
+                    // 隐藏所有标签内容
+                    tabContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    
+                    // 移除所有标签按钮的活跃状态
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('text-white', 'border-b-2', 'border-white');
+                        btn.classList.add('text-gray-400');
+                    });
+                    
+                    // 显示点赞排行内容
+                    if (likeRankContent) {
+                        likeRankContent.classList.remove('hidden');
+                    }
+                    
+                    // 激活点赞排行标签按钮
+                    this.classList.remove('text-gray-400');
+                    this.classList.add('text-white', 'border-b-2', 'border-white');
+                });
+            }
+
+            // 其他现有JavaScript代码...
         </script>
     </body>
 </html>
