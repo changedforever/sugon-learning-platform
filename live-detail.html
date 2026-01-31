@@ -42,45 +42,214 @@
 </head>
 <body class="bg-white text-gray-800">
 
-<!-- 顶部导航：HIECO 品牌 -->
+<!-- 顶部导航（完整版），与首页风格统一 -->
 <header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-14">
-      <!-- 左侧：返回直播列表 -->
-      <div class="flex items-center space-x-3">
-        <a href="live-list.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center group-hover:border-[#2D874B]">
-            <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
-          </button>
-          <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
-            <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
-              直播中心 · 直播详情
+      <!-- LOGO + 品牌 -->
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+          <img src="images/logo2.png" alt="HIECO Logo" class="h-32 w-32 object-contain">
+        </a>
+        <div>
+          <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200">光合技术支持平台</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 导航入口（桌面端） -->
+      <nav class="hidden md:flex items-center space-x-3 text-sm">
+        <!-- 专家 - 无下拉 -->
+        <a href="expert-center.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">
+          专家
+        </a>
+
+        <!-- 培训 - 带下拉浮窗（合并培训、考试、认证、讲师） -->
+        <div class="nav-dropdown relative group">
+          <span class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer">
+            培训
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
+          </span>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-96 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="grid grid-cols-2 gap-4">
+                <!-- 左侧：二级菜单 -->
+                <div class="space-y-3">
+                  <!-- 课程（原培训） -->
+                  <div class="nav-item group/item relative">
+                    <a href="course-list2.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between">
+                      课程
+                      <i class="fa fa-chevron-right text-xs opacity-0 group-hover/item:opacity-100"></i>
+                    </a>
+                    <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
+                      <div class="p-3">
+                        <h4 class="text-sm font-semibold text-gray-800 mb-2">课程分类</h4>
+                        <div class="grid grid-cols-2 gap-2">
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">云基础设施</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">AI与数据智能</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">解决方案</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">安全技术</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">运维管理</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">开发技术</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- 考试 -->
+                  <div class="nav-item group/item relative">
+                    <a href="exam-list.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between">
+                      考试
+                      <i class="fa fa-chevron-right text-xs opacity-0 group-hover/item:opacity-100"></i>
+                    </a>
+                    <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
+                      <div class="p-3">
+                        <h4 class="text-sm font-semibold text-gray-800 mb-2">考试分类</h4>
+                        <div class="grid grid-cols-2 gap-2">
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">资格认证考试</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">技能水平考试</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">岗位能力考试</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">产品认证考试</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">在线考试</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">线下考试</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- 认证 -->
+                  <div class="nav-item group/item relative">
+                    <a href="certification.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between">
+                      认证
+                      <i class="fa fa-chevron-right text-xs opacity-0 group-hover/item:opacity-100"></i>
+                    </a>
+                    <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
+                      <div class="p-3">
+                        <h4 class="text-sm font-semibold text-gray-800 mb-2">认证分类</h4>
+                        <div class="grid grid-cols-2 gap-2">
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">通用计算认证</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">智能计算认证</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">行业解决方案认证</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">专业技术认证</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">初级认证</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">高级认证</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- 讲师 -->
+                  <a href="lecturer-list.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] block">
+                    讲师
+                  </a>
+                </div>
+                
+                <!-- 右侧：快速入口 -->
+                <div class="space-y-3">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">快速入口</h3>
+                  <div class="space-y-2">
+                    <a href="personal-center.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
+                      <i class="fa fa-user text-[#2D874B] text-xs"></i>
+                      个人中心
+                    </a>
+                    <a href="task-detail.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
+                      <i class="fa fa-tasks text-[#2D874B] text-xs"></i>
+                      我的任务
+                    </a>
+                    <a href="course-learning.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
+                      <i class="fa fa-book text-[#2D874B] text-xs"></i>
+                      继续学习
+                    </a>
+                    <a href="certification.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
+                      <i class="fa fa-certificate text-[#2D874B] text-xs"></i>
+                      我的证书
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </a>
-      </div>
+        </div>
 
-      <!-- 中间：直播标题（简略） -->
-      <div class="hidden md:flex flex-col items-center">
-        <span class="text-[11px] text-gray-600">当前直播</span>
-        <span id="header-title" class="text-sm font-medium line-clamp-1 max-w-xs text-[#2D874B]">
-          云原生架构设计实战分享
-        </span>
-      </div>
+        <!-- 直播 - 带下拉浮窗 -->
+        <div class="nav-dropdown relative group">
+          <a href="live-list.html" class="px-3 py-1.5 rounded-full bg-[#2D874B] text-white transition flex items-center gap-1">
+            直播
+            <i class="fa fa-chevron-down text-xs text-white"></i>
+          </a>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">直播状态</h3>
+                  <div class="space-y-1">
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">未开始</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">直播中</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">已结束</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">可预约</a>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">直播类型</h3>
+                  <div class="space-y-1">
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">技术分享</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">产品发布</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">案例解析</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">专家访谈</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <!-- 右侧：我的直播 / 预约状态 -->
-      <div class="flex items-center space-x-2 text-xs">
-        <span id="my-live-badge"
-              class="inline-flex items-center px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
-          <i class="fa fa-list-check mr-1 text-[11px]"></i>
-          我的直播
-        </span>
-        <span id="header-status"
-              class="inline-flex items-center px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
-          <i class="fa fa-circle mr-1 text-[11px]"></i>
-          可预约
-        </span>
+        <!-- 其他导航项（无下拉） -->
+        <a href="https://forum.sourcefind.cn/" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">论坛</a>
+        <a href="resource-center.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">资源</a>
+        
+        <!-- 资讯 - 带下拉浮窗（合并资讯、活动） -->
+        <div class="nav-dropdown relative group">
+          <span class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer">
+            资讯
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
+          </span>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="space-y-3">
+                <!-- 资讯 -->
+                <a href="news-announcement-list.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-newspaper mr-3 text-[#2D874B]"></i>
+                  <span>资讯</span>
+                </a>
+                
+                <!-- 活动 -->
+                <a href="activity-list.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-calendar-alt mr-3 text-[#2D874B]"></i>
+                  <span>活动</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- 右侧功能区 -->
+      <div class="flex items-center space-x-3">
+        <!-- 搜索图标（桌面端） -->
+        <div class="relative">
+          <!-- 搜索图标按钮 -->
+          <button id="search-toggle" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <i class="fa fa-search text-sm"></i>
+          </button>
+        </div>
+        
+        <!-- 头像 -->
+        <div class="relative">
+          <button class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <i class="fa fa-user text-sm"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -88,6 +257,117 @@
 
 <main class="pt-16 lg:pt-20 pb-10">
   <section class="max-w-7xl mx-auto px-4 lg:px-6">
+    <!-- 面包屑导航 -->
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center space-x-3">
+        <!-- 返回按钮 -->
+        <a href="live-list.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center text-[#2D874B] group-hover:border-[#2D874B]">
+            <i class="fa fa-chevron-left text-[#2D874B] text-xs"></i>
+          </button>
+        </a>
+        <!-- 面包屑路径 -->
+        <div class="text-xs text-gray-600 flex items-center space-x-1">
+          <a href="index.html" class="hover:text-[#2D874B]">首页</a>
+          <span>&gt;</span>
+          <a href="live-list.html" class="hover:text-[#2D874B]">直播</a>
+          <span>&gt;</span>
+          <span class="text-gray-800 font-medium">直播详情</span>
+          <span class="text-gray-400">·</span>
+          <span id="breadcrumb-title" class="text-gray-800 font-medium">云原生架构设计实战分享</span>
+        </div>
+      </div>
+      <!-- 右侧：我的直播 / 预约状态 -->
+      <div class="flex items-center space-x-2 text-xs">
+        <!-- 我的直播按钮（带悬停弹窗） -->
+        <div class="relative group">
+          <span id="my-live-badge"
+                class="inline-flex items-center px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B] cursor-pointer">
+            <i class="fa fa-list-check mr-1 text-[11px]"></i>
+            我的直播
+          </span>
+          <!-- 我的直播预约列表弹窗 -->
+          <div id="my-live-popup" class="absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <h3 class="text-sm font-semibold text-gray-800 mb-3">我的直播预约列表</h3>
+              <p class="text-xs text-gray-600 mb-3">可查看所有已预约且状态为即将开始和直播中的直播</p>
+              <div id="my-live-list" class="space-y-3">
+                <!-- 直播中 -->
+                <a href="live-detail.html" class="block p-3 rounded-xl bg-gray-50 border border-gray-200 hover:border-[#2D874B] transition">
+                  <div class="flex justify-between items-start mb-2">
+                    <h4 class="text-xs font-semibold text-gray-800">云原生架构设计实战分享</h4>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full border status-badge-live text-[11px]">
+                      <i class="fa fa-circle mr-1 text-[9px]"></i> 直播中
+                    </span>
+                  </div>
+                  <p class="text-[11px] text-gray-600">2026-01-15 19:00–21:00</p>
+                </a>
+                
+                <!-- 即将开始 -->
+                <a href="live-detail.html" class="block p-3 rounded-xl bg-gray-50 border border-gray-200 hover:border-[#2D874B] transition">
+                  <div class="flex justify-between items-start mb-2">
+                    <h4 class="text-xs font-semibold text-gray-800">Kubernetes集群部署与管理</h4>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full border status-badge-upcoming text-[11px]">
+                      <i class="fa fa-clock mr-1 text-[9px]"></i> 即将开始
+                    </span>
+                  </div>
+                  <p class="text-[11px] text-gray-600">2026-01-22 19:00–21:00</p>
+                </a>
+                
+                <!-- 直播中 -->
+                <a href="live-detail.html" class="block p-3 rounded-xl bg-gray-50 border border-gray-200 hover:border-[#2D874B] transition">
+                  <div class="flex justify-between items-start mb-2">
+                    <h4 class="text-xs font-semibold text-gray-800">微服务架构设计与治理</h4>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full border status-badge-live text-[11px]">
+                      <i class="fa fa-circle mr-1 text-[9px]"></i> 直播中
+                    </span>
+                  </div>
+                  <p class="text-[11px] text-gray-600">2026-01-29 19:00–21:00</p>
+                </a>
+                
+                <!-- 即将开始 -->
+                <a href="live-detail.html" class="block p-3 rounded-xl bg-gray-50 border border-gray-200 hover:border-[#2D874B] transition">
+                  <div class="flex justify-between items-start mb-2">
+                    <h4 class="text-xs font-semibold text-gray-800">DevOps持续集成与部署实践</h4>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full border status-badge-upcoming text-[11px]">
+                      <i class="fa fa-clock mr-1 text-[9px]"></i> 即将开始
+                    </span>
+                  </div>
+                  <p class="text-[11px] text-gray-600">2026-02-05 19:00–21:00</p>
+                </a>
+                
+                <!-- 直播中 -->
+                <a href="live-detail.html" class="block p-3 rounded-xl bg-gray-50 border border-gray-200 hover:border-[#2D874B] transition">
+                  <div class="flex justify-between items-start mb-2">
+                    <h4 class="text-xs font-semibold text-gray-800">容器安全最佳实践</h4>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full border status-badge-live text-[11px]">
+                      <i class="fa fa-circle mr-1 text-[9px]"></i> 直播中
+                    </span>
+                  </div>
+                  <p class="text-[11px] text-gray-600">2026-02-12 19:00–21:00</p>
+                </a>
+                
+                <!-- 即将开始 -->
+                <a href="live-detail.html" class="block p-3 rounded-xl bg-gray-50 border border-gray-200 hover:border-[#2D874B] transition">
+                  <div class="flex justify-between items-start mb-2">
+                    <h4 class="text-xs font-semibold text-gray-800">服务网格技术深度解析</h4>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full border status-badge-upcoming text-[11px]">
+                      <i class="fa fa-clock mr-1 text-[9px]"></i> 即将开始
+                    </span>
+                  </div>
+                  <p class="text-[11px] text-gray-600">2026-02-19 19:00–21:00</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span id="header-status"
+              class="inline-flex items-center px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
+          <i class="fa fa-circle mr-1 text-[11px]"></i>
+          可预约
+        </span>
+      </div>
+    </div>
     <div class="grid lg:grid-cols-3 gap-6 items-start">
 
       <!-- 左侧：封面 + 介绍 + 日程 -->
@@ -378,6 +658,24 @@
                 </p>
               </div>
             </div>
+            <div class="mb-3">
+              <!-- 关注状态按钮容器 -->
+              <div id="followed-buttons" class="flex gap-2 hidden">
+                <button class="flex-1 py-1.5 rounded-xl bg-[#B01F24] text-white text-xs font-medium hover:opacity-90">
+                  <i class="fa fa-heart mr-1"></i>
+                  已关注
+                </button>
+                <button id="unfollow-btn" class="w-28 py-1.5 rounded-xl border border-[#B01F24] text-[#B01F24] text-xs font-medium hover:bg-[#B01F24]/10">
+                  取消关注
+                </button>
+              </div>
+              <!-- 未关注状态按钮 -->
+              <button id="follow-btn"
+                      class="w-full py-1.5 rounded-xl bg-[#B01F24] text-white text-xs font-medium hover:opacity-90">
+                <i class="fa fa-heart mr-1"></i>
+                关注讲师
+              </button>
+            </div>
             <div class="flex flex-wrap gap-2 text-[11px]">
               <a href="#" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#B01F24] hover:border-[#B01F24]">
                 <i class="fa fa-id-badge mr-1 text-[9px]"></i> 查看讲师主页
@@ -578,24 +876,72 @@
 <!-- 交互脚本：状态切换、预约与提醒、回放进度 -->
 <script>
   // ====== 1. 模拟直播数据（实际请由接口返回） ======
-  const live = {
-    id: 'live-2026-001',
-    title: '云原生架构设计实战分享',
-    category: '云基础设施',
-    track: 'DevOps 赛道',
-    status: 'upcoming', // upcoming | live | ended
-    startTime: '2026-01-15 19:00',
-    endTime: '2026-01-15 21:00',
-    durationMinutes: 120,
-    attendees: 12345,
-    schedule: [
-      { time: '19:00–19:15', title: '开场介绍与云原生背景' },
-      { time: '19:15–20:00', title: '架构设计方法论与典型模板' },
-      { time: '20:00–20:40', title: '现场 Demo：从单体到云原生' },
-      { time: '20:40–21:00', title: 'Q&A 与资料说明' }
-    ],
-    playbackUrl: 'live-playback.html?id=live-2026-001'
+  const liveData = {
+    'live-2026-001': {
+      id: 'live-2026-001',
+      title: '云原生架构设计实战分享',
+      category: '云基础设施',
+      track: 'DevOps 赛道',
+      status: 'upcoming', // upcoming | live | ended
+      startTime: '2026-01-15 19:00',
+      endTime: '2026-01-15 21:00',
+      durationMinutes: 120,
+      attendees: 12345,
+      schedule: [
+        { time: '19:00–19:15', title: '开场介绍与云原生背景' },
+        { time: '19:15–20:00', title: '架构设计方法论与典型模板' },
+        { time: '20:00–20:40', title: '现场 Demo：从单体到云原生' },
+        { time: '20:40–21:00', title: 'Q&A 与资料说明' }
+      ],
+      playbackUrl: 'live-playback.html?id=live-2026-001'
+    },
+    'live-2026-002': {
+      id: 'live-2026-002',
+      title: 'Kubernetes集群部署与管理',
+      category: '云基础设施',
+      track: 'DevOps 赛道',
+      status: 'live', // upcoming | live | ended
+      startTime: '2026-01-10 14:00',
+      endTime: '2026-01-10 16:00',
+      durationMinutes: 120,
+      attendees: 8923,
+      schedule: [
+        { time: '14:00–14:15', title: 'Kubernetes架构概述' },
+        { time: '14:15–15:00', title: '集群部署最佳实践' },
+        { time: '15:00–15:40', title: '集群管理与监控' },
+        { time: '15:40–16:00', title: 'Q&A 与技术交流' }
+      ],
+      playbackUrl: 'live-playback.html?id=live-2026-002'
+    },
+    'live-2026-003': {
+      id: 'live-2026-003',
+      title: '微服务架构设计与治理',
+      category: '云基础设施',
+      track: 'DevOps 赛道',
+      status: 'upcoming', // upcoming | live | ended
+      startTime: '2026-01-22 19:00',
+      endTime: '2026-01-22 21:00',
+      durationMinutes: 120,
+      attendees: 6789,
+      schedule: [
+        { time: '19:00–19:15', title: '微服务架构原则' },
+        { time: '19:15–20:00', title: '服务拆分与设计模式' },
+        { time: '20:00–20:40', title: '服务治理与可观测性' },
+        { time: '20:40–21:00', title: 'Q&A 与实践案例' }
+      ],
+      playbackUrl: 'live-playback.html?id=live-2026-003'
+    }
   };
+
+  // 根据URL参数获取直播ID，默认为live-2026-001
+  function getLiveId() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const liveId = urlParams.get('id');
+    return liveId && liveData[liveId] ? liveId : 'live-2026-001';
+  }
+
+  // 获取当前直播数据
+  const live = liveData[getLiveId()];
 
   // ====== 2. 本地存储键：预约 & 回放进度（模拟“我的直播”联动） ======
   const KEY_RESERVE = 'hieco_live_reserve_ids';
@@ -631,7 +977,6 @@
   let progressMap = loadProgressMap();
 
   // ====== 3. 初始化内容：日程 / 基本信息 ======
-  const headerTitle = document.getElementById('header-title');
   const liveTitle = document.getElementById('live-title');
   const liveDate = document.getElementById('live-date');
   const liveTimeSpan = document.getElementById('live-time');
@@ -642,8 +987,12 @@
   const sideAttendees = document.getElementById('side-attendees');
 
   function initContent() {
-    headerTitle.textContent = live.title;
     liveTitle.textContent = live.title;
+    // 更新面包屑标题
+    const breadcrumbTitle = document.getElementById('breadcrumb-title');
+    if (breadcrumbTitle) {
+      breadcrumbTitle.textContent = live.title;
+    }
     // 开播时间恢复为：日期 + 时间段
     liveDate.innerHTML = '<i class="fa fa-calendar mr-1 text-emerald-400"></i>' + live.startTime.split(' ')[0];
     liveTimeSpan.innerHTML = '<i class="fa fa-clock mr-1 text-emerald-400"></i>' +
@@ -683,19 +1032,25 @@
     if (live.status === 'ended') statusText = '已结束';
 
     sideStatus.textContent = statusText;
-    headerStatus.textContent = (live.status === 'ended') ? '已结束' :
-                               (isReserved() ? '已预约' : '可预约');
+    // 更新面包屑右侧的状态按钮
+    const headerStatus = document.getElementById('header-status');
+    if (headerStatus) {
+      headerStatus.textContent = (live.status === 'ended') ? '已结束' :
+                                 (isReserved() ? '已预约' : '可预约');
+
+      // 直播中高亮顶部状态背景
+      if (live.status === 'live') {
+        headerStatus.classList.remove('bg-slate-900/80');
+        headerStatus.classList.add('bg-rose-500/10');
+      } else {
+        headerStatus.classList.remove('bg-rose-500/10');
+      }
+    }
 
     sideStatus.classList.remove('status-badge-upcoming', 'status-badge-live', 'status-badge-ended');
     if (live.status === 'upcoming') sideStatus.classList.add('status-badge-upcoming');
     if (live.status === 'live') sideStatus.classList.add('status-badge-live');
     if (live.status === 'ended') sideStatus.classList.add('status-badge-ended');
-
-    // 直播中高亮顶部状态背景
-    if (live.status === 'live') {
-      headerStatus.classList.remove('bg-slate-900/80');
-      headerStatus.classList.add('bg-rose-500/10');
-    }
 
     // 按钮显隐逻辑
     if (live.status === 'upcoming') {
@@ -828,6 +1183,94 @@
   // ====== 9. 初始化 ======
   initContent();
   updateStatusUI();
+
+  // ====== 10. 关注讲师功能 ======
+  const followBtn = document.getElementById('follow-btn');
+  const followedButtons = document.getElementById('followed-buttons');
+  const unfollowBtn = document.getElementById('unfollow-btn');
+  
+  // 关注按钮点击事件
+  followBtn.addEventListener('click', function() {
+    // 隐藏关注按钮，显示已关注状态的两个按钮
+    followBtn.classList.add('hidden');
+    followedButtons.classList.remove('hidden');
+    alert('已关注该讲师，将及时获取讲师的最新直播和课程信息。');
+  });
+  
+  // 取消关注按钮点击事件
+  unfollowBtn.addEventListener('click', function() {
+    // 隐藏已关注状态的两个按钮，显示关注按钮
+    followedButtons.classList.add('hidden');
+    followBtn.classList.remove('hidden');
+    alert('已取消关注该讲师。');
+  });
+
+  // ====== 11. 我的直播弹窗功能 ======
+  const myLiveList = document.getElementById('my-live-list');
+  
+  // 使用liveData作为我的直播数据
+  const myLiveData = Object.values(liveData);
+  
+  // 生成我的直播列表
+  function generateMyLiveList() {
+    myLiveList.innerHTML = '';
+    
+    // 过滤出状态为即将开始和直播中的直播
+    const activeLives = myLiveData.filter(live => 
+      live.status === 'upcoming' || live.status === 'live'
+    );
+    
+    if (activeLives.length === 0) {
+      myLiveList.innerHTML = `
+        <div class="text-center py-4 text-xs text-gray-500">
+          <i class="fa fa-calendar-times text-2xl mb-2 text-gray-400"></i>
+          <p>暂无已预约的直播</p>
+        </div>
+      `;
+      return;
+    }
+    
+    // 生成直播列表项
+    activeLives.forEach(live => {
+      let statusText = '未开始';
+      let statusClass = 'status-badge-upcoming';
+      let statusIcon = 'fa-broadcast-tower';
+      
+      if (live.status === 'live') {
+        statusText = '直播中';
+        statusClass = 'status-badge-live';
+        statusIcon = 'fa-circle';
+      }
+      
+      const liveItem = document.createElement('div');
+      liveItem.className = 'p-3 rounded-xl border border-gray-200 hover:border-[#2D874B] transition cursor-pointer';
+      liveItem.innerHTML = `
+        <div class="flex items-start justify-between mb-2">
+          <h4 class="text-sm font-medium text-gray-800 truncate w-48">${live.title}</h4>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full border ${statusClass} text-[10px]">
+            <i class="fa ${statusIcon} mr-1 text-[9px]"></i> ${statusText}
+          </span>
+        </div>
+        <div class="flex items-center justify-between text-xs text-gray-600">
+          <div class="flex items-center gap-3">
+            <span><i class="fa fa-calendar mr-1"></i>${live.startTime.split(' ')[0]}</span>
+            <span><i class="fa fa-clock mr-1"></i>${live.startTime.split(' ')[1]}</span>
+          </div>
+          <span class="text-[10px] text-gray-500">${live.category}</span>
+        </div>
+      `;
+      
+      // 添加点击跳转事件
+      liveItem.addEventListener('click', function() {
+        window.location.href = 'live-detail.html?id=' + encodeURIComponent(live.id);
+      });
+      
+      myLiveList.appendChild(liveItem);
+    });
+  }
+  
+  // 初始化我的直播列表
+  generateMyLiveList();
 </script>
 
 </body>
