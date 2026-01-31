@@ -1569,31 +1569,31 @@
                 <div class="flex border-b border-gray-700 flex-shrink-0">
                     <button
                         id="coursewareTab"
-                        class="tab-button flex-1 py-3 text-center font-medium border-b-2 border-red-500 text-red-500"
+                        class="tab-button flex-1 py-3 text-center font-medium text-white border-b-2 border-white transition-all duration-300"
                     >
                         弹幕
                     </button>
                     <button
                         id="chatTab"
-                        class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white"
+                        class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white border-b-2 border-transparent transition-all duration-300"
                     >
                         聊天
                     </button>
                     <button
                         id="audienceTab"
-                        class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white"
+                        class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white border-b-2 border-transparent transition-all duration-300"
                     >
                         用户
                     </button>
                     <button
                         id="fanClubTab"
-                        class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white"
+                        class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white border-b-2 border-transparent transition-all duration-300"
                     >
                         粉丝团
                     </button>
                     <button
                         id="likeRankTab"
-                        class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white"
+                        class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white border-b-2 border-transparent transition-all duration-300"
                     >
                         点赞排行
                     </button>
@@ -3067,7 +3067,7 @@
                     // 移除所有标签按钮的活跃状态
                     tabButtons.forEach(btn => {
                         btn.classList.remove('text-white', 'border-b-2', 'border-white');
-                        btn.classList.add('text-gray-400');
+                        btn.classList.add('text-gray-400', 'border-b-2', 'border-transparent');
                     });
                     
                     // 显示粉丝团内容
@@ -3077,7 +3077,7 @@
                     
                     // 激活粉丝团标签按钮
                     if (fanClubTab) {
-                        fanClubTab.classList.remove('text-gray-400');
+                        fanClubTab.classList.remove('text-gray-400', 'border-b-2', 'border-transparent');
                         fanClubTab.classList.add('text-white', 'border-b-2', 'border-white');
                     }
                 });
@@ -3094,7 +3094,7 @@
                     // 移除所有标签按钮的活跃状态
                     tabButtons.forEach(btn => {
                         btn.classList.remove('text-white', 'border-b-2', 'border-white');
-                        btn.classList.add('text-gray-400');
+                        btn.classList.add('text-gray-400', 'border-b-2', 'border-transparent');
                     });
                     
                     // 显示粉丝团内容
@@ -3103,7 +3103,7 @@
                     }
                     
                     // 激活粉丝团标签按钮
-                    this.classList.remove('text-gray-400');
+                    this.classList.remove('text-gray-400', 'border-b-2', 'border-transparent');
                     this.classList.add('text-white', 'border-b-2', 'border-white');
                 });
             }
@@ -3119,7 +3119,7 @@
                     // 移除所有标签按钮的活跃状态
                     tabButtons.forEach(btn => {
                         btn.classList.remove('text-white', 'border-b-2', 'border-white');
-                        btn.classList.add('text-gray-400');
+                        btn.classList.add('text-gray-400', 'border-b-2', 'border-transparent');
                     });
                     
                     // 显示点赞排行内容
@@ -3128,7 +3128,87 @@
                     }
                     
                     // 激活点赞排行标签按钮
-                    this.classList.remove('text-gray-400');
+                    this.classList.remove('text-gray-400', 'border-b-2', 'border-transparent');
+                    this.classList.add('text-white', 'border-b-2', 'border-white');
+                });
+            }
+
+            // 其他标签切换功能
+            const coursewareTab = document.getElementById('coursewareTab');
+            const chatTab = document.getElementById('chatTab');
+            const audienceTab = document.getElementById('audienceTab');
+            const coursewareContent = document.getElementById('coursewareContent');
+            const chatContent = document.getElementById('chatContent');
+            const audienceContent = document.getElementById('audienceContent');
+
+            if (coursewareTab) {
+                coursewareTab.addEventListener('click', function() {
+                    // 隐藏所有标签内容
+                    tabContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    
+                    // 移除所有标签按钮的活跃状态
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('text-white', 'border-b-2', 'border-white');
+                        btn.classList.add('text-gray-400', 'border-b-2', 'border-transparent');
+                    });
+                    
+                    // 显示弹幕内容
+                    if (coursewareContent) {
+                        coursewareContent.classList.remove('hidden');
+                    }
+                    
+                    // 激活弹幕标签按钮
+                    this.classList.remove('text-gray-400', 'border-b-2', 'border-transparent');
+                    this.classList.add('text-white', 'border-b-2', 'border-white');
+                });
+            }
+
+            if (chatTab) {
+                chatTab.addEventListener('click', function() {
+                    // 隐藏所有标签内容
+                    tabContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    
+                    // 移除所有标签按钮的活跃状态
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('text-white', 'border-b-2', 'border-white');
+                        btn.classList.add('text-gray-400', 'border-b-2', 'border-transparent');
+                    });
+                    
+                    // 显示聊天内容
+                    if (chatContent) {
+                        chatContent.classList.remove('hidden');
+                    }
+                    
+                    // 激活聊天标签按钮
+                    this.classList.remove('text-gray-400', 'border-b-2', 'border-transparent');
+                    this.classList.add('text-white', 'border-b-2', 'border-white');
+                });
+            }
+
+            if (audienceTab) {
+                audienceTab.addEventListener('click', function() {
+                    // 隐藏所有标签内容
+                    tabContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    
+                    // 移除所有标签按钮的活跃状态
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('text-white', 'border-b-2', 'border-white');
+                        btn.classList.add('text-gray-400', 'border-b-2', 'border-transparent');
+                    });
+                    
+                    // 显示用户内容
+                    if (audienceContent) {
+                        audienceContent.classList.remove('hidden');
+                    }
+                    
+                    // 激活用户标签按钮
+                    this.classList.remove('text-gray-400', 'border-b-2', 'border-transparent');
                     this.classList.add('text-white', 'border-b-2', 'border-white');
                 });
             }
