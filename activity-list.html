@@ -104,62 +104,14 @@
       height: 2px;
       background: linear-gradient(90deg, #2D874B, transparent);
     }
-    
-    /* 导航栏下拉菜单样式 */
-    .full-width-dropdown {
-      width: 100vw;
-      max-width: none;
-      position: fixed;
-      top: auto;
-      left: 0;
-      margin-top: 0;
-      border-top: 1px solid #e5e7eb;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      z-index: 60;
-    }
-    
-    .full-width-dropdown.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    .nav-item {
-      transition: all 0.2s ease;
-    }
-    
-    .nav-item.selected {
-      background-color: #3B82F6 !important;
-      color: white !important;
-      font-weight: 500;
-    }
-    
-    .nav-content.hidden {
-      display: none;
-    }
-    
-    .nav-content.active-content {
-      display: block;
-    }
-    
-    .nav-dropdown:hover .full-width-dropdown {
-      pointer-events: auto;
-    }
-    
-    .full-width-dropdown {
-      pointer-events: none;
-    }
-    
-    .full-width-dropdown * {
-      pointer-events: auto;
-    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
 
-<!-- 顶部导航 + 全站搜索 -->
+<!-- 顶部导航（完整版），与首页风格统一 -->
 <header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
-    <div class="flex items-center justify-between h-16 relative">
+    <div class="flex items-center justify-between h-14">
       <!-- LOGO + 品牌 -->
       <div class="flex items-center space-x-2">
         <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
@@ -167,23 +119,24 @@
         </a>
         <div>
           <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
-            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200" style="font-size: 18px;">光合技术支持平台</div>
+            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200">光合技术支持平台</div>
           </a>
         </div>
       </div>
 
       <!-- 导航入口（桌面端） -->
-      <nav class="hidden md:flex items-center space-x-4 text-base">
+      <nav class="hidden md:flex items-center space-x-3 text-sm">
         <!-- 专家 - 无下拉 -->
-        <a href="expert-center.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">
+        <a href="expert-center.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">
           专家
         </a>
 
+        <!-- 培训 - 带下拉浮窗（合并培训、考试、认证、讲师） -->
         <div class="nav-dropdown relative group">
-          <a href="training.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+          <span class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer">
             培训
-            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
-          </a>
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
+          </span>
           <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-96 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
             <div class="p-4">
               <div class="grid grid-cols-2 gap-4">
@@ -287,9 +240,9 @@
 
         <!-- 直播 - 带下拉浮窗 -->
         <div class="nav-dropdown relative group">
-          <a href="live-list.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+          <a href="live-list.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1">
             直播
-            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
           </a>
           <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
             <div class="p-4">
@@ -318,12 +271,14 @@
         </div>
 
         <!-- 其他导航项（无下拉） -->
-        <a href="resource-center.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">资源</a>
+        <a href="#" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">论坛</a>
+        <a href="resource-center.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">资源</a>
+        
         <!-- 资讯 - 带下拉浮窗（合并资讯、活动） -->
         <div class="nav-dropdown relative group">
-          <span class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+          <span class="px-3 py-1.5 rounded-full bg-[#2D874B] text-white transition flex items-center gap-1 cursor-pointer">
             资讯
-            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+            <i class="fa fa-chevron-down text-xs text-white"></i>
           </span>
           <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
             <div class="p-4">
@@ -353,69 +308,14 @@
           <button id="search-toggle" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
             <i class="fa fa-search text-sm"></i>
           </button>
-          
-          <!-- 下拉搜索栏 -->
-          <div id="search-dropdown" class="absolute top-full right-0 mt-2 w-96 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible transition-all duration-300 z-50">
-            <div class="p-4">
-              <!-- 搜索输入框 -->
-              <div class="relative mb-3">
-                <input
-                  type="text"
-                  id="search-input"
-                  placeholder="搜索培训、考试、认证、资讯..."
-                  class="w-full rounded-xl bg-gray-100 border border-gray-300 px-4 py-3 pl-10 text-sm
-                         placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]"
-                />
-                <i class="fa fa-search text-gray-500 absolute left-3 top-3.5 text-sm"></i>
-              </div>
-              
-              <!-- 热搜推荐 -->
-              <div id="hot-search" class="mb-3">
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-xs font-medium text-gray-600">热搜推荐</span>
-                  <button class="text-xs text-blue-500 hover:text-blue-700 transition">换一换</button>
-                </div>
-                <div class="flex flex-wrap gap-2">
-                  <button class="search-tag px-2 py-1 bg-gray-100 hover:bg-blue-50 text-xs text-gray-600 hover:text-blue-600 rounded-lg transition">
-                    云计算基础
-                  </button>
-                  <button class="search-tag px-2 py-1 bg-gray-100 hover:bg-blue-50 text-xs text-gray-600 hover:text-blue-600 rounded-lg transition">
-                    AI技术
-                  </button>
-                  <button class="search-tag px-2 py-1 bg-gray-100 hover:bg-blue-50 text-xs text-gray-600 hover:text-blue-600 rounded-lg transition">
-                    安全认证
-                  </button>
-                  <button class="search-tag px-2 py-1 bg-gray-100 hover:bg-blue-50 text-xs text-gray-600 hover:text-blue-600 rounded-lg transition">
-                    最新直播
-                  </button>
-                </div>
-              </div>
-              
-              <!-- 联想搜索 -->
-              <div id="suggestions" class="hidden">
-                <div class="text-xs font-medium text-gray-600 mb-2">相关搜索</div>
-                <div class="space-y-1">
-                  <!-- 联想搜索结果将动态生成 -->
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-
-        <!-- 用户头像 -->
+        
+        <!-- 头像 -->
         <div class="relative">
-          <button id="user-avatar" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
-            <a href="personal-center.html">
-              <i class="fa fa-user text-sm"></i>
-            </a>
-          </button>
+          <a href="personal-center.html" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <i class="fa fa-user text-sm"></i>
+          </a>
         </div>
-
-        <!-- 移动端菜单按钮 -->
-        <button id="mobileMenuBtn"
-                class="md:hidden inline-flex items-center justify-center h-9 w-9 rounded-full bg-gray-300 text-gray-800">
-          <i class="fa fa-bars text-lg"></i>
-        </button>
       </div>
     </div>
   </div>
