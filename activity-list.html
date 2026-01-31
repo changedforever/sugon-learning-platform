@@ -414,7 +414,8 @@
       place: "上海 · 陆家嘴",
       type: "online",
       status: "upcoming", // upcoming: 倒计时, live: 活动中, ended: 已结束
-      attendees: 1234
+      attendees: 1234,
+      imageUrl: "./images/news-detail.webp"
     },
     {
       id: 2,
@@ -423,7 +424,8 @@
       place: "北京 · 中关村创新中心 3F",
       type: "offline",
       status: "live",
-      attendees: 856
+      attendees: 856,
+      imageUrl: "./images/news-detail.webp"
     },
     {
       id: 3,
@@ -432,7 +434,8 @@
       place: "上海 · 陆家嘴 XX 大厦 18F",
       type: "offline",
       status: "ended",
-      attendees: 620
+      attendees: 620,
+      imageUrl: "./images/news-detail.webp"
     },
     {
       id: 4,
@@ -441,7 +444,8 @@
       place: "杭州 · 云栖小镇会议中心",
       type: "offline",
       status: "upcoming",
-      attendees: 432
+      attendees: 432,
+      imageUrl: "./images/news-detail.webp"
     },
     {
       id: 5,
@@ -450,7 +454,8 @@
       place: "北京 · 中关村会议中心",
       type: "online",
       status: "ended",
-      attendees: 210
+      attendees: 210,
+      imageUrl: "./images/news-detail.webp"
     },
     {
       id: 6,
@@ -459,7 +464,8 @@
       place: "深圳 · 科技园会议中心",
       type: "offline",
       status: "upcoming",
-      attendees: 980
+      attendees: 980,
+      imageUrl: "./images/news-detail.webp"
     }
   ];
 
@@ -550,62 +556,72 @@
 
       const enrolled = isEnrolled(act.id);
 
+      // 生成图片URL
+      const imageUrl = act.imageUrl || './images/news-detail.webp';
+      
       card.innerHTML = `
-        <div class="flex flex-col h-full justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-[11px] inline-flex items-center px-2 py-0.5 rounded-full bg-white border border-gray-300 ${
-                isOnline ? 'text-[#2D874B]' : 'text-[#2D874B]'
-              }">
-                <i class="fa ${isOnline ? 'fa-wifi' : 'fa-building'} mr-1 text-[9px] text-[#2D874B]"></i>
-                ${isOnline ? '技术分享' : '产品发布'}
-              </span>
-              <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] ${statusCfg.cls}">
-                <i class="fa ${statusCfg.icon} mr-1 text-[9px]"></i>${statusCfg.text}
-              </span>
-            </div>
-
-            <a href="activity-detail.html?id=${act.id}" class="block">
-              <h3 class="text-sm font-semibold line-clamp-2 mb-2 text-gray-800 hover:text-[#2D874B]">${act.title}</h3>
-            </a>
-
-            <div class="space-y-1 text-xs text-gray-600 mb-2">
-              <div class="flex items-center gap-1">
-                <i class="fa fa-clock text-[10px] text-[#2D874B]"></i>
-                <span>${act.datetime}</span>
-              </div>
-              <div class="flex items-center gap-1">
-                <i class="fa fa-location-dot text-[10px] text-[#2D874B]"></i>
-                <span class="line-clamp-1">${act.place}</span>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between text-[11px] text-gray-400 mt-1">
-              <span>报名人数</span>
-              <span class="text-[#2D874B]">
-                <i class="fa fa-users mr-1 text-[9px]"></i>${act.attendees.toLocaleString()}
-              </span>
-            </div>
+        <div class="flex flex-col h-full">
+          <!-- 活动图片 -->
+          <div class="w-full h-40 mb-3 rounded-xl overflow-hidden bg-gray-100">
+            <img src="${imageUrl}" alt="${act.title}" class="w-full h-full object-cover" onerror="this.src='./images/news-detail.webp'">
           </div>
+          
+          <div class="flex flex-col flex-1 justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] inline-flex items-center px-2 py-0.5 rounded-full bg-white border border-gray-300 ${
+                  isOnline ? 'text-[#2D874B]' : 'text-[#2D874B]'
+                }">
+                  <i class="fa ${isOnline ? 'fa-wifi' : 'fa-building'} mr-1 text-[9px] text-[#2D874B]"></i>
+                  ${isOnline ? '技术分享' : '产品发布'}
+                </span>
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] ${statusCfg.cls}">
+                  <i class="fa ${statusCfg.icon} mr-1 text-[9px]"></i>${statusCfg.text}
+                </span>
+              </div>
 
-          <div class="mt-3 flex items-center justify-between text-[11px]">
-            <button
-              class="enroll-btn px-3 py-1.5 rounded-full font-medium
-                     ${act.status === 'ended'
-                        ? 'bg-gray-100 text-gray-400 border border-gray-300 cursor-not-allowed opacity-60'
-                        : (enrolled
-                            ? 'bg-white text-gray-700 border border-[#B01F24] hover:border-rose-400'
-                            : 'bg-[#2D874B] text-white hover:bg-[#24703a]')}"
-              data-id="${act.id}"
-              data-status="${act.status}"
-              ${act.status === 'ended' ? 'disabled' : ''}
-            >
-              ${
-                act.status === 'ended'
-                  ? '已结束'
-                  : (enrolled ? '取消报名' : '报名参加')
-              }
-            </button>
+              <a href="activity-detail.html?id=${act.id}" class="block">
+                <h3 class="text-sm font-semibold line-clamp-2 mb-2 text-gray-800 hover:text-[#2D874B]">${act.title}</h3>
+              </a>
+
+              <div class="space-y-1 text-xs text-gray-600 mb-2">
+                <div class="flex items-center gap-1">
+                  <i class="fa fa-clock text-[10px] text-[#2D874B]"></i>
+                  <span>${act.datetime}</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <i class="fa fa-location-dot text-[10px] text-[#2D874B]"></i>
+                  <span class="line-clamp-1">${act.place}</span>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-[11px] text-gray-400 mt-1">
+                <span>报名人数</span>
+                <span class="text-[#2D874B]">
+                  <i class="fa fa-users mr-1 text-[9px]"></i>${act.attendees.toLocaleString()}
+                </span>
+              </div>
+            </div>
+
+            <div class="mt-3 flex items-center justify-between text-[11px]">
+              <button
+                class="enroll-btn px-3 py-1.5 rounded-full font-medium
+                       ${act.status === 'ended'
+                          ? 'bg-gray-100 text-gray-400 border border-gray-300 cursor-not-allowed opacity-60'
+                          : (enrolled
+                              ? 'bg-white text-gray-700 border border-[#B01F24] hover:border-rose-400'
+                              : 'bg-[#2D874B] text-white hover:bg-[#24703a]')}"
+                data-id="${act.id}"
+                data-status="${act.status}"
+                ${act.status === 'ended' ? 'disabled' : ''}
+              >
+                ${
+                  act.status === 'ended'
+                    ? '已结束'
+                    : (enrolled ? '取消报名' : '报名参加')
+                }
+              </button>
+            </div>
           </div>
         </div>
       `;
