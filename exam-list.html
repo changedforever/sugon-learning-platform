@@ -582,98 +582,108 @@
       </div>
     </div>
 
-    <!-- 多维筛选：岗位 / 难度 -->
-    <section class="mb-6">
-      <div class="glass-card rounded-3xl border border-gray-300 p-4 space-y-3">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <!--i class="fa fa-filter text-indigo-400 text-sm"></i>
-            <span class="text-sm font-medium">多维筛选</span-->
+    <!-- 考试列表与左侧筛选 -->
+    <section class="max-w-7xl mx-auto px-4 lg:px-6">
+      <div class="flex flex-col lg:flex-row gap-6">
+        <!-- 左侧筛选：岗位 / 难度 -->
+        <div class="lg:w-48 shrink-0">
+          <div class="glass-card rounded-3xl p-4 space-y-4 sticky top-24">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-semibold text-[#2D874B]">筛选条件</span>
+            </div>
+
+            <!-- 岗位 -->
+            <div>
+              <div class="text-gray-600 mb-2 flex items-center justify-between">
+                <span class="text-sm">岗位</span>
+              </div>
+              <div class="flex flex-col gap-1">
+                <button
+                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-[#2D874B] text-[11px] text-white text-left hover:bg-[#256e3d] transition-colors duration-200"
+                  data-filter="role" data-value="all">
+                  全部
+                </button>
+                <button
+                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
+                  data-filter="role" data-value="云架构师">
+                  云架构师
+                </button>
+                <button
+                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
+                  data-filter="role" data-value="解决方案顾问">
+                  解决方案顾问
+                </button>
+                <button
+                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
+                  data-filter="role" data-value="销售">
+                  销售
+                </button>
+              </div>
+            </div>
+
+            <!-- 难度 -->
+            <div>
+              <div class="text-gray-600 mb-2 flex items-center justify-between">
+                <span class="text-sm">难度</span>
+              </div>
+              <div class="flex flex-col gap-1">
+                <button
+                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-[#2D874B] text-[11px] text-white text-left hover:bg-[#256e3d] transition-colors duration-200"
+                  data-filter="difficulty" data-value="all">
+                  全部
+                </button>
+                <button
+                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
+                  data-filter="difficulty" data-value="基础">
+                  基础
+                </button>
+                <button
+                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
+                  data-filter="difficulty" data-value="中级">
+                  中级
+                </button>
+                <button
+                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
+                  data-filter="difficulty" data-value="高级">
+                  高级
+                </button>
+              </div>
+            </div>
+
+            <span id="active-filter-text" class="text-[11px] text-gray-600 block mt-2">
+              已选条件：全部
+            </span>
           </div>
-          <span id="active-filter-text" class="text-[11px] text-gray-600">
-            已选条件：全部
-          </span>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-3 text-xs">
-          <!-- 岗位 -->
-          <div>
-            <div class="text-gray-600 mb-1 flex items-center justify-between">
-              <span>岗位</span>
+        <!-- 右侧考试列表 -->
+        <div class="flex-1">
+          <!-- 统计 + 分页信息 -->
+          <div
+            class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 text-[11px] text-gray-600 gap-2">
+            <div>
+              共 <span id="total-count">0</span> 场考试，当前显示
+              <span id="current-range">0–0</span>
             </div>
-            <div class="flex flex-wrap gap-1">
-              <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-gray-700"
-                      data-filter="role" data-value="all">
-                全部
+            <div class="flex items-center gap-2">
+              <button id="prev-btn"
+                class="px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 hover:bg-gray-100 transition text-gray-800">
+                上一页
               </button>
-              <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                      data-filter="role" data-value="云架构师">
-                云架构师
-              </button>
-              <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                      data-filter="role" data-value="解决方案顾问">
-                解决方案顾问
-              </button>
-              <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                      data-filter="role" data-value="销售">
-                销售
+              <span id="page-info">1 / 1</span>
+              <button id="next-btn"
+                class="px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 hover:bg-gray-100 transition text-gray-800">
+                下一页
               </button>
             </div>
           </div>
 
-          <!-- 难度 -->
-          <div>
-            <div class="text-gray-600 mb-1 flex items-center justify-between">
-              <span>难度</span>
-            </div>
-            <div class="flex flex-wrap gap-1">
-              <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-gray-700"
-                      data-filter="difficulty" data-value="all">
-                全部
-              </button>
-              <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                      data-filter="difficulty" data-value="基础">
-                基础
-              </button>
-              <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                      data-filter="difficulty" data-value="中级">
-                中级
-              </button>
-              <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#2D874B]"
-                      data-filter="difficulty" data-value="高级">
-                高级
-              </button>
-            </div>
+          <!-- 网格卡片 -->
+          <div id="exam-list"
+               class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- 卡片由 JS 注入 -->
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- 考试列表 + 分页 -->
-    <section>
-      <!-- 统计 + 分页信息 -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 text-[11px] text-gray-600 gap-2">
-        <div>
-          共 <span id="total-count">0</span> 场考试，当前显示
-          <span id="current-range">0–0</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <button id="prev-btn"
-                  class="px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 hover:bg-gray-100">
-            上一页
-          </button>
-          <span id="page-info">1 / 1</span>
-          <button id="next-btn"
-                  class="px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 hover:bg-gray-100">
-            下一页
-          </button>
-        </div>
-      </div>
-
-      <!-- 网格卡片 -->
-      <div id="exam-list"
-           class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        <!-- 卡片由 JS 注入 -->
       </div>
     </section>
   </section>
