@@ -90,6 +90,97 @@
         </style>
     </head>
     <body class="bg-black text-white">
+        <!-- 粉丝团弹框 -->
+        <div
+            id="fanClubModal"
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+        >
+            <div class="bg-gray-900 border border-gray-700 rounded-lg w-96 max-w-[90vw] max-h-[80vh] overflow-hidden flex flex-col">
+                <div class="flex justify-between items-center p-4 border-b border-gray-700">
+                    <h3 class="text-lg font-medium text-white">我的粉丝团</h3>
+                    <button
+                        id="closeFanClubModal"
+                        class="text-gray-400 hover:text-white transition"
+                    >
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="p-4 overflow-y-auto flex-1">
+                    <div class="flex justify-between mb-4 font-semibold text-white">
+                        <span>昵称</span>
+                        <span>入团时间</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center p-2 hover:bg-gray-800 rounded-lg transition-colors">
+                            <img
+                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80"
+                                alt="User"
+                                class="w-8 h-8 rounded-full mr-3"
+                            />
+                            <div class="flex-1">
+                                <div class="text-sm text-white">技术小白</div>
+                            </div>
+                            <div class="text-xs text-gray-400">2024-01-15</div>
+                        </div>
+                        <div class="flex items-center p-2 hover:bg-gray-800 rounded-lg transition-colors">
+                            <img
+                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=40&q=80"
+                                alt="User"
+                                class="w-8 h-8 rounded-full mr-3"
+                            />
+                            <div class="flex-1">
+                                <div class="text-sm text-white">代码达人</div>
+                            </div>
+                            <div class="text-xs text-gray-400">2024-01-10</div>
+                        </div>
+                        <div class="flex items-center p-2 hover:bg-gray-800 rounded-lg transition-colors">
+                            <img
+                                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=40&q=80"
+                                alt="User"
+                                class="w-8 h-8 rounded-full mr-3"
+                            />
+                            <div class="flex-1">
+                                <div class="text-sm text-white">架构师</div>
+                            </div>
+                            <div class="text-xs text-gray-400">2024-01-05</div>
+                        </div>
+                        <div class="flex items-center p-2 hover:bg-gray-800 rounded-lg transition-colors">
+                            <img
+                                src="https://images.unsplash.com/photo-1491637639811-60e2756e1df7?auto=format&fit=crop&w=40&q=80"
+                                alt="User"
+                                class="w-8 h-8 rounded-full mr-3"
+                            />
+                            <div class="flex-1">
+                                <div class="text-sm text-white">数据科学家</div>
+                            </div>
+                            <div class="text-xs text-gray-400">2024-01-01</div>
+                        </div>
+                        <div class="flex items-center p-2 hover:bg-gray-800 rounded-lg transition-colors">
+                            <img
+                                src="https://images.unsplash.com/photo-1554384645-13eab165c24b?auto=format&fit=crop&w=40&q=80"
+                                alt="User"
+                                class="w-8 h-8 rounded-full mr-3"
+                            />
+                            <div class="flex-1">
+                                <div class="text-sm text-white">产品经理</div>
+                            </div>
+                            <div class="text-xs text-gray-400">2023-12-28</div>
+                        </div>
+                        <div class="flex items-center p-2 hover:bg-gray-800 rounded-lg transition-colors">
+                            <img
+                                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=40&q=80"
+                                alt="User"
+                                class="w-8 h-8 rounded-full mr-3"
+                            />
+                            <div class="flex-1">
+                                <div class="text-sm text-white">设计师</div>
+                            </div>
+                            <div class="text-xs text-gray-400">2023-12-25</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- 签到弹框 -->
         <div
             id="checkInModal"
@@ -598,6 +689,22 @@
                                         class="absolute bottom-full right--10 mb-2 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
                                     >
                                         权限管理
+                                    </div>
+                                </div>
+                                
+                                <!-- 测试违规提示按钮 -->
+                                <div class="relative group">
+                                    <button
+                                        id="testViolationBtn"
+                                        class="w-10 h-10 rounded-full bg-red-600 bg-opacity-70 flex items-center justify-center hover:bg-opacity-90 transition"
+                                        title="测试违规提示"
+                                    >
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                    </button>
+                                    <div
+                                        class="absolute bottom-full right-0 mb-2 w-28 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                                    >
+                                        测试违规提示
                                     </div>
                                 </div>
 
@@ -1328,6 +1435,8 @@
                                 </div>
                             </div>
 
+                            
+
                             <!-- 中间按钮 -->
                             <div class="relative group">
                                 <button
@@ -1584,12 +1693,6 @@
                         class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white border-b-2 border-transparent transition-all duration-300"
                     >
                         用户
-                    </button>
-                    <button
-                        id="fanClubTab"
-                        class="tab-button flex-1 py-3 text-center font-medium text-gray-400 hover:text-white border-b-2 border-transparent transition-all duration-300"
-                    >
-                        粉丝团
                     </button>
                     <button
                         id="likeRankTab"
@@ -1961,96 +2064,6 @@
                                     <div class="text-sm">设计师</div>
                                 </div>
                                 <div class="text-xs text-gray-400">22分钟前</div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 粉丝团区域 -->
-                    <div
-                        id="fanClubContent"
-                        class="tab-content hidden flex-1 overflow-hidden flex flex-col"
-                    >
-                        <div class="p-3 flex-1 audience-list">
-                            <div class="flex justify-between mb-3 font-semibold">
-                                <span>昵称</span>
-                                <span>入团时间</span>
-                            </div>
-                            <div
-                                class="flex cursor-pointer items-center mb-2 user-item"
-                            >
-                                <img
-                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=40&q=80"
-                                    alt="User"
-                                    class="w-8 h-8 rounded-full mr-2"
-                                />
-                                <div class="flex-1">
-                                    <div class="text-sm">技术小白</div>
-                                </div>
-                                <div class="text-xs text-gray-400">2024-01-15</div>
-                            </div>
-                            <div
-                                class="flex cursor-pointer items-center mb-2 user-item"
-                            >
-                                <img
-                                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=40&q=80"
-                                    alt="User"
-                                    class="w-8 h-8 rounded-full mr-2"
-                                />
-                                <div class="flex-1">
-                                    <div class="text-sm">代码达人</div>
-                                </div>
-                                <div class="text-xs text-gray-400">2024-01-10</div>
-                            </div>
-                            <div
-                                class="flex cursor-pointer items-center mb-2 user-item"
-                            >
-                                <img
-                                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=40&q=80"
-                                    alt="User"
-                                    class="w-8 h-8 rounded-full mr-2"
-                                />
-                                <div class="flex-1">
-                                    <div class="text-sm">架构师</div>
-                                </div>
-                                <div class="text-xs text-gray-400">2024-01-05</div>
-                            </div>
-                            <div
-                                class="flex cursor-pointer items-center mb-2 user-item"
-                            >
-                                <img
-                                    src="https://images.unsplash.com/photo-1491637639811-60e2756e1df7?auto=format&fit=crop&w=40&q=80"
-                                    alt="User"
-                                    class="w-8 h-8 rounded-full mr-2"
-                                />
-                                <div class="flex-1">
-                                    <div class="text-sm">数据科学家</div>
-                                </div>
-                                <div class="text-xs text-gray-400">2024-01-01</div>
-                            </div>
-                            <div
-                                class="flex cursor-pointer items-center mb-2 user-item"
-                            >
-                                <img
-                                    src="https://images.unsplash.com/photo-1554384645-13eab165c24b?auto=format&fit=crop&w=40&q=80"
-                                    alt="User"
-                                    class="w-8 h-8 rounded-full mr-2"
-                                />
-                                <div class="flex-1">
-                                    <div class="text-sm">产品经理</div>
-                                </div>
-                                <div class="text-xs text-gray-400">2023-12-28</div>
-                            </div>
-                            <div
-                                class="flex cursor-pointer items-center mb-2 user-item"
-                            >
-                                <img
-                                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=40&q=80"
-                                    alt="User"
-                                    class="w-8 h-8 rounded-full mr-2"
-                                />
-                                <div class="flex-1">
-                                    <div class="text-sm">设计师</div>
-                                </div>
-                                <div class="text-xs text-gray-400">2023-12-25</div>
                             </div>
                         </div>
                     </div>
@@ -3048,63 +3061,27 @@
                 });
             } 
             // =============== 粉丝团功能 ===============
-            // 点击我的粉丝团按钮，切换到粉丝团标签
+            // 点击我的粉丝团按钮，显示粉丝团弹框
             const fanClubBtn = document.getElementById('fanClubBtn');
-            const fanClubTab = document.getElementById('fanClubTab');
-            const fanClubContent = document.getElementById('fanClubContent');
-            const likeRankTab = document.getElementById('likeRankTab');
-            const likeRankContent = document.getElementById('likeRankContent');
-            const tabContents = document.querySelectorAll('.tab-content');
-            const tabButtons = document.querySelectorAll('[id$="Tab"]');
+            const fanClubModal = document.getElementById('fanClubModal');
+            const closeFanClubModal = document.getElementById('closeFanClubModal');
 
-            if (fanClubBtn) {
+            if (fanClubBtn && fanClubModal) {
                 fanClubBtn.addEventListener('click', function() {
-                    // 隐藏所有标签内容
-                    tabContents.forEach(content => {
-                        content.classList.add('hidden');
-                    });
-                    
-                    // 移除所有标签按钮的活跃状态
-                    tabButtons.forEach(btn => {
-                        btn.classList.remove('text-white', 'border-b-2', 'border-white');
-                        btn.classList.add('text-gray-400', 'border-b-2', 'border-transparent');
-                    });
-                    
-                    // 显示粉丝团内容
-                    if (fanClubContent) {
-                        fanClubContent.classList.remove('hidden');
-                    }
-                    
-                    // 激活粉丝团标签按钮
-                    if (fanClubTab) {
-                        fanClubTab.classList.remove('text-gray-400', 'border-b-2', 'border-transparent');
-                        fanClubTab.classList.add('text-white', 'border-b-2', 'border-white');
-                    }
+                    fanClubModal.classList.remove('hidden');
                 });
-            }
 
-            // 标签切换功能
-            if (fanClubTab) {
-                fanClubTab.addEventListener('click', function() {
-                    // 隐藏所有标签内容
-                    tabContents.forEach(content => {
-                        content.classList.add('hidden');
+                if (closeFanClubModal) {
+                    closeFanClubModal.addEventListener('click', function() {
+                        fanClubModal.classList.add('hidden');
                     });
-                    
-                    // 移除所有标签按钮的活跃状态
-                    tabButtons.forEach(btn => {
-                        btn.classList.remove('text-white', 'border-b-2', 'border-white');
-                        btn.classList.add('text-gray-400', 'border-b-2', 'border-transparent');
-                    });
-                    
-                    // 显示粉丝团内容
-                    if (fanClubContent) {
-                        fanClubContent.classList.remove('hidden');
+                }
+
+                // 点击弹框外部关闭
+                fanClubModal.addEventListener('click', function(e) {
+                    if (e.target === fanClubModal) {
+                        fanClubModal.classList.add('hidden');
                     }
-                    
-                    // 激活粉丝团标签按钮
-                    this.classList.remove('text-gray-400', 'border-b-2', 'border-transparent');
-                    this.classList.add('text-white', 'border-b-2', 'border-white');
                 });
             }
 
@@ -3214,6 +3191,152 @@
             }
 
             // 其他现有JavaScript代码...
+        </script>
+
+        <!-- 违规提示弹框 -->
+        <div
+            id="violationModal"
+            class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[100] hidden"
+        >
+            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-96 shadow-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-red-600/20 flex items-center justify-center">
+                            <i class="fa fa-exclamation-triangle text-red-500"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white">违规提示</h3>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <p class="text-sm text-gray-300 mb-1">
+                        检测到学员<span id="violationStudentName" class="font-semibold text-red-400">XXX</span>违规（脏话），请选择操作
+                    </p>
+                    <p class="text-xs text-gray-500 mt-2">
+                        <span id="countdownTimer" class="text-yellow-400 font-semibold">5</span>秒后自动关闭
+                    </p>
+                </div>
+                
+                <div class="flex justify-end space-x-3">
+                    <button
+                        id="muteViolationBtn"
+                        class="px-5 py-2.5 bg-orange-600 text-white rounded-lg hover:bg-orange-700 active:scale-95 transition-all font-medium flex items-center gap-2"
+                    >
+                        <i class="fa fa-volume-mute"></i>
+                        <span>禁言</span>
+                    </button>
+                    <button
+                        id="kickViolationBtn"
+                        class="px-5 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 active:scale-95 transition-all font-medium flex items-center gap-2"
+                    >
+                        <i class="fa fa-sign-out-alt"></i>
+                        <span>请出直播间</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // 违规提示弹框功能
+            const testViolationBtn = document.getElementById('testViolationBtn');
+            const violationModal = document.getElementById('violationModal');
+            const violationStudentName = document.getElementById('violationStudentName');
+            const countdownTimer = document.getElementById('countdownTimer');
+            const muteViolationBtn = document.getElementById('muteViolationBtn');
+            const kickViolationBtn = document.getElementById('kickViolationBtn');
+            
+            let countdownInterval = null;
+            let countdownSeconds = 5;
+            
+            // 测试违规提示按钮点击事件
+            if (testViolationBtn) {
+                testViolationBtn.addEventListener('click', function() {
+                    // 随机选择一个学员名字（用于测试）
+                    const testNames = ['张三', '李四', '王五', '赵六', '小明', '小红'];
+                    const randomName = testNames[Math.floor(Math.random() * testNames.length)];
+                    
+                    // 设置学员名字
+                    if (violationStudentName) {
+                        violationStudentName.textContent = randomName;
+                    }
+                    
+                    // 重置倒计时
+                    countdownSeconds = 5;
+                    if (countdownTimer) {
+                        countdownTimer.textContent = countdownSeconds;
+                    }
+                    
+                    // 显示弹框
+                    if (violationModal) {
+                        violationModal.classList.remove('hidden');
+                    }
+                    
+                    // 开始倒计时
+                    startCountdown();
+                });
+            }
+            
+            // 倒计时功能
+            function startCountdown() {
+                // 清除之前的倒计时
+                if (countdownInterval) {
+                    clearInterval(countdownInterval);
+                }
+                
+                countdownInterval = setInterval(function() {
+                    countdownSeconds--;
+                    
+                    if (countdownTimer) {
+                        countdownTimer.textContent = countdownSeconds;
+                    }
+                    
+                    if (countdownSeconds <= 0) {
+                        // 倒计时结束，关闭弹框
+                        closeViolationModal();
+                    }
+                }, 1000);
+            }
+            
+            // 关闭弹框
+            function closeViolationModal() {
+                if (countdownInterval) {
+                    clearInterval(countdownInterval);
+                    countdownInterval = null;
+                }
+                
+                if (violationModal) {
+                    violationModal.classList.add('hidden');
+                }
+                
+                countdownSeconds = 5;
+            }
+            
+            // 禁言按钮点击事件
+            if (muteViolationBtn) {
+                muteViolationBtn.addEventListener('click', function() {
+                    const studentName = violationStudentName ? violationStudentName.textContent : '学员';
+                    alert(`已对学员"${studentName}"执行禁言操作`);
+                    closeViolationModal();
+                });
+            }
+            
+            // 请出直播间按钮点击事件
+            if (kickViolationBtn) {
+                kickViolationBtn.addEventListener('click', function() {
+                    const studentName = violationStudentName ? violationStudentName.textContent : '学员';
+                    alert(`已将学员"${studentName}"请出直播间`);
+                    closeViolationModal();
+                });
+            }
+            
+            // 点击弹框背景关闭（可选）
+            if (violationModal) {
+                violationModal.addEventListener('click', function(e) {
+                    if (e.target === violationModal) {
+                        closeViolationModal();
+                    }
+                });
+            }
         </script>
     </body>
 </html>

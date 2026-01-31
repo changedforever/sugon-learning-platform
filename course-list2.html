@@ -725,7 +725,7 @@
                     <!-- 搜索 -->
                     <div class="relative">
                         <i class="fa fa-search text-gray-500 absolute left-2 top-2.5 text-xs"></i>
-                        <input id="search-input" type="text" placeholder="搜索课程名称 / 发布来源 / 标签"
+                        <input id="search-input" type="text" placeholder="搜索课程名称 / 课程体系 / 标签"
                             class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]" />
                     </div>
                     <!-- 排序 -->
@@ -1173,7 +1173,6 @@
     <div class="flex items-center justify-between">
       <div class="space-y-0.5">
         <div><i class="fa fa-clock mr-1 text-[9px] text-gray-400"></i>上架时间：${course.date}</div>
-        <div><i class="fa fa-users mr-1 text-[9px] text-gray-400"></i>学习人数：${course.learners.toLocaleString()}</div>
       </div>
     </div>
     <!-- 标签区域，与时间/人数同级 -->
