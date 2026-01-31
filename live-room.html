@@ -281,9 +281,9 @@
                 <div style="left:90px" class="absolute left-1/2 -translate-x-1/2 bottom-[-6px] w-3 h-3 bg-black/80 border-b border-r border-pink-500/40 rotate-45"></div>
               </div>
             </div>
-            <button id="micLinkBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition" title="在线连麦">
+            <!-- <button id="micLinkBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition" title="在线连麦">
               <i class="fa fa-microphone"></i>
-            </button>
+            </button> -->
             <button id="shareBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
               <i class="fa fa-share"></i>
             </button>
@@ -876,7 +876,7 @@
   const giftSendBtn = document.getElementById('giftSendBtn');
   const selectedGiftText = document.getElementById('selectedGiftText');
   const giftOptions = document.querySelectorAll('#giftGrid .gift-option');
-  const micLinkBtn = document.getElementById('micLinkBtn');
+  // const micLinkBtn = document.getElementById('micLinkBtn');
 
   let selectedGiftName = '';
   let giftHoverTimer = null;
@@ -982,7 +982,7 @@
     micLinkModal.classList.add('hidden');
   }
 
-  if (micLinkBtn) micLinkBtn.addEventListener('click', openMicLinkModal);
+  // if (micLinkBtn) micLinkBtn.addEventListener('click', openMicLinkModal);
   if (micLinkBackdrop) micLinkBackdrop.addEventListener('click', closeMicLinkModal);
   if (micLinkClose) micLinkClose.addEventListener('click', closeMicLinkModal);
   if (micLinkApplyBtn) micLinkApplyBtn.addEventListener('click', () => setMicLinkState('connecting'));
