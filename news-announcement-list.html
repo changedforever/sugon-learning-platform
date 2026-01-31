@@ -13,13 +13,15 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body {
-      background: #FFFFFF;
+      background: #f8fafc;
     }
+    
     .glass-card {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(14px);
-      border: 1px solid #e5e7eb;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
+    
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -27,6 +29,201 @@
       border-color: #B01F24;
       color: #B01F24;
       background: rgba(255, 255, 255, 0.9);
+    }
+    
+    /* 筛选侧边栏样式优化 */
+    .filter-category {
+      transition: all 0.2s ease;
+    }
+    
+    .filter-category:hover {
+      background: rgba(248, 250, 252, 0.5);
+      border-radius: 0.5rem;
+      padding: 0.25rem;
+      margin: -0.25rem;
+    }
+    
+    .type-filter-radio {
+      accent-color: #B01F24;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+    
+    .type-filter-radio:checked + span {
+      color: #B01F24;
+      font-weight: 600;
+    }
+    
+    .filter-checkbox {
+      accent-color: #B01F24;
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+    }
+    
+    .filter-checkbox:checked + span {
+      color: #B01F24;
+      font-weight: 500;
+    }
+    
+    .category-toggle {
+      transition: transform 0.3s ease, color 0.2s ease;
+      cursor: pointer;
+      padding: 0.25rem;
+    }
+    
+    .category-toggle:hover {
+      color: #B01F24;
+      transform: scale(1.1);
+    }
+    
+    .category-children {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: slideDown 0.3s ease-out;
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* 排序按钮样式优化 */
+    .sort-btn {
+      transition: all 0.2s ease;
+      font-weight: 500;
+      border: none;
+      background: rgba(255, 255, 255, 0.8);
+    }
+    
+    .sort-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    .sort-btn.active {
+      color: #B01F24;
+      background: rgba(176, 31, 36, 0.1);
+      box-shadow: 0 2px 8px rgba(176, 31, 36, 0.12);
+      font-weight: 600;
+    }
+    
+    /* 搜索框样式优化 */
+    #search-input {
+      transition: all 0.2s ease;
+      border: none;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    
+    #search-input:focus {
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 4px 16px rgba(176, 31, 36, 0.15);
+    }
+    
+    /* 列表项样式优化 */
+    .list-item {
+      padding: 1.5rem 0;
+      transition: all 0.2s ease;
+      position: relative;
+      list-style: none;
+    }
+    
+    .list-item::marker {
+      display: none;
+      content: '';
+    }
+    
+    .list-item::-webkit-details-marker {
+      display: none;
+    }
+    
+    .list-item::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #e5e7eb 10%, #e5e7eb 90%, transparent);
+    }
+    
+    .list-item:hover {
+      background: rgba(248, 250, 252, 0.6);
+      padding-left: 1rem;
+      margin-left: -1rem;
+      margin-right: -1rem;
+      padding-right: 1rem;
+      border-radius: 0.75rem;
+      transform: translateX(4px);
+    }
+    
+    .list-item:first-child {
+      padding-top: 0;
+    }
+    
+    .list-item:last-child {
+      padding-bottom: 0;
+    }
+    
+    .list-item:last-child::after {
+      display: none;
+    }
+    
+    .list-item h3 {
+      transition: all 0.2s ease;
+      line-height: 1.5;
+      list-style: none;
+      padding-left: 0;
+      margin-left: 0;
+    }
+    
+    .list-item:hover h3 {
+      transform: translateX(4px);
+    }
+    
+    /* 分页按钮样式优化 */
+    #prev-btn, #next-btn {
+      transition: all 0.2s ease;
+    }
+    
+    #prev-btn:hover:not(:disabled), #next-btn:hover:not(:disabled) {
+      background: #f3f4f6;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    /* 筛选侧边栏标题样式 */
+    #filter-tree h3 {
+      position: relative;
+      padding-bottom: 0.75rem;
+    }
+    
+    #filter-tree h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, #B01F24, transparent);
+    }
+    
+    /* 响应式优化 */
+    @media (max-width: 1024px) {
+      .list-item:hover {
+        padding-left: 0.5rem;
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+        padding-right: 0.5rem;
+      }
     }
   </style>
 </head>
@@ -247,117 +444,118 @@
 
 <main class="pt-16 lg:pt-20 pb-10">
   <section class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- 左侧筛选侧边栏 -->
+      <aside class="w-full lg:w-64 flex-shrink-0">
+        <div class="glass-card rounded-2xl p-5">
+          <h3 class="text-lg font-semibold text-gray-800 mb-5">筛选</h3>
+          
+          <!-- 树形分类结构 -->
+          <div id="filter-tree" class="space-y-1">
+            <!-- 全部 -->
+            <div class="filter-category">
+              <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg">
+                <input type="radio" name="type-filter" class="type-filter-radio" value="all" checked>
+                <span class="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors">全部</span>
+              </label>
+            </div>
 
-    <!-- 顶部说明 + 搜索 -->
-    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-6">
-      <div>
-        <h2 class="text-lg font-semibold flex items-center gap-2">
-          <span class="inline-flex h-6 w-1 rounded-full bg-indigo-500"></span>
-          资讯 / 公告列表
-        </h2>
+            <!-- 仅看资讯 -->
+            <div class="filter-category">
+              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="news">
+                <label class="flex items-center cursor-pointer group py-2 flex-1">
+                  <input type="radio" name="type-filter" class="type-filter-radio" value="news">
+                  <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">仅看资讯</span>
+                </label>
+                <i class="fa fa-plus text-xs text-gray-400 category-toggle" data-target="news-categories"></i>
+              </div>
+              <!-- 资讯二级分类 -->
+              <div class="mt-1 ml-8 space-y-1.5 category-children hidden" id="category-news-categories">
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="certification" value="certification">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">认证专题</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="industry" value="industry">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">行业动态</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="policy" value="policy">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">政策流程</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="platform" value="platform">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">平台新闻</span>
+                </label>
+              </div>
+            </div>
 
-      </div>
+            <!-- 仅看公告 -->
+            <div class="filter-category">
+              <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg">
+                <input type="radio" name="type-filter" class="type-filter-radio" value="announcement">
+                <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">仅看公告</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </aside>
 
-      <div class="flex flex-wrap items-center gap-2 justify-end">
-        <!-- 搜索 -->
-        <div class="relative">
-          <i class="fa fa-search text-gray-400 absolute left-2 top-2.5 text-xs"></i>
-          <input id="search-input"
-                 type="text"
-                 placeholder="搜索标题 / 来源 / 关键词"
-                 class="w-52 md:w-64 rounded-full bg-white border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]" />
+      <!-- 右侧主内容区 -->
+      <div class="flex-1 min-w-0">
+        <!-- 顶部排序和搜索 -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          <!-- 排序选项 -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="comprehensive">
+              综合排序
+            </button>
+            <button class="sort-btn px-4 py-2 rounded-full transition text-sm flex items-center gap-1.5" data-sort="latest">
+              最新
+              <i class="fa fa-chevron-down text-[10px] opacity-60"></i>
+            </button>
+            <button class="sort-btn px-4 py-2 rounded-full transition text-sm flex items-center gap-1.5" data-sort="hottest">
+              最热
+              <i class="fa fa-chevron-down text-[10px] opacity-60"></i>
+            </button>
+          </div>
+
+          <!-- 搜索框 -->
+          <div class="relative flex-shrink-0">
+            <i class="fa fa-search text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2 text-sm"></i>
+            <input id="search-input"
+                   type="text"
+                   placeholder="搜索..."
+                   class="w-full sm:w-72 rounded-full pl-10 pr-4 py-2.5 text-sm placeholder:text-gray-400 focus:outline-none transition-all" />
+          </div>
+        </div>
+
+        <!-- 列表内容 -->
+        <div id="list-container" class="glass-card rounded-2xl p-6 mb-6">
+          <!-- JS 渲染列表项 -->
+        </div>
+
+        <!-- 分页 -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 text-sm text-gray-500 gap-3">
+          <div class="flex items-center gap-2">
+            <span>共 <span id="total-count" class="font-semibold text-gray-700">0</span> 条</span>
+            <span class="text-gray-300">|</span>
+            <span>当前显示 <span id="current-range" class="font-semibold text-gray-700">0–0</span></span>
+          </div>
+          <div class="flex items-center gap-3">
+            <button id="prev-btn"
+                    class="px-4 py-2 rounded-lg bg-white hover:bg-gray-50 transition-all text-sm font-medium shadow-sm border-0">
+              <i class="fa fa-chevron-left mr-1 text-xs"></i>上一页
+            </button>
+            <span id="page-info" class="px-3 py-1 text-sm font-medium text-gray-700 bg-gray-50 rounded-lg">1 / 1</span>
+            <button id="next-btn"
+                    class="px-4 py-2 rounded-lg bg-white hover:bg-gray-50 transition-all text-sm font-medium shadow-sm border-0">
+              下一页<i class="fa fa-chevron-right ml-1 text-xs"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-
-    <!-- 顶部筛选：类型 + 分类 -->
-    <section class="mb-6 glass-card rounded-3xl border border-gray-300 p-4">
-      <!-- 类型：全部 / 资讯 / 公告 -->
-      <div class="flex flex-wrap items-center gap-2 text-xs mb-2">
-        <span class="text-gray-400">类型：</span>
-        <button id="type-all"
-                class="filter-chip px-3 py-1 rounded-full bg-white border border-gray-300 text-[11px] text-gray-400 hover:border-[#B01F24]"
-                data-type="all">
-          全部
-        </button>
-        <button id="type-news"
-                class="filter-chip px-3 py-1 rounded-full bg-white border border-gray-300 text-[11px] text-[#2D874B] hover:border-[#2D874B]"
-                data-type="news">
-          仅看资讯
-        </button>
-        <button id="type-announcement"
-                class="filter-chip px-3 py-1 rounded-full bg-white border border-gray-300 text-[11px] text-[#B01F24] hover:border-[#B01F24]"
-                data-type="announcement">
-          仅看公告
-        </button>
-      </div>
-
-      <!-- 资讯分类：行业动态 / 政策流程 / 平台新闻 -->
-      <div id="category-filter" class="flex flex-wrap items-center gap-2 mt-1 text-xs hidden">
-        <span class="text-gray-400">资讯分类：</span>
-        <button class="filter-chip px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[11px]"
-                data-category="all">
-          全部
-        </button>
-        <button class="filter-chip px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[11px] text-[#B01F24]"
-                data-category="certification">
-          认证专题
-        </button>
-        <button class="filter-chip px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[11px] text-[#B01F24]"
-                data-category="industry">
-          行业动态
-        </button>
-        <button class="filter-chip px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[11px] text-[#B01F24]"
-                data-category="policy">
-          政策流程
-        </button>
-        <button class="filter-chip px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[11px] text-[#B01F24]"
-                data-category="platform">
-          平台新闻
-        </button>
-      </div>
-
-      <!-- 排序（按时间） -->
-      <div class="mt-3 flex items-center justify-between text-[11px] text-gray-400">
-        <div id="active-filter-text">当前视图：按时间倒序 · 全部类型</div>
-        <div class="flex items-center gap-1">
-          <span>排序：</span>
-          <select id="sort-select"
-                  class="rounded-full bg-white border border-gray-300 px-2 py-1 text-[11px] focus:outline-none focus:ring-1 focus:ring-[#B01F24]">
-            <option value="time-desc">按时间从新到旧</option>
-            <option value="read-desc">按阅读量从高到低</option>
-          </select>
-        </div>
-      </div>
-    </section>
-
-    <!-- 列表 + 分页 -->
-    <section>
-      <!-- 列表 -->
-      <div id="list-container"
-           class="flex flex-col gap-3 mb-6">
-        <!-- JS 渲染卡片 -->
-      </div>
-
-      <!-- 分页 -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 text-xs text-gray-400 gap-2">
-        <div>
-          共 <span id="total-count">0</span> 条，当前显示
-          <span id="current-range">0–0</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <button id="prev-btn"
-                  class="px-2.5 py-1 rounded-full bg-white border border-gray-300 hover:bg-gray-50">
-            上一页
-          </button>
-          <span id="page-info">1 / 1</span>
-          <button id="next-btn"
-                  class="px-2.5 py-1 rounded-full bg-white border border-gray-300 hover:bg-gray-50">
-            下一页
-          </button>
-        </div>
-      </div>
-    </section>
   </section>
 </main>
 
@@ -377,30 +575,30 @@
   // ====== 示例数据（实际使用时换成接口返回） ======
   const articles = [
     // 资讯
-    { id: 1, type: 'news', category: 'industry', title: '云原生架构设计最佳实践与行业动态', source: '云基础设施学院', date: '2026-01-15 09:30', readCount: 1845 },
-    { id: 2, type: 'news', category: 'certification', title: '2026 年认证体系升级与考试指南', source: '认证中心', date: '2026-01-14 16:30', readCount: 2150 },
-    { id: 3, type: 'news', category: 'policy', title: '2026 年云原生安全政策调整解读', source: '云安全中心', date: '2026-01-14 14:20', readCount: 1230 },
-    { id: 4, type: 'news', category: 'platform', title: 'HIECO 光合技术支持平台 2.0 正式上线', source: '平台开发团队', date: '2026-01-13 16:10', readCount: 1987 },
-    { id: 5, type: 'news', category: 'certification', title: '认证专家访谈：如何高效备考专业认证', source: '认证中心', date: '2026-01-12 14:00', readCount: 1680 },
-    { id: 6, type: 'news', category: 'industry', title: 'AI 与数据智能生态合作新趋势', source: 'AI 与数据智能学院', date: '2026-01-12 10:45', readCount: 1560 },
-    { id: 7, type: 'news', category: 'platform', title: '新增「直播中心」与「活动中心」能力说明', source: '平台运营团队', date: '2025-12-30 09:15', readCount: 980 },
+    { id: 1, type: 'news', category: 'industry', title: '数据库使能套件 测试指导', description: '介绍数据库测试工具的安装和使用方法。', source: '数据库技术中心', sourcePath: '数据库技术中心... > 测试指导 > 测试指导', date: '2026-01-27', readCount: 1845, filterTags: ['software', 'boostkit'] },
+    { id: 2, type: 'news', category: 'certification', title: '数据库使能套件 Milvus KScaNN优化 特性指南', description: '介绍Milvus数据库KScaNN优化特性的优化原理和安装使用方法。', source: '数据库技术中心', sourcePath: '数据库技术中心... > 应用加速特性 > Milvus KScaNN优化', date: '2026-01-27', readCount: 2150, filterTags: ['software', 'boostkit'] },
+    { id: 3, type: 'news', category: 'policy', title: '数据库使能套件 Milvus KBest优化 特性文档', description: '介绍Milvus数据库KBest优化特性的优化原理和安装使用方法。', source: '数据库技术中心', sourcePath: '数据库技术中心... > 应用加速特性 > Milvus KBest优化', date: '2026-01-27', readCount: 1230, filterTags: ['software', 'boostkit'] },
+    { id: 4, type: 'news', category: 'platform', title: '毕昇编译器优化与编程指导', description: '详细介绍毕昇编译器的优化原理和编程指导方法。', source: '开发工具中心', sourcePath: '开发工具中心 > 编译器 > 毕昇编译器', date: '2026-01-26', readCount: 1987, filterTags: ['software', 'devkit'] },
+    { id: 5, type: 'news', category: 'certification', title: '认证专家访谈：如何高效备考专业认证', description: '邀请认证专家分享备考经验和技巧。', source: '认证中心', sourcePath: '认证中心 > 认证专题', date: '2026-01-12 14:00', readCount: 1680, filterTags: ['other'] },
+    { id: 6, type: 'news', category: 'industry', title: 'AI 与数据智能生态合作新趋势', description: '探讨AI与数据智能领域的最新合作趋势和发展方向。', source: 'AI 与数据智能学院', sourcePath: 'AI 与数据智能学院 > 行业动态', date: '2026-01-12 10:45', readCount: 1560, filterTags: ['other'] },
+    { id: 7, type: 'news', category: 'platform', title: '新增「直播中心」与「活动中心」能力说明', description: '平台新增功能的详细说明和使用指南。', source: '平台运营团队', sourcePath: '平台运营团队 > 平台新闻', date: '2025-12-30 09:15', readCount: 980, filterTags: ['other'] },
 
     // 公告
-    { id: 8, type: 'announcement', category: 'none', title: '合作伙伴认证体系 2026 升级公告', source: '认证中心', date: '2026-01-10 09:00', readCount: 2560 },
-    { id: 9, type: 'announcement', category: 'none', title: '2026 Q1 考试预约与重认证规则更新', source: '认证中心', date: '2026-01-09 11:30', readCount: 1890 },
-    { id: 10, type: 'announcement', category: 'none', title: '关于平台计划维护的服务中断通知', source: '运维中心', date: '2025-12-28 15:10', readCount: 1400 },
-    { id: 11, type: 'announcement', category: 'none', title: '隐私政策与用户协议更新说明', source: '法务与合规部', date: '2025-12-20 17:00', readCount: 1100 }
+    { id: 8, type: 'announcement', category: 'none', title: '合作伙伴认证体系 2026 升级公告', description: '关于合作伙伴认证体系升级的重要通知。', source: '认证中心', sourcePath: '认证中心 > 公告', date: '2026-01-10 09:00', readCount: 2560, filterTags: ['other'] },
+    { id: 9, type: 'announcement', category: 'none', title: '2026 Q1 考试预约与重认证规则更新', description: '2026年第一季度考试预约和重认证规则的最新更新。', source: '认证中心', sourcePath: '认证中心 > 公告', date: '2026-01-09 11:30', readCount: 1890, filterTags: ['other'] },
+    { id: 10, type: 'announcement', category: 'none', title: '关于平台计划维护的服务中断通知', description: '平台维护期间服务中断的详细说明。', source: '运维中心', sourcePath: '运维中心 > 公告', date: '2025-12-28 15:10', readCount: 1400, filterTags: ['other'] },
+    { id: 11, type: 'announcement', category: 'none', title: '隐私政策与用户协议更新说明', description: '隐私政策和用户协议的最新更新内容。', source: '法务与合规部', sourcePath: '法务与合规部 > 公告', date: '2025-12-20 17:00', readCount: 1100, filterTags: ['other'] }
   ];
 
-  const pageSize = 8;
+  const pageSize = 10;
   let currentPage = 1;
   let filteredArticles = [...articles];
 
   const filters = {
-    type: 'all',       // all / news / announcement
-    category: 'all',   // all / industry / policy / platform
+    type: 'all',           // all / news / announcement
+    category: 'all',       // all / certification / industry / policy / platform (仅当type为news时有效)
     search: '',
-    sort: 'time-desc'  // time-desc / read-desc
+    sort: 'comprehensive'  // comprehensive / latest / hottest
   };
 
   // DOM 引用
@@ -411,88 +609,120 @@
   const pageInfoEl = document.getElementById('page-info');
   const prevBtn = document.getElementById('prev-btn');
   const nextBtn = document.getElementById('next-btn');
-
-  const typeAllBtn = document.getElementById('type-all');
-  const typeNewsBtn = document.getElementById('type-news');
-  const typeAnnouncementBtn = document.getElementById('type-announcement');
-  const categoryFilter = document.getElementById('category-filter');
-  const categoryChips = categoryFilter.querySelectorAll('.filter-chip');
-  const sortSelect = document.getElementById('sort-select');
-  const activeFilterText = document.getElementById('active-filter-text');
+  
+  // 树形筛选相关
+  const typeFilterRadios = document.querySelectorAll('.type-filter-radio');
+  const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+  const sortButtons = document.querySelectorAll('.sort-btn');
 
   // ========== 工具函数 ==========
-  function updateTypeButtonClass(btn, active) {
-    if (active) {
-      btn.classList.add('filter-chip-active');
-    } else {
-      btn.classList.remove('filter-chip-active');
+  // 树形分类展开/折叠
+  function toggleCategory(categoryId) {
+    const children = document.getElementById(`category-${categoryId}`);
+    const toggle = document.querySelector(`[data-target="${categoryId}"]`);
+    
+    if (children && toggle) {
+      const isHidden = children.classList.contains('hidden');
+      if (isHidden) {
+        children.classList.remove('hidden');
+        toggle.classList.remove('fa-plus');
+        toggle.classList.add('fa-minus');
+      } else {
+        children.classList.add('hidden');
+        toggle.classList.remove('fa-minus');
+        toggle.classList.add('fa-plus');
+      }
     }
   }
 
+  // 更新分类显示
   function updateCategoryDisplay() {
+    const newsCategories = document.getElementById('category-news-categories');
+    const toggle = document.querySelector('[data-target="news-categories"]');
+    
     if (filters.type === 'news') {
-      categoryFilter.classList.remove('hidden');
+      // 显示二级分类
+      if (newsCategories) {
+        newsCategories.classList.remove('hidden');
+      }
+      if (toggle) {
+        toggle.classList.remove('fa-plus');
+        toggle.classList.add('fa-minus');
+      }
     } else {
-      categoryFilter.classList.add('hidden');
+      // 隐藏二级分类
+      if (newsCategories) {
+        newsCategories.classList.add('hidden');
+      }
+      if (toggle) {
+        toggle.classList.remove('fa-minus');
+        toggle.classList.add('fa-plus');
+      }
+      // 清空所有复选框
+      filterCheckboxes.forEach(cb => cb.checked = false);
+      filters.category = 'all';
     }
-  }
-
-  function updateActiveFilterText() {
-    const parts = [];
-    if (filters.type === 'news') parts.push('仅看资讯');
-    else if (filters.type === 'announcement') parts.push('仅看公告');
-    else parts.push('全部类型');
-
-    if (filters.type === 'news' && filters.category !== 'all') {
-      const map = { industry: '行业动态', policy: '政策流程', platform: '平台新闻', certification: '认证专题' };
-      parts.push('分类：' + (map[filters.category] || '全部'));
-    }
-
-    if (filters.sort === 'time-desc') {
-      parts.push('按时间倒序');
-    } else {
-      parts.push('按阅读量倒序');
-    }
-
-    activeFilterText.textContent = '当前视图：' + parts.join(' · ');
   }
 
   // ========== 事件绑定 ==========
-  // 类型切换
-  typeAllBtn.addEventListener('click', () => {
-    filters.type = 'all';
-    updateTypeButtonClass(typeAllBtn, true);
-    updateTypeButtonClass(typeNewsBtn, false);
-    updateTypeButtonClass(typeAnnouncementBtn, false);
-    updateCategoryDisplay();
-    applyFiltersAndRender();
+  // 类型筛选（radio按钮）
+  typeFilterRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      filters.type = radio.value;
+      updateCategoryDisplay();
+      applyFiltersAndRender();
+    });
   });
 
-  typeNewsBtn.addEventListener('click', () => {
-    filters.type = 'news';
-    updateTypeButtonClass(typeAllBtn, false);
-    updateTypeButtonClass(typeNewsBtn, true);
-    updateTypeButtonClass(typeAnnouncementBtn, false);
-    updateCategoryDisplay();
-    applyFiltersAndRender();
+  // 分类展开/折叠（仅看资讯的二级分类）
+  document.querySelectorAll('.category-toggle').forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      // 只有在选择了"仅看资讯"时才能展开/折叠
+      if (filters.type === 'news') {
+        const target = toggle.dataset.target;
+        toggleCategory(target);
+      }
+    });
+  });
+  
+  // 点击"仅看资讯"标签也可以展开/折叠二级分类
+  document.querySelector('[data-type="news"]')?.addEventListener('click', (e) => {
+    // 如果点击的是radio按钮，不处理
+    if (e.target.type === 'radio') return;
+    // 如果已经选择了"仅看资讯"，则切换展开/折叠
+    if (filters.type === 'news') {
+      const toggle = document.querySelector('[data-target="news-categories"]');
+      if (toggle) {
+        toggle.click();
+      }
+    }
   });
 
-  typeAnnouncementBtn.addEventListener('click', () => {
-    filters.type = 'announcement';
-    updateTypeButtonClass(typeAllBtn, false);
-    updateTypeButtonClass(typeNewsBtn, false);
-    updateTypeButtonClass(typeAnnouncementBtn, true);
-    updateCategoryDisplay();
-    applyFiltersAndRender();
+  // 资讯分类复选框
+  filterCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      // 如果选中了某个分类，取消其他分类的选中
+      if (checkbox.checked) {
+        filterCheckboxes.forEach(cb => {
+          if (cb !== checkbox) {
+            cb.checked = false;
+          }
+        });
+        filters.category = checkbox.value;
+      } else {
+        filters.category = 'all';
+      }
+      applyFiltersAndRender();
+    });
   });
 
-  // 分类切换
-  categoryChips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      const cat = chip.dataset.category;
-      categoryChips.forEach(c => c.classList.remove('filter-chip-active'));
-      chip.classList.add('filter-chip-active');
-      filters.category = cat;
+  // 排序按钮
+  sortButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      sortButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filters.sort = btn.dataset.sort;
       applyFiltersAndRender();
     });
   });
@@ -500,12 +730,6 @@
   // 搜索
   searchInput.addEventListener('input', () => {
     filters.search = searchInput.value.trim().toLowerCase();
-    applyFiltersAndRender();
-  });
-
-  // 排序
-  sortSelect.addEventListener('change', () => {
-    filters.sort = sortSelect.value;
     applyFiltersAndRender();
   });
 
@@ -528,29 +752,42 @@
   // ========== 筛选 + 排序 =============
   function applyFiltersAndRender() {
     filteredArticles = articles.filter(a => {
+      // 类型筛选
       const matchType = filters.type === 'all' || a.type === filters.type;
-      const matchCategory =
-        filters.type === 'news'
-          ? (filters.category === 'all' || a.category === filters.category)
-          : true;
+      
+      // 分类筛选（仅当类型为资讯时）
+      const matchCategory = filters.type !== 'news' || 
+        filters.category === 'all' || 
+        a.category === filters.category;
 
+      // 搜索筛选
       const kw = filters.search;
       const matchSearch = !kw ||
         a.title.toLowerCase().includes(kw) ||
+        (a.description && a.description.toLowerCase().includes(kw)) ||
         a.source.toLowerCase().includes(kw);
 
       return matchType && matchCategory && matchSearch;
     });
 
     // 排序
-    if (filters.sort === 'time-desc') {
+    if (filters.sort === 'latest') {
       filteredArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
-    } else {
+    } else if (filters.sort === 'hottest') {
       filteredArticles.sort((a, b) => b.readCount - a.readCount);
+    } else {
+      // 综合排序：先按时间排序,时间相同或相近时按阅读量排序
+      filteredArticles.sort((a, b) => {
+        const dateDiff = new Date(b.date) - new Date(a.date);
+        // 如果时间差小于7天,则按阅读量排序
+        if (Math.abs(dateDiff) < 7 * 24 * 60 * 60 * 1000) {
+          return b.readCount - a.readCount;
+        }
+        return dateDiff;
+      });
     }
 
     currentPage = 1;
-    updateActiveFilterText();
     renderList();
   }
 
@@ -564,84 +801,51 @@
 
     const pageData = filteredArticles.slice(startIndex, endIndex);
 
-    pageData.forEach(article => {
-      const card = document.createElement('article');
-      card.className = 'glass-card rounded-xl border border-gray-300 p-4 hover:border-[#B01F24]/80 transition cursor-pointer flex flex-col sm:flex-row sm:items-start gap-3';
-
-      // 类型标签
-      const typeTag = article.type === 'news'
-        ? '<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-[#2D874B]/10 text-[#2D874B] border border-[#2D874B]/60 text-[10px]"><i class="fa fa-newspaper mr-1 text-[9px]"></i>资讯</span>'
-        : '<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-[#B01F24]/10 text-[#B01F24] border border-[#B01F24]/60 text-[10px]"><i class="fa fa-bullhorn mr-1 text-[9px]"></i>公告</span>';
-
-      // 分类标签（仅资讯）
-      let categoryTag = '';
-      if (article.type === 'news') {
-        const cmap = {
-          industry: { text: '行业动态', cls: 'text-[#2D874B]' },
-          policy:   { text: '政策流程', cls: 'text-[#2D874B]' },
-          platform: { text: '平台新闻', cls: 'text-[#2D874B]' },
-          certification: { text: '认证专题', cls: 'text-[#2D874B]' }
-        };
-        const cfg = cmap[article.category];
-        if (cfg) {
-          categoryTag = `<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] ${cfg.cls}">${cfg.text}</span>`;
-        }
+    pageData.forEach((article, index) => {
+      const item = document.createElement('div');
+      item.className = 'list-item cursor-pointer transition-colors';
+      if (index === 0) {
+        item.classList.add('pt-0');
+      }
+      if (index === pageData.length - 1) {
+        item.classList.add('pb-0', 'border-b-0');
       }
 
       const dateObj = new Date(article.date.replace(/-/g, '/'));
-      const formattedDate = dateObj.toLocaleString('zh-CN', {
+      const formattedDate = dateObj.toLocaleDateString('zh-CN', {
         year: 'numeric',
         month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
+        day: '2-digit'
       });
-
-      // 生成图片URL
-      const imagePrompt = encodeURIComponent(`${article.title} related news image, professional, clear`);
-      const imageUrl = `./images/news-detail.webp`;
       
-      card.innerHTML = `
-        <div class="w-24 h-24 flex-shrink-0">
-          <img src="${imageUrl}" alt="${article.title}" class="w-full h-full object-cover rounded-lg">
-        </div>
-        <div class="flex-1 min-w-0">
-          <div class="flex items-center gap-2 mb-2">
-            ${typeTag}
-            ${categoryTag}
-          </div>
-          <h3 class="text-base font-semibold text-gray-800 mb-2">${article.title}</h3>
-          <div class="flex flex-wrap items-center gap-4 text-xs text-gray-400">
-            <span class="flex items-center gap-1">
-              <i class="fa fa-building text-[10px] text-gray-300"></i>
-              ${article.source}
-            </span>
-            <span class="flex items-center gap-1">
-              <i class="fa fa-clock text-[10px] text-gray-300"></i>
-              ${formattedDate}
-            </span>
-            <span class="flex items-center gap-1">
-              <i class="fa fa-eye text-[10px] text-gray-300"></i>
-              ${article.readCount}浏览
-            </span>
-          </div>
-        </div>
-        <div class="flex items-center">
-          <span class="text-blue-500 flex items-center gap-1">
-            查看详情
-            <i class="fa fa-arrow-right text-[9px]"></i>
+      item.innerHTML = `
+        <h3 class="text-lg font-semibold text-gray-800 mb-2.5 hover:text-[#B01F24] transition-colors leading-relaxed" style="list-style: none; padding-left: 0; margin-left: 0;">
+          ${article.title}
+        </h3>
+        <p class="text-sm text-gray-600 mb-3 leading-relaxed line-clamp-2">
+          ${article.description || ''}
+        </p>
+        <div class="flex flex-wrap items-center gap-5 text-xs text-gray-500">
+          <span class="flex items-center gap-1.5">
+            <i class="fa fa-map-marker-alt text-gray-400 text-[10px]"></i>
+            <span class="text-gray-400">来自:</span>
+            <span class="text-gray-600">${article.sourcePath || article.source}</span>
+          </span>
+          <span class="flex items-center gap-1.5">
+            <i class="fa fa-clock text-gray-400 text-[10px]"></i>
+            <span class="text-gray-400">更新时间:</span>
+            <span class="text-gray-600">${formattedDate}</span>
           </span>
         </div>
       `;
 
-      // 点击整卡跳转详情页（示例路由，可按需替换）
-      card.addEventListener('click', () => {
+      // 点击跳转详情页
+      item.addEventListener('click', () => {
         const base = article.type === 'news' ? 'news-detail.html' : 'announcement-detail.html';
         window.location.href = `${base}?id=${article.id}`;
       });
 
-      listContainer.appendChild(card);
+      listContainer.appendChild(item);
     });
 
     totalCountEl.textContent = total;
@@ -654,11 +858,13 @@
     nextBtn.classList.toggle('opacity-50', nextBtn.disabled);
   }
 
-  // 初始化：默认激活「全部类型」「全部分类」
-  updateTypeButtonClass(typeAllBtn, true);
-  categoryChips.forEach(chip => {
-    if (chip.dataset.category === 'all') chip.classList.add('filter-chip-active');
+  // 初始化：默认激活「综合排序」和「全部」
+  sortButtons.forEach(btn => {
+    if (btn.dataset.sort === 'comprehensive') {
+      btn.classList.add('active');
+    }
   });
+  updateCategoryDisplay();
   applyFiltersAndRender();
 </script>
 

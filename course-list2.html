@@ -44,6 +44,144 @@
             overflow: hidden;
             width: 100%;
         }
+
+        /* 光合课程体系个性化样式 */
+        .course-system-section {
+            position: relative;
+            background: linear-gradient(135deg, #f0f9e8 0%, #e8f5e0 25%, #ffffff 50%, #f5faf2 75%, #ffffff 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+            box-shadow: 0 4px 20px rgba(45, 135, 75, 0.08), 0 1px 3px rgba(45, 135, 75, 0.1);
+            border: 1px solid rgba(45, 135, 75, 0.15);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .course-system-title {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .course-system-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(180deg, #2D874B 0%, #4CAF50 100%);
+            border-radius: 2px;
+            box-shadow: 0 2px 4px rgba(45, 135, 75, 0.3);
+        }
+
+        .course-system-title::after {
+            content: '✨';
+            font-size: 18px;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .system-filter-chip {
+            position: relative;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid transparent;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .system-filter-chip::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .system-filter-chip:hover::before {
+            left: 100%;
+        }
+
+        .system-filter-chip:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 135, 75, 0.15), 0 2px 4px rgba(45, 135, 75, 0.1);
+            border-color: rgba(45, 135, 75, 0.3);
+        }
+
+        .system-filter-chip.filter-chip-active {
+            background: linear-gradient(135deg, #2D874B 0%, #3a9f52 100%);
+            color: white;
+            border-color: #2D874B;
+            box-shadow: 0 4px 16px rgba(45, 135, 75, 0.25), 0 2px 8px rgba(45, 135, 75, 0.15);
+            transform: translateY(-1px);
+            font-weight: 600;
+            padding-right: 2.5rem;
+        }
+
+        .system-filter-chip.filter-chip-active::after {
+            content: '✓';
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            font-weight: bold;
+            opacity: 0.95;
+            line-height: 1;
+        }
+
+        .system-filter-chip:active {
+            transform: translateY(0);
+        }
+
+        /* 课程体系卡片样式 */
+        .system-card-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .system-card-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .system-card-item:hover::before {
+            left: 100%;
+        }
+
+        .system-card-item:hover {
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .system-card-item.filter-chip-active {
+            background: linear-gradient(135deg, #2D874B 0%, #3a9f52 100%) !important;
+            color: white !important;
+            border-color: #2D874B !important;
+            box-shadow: 0 4px 12px rgba(45, 135, 75, 0.25) !important;
+        }
+
+        .system-card-item.filter-chip-active i,
+        .system-card-item.filter-chip-active span {
+            color: white !important;
+        }
     </style>
 </head>
 
@@ -604,89 +742,128 @@
         </section>
 
         <!-- 光合课程体系筛选 -->
-        <section class="max-w-7xl mx-auto px-4 lg:px-6 mb-6">
-            <div class="glass-card rounded-3xl p-5 space-y-4 bg-gradient-to-r from-[#f0f9e8] to-[#ffffff]">
-                <div class="flex items-center justify-between">
+        <section class="max-w-7xl mx-auto px-4 lg:px-6 mb-4">
+            <div class="course-system-section glass-card rounded-xl p-4 space-y-3">
+                <!-- 标题区域 -->
+                <div class="flex items-center justify-between mb-2">
                     <div class="flex items-center gap-2">
-                        <span class="text-lg font-bold text-[#2D874B]">光合课程体系</span>
+                        <i class="fa fa-graduation-cap text-xl text-[#2D874B] opacity-80"></i>
+                        <span class="course-system-title text-lg font-bold text-[#2D874B]">光合课程体系</span>
                     </div>
                 </div>
 
-                <div class="flex flex-wrap gap-2">
+                <!-- 课程体系卡片网格 -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
+                    <!-- 应用软件性能优化系列 -->
                     <button
-                        class="filter-chip px-3 py-1.5 rounded-full bg-white border-2 border-[#2D874B] text-sm text-[#2D874B] font-medium hover:bg-[#2D874B] hover:text-white transition-colors duration-200"
-                        data-filter="system" data-value="all">
-                        全部课程体系
-                    </button>
-                    <button
-                        class="filter-chip px-3 py-1.5 rounded-full bg-white border border-gray-300 text-sm text-gray-800 hover:border-[#2D874B] hover:text-[#2D874B] transition-colors duration-200"
+                        class="system-card-item filter-chip p-3 rounded-xl bg-white/90 border-2 border-gray-200 hover:border-[#2D874B] hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center gap-1.5 min-h-[80px]"
                         data-filter="system" data-value="应用软件性能优化系列">
-                        应用软件性能优化系列
+                        <i class="fa fa-rocket text-xl text-[#2D874B]"></i>
+                        <span class="text-xs font-medium text-gray-700 text-center leading-tight">应用软件性能优化系列</span>
                     </button>
+
+                    <!-- 海光应用加速套件系列 -->
                     <button
-                        class="filter-chip px-3 py-1.5 rounded-full bg-white border border-gray-300 text-sm text-gray-800 hover:border-[#2D874B] hover:text-[#2D874B] transition-colors duration-200"
+                        class="system-card-item filter-chip p-3 rounded-xl bg-white/90 border-2 border-gray-200 hover:border-[#2D874B] hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center gap-1.5 min-h-[80px]"
                         data-filter="system" data-value="海光应用加速套件系列">
-                        海光应用加速套件系列
+                        <i class="fa fa-tachometer-alt text-xl text-[#2D874B]"></i>
+                        <span class="text-xs font-medium text-gray-700 text-center leading-tight">海光应用加速套件系列</span>
                     </button>
+
+                    <!-- 基础软件性能优化系列 -->
                     <button
-                        class="filter-chip px-3 py-1.5 rounded-full bg-white border border-gray-300 text-sm text-gray-800 hover:border-[#2D874B] hover:text-[#2D874B] transition-colors duration-200"
+                        class="system-card-item filter-chip p-3 rounded-xl bg-white/90 border-2 border-gray-200 hover:border-[#2D874B] hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center gap-1.5 min-h-[80px]"
                         data-filter="system" data-value="基础软件性能优化系列">
-                        基础软件性能优化系列
+                        <i class="fa fa-cogs text-xl text-[#2D874B]"></i>
+                        <span class="text-xs font-medium text-gray-700 text-center leading-tight">基础软件性能优化系列</span>
                     </button>
+
+                    <!-- 海光芯片安全系列 -->
                     <button
-                        class="filter-chip px-3 py-1.5 rounded-full bg-white border border-gray-300 text-sm text-gray-800 hover:border-[#2D874B] hover:text-[#2D874B] transition-colors duration-200"
+                        class="system-card-item filter-chip p-3 rounded-xl bg-white/90 border-2 border-gray-200 hover:border-[#2D874B] hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center gap-1.5 min-h-[80px]"
                         data-filter="system" data-value="海光芯片安全系列">
-                        海光芯片安全系列
+                        <i class="fa fa-shield-alt text-xl text-[#2D874B]"></i>
+                        <span class="text-xs font-medium text-gray-700 text-center leading-tight">海光芯片安全系列</span>
                     </button>
+
+                    <!-- BenchMark工具性能优化系列 -->
                     <button
-                        class="filter-chip px-3 py-1.5 rounded-full bg-white border border-gray-300 text-sm text-gray-800 hover:border-[#2D874B] hover:text-[#2D874B] transition-colors duration-200"
+                        class="system-card-item filter-chip p-3 rounded-xl bg-white/90 border-2 border-gray-200 hover:border-[#2D874B] hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center gap-1.5 min-h-[80px]"
                         data-filter="system" data-value="BenchMark工具性能优化系列">
-                        BenchMark工具性能优化系列
+                        <i class="fa fa-chart-line text-xl text-[#2D874B]"></i>
+                        <span class="text-xs font-medium text-gray-700 text-center leading-tight">BenchMark工具性能优化系列</span>
                     </button>
+
+                    <!-- DCU 优化策略与工程实践 -->
                     <button
-                        class="filter-chip px-3 py-1.5 rounded-full bg-white border border-gray-300 text-sm text-gray-800 hover:border-[#2D874B] hover:text-[#2D874B] transition-colors duration-200"
+                        class="system-card-item filter-chip p-3 rounded-xl bg-white/90 border-2 border-gray-200 hover:border-[#2D874B] hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center gap-1.5 min-h-[80px]"
                         data-filter="system" data-value="DCU 优化策略与工程实践">
-                        DCU 优化策略与工程实践
+                        <i class="fa fa-microchip text-xl text-[#2D874B]"></i>
+                        <span class="text-xs font-medium text-gray-700 text-center leading-tight">DCU 优化策略与工程实践</span>
                     </button>
+
+                    <!-- DCU技术基础课程 -->
                     <button
-                        class="filter-chip px-3 py-1.5 rounded-full bg-white border border-gray-300 text-sm text-gray-800 hover:border-[#2D874B] hover:text-[#2D874B] transition-colors duration-200"
+                        class="system-card-item filter-chip p-3 rounded-xl bg-white/90 border-2 border-gray-200 hover:border-[#2D874B] hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center gap-1.5 min-h-[80px]"
                         data-filter="system" data-value="DCU技术基础课程">
-                        DCU技术基础课程
+                        <i class="fa fa-book text-xl text-[#2D874B]"></i>
+                        <span class="text-xs font-medium text-gray-700 text-center leading-tight">DCU技术基础课程</span>
                     </button>
+
+                    <!-- DCU-AI大模型基础课程 -->
                     <button
-                        class="filter-chip px-3 py-1.5 rounded-full bg-white border border-gray-300 text-sm text-gray-800 hover:border-[#2D874B] hover:text-[#2D874B] transition-colors duration-200"
+                        class="system-card-item filter-chip p-3 rounded-xl bg-white/90 border-2 border-gray-200 hover:border-[#2D874B] hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center gap-1.5 min-h-[80px]"
                         data-filter="system" data-value="DCU-AI大模型基础课程">
-                        DCU-AI大模型基础课程
+                        <i class="fa fa-brain text-xl text-[#2D874B]"></i>
+                        <span class="text-xs font-medium text-gray-700 text-center leading-tight">DCU-AI大模型基础课程</span>
                     </button>
+
+                    <!-- 基于DCU加速的大模型训练与推理 -->
                     <button
-                        class="filter-chip px-3 py-1.5 rounded-full bg-white border border-gray-300 text-sm text-gray-800 hover:border-[#2D874B] hover:text-[#2D874B] transition-colors duration-200"
+                        class="system-card-item filter-chip p-3 rounded-xl bg-white/90 border-2 border-gray-200 hover:border-[#2D874B] hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center gap-1.5 min-h-[80px]"
                         data-filter="system" data-value="基于DCU加速的大模型训练与推理">
-                        基于DCU加速的大模型训练与推理
+                        <i class="fa fa-robot text-xl text-[#2D874B]"></i>
+                        <span class="text-xs font-medium text-gray-700 text-center leading-tight">基于DCU加速的大模型训练与推理</span>
                     </button>
+
+                    <!-- DCU+DeepSeek课程 -->
                     <button
-                        class="filter-chip px-3 py-1.5 rounded-full bg-white border border-gray-300 text-sm text-gray-800 hover:border-[#2D874B] hover:text-[#2D874B] transition-colors duration-200"
+                        class="system-card-item filter-chip p-3 rounded-xl bg-white/90 border-2 border-gray-200 hover:border-[#2D874B] hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center gap-1.5 min-h-[80px]"
                         data-filter="system" data-value="DCU+DeepSeek课程">
-                        DCU+DeepSeek课程
+                        <i class="fa fa-code text-xl text-[#2D874B]"></i>
+                        <span class="text-xs font-medium text-gray-700 text-center leading-tight">DCU+DeepSeek课程</span>
                     </button>
+
+                    <!-- DCU+Al for Science课程 -->
                     <button
-                        class="filter-chip px-3 py-1.5 rounded-full bg-white border border-gray-300 text-sm text-gray-800 hover:border-[#2D874B] hover:text-[#2D874B] transition-colors duration-200"
+                        class="system-card-item filter-chip p-3 rounded-xl bg-white/90 border-2 border-gray-200 hover:border-[#2D874B] hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center gap-1.5 min-h-[80px]"
                         data-filter="system" data-value="DCU+Al for Science课程">
-                        DCU+Al for Science课程
+                        <i class="fa fa-flask text-xl text-[#2D874B]"></i>
+                        <span class="text-xs font-medium text-gray-700 text-center leading-tight">DCU+AI for Science课程</span>
                     </button>
+
+                    <!-- DCU+高性能计算课程 -->
                     <button
-                        class="filter-chip px-3 py-1.5 rounded-full bg-white border border-gray-300 text-sm text-gray-800 hover:border-[#2D874B] hover:text-[#2D874B] transition-colors duration-200"
+                        class="system-card-item filter-chip p-3 rounded-xl bg-white/90 border-2 border-gray-200 hover:border-[#2D874B] hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center gap-1.5 min-h-[80px]"
                         data-filter="system" data-value="DCU+高性能计算课程">
-                        DCU+高性能计算课程
+                        <i class="fa fa-server text-xl text-[#2D874B]"></i>
+                        <span class="text-xs font-medium text-gray-700 text-center leading-tight">DCU+高性能计算课程</span>
                     </button>
+
+                    <!-- HG认证系列课程 -->
                     <button
-                        class="filter-chip px-3 py-1.5 rounded-full bg-white border border-gray-300 text-sm text-gray-800 hover:border-[#2D874B] hover:text-[#2D874B] transition-colors duration-200"
+                        class="system-card-item filter-chip p-3 rounded-xl bg-white/90 border-2 border-gray-200 hover:border-[#2D874B] hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center gap-1.5 min-h-[80px]"
                         data-filter="system" data-value="HG认证系列课程">
-                        HG认证系列课程
+                        <i class="fa fa-certificate text-xl text-[#2D874B]"></i>
+                        <span class="text-xs font-medium text-gray-700 text-center leading-tight">HG认证系列课程</span>
                     </button>
+
+                    <!-- 光耀百城系列课程 -->
                     <button
-                        class="filter-chip px-3 py-1.5 rounded-full bg-white border border-gray-300 text-sm text-gray-800 hover:border-[#2D874B] hover:text-[#2D874B] transition-colors duration-200"
+                        class="system-card-item filter-chip p-3 rounded-xl bg-white/90 border-2 border-gray-200 hover:border-[#2D874B] hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center gap-1.5 min-h-[80px]"
                         data-filter="system" data-value="光耀百城系列课程">
-                        光耀百城系列课程
+                        <i class="fa fa-city text-xl text-[#2D874B]"></i>
+                        <span class="text-xs font-medium text-gray-700 text-center leading-tight">光耀百城系列课程</span>
                     </button>
                 </div>
             </div>
@@ -1034,10 +1211,7 @@
             });
         }
 
-        // 初始化：默认“全部”chip 激活
-        document.querySelectorAll('.filter-chip[data-value="all"]').forEach(chip => {
-            chip.classList.add('filter-chip-active');
-        });
+        // 初始化：默认显示全部课程（filters.system 默认为 'all'）
         applyFiltersAndRender();
     </script>
 
