@@ -234,6 +234,14 @@
             <div class="flex items-center gap-1 ml-2">
               <i class="fa-solid fa-coins text-yellow-500"></i>
               <span class="text-xs text-gray-700">积分: <span id="profile-points" class="font-semibold">1,280</span></span>
+              <span class="text-xs text-gray-700">
+                <i class="fa fa-info-circle text-[#B01F24] cursor-pointer ml-2" data-target="rule-popup"></i>
+                积分规则
+              </span>
+              <span class="text-xs text-gray-700">
+                <i class="fa fa-info-circle text-[#B01F24] cursor-pointer ml-2" data-target="source-popup"></i>
+                积分来源
+              </span>
             </div>
             </div>
             <div class="text-gray-400 flex flex-wrap gap-3">
@@ -251,6 +259,33 @@
           <div>已获证书：<span class="text-[#B01F24]" id="summary-cert">2</span> 张</div>
           <div>待考试/活动：<span class="text-[#B01F24]" id="summary-todo">0</span> 项</div>
         </div>
+        
+        <!-- 弹出框：积分规则 -->
+        <div id="rule-popup" class="fixed inset-0 z-9999 hidden bg-black/50 backdrop-blur-md flex items-center justify-center px-4">
+          <div class="bg-white rounded-xl shadow-xl border border-gray-200 max-w-md w-full p-5">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-semibold text-gray-800">积分规则</h3>
+              <button id="rule-popup-close" class="text-gray-400 hover:text-gray-600">
+                <i class="fa fa-times text-sm"></i>
+              </button>
+            </div>
+            <p class="text-sm text-gray-600">积分按任务完成度、学习时长和考试成绩综合计算。</p>
+          </div>
+        </div>
+
+        <!-- 弹出框：积分来源 -->
+        <div id="source-popup" class="fixed inset-0 z-9999 hidden bg-black/50 backdrop-blur-md flex items-center justify-center px-4">
+          <div class="bg-white rounded-xl shadow-xl border border-gray-200 max-w-md w-full p-5">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-semibold text-gray-800">积分来源</h3>
+              <button id="source-popup-close" class="text-gray-400 hover:text-gray-600">
+                <i class="fa fa-times text-sm"></i>
+              </button>
+            </div>
+            <p class="text-sm text-gray-600">积分主要来源于课程学习、考试通过、直播参与和专家服务。</p>
+          </div>
+        </div>
+
         <!-- 新增：专家服务、在学课程、通过考试、已获证书横向排列 -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4 lg:mt-0 lg:ml-4">
           <div class="text-center lg:text-left">
@@ -1303,19 +1338,10 @@
         <!-- 筛选标签 -->
         <div class="mb-4 flex flex-wrap gap-2">
           <button class="filter-btn-task active px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="all">
-            全部
+            课程
           </button>
           <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="进行中">
-            进行中
-          </button>
-          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="已报名">
-            已报名
-          </button>
-          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="已完成">
-            已完成
-          </button>
-          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="未报名">
-            未报名
+            讲师
           </button>
         </div>
         <div id="like-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -2490,6 +2516,71 @@
   refreshAuthStatus();
   renderAbility();
   initListsAndOverview();
+</script>
+
+<!-- JavaScript：事件绑定 -->
+<script>
+  // 立即执行的事件绑定
+  (function() {
+    // 查找所有带有 data-target 属性的图标
+    const infoIcons = document.querySelectorAll('i.fa-info-circle[data-target]');
+    
+    console.log('找到的图标数量:', infoIcons.length);
+    
+    infoIcons.forEach(icon => {
+      const targetId = icon.getAttribute('data-target');
+      console.log('绑定图标:', icon, '目标ID:', targetId);
+      
+      icon.addEventListener('click', function(e) {
+        e.stopPropagation(); // 防止事件冒泡
+      
+        // 查找对应的目标弹出框
+        const popup = document.getElementById(targetId);
+        if (popup) {
+          console.log('显示弹出框:', targetId);
+          console.log('弹出框元素:', popup);
+          console.log('移除hidden类之前:', popup.className);
+          popup.classList.remove('hidden');
+          popup.style.zIndex = '9999';
+          // 强制设置一些显眼的样式来测试
+          popup.style.backgroundColor = 'red';
+          popup.style.border = '5px solid yellow';
+          popup.style.zIndex = '9999';
+          popup.style.position = 'fixed';
+          popup.style.top = '50px';
+          popup.style.left = '50px';
+          popup.style.width = '300px';
+          popup.style.height = '200px';
+          console.log('移除hidden类之后:', popup.className);
+          console.log('是否还包含hidden:', popup.classList.contains('hidden'));
+          console.log('样式display:', window.getComputedStyle(popup).display);
+          console.log('offsetParent:', popup.offsetParent);
+          
+          // 添加关闭事件（如果还没有）
+          if (!popup.hasAttribute('data-initialized')) {
+            popup.setAttribute('data-initialized', 'true');
+            
+            // 关闭按钮
+            const closeButton = popup.querySelector('button[id$="-close"]');
+            if (closeButton) {
+              closeButton.addEventListener('click', function() {
+                popup.classList.add('hidden');
+              });
+            }
+            
+            // 点击遮罩层关闭
+            popup.addEventListener('click', function(e) {
+              if (e.target === this) {
+                this.classList.add('hidden');
+              }
+            });
+          }
+        } else {
+          console.error('未找到弹出框:', targetId);
+        }
+      });
+    });
+  })();
 </script>
 
 </body>
