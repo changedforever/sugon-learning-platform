@@ -686,35 +686,90 @@
       </div>
     </div>
 
-    <!-- 筛选条件 -->
-    <div class="mb-6">
-      <div class="flex flex-wrap gap-2">
-        <button class="filter-chip-active px-3 py-1 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition">
-          全部
-        </button>
-        <button class="px-3 py-1 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition">
-          云计算
-        </button>
-        <button class="px-3 py-1 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition">
-          人工智能
-        </button>
-        <button class="px-3 py-1 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition">
-          大数据
-        </button>
-        <button class="px-3 py-1 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition">
-          网络安全
-        </button>
-        <button class="px-3 py-1 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition">
-          架构设计
-        </button>
-        <button class="px-3 py-1 rounded-full text-xs border border-gray-300 bg-white/80 hover:border-[#B01F24] transition">
-          数据库
-        </button>
-      </div>
-    </div>
+    <!-- 讲师列表与左侧筛选 -->
+    <section class="max-w-7xl mx-auto px-4 lg:px-6">
+      <div class="flex flex-col lg:flex-row gap-6">
+        <!-- 左侧筛选：专业领域 -->
+        <div class="lg:w-48 shrink-0">
+          <div class="glass-card rounded-3xl p-4 space-y-4 sticky top-24">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-semibold text-[#B01F24]">筛选条件</span>
+            </div>
 
-    <!-- 讲师列表 -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <!-- 专业领域 -->
+            <div>
+              <div class="text-gray-600 mb-2 flex items-center justify-between">
+                <span class="text-sm">专业领域</span>
+              </div>
+              <div class="flex flex-col gap-1">
+                <button
+                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-[#B01F24] text-[11px] text-white text-left hover:bg-[#9a1c20] transition-colors duration-200"
+                  data-filter="field" data-value="all">
+                  全部
+                </button>
+                <button
+                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
+                  data-filter="field" data-value="云计算">
+                  云计算
+                </button>
+                <button
+                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
+                  data-filter="field" data-value="人工智能">
+                  人工智能
+                </button>
+                <button
+                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
+                  data-filter="field" data-value="大数据">
+                  大数据
+                </button>
+                <button
+                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
+                  data-filter="field" data-value="网络安全">
+                  网络安全
+                </button>
+                <button
+                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
+                  data-filter="field" data-value="架构设计">
+                  架构设计
+                </button>
+                <button
+                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
+                  data-filter="field" data-value="数据库">
+                  数据库
+                </button>
+              </div>
+            </div>
+
+            <span id="active-filter-text" class="text-[11px] text-gray-600 block mt-2">
+              已选条件：全部
+            </span>
+          </div>
+        </div>
+
+        <!-- 右侧讲师列表 -->
+        <div class="flex-1">
+          <!-- 统计 + 分页信息 -->
+          <div
+            class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 text-[11px] text-gray-600 gap-2">
+            <div>
+              共 <span id="total-count">32</span> 位讲师，当前显示
+              <span id="current-range">1–12</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="prev-btn"
+                class="px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 hover:bg-gray-100 transition text-gray-800">
+                上一页
+              </button>
+              <span id="page-info">1 / 3</span>
+              <button id="next-btn"
+                class="px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 hover:bg-gray-100 transition text-gray-800">
+                下一页
+              </button>
+            </div>
+          </div>
+
+          <!-- 讲师列表 -->
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
       <!-- 讲师卡片 1 -->
       <a href="lecturer-detail.html?id=1" class="glass-card rounded-3xl border border-gray-300 p-4 hover:border-[#B01F24] hover:-translate-y-0.5 transition group relative">
         <!-- 关注按钮 - 右上角 -->
@@ -957,6 +1012,9 @@
         </div>
       </a>
     </div>
+        </div>
+      </div>
+    </section>
 
     <!-- 分页 -->
     <div class="mt-8 flex items-center justify-center">
