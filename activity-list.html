@@ -362,13 +362,19 @@
       <div class="flex-1 min-w-0">
         <!-- 顶部排序和搜索 -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-          <!-- 排序选项 -->
+          <!-- 状态筛选选项 -->
           <div class="flex items-center gap-2 flex-wrap">
-            <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="newest">
-              最新
+            <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-status="all">
+              全部
             </button>
-            <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="most-popular">
-              最热
+            <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-status="upcoming">
+              未开始
+            </button>
+            <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-status="live">
+              进行中
+            </button>
+            <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-status="ended">
+              已结束
             </button>
           </div>
 
@@ -519,7 +525,7 @@
   const filters = {
     type: 'all',  // all / online / offline
     search: '',
-    sort: 'newest'  // newest / most-popular
+    status: 'all'  // all / upcoming / live / ended
   };
 
   function renderActivities() {
@@ -528,20 +534,14 @@
     // 应用筛选条件
     let filteredActivities = activities.filter(act => {
       const matchType = filters.type === 'all' || act.type === filters.type;
+      const matchStatus = filters.status === 'all' || act.status === filters.status;
       const kw = filters.search;
       const matchSearch = !kw ||
         act.title.toLowerCase().includes(kw) ||
         act.place.toLowerCase().includes(kw);
 
-      return matchType && matchSearch;
+      return matchType && matchStatus && matchSearch;
     });
-
-    // 排序
-    if (filters.sort === 'newest') {
-      filteredActivities.sort((a, b) => b.datetime.localeCompare(a.datetime));
-    } else {
-      filteredActivities.sort((a, b) => b.attendees - a.attendees);
-    }
 
     filteredActivities.forEach(act => {
       const card = document.createElement('article');
@@ -648,12 +648,12 @@
     });
   });
 
-  // 排序按钮
+  // 状态筛选按钮
   sortButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       sortButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      filters.sort = btn.dataset.sort;
+      filters.status = btn.dataset.status;
       applyFiltersAndRender();
     });
   });
@@ -698,9 +698,9 @@
   styleSheet.textContent = sortBtnStyle;
   document.head.appendChild(styleSheet);
 
-  // 初始化：默认激活「最新」排序
+  // 初始化：默认激活「全部」状态
   sortButtons.forEach(btn => {
-    if (btn.dataset.sort === 'newest') {
+    if (btn.dataset.status === 'all') {
       btn.classList.add('active');
     }
   });
