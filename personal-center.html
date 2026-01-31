@@ -261,11 +261,11 @@
         </div>
         
         <!-- 弹出框：积分规则 -->
-        <div id="rule-popup" class="fixed inset-0 z-9999 hidden bg-black/50 backdrop-blur-md flex items-center justify-center px-4">
-          <div class="bg-white rounded-xl shadow-xl border border-gray-200 max-w-md w-full p-5">
+        <div id="rule-popup" class="fixed top-20 left-4 z-9999 hidden flex items-center justify-center">
+          <div class="bg-white rounded-xl shadow-2xl border border-gray-200 max-w-md w-full p-5 transform transition-all duration-300 opacity-0 scale-95" style="box-shadow: 0px 0px 20px -1px rgba(0, 0, 0, 0.4);">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-sm font-semibold text-gray-800">积分规则</h3>
-              <button id="rule-popup-close" class="text-gray-400 hover:text-gray-600">
+              <button id="rule-popup-close" class="text-gray-400 hover:text-gray-600 transition-colors duration-200">
                 <i class="fa fa-times text-sm"></i>
               </button>
             </div>
@@ -274,11 +274,11 @@
         </div>
 
         <!-- 弹出框：积分来源 -->
-        <div id="source-popup" class="fixed inset-0 z-9999 hidden bg-black/50 backdrop-blur-md flex items-center justify-center px-4">
-          <div class="bg-white rounded-xl shadow-xl border border-gray-200 max-w-md w-full p-5">
+        <div id="source-popup" class="fixed top-20 left-4 z-9999 hidden flex items-center justify-center">
+          <div class="bg-white rounded-xl shadow-2xl border border-gray-200 max-w-md w-full p-5 transform transition-all duration-300 opacity-0 scale-95" style="box-shadow: 0px 0px 20px -1px rgba(0, 0, 0, 0.4);">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-sm font-semibold text-gray-800">积分来源</h3>
-              <button id="source-popup-close" class="text-gray-400 hover:text-gray-600">
+              <button id="source-popup-close" class="text-gray-400 hover:text-gray-600 transition-colors duration-200">
                 <i class="fa fa-times text-sm"></i>
               </button>
             </div>
@@ -2517,6 +2517,67 @@
   refreshAuthStatus();
   renderAbility();
   initListsAndOverview();
+  
+  // =============== 积分规则和积分来源弹框功能 ===============
+  document.addEventListener('DOMContentLoaded', function() {
+    // 绑定积分规则和积分来源的点击事件
+    const infoIcons = document.querySelectorAll('[data-target]');
+    infoIcons.forEach(icon => {
+      icon.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const popup = document.getElementById(targetId);
+        if (popup) {
+          // 显示弹框
+          popup.classList.remove('hidden');
+          // 添加动画效果
+          setTimeout(() => {
+            const popupContent = popup.querySelector('div');
+            if (popupContent) {
+              popupContent.classList.remove('opacity-0', 'scale-95');
+              popupContent.classList.add('opacity-100', 'scale-100');
+            }
+          }, 10);
+        }
+      });
+    });
+    
+    // 绑定关闭按钮的点击事件
+    const closeButtons = document.querySelectorAll('#rule-popup-close, #source-popup-close');
+    closeButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const popup = this.closest('[id$="-popup"]');
+        if (popup) {
+          // 关闭动画
+          const popupContent = popup.querySelector('div');
+          if (popupContent) {
+            popupContent.classList.remove('opacity-100', 'scale-100');
+            popupContent.classList.add('opacity-0', 'scale-95');
+            // 动画结束后隐藏弹框
+            setTimeout(() => {
+              popup.classList.add('hidden');
+            }, 300);
+          }
+        }
+      });
+    });
+    
+    // 点击弹框外部关闭弹框
+    const popups = document.querySelectorAll('#rule-popup, #source-popup');
+    popups.forEach(popup => {
+      popup.addEventListener('click', function(e) {
+        if (e.target === this) {
+          const popupContent = this.querySelector('div');
+          if (popupContent) {
+            popupContent.classList.remove('opacity-100', 'scale-100');
+            popupContent.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+              this.classList.add('hidden');
+            }, 300);
+          }
+        }
+      });
+    });
+  });
 </script>
 
 </body>
