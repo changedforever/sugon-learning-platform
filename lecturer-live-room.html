@@ -1548,6 +1548,43 @@
 
                             <!-- 右侧控制按钮 -->
                             <div class="flex items-center space-x-4">
+                                <!-- 开启弹幕 -->
+                                <div class="relative group">
+                                    <button
+                                        id="danmakuBtn"
+                                        class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                    >
+                                        <i class="fa fa-comment"></i>
+                                    </button>
+                                    <div
+                                        class="absolute bottom-full right-0 mb-2 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                                    >
+                                        开启弹幕
+                                    </div>
+                                </div>
+                                <script>
+                                    const danmakuBtn = document.getElementById('danmakuBtn');
+                                    const danmakuTooltip = danmakuBtn.nextElementSibling;
+                                    let isDanmakuEnabled = false;
+
+                                    if (danmakuBtn) {
+                                        danmakuBtn.addEventListener('click', function() {
+                                            isDanmakuEnabled = !isDanmakuEnabled;
+                                            
+                                            if (isDanmakuEnabled) {
+                                                danmakuBtn.innerHTML = '<i class="fa fa-comment-slash"></i>';
+                                                danmakuTooltip.textContent = '关闭弹幕';
+                                                danmakuBtn.classList.add('bg-[#B01F24]');
+                                                danmakuBtn.classList.remove('bg-black', 'bg-opacity-50');
+                                            } else {
+                                                danmakuBtn.innerHTML = '<i class="fa fa-comment"></i>';
+                                                danmakuTooltip.textContent = '开启弹幕';
+                                                danmakuBtn.classList.remove('bg-[#B01F24]');
+                                                danmakuBtn.classList.add('bg-black', 'bg-opacity-50');
+                                            }
+                                        });
+                                    }
+                                </script>
                                 <div class="relative group">
                                     <button
                                         id="volumeBtn"
@@ -2858,12 +2895,12 @@
                 }
 
                 // 弹幕功能
-                if (danmakuBtn) {
-                    danmakuBtn.addEventListener('click', function () {
-                        // 弹幕功能的实现
-                        alert('弹幕功能已开启');
-                    });
-                }
+                // if (danmakuBtn) {
+                //     danmakuBtn.addEventListener('click', function () {
+                //         // 弹幕功能的实现
+                //         alert('弹幕功能已开启');
+                //     });
+                // }
 
                 // 音量控制功能
                 if (volumeBtn && volumeSlider) {
