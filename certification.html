@@ -711,7 +711,7 @@
           </h1>
           <p class="mt-2 text-xs md:text-sm text-gray-600 max-w-2xl">
             通过通用计算认证和智能计算认证两大体系，为技术伙伴构建统一的能力标准，打通
-            <span class="text-[#2D874B]">培训 → 考试 → 认证 → 能力成长</span> 全链路。
+            <span class="text-[#2D874B]">课程 → 考试 → 认证 → 能力成长</span> 全链路。
           </p>
         </div>
         <div class="text-[11px] text-gray-600 space-y-1 lg:text-right">
@@ -999,16 +999,11 @@
         <div class="mb-5">
           <h4 class="text-sm font-medium text-gray-700 mb-2">课程目标：</h4>
           <ul class="text-sm text-gray-600 space-y-1">
-            ${cert.courseObjectives.slice(0, 3).map(obj => `<li>· ${obj}</li>`).join('')}
-            ${cert.courseObjectives.length > 3 ? '<li class="text-gray-400">· 查看更多...</li>' : ''}
+            ${cert.courseObjectives.map(obj => `<li>· ${obj}</li>`).join('')}
           </ul>
         </div>
         
-        <!-- 认证信息 -->
-        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
-          <!-- <span><i class="fa fa-clock mr-1"></i>${cert.duration}</span> -->
-          <!-- <span><i class="fa fa-gem mr-1"></i>${cert.points}积分</span> -->
-        </div>
+
         
         <!-- 操作按钮 -->
         <div class="flex gap-3">
