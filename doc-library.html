@@ -27,6 +27,75 @@
     .doc-type-manual      { background: rgba(248,113,113,0.12); color: #f87171; border-color: rgba(248,113,113,0.5); }
     .doc-type-guide       { background: rgba(139,92,246,0.12); color: #8b5cf6; border-color: rgba(139,92,246,0.5); }
     .doc-type-training    { background: rgba(16,185,129,0.12); color: #10b981; border-color: rgba(16,185,129,0.5); }
+    
+    .category-filter-checkbox {
+      accent-color: #2D874B;
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+    }
+    
+    .category-filter-checkbox:checked + span {
+      color: #2D874B;
+      font-weight: 500;
+    }
+    
+    .sort-btn {
+      transition: all 0.2s ease;
+      font-weight: 500;
+      border: none;
+      background: rgba(255, 255, 255, 0.8);
+    }
+    
+    .sort-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    .sort-btn.active {
+      color: #2D874B;
+      background: rgba(45, 135, 75, 0.1);
+      box-shadow: 0 2px 8px rgba(45, 135, 75, 0.12);
+      font-weight: 600;
+    }
+    
+    .filter-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.25rem 0.5rem;
+      background: rgba(45, 135, 75, 0.1);
+      color: #2D874B;
+      border: 1px solid rgba(45, 135, 75, 0.2);
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      transition: all 0.2s ease;
+      line-height: 1.2;
+    }
+    
+    .filter-tag:hover {
+      background: rgba(45, 135, 75, 0.15);
+      border-color: rgba(45, 135, 75, 0.3);
+    }
+    
+    .filter-tag-close {
+      cursor: pointer;
+      padding: 0.125rem;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      font-size: 0.625rem;
+    }
+    
+    .filter-tag-close:hover {
+      background: rgba(45, 135, 75, 0.2);
+      transform: scale(1.1);
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -95,13 +164,85 @@
       </div>
     </div>
 
-    <!-- 文档列表 -->
-    <section>
-      <div id="doc-grid"
-           class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        <!-- JS 注入卡片 -->
+    <!-- 筛选和文档列表 -->
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- 左侧筛选侧边栏 -->
+      <aside class="w-full lg:w-64 flex-shrink-0">
+        <div class="glass-card rounded-2xl p-5">
+          <h3 class="text-lg font-semibold text-gray-800 mb-5">文档分类</h3>
+          
+          <!-- 分类筛选 -->
+          <div id="filter-tree" class="space-y-2">
+            <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors">
+              <input type="checkbox" class="category-filter-checkbox" value="基础知识">
+              <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">基础知识</span>
+            </label>
+            <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors">
+              <input type="checkbox" class="category-filter-checkbox" value="虚拟化">
+              <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">虚拟化</span>
+            </label>
+            <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors">
+              <input type="checkbox" class="category-filter-checkbox" value="数据库">
+              <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">数据库</span>
+            </label>
+            <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors">
+              <input type="checkbox" class="category-filter-checkbox" value="大数据">
+              <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">大数据</span>
+            </label>
+            <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors">
+              <input type="checkbox" class="category-filter-checkbox" value="分布式存储">
+              <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">分布式存储</span>
+            </label>
+            <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors">
+              <input type="checkbox" class="category-filter-checkbox" value="人工智能">
+              <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">人工智能</span>
+            </label>
+            <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors">
+              <input type="checkbox" class="category-filter-checkbox" value="高端计算">
+              <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">高端计算</span>
+            </label>
+            <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors">
+              <input type="checkbox" class="category-filter-checkbox" value="常见问题">
+              <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">常见问题</span>
+            </label>
+          </div>
+        </div>
+      </aside>
+
+      <!-- 右侧文档列表 -->
+      <div class="flex-1 min-w-0">
+        <!-- 顶部排序和已选中的分类标签 -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+          <!-- 排序选项 -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="comprehensive">
+              综合排序
+            </button>
+            <button class="sort-btn px-4 py-2 rounded-full transition text-sm flex items-center gap-1.5" data-sort="latest">
+              最新
+              <i class="fa fa-chevron-down text-[10px] opacity-60"></i>
+            </button>
+            <button class="sort-btn px-4 py-2 rounded-full transition text-sm flex items-center gap-1.5" data-sort="hottest">
+              最热
+              <i class="fa fa-chevron-down text-[10px] opacity-60"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 已选中的分类标签 -->
+        <div id="selected-category-container" class="flex flex-wrap items-center gap-2 mb-4">
+          <!-- JS 动态渲染标签 -->
+        </div>
+
+        <!-- 文档列表 -->
+        <section>
+          <div id="doc-grid"
+               class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <!-- JS 注入卡片 -->
+          </div>
+        </section>
       </div>
-    </section>
+    </div>
 
   </section>
 </main>
@@ -127,7 +268,9 @@
       desc: "HIECO 云原生架构设计最佳实践与方法论，涵盖微服务、服务网格、CI/CD 等核心内容。",
       type: "白皮书",
       category: "技术白皮书",
-      previewUrl: "https://example.com/docs/whitepaper1.pdf",
+      docCategory: "基础知识",
+      downloadCount: 1250,
+      previewUrl: "doc-detail.html",
       downloadUrl: "https://example.com/docs/whitepaper1.zip",
       createdAt: "2026-01-10"
     },
@@ -137,7 +280,9 @@
       desc: "覆盖云基础设施平台主要产品的特性、配置项及典型使用场景说明。",
       type: "手册",
       category: "产品手册",
-      previewUrl: "https://example.com/docs/product_manual.pdf",
+      docCategory: "虚拟化",
+      downloadCount: 980,
+      previewUrl: "doc-detail.html",
       downloadUrl: "https://example.com/docs/product_manual.zip",
       createdAt: "2025-12-22"
     },
@@ -147,7 +292,9 @@
       desc: "面向金融行业的云原生上云架构、合规要求与典型落地案例。",
       type: "指南",
       category: "解决方案指南",
-      previewUrl: "https://example.com/docs/solution_finance.pdf",
+      docCategory: "基础知识",
+      downloadCount: 1560,
+      previewUrl: "doc-detail.html",
       downloadUrl: "https://example.com/docs/solution_finance.zip",
       createdAt: "2025-12-15"
     },
@@ -157,7 +304,9 @@
       desc: "配套云架构师入门课程的课件、实验手册和练习题。",
       type: "培训资料",
       category: "培训资料",
-      previewUrl: "https://example.com/docs/training_architect.pdf",
+      docCategory: "基础知识",
+      downloadCount: 2100,
+      previewUrl: "doc-detail.html",
       downloadUrl: "https://example.com/docs/training_architect.zip",
       createdAt: "2025-12-01"
     },
@@ -167,18 +316,246 @@
       desc: "Kubernetes 日常运维操作、常见问题与排障指引。",
       type: "手册",
       category: "产品手册",
-      previewUrl: "https://example.com/docs/k8s_ops_manual.pdf",
+      docCategory: "虚拟化",
+      downloadCount: 1890,
+      previewUrl: "doc-detail.html",
       downloadUrl: "https://example.com/docs/k8s_ops_manual.zip",
       createdAt: "2025-11-20"
+    },
+    {
+      id: 6,
+      title: "MySQL 数据库优化指南",
+      desc: "MySQL 数据库性能优化、索引设计和查询优化最佳实践。",
+      type: "指南",
+      category: "产品手册",
+      docCategory: "数据库",
+      downloadCount: 1450,
+      previewUrl: "doc-detail.html",
+      downloadUrl: "https://example.com/docs/mysql_optimization.zip",
+      createdAt: "2025-11-15"
+    },
+    {
+      id: 7,
+      title: "PostgreSQL 高可用部署手册",
+      desc: "PostgreSQL 数据库高可用架构设计与部署实践指南。",
+      type: "手册",
+      category: "产品手册",
+      docCategory: "数据库",
+      downloadCount: 1320,
+      previewUrl: "doc-detail.html",
+      downloadUrl: "https://example.com/docs/postgresql_ha.zip",
+      createdAt: "2025-11-10"
+    },
+    {
+      id: 8,
+      title: "Hadoop 大数据平台搭建指南",
+      desc: "Hadoop 大数据平台的搭建、配置和运维管理指南。",
+      type: "指南",
+      category: "解决方案指南",
+      docCategory: "大数据",
+      downloadCount: 1680,
+      previewUrl: "doc-detail.html",
+      downloadUrl: "https://example.com/docs/hadoop_setup.zip",
+      createdAt: "2025-10-28"
+    },
+    {
+      id: 9,
+      title: "Spark 大数据处理实战",
+      desc: "Apache Spark 大数据处理框架的使用方法和最佳实践。",
+      type: "培训资料",
+      category: "培训资料",
+      docCategory: "大数据",
+      downloadCount: 1950,
+      previewUrl: "doc-detail.html",
+      downloadUrl: "https://example.com/docs/spark_practice.zip",
+      createdAt: "2025-10-20"
+    },
+    {
+      id: 10,
+      title: "Ceph 分布式存储系统架构",
+      desc: "Ceph 分布式存储系统的架构设计、部署和运维指南。",
+      type: "白皮书",
+      category: "技术白皮书",
+      docCategory: "分布式存储",
+      downloadCount: 1120,
+      previewUrl: "doc-detail.html",
+      downloadUrl: "https://example.com/docs/ceph_architecture.zip",
+      createdAt: "2025-10-15"
+    },
+    {
+      id: 11,
+      title: "GlusterFS 存储集群配置",
+      desc: "GlusterFS 分布式文件系统的集群配置和管理方法。",
+      type: "手册",
+      category: "产品手册",
+      docCategory: "分布式存储",
+      downloadCount: 980,
+      previewUrl: "doc-detail.html",
+      downloadUrl: "https://example.com/docs/glusterfs_config.zip",
+      createdAt: "2025-10-10"
+    },
+    {
+      id: 12,
+      title: "机器学习算法原理与应用",
+      desc: "常用机器学习算法的原理、实现和应用场景详解。",
+      type: "指南",
+      category: "解决方案指南",
+      docCategory: "人工智能",
+      downloadCount: 2250,
+      previewUrl: "doc-detail.html",
+      downloadUrl: "https://example.com/docs/ml_algorithms.zip",
+      createdAt: "2025-09-28"
+    },
+    {
+      id: 13,
+      title: "深度学习框架对比分析",
+      desc: "TensorFlow、PyTorch 等主流深度学习框架的对比分析。",
+      type: "白皮书",
+      category: "技术白皮书",
+      docCategory: "人工智能",
+      downloadCount: 1890,
+      previewUrl: "doc-detail.html",
+      downloadUrl: "https://example.com/docs/dl_frameworks.zip",
+      createdAt: "2025-09-20"
+    },
+    {
+      id: 14,
+      title: "高性能计算集群管理",
+      desc: "高性能计算集群的搭建、调度和管理最佳实践。",
+      type: "手册",
+      category: "产品手册",
+      docCategory: "高端计算",
+      downloadCount: 1450,
+      previewUrl: "doc-detail.html",
+      downloadUrl: "https://example.com/docs/hpc_cluster.zip",
+      createdAt: "2025-09-15"
+    },
+    {
+      id: 15,
+      title: "并行计算编程指南",
+      desc: "MPI、OpenMP 等并行计算编程模型的使用指南。",
+      type: "指南",
+      category: "解决方案指南",
+      docCategory: "高端计算",
+      downloadCount: 1320,
+      previewUrl: "doc-detail.html",
+      downloadUrl: "https://example.com/docs/parallel_computing.zip",
+      createdAt: "2025-09-10"
+    },
+    {
+      id: 16,
+      title: "常见问题解答 FAQ",
+      desc: "平台使用过程中的常见问题及解决方案汇总。",
+      type: "指南",
+      category: "解决方案指南",
+      docCategory: "常见问题",
+      downloadCount: 3200,
+      previewUrl: "doc-detail.html",
+      downloadUrl: "https://example.com/docs/faq.zip",
+      createdAt: "2025-09-05"
+    },
+    {
+      id: 17,
+      title: "故障排查手册",
+      desc: "系统常见故障的诊断、排查和解决方法。",
+      type: "手册",
+      category: "产品手册",
+      docCategory: "常见问题",
+      downloadCount: 2680,
+      previewUrl: "doc-detail.html",
+      downloadUrl: "https://example.com/docs/troubleshooting.zip",
+      createdAt: "2025-08-28"
     }
   ];
 
   const grid = document.getElementById('doc-grid');
   const countEl = document.getElementById('doc-count');
-  countEl.textContent = documents.length;
+  const selectedCategoryContainer = document.getElementById('selected-category-container');
+  const categoryCheckboxes = document.querySelectorAll('.category-filter-checkbox');
+  const sortButtons = document.querySelectorAll('.sort-btn');
+
+  let selectedCategories = []; // 改为数组，支持多选
+  let filteredDocuments = [...documents];
+  let currentSort = 'comprehensive'; // 当前排序方式
+
+  // 更新已选中的分类标签
+  function updateSelectedCategoryTags() {
+    if (!selectedCategoryContainer) return;
+    
+    selectedCategoryContainer.innerHTML = '';
+    
+    // 显示所有选中的分类标签
+    selectedCategories.forEach(category => {
+      const tag = document.createElement('div');
+      tag.className = 'filter-tag';
+      tag.innerHTML = `
+        <span>${category}</span>
+        <i class="fa fa-times filter-tag-close text-xs" data-category="${category}"></i>
+      `;
+      selectedCategoryContainer.appendChild(tag);
+      
+      // 绑定清除按钮事件
+      tag.querySelector('.filter-tag-close').addEventListener('click', (e) => {
+        e.stopPropagation();
+        const categoryToRemove = e.currentTarget.dataset.category;
+        // 取消对应的复选框
+        const checkbox = document.querySelector(`.category-filter-checkbox[value="${categoryToRemove}"]`);
+        if (checkbox) {
+          checkbox.checked = false;
+        }
+        // 从选中列表中移除
+        selectedCategories = selectedCategories.filter(cat => cat !== categoryToRemove);
+        updateSelectedCategoryTags();
+        applyFiltersAndSort();
+      });
+    });
+  }
+
+  // 应用筛选和排序
+  function applyFiltersAndSort() {
+    // 分类筛选
+    if (selectedCategories.length === 0) {
+      filteredDocuments = [...documents];
+    } else {
+      filteredDocuments = documents.filter(doc => selectedCategories.includes(doc.docCategory));
+    }
+    
+    // 排序
+    if (currentSort === 'latest') {
+      filteredDocuments.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else if (currentSort === 'hottest') {
+      // 按下载次数排序（如果没有下载次数字段，则按创建时间倒序）
+      filteredDocuments.sort((a, b) => {
+        const aDownloads = a.downloadCount || 0;
+        const bDownloads = b.downloadCount || 0;
+        if (bDownloads !== aDownloads) {
+          return bDownloads - aDownloads;
+        }
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+    } else {
+      // 综合排序：先按时间排序，时间相近时按下载量排序
+      filteredDocuments.sort((a, b) => {
+        const dateDiff = new Date(b.createdAt) - new Date(a.createdAt);
+        // 如果时间差小于7天，则按下载量排序
+        if (Math.abs(dateDiff) < 7 * 24 * 60 * 60 * 1000) {
+          const aDownloads = a.downloadCount || 0;
+          const bDownloads = b.downloadCount || 0;
+          return bDownloads - aDownloads;
+        }
+        return dateDiff;
+      });
+    }
+    
+    countEl.textContent = filteredDocuments.length;
+    renderDocuments();
+  }
 
   // 渲染文档卡片
-  documents.forEach(doc => {
+  function renderDocuments() {
+    grid.innerHTML = '';
+    
+    filteredDocuments.forEach(doc => {
     const card = document.createElement('article');
     card.className = "glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#B01F24]/80 transition";
 
@@ -234,7 +611,45 @@
     });
 
     grid.appendChild(card);
+    });
+  }
+
+  // 分类筛选事件绑定（多选）
+  categoryCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      if (checkbox.checked) {
+        // 选中时，添加到选中列表
+        if (!selectedCategories.includes(checkbox.value)) {
+          selectedCategories.push(checkbox.value);
+        }
+      } else {
+        // 取消选中时，从选中列表移除
+        selectedCategories = selectedCategories.filter(cat => cat !== checkbox.value);
+      }
+      updateSelectedCategoryTags();
+      applyFiltersAndSort();
+    });
   });
+
+  // 排序按钮事件绑定
+  sortButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      sortButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentSort = btn.dataset.sort;
+      applyFiltersAndSort();
+    });
+  });
+
+  // 初始化：默认激活「综合排序」
+  sortButtons.forEach(btn => {
+    if (btn.dataset.sort === 'comprehensive') {
+      btn.classList.add('active');
+    }
+  });
+  
+  updateSelectedCategoryTags();
+  applyFiltersAndSort();
 </script>
 
 </body>
