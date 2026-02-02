@@ -425,14 +425,19 @@
            </div>`
         : "";
 
-      const actionBtn = tool.type === "download"
-        ? `<a href="${tool.downloadUrl}"
-              class="w-full py-2 mt-3 rounded-full bg-[#2D874B] text-white text-xs font-medium hover:opacity-90 flex items-center justify-center gap-1">
-             <i class="fa fa-download text-[11px]"></i> 下载工具
-           </a>`
+      const actionBtn = tool.type === "download" || tool.type === "online"
+        ? `<div class="flex gap-2 mt-3">
+             <button class="flex-1 py-2 rounded-full bg-white border border-[#2D874B] text-[#2D874B] text-xs hover:bg-[#2D874B]/10 flex items-center justify-center gap-1">
+               <i class="fa fa-copy text-[11px]"></i> 复制下载链接
+             </button>
+             <a href="${tool.type === "download" ? tool.downloadUrl : tool.onlineUrl}"
+                class="flex-1 py-2 rounded-full bg-[#2D874B] text-white text-xs font-medium hover:opacity-90 flex items-center justify-center gap-1">
+               <i class="fa fa-download text-[11px]"></i> 立即下载
+             </a>
+           </div>`
         : `<a href="${tool.onlineUrl}"
               class="w-full py-2 mt-3 rounded-full bg-white border border-[#2D874B] text-[#2D874B] text-xs hover:bg-[#2D874B]/10 flex items-center justify-center gap-1">
-             <i class="fa fa-copy text-[11px]"></i> 复制下载地址
+             <i class="fa fa-external-link-alt text-[11px]"></i> 在线使用
            </a>`;
 
       card.innerHTML = `
@@ -454,9 +459,33 @@
       // 示例：点击卡片主体可预留 "工具详情" 功能
       card.addEventListener('click', (e) => {
         // 避免点击按钮时弹出提示
-        if (e.target.tagName === 'A' || e.target.closest('a')) return;
+        if (e.target.tagName === 'A' || e.target.closest('a') || e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
         alert('后续可以在这里跳转到「' + tool.name + '」的工具详情页（示例）。');
       });
+
+      // 为复制下载链接按钮添加点击事件
+      if (tool.type === "download" || tool.type === "online") {
+        const copyBtn = card.querySelector('button');
+        if (copyBtn) {
+          copyBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const url = tool.type === "download" ? tool.downloadUrl : tool.onlineUrl;
+            navigator.clipboard.writeText(url).then(() => {
+              // 临时修改按钮文本为"已复制"
+              const originalText = copyBtn.innerHTML;
+              copyBtn.innerHTML = '<i class="fa fa-check text-[11px]"></i> 已复制';
+              copyBtn.classList.add('bg-[#2D874B]/10');
+              // 2秒后恢复原文本
+              setTimeout(() => {
+                copyBtn.innerHTML = originalText;
+                copyBtn.classList.remove('bg-[#2D874B]/10');
+              }, 2000);
+            }).catch(err => {
+              console.error('复制失败:', err);
+            });
+          });
+        }
+      }
 
       grid.appendChild(card);
     });
