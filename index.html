@@ -55,32 +55,9 @@
       background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 30%, rgba(255,255,255,0.3) 70%, rgba(255,255,255,0.1) 100%);
     }
     
-    /* 个人信息模块悬浮效果 */
-    .user-info-card {
-      backdrop-filter: blur(20px);
-      background: rgba(255, 255, 255, 0.4);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-      border: none;
-    }
-    
-    /* 个人信息卡片内容区域固定高度，确保切换标签时卡片尺寸不变 */
-    #card-content {
-      min-height: 300px; /* 设置卡片最小高度，确保切换标签时尺寸一致 */
-    }
-    
+    /* 个人信息卡片（顶部导航栏 hover 弹窗） */
     .tab-content {
-      height: auto; /* 让内容区域自适应，使用flex-grow填充剩余空间 */
-    }
-    
-    /* 响应式调整 */
-    @media (max-width: 1024px) {
-      .user-info-card {
-        position: relative;
-        top: auto;
-        right: auto;
-        width: 100%;
-        margin-top: 1rem;
-      }
+      height: auto; /* 内容区域自适应 */
     }
     
     /* 全屏宽度下拉弹窗样式 */
@@ -815,14 +792,137 @@
           </div>
         </div>
 
-        <!-- 用户头像 -->
-        <div class="relative">
-          <button id="user-avatar" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
-            <a href="personal-center.html">
-              <i class="fa fa-user text-sm"></i>
-            </a>
-            </i>
-          </button>
+        <!-- 用户头像（悬浮弹出个人/公司信息卡片） -->
+        <div class="relative group hidden md:block">
+          <a id="user-avatar" href="personal-center.html"
+             class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <i class="fa fa-user text-sm"></i>
+          </a>
+
+          <!-- 悬浮弹窗 -->
+          <div id="user-info-dropdown"
+               class="absolute top-full right-0 mt-2 w-[360px] glass-card rounded-3xl border border-gray-300 p-4 shadow-xl opacity-0 invisible translate-y-1 transition-all duration-200 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-50">
+            <!-- Tab标签区域 -->
+            <div class="flex space-x-2 mb-4">
+              <button id="personal-tab" class="tab-button flex-1 px-4 py-2 rounded-lg bg-[#2D874B]/10 border border-[#2D874B] text-[#2D874B] shadow-sm flex items-center justify-center text-sm font-semibold transition">
+                个人
+              </button>
+              <button id="company-tab" class="tab-button flex-1 px-4 py-2 rounded-lg bg-white/70 border border-gray-300 text-gray-700 hover:border-[#2D874B]/50 hover:text-[#2D874B] flex items-center justify-center text-sm font-medium transition">
+                公司
+              </button>
+            </div>
+
+            <!-- 头像和信息区域 -->
+            <div class="flex items-start space-x-3">
+              <div class="relative">
+                <img
+                  src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80"
+                  class="h-14 w-14 rounded-2xl object-cover border border-gray-300"
+                  alt="avatar"
+                  id="avatar-img"
+                />
+                <span class="absolute -bottom-1 -right-1 h-4 w-4 rounded-full bg-[#2D874B] border-2 border-white"></span>
+              </div>
+
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <div class="text-base font-semibold text-gray-800" id="name-display">张合作 · 技术人员</div>
+                  <div id="points-display" class="flex items-center text-xs text-yellow-600">
+                    <i class="fa fa-coins mr-1 text-yellow-500"></i>
+                    <span>1280 积分</span>
+                  </div>
+                </div>
+                <div id="company-name-line" class="text-xs text-gray-500 mt-1">联想集团</div>
+                <div class="mt-1 space-y-1 hidden" id="company-tags">
+                  <div class="flex flex-wrap gap-1">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800">
+                      整机伙伴
+                    </span>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800">
+                      技术软件伙伴
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 个人数据内容（默认显示） -->
+            <div id="personal-content" class="tab-content flex-grow">
+              <div class="grid grid-cols-2 gap-2 text-xs mt-3">
+                <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="text-gray-600">我的任务</span>
+                    <i class="fa fa-tasks text-indigo-400 text-[10px]"></i>
+                  </div>
+                  <div class="text-sm font-semibold">5</div>
+                </div>
+                <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="text-gray-600">专家服务</span>
+                    <i class="fa fa-user-shield text-sky-400 text-[10px]"></i>
+                  </div>
+                  <div class="text-sm font-semibold">3</div>
+                </div>
+                <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="text-gray-600">课程学习</span>
+                    <i class="fa fa-book-open text-amber-400 text-[10px]"></i>
+                  </div>
+                  <div class="text-sm font-semibold">18</div>
+                </div>
+                <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="text-gray-600">我的证书</span>
+                    <i class="fa fa-certificate text-[#2D874B] text-[10px]"></i>
+                  </div>
+                  <div class="text-sm font-semibold">3</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 公司数据内容（默认隐藏） -->
+            <div id="company-content" class="tab-content flex-grow hidden">
+              <div class="grid grid-cols-2 gap-2 text-xs mt-3">
+                <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="text-gray-600">公司成员</span>
+                    <i class="fa fa-users text-indigo-400 text-[10px]"></i>
+                  </div>
+                  <div class="text-sm font-semibold">86</div>
+                </div>
+                <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="text-gray-600">专家服务</span>
+                    <i class="fa fa-cog text-sky-400 text-[10px]"></i>
+                  </div>
+                  <div class="text-sm font-semibold">156</div>
+                </div>
+                <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="text-gray-600">课程学习</span>
+                    <i class="fa fa-book-open text-amber-400 text-[10px]"></i>
+                  </div>
+                  <div class="text-sm font-semibold">42</div>
+                </div>
+                <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="text-gray-600">认证人数</span>
+                    <i class="fa fa-certificate text-[#2D874B] text-[10px]"></i>
+                  </div>
+                  <div class="text-sm font-semibold">28</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 快捷入口 -->
+            <div class="pt-4" id="quick-access-buttons">
+              <a href="personal-center.html"
+                 class="w-full inline-flex items-center justify-center px-3 py-2 rounded-2xl bg-[#2D874B] hover:bg-[#256e3d] text-xs font-medium text-white transition">
+                <i class="fa fa-layer-group mr-1.5 text-[11px]"></i> 个人中心
+              </a>
+            </div>
+          </div>
+        </div>
           
           <!-- 用户菜单下拉（可选） -->
           <!-- <div class="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible transition-all duration-300 z-50">
@@ -1099,145 +1199,7 @@
             </div>
           </div>
           
-          <!-- 个人信息模块 - 悬浮在banner右侧 -->
-          <div id="user-info-card" class="absolute top-1/2 right-14 z-20 w-10 user-info-card rounded-3xl p-2 space-y-4 transform -translate-y-1/2 transition-all duration-300">
-            <!-- 收缩按钮 -->
-            <button id="toggle-user-card" class="absolute -left-2.5 top-1/2 transform -translate-y-1/2 z-10 w-5 h-5 rounded-full bg-white border border-gray-300 flex items-center justify-center text-gray-500 hover:text-gray-700 hover:border-gray-400 transition shadow-sm">
-              <i class="fa fa-chevron-left text-xs"></i>
-            </button>
-            
-            <!-- 卡片内容容器 -->
-            <div id="card-content" style="display: none;" class="flex flex-col">
-              
-              <!-- Tab标签区域（卡片顶部横向摆放） -->
-              <div class="flex space-x-2 mb-4">
-                <button id="personal-tab" class="tab-button px-4 py-2 rounded-lg bg-white/90 border border-[#2D874B] flex items-center justify-center text-sm font-medium text-gray-700 transition">
-                  个人
-                </button>
-                <button id="company-tab" class="tab-button px-4 py-2 rounded-lg bg-white/50 border border-gray-300 flex items-center justify-center text-sm font-medium text-gray-700 transition">
-                  公司
-                </button>
-              </div>
-              
-              <!-- 头像和信息区域 -->
-              <div class="flex items-start space-x-3">
-                <!-- 头像区域 -->
-                <div class="relative">
-                  <img
-                    src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80"
-                    class="h-14 w-14 rounded-2xl object-cover border border-gray-300"
-                    alt="avatar"
-                    id="avatar-img"
-                  />
-                  <span class="absolute -bottom-1 -right-1 h-4 w-4 rounded-full bg-[#2D874B] border-2 border-white"></span>
-                </div>
-                
-                <!-- 个人信息区域 -->
-                <div class="flex-1">
-                  <div class="flex items-center justify-between">
-                    <div class="text-base font-semibold text-gray-800" id="name-display">张合作 · 技术人员</div>
-                    <div id="points-display" class="flex items-center text-xs text-yellow-600">
-                      <i class="fa fa-coins mr-1 text-yellow-500"></i>
-                      <span>1280 积分</span>
-                    </div>
-                  </div>
-                  <div class="text-xs text-gray-500 mt-1">联想集团</div>
-                  <div class="mt-1 space-y-1 hidden" id="company-tags">
-                    <div class="flex flex-wrap gap-1">
-                      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800">
-                        整机伙伴
-                      </span>
-                      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800">
-                        技术软件伙伴
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- 个人数据内容（默认显示） -->
-              <div id="personal-content" class="tab-content flex-grow">
-                <div class="grid grid-cols-2 gap-2 text-xs mt-3">
-                  <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
-                    <div class="flex items-center justify-between mb-0.5">
-                      <span class="text-gray-600">我的任务</span>
-                      <i class="fa fa-tasks text-indigo-400 text-[10px]"></i>
-                    </div>
-                    <div class="text-sm font-semibold">5</div>
-                  </div>
-                  <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
-                    <div class="flex items-center justify-between mb-0.5">
-                      <span class="text-gray-600">专家服务</span>
-                      <i class="fa fa-user-shield text-sky-400 text-[10px]"></i>
-                    </div>
-                    <div class="text-sm font-semibold">3</div>
-                  </div>
-                  <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
-                    <div class="flex items-center justify-between mb-0.5">
-                      <span class="text-gray-600">课程学习</span>
-                      <i class="fa fa-book-open text-amber-400 text-[10px]"></i>
-                    </div>
-                    <div class="text-sm font-semibold">18</div>
-                  </div>
-                  <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
-                    <div class="flex items-center justify-between mb-0.5">
-                      <span class="text-gray-600">我的证书</span>
-                      <i class="fa fa-certificate text-[#2D874B] text-[10px]"></i>
-                    </div>
-                    <div class="text-sm font-semibold">3</div>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- 公司数据内容（默认隐藏） -->
-              <div id="company-content" class="tab-content flex-grow hidden">
-                <div class="grid grid-cols-2 gap-2 text-xs mt-3">
-                  <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
-                    <div class="flex items-center justify-between mb-0.5">
-                      <span class="text-gray-600">公司成员</span>
-                      <i class="fa fa-users text-indigo-400 text-[10px]"></i>
-                    </div>
-                    <div class="text-sm font-semibold">86</div>
-                  </div>
-                  <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
-                    <div class="flex items-center justify-between mb-0.5">
-                      <span class="text-gray-600">专家服务</span>
-                      <i class="fa fa-cog text-sky-400 text-[10px]"></i>
-                    </div>
-                    <div class="text-sm font-semibold">156</div>
-                  </div>
-                  <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
-                    <div class="flex items-center justify-between mb-0.5">
-                      <span class="text-gray-600">课程学习</span>
-                      <i class="fa fa-book-open text-amber-400 text-[10px]"></i>
-                    </div>
-                    <div class="text-sm font-semibold">42</div>
-                  </div>
-                  <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
-                    <div class="flex items-center justify-between mb-0.5">
-                      <span class="text-gray-600">认证人数</span>
-                      <i class="fa fa-certificate text-[#2D874B] text-[10px]"></i>
-                    </div>
-                    <div class="text-sm font-semibold">28</div>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- 快捷入口 -->
-              <div class="flex gap-3 pt-4" id="quick-access-buttons">
-                <!-- 个人中心按钮 -->
-                <a href="personal-center.html"
-                   class="flex-1 inline-flex items-center justify-center px-3 py-2 rounded-2xl bg-[#4B8CF5] hover:bg-gray-300 text-xs font-medium text-white">
-                  <i class="fa fa-layer-group mr-1.5 text-[11px]"></i> 个人中心
-                </a>
-                <!-- 我的认证按钮 -->
-                <a href="personal-center.html"
-                   class="flex-1 inline-flex items-center justify-center px-3 py-2 rounded-2xl bg-white/80 border border-gray-300 hover:border-[#2D874B] text-xs text-gray-800">
-                  <i class="fa fa-user-shield mr-1.5 text-[11px]"></i> 我的认证
-                </a>
-              </div>
-            </div>
-          </div>
+          <!-- 个人信息模块已迁移到顶部导航栏个人中心 Icon 悬浮弹窗 -->
         </div>
       </div>
     </div>
@@ -3172,7 +3134,7 @@
     <div class="text-xs text-gray-700">
       已自动填写你刚才选中的文字，可直接点击「搜索」调用 AI Agent 进行智能解读和资料补充。
     </div>
-    <textarea id="search-input"
+    <textarea id="search-dialog-input"
               rows="3"
               class="w-full px-3 py-2 rounded-2xl bg-white/80 border border-gray-300 text-xs md:text-sm text-gray-800
                      placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]"></textarea>
@@ -3514,7 +3476,7 @@
 
   // ---------- 边看边搜：浮窗按钮行为 ----------
   const searchDialog = document.getElementById('search-dialog');
-  const searchInput  = document.getElementById('search-input');
+  const searchInput  = document.getElementById('search-dialog-input');
   const searchBtn    = document.getElementById('search-btn');
   const searchDialogClose = document.getElementById('search-dialog-close');
 
@@ -3583,145 +3545,118 @@
     }, 500);
   });
 
-  // ---------- 个人信息卡片收缩功能 ----------
-  const userInfoCard = document.getElementById('user-info-card');
-  const toggleUserCard = document.getElementById('toggle-user-card');
-  const cardContent = document.getElementById('card-content');
-  let isCardCollapsed = true;
+  // ---------- Tab切换功能（顶部导航栏个人中心 Hover 弹窗） ----------
+  function initUserInfoDropdownTabs() {
+    const personalTab = document.getElementById('personal-tab');
+    const companyTab = document.getElementById('company-tab');
+    const personalContent = document.getElementById('personal-content');
+    const companyContent = document.getElementById('company-content');
+    const avatarImg = document.getElementById('avatar-img');
+    const nameDisplay = document.getElementById('name-display');
+    const quickAccessButtons = document.getElementById('quick-access-buttons');
+    const companyNameLine = document.getElementById('company-name-line');
+    const pointsDisplay = document.getElementById('points-display');
 
-  toggleUserCard.addEventListener('click', () => {
-    isCardCollapsed = !isCardCollapsed;
-    
-    if (isCardCollapsed) {
-      // 收缩卡片：只显示展开图标
-      userInfoCard.style.width = '40px';
-      userInfoCard.style.padding = '10px';
-      cardContent.style.display = 'none';
-      toggleUserCard.innerHTML = '<i class="fa fa-chevron-left text-xs"></i>';
-      // 按钮保持垂直居中位置不变
-    } else {
-      // 展开卡片：显示所有内容
-      userInfoCard.style.width = '320px';
-      userInfoCard.style.padding = '20px';
-      cardContent.style.display = 'block';
-      toggleUserCard.innerHTML = '<i class="fa fa-chevron-right text-xs"></i>';
-      // 按钮保持垂直居中位置不变
+    if (!personalTab || !companyTab || !personalContent || !companyContent || !avatarImg || !nameDisplay || !quickAccessButtons) {
+      // 页面结构发生变化时避免报错
+      return;
     }
-  });
 
-  // ---------- Tab切换功能 ----------
-  const personalTab = document.getElementById('personal-tab');
-  const companyTab = document.getElementById('company-tab');
-  const personalContent = document.getElementById('personal-content');
-  const companyContent = document.getElementById('company-content');
-  const avatarImg = document.getElementById('avatar-img');
-  const nameDisplay = document.getElementById('name-display');
-  const quickAccessButtons = document.getElementById('quick-access-buttons');
-
-  // 默认显示个人内容
-  personalTab.classList.add('bg-white/90', 'border-[#2D874B]');
-  personalTab.classList.remove('bg-white/50');
-  companyTab.classList.add('bg-white/50');
-  companyTab.classList.remove('bg-white/90', 'border-[#2D874B]');
-  personalContent.classList.remove('hidden');
-  companyContent.classList.add('hidden');
-  
-  // 显示个人头像和姓名
-  avatarImg.src = 'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80';
-  nameDisplay.textContent = '张合作 · 技术人员';
-  
-  // 默认显示名字下方的公司名字（个人Tab）
-  const companyNameDiv = document.querySelector('#card-content .text-xs.text-gray-500');
-  if (companyNameDiv) {
-    companyNameDiv.style.display = 'block';
-  }
-  
-  // 获取积分显示元素
-  const pointsDisplay = document.getElementById('points-display');
-  
-  // 默认显示快捷入口按钮（个人Tab）
-  quickAccessButtons.style.display = 'flex';
-  
-  // 默认显示积分信息（个人Tab）
-  if (pointsDisplay) {
-    pointsDisplay.style.display = 'flex';
-  }
-
-  personalTab.addEventListener('click', () => {
-    // 激活个人tab
-    personalTab.classList.add('bg-white/90', 'border-[#2D874B]');
-    personalTab.classList.remove('bg-white/50');
-    
-    // 取消激活公司tab
-    companyTab.classList.remove('bg-white/90', 'border-[#2D874B]');
-    companyTab.classList.add('bg-white/50');
-    
-    // 显示个人内容，隐藏公司内容
+    // 默认显示个人内容（初始化选中样式）
+    personalTab.classList.add('bg-[#2D874B]/10', 'border-[#2D874B]', 'text-[#2D874B]', 'shadow-sm', 'font-semibold');
+    personalTab.classList.remove('bg-white/70', 'bg-white/50', 'text-gray-700', 'border-gray-300', 'font-medium');
+    companyTab.classList.add('bg-white/70', 'border-gray-300', 'text-gray-700', 'font-medium');
+    companyTab.classList.remove('bg-[#2D874B]/10', 'border-[#2D874B]', 'text-[#2D874B]', 'shadow-sm', 'font-semibold');
     personalContent.classList.remove('hidden');
     companyContent.classList.add('hidden');
-    
+
     // 显示个人头像和姓名
     avatarImg.src = 'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80';
     nameDisplay.textContent = '张合作 · 技术人员';
-    
-    // 显示名字下方的公司名字
-    const companyNameDiv = document.querySelector('#card-content .text-xs.text-gray-500');
-    if (companyNameDiv) {
-      companyNameDiv.style.display = 'block';
-    }
-    
-    // 隐藏公司标签（个人Tab下不显示标签）
-    const companyTags = document.getElementById('company-tags');
-    if (companyTags) {
-      companyTags.classList.add('hidden');
-    }
-    
-    // 显示积分信息
-    if (pointsDisplay) {
-      pointsDisplay.style.display = 'flex';
-    }
-    
-    // 显示快捷入口按钮
-    quickAccessButtons.style.display = 'flex';
-  });
 
-  companyTab.addEventListener('click', () => {
-    // 激活公司tab
-    companyTab.classList.add('bg-white/90', 'border-[#2D874B]');
-    companyTab.classList.remove('bg-white/50');
-    
-    // 取消激活个人tab
-    personalTab.classList.remove('bg-white/90', 'border-[#2D874B]');
-    personalTab.classList.add('bg-white/50');
-    
-    // 显示公司内容，隐藏个人内容
-    companyContent.classList.remove('hidden');
-    personalContent.classList.add('hidden');
-    
-    // 显示公司logo和公司名称
-    avatarImg.src = 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=120&q=80';
-    nameDisplay.textContent = '联想集团';
-    
-    // 隐藏名字下方的公司名字，避免重复显示
-    const companyNameDiv = document.querySelector('#card-content .text-xs.text-gray-500');
-    if (companyNameDiv) {
-      companyNameDiv.style.display = 'none';
-    }
-    
-    // 显示公司标签（公司Tab下显示标签）
-    const companyTags = document.getElementById('company-tags');
-    if (companyTags) {
-      companyTags.classList.remove('hidden');
-    }
-    
-    // 隐藏积分信息（公司Tab下不显示积分）
-    if (pointsDisplay) {
-      pointsDisplay.style.display = 'none';
-    }
-    
-    // 隐藏快捷入口按钮
-    quickAccessButtons.style.display = 'none';
-  });
+    // 默认显示名字下方的公司名字（个人Tab）
+    if (companyNameLine) companyNameLine.style.display = 'block';
+
+    // 默认显示快捷入口按钮（个人Tab）
+    quickAccessButtons.style.display = 'flex';
+
+    // 默认显示积分信息（个人Tab）
+    if (pointsDisplay) pointsDisplay.style.display = 'flex';
+
+    // 防止重复绑定
+    if (personalTab.dataset.bound === '1') return;
+    personalTab.dataset.bound = '1';
+
+    personalTab.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      // 激活个人tab（选中样式）
+      personalTab.classList.add('bg-[#2D874B]/10', 'border-[#2D874B]', 'text-[#2D874B]', 'shadow-sm', 'font-semibold');
+      personalTab.classList.remove('bg-white/70', 'bg-white/50', 'text-gray-700', 'border-gray-300', 'font-medium');
+
+      // 取消激活公司tab（未选中样式）
+      companyTab.classList.add('bg-white/70', 'border-gray-300', 'text-gray-700', 'font-medium');
+      companyTab.classList.remove('bg-[#2D874B]/10', 'border-[#2D874B]', 'text-[#2D874B]', 'shadow-sm', 'font-semibold');
+
+      // 显示个人内容，隐藏公司内容
+      personalContent.classList.remove('hidden');
+      companyContent.classList.add('hidden');
+
+      // 显示个人头像和姓名
+      avatarImg.src = 'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80';
+      nameDisplay.textContent = '张合作 · 技术人员';
+
+      // 显示名字下方的公司名字
+      if (companyNameLine) companyNameLine.style.display = 'block';
+
+      // 隐藏公司标签（个人Tab下不显示标签）
+      const companyTags = document.getElementById('company-tags');
+      if (companyTags) companyTags.classList.add('hidden');
+
+      // 显示积分信息
+      if (pointsDisplay) pointsDisplay.style.display = 'flex';
+
+      // 显示快捷入口按钮
+      quickAccessButtons.style.display = 'flex';
+    });
+
+    companyTab.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      // 激活公司tab（选中样式）
+      companyTab.classList.add('bg-[#2D874B]/10', 'border-[#2D874B]', 'text-[#2D874B]', 'shadow-sm', 'font-semibold');
+      companyTab.classList.remove('bg-white/70', 'bg-white/50', 'text-gray-700', 'border-gray-300', 'font-medium');
+
+      // 取消激活个人tab（未选中样式）
+      personalTab.classList.add('bg-white/70', 'border-gray-300', 'text-gray-700', 'font-medium');
+      personalTab.classList.remove('bg-[#2D874B]/10', 'border-[#2D874B]', 'text-[#2D874B]', 'shadow-sm', 'font-semibold');
+
+      // 显示公司内容，隐藏个人内容
+      companyContent.classList.remove('hidden');
+      personalContent.classList.add('hidden');
+
+      // 显示公司logo和公司名称
+      avatarImg.src = 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=120&q=80';
+      nameDisplay.textContent = '联想集团';
+
+      // 隐藏名字下方的公司名字，避免重复显示
+      if (companyNameLine) companyNameLine.style.display = 'none';
+
+      // 显示公司标签（公司Tab下显示标签）
+      const companyTags = document.getElementById('company-tags');
+      if (companyTags) companyTags.classList.remove('hidden');
+
+      // 隐藏积分信息（公司Tab下不显示积分）
+      if (pointsDisplay) pointsDisplay.style.display = 'none';
+
+      // 隐藏快捷入口按钮
+      quickAccessButtons.style.display = 'none';
+    });
+  }
+
+  initUserInfoDropdownTabs();
 
   // ---------- 按资源找支持 Tab切换功能 ----------
   document.addEventListener('DOMContentLoaded', function() {
@@ -3967,7 +3902,9 @@
       // 回车键搜索
       searchInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
-          performSearch(this.value.trim());
+          e.preventDefault();
+          const q = this.value.trim();
+          if (q) performSearch(q);
         }
       });
     }
@@ -4027,14 +3964,8 @@
       // 这里可以添加实际的搜索逻辑
       console.log('执行搜索:', searchText);
       
-      // 模拟搜索跳转（实际项目中应该跳转到搜索结果页面）
-      // window.location.href = `search-results.html?q=${encodeURIComponent(searchText)}`;
-      
-      // 隐藏搜索下拉
-      hideSearchDropdown();
-      
-      // 显示搜索提示（实际项目中应该跳转页面）
-      alert(`搜索: ${searchText}`);
+    // 跳转到搜索结果页
+    window.location.href = `search-results.html?q=${encodeURIComponent(searchText)}`;
     }
   });
   
