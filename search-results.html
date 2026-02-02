@@ -54,6 +54,21 @@
       color: #10b981;
       border-color: rgba(16,185,129,0.5);
     }
+    .badge-expert {
+      background: rgba(59,130,246,0.12);
+      color: #2563eb;
+      border-color: rgba(59,130,246,0.5);
+    }
+    .badge-live {
+      background: rgba(234,88,12,0.12);
+      color: #ea580c;
+      border-color: rgba(234,88,12,0.5);
+    }
+    .badge-resource {
+      background: rgba(107,114,128,0.12);
+      color: #4b5563;
+      border-color: rgba(107,114,128,0.5);
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -687,7 +702,7 @@
         </h1>
         <p class="text-xs text-gray-600 mt-1">
           当前关键词：<span id="current-keyword" class="text-[#B01F24] font-medium">大数据</span>
-          ，为你在课程、考试、认证、资讯中查找相关内容。
+          ，为你在专家、课程、考试、认证、直播、资源、资讯中查找相关内容。
         </p>
       </div>
       <div class="text-[11px] text-gray-400 hidden sm:block">
@@ -695,11 +710,12 @@
       </div>
     </div>
 
-    <!-- 顶部 Tab：全部 / 课程 / 考试 / 认证 / 资讯 -->
+    <!-- 顶部 Tab：专家 / 课程 / 考试 / 认证 / 直播 / 资源 / 资讯 -->
     <div class="glass-card rounded-3xl border border-gray-300 p-3 flex flex-wrap items-center gap-2 text-xs">
       <span class="text-gray-400 mr-1">结果类型：</span>
-      <button class="tab-btn tab-btn-active px-3 py-1.5 rounded-full border" data-target="all">
-        全部
+      <button class="tab-btn tab-btn-active px-3 py-1.5 rounded-full border" data-target="expert">
+        <i class="fa fa-user-tie mr-1 text-[11px] text-blue-500"></i> 专家
+        (<span id="count-expert">0</span>)
       </button>
       <button class="tab-btn px-3 py-1.5 rounded-full border" data-target="course">
         <i class="fa fa-book-open mr-1 text-[11px] text-sky-500"></i> 课程
@@ -713,6 +729,14 @@
         <i class="fa fa-certificate mr-1 text-[11px] text-emerald-500"></i> 认证
         (<span id="count-cert">0</span>)
       </button>
+      <button class="tab-btn px-3 py-1.5 rounded-full border" data-target="live">
+        <i class="fa fa-video mr-1 text-[11px] text-orange-500"></i> 直播
+        (<span id="count-live">0</span>)
+      </button>
+      <button class="tab-btn px-3 py-1.5 rounded-full border" data-target="resource">
+        <i class="fa fa-folder-open mr-1 text-[11px] text-gray-500"></i> 资源
+        (<span id="count-resource">0</span>)
+      </button>
       <button class="tab-btn px-3 py-1.5 rounded-full border" data-target="news">
         <i class="fa fa-newspaper mr-1 text-[11px] text-purple-500"></i> 资讯
         (<span id="count-news">0</span>)
@@ -721,10 +745,16 @@
 
     <!-- 结果列表 -->
     <section id="results-wrapper">
-      <!-- 全部结果 -->
-      <div id="panel-all" class="result-panel">
+      <!-- 综合结果（暂保留，当前不在 Tab 中使用） -->
+      <div id="panel-all" class="result-panel hidden">
         <h2 class="text-xs text-slate-400 mb-2">综合结果</h2>
-        <div id="grid-all" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div id="grid-all" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+      </div>
+
+      <!-- 专家 -->
+      <div id="panel-expert" class="result-panel">
+        <h2 class="text-xs text-slate-400 mb-2">专家</h2>
+        <div id="grid-expert" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           <!-- JS 注入 -->
         </div>
       </div>
@@ -749,6 +779,22 @@
       <div id="panel-cert" class="result-panel hidden">
         <h2 class="text-xs text-slate-400 mb-2">认证</h2>
         <div id="grid-cert" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </div>
+
+      <!-- 直播 -->
+      <div id="panel-live" class="result-panel hidden">
+        <h2 class="text-xs text-slate-400 mb-2">直播</h2>
+        <div id="grid-live" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <!-- JS 注入 -->
+        </div>
+      </div>
+
+      <!-- 资源 -->
+      <div id="panel-resource" class="result-panel hidden">
+        <h2 class="text-xs text-slate-400 mb-2">资源</h2>
+        <div id="grid-resource" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           <!-- JS 注入 -->
         </div>
       </div>
@@ -789,6 +835,24 @@
 <script>
   // ===== 1. 模拟“大数据”搜索结果数据 =====
   const searchResults = {
+    expert: [
+      {
+        id: 1,
+        name: "王强",
+        title: "大数据架构专家",
+        org: "HIECO 大数据技术中心",
+        tags: ["大数据平台", "数据湖", "数据治理"],
+        cases: 12
+      },
+      {
+        id: 2,
+        name: "李敏",
+        title: "数据智能专家",
+        org: "AI 与数据智能学院",
+        tags: ["机器学习", "数据分析", "推荐系统"],
+        cases: 9
+      }
+    ],
     course: [
       {
         id: 101,
@@ -844,6 +908,38 @@
         level: "Expert"
       }
     ],
+    live: [
+      {
+        id: 501,
+        title: "大数据平台性能优化实战直播",
+        desc: "从架构、配置与调优三个维度讲解大数据平台性能优化方法。",
+        date: "2026-02-15 19:30",
+        status: "预约中"
+      },
+      {
+        id: 502,
+        title: "从零搭建企业级数据湖直播公开课",
+        desc: "面向架构师和实施工程师的实战分享。",
+        date: "2026-02-20 20:00",
+        status: "即将开始"
+      }
+    ],
+    resource: [
+      {
+        id: 601,
+        title: "大数据平台白皮书",
+        desc: "覆盖 HIECO 大数据平台整体架构与关键能力。",
+        type: "白皮书",
+        date: "2026-01-10"
+      },
+      {
+        id: 602,
+        title: "大数据平台运维手册",
+        desc: "面向运维工程师的大数据平台日常运维与故障排查指南。",
+        type: "手册",
+        date: "2025-12-18"
+      }
+    ],
     news: [
       {
         id: 401,
@@ -865,27 +961,68 @@
   // ===== 2. DOM 引用 =====
   const keywordEl = document.getElementById('current-keyword');
   const totalCountEl = document.getElementById('total-count');
+  const countExpertEl = document.getElementById('count-expert');
   const countCourseEl = document.getElementById('count-course');
   const countExamEl = document.getElementById('count-exam');
   const countCertEl = document.getElementById('count-cert');
+  const countLiveEl = document.getElementById('count-live');
+  const countResourceEl = document.getElementById('count-resource');
   const countNewsEl = document.getElementById('count-news');
 
   const gridAll = document.getElementById('grid-all');
+  const gridExpert = document.getElementById('grid-expert');
   const gridCourse = document.getElementById('grid-course');
   const gridExam = document.getElementById('grid-exam');
   const gridCert = document.getElementById('grid-cert');
+  const gridLive = document.getElementById('grid-live');
+  const gridResource = document.getElementById('grid-resource');
   const gridNews = document.getElementById('grid-news');
 
   const panels = {
-    all: document.getElementById('panel-all'),
+    expert: document.getElementById('panel-expert'),
     course: document.getElementById('panel-course'),
     exam: document.getElementById('panel-exam'),
     cert: document.getElementById('panel-cert'),
+    live: document.getElementById('panel-live'),
+    resource: document.getElementById('panel-resource'),
     news: document.getElementById('panel-news')
   };
   const emptyState = document.getElementById('empty-state');
 
   // ===== 3. 工具函数：创建卡片 =====
+  function createExpertCard(item) {
+    const card = document.createElement('article');
+    card.className = 'glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#B01F24]/80 transition cursor-pointer';
+    card.innerHTML = `
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full border badge-expert text-[10px]">
+            <i class="fa fa-user-tie mr-1 text-[9px]"></i>专家
+          </span>
+          <span class="text-[11px] text-gray-400 line-clamp-1 max-w-[120px]" title="${item.org}">
+            <i class="fa fa-building mr-1 text-[9px]"></i>${item.org}
+          </span>
+        </div>
+        <h3 class="text-sm font-semibold mb-1 text-gray-800">${item.name}</h3>
+        <p class="text-xs text-gray-600 mb-2 line-clamp-2">${item.title}</p>
+        <div class="flex flex-wrap gap-1 mb-2">
+          ${item.tags.map(t => `<span class="px-1.5 py-0.5 rounded-full bg-gray-100 text-[10px] text-gray-600">${t}</span>`).join('')}
+        </div>
+      </div>
+      <div class="flex items-center justify-between text-[11px] text-gray-400">
+        <span><i class="fa fa-briefcase mr-1 text-[9px]"></i>服务案例：${item.cases}</span>
+        <span class="text-[#B01F24] flex items-center gap-1">
+          查看专家
+          <i class="fa fa-arrow-right text-[9px]"></i>
+        </span>
+      </div>
+    `;
+    card.addEventListener('click', () => {
+      window.location.href = `expert-center.html`; // 示例：跳转专家中心，可携带 id
+    });
+    return card;
+  }
+
   function createCourseCard(item) {
     const card = document.createElement('article');
     card.className = 'glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#B01F24]/80 transition cursor-pointer';
@@ -1009,46 +1146,125 @@
   // ===== 4. 渲染结果 =====
   function renderAllPanels() {
     // 清空
-    gridAll.innerHTML = '';
+    if (gridAll) gridAll.innerHTML = '';
+    gridExpert.innerHTML = '';
     gridCourse.innerHTML = '';
     gridExam.innerHTML = '';
     gridCert.innerHTML = '';
+    gridLive.innerHTML = '';
+    gridResource.innerHTML = '';
     gridNews.innerHTML = '';
+
+    // 专家
+    searchResults.expert.forEach(item => {
+      const card = createExpertCard(item);
+      gridExpert.appendChild(card);
+      if (gridAll) gridAll.appendChild(card.cloneNode(true));
+    });
 
     // 课程
     searchResults.course.forEach(item => {
       const card = createCourseCard(item);
       gridCourse.appendChild(card);
-      gridAll.appendChild(card.cloneNode(true)); // 简单 clone 用于综合区
+      if (gridAll) gridAll.appendChild(card.cloneNode(true)); // 简单 clone 用于综合区
     });
 
     // 考试
     searchResults.exam.forEach(item => {
       const card = createExamCard(item);
       gridExam.appendChild(card);
-      gridAll.appendChild(card.cloneNode(true));
+      if (gridAll) gridAll.appendChild(card.cloneNode(true));
     });
 
     // 认证
     searchResults.cert.forEach(item => {
       const card = createCertCard(item);
       gridCert.appendChild(card);
-      gridAll.appendChild(card.cloneNode(true));
+      if (gridAll) gridAll.appendChild(card.cloneNode(true));
     });
 
     // 资讯
     searchResults.news.forEach(item => {
       const card = createNewsCard(item);
       gridNews.appendChild(card);
-      gridAll.appendChild(card.cloneNode(true));
+      if (gridAll) gridAll.appendChild(card.cloneNode(true));
     });
 
-    const total = searchResults.course.length + searchResults.exam.length +
-                  searchResults.cert.length + searchResults.news.length;
+    // 直播
+    searchResults.live.forEach(item => {
+      const card = document.createElement('article');
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#B01F24]/80 transition cursor-pointer';
+      card.innerHTML = `
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full border badge-live text-[10px]">
+              <i class="fa fa-video mr-1 text-[9px]"></i>直播
+            </span>
+            <span class="text-[11px] text-orange-600">
+              ${item.status}
+            </span>
+          </div>
+          <h3 class="text-sm font-semibold line-clamp-2 mb-1 text-gray-800">${item.title}</h3>
+          <p class="text-xs text-gray-600 line-clamp-2 mb-2">${item.desc}</p>
+        </div>
+        <div class="flex items-center justify-between text-[11px] text-gray-400">
+          <span><i class="fa fa-calendar mr-1 text-[9px]"></i>${item.date}</span>
+          <span class="text-[#B01F24] flex items-center gap-1">
+            查看直播
+            <i class="fa fa-arrow-right text-[9px]"></i>
+          </span>
+        </div>
+      `;
+      card.addEventListener('click', () => {
+        window.location.href = `live-detail.html?id=${item.id}`;
+      });
+      gridLive.appendChild(card);
+      if (gridAll) gridAll.appendChild(card.cloneNode(true));
+    });
 
+    // 资源
+    searchResults.resource.forEach(item => {
+      const card = document.createElement('article');
+      card.className = 'glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#B01F24]/80 transition cursor-pointer';
+      card.innerHTML = `
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full border badge-resource text-[10px]">
+              <i class="fa fa-folder-open mr-1 text-[9px]"></i>${item.type}
+            </span>
+          </div>
+          <h3 class="text-sm font-semibold line-clamp-2 mb-1 text-gray-800">${item.title}</h3>
+          <p class="text-xs text-gray-600 line-clamp-2 mb-2">${item.desc}</p>
+        </div>
+        <div class="flex items-center justify-between text-[11px] text-gray-400">
+          <span><i class="fa fa-calendar mr-1 text-[9px]"></i>${item.date}</span>
+          <span class="text-[#B01F24] flex items-center gap-1">
+            查看资源
+            <i class="fa fa-arrow-right text-[9px]"></i>
+          </span>
+        </div>
+      `;
+      card.addEventListener('click', () => {
+        window.location.href = `resource-center.html`;
+      });
+      gridResource.appendChild(card);
+      if (gridAll) gridAll.appendChild(card.cloneNode(true));
+    });
+
+    const total = searchResults.expert.length +
+                  searchResults.course.length +
+                  searchResults.exam.length +
+                  searchResults.cert.length +
+                  searchResults.live.length +
+                  searchResults.resource.length +
+                  searchResults.news.length;
+
+    countExpertEl.textContent = searchResults.expert.length;
     countCourseEl.textContent = searchResults.course.length;
     countExamEl.textContent = searchResults.exam.length;
     countCertEl.textContent = searchResults.cert.length;
+    countLiveEl.textContent = searchResults.live.length;
+    countResourceEl.textContent = searchResults.resource.length;
     countNewsEl.textContent = searchResults.news.length;
     totalCountEl.textContent = total;
 
@@ -1067,11 +1283,6 @@
       Object.keys(panels).forEach(key => {
         panels[key].classList.toggle('hidden', key !== target);
       });
-
-      // 如果是全部
-      if (target === 'all') {
-        panels.all.classList.remove('hidden');
-      }
     });
   });
 
