@@ -207,6 +207,9 @@
         <div class="nav-tab px-4 py-3 rounded-lg cursor-pointer" data-target="received-invitation">
           <i class="fas fa-envelope mr-2"></i>收到邀请
         </div>
+        <div class="nav-tab px-4 py-3 rounded-lg cursor-pointer" data-target="review-invitation">
+          <i class="fas fa-check-circle mr-2"></i>审核受邀
+        </div>
         <div class="nav-tab px-4 py-3 rounded-lg cursor-pointer" data-target="download-app">
           <i class="fas fa-download mr-2"></i>下载光圈-注册成功
         </div>
@@ -720,6 +723,101 @@
               </button>
             </div>
           </form>
+        </div>
+      </div>
+
+      <!-- 审核受邀页面 -->
+      <div class="page" id="review-invitation">
+        <!-- 个人中心头部 -->
+        <div class="mb-6 p-4 bg-gradient-to-r from-[#2D874B] to-[#34D399] rounded-xl text-white">
+          <div class="flex items-center mb-3">
+            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-3">
+              <i class="fas fa-building text-xl"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold">联想集团</h3>
+              <div class="flex gap-2 mt-1">
+                <span class="text-xs bg-white bg-opacity-20 rounded-lg py-1 px-2">整机伙伴</span>
+                <span class="text-xs bg-white bg-opacity-20 rounded-lg py-1 px-2">技术软件伙伴</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">审核受邀</h2>
+        
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+          <p class="text-blue-800">请审核成员提交的信息，确认无误后通过审核。</p>
+        </div>
+        
+        <div class="glass-card rounded-3xl border border-gray-300 p-6 mb-6">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">邀请信息</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="form-group">
+              <label class="block text-sm font-medium text-gray-700 mb-1">邀请组织</label>
+              <div class="bg-gray-50 px-4 py-3 rounded-lg border border-gray-200">
+                <span class="font-medium">联想集团</span>
+                <span class="ml-2 text-xs bg-green-100 text-green-800 px-2 py-1 rounded">整机伙伴</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="block text-sm font-medium text-gray-700 mb-1">邀请方式</label>
+              <div class="bg-gray-50 px-4 py-3 rounded-lg border border-gray-200">
+                <span>二维码扫描</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="block text-sm font-medium text-gray-700 mb-1">邀请时间</label>
+              <div class="bg-gray-50 px-4 py-3 rounded-lg border border-gray-200">
+                <span>2026-02-02 14:30:00</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="block text-sm font-medium text-gray-700 mb-1">邀请人</label>
+              <div class="bg-gray-50 px-4 py-3 rounded-lg border border-gray-200">
+                <span>张三（管理员）</span>
+              </div>
+            </div>
+          </div>
+          
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">成员提交信息</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="form-group">
+              <label class="block text-sm font-medium text-gray-700 mb-1">姓名</label>
+              <div class="bg-gray-50 px-4 py-3 rounded-lg border border-gray-200">
+                <span>李四</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="block text-sm font-medium text-gray-700 mb-1">手机号码</label>
+              <div class="bg-gray-50 px-4 py-3 rounded-lg border border-gray-200">
+                <span>13800138000</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="block text-sm font-medium text-gray-700 mb-1">邮箱</label>
+              <div class="bg-gray-50 px-4 py-3 rounded-lg border border-gray-200">
+                <span>lisi@example.com</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="block text-sm font-medium text-gray-700 mb-1">岗位类型</label>
+              <div class="bg-gray-50 px-4 py-3 rounded-lg border border-gray-200">
+                <span>技术岗</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex gap-4 justify-end mt-6">
+            <button class="px-6 py-2.5 bg-gray-300 text-gray-700 rounded-xl text-base font-semibold hover:bg-gray-400 transition">
+              <i class="fa fa-times mr-1"></i>驳回
+            </button>
+            <button class="px-6 py-2.5 bg-[#2D874B] text-white rounded-xl text-base font-semibold hover:bg-[#256e3d] transition">
+              <i class="fa fa-check mr-1"></i>审核通过
+            </button>
+          </div>
         </div>
       </div>
 
