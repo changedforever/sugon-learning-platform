@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>工具详情 - 光合技术支持平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标（Font Awesome，可按需替换为你自己的图标方案） -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* 轮播容器和卡片 ceshi*/
+    .banner-card {
+      height: 600px;
+    }
+    .banner-slide {
+      position: relative;
+    }
+    .banner-slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      /* 浅色模式下的淡白遮罩渐变 */
+      background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
+      pointer-events: none;
+    }
+    .glass-card {
+      /* 浅色玻璃风卡片 */
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(14px);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+
+    
+    /* 优化banner视觉效果 */
+    .banner-card {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    /* 增强banner遮罩效果 */
+    .banner-slide::after {
+      background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 30%, rgba(255,255,255,0.3) 70%, rgba(255,255,255,0.1) 100%);
+    }
+    
+    /* 个人信息模块悬浮效果 */
+    .user-info-card {
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border: none;
+    }
+    
+    /* 个人信息卡片内容区域固定高度，确保切换标签时卡片尺寸不变 */
+    #card-content {
+      min-height: 300px;
+    }
+    
+    .tab-content {
+      height: auto;
+    }
+    
+    /* 响应式调整 */
+    @media (max-width: 1024px) {
+      .user-info-card {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: 100%;
+        margin-top: 1rem;
+      }
+    }
+    
+    /* 全屏宽度下拉弹窗样式 */
+    .full-width-dropdown {
+      width: 100vw;
+      max-width: none;
+      position: fixed;
+      top: auto;
+      left: 0;
+      margin-top: 0;
+      border-top: 1px solid #e5e7eb;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      z-index: 60;
+    }
+    
+    /* 当前激活的下拉菜单样式 */
+    .full-width-dropdown.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* 左侧导航项目样式 */
+    .nav-item {
+      transition: all 0.2s ease;
+    }
+    
+    .nav-item.selected {
+      background-color: #3B82F6 !important;
+      color: white !important;
+      font-weight: 500;
+    }
+    
+    /* 右侧内容区域样式 */
+    .nav-content.hidden {
+      display: none;
+    }
+    
+    .nav-content.active-content {
+      display: block;
+    }
+    
+    /* 防止下拉浮窗闪烁 */
+    .nav-dropdown:hover .full-width-dropdown {
+      pointer-events: auto;
+    }
+    .full-width-dropdown {
+      pointer-events: none;
+    }
+    .full-width-dropdown * {
+      pointer-events: auto;
+    }
+    
+    /* 专家头像选中状态样式 */
+    .expert-tab.active img {
+      border-color: #3B82F6 !important;
+      transform: scale(1.05);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    }
+    
+    .expert-tab:not(.active) img {
+      border-color: #ffffff;
+    }
+    
+    /* 面包屑样式 */
+    .breadcrumb {
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .breadcrumb a {
+      color: #2D874B;
+      text-decoration: none;
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    /* 工具详情样式 */
+    .tool-detail-content {
+      line-height: 1.6;
+    }
+    
+    .tool-detail-content h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 24px 0 16px;
+      color: #333;
+    }
+    
+    .tool-detail-content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 20px 0 12px;
+      color: #444;
+    }
+    
+    .tool-detail-content p {
+      margin: 12px 0;
+      color: #666;
+    }
+    
+    /* 工具头部样式 */
+    .tool-header {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    
+    /* 工具功能模块样式 */
+    .tool-module {
+      transition: all 0.3s ease;
+    }
+    
+    .tool-module:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+<!-- 顶部导航 + 全站搜索 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-16 relative">
+      <!-- LOGO + 品牌 -->
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+          <img src="images/logo2.png" alt="HIECO Logo" class="h-32 w-32 object-contain">
+        </a>
+        <div>
+          <!--div class="text-xs uppercase tracking-widest text-white">HIECO</div-->
+          <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200" style="font-size: 18px;">光合技术支持平台</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 导航入口（桌面端） -->
+      <nav class="hidden md:flex items-center space-x-4 text-base">
+        <!-- 专家 - 无下拉 -->
+        <a href="expert-center.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">
+          专家
+        </a>
+
+        <div class="nav-dropdown relative group">
+          <a href="training.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            培训
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </a>
+          <div class="full-width-dropdown fixed top-0 left-0 w-screen bg-white shadow-xl border-t border-gray-200 opacity-0 invisible transition-all duration-300 z-40" id="training-full-dropdown">
+            <div class="container mx-auto px-4 py-16">
+              <div class="flex">
+                <!-- 左侧导航 -->
+                <div class="w-48 pr-6 border-r border-gray-200">
+                  <div class="space-y-2">
+                    <a href="course-list2.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 active-nav-item nav-item selected" data-target="course">课程</a>
+                    <a href="exam-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="exam">考试</a>
+                    <a href="certification.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="certification">认证</a>
+                    <a href="lecturer-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="lecturer">讲师</a>
+                  </div>
+                </div>
+                
+                <!-- 分隔线 -->
+                <div class="mx-6 h-full w-px bg-gray-200"></div>
+                
+                <!-- 右侧分类内容 -->
+                <div class="flex-1 pl-6">
+                  <div id="course-content" class="nav-content active-content">
+                    <h3 class="text-lg font-semibold mb-6">课程分类</h3>
+                    <div class="grid grid-cols-3 gap-6">
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2 text-base">技术方向</h4>
+                        <ul class="space-y-1">
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">云计算</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">公有云服务</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 直播 - 带下拉浮窗 -->
+        <div class="nav-dropdown relative group">
+          <a href="live-list.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            直播
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </a>
+          <div class="full-width-dropdown fixed top-0 left-0 w-screen bg-white shadow-xl border-t border-gray-200 opacity-0 invisible transition-all duration-300 z-40" id="live-full-dropdown">
+            <div class="container mx-auto px-4 py-16">
+              <div class="flex">
+                <!-- 直播没有左侧导航和分隔线，直接显示右侧分类内容 -->
+                <div class="flex-1">
+                  <h3 class="text-lg font-semibold mb-6">直播分类</h3>
+                  <div class="grid grid-cols-3 gap-6">
+                    <div>
+                      <h4 class="font-medium text-gray-800 mb-2 text-base">技术直播</h4>
+                      <ul class="space-y-1">
+                        <li class="mb-2">
+                          <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">云计算技术</a>
+                          <ul class="mt-1 space-y-1 pl-2">
+                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">Kubernetes实践</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 资源 - 高亮状态 -->
+        <a href="resource-center.html" class="px-4 py-2 rounded-full bg-gray-300 transition text-[#2D874B] font-medium">资源</a>
+        
+        <!-- 资讯 - 带下拉浮窗（合并资讯、活动） -->
+        <div class="nav-dropdown relative group">
+          <span class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            资讯
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </span>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="space-y-3">
+                <!-- 资讯 -->
+                <a href="news-announcement-list.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-newspaper mr-3 text-[#2D874B]"></i>
+                  <span>资讯</span>
+                </a>
+                
+                <!-- 活动 -->
+                <a href="activity-list.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-calendar-alt mr-3 text-[#2D874B]"></i>
+                  <span>活动</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <a href="https://forum.sourcefind.cn/" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">论坛</a>
+      </nav>
+
+      <!-- 右侧功能区 -->
+      <div class="flex items-center space-x-3">
+        <!-- 搜索图标（桌面端） -->
+        <div class="relative">
+          <!-- 搜索图标按钮 -->
+          <button id="search-toggle" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <i class="fa fa-search text-sm"></i>
+          </button>
+          
+          <!-- 下拉搜索栏 -->
+          <div id="search-dropdown" class="absolute top-full right-0 mt-2 w-96 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible transition-all duration-300 z-50">
+            <div class="p-4">
+              <!-- 搜索输入框 -->
+              <div class="relative mb-3">
+                <input
+                  type="text"
+                  id="search-input"
+                  placeholder="搜索培训、考试、认证、资讯..."
+                  class="w-full rounded-xl bg-gray-100 border border-gray-300 px-4 py-3 pl-10 text-sm
+                         placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]"
+                />
+                <i class="fa fa-search text-gray-500 absolute left-3 top-3.5 text-sm"></i>
+              </div>
+              
+              <!-- 热搜推荐 -->
+              <div id="hot-search" class="mb-3">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-medium text-gray-600">热搜推荐</span>
+                  <button class="text-xs text-blue-500 hover:text-blue-700 transition">换一换</button>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <button class="search-tag px-2 py-1 bg-gray-100 hover:bg-blue-50 text-xs text-gray-600 hover:text-blue-600 rounded-lg transition">
+                    云计算基础
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 用户头像 -->
+        <div class="relative">
+          <button id="user-avatar" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <a href="personal-center.html">
+              <i class="fa fa-user text-sm"></i>
+            </a>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 面包屑导航 -->
+<main class="pt-24 lg:pt-28 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6">
+    <!-- 面包屑 -->
+    <div class="breadcrumb mb-8 flex items-center gap-2">
+      <button onclick="window.history.back()" class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center hover:border-[#2D874B] transition">
+        <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
+      </button>
+      <a href="index.html">首页</a>
+      <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+      <a href="resource-center.html">资源</a>
+      <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+      <a href="tech-tool-library.html">技术工具库</a>
+      <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+      <span class="text-gray-900 font-medium">工具详情 · ICS Lite</span>
+    </div>
+
+    <!-- 工具详情内容 -->
+    <div class="space-y-8">
+      <!-- 工具头部信息 -->
+      <div class="tool-header p-6 lg:p-10">
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+          <!-- 工具Logo和名称 -->
+          <div class="flex flex-col items-center lg:items-start">
+            <div class="bg-white rounded-full p-6 mb-4">
+              <img src="https://via.placeholder.com/120x120?text=ICS+Lite" alt="ICS Lite" class="w-24 h-24 object-contain">
+            </div>
+            <h1 class="text-2xl lg:text-3xl font-bold text-white mb-2">ICS Lite</h1>
+            <p class="text-white/80 text-sm">信息收集系统轻量版</p>
+          </div>
+          
+          <!-- 工具信息和下载 -->
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 lg:p-6 w-full lg:w-auto">
+            <div class="space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div>
+                  <p class="text-white/80 text-xs">发布日期：2025-10</p>
+                  <p class="text-white/80 text-xs">版本号：25.2502.2.3</p>
+                </div>
+                <button class="px-4 py-2 rounded-full bg-white text-[#0ea5e9] text-sm font-medium hover:bg-white/90 transition">
+                  <i class="fa fa-bookmark mr-2"></i> 收藏
+                </button>
+              </div>
+              
+              <div class="space-y-3">
+                <h3 class="text-white font-medium text-sm">下载选项</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <a href="#" class="flex items-center justify-center gap-2 bg-white text-[#0ea5e9] rounded-xl py-3 px-4 text-sm font-medium hover:bg-white/90 transition">
+                    <i class="fa fa-download"></i>
+                    <div>
+                      <div>下载64位</div>
+                      <div class="text-xs text-[#0ea5e9]/80">适用于64位操作系统</div>
+                    </div>
+                  </a>
+                  <a href="#" class="flex items-center justify-center gap-2 bg-white text-[#0ea5e9] rounded-xl py-3 px-4 text-sm font-medium hover:bg-white/90 transition">
+                    <i class="fa fa-download"></i>
+                    <div>
+                      <div>下载32位</div>
+                      <div class="text-xs text-[#0ea5e9]/80">适用于32位操作系统</div>
+                    </div>
+                  </a>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <a href="#" class="flex items-center justify-center gap-2 bg-[#0ea5e9] text-white border border-white/30 rounded-xl py-3 px-4 text-sm font-medium hover:bg-[#0284c7] transition">
+                    <i class="fa fa-key"></i>
+                    <div>
+                      <div>数字签名-64位</div>
+                      <div class="text-xs text-white/80">验证文件完整性</div>
+                    </div>
+                  </a>
+                  <a href="#" class="flex items-center justify-center gap-2 bg-[#0ea5e9] text-white border border-white/30 rounded-xl py-3 px-4 text-sm font-medium hover:bg-[#0284c7] transition">
+                    <i class="fa fa-key"></i>
+                    <div>
+                      <div>数字签名-32位</div>
+                      <div class="text-xs text-white/80">验证文件完整性</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 工具公告 -->
+      <div class="glass-card rounded-3xl border border-gray-300 p-4 lg:p-6">
+        <div class="flex items-start gap-3">
+          <div class="bg-blue-100 rounded-full p-2">
+            <i class="fa fa-bullhorn text-[#0ea5e9]"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-2">版本公告</h3>
+            <p class="text-sm text-gray-600">
+              ICS Lite 32位版本下载通道关闭公告：尊敬的用户，您好！因软件EOS不再提供服务，我们已于2025年7月1日起关闭ICS Lite 32位版本下载通道，如需下载ICS Lite 32位版本，请联系<a href="#" class="text-[#0ea5e9] hover:underline">点击反馈问题</a>，感谢您的理解！
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 工具功能模块 -->
+      <div class="glass-card rounded-3xl border border-gray-300 p-4 lg:p-6">
+        <h2 class="text-xl font-semibold mb-6">功能模块</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <!-- 软件批量下载 -->
+          <div class="tool-module glass-card rounded-2xl border border-gray-300 p-4 flex flex-col items-center text-center hover:border-[#0ea5e9]">
+            <div class="bg-blue-100 rounded-full p-3 mb-3">
+              <i class="fa fa-download text-[#0ea5e9] text-xl"></i>
+            </div>
+            <h3 class="text-sm font-medium mb-2">软件批量下载</h3>
+            <p class="text-xs text-gray-600">批量获取和管理软件安装包</p>
+          </div>
+          
+          <!-- 自动验证签名 -->
+          <div class="tool-module glass-card rounded-2xl border border-gray-300 p-4 flex flex-col items-center text-center hover:border-[#0ea5e9]">
+            <div class="bg-blue-100 rounded-full p-3 mb-3">
+              <i class="fa fa-shield-alt text-[#0ea5e9] text-xl"></i>
+            </div>
+            <h3 class="text-sm font-medium mb-2">自动验证签名</h3>
+            <p class="text-xs text-gray-600">自动验证软件数字签名的有效性</p>
+          </div>
+          
+          <!-- 文档管理 -->
+          <div class="tool-module glass-card rounded-2xl border border-gray-300 p-4 flex flex-col items-center text-center hover:border-[#0ea5e9]">
+            <div class="bg-blue-100 rounded-full p-3 mb-3">
+              <i class="fa fa-file-alt text-[#0ea5e9] text-xl"></i>
+            </div>
+            <h3 class="text-sm font-medium mb-2">文档管理</h3>
+            <p class="text-xs text-gray-600">集中管理工具相关文档和指南</p>
+          </div>
+          
+          <!-- ICS离线阅读 -->
+          <div class="tool-module glass-card rounded-2xl border border-gray-300 p-4 flex flex-col items-center text-center hover:border-[#0ea5e9]">
+            <div class="bg-blue-100 rounded-full p-3 mb-3">
+              <i class="fa fa-book text-[#0ea5e9] text-xl"></i>
+            </div>
+            <h3 class="text-sm font-medium mb-2">ICS离线阅读</h3>
+            <p class="text-xs text-gray-600">离线查看ICS相关文档和内容</p>
+          </div>
+          
+          <!-- HDX离线阅读 -->
+          <div class="tool-module glass-card rounded-2xl border border-gray-300 p-4 flex flex-col items-center text-center hover:border-[#0ea5e9]">
+            <div class="bg-blue-100 rounded-full p-3 mb-3">
+              <i class="fa fa-desktop text-[#0ea5e9] text-xl"></i>
+            </div>
+            <h3 class="text-sm font-medium mb-2">HDX离线阅读</h3>
+            <p class="text-xs text-gray-600">离线查看HDX相关文档和内容</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 工具说明 -->
+      <div class="glass-card rounded-3xl border border-gray-300 p-4 lg:p-6">
+        <h2 class="text-xl font-semibold mb-6">工具说明</h2>
+        <div class="space-y-4">
+          <div>
+            <h3 class="text-base font-medium mb-3">工具简介</h3>
+            <p class="text-sm text-gray-600">
+              ICS Lite 是一款轻量级信息收集系统，用于在本地PC上收集和管理信息，支持多种数据源的采集和整合，为技术支持和故障排查提供有力支持。
+            </p>
+          </div>
+          
+          <div>
+            <h3 class="text-base font-medium mb-3">系统要求</h3>
+            <ul class="text-sm text-gray-600 space-y-2">
+              <li><i class="fa fa-check-circle text-[#2D874B] mr-2"></i> 操作系统：Windows 7/8/10/11 (32位或64位)</li>
+              <li><i class="fa fa-check-circle text-[#2D874B] mr-2"></i> 处理器：Intel Core i3 或同等性能处理器</li>
+              <li><i class="fa fa-check-circle text-[#2D874B] mr-2"></i> 内存：至少4GB RAM</li>
+              <li><i class="fa fa-check-circle text-[#2D874B] mr-2"></i> 磁盘空间：至少500MB可用空间</li>
+              <li><i class="fa fa-check-circle text-[#2D874B] mr-2"></i> 网络：互联网连接（用于下载和更新）</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="text-base font-medium mb-3">使用指南</h3>
+            <p class="text-sm text-gray-600 mb-3">
+              1. 下载并安装适合您操作系统的ICS Lite版本
+            </p>
+            <p class="text-sm text-gray-600 mb-3">
+              2. 运行ICS Lite，按照向导完成初始配置
+            </p>
+            <p class="text-sm text-gray-600 mb-3">
+              3. 使用各功能模块进行信息收集和管理
+            </p>
+            <p class="text-sm text-gray-600">
+              4. 如有问题，请参考帮助文档或联系技术支持
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 常见问题 -->
+      <div class="glass-card rounded-3xl border border-gray-300 p-4 lg:p-6">
+        <h2 class="text-xl font-semibold mb-6">常见问题</h2>
+        <div class="space-y-4">
+          <div class="border-b border-gray-200 pb-4">
+            <h3 class="text-sm font-medium mb-2">如何验证数字签名？</h3>
+            <p class="text-xs text-gray-600">
+              下载数字签名文件后，使用系统自带的签名验证工具或ICS Lite的自动验证签名功能进行验证。验证通过后，即可确认文件的完整性和来源可靠性。
+            </p>
+          </div>
+          
+          <div class="border-b border-gray-200 pb-4">
+            <h3 class="text-sm font-medium mb-2">升级场景参考什么文档？</h3>
+            <p class="text-xs text-gray-600">
+              升级场景请参考ICS Lite升级指导FAQ，该文档详细说明了不同升级场景的操作步骤和注意事项，可在文档管理模块中获取。
+            </p>
+          </div>
+          
+          <div>
+            <h3 class="text-sm font-medium mb-2">32位版本无法下载怎么办？</h3>
+            <p class="text-xs text-gray-600">
+              由于软件EOS，32位版本下载通道已关闭。如需下载32位版本，请通过页面上的反馈问题链接联系我们的技术支持团队。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-gray-300 mt-12 pt-6 pb-8">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+    <div>© 2026 HIECO 光合技术支持平台</div>
+    <div class="flex flex-wrap gap-4">
+      <span>隐私政策</span>
+      <span>法律声明</span>
+      <span>版权信息</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 导航下拉菜单脚本 -->
+<script>
+  // 导航下拉菜单
+  document.addEventListener('DOMContentLoaded', function() {
+    // 处理搜索框切换
+    const searchToggle = document.getElementById('search-toggle');
+    const searchDropdown = document.getElementById('search-dropdown');
+    
+    if (searchToggle && searchDropdown) {
+      searchToggle.addEventListener('click', function() {
+        searchDropdown.classList.toggle('opacity-0');
+        searchDropdown.classList.toggle('invisible');
+      });
+      
+      // 点击其他地方关闭搜索框
+      document.addEventListener('click', function(e) {
+        if (!searchToggle.contains(e.target) && !searchDropdown.contains(e.target)) {
+          searchDropdown.classList.add('opacity-0', 'invisible');
+        }
+      });
+    }
+    
+    // 处理全屏下拉菜单
+    const navDropdowns = document.querySelectorAll('.nav-dropdown');
+    
+    navDropdowns.forEach(dropdown => {
+      const fullDropdown = dropdown.querySelector('.full-width-dropdown');
+      
+      if (fullDropdown) {
+        dropdown.addEventListener('mouseenter', function() {
+          fullDropdown.classList.remove('opacity-0', 'invisible');
+          fullDropdown.classList.add('opacity-100', 'visible');
+        });
+        
+        dropdown.addEventListener('mouseleave', function() {
+          fullDropdown.classList.add('opacity-0', 'invisible');
+          fullDropdown.classList.remove('opacity-100', 'visible');
+        });
+      }
+    });
+    
+    // 工具数据
+    const tools = [
+      {
+        id: 1,
+        name: "ICS Lite",
+        version: "25.2502.2.3",
+        releaseDate: "2025-10",
+        description: "ICS Lite 是一款轻量级信息收集系统，用于在本地PC上收集和管理信息，支持多种数据源的采集和整合，为技术支持和故障排查提供有力支持。",
+        osRequirements: ["Windows 7/8/10/11 (32位或64位)", "Intel Core i3 或同等性能处理器", "至少4GB RAM", "至少500MB可用空间", "互联网连接（用于下载和更新）"],
+        downloadLinks: {
+          64bit: "#",
+          32bit: "#",
+          signature64: "#",
+          signature32: "#"
+        }
+      },
+      {
+        id: 2,
+        name: "Kubernetes 命令行工具（kubectl）",
+        version: "1.28.0",
+        releaseDate: "2025-09",
+        description: "用于管理 Kubernetes 集群的命令行工具，支持应用部署、集群调试与资源查看。",
+        osRequirements: ["Windows", "Linux", "macOS"],
+        downloadLinks: {
+          windows: "#",
+          linux: "#",
+          macos: "#"
+        }
+      },
+      {
+        id: 3,
+        name: "集群健康巡检脚本",
+        version: "1.0.0",
+        releaseDate: "2025-08",
+        description: "一键收集 HIECO 云平台关键指标与日志，生成健康巡检报告，便于技术支持快速定位问题。",
+        osRequirements: ["Linux"],
+        downloadLinks: {
+          linux: "#"
+        }
+      }
+    ];
+    
+    // 获取URL参数
+    function getUrlParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+    
+    // 根据ID加载工具
+    function loadToolById(id) {
+      const toolData = tools.find(t => t.id == id);
+      if (toolData) {
+        // 更新标题
+        document.title = `${toolData.name} - 工具详情 - 光合技术支持平台`;
+        
+        // 更新面包屑
+        const breadcrumb = document.querySelector('.breadcrumb span:last-child');
+        if (breadcrumb) {
+          breadcrumb.textContent = `工具详情 · ${toolData.name}`;
+        }
+        
+        // 更新工具名称
+        const toolTitle = document.querySelector('.tool-header h1');
+        if (toolTitle) {
+          toolTitle.textContent = toolData.name;
+        }
+        
+        // 更新工具信息
+        const releaseDateEl = document.querySelector('.tool-header p:nth-child(1)');
+        const versionEl = document.querySelector('.tool-header p:nth-child(2)');
+        if (releaseDateEl && versionEl) {
+          releaseDateEl.textContent = `发布日期：${toolData.releaseDate}`;
+          versionEl.textContent = `版本号：${toolData.version}`;
+        }
+        
+        // 更新工具说明
+        const toolDesc = document.querySelector('.glass-card:nth-child(4) p');
+        if (toolDesc) {
+          toolDesc.textContent = toolData.description;
+        }
+      }
+    }
+    
+    // 加载工具
+    const toolId = getUrlParam('id') || 1;
+    loadToolById(toolId);
+  });
+</script>
+
+</body>
+</html>

@@ -31,6 +31,21 @@
     .overlay {
       background: rgba(0,0,0,0.5);
     }
+    .status-badge-upcoming {
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+    .status-badge-live {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+    .status-badge-ended {
+      background: rgba(107, 114, 128, 0.1);
+      color: #6b7280;
+      border-color: rgba(107, 114, 128, 0.3);
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -133,6 +148,10 @@
           <div class="text-xs text-gray-600 mt-1">课程数量</div>
         </div>
         <div class="text-center">
+          <div class="text-2xl font-bold text-[#B01F24]">3</div>
+          <div class="text-xs text-gray-600 mt-1">直播数量</div>
+        </div>
+        <div class="text-center">
           <div class="text-2xl font-bold text-[#B01F24]">2,456</div>
           <div class="text-xs text-gray-600 mt-1">观看人次</div>
         </div>
@@ -163,89 +182,217 @@
         </div>
       </article>
 
-      <!-- 关联课程 -->
+      <!-- 关联课程与直播 -->
       <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5">
-        <h2 class="text-base font-semibold flex items-center gap-2 mb-3">
-          <i class="fa fa-book text-[#B01F24]"></i>
-          关联课程
-          <span class="text-xs text-gray-500 ml-2">(12门)</span>
-        </h2>
-        <div class="space-y-3">
-          <!-- 课程卡片 1 -->
-          <a href="#" class="flex items-center p-3 rounded-2xl border border-gray-300 hover:border-[#B01F24] transition">
-            <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=200&q=80" 
-                   alt="课程封面" class="w-full h-full object-cover">
-            </div>
-            <div class="ml-3 flex-1 min-w-0">
-              <h3 class="text-sm font-medium text-gray-800 truncate">云原生架构设计实战</h3>
-              <p class="text-xs text-gray-600 mt-1 line-clamp-2">
-                深入讲解云原生架构设计理念、服务拆分策略、容器与Kubernetes编排实践
-              </p>
-              <div class="flex items-center mt-2 text-xs text-gray-500">
-                <span><i class="fa fa-play-circle mr-1"></i> 180分钟</span>
-                <span class="mx-2">•</span>
-                <span><i class="fa fa-users mr-1"></i> 1,245人学习</span>
-              </div>
-            </div>
-          </a>
+        <!-- 标签页导航 -->
+        <div class="flex border-b border-gray-200 mb-4">
+          <button id="tab-courses" class="tab-btn tab-active flex-1 py-2 px-4 text-sm font-medium flex items-center justify-center gap-2">
+            <i class="fa fa-book text-sm"></i>
+            关联课程
+            <span class="text-xs text-gray-500">(12门)</span>
+          </button>
+          <button id="tab-lives" class="tab-btn flex-1 py-2 px-4 text-sm font-medium flex items-center justify-center gap-2">
+            <i class="fa fa-video text-sm"></i>
+            关联直播
+            <span class="text-xs text-gray-500">(4场)</span>
+          </button>
+        </div>
 
-          <!-- 课程卡片 2 -->
-          <a href="#" class="flex items-center p-3 rounded-2xl border border-gray-300 hover:border-[#B01F24] transition">
-            <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-              <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=200&q=80" 
-                   alt="课程封面" class="w-full h-full object-cover">
-            </div>
-            <div class="ml-3 flex-1 min-w-0">
-              <h3 class="text-sm font-medium text-gray-800 truncate">容器技术与Docker实战</h3>
-              <p class="text-xs text-gray-600 mt-1 line-clamp-2">
-                从零开始掌握Docker容器技术，包括镜像管理、容器编排和最佳实践
-              </p>
-              <div class="flex items-center mt-2 text-xs text-gray-500">
-                <span><i class="fa fa-play-circle mr-1"></i> 150分钟</span>
-                <span class="mx-2">•</span>
-                <span><i class="fa fa-users mr-1"></i> 2,156人学习</span>
-              </div>
-            </div>
-          </a>
+        <!-- 标签页内容 -->
+        <div class="tab-content">
+          <!-- 课程列表 -->
+          <div id="content-courses" class="tab-pane">
+            <div class="space-y-3">
+              <!-- 课程卡片 1 -->
+              <a href="#" class="flex items-center p-3 rounded-2xl border border-gray-300 hover:border-[#B01F24] transition">
+                <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                  <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=200&q=80" 
+                       alt="课程封面" class="w-full h-full object-cover">
+                </div>
+                <div class="ml-3 flex-1 min-w-0">
+                  <h3 class="text-sm font-medium text-gray-800 truncate">云原生架构设计实战</h3>
+                  <p class="text-xs text-gray-600 mt-1 line-clamp-2">
+                    深入讲解云原生架构设计理念、服务拆分策略、容器与Kubernetes编排实践
+                  </p>
+                  <div class="flex items-center mt-2 text-xs text-gray-500">
+                    <span><i class="fa fa-play-circle mr-1"></i> 180分钟</span>
+                    <span class="mx-2">•</span>
+                    <span><i class="fa fa-users mr-1"></i> 1,245人学习</span>
+                  </div>
+                </div>
+              </a>
 
-          <!-- 课程卡片 3 -->
-          <a href="#" class="flex items-center p-3 rounded-2xl border border-gray-300 hover:border-[#B01F24] transition">
-            <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-              <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=200&q=80" 
-                   alt="课程封面" class="w-full h-full object-cover">
-            </div>
-            <div class="ml-3 flex-1 min-w-0">
-              <h3 class="text-sm font-medium text-gray-800 truncate">Kubernetes集群管理</h3>
-              <p class="text-xs text-gray-600 mt-1 line-clamp-2">
-                深入理解Kubernetes核心概念，掌握集群部署、管理和运维技能
-              </p>
-              <div class="flex items-center mt-2 text-xs text-gray-500">
-                <span><i class="fa fa-play-circle mr-1"></i> 210分钟</span>
-                <span class="mx-2">•</span>
-                <span><i class="fa fa-users mr-1"></i> 1,876人学习</span>
-              </div>
-            </div>
-          </a>
+              <!-- 课程卡片 2 -->
+              <a href="#" class="flex items-center p-3 rounded-2xl border border-gray-300 hover:border-[#B01F24] transition">
+                <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                  <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=200&q=80" 
+                       alt="课程封面" class="w-full h-full object-cover">
+                </div>
+                <div class="ml-3 flex-1 min-w-0">
+                  <h3 class="text-sm font-medium text-gray-800 truncate">容器技术与Docker实战</h3>
+                  <p class="text-xs text-gray-600 mt-1 line-clamp-2">
+                    从零开始掌握Docker容器技术，包括镜像管理、容器编排和最佳实践
+                  </p>
+                  <div class="flex items-center mt-2 text-xs text-gray-500">
+                    <span><i class="fa fa-play-circle mr-1"></i> 150分钟</span>
+                    <span class="mx-2">•</span>
+                    <span><i class="fa fa-users mr-1"></i> 2,156人学习</span>
+                  </div>
+                </div>
+              </a>
 
-          <!-- 课程卡片 4 -->
-          <a href="#" class="flex items-center p-3 rounded-2xl border border-gray-300 hover:border-[#B01F24] transition">
-            <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-              <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=200&q=80" 
-                   alt="课程封面" class="w-full h-full object-cover">
+              <!-- 课程卡片 3 -->
+              <a href="#" class="flex items-center p-3 rounded-2xl border border-gray-300 hover:border-[#B01F24] transition">
+                <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                  <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=200&q=80" 
+                       alt="课程封面" class="w-full h-full object-cover">
+                </div>
+                <div class="ml-3 flex-1 min-w-0">
+                  <h3 class="text-sm font-medium text-gray-800 truncate">Kubernetes集群管理</h3>
+                  <p class="text-xs text-gray-600 mt-1 line-clamp-2">
+                    深入理解Kubernetes核心概念，掌握集群部署、管理和运维技能
+                  </p>
+                  <div class="flex items-center mt-2 text-xs text-gray-500">
+                    <span><i class="fa fa-play-circle mr-1"></i> 210分钟</span>
+                    <span class="mx-2">•</span>
+                    <span><i class="fa fa-users mr-1"></i> 1,876人学习</span>
+                  </div>
+                </div>
+              </a>
+
+              <!-- 课程卡片 4 -->
+              <a href="#" class="flex items-center p-3 rounded-2xl border border-gray-300 hover:border-[#B01F24] transition">
+                <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                  <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=200&q=80" 
+                       alt="课程封面" class="w-full h-full object-cover">
+                </div>
+                <div class="ml-3 flex-1 min-w-0">
+                  <h3 class="text-sm font-medium text-gray-800 truncate">微服务架构设计模式</h3>
+                  <p class="text-xs text-gray-600 mt-1 line-clamp-2">
+                    探讨微服务架构的核心设计模式，解决分布式系统中的常见挑战
+                  </p>
+                  <div class="flex items-center mt-2 text-xs text-gray-500">
+                    <span><i class="fa fa-play-circle mr-1"></i> 165分钟</span>
+                    <span class="mx-2">•</span>
+                    <span><i class="fa fa-users mr-1"></i> 1,543人学习</span>
+                  </div>
+                </div>
+              </a>
             </div>
-            <div class="ml-3 flex-1 min-w-0">
-              <h3 class="text-sm font-medium text-gray-800 truncate">微服务架构设计模式</h3>
-              <p class="text-xs text-gray-600 mt-1 line-clamp-2">
-                探讨微服务架构的核心设计模式，解决分布式系统中的常见挑战
-              </p>
-              <div class="flex items-center mt-2 text-xs text-gray-500">
-                <span><i class="fa fa-play-circle mr-1"></i> 165分钟</span>
-                <span class="mx-2">•</span>
-                <span><i class="fa fa-users mr-1"></i> 1,543人学习</span>
+          </div>
+
+          <!-- 直播列表 -->
+          <div id="content-lives" class="tab-pane hidden">
+            <div class="grid grid-cols-2 gap-3">
+              <!-- 直播卡片 1 -->
+              <div class="glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#B01F24]/80 transition cursor-pointer flex flex-col">
+                <div class="relative flex-shrink-0">
+                  <div class="aspect-[586/672] bg-gray-200 flex items-center justify-center">
+                    <span class="text-gray-500 text-sm">直播封面图</span>
+                  </div>
+                  <div class="absolute top-2 left-2">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] status-badge-ended">
+                      <i class="fa fa-history mr-1 text-[8px]"></i>精彩回顾
+                    </span>
+                  </div>
+                  <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+                    <span><i class="fa fa-users mr-1"></i> 867</span>
+                  </div>
+                  <!-- 右下角回放按钮 -->
+                  <div class="absolute bottom-2 right-2">
+                    <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+                      回放
+                    </a>
+                  </div>
+                </div>
+                <div class="p-3">
+                  <h3 class="text-sm font-semibold line-clamp-1 mb-1">云原生技术最新趋势解析</h3>
+                  <div class="text-xs text-gray-500">2024-03-15</div>
+                </div>
+              </div>
+
+              <!-- 直播卡片 2 -->
+              <div class="glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#B01F24]/80 transition cursor-pointer flex flex-col">
+                <div class="relative flex-shrink-0">
+                  <div class="aspect-[586/672] bg-gray-200 flex items-center justify-center">
+                    <span class="text-gray-500 text-sm">直播封面图</span>
+                  </div>
+                  <div class="absolute top-2 left-2">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] status-badge-ended">
+                      <i class="fa fa-history mr-1 text-[8px]"></i>精彩回顾
+                    </span>
+                  </div>
+                  <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+                    <span><i class="fa fa-users mr-1"></i> 1.2k</span>
+                  </div>
+                  <!-- 右下角回放按钮 -->
+                  <div class="absolute bottom-2 right-2">
+                    <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+                      回放
+                    </a>
+                  </div>
+                </div>
+                <div class="p-3">
+                  <h3 class="text-sm font-semibold line-clamp-1 mb-1">Kubernetes 1.29新特性详解</h3>
+                  <div class="text-xs text-gray-500">2024-02-28</div>
+                </div>
+              </div>
+
+              <!-- 直播卡片 3 -->
+              <div class="glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#B01F24]/80 transition cursor-pointer flex flex-col">
+                <div class="relative flex-shrink-0">
+                  <div class="aspect-[586/672] bg-gray-200 flex items-center justify-center">
+                    <span class="text-gray-500 text-sm">直播封面图</span>
+                  </div>
+                  <div class="absolute top-2 left-2">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] status-badge-ended">
+                      <i class="fa fa-history mr-1 text-[8px]"></i>精彩回顾
+                    </span>
+                  </div>
+                  <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+                    <span><i class="fa fa-users mr-1"></i> 987</span>
+                  </div>
+                  <!-- 右下角回放按钮 -->
+                  <div class="absolute bottom-2 right-2">
+                    <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+                      回放
+                    </a>
+                  </div>
+                </div>
+                <div class="p-3">
+                  <h3 class="text-sm font-semibold line-clamp-1 mb-1">微服务架构实战案例分析</h3>
+                  <div class="text-xs text-gray-500">2024-02-10</div>
+                </div>
+              </div>
+
+              <!-- 直播卡片 4 -->
+              <div class="glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#B01F24]/80 transition cursor-pointer flex flex-col">
+                <div class="relative flex-shrink-0">
+                  <div class="aspect-[586/672] bg-gray-200 flex items-center justify-center">
+                    <span class="text-gray-500 text-sm">直播封面图</span>
+                  </div>
+                  <div class="absolute top-2 left-2">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] status-badge-ended">
+                      <i class="fa fa-history mr-1 text-[8px]"></i>精彩回顾
+                    </span>
+                  </div>
+                  <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+                    <span><i class="fa fa-users mr-1"></i> 756</span>
+                  </div>
+                  <!-- 右下角回放按钮 -->
+                  <div class="absolute bottom-2 right-2">
+                    <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+                      回放
+                    </a>
+                  </div>
+                </div>
+                <div class="p-3">
+                  <h3 class="text-sm font-semibold line-clamp-1 mb-1">云安全最佳实践分享</h3>
+                  <div class="text-xs text-gray-500">2024-01-25</div>
+                </div>
               </div>
             </div>
-          </a>
+          </div>
         </div>
       </article>
     </div>
@@ -404,6 +551,25 @@
       }
       // 模拟跳转到课程详情页
       console.log('跳转到课程详情页');
+    });
+  });
+
+  // 标签页切换功能
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabPanes = document.querySelectorAll('.tab-pane');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // 移除所有标签页按钮的激活状态
+      tabButtons.forEach(btn => btn.classList.remove('tab-active'));
+      // 添加当前按钮的激活状态
+      this.classList.add('tab-active');
+
+      // 隐藏所有标签页内容
+      tabPanes.forEach(pane => pane.classList.add('hidden'));
+      // 显示对应标签页内容
+      const tabId = this.id.replace('tab-', 'content-');
+      document.getElementById(tabId).classList.remove('hidden');
     });
   });
   

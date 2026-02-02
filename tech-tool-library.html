@@ -230,11 +230,11 @@
       : "";
 
     const actionBtn = tool.type === "download"
-      ? `<a href="${tool.downloadUrl}"
+      ? `<a href="tool-detail.html?id=${tool.id}"
             class="w-full py-2 mt-3 rounded-full bg-[#2D874B] text-white text-xs font-medium hover:opacity-90 flex items-center justify-center gap-1">
            <i class="fa fa-download text-[11px]"></i> 下载工具
          </a>`
-      : `<a href="${tool.onlineUrl}"
+      : `<a href="tool-detail.html?id=${tool.id}"
             class="w-full py-2 mt-3 rounded-full bg-white border border-[#2D874B] text-[#2D874B] text-xs hover:bg-[#2D874B]/10 flex items-center justify-center gap-1">
            <i class="fa fa-external-link-alt text-[11px]"></i> 在线使用
          </a>`;
@@ -255,11 +255,11 @@
       </div>
     `;
 
-    // 示例：点击卡片主体可预留 "工具详情" 功能
+    // 点击卡片主体跳转到工具详情页
     card.addEventListener('click', (e) => {
-      // 避免点击按钮时弹出提示
+      // 避免点击按钮时重复跳转
       if (e.target.tagName === 'A' || e.target.closest('a')) return;
-      alert('后续可以在这里跳转到「' + tool.name + '」的工具详情页（示例）。');
+      window.location.href = 'tool-detail.html?id=' + tool.id;
     });
 
     grid.appendChild(card);

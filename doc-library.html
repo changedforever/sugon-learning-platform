@@ -180,7 +180,7 @@
   // 渲染文档卡片
   documents.forEach(doc => {
     const card = document.createElement('article');
-    card.className = "glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#B01F24]/80 transition";
+    card.className = "glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#B01F24]/80 transition cursor-pointer";
 
     const typeClass =
       doc.type === "白皮书" ? "doc-type-whitepaper" :
@@ -225,12 +225,24 @@
       </div>
     `;
 
+    // 卡片点击事件：跳转到文档详情页
+    card.addEventListener('click', () => {
+      window.location.href = `doc-detail.html?id=${doc.id}`;
+    });
+
     // 预览按钮事件：新标签页打开 PDF（实际可替换为内嵌预览）
-    card.querySelector('button[data-preview]').addEventListener('click', (e) => {
+    const previewButton = card.querySelector('button[data-preview]');
+    previewButton.addEventListener('click', (e) => {
       e.stopPropagation();
       const url = e.currentTarget.dataset.preview;
       if (!url) return;
       window.open(url, '_blank');
+    });
+
+    // 下载链接事件：阻止冒泡，确保点击下载时不触发卡片跳转
+    const downloadLink = card.querySelector('a[href]');
+    downloadLink.addEventListener('click', (e) => {
+      e.stopPropagation();
     });
 
     grid.appendChild(card);
