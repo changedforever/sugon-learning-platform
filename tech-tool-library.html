@@ -33,6 +33,100 @@
       color: #f87171;
       border-color: rgba(248,113,113,0.5);
     }
+
+    /* 筛选标签样式 */
+    .filter-chip {
+      transition: all 0.2s ease;
+      font-weight: 500;
+      border: 1px solid #e5e7eb;
+      background: rgba(255, 255, 255, 0.8);
+    }
+    
+    .filter-chip:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    .filter-chip.active {
+      color: #2D874B;
+      border-color: #2D874B;
+      background: rgba(45, 135, 75, 0.1);
+      box-shadow: 0 2px 8px rgba(45, 135, 75, 0.12);
+      font-weight: 600;
+    }
+    
+    /* 排序按钮样式优化 */
+    .sort-btn {
+      transition: all 0.2s ease;
+      font-weight: 500;
+      border: none;
+      background: rgba(255, 255, 255, 0.8);
+    }
+    
+    .sort-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    .sort-btn.active {
+      color: #2D874B;
+      background: rgba(45, 135, 75, 0.1);
+      box-shadow: 0 2px 8px rgba(45, 135, 75, 0.12);
+      font-weight: 600;
+    }
+    
+    /* 搜索框样式优化 */
+    #search-input {
+      transition: all 0.2s ease;
+      border: none;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    
+    #search-input:focus {
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 4px 16px rgba(45, 135, 75, 0.15);
+    }
+
+    /* 已选中分类标签样式 */
+    .filter-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.25rem 0.5rem;
+      background: rgba(45, 135, 75, 0.1);
+      color: #2D874B;
+      border: 1px solid rgba(45, 135, 75, 0.2);
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      transition: all 0.2s ease;
+      line-height: 1.2;
+    }
+    
+    .filter-tag:hover {
+      background: rgba(45, 135, 75, 0.15);
+      border-color: rgba(45, 135, 75, 0.3);
+    }
+    
+    .filter-tag-close {
+      cursor: pointer;
+      padding: 0.125rem;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      font-size: 0.625rem;
+    }
+    
+    .filter-tag-close:hover {
+      background: rgba(45, 135, 75, 0.2);
+      transform: scale(1.1);
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -101,7 +195,71 @@
         </div>
       </div>
     </div>
+    <!-- 筛选、排序、搜索区 -->
+    <div class="mb-6">
+      <!-- 顶部排序和搜索 -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+        <!-- 排序选项 -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="comprehensive">
+            综合排序
+          </button>
+          <button class="sort-btn px-4 py-2 rounded-full transition text-sm flex items-center gap-1.5" data-sort="latest">
+            最新
+            <i class="fa fa-chevron-down text-[10px] opacity-60"></i>
+          </button>
+          <button class="sort-btn px-4 py-2 rounded-full transition text-sm flex items-center gap-1.5" data-sort="hottest">
+            最热
+            <i class="fa fa-chevron-down text-[10px] opacity-60"></i>
+          </button>
+        </div>
 
+        <!-- 搜索框 -->
+        <div class="relative flex-shrink-0">
+          <i class="fa fa-search text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2 text-sm"></i>
+          <input id="search-input"
+                 type="text"
+                 placeholder="搜索..."
+                 class="w-full sm:w-72 rounded-full pl-10 pr-4 py-2.5 text-sm placeholder:text-gray-400 focus:outline-none transition-all" />
+        </div>
+      </div>
+
+      <!-- 筛选标签 -->
+      <div class="flex flex-wrap items-center gap-2 mb-4">
+        <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="all">
+          全部文档
+        </button>
+        <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="basic">
+          基础知识
+        </button>
+        <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="virtualization">
+          虚拟化
+        </button>
+        <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="database">
+          数据库
+        </button>
+        <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="bigdata">
+          大数据
+        </button>
+        <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="distributed">
+          分布式存储
+        </button>
+        <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="ai">
+          人工智能
+        </button>
+        <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="hpc">
+          高端计算
+        </button>
+        <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="faq">
+          常见问题
+        </button>
+      </div>
+
+      <!-- 已选中的分类标签 -->
+      <div id="selected-tags-container" class="flex flex-wrap items-center gap-2 mb-4">
+        <!-- JS 动态渲染标签 -->
+      </div>
+    </div>
     <!-- 工具列表 -->
     <section>
       <!-- 工具网格 -->
@@ -135,6 +293,7 @@
       desc: "用于管理 Kubernetes 集群的命令行工具，支持应用部署、集群调试与资源查看。",
       type: "download", // download | online
       os: ["Windows", "Linux", "macOS"],
+      category: "basic",
       downloadUrl: "#",
       onlineUrl: ""
     },
@@ -144,6 +303,7 @@
       desc: "一键收集 HIECO 云平台关键指标与日志，生成健康巡检报告，便于技术支持快速定位问题。",
       type: "download",
       os: ["Linux"],
+      category: "basic",
       downloadUrl: "#",
       onlineUrl: ""
     },
@@ -153,6 +313,7 @@
       desc: "在线查看服务网格调用拓扑、延迟与错误率，支持按服务/命名空间维度筛选。",
       type: "online",
       os: [],
+      category: "distributed",
       downloadUrl: "",
       onlineUrl: "#"
     },
@@ -162,6 +323,7 @@
       desc: "Web 端日志检索工具，支持关键字搜索、时间范围过滤和多集群汇总查看。",
       type: "online",
       os: [],
+      category: "bigdata",
       downloadUrl: "",
       onlineUrl: "#"
     },
@@ -171,6 +333,7 @@
       desc: "用于接口压测和全链路压测的工具包，内置常用压力模型与脚本模板。",
       type: "download",
       os: ["Windows", "Linux"],
+      category: "hpc",
       downloadUrl: "#",
       onlineUrl: ""
     },
@@ -180,6 +343,7 @@
       desc: "自动对比两套环境的关键配置差异，支持导出对比报告，常用于问题复现与环境校验。",
       type: "download",
       os: ["Windows"],
+      category: "basic",
       downloadUrl: "#",
       onlineUrl: ""
     },
@@ -189,6 +353,7 @@
       desc: "在线调用平台开放 API，支持保存请求样例与自动生成调用脚本，便于集成开发。",
       type: "online",
       os: [],
+      category: "basic",
       downloadUrl: "",
       onlineUrl: "#"
     },
@@ -198,6 +363,7 @@
       desc: "检查服务端证书配置、加密套件兼容性及过期时间，提前发现安全风险。",
       type: "download",
       os: ["Windows", "Linux", "macOS"],
+      category: "basic",
       downloadUrl: "#",
       onlineUrl: ""
     }
@@ -205,65 +371,233 @@
 
   const grid = document.getElementById('tool-grid');
   const countEl = document.getElementById('tool-count');
-  countEl.textContent = tools.length;
+  const searchInput = document.getElementById('search-input');
+  const selectedTagsContainer = document.getElementById('selected-tags-container');
+  const filterChips = document.querySelectorAll('.filter-chip');
+  const sortButtons = document.querySelectorAll('.sort-btn');
 
-  tools.forEach(tool => {
-    const card = document.createElement('article');
-    card.className = "glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer";
+  let filteredTools = [...tools];
+  let currentFilter = 'all';
+  let currentSort = 'comprehensive';
+  let currentSearch = '';
 
-    const typeBadge = tool.type === "download"
-      ? `<span class="inline-flex items-center px-2 py-0.5 rounded-full border tool-type-download text-[10px]">
-           <i class="fa fa-download mr-1 text-[9px]"></i>本地工具
-         </span>`
-      : `<span class="inline-flex items-center px-2 py-0.5 rounded-full border tool-type-online text-[10px]">
-           <i class="fa fa-globe mr-1 text-[9px]"></i>在线工具
-         </span>`;
+  // 分类名称映射
+  const categoryNames = {
+    'all': '全部文档',
+    'basic': '基础知识',
+    'virtualization': '虚拟化',
+    'database': '数据库',
+    'bigdata': '大数据',
+    'distributed': '分布式存储',
+    'ai': '人工智能',
+    'hpc': '高端计算',
+    'faq': '常见问题'
+  };
 
-    const osTags = (tool.os && tool.os.length)
-      ? `<div class="flex flex-wrap gap-1 mt-1">
-           ${tool.os.map(os => `
-             <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B]">
-               ${os}
-             </span>
-           `).join('')}
-         </div>`
-      : "";
+  // 渲染工具列表
+  function renderTools() {
+    grid.innerHTML = '';
+    countEl.textContent = filteredTools.length;
 
-    const actionBtn = tool.type === "download"
-      ? `<a href="tool-detail.html?id=${tool.id}"
-            class="w-full py-2 mt-3 rounded-full bg-[#2D874B] text-white text-xs font-medium hover:opacity-90 flex items-center justify-center gap-1">
-           <i class="fa fa-download text-[11px]"></i> 下载工具
-         </a>`
-      : `<a href="tool-detail.html?id=${tool.id}"
-            class="w-full py-2 mt-3 rounded-full bg-white border border-[#2D874B] text-[#2D874B] text-xs hover:bg-[#2D874B]/10 flex items-center justify-center gap-1">
-           <i class="fa fa-external-link-alt text-[11px]"></i> 在线使用
-         </a>`;
+    filteredTools.forEach(tool => {
+      const card = document.createElement('article');
+      card.className = "glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer";
 
-    card.innerHTML = `
-      <div class="flex flex-col h-full">
-        <div class="flex items-center justify-between mb-2">
-          <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800">${tool.name}</h3>
-          ${typeBadge}
+      const typeBadge = tool.type === "download"
+        ? `<span class="inline-flex items-center px-2 py-0.5 rounded-full border tool-type-download text-[10px]">
+             <i class="fa fa-download mr-1 text-[9px]"></i>本地工具
+           </span>`
+        : `<span class="inline-flex items-center px-2 py-0.5 rounded-full border tool-type-online text-[10px]">
+             <i class="fa fa-globe mr-1 text-[9px]"></i>在线工具
+           </span>`;
+
+      const osTags = (tool.os && tool.os.length)
+        ? `<div class="flex flex-wrap gap-1 mt-1">
+             ${tool.os.map(os => `
+               <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B]">
+                 ${os}
+               </span>
+             `).join('')}
+           </div>`
+        : "";
+
+      const actionBtn = tool.type === "download" || tool.type === "online"
+        ? `<div class="flex gap-2 mt-3">
+             <button class="flex-1 py-2 rounded-full bg-white border border-[#2D874B] text-[#2D874B] text-xs hover:bg-[#2D874B]/10 flex items-center justify-center gap-1">
+               <i class="fa fa-copy text-[11px]"></i> 复制下载链接
+             </button>
+             <a href="${tool.type === "download" ? tool.downloadUrl : tool.onlineUrl}"
+                class="flex-1 py-2 rounded-full bg-[#2D874B] text-white text-xs font-medium hover:opacity-90 flex items-center justify-center gap-1">
+               <i class="fa fa-download text-[11px]"></i> 立即下载
+             </a>
+           </div>`
+        : `<a href="${tool.onlineUrl}"
+              class="w-full py-2 mt-3 rounded-full bg-white border border-[#2D874B] text-[#2D874B] text-xs hover:bg-[#2D874B]/10 flex items-center justify-center gap-1">
+             <i class="fa fa-external-link-alt text-[11px]"></i> 在线使用
+           </a>`;
+
+      card.innerHTML = `
+        <div class="flex flex-col h-full">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800">${tool.name}</h3>
+            ${typeBadge}
+          </div>
+          <p class="text-xs text-gray-600 line-clamp-3">
+            ${tool.desc}
+          </p>
+          ${osTags}
+          <div class="mt-auto">
+            ${actionBtn}
+          </div>
         </div>
-        <p class="text-xs text-gray-600 line-clamp-3">
-          ${tool.desc}
-        </p>
-        ${osTags}
-        <div class="mt-auto">
-          ${actionBtn}
-        </div>
-      </div>
-    `;
+      `;
 
-    // 点击卡片主体跳转到工具详情页
-    card.addEventListener('click', (e) => {
-      // 避免点击按钮时重复跳转
-      if (e.target.tagName === 'A' || e.target.closest('a')) return;
-      window.location.href = 'tool-detail.html?id=' + tool.id;
+      // 点击卡片主体跳转到工具详情页
+      card.addEventListener('click', (e) => {
+        // 避免点击按钮时重复跳转
+        if (e.target.tagName === 'A' || e.target.closest('a') || e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
+        window.location.href = 'tool-detail.html?id=' + tool.id;
+      });
+
+      // 为复制下载链接按钮添加点击事件
+      if (tool.type === "download" || tool.type === "online") {
+        const copyBtn = card.querySelector('button');
+        if (copyBtn) {
+          copyBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const url = tool.type === "download" ? tool.downloadUrl : tool.onlineUrl;
+            navigator.clipboard.writeText(url).then(() => {
+              // 临时修改按钮文本为"已复制"
+              const originalText = copyBtn.innerHTML;
+              copyBtn.innerHTML = '<i class="fa fa-check text-[11px]"></i> 已复制';
+              copyBtn.classList.add('bg-[#2D874B]/10');
+              // 2秒后恢复原文本
+              setTimeout(() => {
+                copyBtn.innerHTML = originalText;
+                copyBtn.classList.remove('bg-[#2D874B]/10');
+              }, 2000);
+            }).catch(err => {
+              console.error('复制失败:', err);
+            });
+          });
+        }
+      }
+
+      grid.appendChild(card);
+    });
+  }
+
+  // 更新已选中的分类标签
+  function updateSelectedTags() {
+    selectedTagsContainer.innerHTML = '';
+
+    if (currentFilter !== 'all') {
+      const tag = document.createElement('div');
+      tag.className = 'filter-tag';
+      tag.innerHTML = `
+        <span>${categoryNames[currentFilter] || currentFilter}</span>
+        <i class="fa fa-times filter-tag-close text-xs" data-filter="${currentFilter}"></i>
+      `;
+     // selectedTagsContainer.appendChild(tag);
+
+      // 绑定标签关闭按钮的点击事件
+      tag.querySelector('.filter-tag-close').addEventListener('click', (e) => {
+        e.stopPropagation();
+        setFilter('all');
+      });
+    }
+  }
+
+  // 设置筛选
+  function setFilter(filter) {
+    currentFilter = filter;
+
+    // 更新筛选标签状态
+    filterChips.forEach(chip => {
+      if (chip.dataset.filter === filter) {
+        chip.classList.add('active');
+      } else {
+        chip.classList.remove('active');
+      }
     });
 
-    grid.appendChild(card);
+    applyFiltersAndRender();
+  }
+
+  // 设置排序
+  function setSort(sort) {
+    currentSort = sort;
+
+    // 更新排序按钮状态
+    sortButtons.forEach(btn => {
+      if (btn.dataset.sort === sort) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    applyFiltersAndRender();
+  }
+
+  // 设置搜索
+  function setSearch(search) {
+    currentSearch = search.toLowerCase();
+    applyFiltersAndRender();
+  }
+
+  // 应用筛选和排序并渲染
+  function applyFiltersAndRender() {
+    // 筛选
+    filteredTools = tools.filter(tool => {
+      // 分类筛选
+      const matchFilter = currentFilter === 'all' || tool.category === currentFilter;
+
+      // 搜索筛选
+      const matchSearch = !currentSearch ||
+        tool.name.toLowerCase().includes(currentSearch) ||
+        tool.desc.toLowerCase().includes(currentSearch);
+
+      return matchFilter && matchSearch;
+    });
+
+    // 排序
+    if (currentSort === 'latest') {
+      // 按 ID 降序排序（模拟最新）
+      filteredTools.sort((a, b) => b.id - a.id);
+    } else if (currentSort === 'hottest') {
+      // 按 ID 降序排序（模拟最热）
+      filteredTools.sort((a, b) => b.id - a.id);
+    } else {
+      // 综合排序（默认顺序）
+      filteredTools.sort((a, b) => a.id - b.id);
+    }
+
+    // 渲染
+    renderTools();
+    updateSelectedTags();
+  }
+
+  // 绑定事件
+  filterChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      setFilter(chip.dataset.filter);
+    });
   });
+
+  sortButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      setSort(btn.dataset.sort);
+    });
+  });
+
+  searchInput.addEventListener('input', () => {
+    setSearch(searchInput.value.trim());
+  });
+
+  // 初始化
+  renderTools();
+  updateSelectedTags();
 </script>
 
 </body>
