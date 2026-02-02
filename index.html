@@ -702,13 +702,42 @@
 
         <!-- 其他导航项（无下拉） -->
         
-        <a href="resource-center.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">资源</a>
+        <!-- 资源 - 带下拉浮窗（案例库/技术工具库/技术文档库） -->
+        <div class="nav-dropdown relative group">
+          <a href="resource-center.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            资源
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </a>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="space-y-3">
+                <!-- 案例库 -->
+                <a href="case-library.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-folder-open mr-3 text-[#2D874B]"></i>
+                  <span>案例库</span>
+                </a>
+
+                <!-- 技术工具库 -->
+                <a href="tech-tool-library.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-screwdriver-wrench mr-3 text-[#2D874B]"></i>
+                  <span>技术工具库</span>
+                </a>
+
+                <!-- 技术文档库 -->
+                <a href="doc-library.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-file-lines mr-3 text-[#2D874B]"></i>
+                  <span>技术文档库</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- 资讯 - 带下拉浮窗（合并资讯、活动） -->
         <div class="nav-dropdown relative group">
-          <span class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+          <a href="news-announcement-list.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
             资讯
             <i class="fa fa-chevron-down text-sm text-gray-500"></i>
-          </span>
+          </a>
           <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
             <div class="p-4">
               <div class="space-y-3">
