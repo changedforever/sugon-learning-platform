@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>工单生成页面 - 光合技术支持平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标（Font Awesome） -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f8fafc;
+    }
+    
+    .glass-card {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255, 0.5);
+    }
+    
+    .tab-active {
+      background: linear-gradient(135deg, #2D874B, #34D399);
+      color: white;
+      box-shadow: 0 4px 15px rgba(45, 135, 75, 0.3);
+    }
+    
+    .search-box {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .expert-card {
+      transition: all 0.3s ease;
+      border: 1px solid #e5e7eb;
+    }
+    .expert-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      border-color: #d1d5db;
+    }
+    
+    .service-record-card {
+      transition: all 0.3s ease;
+      border-left: 4px solid #2D874B;
+    }
+    
+    .service-record-card:hover {
+      transform: translateX(5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .pagination-button {
+      transition: all 0.2s ease;
+    }
+    
+    .pagination-button:hover {
+      background-color: #e5e7eb;
+    }
+    
+    .pagination-button.active {
+      background-color: #2D874B;
+      color: white;
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .tabs {
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .tab {
+      padding: 12px 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-bottom: 2px solid transparent;
+    }
+    
+    .tab.active {
+      border-bottom: 2px solid #2D874B;
+      color: #2D874B;
+      font-weight: 600;
+    }
+    
+    .domain-badge {
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      color: #1e40af;
+    }
+    
+    .status-badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .status-personal {
+      background-color: #dbeafe;
+      color: #1e40af;
+    }
+    
+    .status-company {
+    background-color: #dcfce7;
+    color: #166534;
+  }
+  
+  .top-head {
+    background-image: url("images/resource-center/resource-center.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .tab-button.active {
+    background: linear-gradient(135deg, #2D874B, #34D399);
+    color: white;
+    border-color: #2D874B;
+  }
+  
+  .tab-button {
+    color: #6b7280;
+  }
+  
+  .tab-button:hover {
+    color: #374151;
+  }
+  .domain-badge2 {
+    border: 1px solid #ddd;
+    padding: 4px 8px;
+    border-radius: 20px;
+    color: #666 !important;
+    background-color: #fff !important;
+  }
+  
+  .chat-message {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+  
+  .chat-message.user {
+    background-color: #e6f7ee;
+    margin-left: auto;
+    max-width: 80%;
+  }
+  
+  .chat-message.expert {
+    background-color: #f0f9ff;
+    margin-right: auto;
+    max-width: 80%;
+  }
+  
+  .ai-analysis-button {
+    transition: all 0.3s ease;
+  }
+  
+  .ai-analysis-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(45, 135, 75, 0.3);
+  }
+  
+  .submit-button {
+    transition: all 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(45, 135, 75, 0.3);
+  }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- 顶部导航 + 全站搜索 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-16">
+      <!-- LOGO + 品牌 -->
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+          <img src="images/logo2.png" alt="HIECO Logo" class="h-32 w-32 object-contain">
+        </a>
+        <div>
+          <!--div class="text-xs uppercase tracking-widest text-white">HIECO</div-->
+          <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200">光合技术支持平台</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 导航入口（桌面端） -->
+      <nav class="hidden md:flex items-center space-x-4 text-base">
+        <!-- 专家 - 无下拉 -->
+        <a href="expert-center.html" class="px-4 py-2 rounded-full font-medium bg-[#2D874B] text-white transition">
+          专家
+        </a>
+
+        <div class="nav-dropdown relative group">
+          <a href="training.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            培训
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </a>
+          <div class="full-width-dropdown fixed top-0 left-0 w-screen bg-white shadow-xl border-t border-gray-200 opacity-0 invisible transition-all duration-300 z-40" id="training-full-dropdown">
+            <div class="container mx-auto px-4 py-16">
+              <div class="flex">
+                <!-- 左侧导航 -->
+                <div class="w-48 pr-6 border-r border-gray-200">
+                  <div class="space-y-2">
+                    <a href="course-list2.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 active-nav-item nav-item selected" data-target="course">课程</a>
+                    <a href="exam-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="exam">考试</a>
+                    <a href="certification.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="certification">认证</a>
+                    <a href="lecturer-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="lecturer">讲师</a>
+                  </div>
+                </div>
+                
+                <!-- 分隔线 -->
+                <div class="mx-6 h-full w-px bg-gray-200"></div>
+                
+                <!-- 右侧分类内容 -->
+                <div class="flex-1 pl-6">
+                  <div id="course-content" class="nav-content active-content">
+                    <h3 class="text-lg font-semibold mb-6">课程分类</h3>
+                    <div class="grid grid-cols-3 gap-6">
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2 text-base">技术方向</h4>
+                        <ul class="space-y-1">
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">云计算</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">公有云服务</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">私有云搭建</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">混合云管理</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">容器技术</a></li>
+                            </ul>
+                          </li>
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">网络安全</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">防火墙技术</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">入侵检测</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">数据加密</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">渗透测试</a></li>
+                            </ul>
+                          </li>
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">人工智能</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">机器学习</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">深度学习</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">计算机视觉</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">自然语言处理</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2 text-base">行业应用</h4>
+                        <ul class="space-y-1">
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">金融科技</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">区块链技术</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">数字货币</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">智能风控</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">支付系统</a></li>
+                            </ul>
+                          </li>
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">智慧医疗</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">医疗影像AI</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">电子病历</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">远程诊疗</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">健康监测</a></li>
+                            </ul>
+                          </li>
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">智能制造</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">工业物联网</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">自动化控制</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">数字化工厂</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">质量管控</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2 text-base">认证体系</h4>
+                        <ul class="space-y-1">
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">厂商认证</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">曙光认证</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">红帽认证</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">思科认证</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">阿里云认证</a></li>
+                            </ul>
+                          </li>
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">技能等级</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">初级认证</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">中级认证</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">高级认证</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">专家认证</a></li>
+                            </ul>
+                          </li>
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">专业领域</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">网络安全</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">云计算</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">数据分析</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">人工智能</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 直播 - 带下拉浮窗 -->
+        <div class="nav-dropdown relative group">
+          <a href="live-list.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            直播
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </a>
+        </div>
+
+        <!-- 资源 - 带下拉浮窗 -->
+        <div class="nav-dropdown relative group">
+          <a href="resource-center.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            资源
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </a>
+        </div>
+
+        <!-- 工具库 -->
+        <a href="tech-tool-library.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+          工具库
+        </a>
+
+        <!-- 案例中心 -->
+        <a href="case-library.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+          案例
+        </a>
+
+        <!-- 个人中心 -->
+        <a href="personal-center.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+          <i class="fa fa-user-circle text-lg"></i>
+        </a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- 主内容区 -->
+<main class="pt-24 pb-16">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <!-- 页面标题 -->
+    <div class="text-center mb-12 fade-in">
+      <h1 class="text-3xl font-bold text-gray-800 mb-4">工单生成页面</h1>
+      <p class="text-gray-600 max-w-2xl mx-auto">基于与专家的对话内容，生成服务工单</p>
+    </div>
+
+    <!-- 专家和用户信息 -->
+    <div class="bg-white rounded-xl p-6 shadow-md mb-8 fade-in">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+        <div class="flex items-center space-x-4 mb-4 md:mb-0">
+          <div class="text-left">
+            <h2 class="text-lg font-semibold text-gray-800">专家：<span class="text-[#2D874B]">陈伟 - AI专家</span></h2>
+            <h2 class="text-lg font-semibold text-gray-800 mt-2">用户：<span class="text-[#2D874B]">张三</span></h2>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="text-sm text-gray-500"><i class="fa fa-clock mr-1"></i> 2026-01-15 14:30</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 聊天记录区域 -->
+    <div class="bg-white rounded-xl p-6 shadow-md mb-8 fade-in">
+      <h3 class="text-xl font-semibold text-gray-800 mb-4">聊天记录</h3>
+      <div class="max-h-96 overflow-y-auto space-y-4">
+        <!-- 专家消息 -->
+        <div class="chat-message expert">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                <span class="font-medium text-blue-600">陈</span>
+              </div>
+            </div>
+            <div class="ml-3 flex-1">
+              <div class="flex items-center">
+                <span class="font-medium text-gray-800">陈伟 - AI专家</span>
+                <span class="ml-2 text-xs text-gray-500">14:30</span>
+              </div>
+              <div class="mt-1 text-gray-700">
+                您好，有什么可以帮助您的吗？
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 用户消息 -->
+        <div class="chat-message user">
+          <div class="flex items-start justify-end">
+            <div class="mr-3 flex-1">
+              <div class="flex items-center justify-end">
+                <span class="ml-2 text-xs text-gray-500">14:32</span>
+                <span class="font-medium text-gray-800">张三</span>
+              </div>
+              <div class="mt-1 text-gray-700">
+                您好，我想了解一下如何优化深度学习模型性能，我们的模型训练速度很慢。
+              </div>
+            </div>
+            <div class="flex-shrink-0">
+              <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                <span class="font-medium text-green-600">张</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 专家消息 -->
+        <div class="chat-message expert">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                <span class="font-medium text-blue-600">陈</span>
+              </div>
+            </div>
+            <div class="ml-3 flex-1">
+              <div class="flex items-center">
+                <span class="font-medium text-gray-800">陈伟 - AI专家</span>
+                <span class="ml-2 text-xs text-gray-500">14:35</span>
+              </div>
+              <div class="mt-1 text-gray-700">
+                深度学习模型训练速度慢的问题可以从多个方面优化：
+                1. 合理调度GPU资源，确保充分利用
+                2. 使用混合精度训练，减少内存使用
+                3. 实施模型量化和剪枝，减小模型大小
+                4. 优化数据加载和预处理流程
+                5. 考虑使用分布式训练
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 用户消息 -->
+        <div class="chat-message user">
+          <div class="flex items-start justify-end">
+            <div class="mr-3 flex-1">
+              <div class="flex items-center justify-end">
+                <span class="ml-2 text-xs text-gray-500">14:38</span>
+                <span class="font-medium text-gray-800">张三</span>
+              </div>
+              <div class="mt-1 text-gray-700">
+                感谢您的建议，我会尝试这些方法。特别是混合精度训练和数据加载优化，这两点对我们来说可能最有帮助。
+              </div>
+            </div>
+            <div class="flex-shrink-0">
+              <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                <span class="font-medium text-green-600">张</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 专家消息 -->
+        <div class="chat-message expert">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                <span class="font-medium text-blue-600">陈</span>
+              </div>
+            </div>
+            <div class="ml-3 flex-1">
+              <div class="flex items-center">
+                <span class="font-medium text-gray-800">陈伟 - AI专家</span>
+                <span class="ml-2 text-xs text-gray-500">14:40</span>
+              </div>
+              <div class="mt-1 text-gray-700">
+                是的，这两点通常能带来显著的性能提升。如果您在实施过程中遇到任何问题，随时可以向我咨询。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI分析按钮 -->
+    <div class="text-center mb-8 fade-in">
+      <button id="ai-analysis-button" class="ai-analysis-button px-8 py-3 bg-[#2D874B] text-white rounded-lg font-semibold hover:bg-[#256e3d] transition">
+        <i class="fa fa-robot mr-2"></i>AI分析
+      </button>
+    </div>
+
+    <!-- Q和A输入框 -->
+    <div class="bg-white rounded-xl p-6 shadow-md mb-8 fade-in">
+      <div class="space-y-6">
+        <!-- Q输入框 -->
+        <div>
+          <label for="question" class="block text-lg font-medium text-gray-800 mb-2">问题 (Q)</label>
+          <textarea id="question" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B] transition" rows="3" placeholder="请输入问题..."></textarea>
+        </div>
+
+        <!-- A输入框 -->
+        <div>
+          <label for="answer" class="block text-lg font-medium text-gray-800 mb-2">答案 (A)</label>
+          <textarea id="answer" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B] transition" rows="4" placeholder="请输入答案..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 提交工单按钮 -->
+    <div class="text-center fade-in">
+      <button id="submit-ticket-button" class="submit-button px-10 py-4 bg-[#2D874B] text-white rounded-lg font-semibold hover:bg-[#256e3d] transition text-lg">
+        <i class="fa fa-paper-plane mr-2"></i>提交工单
+      </button>
+    </div>
+  </div>
+</main>
+
+<!-- 页脚 -->
+<footer class="bg-gray-800 text-white py-12">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <h3 class="text-lg font-semibold mb-4">关于我们</h3>
+        <ul class="space-y-2 text-gray-300">
+          <li><a href="#" class="hover:text-white transition">公司介绍</a></li>
+          <li><a href="#" class="hover:text-white transition">发展历程</a></li>
+          <li><a href="#" class="hover:text-white transition">企业文化</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-4">技术支持</h3>
+        <ul class="space-y-2 text-gray-300">
+          <li><a href="#" class="hover:text-white transition">技术文档</a></li>
+          <li><a href="#" class="hover:text-white transition">常见问题</a></li>
+          <li><a href="#" class="hover:text-white transition">服务协议</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-4">联系我们</h3>
+        <ul class="space-y-2 text-gray-300">
+          <li><i class="fa fa-phone mr-2"></i>400-123-4567</li>
+          <li><i class="fa fa-envelope mr-2"></i>support@hieco.com</li>
+          <li><i class="fa fa-map-marker mr-2"></i>北京市海淀区</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-4">关注我们</h3>
+        <div class="flex space-x-4">
+          <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-[#2D874B] transition">
+            <i class="fa fa-weixin"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-[#2D874B] transition">
+            <i class="fa fa-weibo"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-[#2D874B] transition">
+            <i class="fa fa-github"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+      <p>&copy; 2024 光合技术支持平台. 保留所有权利.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- 成功提示弹窗 -->
+<div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-xl p-8 max-w-md w-full">
+    <div class="text-center">
+      <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <i class="fa fa-check text-2xl text-green-600"></i>
+      </div>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">工单提交成功</h3>
+      <p class="text-gray-600 mb-6">工单已成功生成并添加到专家服务记录中</p>
+      <button id="close-success-modal" class="px-6 py-2 bg-[#2D874B] text-white rounded-lg hover:bg-[#256e3d] transition">
+        确定
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // AI分析按钮点击事件
+  document.getElementById('ai-analysis-button').addEventListener('click', function() {
+    // 模拟AI分析过程
+    this.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>分析中...';
+    this.disabled = true;
+    
+    // 模拟分析延迟
+    setTimeout(() => {
+      // 填充Q和A
+      document.getElementById('question').value = '如何优化深度学习模型性能？';
+      document.getElementById('answer').value = '通过合理调度GPU资源，使用混合精度训练，实施模型量化和剪枝，以及优化数据加载和预处理流程，可以显著提升深度学习模型的训练和推理性能。具体来说：\n1. GPU资源调度：确保充分利用GPU内存，避免内存溢出\n2. 混合精度训练：使用FP16和FP32混合精度，减少内存使用和计算时间\n3. 模型量化和剪枝：减小模型大小，提高推理速度\n4. 数据加载优化：使用数据预加载和多线程数据加载\n5. 考虑分布式训练：对于大型模型，使用多GPU并行训练';
+      
+      // 恢复按钮状态
+      this.innerHTML = '<i class="fa fa-robot mr-2"></i>AI分析';
+      this.disabled = false;
+      
+      // 显示成功提示
+      alert('AI分析完成，已自动生成Q和A');
+    }, 1500);
+  });
+
+  // 提交工单按钮点击事件
+  document.getElementById('submit-ticket-button').addEventListener('click', function() {
+    // 获取Q和A的值
+    const question = document.getElementById('question').value;
+    const answer = document.getElementById('answer').value;
+    
+    // 验证输入
+    if (!question || !answer) {
+      alert('请确保Q和A都已填写');
+      return;
+    }
+    
+    // 模拟提交过程
+    this.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>提交中...';
+    this.disabled = true;
+    
+    // 模拟提交延迟
+    setTimeout(() => {
+      // 恢复按钮状态
+      this.innerHTML = '<i class="fa fa-paper-plane mr-2"></i>提交工单';
+      this.disabled = false;
+      
+      // 显示成功弹窗
+      document.getElementById('success-modal').classList.remove('hidden');
+    }, 1500);
+  });
+
+  // 关闭成功弹窗
+  document.getElementById('close-success-modal').addEventListener('click', function() {
+    document.getElementById('success-modal').classList.add('hidden');
+    // 跳转到专家中心页面的服务记录标签
+    window.location.href = 'expert-center.html#service-records';
+  });
+
+  // 添加动画效果
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.fade-in').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>

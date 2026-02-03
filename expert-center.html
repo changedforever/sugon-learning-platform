@@ -1658,6 +1658,14 @@
     });
   });
 
+  // 页面加载时检查URL锚点
+  window.addEventListener('load', function() {
+    const hash = window.location.hash.substring(1);
+    if (hash === 'service-records') {
+      switchTab('service-records');
+    }
+  });
+
   // 搜索功能 - 专家库
   const expertSearchInput = document.getElementById('expert-search');
   const domainFilter = document.getElementById('domain-filter');

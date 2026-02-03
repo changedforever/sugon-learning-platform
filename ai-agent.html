@@ -687,9 +687,148 @@
             color: #333;
             box-shadow: 0 0 0 1px rgba(115, 130, 255, 0.35);
         }
+
+        /* 右键菜单样式 */
+        .context-menu {
+            position: fixed;
+            background: white;
+            border: 1px solid #eaecef;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: none;
+        }
+
+        .context-menu-item {
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #333;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .context-menu-item:hover {
+            background: #f0f4ff;
+            color: #4a86ff;
+        }
+
+        /* 消息多选样式 */
+        .message {
+            position: relative;
+        }
+
+        .message-checkbox {
+            position: absolute;
+            top: 8px;
+            left: -24px;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #eaecef;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            display: none;
+            z-index: 10;
+        }
+
+        .message-checkbox.visible {
+            display: block;
+        }
+
+        .message-checkbox.checked {
+            background: #4a86ff;
+            border-color: #4a86ff;
+        }
+
+        .message-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .message.selected {
+            background: rgba(74, 134, 255, 0.05);
+            border-radius: 12px;
+            padding-left: 8px;
+        }
+
+        /* 底部操作按钮区域 */
+        .action-buttons-area {
+            padding: 16px 20px;
+            background: white;
+            border-top: 1px solid #eaecef;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .action-buttons-area.visible {
+            display: flex;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border: 1px solid #eaecef;
+            border-radius: 8px;
+            background: white;
+            color: #333;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .action-btn:hover {
+            background: #f8fafd;
+            border-color: #4a86ff;
+            color: #4a86ff;
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, #4a86ff, #667eea);
+            color: white;
+            border-color: #4a86ff;
+        }
+
+        .action-btn.primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(74, 134, 255, 0.3);
+        }
+
+        .cancel-selection {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .cancel-selection:hover {
+            background: #f0f0f0;
+        }
     </style>
 </head>
 <body>
+    <!-- 右键菜单 -->
+    <div class="context-menu" id="context-menu">
+        <div class="context-menu-item" id="context-menu-multiselect">多选</div>
+    </div>
+
     <div class="chat-container">
         <!-- 侧边栏 -->
         <div class="sidebar">
@@ -793,7 +932,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- 输入区域 -->
             <div class="input-area">
                 <!-- 原有快捷提问，仍然保留 -->
@@ -837,82 +976,34 @@
                 </div>
             </div>
 
-            <!-- 联想功能脚本 -->
-            <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const input = document.getElementById('ai-input');
-                const suggestion = document.getElementById('suggestion-list');
-                
-                if (input && suggestion) {
-                    // 输入事件 - 输入1个字符就显示联想
-                    input.addEventListener('input', function() {
-                        const value = this.value;
-                        
-                        // 输入1个字符以上显示联想
-                        if (value.length >= 1) {
-                            suggestion.style.display = 'block';
-                            
-                            // 动态高亮匹配的字符（当输入"智能"时）
-                            const items = suggestion.querySelectorAll('div');
-                            items.forEach(item => {
-                                const text = item.textContent;
-                                let highlightedText = text;
-                                
-                                // 如果输入包含"智能"，高亮"智能"中的"能"字
-                                // if (value.includes('智能')) {
-                                //     highlightedText = highlightedText.replace(/智/g, '<span style="color: red;">智</span>');
-                                // }
-                                if (value.includes('智')) {
-                                    highlightedText = highlightedText.replace(/智/g, '<span style="color: red;">智</span>');
-                                }
-                                if (value.includes('能')) {
-                                    highlightedText = highlightedText.replace(/能/g, '<span style="color: red;">能</span>');
-                                }
+            <!-- 底部操作按钮区域 -->
+            <div class="action-buttons-area" id="action-buttons-area">
+                <div class="action-buttons">
+                    <button class="action-btn" id="action-copy">
+                        <i class="fas fa-copy"></i>
+                        <span>复制</span>
+                    </button>
+                    <button class="action-btn" id="action-favorite">
+                        <i class="fas fa-star"></i>
+                        <span>收藏</span>
+                    </button>
+                    <button class="action-btn" id="action-share">
+                        <i class="fas fa-share-alt"></i>
+                        <span>分享</span>
+                    </button>
+                    <button class="action-btn primary" id="action-ticket">
+                        <i class="fas fa-ticket-alt"></i>
+                        <span>生成工单</span>
+                    </button>
+                </div>
+                <button class="cancel-selection" id="cancel-selection">
+                    取消
+                </button>
+            </div>
+        </div>
+    </div>
 
-                                
-                                // 更新HTML内容（注意：这里简单处理，实际应更精确）
-                                if (item.innerHTML !== highlightedText) {
-                                    item.innerHTML = highlightedText;
-                                }
-                            });
-                        } else {
-                            suggestion.style.display = 'none';
-                        }
-                    });
-                    
-                    // 点击联想项
-                    suggestion.addEventListener('click', function(e) {
-                        if (e.target.tagName === 'DIV') {
-                            input.value = e.target.textContent;
-                            suggestion.style.display = 'none';
-                            input.focus();
-                        }
-                    });
-                    
-                    // 悬停效果
-                    const items = suggestion.querySelectorAll('div');
-                    items.forEach(item => {
-                        item.addEventListener('mouseenter', function() {
-                            this.style.background = '#f8fafd';
-                            this.style.color = '#4a86ff';
-                        });
-                        item.addEventListener('mouseleave', function() {
-                            this.style.background = '';
-                            this.style.color = '#333';
-                        });
-                    });
-                    
-                    // 点击外部隐藏
-                    document.addEventListener('click', function(e) {
-                        if (!e.target.closest('.input-container') && !e.target.closest('#suggestion-list')) {
-                            suggestion.style.display = 'none';
-                        }
-                    });
-                    
-                    console.log('✅ 正式联想功能已启用');
-                }
-            });
-            </script>
+
         </div>
     </div>
 
@@ -927,6 +1018,20 @@
         const inputArea = document.querySelector('.input-area');
         const chatContainer = document.querySelector('.chat-container');
         const abilityPanels = document.querySelector('.ability-panels');
+        
+        // 右键菜单和多选功能
+        const contextMenu = document.getElementById('context-menu');
+        const contextMenuMultiselect = document.getElementById('context-menu-multiselect');
+        const actionButtonsArea = document.getElementById('action-buttons-area');
+        const cancelSelection = document.getElementById('cancel-selection');
+        const actionCopy = document.getElementById('action-copy');
+        const actionFavorite = document.getElementById('action-favorite');
+        const actionShare = document.getElementById('action-share');
+        const actionTicket = document.getElementById('action-ticket');
+        
+        let isMultiSelectMode = false;
+        let selectedMessages = new Set();
+        let currentMessage = null;
         
         // 当前选中的技能（仅用于后续扩展，目前保持通用）
         let currentSkill = '通用';
@@ -1256,6 +1361,171 @@
                 // 新对话：重新展开
                 setPanelsCollapsed(false);
             });
+        }
+
+        // 右键菜单功能
+        function showContextMenu(e) {
+            e.preventDefault();
+            if (e.target.closest('.message')) {
+                currentMessage = e.target.closest('.message');
+                contextMenu.style.display = 'block';
+                contextMenu.style.left = e.clientX + 'px';
+                contextMenu.style.top = e.clientY + 'px';
+            }
+        }
+
+        function hideContextMenu() {
+            contextMenu.style.display = 'none';
+            currentMessage = null;
+        }
+
+        // 为所有消息添加右键菜单
+        aiMessages.addEventListener('contextmenu', showContextMenu);
+
+        // 点击其他地方隐藏右键菜单
+        document.addEventListener('click', hideContextMenu);
+
+        // 多选功能
+        function enterMultiSelectMode() {
+            isMultiSelectMode = true;
+            const messages = aiMessages.querySelectorAll('.message');
+            messages.forEach(message => {
+                // 添加复选框
+                let checkbox = message.querySelector('.message-checkbox');
+                if (!checkbox) {
+                    checkbox = document.createElement('div');
+                    checkbox.className = 'message-checkbox';
+                    message.appendChild(checkbox);
+                }
+                checkbox.classList.add('visible');
+
+                // 添加点击事件
+                checkbox.addEventListener('click', function() {
+                    toggleMessageSelection(message);
+                });
+            });
+        }
+
+        function exitMultiSelectMode() {
+            isMultiSelectMode = false;
+            selectedMessages.clear();
+            const messages = aiMessages.querySelectorAll('.message');
+            messages.forEach(message => {
+                const checkbox = message.querySelector('.message-checkbox');
+                if (checkbox) {
+                    checkbox.classList.remove('visible', 'checked');
+                }
+                message.classList.remove('selected');
+            });
+            updateActionButtons();
+        }
+
+        function toggleMessageSelection(message) {
+            if (selectedMessages.has(message)) {
+                selectedMessages.delete(message);
+                message.classList.remove('selected');
+                const checkbox = message.querySelector('.message-checkbox');
+                if (checkbox) {
+                    checkbox.classList.remove('checked');
+                }
+            } else {
+                selectedMessages.add(message);
+                message.classList.add('selected');
+                const checkbox = message.querySelector('.message-checkbox');
+                if (checkbox) {
+                    checkbox.classList.add('checked');
+                }
+            }
+            updateActionButtons();
+        }
+
+        function updateActionButtons() {
+            if (selectedMessages.size > 0) {
+                actionButtonsArea.classList.add('visible');
+                inputArea.style.display = 'none';
+            } else {
+                actionButtonsArea.classList.remove('visible');
+                inputArea.style.display = 'block';
+            }
+        }
+
+        // 右键菜单多选选项点击事件
+        if (contextMenuMultiselect) {
+            contextMenuMultiselect.addEventListener('click', function() {
+                enterMultiSelectMode();
+                hideContextMenu();
+            });
+        }
+
+        // 取消选择
+        if (cancelSelection) {
+            cancelSelection.addEventListener('click', function() {
+                exitMultiSelectMode();
+            });
+        }
+
+        // 操作按钮点击事件
+        if (actionCopy) {
+            actionCopy.addEventListener('click', function() {
+                // 复制选中消息内容
+                let text = '';
+                selectedMessages.forEach(message => {
+                    const content = message.querySelector('.message-content');
+                    if (content) {
+                        text += content.textContent + '\n\n';
+                    }
+                });
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('复制成功！');
+                });
+            });
+        }
+
+        if (actionFavorite) {
+            actionFavorite.addEventListener('click', function() {
+                // 收藏功能
+                alert('收藏成功！');
+            });
+        }
+
+        if (actionShare) {
+            actionShare.addEventListener('click', function() {
+                // 分享功能
+                alert('分享功能已触发！');
+            });
+        }
+
+        if (actionTicket) {
+            actionTicket.addEventListener('click', function() {
+                // 跳转到工单生成页面
+                window.location.href = 'ticket-generation.html';
+            });
+        }
+
+        // 为新添加的消息添加右键菜单
+        function addMessageWithContextMenu(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            
+            const avatarDiv = document.createElement('div');
+            avatarDiv.className = `avatar-small ${isUser ? '' : 'bot-avatar'}`;
+            avatarDiv.innerHTML = `<i class="fas ${isUser ? 'fa-user' : 'fa-robot'}"></i>`;
+            
+            const messageBubble = document.createElement('div');
+            messageBubble.className = 'message-content';
+            messageBubble.innerHTML = text;
+            
+            messageDiv.appendChild(avatarDiv);
+            messageDiv.appendChild(messageBubble);
+            aiMessages.appendChild(messageDiv);
+            
+            // 滚动到底部
+            aiMessages.scrollTop = aiMessages.scrollHeight;
+        }
+
+        // 重写addMessage函数，使用新的函数
+        function addMessage(text, isUser = false) {
+            addMessageWithContextMenu(text, isUser);
         }
     });
     </script>

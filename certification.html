@@ -734,6 +734,10 @@
                 onclick="scrollToSection('ai-section')">
           <i class="fa fa-brain mr-2 text-[#4B8CF5]"></i> 智能计算认证
         </button>
+        <button class="cert-tab px-4 py-2.5 rounded-xl bg-white/80 border border-gray-300 hover:border-[#FF9500] transition"
+                onclick="scrollToSection('city-section')">
+          <i class="fa fa-city mr-2 text-[#FF9500]"></i> 光耀百城认证
+        </button>
       </div>
     </div>
     
@@ -772,6 +776,22 @@
       </div>
     </section>
 
+    <!-- ================= 光耀百城认证 ================= -->
+    <section id="city-section" class="mt-12">
+      <div class="p-6 mb-6">
+        <h2 class="text-xl font-bold mb-3 text-center">
+          光耀百城认证体系
+        </h2>
+        <p class="text-sm text-gray-600 leading-relaxed text-center">
+          光耀百城认证专注于城市级数字化转型和智能化建设的技术认证，
+          涵盖智慧城市、数字政府、产业数字化等领域，为城市数字化转型提供技术支撑。
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6" id="city-cert-list">
+        <!-- 光耀百城认证卡片由JS注入 -->
+      </div>
+    </section>
+
     <!-- ================= 认证动态与政策解读 ================= -->
     <section class="mt-12">
       <div class="glass-card rounded-3xl border border-gray-300 p-6">
@@ -781,8 +801,10 @@
               <i class="fa fa-newspaper text-[#2D874B]"></i>
               认证动态与政策解读
             </h2>
-            <p class="text-sm text-gray-600 font-medium">
-              📢 2026年第一季度认证考试安排已发布，新增AI基础算法认证
+            <p class="text-sm font-medium">
+              <a href="news-announcement-list.html" class="text-[#4B8CF5] hover:underline">
+                📢 2026年第一季度认证考试安排已发布，新增AI基础算法认证
+              </a>
             </p>
           </div>
           <a href="news-announcement-list.html" 
@@ -959,6 +981,52 @@
       points: 100,
       examType: '线下实操+项目评审'
     },
+    {
+      id: 6,
+      title: '智慧城市基础认证',
+      category: 'city',
+      level: 'beginner',
+      levelText: '初级认证',
+      description: '掌握智慧城市建设的基础概念和技术架构',
+      coreSkills: [
+        '智慧城市顶层设计',
+        '城市数据治理',
+        '智能感知系统部署'
+      ],
+      courseObjectives: [
+        '掌握智慧城市的基本概念、发展历程和技术体系',
+        '熟悉智慧城市顶层设计方法和实施路径',
+        '了解城市数据治理的基本原理和实践方法',
+        '掌握智能感知系统的部署和运维技术',
+        '具备智慧城市项目的基础规划能力'
+      ],
+      duration: '2.5个月',
+      points: 65,
+      examType: '线上考试+案例分析'
+    },
+    {
+      id: 7,
+      title: '数字政府高级认证',
+      category: 'city',
+      level: 'advanced',
+      levelText: '高级认证',
+      description: '深入掌握数字政府建设的核心技术和实践',
+      coreSkills: [
+        '数字政府架构设计',
+        '政务数据共享与开放',
+        '智慧政务应用开发'
+      ],
+      courseObjectives: [
+        '深入理解数字政府的建设理念和发展趋势',
+        '掌握数字政府的整体架构设计方法',
+        '熟悉政务数据共享与开放的技术实现',
+        '具备智慧政务应用的开发和部署能力',
+        '能够设计和实施数字政府解决方案'
+      ],
+      duration: '3.5个月',
+      points: 90,
+      examType: '线下实操+方案评审'
+    },
   ];
 
   // ========== 渲染认证卡片 ==========
@@ -1036,9 +1104,14 @@
       
       // 更新按钮激活状态
       document.querySelectorAll('.cert-tab').forEach(b => b.classList.remove('cert-tab-active'));
-      const activeBtn = sectionId === 'general-section' 
-        ? document.querySelector('[onclick="scrollToSection(\'general-section\')"]')
-        : document.querySelector('[onclick="scrollToSection(\'ai-section\')"]');
+      let activeBtn;
+      if (sectionId === 'general-section') {
+        activeBtn = document.querySelector('[onclick="scrollToSection(\'general-section\')"]');
+      } else if (sectionId === 'ai-section') {
+        activeBtn = document.querySelector('[onclick="scrollToSection(\'ai-section\')"]');
+      } else if (sectionId === 'city-section') {
+        activeBtn = document.querySelector('[onclick="scrollToSection(\'city-section\')"]');
+      }
       if (activeBtn) {
         activeBtn.classList.add('cert-tab-active');
       }
@@ -1134,9 +1207,10 @@
 
   // ========== 页面加载时初始化 ==========
   document.addEventListener('DOMContentLoaded', function() {
-    // 直接渲染两个认证列表
+    // 直接渲染三个认证列表
     renderCertificationCards('general-cert-list', 'general');
     renderCertificationCards('ai-cert-list', 'ai');
+    renderCertificationCards('city-cert-list', 'city');
     
     // 初始化固定导航栏
     initFixedNav();
