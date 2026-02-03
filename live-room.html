@@ -560,9 +560,15 @@
         
         <!-- 发送消息输入框 -->
         <div class="p-3 border-t border-gray-700 flex-shrink-0">
-          <div class="flex items-center">
-            <input type="text" placeholder="说点什么..." class="flex-1 bg-gray-800 rounded-l-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
-            <button class="bg-red-500 hover:bg-red-600 rounded-r-full px-4 py-2 font-medium">发送</button>
+          <div class="flex items-center gap-2" style="justify-content: space-between;">
+            <input type="text" placeholder="说点什么..." class="flex-1 bg-gray-800 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 w-[100px]">
+            <div class="flex gap-2">
+              <button class="bg-gray-700 hover:bg-gray-600 rounded-full px-3 py-2 text-sm font-medium flex items-center gap-1">
+                <i class="fa fa-comment text-yellow-400"></i>
+                <span>弹幕</span>
+              </button>
+              <button class="bg-red-500 hover:bg-red-600 rounded-full px-4 py-2 font-medium">发送</button>
+            </div>
           </div>
         </div>
       </div>
