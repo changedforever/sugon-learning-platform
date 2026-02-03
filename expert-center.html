@@ -142,6 +142,11 @@
     color: #666 !important;
     background-color: #fff !important;
   }
+  .domain-card.active {
+    border-color: #2D874B;
+    box-shadow: 0 10px 15px -3px rgba(45,135,75,0.25);
+    transform: translateY(-2px);
+  }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -938,6 +943,65 @@
 
         <!-- 专家列表 -->
         <div class="mb-8">
+          <!-- 专家领域分类按钮 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+            <div class="domain-card active bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fa fa-list text-gray-600"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="font-semibold text-gray-800">全部</h3>
+                  <p class="text-xs text-gray-500">35位专家</p>
+                </div>
+              </div>
+            </div>
+            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fa fa-microchip text-blue-600"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="font-semibold text-gray-800">CPU</h3>
+                  <p class="text-xs text-gray-500">8位专家</p>
+                </div>
+              </div>
+            </div>
+            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fa fa-memory text-purple-600"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="font-semibold text-gray-800">DCU</h3>
+                  <p class="text-xs text-gray-500">6位专家</p>
+                </div>
+              </div>
+            </div>
+            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fa fa-server text-green-600"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="font-semibold text-gray-800">操作系统/数据库/云</h3>
+                  <p class="text-xs text-gray-500">12位专家</p>
+                </div>
+              </div>
+            </div>
+            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fa fa-globe text-yellow-600"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="font-semibold text-gray-800">通用</h3>
+                  <p class="text-xs text-gray-500">9位专家</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="expert-list">
             <!-- 专家卡片示例 -->
             <div class="expert-card bg-white rounded-xl p-6 border border-gray-200 fade-in">
@@ -1594,15 +1658,15 @@
 
   // 搜索功能 - 专家库
   const expertSearchInput = document.getElementById('expert-search');
-  const domainFilter = document.getElementById('domain-filter');
+  // 当前选中的领域（通过上方“全部 / CPU / DCU / 操作系统/数据库/云 / 通用”卡片控制）
+  let currentDomainFilter = '';
   
-  if(expertSearchInput && domainFilter) {
+  if (expertSearchInput) {
     expertSearchInput.addEventListener('input', filterExperts);
-    domainFilter.addEventListener('change', filterExperts);
     
     function filterExperts() {
       const searchTerm = expertSearchInput.value.toLowerCase();
-      const selectedDomain = domainFilter.value;
+      const selectedDomain = currentDomainFilter;
       const expertCards = document.querySelectorAll('#expert-list .expert-card');
       
       expertCards.forEach(card => {
@@ -1628,7 +1692,8 @@
       
       // 更新计数
       const visibleCount = document.querySelectorAll('#expert-list .expert-card[style*="block"], #expert-list .expert-card:not([style*="none"])').length;
-      document.getElementById('expert-count').textContent = visibleCount;
+      const countEl = document.getElementById('expert-count');
+      if (countEl) countEl.textContent = visibleCount;
     }
   }
 
@@ -1683,7 +1748,41 @@
     }
   }
 
-  // 专家领域卡片点击事件（已移除领域卡片，此逻辑保留为空以防调用报错）
+  // 专家领域卡片点击事件：控制 currentDomainFilter 并触发过滤
+  document.querySelectorAll('.domain-card').forEach(card => {
+    card.addEventListener('click', function() {
+      // 先去掉其他卡片的选中样式
+      document.querySelectorAll('.domain-card').forEach(c => c.classList.remove('active'));
+      // 当前卡片高亮
+      this.classList.add('active');
+
+      const domain = this.querySelector('h3').textContent.trim();
+      let domainValue = '';
+      switch (domain) {
+        case 'CPU':
+          domainValue = 'cpu';
+          break;
+        case 'DCU':
+          domainValue = 'dcu';
+          break;
+        case '操作系统/数据库/云':
+          domainValue = 'os-db-cloud';
+          break;
+        case '通用':
+          domainValue = 'general';
+          break;
+        case '全部':
+          domainValue = '';
+          break;
+        default:
+          domainValue = domain.toLowerCase();
+      }
+      currentDomainFilter = domainValue;
+      if (typeof filterExperts === 'function') {
+        filterExperts();
+      }
+    });
+  });
 
   // 添加动画效果
   const observerOptions = {
