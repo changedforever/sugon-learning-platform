@@ -227,31 +227,19 @@
       <!-- 筛选标签 -->
       <div class="flex flex-wrap items-center gap-2 mb-4">
         <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="all">
-          全部文档
+          全部工具
         </button>
         <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="basic">
-          基础知识
+          DevKit工具
         </button>
         <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="virtualization">
-          虚拟化
+          代码
         </button>
         <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="database">
-          数据库
+          镜像
         </button>
         <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="bigdata">
-          大数据
-        </button>
-        <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="distributed">
-          分布式存储
-        </button>
-        <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="ai">
-          人工智能
-        </button>
-        <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="hpc">
-          高端计算
-        </button>
-        <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="faq">
-          常见问题
+            模型
         </button>
       </div>
 
@@ -383,15 +371,11 @@
 
   // 分类名称映射
   const categoryNames = {
-    'all': '全部文档',
-    'basic': '基础知识',
-    'virtualization': '虚拟化',
-    'database': '数据库',
-    'bigdata': '大数据',
-    'distributed': '分布式存储',
-    'ai': '人工智能',
-    'hpc': '高端计算',
-    'faq': '常见问题'
+    'all': '全部工具',
+    'basic': 'DevKit工具',
+    'virtualization': '代码',
+    'database': '镜像',
+    'bigdata': '模型',
   };
 
   // 渲染工具列表

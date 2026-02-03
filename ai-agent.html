@@ -1018,6 +1018,192 @@
         const inputArea = document.querySelector('.input-area');
         const chatContainer = document.querySelector('.chat-container');
         const abilityPanels = document.querySelector('.ability-panels');
+        const suggestionList = document.getElementById('suggestion-list');
+
+        // ===== 输入联想（搜索建议）=====
+        // 说明：页面原本只有 #suggestion-list 的静态结构且 display:none，但没有任何 JS 去控制它显示/渲染
+        // 这里补齐“输入时联想框出现”的逻辑（本地模拟数据，后续可替换为接口）
+        const SUGGESTIONS = [
+            // 考试
+            '如何参加考试？',
+            '如何报名考试？',
+            '考试入口在哪里？',
+            '在线考试怎么开始？',
+            '考试可以重考吗？',
+            '考试成绩在哪里查看？',
+            '考试通过标准是多少？',
+            '考试时遇到卡顿/黑屏怎么办？',
+            '考试提交后还能修改吗？',
+            '线下考试怎么预约？',
+            '考试注意事项有哪些？',
+            '考试题型有哪些？',
+            '考试时间不合适可以改期吗？',
+            '考试证书多久发放？',
+
+            // 认证
+            '如何认证成为高级云架构师？',
+            '认证流程是什么？',
+            '认证报名条件有哪些？',
+            '认证考试费用是多少？',
+            '认证有效期多久？如何续证？',
+            '认证证书如何下载？',
+            '认证进度在哪里查看？',
+
+            // 课程
+            '如何报名课程？',
+            '课程学习进度如何查看？',
+            '课程学习期限是多久？',
+            '课程可以重复学习吗？',
+            '课程资料在哪里下载？',
+            '课程评价怎么写？',
+            '课程无法播放怎么办？',
+            '课程视频清晰度如何调整？',
+            '课程学习记录如何同步？',
+
+            // 直播
+            '直播如何预约？',
+            '如何进入直播间？',
+            '直播开始前会提醒吗？',
+            '直播回放在哪里看？',
+            '直播资料在哪里下载？',
+            '直播弹幕/互动怎么用？',
+            '直播卡顿怎么办？',
+            '直播错过了还能回看吗？',
+            '如何取消直播预约？',
+
+            // 证书
+            '如何查看和下载证书',
+            '证书如何验证真伪？',
+            '证书信息有误如何更正？',
+            '证书丢失了怎么办？',
+
+            // 账号与权限
+            '忘记密码怎么办？',
+            '如何修改手机号/邮箱？',
+            '如何绑定/解绑企业信息？',
+            '无法登录怎么办？',
+            '账号被锁定怎么办？',
+
+            // 下载/驱动/工具
+            '如何下载 CPU / DCU 驱动？',
+            '下载链接失效怎么办？',
+            '安装驱动时报错如何解决？',
+            '镜像/工具包在哪里下载？',
+            '如何获取产品手册/白皮书？',
+
+            // 技术支持
+            '如何联系技术支持？',
+            '如何提交工单？',
+            '工单进度如何查看？',
+            '如何反馈问题/建议？'
+        ];
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function highlight(text, query) {
+            if (!query) return escapeHtml(text);
+            const safeText = escapeHtml(text);
+            const safeQuery = escapeHtml(query);
+            // 简单高亮：大小写不敏感
+            const reg = new RegExp(safeQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'ig');
+            return safeText.replace(reg, (m) => `<span style="color: #B01F24;">${m}</span>`);
+        }
+
+        function hideSuggestions() {
+            if (!suggestionList) return;
+            suggestionList.style.display = 'none';
+            suggestionList.innerHTML = '';
+        }
+
+        function showSuggestions(items, query) {
+            if (!suggestionList) return;
+            if (!items.length) {
+                hideSuggestions();
+                return;
+            }
+
+            suggestionList.innerHTML = items.map((t, idx) => {
+                const border = idx === items.length - 1 ? '' : 'border-bottom: 1px solid #f0f0f0;';
+                return `
+                    <div class="suggestion-item"
+                         data-text="${escapeHtml(t)}"
+                         style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; ${border} transition: all 0.2s;">
+                        ${highlight(t, query)}
+                    </div>
+                `;
+            }).join('');
+
+            suggestionList.style.display = 'block';
+
+            // hover 样式（内联结构下用 JS 绑定更稳）
+            suggestionList.querySelectorAll('.suggestion-item').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    el.style.background = '#f8fafc';
+                });
+                el.addEventListener('mouseleave', () => {
+                    el.style.background = 'transparent';
+                });
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const text = el.getAttribute('data-text') || '';
+                    if (aiInput) {
+                        aiInput.value = text;
+                        aiInput.focus();
+                        // 触发一次 input 以便高度自适应更新
+                        aiInput.dispatchEvent(new Event('input', { bubbles: true }));
+                    }
+                    hideSuggestions();
+                });
+            });
+        }
+
+        function updateSuggestions() {
+            if (!aiInput || !suggestionList) return;
+            const q = aiInput.value.trim();
+            const qLower = q.toLowerCase();
+
+            // 规则：不管输入啥都给联想
+            // - 有输入：优先显示匹配项；若匹配不足，用热门推荐补齐；并加入“按你的输入提问”兜底项
+            // - 无输入：不显示（避免未输入就弹窗）
+            const HOT = SUGGESTIONS.slice(0, 12);
+
+            if (!q) {
+                hideSuggestions();
+                return;
+            }
+
+            let matched = [];
+            if (q) {
+                matched = SUGGESTIONS.filter(t => t.toLowerCase().includes(qLower));
+            }
+
+            let results = [];
+
+            if (q) {
+                // 兜底：把用户输入本身作为第一条
+                results.push(`按“${q}”提问`);
+
+                // 匹配项（去重）
+                matched.slice(0, 8).forEach(t => {
+                    if (!results.includes(t)) results.push(t);
+                });
+
+                // 热门补齐
+                HOT.forEach(t => {
+                    if (results.length >= 10) return;
+                    if (!results.includes(t)) results.push(t);
+                });
+                showSuggestions(results, q);
+            }
+        }
         
         // 右键菜单和多选功能
         const contextMenu = document.getElementById('context-menu');
@@ -1091,10 +1277,27 @@
             chatContainer.classList.toggle('panels-collapsed', !!collapsed);
         }
         
-        // 自动调整文本框高度
+        // 自动调整文本框高度 + 输入联想
         aiInput.addEventListener('input', function() {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight > 120 ? 120 : this.scrollHeight) + 'px';
+            updateSuggestions();
+        });
+
+        // 聚焦时也尝试展示（如果已有内容）
+        aiInput.addEventListener('focus', () => {
+            updateSuggestions();
+        });
+
+        // 点击外部收起联想
+        document.addEventListener('click', (e) => {
+            if (!suggestionList) return;
+            const target = e.target;
+            const clickedInsideSuggestion = suggestionList.contains(target);
+            const clickedInsideInput = aiInput && (aiInput === target || aiInput.contains(target));
+            if (!clickedInsideSuggestion && !clickedInsideInput) {
+                hideSuggestions();
+            }
         });
         
         // 添加消息到对话框
