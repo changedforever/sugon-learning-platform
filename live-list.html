@@ -43,6 +43,36 @@
       color: #6b7280;
       border-color: rgba(107, 114, 128, 0.3);
     }
+    .horizontal-scroll {
+      display: flex;
+      overflow-x: auto;
+      overflow-y: hidden;
+      gap: 1rem;
+      padding-bottom: 0.5rem;
+      scroll-behavior: smooth;
+      /* 显示滚动条 */
+      scrollbar-width: thin;
+      scrollbar-color: #cbd5e1 transparent;
+    }
+    .horizontal-scroll::-webkit-scrollbar {
+      height: 6px;
+    }
+    .horizontal-scroll::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 3px;
+    }
+    .horizontal-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+    .horizontal-scroll::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .horizontal-scroll > * {
+      flex-shrink: 0;
+      min-width: 280px;
+      max-width: 280px;
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -392,121 +422,20 @@
       </div>
     </section>
 
-    <!-- 我的关注区域 -->
+    <!-- 我的关注/我的预约区域 -->
     <section class="mb-8">
       <h3 class="text-base font-semibold mb-4 flex items-center gap-2">
         <!-- <span class="inline-flex h-5 w-1 rounded-full bg-[#B01F24]"></span> -->
-        <span class="cursor-pointer mr-4 text-[#B01F24]" style="border-bottom: 2px solid #B01F24;">我的关注</span>
-        <span class="cursor-pointer" style="border-bottom: 2px solid transparent;">我的预约</span> 
+        <span id="tab-follow" class="cursor-pointer mr-4 text-[#B01F24] transition-colors" style="border-bottom: 2px solid #B01F24;">我的关注</span>
+        <span id="tab-booking" class="cursor-pointer text-gray-600 transition-colors" style="border-bottom: 2px solid transparent;">我的预约</span> 
       </h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        <!-- 卡片1：直播中 -->
-        <div class="glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col">
-          <div class="relative flex-shrink-0">
-            <div class="aspect-[586/672] bg-gray-200 flex items-center justify-center">
-              <span class="text-gray-500 text-sm">直播封面图</span>
-            </div>
-            <div class="absolute top-2 left-2">
-              <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] status-badge-live">
-                <i class="fa fa-broadcast-tower mr-1 text-[8px]"></i>直播中
-              </span>
-            </div>
-            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
-              <span><i class="fa fa-users mr-1"></i> 1.2k</span>
-            </div>
-            <!-- 右下角观看按钮 -->
-            <div class="absolute bottom-2 right-2">
-              <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
-                观看
-              </a>
-            </div>
-          </div>
-          <div class="p-3">
-            <h3 class="text-sm font-semibold line-clamp-1 mb-1">AI技术前沿分享</h3>
-            <div class="text-xs text-gray-500">2024-01-28 14:00</div>
-          </div>
-        </div>
-        
-        <!-- 卡片2：倒计时1天 -->
-        <div class="glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col">
-          <div class="relative flex-shrink-0">
-            <div class="aspect-[586/672] bg-gray-200 flex items-center justify-center">
-              <span class="text-gray-500 text-sm">直播封面图</span>
-            </div>
-            <div class="absolute top-2 left-2">
-              <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] status-badge-upcoming">
-                <i class="fa fa-clock mr-1 text-[8px]"></i>倒计时 1 天
-              </span>
-            </div>
-            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
-              <span><i class="fa fa-users mr-1"></i> 856</span>
-            </div>
-            <!-- 右下角预约按钮 -->
-            <div class="absolute bottom-2 right-2">
-              <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
-                预约
-              </a>
-            </div>
-          </div>
-          <div class="p-3">
-            <h3 class="text-sm font-semibold line-clamp-1 mb-1">云计算架构设计</h3>
-            <div class="text-xs text-gray-500">2024-01-29 10:00</div>
-          </div>
-        </div>
-        
-        <!-- 卡片3：精彩回顾 -->
-        <div class="glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col">
-          <div class="relative flex-shrink-0">
-            <div class="aspect-[586/672] bg-gray-200 flex items-center justify-center">
-              <span class="text-gray-500 text-sm">直播封面图</span>
-            </div>
-            <div class="absolute top-2 left-2">
-              <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] status-badge-ended">
-                <i class="fa fa-history mr-1 text-[8px]"></i>精彩回顾
-              </span>
-            </div>
-            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
-              <span><i class="fa fa-users mr-1"></i> 2.1k</span>
-            </div>
-            <!-- 右下角回放按钮 -->
-            <div class="absolute bottom-2 right-2">
-              <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
-                回放
-              </a>
-            </div>
-          </div>
-          <div class="p-3">
-            <h3 class="text-sm font-semibold line-clamp-1 mb-1">大数据处理技术</h3>
-            <div class="text-xs text-gray-500">2024-01-27 15:00</div>
-          </div>
-        </div>
-        
-        <!-- 卡片4：已结束 -->
-        <div class="glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col">
-          <div class="relative flex-shrink-0">
-            <div class="aspect-[586/672] bg-gray-200 flex items-center justify-center">
-              <span class="text-gray-500 text-sm">直播封面图</span>
-            </div>
-            <div class="absolute top-2 left-2">
-              <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] status-badge-ended">
-                <i class="fa fa-check-circle mr-1 text-[8px]"></i>已结束
-              </span>
-            </div>
-            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
-              <span><i class="fa fa-users mr-1"></i> 543</span>
-            </div>
-            <!-- 右下角按钮（已结束） -->
-            <div class="absolute bottom-2 right-2">
-              <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-gray-200 text-gray-500 border border-gray-300 cursor-not-allowed opacity-60">
-                已结束
-              </a>
-            </div>
-          </div>
-          <div class="p-3">
-            <h3 class="text-sm font-semibold line-clamp-1 mb-1">容器化部署实践</h3>
-            <div class="text-xs text-gray-500">2024-01-26 16:00</div>
-          </div>
-        </div>
+      <!-- 我的关注列表 -->
+      <div id="follow-list" class="horizontal-scroll">
+        <!-- 由 JS 动态生成 -->
+      </div>
+      <!-- 我的预约列表 -->
+      <div id="booking-list" class="horizontal-scroll hidden">
+        <!-- 由 JS 动态生成 -->
       </div>
     </section>
 
@@ -723,8 +652,20 @@
   let enrolledIds = new Set();
   try {
     const raw = localStorage.getItem(ENROLL_KEY);
-    if (raw) enrolledIds = new Set(JSON.parse(raw));
-  } catch {}
+    if (raw) {
+      enrolledIds = new Set(JSON.parse(raw));
+    } else {
+      // 如果没有存储数据，初始化一些默认的预约数据（只包含直播中和倒计时状态的直播）
+      // id: 2 是直播中，id: 1, 4, 6, 10 是倒计时状态
+      const defaultEnrolledIds = [2, 1, 4, 6, 10];
+      enrolledIds = new Set(defaultEnrolledIds);
+      localStorage.setItem(ENROLL_KEY, JSON.stringify(defaultEnrolledIds));
+    }
+  } catch {
+    // 如果出错，也初始化默认数据
+    const defaultEnrolledIds = [2, 1, 4, 6, 10];
+    enrolledIds = new Set(defaultEnrolledIds);
+  }
 
   function saveEnrollState() {
     try {
@@ -1313,15 +1254,159 @@
         renderLiveNowList();
         renderUpcomingList();
         renderAllLiveList();
+        renderFollowList();
+        renderBookingList();
       });
     });
   }
+
+  // 创建关注/预约卡片（用于横向滚动列表）
+  function createFollowCard(l) {
+    const card = document.createElement('div');
+    const statusMap = {
+      upcoming: { text: '未开始', cls: 'status-badge-upcoming', icon: 'fa-clock' },
+      live: { text: '直播中', cls: 'status-badge-live', icon: 'fa-broadcast-tower' },
+      ended: { text: '精彩回顾', cls: 'status-badge-ended', icon: 'fa-history' }
+    };
+    const st = statusMap[l.status] || statusMap.upcoming;
+    const countdownDays = l.status === 'upcoming' ? getCountdownDays(l.date) : 0;
+    const statusText = l.status === 'upcoming' ? `倒计时 ${countdownDays} 天` : st.text;
+    const isEnrolled = enrolledIds.has(l.id);
+
+    card.className = 'glass-card rounded-3xl border border-gray-300 overflow-hidden hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer flex flex-col';
+    card.innerHTML = `
+      <div class="relative flex-shrink-0">
+        <img src="${l.cover}" alt="${l.title}" class="w-full object-cover" style="aspect-ratio: 586/672;">
+        <div class="absolute top-2 left-2">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] ${st.cls}">
+            <i class="fa ${st.icon} mr-1 text-[8px]"></i>${statusText}
+          </span>
+        </div>
+        <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] rounded-lg px-2 py-1 flex items-center">
+          <span><i class="fa fa-users mr-1"></i> ${l.status === 'live' ? (l.attendees * 1.5).toLocaleString() : l.attendees.toLocaleString()}</span>
+        </div>
+        ${l.status === 'live' ? `
+        <div class="absolute bottom-2 right-2">
+          <a href="live-room.html" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+            观看
+          </a>
+        </div>
+        ` : l.status === 'ended' ? `
+        <div class="absolute bottom-2 right-2">
+          <a href="#" class="px-2 py-1 rounded-full text-[10px] font-medium bg-[#2D874B] text-white hover:opacity-90">
+            回放
+          </a>
+        </div>
+        ` : `
+        <div class="absolute bottom-2 right-2">
+          <button class="enroll-btn px-2 py-1 rounded-full text-[10px] font-medium
+                 ${isEnrolled
+                    ? 'bg-white border border-[#B01F24] text-[#B01F24] hover:bg-gray-50'
+                    : 'bg-[#2D874B] text-white hover:opacity-90'}"
+            data-id="${l.id}"
+            data-status="${l.status}">
+            ${isEnrolled ? '取消预约' : '预约'}
+          </button>
+        </div>
+        `}
+      </div>
+      <div class="p-3">
+        <h3 class="text-sm font-semibold line-clamp-1 mb-1">${l.title}</h3>
+        <div class="text-xs text-gray-500">${l.date}</div>
+      </div>
+    `;
+    return card;
+  }
+
+  // 渲染我的关注列表
+  function renderFollowList() {
+    const followList = document.getElementById('follow-list');
+    followList.innerHTML = '';
+    
+    // 模拟关注数据（实际应该从后端获取）
+    const followData = allLives.filter(l => {
+      // 这里可以根据实际业务逻辑筛选关注的直播
+      // 暂时显示所有状态的直播作为示例
+      return true;
+    }).slice(0, 8); // 限制显示数量
+
+    if (followData.length === 0) {
+      followList.innerHTML = '<div class="w-full text-center py-8 text-gray-500">暂无关注的内容</div>';
+      return;
+    }
+
+    followData.forEach(l => {
+      const card = createFollowCard(l);
+      followList.appendChild(card);
+    });
+
+    bindEnrollEvents();
+  }
+
+  // 渲染我的预约列表（只显示直播中和倒计时状态）
+  function renderBookingList() {
+    const bookingList = document.getElementById('booking-list');
+    bookingList.innerHTML = '';
+    
+    // 只显示已预约且状态为直播中或倒计时的直播
+    const bookingData = allLives.filter(l => {
+      return enrolledIds.has(l.id) && (l.status === 'live' || l.status === 'upcoming');
+    }).sort((a, b) => {
+      // 直播中优先，然后按时间排序
+      if (a.status === 'live' && b.status !== 'live') return -1;
+      if (a.status !== 'live' && b.status === 'live') return 1;
+      return new Date(a.date) - new Date(b.date);
+    });
+
+    if (bookingData.length === 0) {
+      bookingList.innerHTML = '<div class="w-full text-center py-8 text-gray-500">暂无预约的直播</div>';
+      return;
+    }
+
+    bookingData.forEach(l => {
+      const card = createFollowCard(l);
+      bookingList.appendChild(card);
+    });
+
+    bindEnrollEvents();
+  }
+
+  // 标签切换功能
+  const tabFollow = document.getElementById('tab-follow');
+  const tabBooking = document.getElementById('tab-booking');
+  const followList = document.getElementById('follow-list');
+  const bookingList = document.getElementById('booking-list');
+
+  tabFollow.addEventListener('click', () => {
+    tabFollow.style.borderBottom = '2px solid #B01F24';
+    tabFollow.classList.remove('text-gray-600');
+    tabFollow.classList.add('text-[#B01F24]');
+    tabBooking.style.borderBottom = '2px solid transparent';
+    tabBooking.classList.remove('text-[#B01F24]');
+    tabBooking.classList.add('text-gray-600');
+    followList.classList.remove('hidden');
+    bookingList.classList.add('hidden');
+  });
+
+  tabBooking.addEventListener('click', () => {
+    tabBooking.style.borderBottom = '2px solid #B01F24';
+    tabBooking.classList.remove('text-gray-600');
+    tabBooking.classList.add('text-[#B01F24]');
+    tabFollow.style.borderBottom = '2px solid transparent';
+    tabFollow.classList.remove('text-[#B01F24]');
+    tabFollow.classList.add('text-gray-600');
+    bookingList.classList.remove('hidden');
+    followList.classList.add('hidden');
+    renderBookingList(); // 切换时重新渲染预约列表
+  });
 
   // 渲染列表（主函数）
   function renderList() {
     renderLiveNowList();
     renderUpcomingList();
     renderAllLiveList();
+    renderFollowList();
+    renderBookingList();
   }
 
   // 初始化
