@@ -907,34 +907,29 @@
     <div class="max-w-7xl mx-auto px-4 lg:px-6">
       <!-- 标签页切换 -->
       <div class="tabs flex border-b border-gray-200 mb-8">
-        <div class="tab active" data-tab="expert-library">专家库</div>
-        <div class="tab" data-tab="service-records">服务记录</div>
+        <div class="tab active" data-tab="expert-library">
+          专家库
+          <span class="ml-2 text-xs text-gray-500">共 <span id="expert-count">35</span> 位专家</span>
+        </div>
+        <div class="tab" data-tab="service-records">
+          服务记录
+          <span class="ml-2 text-xs text-gray-500">共 <span id="record-count">24</span> 条服务记录</span>
+        </div>
       </div>
 
       <!-- 专家库内容 -->
       <div id="expert-library" class="tab-content fade-in">
         <!-- 搜索框 -->
         <div class="search-box bg-white rounded-xl p-4 mb-8 shadow-sm">
-          <div class="flex flex-col md:flex-row gap-4">
-            <div class="flex-1">
-              <div class="relative">
-                <input 
-                  type="text" 
-                  id="expert-search" 
-                  placeholder="搜索专家姓名、领域..." 
-                  class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2D874B] focus:border-transparent"
-                >
-                <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-              </div>
-            </div>
-            <div class="md:w-48">
-              <select id="domain-filter" class="w-full py-3 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2D874B] focus:border-transparent">
-                <option value="">全部领域</option>
-                <option value="cpu">CPU</option>
-                <option value="dcu">DCU</option>
-                <option value="os-db-cloud">操作系统/数据库/云</option>
-                <option value="general">通用</option>
-              </select>
+          <div>
+            <div class="relative">
+              <input 
+                type="text" 
+                id="expert-search" 
+                placeholder="搜索专家姓名、领域..." 
+                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2D874B] focus:border-transparent"
+              >
+              <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
             </div>
           </div>
         </div>
@@ -943,72 +938,6 @@
 
         <!-- 专家列表 -->
         <div class="mb-8">
-          <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">专家列表</h2>
-            <div class="text-sm text-gray-500">
-              共 <span id="expert-count">35</span> 位专家
-            </div>
-          </div>
-          
-          <!-- 专家领域分类按钮 -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
-            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                  <i class="fa fa-list text-gray-600"></i>
-                </div>
-                <div class="text-left">
-                  <h3 class="font-semibold text-gray-800">全部</h3>
-                  <p class="text-xs text-gray-500">35位专家</p>
-                </div>
-              </div>
-            </div>
-            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                  <i class="fa fa-microchip text-blue-600"></i>
-                </div>
-                <div class="text-left">
-                  <h3 class="font-semibold text-gray-800">CPU</h3>
-                  <p class="text-xs text-gray-500">8位专家</p>
-                </div>
-              </div>
-            </div>
-            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                  <i class="fa fa-memory text-purple-600"></i>
-                </div>
-                <div class="text-left">
-                  <h3 class="font-semibold text-gray-800">DCU</h3>
-                  <p class="text-xs text-gray-500">6位专家</p>
-                </div>
-              </div>
-            </div>
-            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                  <i class="fa fa-server text-green-600"></i>
-                </div>
-                <div class="text-left">
-                  <h3 class="font-semibold text-gray-800">操作系统/数据库/云</h3>
-                  <p class="text-xs text-gray-500">12位专家</p>
-                </div>
-              </div>
-            </div>
-            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                  <i class="fa fa-globe text-yellow-600"></i>
-                </div>
-                <div class="text-left">
-                  <h3 class="font-semibold text-gray-800">通用</h3>
-                  <p class="text-xs text-gray-500">9位专家</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="expert-list">
             <!-- 专家卡片示例 -->
             <div class="expert-card bg-white rounded-xl p-6 border border-gray-200 fade-in">
@@ -1414,9 +1343,6 @@
         <div class="mb-8">
           <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold text-gray-800">专家服务记录</h2>
-            <div class="text-sm text-gray-500">
-              共 <span id="record-count">24</span> 条服务记录
-            </div>
           </div>
           
           <div class="space-y-4" id="record-list">
@@ -1757,31 +1683,7 @@
     }
   }
 
-  // 专家领域分类点击事件
-  document.querySelectorAll('.domain-card').forEach(card => {
-    card.addEventListener('click', function() {
-      const domain = this.querySelector('h3').textContent;
-      let domainValue = '';
-      switch(domain) {
-        case 'CPU':
-          domainValue = 'cpu';
-          break;
-        case 'DCU':
-          domainValue = 'dcu';
-          break;
-        case '操作系统/数据库/云':
-          domainValue = 'os-db-cloud';
-          break;
-        case '通用':
-          domainValue = 'general';
-          break;
-        default:
-          domainValue = domain.toLowerCase();
-      }
-      document.getElementById('domain-filter').value = domainValue;
-      filterExperts();
-    });
-  });
+  // 专家领域卡片点击事件（已移除领域卡片，此逻辑保留为空以防调用报错）
 
   // 添加动画效果
   const observerOptions = {
