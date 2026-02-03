@@ -242,9 +242,9 @@
         /* 能力场景 + 猜你想问 卡片区域 */
         .ability-panels {
             display: grid;
-            grid-template-columns: 1.1fr 1.1fr;
+            grid-template-columns: repeat(3, 1fr);
             gap: 16px;
-            max-width: 720px;          /* 宽度稍微窄一点 */
+            max-width: 900px;          /* 略微加宽，容纳三列卡片 */
             margin: 40px auto 16px;    /* 在对话区中间偏上的位置居中 */
         }
 
@@ -598,9 +598,9 @@
             font-weight: 500;
         }
 
-        /* 技能选择器样式（下载 + 二级标签） */
+        /* 技能选择器样式（下载 + 二级标签） - 默认隐藏，根据需要再启用 */
         .skill-selector {
-            display: flex;
+            display: none;
             align-items: center;
             gap: 8px;
             padding: 8px 12px 6px;
@@ -686,6 +686,50 @@
             border-color: #d0d5ff;
             color: #333;
             box-shadow: 0 0 0 1px rgba(115, 130, 255, 0.35);
+        }
+
+        /* 场景领域标签选中样式 */
+        .scene-domain-item.active {
+            background: #ffffff;
+            border: 1px solid #d0d5ff;
+            color: #333;
+            box-shadow: 0 0 0 1px rgba(115, 130, 255, 0.35);
+        }
+
+        /* 已选领域提示为独立标签样式 */
+        .selected-scene-domain {
+            margin: 4px 12px 0;
+            font-size: 12px;
+            display: none;
+        }
+
+        .selected-scene-domain-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 2px 10px;
+            border-radius: 999px;
+            background: #eef2ff;
+            color: #4f46e5;
+            border: 1px solid #c7d2fe;
+        }
+
+        .selected-scene-domain-text {
+            max-width: 120px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .selected-scene-domain-close {
+            cursor: pointer;
+            font-size: 11px;
+            color: #9ca3af;
+            padding-left: 2px;
+        }
+
+        .selected-scene-domain-close:hover {
+            color: #6b7280;
         }
 
         /* 右键菜单样式 */
@@ -821,6 +865,84 @@
         .cancel-selection:hover {
             background: #f0f0f0;
         }
+
+        /* 模式切換開關（問答 / 下載） */
+        .mode-toggle-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .mode-toggle-label {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .mode-toggle {
+            position: relative;
+            width: 112px;
+            height: 30px;
+            border-radius: 999px;
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 2px;
+            box-sizing: border-box;
+            transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+            box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.03);
+        }
+
+        .mode-toggle-knob {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 54px;
+            height: 24px;
+            border-radius: 999px;
+            background: #4a86ff;
+            color: #fff;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+            box-shadow: 0 6px 12px rgba(37, 99, 235, 0.35);
+        }
+
+        .mode-toggle-text {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            font-size: 12px;
+            color: #9ca3af;
+            user-select: none;
+        }
+
+        .mode-toggle.mode-download {
+            background: #ecfdf5;
+            border-color: #a7f3d0;
+            box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.25);
+        }
+
+        .mode-toggle.mode-download .mode-toggle-knob {
+            transform: translateX(54px);
+            background: #10b981;
+            box-shadow: 0 6px 12px rgba(16, 185, 129, 0.35);
+        }
+
+        .mode-toggle.mode-qa .mode-text-qa {
+            color: #111827;
+            font-weight: 600;
+        }
+
+        .mode-toggle.mode-download .mode-text-download {
+            color: #047857;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -839,15 +961,15 @@
                 </div>
             </div>
             <div class="sidebar-actions">
-                <button class="sidebar-btn active">
+                <button class="sidebar-btn active" data-target="chat">
                     <i class="fas fa-plus"></i>
                     <span>新对话</span>
                 </button>
-                <button class="sidebar-btn">
+                <button class="sidebar-btn" data-target="favorites">
                     <i class="fas fa-star"></i>
                     <span>我的收藏</span>
                 </button>
-                <button class="sidebar-btn">
+                <button class="sidebar-btn" data-target="history">
                     <i class="fas fa-history"></i>
                     <span>历史对话</span>
                 </button>
@@ -864,16 +986,18 @@
                     </div>
                     <div>
                         <div class="chat-title">AI智能助手</div>
-                        <div class="chat-subtitle">问你所惑，解你所需</div>
+                        <div class="chat-subtitle" id="chat-subtitle-text">问你所惑，解你所需</div>
                     </div>
                 </div>
                 <a href="index.html" class="close-btn">
                     <i class="fas fa-times"></i>
                 </a>
             </div>
-            
-            <!-- 消息区域 -->
-            <div id="ai-messages" class="messages-container">
+
+            <!-- 新对话主面板 -->
+            <div id="panel-chat" class="panel-section">
+                <!-- 消息区域 -->
+                <div id="ai-messages" class="messages-container">
                 <div class="message bot-message">
                     <div class="avatar-small bot-avatar">
                         <i class="fas fa-robot"></i>
@@ -885,10 +1009,26 @@
 
                 <!-- 能力场景 + 猜你想问（移动到中间内容区域） -->
                 <div class="ability-panels">
+                    <!-- 右侧：下载相关（DCU / CPU） -->
+                    <div class="ability-card">
+                        <div class="ability-card-header">
+                            <span class="ability-card-title">场景领域</span>
+                        </div>
+                        <div class="ability-list">
+                            <button class="ability-item scene-domain-item" data-question="DCU 驱动下载">
+                                <div class="ability-item-title">DCU</div>
+                                <div class="ability-item-subtitle">获取最新 DCU 驱动与工具</div>
+                            </button>
+                            <button class="ability-item scene-domain-item" data-question="CPU 固件与驱动下载">
+                                <div class="ability-item-title">CPU</div>
+                                <div class="ability-item-subtitle">CPU 固件、驱动及文档资源</div>
+                            </button>
+                        </div>
+                    </div>
                     <!-- 左侧：能力场景 -->
                     <div class="ability-card">
                         <div class="ability-card-header">
-                            <span class="ability-card-title">能力场景</span>
+                            <span class="ability-card-title">推广</span>
                             <div class="ability-card-page">
                                 <span>2/3</span>
                                 <i class="fas fa-angle-right"></i>
@@ -910,10 +1050,10 @@
                         </div>
                     </div>
 
-                    <!-- 右侧：猜你想问 -->
+                    <!-- 中间：猜你想问 -->
                     <div class="ability-card">
                         <div class="ability-card-header">
-                            <span class="ability-card-title">猜你想问</span>
+                            <span class="ability-card-title">Q&A</span>
                         </div>
                         <div class="guess-questions">
                             <button class="guess-question" data-question="HCIE实验预约及考位查询">实验预约及考位查询</button>
@@ -932,9 +1072,9 @@
                     </div>
                 </div>
             </div>
-
+            
             <!-- 输入区域 -->
-            <div class="input-area">
+            <div class="input-area" id="chat-input-area">
                 <!-- 原有快捷提问，仍然保留 -->
                 <div class="quick-questions" id="ai-quick-questions">
                     <button class="quick-question">如何参加考试？</button>
@@ -942,6 +1082,23 @@
                     <button class="quick-question">如何查看和下载证书</button>
                 </div>
                 <div class="input-container" style="position: relative;">
+                    <!-- 模式切換：問答 / 下載 -->
+                    <div class="mode-toggle-wrapper">
+                        <div id="mode-toggle" class="mode-toggle mode-qa">
+                            <div class="mode-toggle-knob" id="mode-toggle-knob">問答</div>
+                            <div class="mode-toggle-text">
+                                <span class="mode-text-qa">問答</span>
+                                <span class="mode-text-download">下載</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 场景领域提示标签（独立标签） -->
+                    <div id="selected-scene-domain" class="selected-scene-domain">
+                        <span class="selected-scene-domain-tag">
+                            <span class="selected-scene-domain-text" id="selected-scene-domain-text"></span>
+                            <span class="selected-scene-domain-close" id="selected-scene-domain-close">×</span>
+                        </span>
+                    </div>
                     <!-- 技能选择器 - 放在文本框内部上方 -->
                     <div class="skill-selector" id="skill-selector">
                         <div class="skill-main" id="download-main">
@@ -1000,6 +1157,26 @@
                     取消
                 </button>
             </div>
+
+            <!-- 我的收藏 面板（由 JS 动态填充） -->
+            <div id="panel-favorites" class="panel-section" style="display: none; padding: 24px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+                    <div style="font-size: 16px; font-weight: 500;">我的收藏</div>
+                    <div id="favorites-count" style="font-size: 12px; color: #9ca3af;">共 0 条收藏</div>
+                </div>
+                <div id="favorites-empty" style="font-size: 14px; color: #9ca3af;">还没有收藏内容，可以在对话中勾选消息后点击底部「收藏」按钮。</div>
+                <div id="favorites-list" style="display:none; display:flex; flex-direction:column; gap:12px;"></div>
+            </div>
+
+            <!-- 历史对话 面板（由 JS 动态填充） -->
+            <div id="panel-history" class="panel-section" style="display: none; padding: 24px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+                    <div style="font-size: 16px; font-weight: 500;">历史对话</div>
+                    <div id="history-count" style="font-size: 12px; color: #9ca3af;">最近 0 条会话</div>
+                </div>
+                <div id="history-empty" style="font-size: 14px; color: #9ca3af;">还没有历史对话，发起几轮问答后再来看看。</div>
+                <div id="history-list" style="display:none; display:flex; flex-direction:column; gap:10px; font-size:13px;"></div>
+            </div>
         </div>
     </div>
 
@@ -1019,6 +1196,14 @@
         const chatContainer = document.querySelector('.chat-container');
         const abilityPanels = document.querySelector('.ability-panels');
         const suggestionList = document.getElementById('suggestion-list');
+
+        // 收藏 & 历史对话 DOM
+        const favoritesList = document.getElementById('favorites-list');
+        const favoritesEmpty = document.getElementById('favorites-empty');
+        const favoritesCount = document.getElementById('favorites-count');
+        const historyList = document.getElementById('history-list');
+        const historyEmpty = document.getElementById('history-empty');
+        const historyCount = document.getElementById('history-count');
 
         // ===== 输入联想（搜索建议）=====
         // 说明：页面原本只有 #suggestion-list 的静态结构且 display:none，但没有任何 JS 去控制它显示/渲染
@@ -1085,7 +1270,7 @@
             '账号被锁定怎么办？',
 
             // 下载/驱动/工具
-            '如何下载 CPU / DCU 驱动？',
+            '如何下载 CPU / DCU ',
             '下载链接失效怎么办？',
             '安装驱动时报错如何解决？',
             '镜像/工具包在哪里下载？',
@@ -1218,9 +1403,42 @@
         let isMultiSelectMode = false;
         let selectedMessages = new Set();
         let currentMessage = null;
+
+        // 我的收藏 & 历史对话数据
+        let favoriteItems = []; // {content, createdAt}
+        let historyItems = [];  // {question, createdAt}
         
-        // 当前选中的技能（仅用于后续扩展，目前保持通用）
+        // 当前选中的技能与模式
         let currentSkill = '通用';
+        let currentMode = 'qa'; // qa 問答模式；download 下載模式
+
+        // 模式切換 DOM
+        const modeToggle = document.getElementById('mode-toggle');
+        const modeToggleKnob = document.getElementById('mode-toggle-knob');
+
+        function updateModeUI() {
+            if (!modeToggle || !modeToggleKnob || !aiInput) return;
+            if (currentMode === 'qa') {
+                modeToggle.classList.remove('mode-download');
+                modeToggle.classList.add('mode-qa');
+                modeToggleKnob.textContent = '問答';
+                aiInput.placeholder = '输入您的问题...';
+            } else {
+                modeToggle.classList.remove('mode-qa');
+                modeToggle.classList.add('mode-download');
+                modeToggleKnob.textContent = '下載';
+                aiInput.placeholder = '请输入需要下载的内容，如“CPU 驱动下载地址”...';
+            }
+        }
+
+        if (modeToggle) {
+            modeToggle.addEventListener('click', function () {
+                currentMode = currentMode === 'qa' ? 'download' : 'qa';
+                updateModeUI();
+            });
+            // 初始化一次 UI
+            updateModeUI();
+        }
 
         // 下载技能：展开 / 收起二级标签
         const skillSelector = document.getElementById('skill-selector');
@@ -1461,6 +1679,7 @@
                         btn.innerHTML = `<span>${text}</span><i class="fas fa-arrow-right followup-icon"></i>`;
                         btn.addEventListener('click', () => {
                             addMessage(text, true);
+                            addHistoryItem(text);
                             handleAIResponse(text, currentSkill);
                         });
                         container.appendChild(btn);
@@ -1482,7 +1701,8 @@
                 if (message) {
                     // 在消息前添加技能标签（可选，用于显示）
                     const messageWithSkill = currentSkill !== '通用' ? `[${currentSkill}] ${message}` : message;
-                    addMessage(message, true);
+                    addMessage(messageWithSkill, true);
+                    addHistoryItem(message);
                     // 发送后先收起（等回复出现时也会再次确保收起）
                     setPanelsCollapsed(true);
                     aiInput.value = '';
@@ -1502,15 +1722,7 @@
             });
         }
         
-        // 点击输入框时，如果技能选择器被隐藏，可以显示它
-        if (aiInput) {
-            aiInput.addEventListener('focus', function() {
-                const skillSelector = document.getElementById('skill-selector');
-                if (skillSelector) {
-                    skillSelector.style.display = 'flex';
-                }
-            });
-        }
+        // 点击输入框时，不再自动展示下载技能选择器（按需手动扩展）
 
         // 预设标签点击事件（底部快捷问题）
         const presetButtons = document.querySelectorAll('#ai-quick-questions button');
@@ -1518,17 +1730,178 @@
             button.addEventListener('click', function() {
                 const message = this.textContent.trim();
                 addMessage(message, true);
+                addHistoryItem(message);
                 setPanelsCollapsed(true);
                 handleAIResponse(message, currentSkill);
             });
         });
 
-        // 能力场景 & 猜你想问卡片点击事件
-        const panelButtons = document.querySelectorAll('.ability-item, .guess-question');
+        function formatDateTime(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            const hh = String(date.getHours()).padStart(2, '0');
+            const mm = String(date.getMinutes()).padStart(2, '0');
+            return `${y}-${m}-${d} ${hh}:${mm}`;
+        }
+
+        function renderFavorites() {
+            if (!favoritesList || !favoritesEmpty || !favoritesCount) return;
+            const count = favoriteItems.length;
+            favoritesCount.textContent = `共 ${count} 条收藏`;
+            if (count === 0) {
+                favoritesEmpty.style.display = 'block';
+                favoritesList.style.display = 'none';
+                favoritesList.innerHTML = '';
+                return;
+            }
+            favoritesEmpty.style.display = 'none';
+            favoritesList.style.display = 'flex';
+            favoritesList.innerHTML = favoriteItems.map(item => `
+                <div style="padding:12px 14px; border-radius:10px; background:#f9fafb; border:1px solid #e5e7eb; cursor:pointer;">
+                    <div style="font-size:13px; color:#111827; margin-bottom:4px; white-space:pre-line;">${escapeHtml(item.content)}</div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; color:#9ca3af; margin-top:4px;">
+                        <span>收藏于 ${item.createdAt}</span>
+                        <span><i class="fas fa-star" style="color:#f59e0b; margin-right:4px;"></i>对话收藏</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderHistory() {
+            if (!historyList || !historyEmpty || !historyCount) return;
+            const count = historyItems.length;
+            historyCount.textContent = `最近 ${count} 条会话`;
+            if (count === 0) {
+                historyEmpty.style.display = 'block';
+                historyList.style.display = 'none';
+                historyList.innerHTML = '';
+                return;
+            }
+            historyEmpty.style.display = 'none';
+            historyList.style.display = 'flex';
+            historyList.innerHTML = historyItems.map(item => `
+                <div style="padding:10px 12px; border-radius:8px; border:1px solid #e5e7eb; background:#ffffff; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
+                    <div style="max-width:80%; color:#111827; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(item.question)}</div>
+                    <div style="font-size:11px; color:#9ca3af;">${item.createdAt}</div>
+                </div>
+            `).join('');
+        }
+
+        function addHistoryItem(question) {
+            if (!question) return;
+            const now = new Date();
+            historyItems.unshift({
+                question,
+                createdAt: formatDateTime(now)
+            });
+            // 只保留最近 20 条
+            historyItems = historyItems.slice(0, 20);
+            renderHistory();
+        }
+
+        // 侧边栏：新对话 / 我的收藏 / 历史对话 切换
+        const sidebarButtons = document.querySelectorAll('.sidebar-btn');
+        const panelChat = document.getElementById('panel-chat');
+        const panelFavorites = document.getElementById('panel-favorites');
+        const panelHistory = document.getElementById('panel-history');
+        const chatInputArea = document.getElementById('chat-input-area');
+        const chatSubtitleText = document.getElementById('chat-subtitle-text');
+
+        function switchPanel(target) {
+            // 按钮高亮
+            sidebarButtons.forEach(btn => {
+                if (btn.getAttribute('data-target') === target) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // 面板显示/隐藏
+            if (panelChat) panelChat.style.display = (target === 'chat') ? 'block' : 'none';
+            if (chatInputArea) chatInputArea.style.display = (target === 'chat') ? 'block' : 'none';
+            if (actionButtonsArea) actionButtonsArea.style.display = (target === 'chat' && selectedMessages.size > 0) ? 'flex' : (target === 'chat' ? 'none' : 'none');
+
+            if (panelFavorites) panelFavorites.style.display = (target === 'favorites') ? 'block' : 'none';
+            if (panelHistory) panelHistory.style.display = (target === 'history') ? 'block' : 'none';
+
+            // 头部副标题文案
+            if (chatSubtitleText) {
+                if (target === 'chat') {
+                    chatSubtitleText.textContent = '问你所惑，解你所需';
+                } else if (target === 'favorites') {
+                    chatSubtitleText.textContent = '查看你收藏的高价值问答';
+                } else if (target === 'history') {
+                    chatSubtitleText.textContent = '回顾你与 AI 的历史对话';
+                }
+            }
+        }
+
+        if (sidebarButtons.length) {
+            sidebarButtons.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const target = this.getAttribute('data-target') || 'chat';
+                    switchPanel(target);
+                });
+            });
+        }
+
+        // 默认展示新对话面板
+        switchPanel('chat');
+
+        // 场景领域标签（仅高亮，不触发会话）
+        const sceneDomainItems = document.querySelectorAll('.scene-domain-item');
+        const selectedSceneDomain = document.getElementById('selected-scene-domain');
+        const selectedSceneDomainText = document.getElementById('selected-scene-domain-text');
+        const selectedSceneDomainClose = document.getElementById('selected-scene-domain-close');
+        let currentSceneDomain = '';
+        sceneDomainItems.forEach(item => {
+            item.addEventListener('click', function (e) {
+                e.preventDefault();
+                // 只作为标签选中展示
+                sceneDomainItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+
+                // 标签只保留 DCU / CPU 文本，不带描述
+                const titleEl = this.querySelector('.ability-item-title');
+                currentSceneDomain = titleEl ? titleEl.textContent.trim() : this.textContent.trim();
+
+                // 在输入框上方显示当前选中领域
+                if (selectedSceneDomain && selectedSceneDomainText) {
+                    selectedSceneDomain.style.display = 'block';
+                    selectedSceneDomainText.textContent = currentSceneDomain;
+                }
+
+                // 切换到下载模式，但不发送消息
+                currentMode = 'download';
+                updateModeUI();
+            });
+        });
+
+        // 关闭已选领域标签
+        if (selectedSceneDomainClose) {
+            selectedSceneDomainClose.addEventListener('click', function () {
+                // 清空当前选中状态
+                currentSceneDomain = '';
+                if (selectedSceneDomain) {
+                    selectedSceneDomain.style.display = 'none';
+                }
+                if (selectedSceneDomainText) {
+                    selectedSceneDomainText.textContent = '';
+                }
+                sceneDomainItems.forEach(i => i.classList.remove('active'));
+                // 可选：关闭后仍保持下载模式，不切回问答
+            });
+        }
+
+        // 能力场景 & 猜你想问卡片点击事件（不包含场景领域标签）
+        const panelButtons = document.querySelectorAll('.ability-item:not(.scene-domain-item), .guess-question');
         panelButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const message = this.getAttribute('data-question') || this.textContent.trim();
                 addMessage(message, true);
+                addHistoryItem(message);
                 setPanelsCollapsed(true);
                 handleAIResponse(message, currentSkill);
             });
@@ -1686,7 +2059,27 @@
 
         if (actionFavorite) {
             actionFavorite.addEventListener('click', function() {
-                // 收藏功能
+                if (selectedMessages.size === 0) {
+                    alert('请先选择要收藏的消息');
+                    return;
+                }
+                let content = '';
+                selectedMessages.forEach(message => {
+                    const bubble = message.querySelector('.message-content');
+                    if (bubble) {
+                        content += bubble.textContent.trim() + '\n';
+                    }
+                });
+                content = content.trim();
+                if (!content) return;
+                const now = new Date();
+                favoriteItems.unshift({
+                    content,
+                    createdAt: formatDateTime(now)
+                });
+                // 只保留最近 20 条收藏
+                favoriteItems = favoriteItems.slice(0, 20);
+                renderFavorites();
                 alert('收藏成功！');
             });
         }
