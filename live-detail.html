@@ -38,6 +38,9 @@
       color: #6b7280;
       border-color: rgba(107, 114, 128, 0.3);
     }
+    .review-card {
+      border-left: 3px solid #B01F24;
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -426,7 +429,7 @@
         <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-6 mt-4">
           <!-- Tab 导航 -->
           <div class="flex border-b border-gray-200 -mx-4 md:-mx-6 px-4 md:px-6">
-            <button class="tab-btn tab-active flex items-center gap-2 py-3 px-4 text-sm font-medium text-[#2D874B] border-b-2 border-[#2D874B]" data-target="tab-intro">
+            <button class="tab-btn flex items-center gap-2 py-3 px-4 text-sm font-medium text-[#2D874B] border-b-2 border-[#2D874B]" data-target="tab-intro">
               <i class="fa fa-book-open text-[13px]"></i>
               直播介绍
             </button>
@@ -441,6 +444,10 @@
             <button class="tab-btn flex items-center gap-2 py-3 px-4 text-sm font-medium text-gray-500 hover:text-gray-700" data-target="tab-schedule">
               <i class="fa fa-calendar-check text-[13px]"></i>
               日程表
+            </button>
+            <button class="tab-btn flex items-center gap-2 py-3 px-4 text-sm font-medium text-gray-500 hover:text-gray-700" data-target="tab-review">
+              <i class="fa fa-star text-[13px]"></i>
+              直播评价
             </button>
           </div>
           
@@ -593,6 +600,118 @@
                     <li>主题：DevOps持续集成与部署实践</li>
                     <li>预约人数：7,210人</li>
                   </ul>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 直播评价 -->
+            <div id="tab-review" class="tab-panel hidden">
+              <h2 class="text-lg font-semibold mb-3 text-gray-900">直播评价</h2>
+
+              <!-- 评分概览 -->
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+                <div class="flex items-center gap-3">
+                  <div class="glass-card rounded-2xl border border-gray-300 px-4 py-3 text-center">
+                    <div class="text-xs text-gray-600">直播综合评分</div>
+                    <div class="text-2xl font-semibold text-[#B01F24]">4.7</div>
+                    <div class="flex justify-center text-[#B01F24] text-xs mt-1">
+                      <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-alt"></i>
+                    </div>
+                    <div class="text-[11px] text-gray-600 mt-1">来自 96 位伙伴的评价</div>
+                  </div>
+                  <div class="text-[11px] text-gray-600 space-y-1">
+                    <div>内容实用性：<span class="text-emerald-600">4.8</span></div>
+                    <div>讲师表达：<span class="text-emerald-600">4.7</span></div>
+                    <div>直播流畅度：<span class="text-emerald-600">4.6</span></div>
+                  </div>
+                </div>
+
+                <!-- 写评价 -->
+                <div class="flex-1 glass-card rounded-2xl border border-gray-300 px-4 py-3">
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium text-gray-900">写下你的评价</span>
+                    <span class="text-[11px] text-gray-600">仅已观看用户可评价</span>
+                  </div>
+                  <textarea
+                    id="review-textarea"
+                    rows="3"
+                    class="mt-2 w-full rounded-xl bg-white/90 border border-gray-300 px-3 py-2 text-xs text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-[#B01F24]"
+                    placeholder="分享你在直播中的收获、建议或期待…"></textarea>
+                  <div class="mt-2 flex items-center justify-between">
+                    <div class="flex items-center text-xs text-gray-600 gap-1">
+                      <span>你的评分：</span>
+                      <div class="flex gap-1 text-[#B01F24]" id="star-rating">
+                        <i class="fa fa-star cursor-pointer" data-rating="1"></i>
+                        <i class="fa fa-star cursor-pointer" data-rating="2"></i>
+                        <i class="fa fa-star cursor-pointer" data-rating="3"></i>
+                        <i class="fa fa-star cursor-pointer" data-rating="4"></i>
+                        <i class="fa fa-star cursor-pointer" data-rating="5"></i>
+                      </div>
+                    </div>
+                    <button id="submit-review-btn" class="px-3 py-1.5 rounded-full bg-[#B01F24] text-white text-[11px] hover:opacity-90">
+                      提交评价
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 评价列表 -->
+              <div class="space-y-3" id="review-list">
+                <div class="review-card glass-card rounded-2xl border border-gray-300 p-3">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                      <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=80&q=80"
+                           class="h-8 w-8 rounded-full object-cover border border-gray-300 mr-2" alt="">
+                      <div>
+                        <div class="text-xs font-medium text-gray-900">张合作 · 金牌伙伴</div>
+                        <div class="flex text-[#B01F24] text-[10px]">
+                          <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="text-[11px] text-gray-600">2026-01-16</span>
+                  </div>
+                  <p class="mt-2 text-xs text-gray-700">
+                    直播内容非常贴近我们伙伴实际项目，案例和演示都很有价值，已经应用在最近的方案设计中。讲师讲解清晰，互动环节也很到位。
+                  </p>
+                </div>
+
+                <div class="review-card glass-card rounded-2xl border border-gray-300 p-3">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                      <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=80&q=80"
+                           class="h-8 w-8 rounded-full object-cover border border-gray-300 mr-2" alt="">
+                      <div>
+                        <div class="text-xs font-medium text-gray-900">李架构师</div>
+                        <div class="flex text-[#B01F24] text-[10px]">
+                          <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-alt"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="text-[11px] text-gray-600">2026-01-15</span>
+                  </div>
+                  <p class="mt-2 text-xs text-gray-700">
+                    对云原生架构设计部分讲得比较深入，适合有一定基础的工程师。建议在开头增加一点基础入门说明，让新手也能跟上节奏。
+                  </p>
+                </div>
+
+                <div class="review-card glass-card rounded-2xl border border-gray-300 p-3">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&q=80"
+                           class="h-8 w-8 rounded-full object-cover border border-gray-300 mr-2" alt="">
+                      <div>
+                        <div class="text-xs font-medium text-gray-900">王工程师</div>
+                        <div class="flex text-[#B01F24] text-[10px]">
+                          <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="text-[11px] text-gray-600">2026-01-14</span>
+                  </div>
+                  <p class="mt-2 text-xs text-gray-700">
+                    实战演示部分非常精彩，从单体应用到微服务的迁移过程讲解得很清楚。希望后续能有更多类似的实战案例分享。
+                  </p>
                 </div>
               </div>
             </div>
@@ -1157,13 +1276,13 @@
 
       // 移除所有按钮的激活状态
       tabButtons.forEach(b => {
-        b.classList.remove('tab-active', 'text-[#2D874B]', 'border-[#2D874B]');
+        b.classList.remove('text-[#2D874B]');
         b.classList.add('text-gray-500', 'hover:text-gray-700');
         b.style.borderBottom = 'none';
       });
 
       // 添加当前按钮的激活状态
-      btn.classList.add('tab-active', 'text-[#2D874B]');
+      btn.classList.add('text-[#2D874B]');
       btn.style.borderBottom = '2px solid #2D874B';
       btn.classList.remove('text-gray-500', 'hover:text-gray-700');
 
@@ -1271,6 +1390,105 @@
   
   // 初始化我的直播列表
   generateMyLiveList();
+
+  // ====== 12. 直播评价功能 ======
+  let currentRating = 0;
+  const starRating = document.getElementById('star-rating');
+  const stars = starRating.querySelectorAll('.fa-star');
+  const submitReviewBtn = document.getElementById('submit-review-btn');
+  const reviewTextarea = document.getElementById('review-textarea');
+  const reviewList = document.getElementById('review-list');
+
+  // 星级评分交互
+  stars.forEach((star, index) => {
+    star.addEventListener('click', () => {
+      currentRating = index + 1;
+      updateStarDisplay();
+    });
+    
+    star.addEventListener('mouseenter', () => {
+      highlightStars(index + 1);
+    });
+  });
+
+  starRating.addEventListener('mouseleave', () => {
+    updateStarDisplay();
+  });
+
+  function highlightStars(rating) {
+    stars.forEach((star, index) => {
+      if (index < rating) {
+        star.style.color = '#B01F24';
+        star.style.opacity = '1';
+      } else {
+        star.style.color = '#d1d5db';
+        star.style.opacity = '0.3';
+      }
+    });
+  }
+
+  function updateStarDisplay() {
+    highlightStars(currentRating);
+  }
+
+  // 提交评价
+  submitReviewBtn.addEventListener('click', () => {
+    if (currentRating === 0) {
+      alert('请先选择评分');
+      return;
+    }
+    
+    const reviewText = reviewTextarea.value.trim();
+    if (!reviewText) {
+      alert('请输入评价内容');
+      return;
+    }
+
+    // 创建新评价
+    const newReview = document.createElement('div');
+    newReview.className = 'review-card glass-card rounded-2xl border border-gray-300 p-3';
+    
+    const now = new Date();
+    const dateStr = now.toISOString().split('T')[0];
+    
+    let starsHtml = '';
+    for (let i = 0; i < 5; i++) {
+      if (i < currentRating) {
+        starsHtml += '<i class="fa fa-star" style="color: #B01F24;"></i>';
+      } else {
+        starsHtml += '<i class="fa fa-star" style="color: #d1d5db; opacity: 0.3;"></i>';
+      }
+    }
+    
+    newReview.innerHTML = `
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=80&q=80"
+               class="h-8 w-8 rounded-full object-cover border border-gray-300 mr-2" alt="">
+          <div>
+            <div class="text-xs font-medium text-gray-900">我</div>
+            <div class="flex text-[#B01F24] text-[10px]">
+              ${starsHtml}
+            </div>
+          </div>
+        </div>
+        <span class="text-[11px] text-gray-600">${dateStr}</span>
+      </div>
+      <p class="mt-2 text-xs text-gray-700">
+        ${reviewText}
+      </p>
+    `;
+    
+    // 插入到列表顶部
+    reviewList.insertBefore(newReview, reviewList.firstChild);
+    
+    // 清空表单
+    reviewTextarea.value = '';
+    currentRating = 0;
+    updateStarDisplay();
+    
+    alert('评价提交成功！');
+  });
 </script>
 
 </body>
