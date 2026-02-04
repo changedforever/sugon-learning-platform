@@ -84,11 +84,80 @@
             color: #1a56db;
         }
         
+        .sidebar-btn-expandable {
+            justify-content: space-between;
+        }
+        
+        .sidebar-btn-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sidebar-btn-arrow {
+            font-size: 12px;
+            transition: transform 0.2s;
+        }
+        
+        .sidebar-btn-expandable.expanded .sidebar-btn-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .sidebar-submenu {
+            margin-left: 16px;
+            margin-top: 4px;
+            margin-bottom: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .sidebar-submenu-item {
+            padding: 10px 12px;
+            border-radius: 6px;
+            background: #f8fafd;
+            border: 1px solid #eaecef;
+            color: #333;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .sidebar-submenu-item:hover {
+            background: #e6eeff;
+            border-color: #b0c4ff;
+        }
+        
+        .sidebar-submenu-item.active {
+            background: #e6eeff;
+            border-color: #4a86ff;
+            color: #1a56db;
+        }
+        
         .main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
             background: #f8fafd;
+            min-height: 0;
+        }
+        
+        /* 面板通用容器：占满剩余高度，允许内部滚动 */
+        .panel-section {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 对话面板：强制使用 flex 计算的高度，防止被内容撑开 */
+        #panel-chat {
+            height: 0; /* 配合 flex: 1 使用，强制使用 flex 计算的高度 */
         }
         
         .chat-header {
@@ -98,6 +167,7 @@
             align-items: center;
             justify-content: space-between;
             background: white;
+            flex-shrink: 0;
         }
         
         .chat-title-area {
@@ -149,11 +219,35 @@
         
         .messages-container {
             flex: 1;
+            min-height: 0;
+            height: 0; /* 配合 flex: 1 使用，强制使用 flex 计算的高度，防止被内容撑开 */
             overflow-y: auto;
+            overflow-x: hidden;
             padding: 24px;
             display: flex;
             flex-direction: column;
             gap: 20px;
+            order: 1;
+            /* 优化滚动条样式 */
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e0 #f1f5f9;
+        }
+        
+        .messages-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .messages-container::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        
+        .messages-container::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 3px;
+        }
+        
+        .messages-container::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
         
         .message {
@@ -211,9 +305,17 @@
         
         .quick-questions {
             display: flex;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
             gap: 10px;
             margin-bottom: 16px;
+        }
+        
+        .quick-questions-left {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            flex: 1;
         }
         
         .quick-question {
@@ -237,6 +339,11 @@
             /* border-top: 1px solid #eaecef; */
             /* background: white; */
             margin-top: 0;
+            flex-shrink: 0;
+            background: white;
+            order: 2;
+            position: relative;
+            z-index: 10;
         }
 
         /* 能力场景 + 猜你想问 卡片区域 */
@@ -868,10 +975,8 @@
 
         /* 模式切換開關（問答 / 下載） */
         .mode-toggle-wrapper {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            margin-bottom: 4px;
+            flex-shrink: 0;
+            margin-left: auto;
         }
 
         .mode-toggle-label {
@@ -965,14 +1070,26 @@
                     <i class="fas fa-plus"></i>
                     <span>新对话</span>
                 </button>
-                <button class="sidebar-btn" data-target="favorites">
+                <button class="sidebar-btn sidebar-btn-expandable" data-target="favorites">
+                    <div class="sidebar-btn-content">
                     <i class="fas fa-star"></i>
                     <span>我的收藏</span>
+                    </div>
+                    <i class="fas fa-chevron-down sidebar-btn-arrow"></i>
                 </button>
-                <button class="sidebar-btn" data-target="history">
+                <div class="sidebar-submenu" id="favorites-submenu" style="display: none;">
+                    <!-- 二级菜单项将在这里动态生成 -->
+                </div>
+                <button class="sidebar-btn sidebar-btn-expandable" data-target="history">
+                    <div class="sidebar-btn-content">
                     <i class="fas fa-history"></i>
                     <span>历史对话</span>
+                    </div>
+                    <i class="fas fa-chevron-down sidebar-btn-arrow"></i>
                 </button>
+                <div class="sidebar-submenu" id="history-submenu" style="display: none;">
+                    <!-- 二级菜单项将在这里动态生成 -->
+                </div>
             </div>
         </div>
         
@@ -993,11 +1110,11 @@
                     <i class="fas fa-times"></i>
                 </a>
             </div>
-
+            
             <!-- 新对话主面板 -->
             <div id="panel-chat" class="panel-section">
-                <!-- 消息区域 -->
-                <div id="ai-messages" class="messages-container">
+            <!-- 消息区域 -->
+            <div id="ai-messages" class="messages-container">
                 <div class="message bot-message">
                     <div class="avatar-small bot-avatar">
                         <i class="fas fa-robot"></i>
@@ -1067,21 +1184,20 @@
                             </div>
                             <div class="guess-banner-action">
                                 <i class="fas fa-arrow-right"></i>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- 输入区域 -->
-            <div class="input-area" id="chat-input-area">
+                <div class="input-area" id="chat-input-area">
                 <!-- 原有快捷提问，仍然保留 -->
                 <div class="quick-questions" id="ai-quick-questions">
+                    <div class="quick-questions-left">
                     <button class="quick-question">如何参加考试？</button>
                     <button class="quick-question">如何认证成为高级云架构师？</button>
                     <button class="quick-question">如何查看和下载证书</button>
-                </div>
-                <div class="input-container" style="position: relative;">
+                    </div>
                     <!-- 模式切換：問答 / 下載 -->
                     <div class="mode-toggle-wrapper">
                         <div id="mode-toggle" class="mode-toggle mode-qa">
@@ -1092,6 +1208,8 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="input-container" style="position: relative;">
                     <!-- 场景领域提示标签（独立标签） -->
                     <div id="selected-scene-domain" class="selected-scene-domain">
                         <span class="selected-scene-domain-tag">
@@ -1132,55 +1250,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- 底部操作按钮区域 -->
-            <div class="action-buttons-area" id="action-buttons-area">
-                <div class="action-buttons">
-                    <button class="action-btn" id="action-copy">
-                        <i class="fas fa-copy"></i>
-                        <span>复制</span>
-                    </button>
-                    <button class="action-btn" id="action-favorite">
-                        <i class="fas fa-star"></i>
-                        <span>收藏</span>
-                    </button>
-                    <button class="action-btn" id="action-share">
-                        <i class="fas fa-share-alt"></i>
-                        <span>分享</span>
-                    </button>
-                    <button class="action-btn primary" id="action-ticket">
-                        <i class="fas fa-ticket-alt"></i>
-                        <span>生成工单</span>
-                    </button>
-                </div>
-                <button class="cancel-selection" id="cancel-selection">
-                    取消
-                </button>
-            </div>
-
-            <!-- 我的收藏 面板（由 JS 动态填充） -->
-            <div id="panel-favorites" class="panel-section" style="display: none; padding: 24px;">
-                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
-                    <div style="font-size: 16px; font-weight: 500;">我的收藏</div>
-                    <div id="favorites-count" style="font-size: 12px; color: #9ca3af;">共 0 条收藏</div>
-                </div>
-                <div id="favorites-empty" style="font-size: 14px; color: #9ca3af;">还没有收藏内容，可以在对话中勾选消息后点击底部「收藏」按钮。</div>
-                <div id="favorites-list" style="display:none; display:flex; flex-direction:column; gap:12px;"></div>
-            </div>
-
-            <!-- 历史对话 面板（由 JS 动态填充） -->
-            <div id="panel-history" class="panel-section" style="display: none; padding: 24px;">
-                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
-                    <div style="font-size: 16px; font-weight: 500;">历史对话</div>
-                    <div id="history-count" style="font-size: 12px; color: #9ca3af;">最近 0 条会话</div>
-                </div>
-                <div id="history-empty" style="font-size: 14px; color: #9ca3af;">还没有历史对话，发起几轮问答后再来看看。</div>
-                <div id="history-list" style="display:none; display:flex; flex-direction:column; gap:10px; font-size:13px;"></div>
-            </div>
-        </div>
-    </div>
-
-
         </div>
     </div>
 
@@ -1403,10 +1472,120 @@
         let isMultiSelectMode = false;
         let selectedMessages = new Set();
         let currentMessage = null;
-
+        
         // 我的收藏 & 历史对话数据
-        let favoriteItems = []; // {content, createdAt}
-        let historyItems = [];  // {question, createdAt}
+        // 收藏项：存储完整对话内容
+        let favoriteItems = []; // {id, firstQuestion, messages: [{role: 'user'|'bot', content: string}], createdAt}
+        // 历史对话：存储完整对话内容
+        let historyItems = [];  // {id, firstQuestion, messages: [{role: 'user'|'bot', content: string}], createdAt}
+        let currentConversationId = null; // 当前显示的对话ID
+        let conversationIdCounter = 0; // 对话ID计数器
+        let currentConversationMessages = []; // 当前对话的消息列表 {role: 'user'|'bot', content: string}
+        
+        // 初始化假数据
+        function initMockData() {
+            const now = new Date();
+            const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+            const twoDaysAgo = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000);
+            const threeDaysAgo = new Date(now.getTime() - 3 * 24 * 60 * 60 * 1000);
+            
+            // 历史对话假数据
+            historyItems = [
+                {
+                    id: ++conversationIdCounter,
+                    firstQuestion: '如何配置DCU开发环境？',
+                    messages: [
+                        { role: 'user', content: '如何配置DCU开发环境？' },
+                        { role: 'bot', content: 'DCU开发环境配置需要以下步骤：\n1. 安装ROCm工具链\n2. 配置环境变量\n3. 验证安装是否成功\n4. 运行测试程序\n\n需要我详细说明每个步骤吗？' },
+                        { role: 'user', content: 'ROCm工具链在哪里下载？' },
+                        { role: 'bot', content: 'ROCm工具链可以从AMD官网或GitHub下载。推荐使用官方安装包，支持Ubuntu和CentOS系统。您使用的是哪个操作系统？' }
+                    ],
+                    createdAt: formatDateTime(now)
+                },
+                {
+                    id: ++conversationIdCounter,
+                    firstQuestion: 'CPU性能优化有哪些方法？',
+                    messages: [
+                        { role: 'user', content: 'CPU性能优化有哪些方法？' },
+                        { role: 'bot', content: 'CPU性能优化可以从以下几个方面入手：\n1. 代码层面：算法优化、减少分支预测失败\n2. 编译层面：使用优化编译选项\n3. 系统层面：CPU亲和性设置、NUMA优化\n4. 硬件层面：选择合适的CPU型号\n\n您想了解哪个方面的详细内容？' },
+                        { role: 'user', content: 'NUMA优化具体怎么做？' },
+                        { role: 'bot', content: 'NUMA优化主要包括：\n1. 使用numactl绑定进程到特定NUMA节点\n2. 分配内存时指定NUMA节点\n3. 避免跨节点访问内存\n4. 监控NUMA统计信息\n\n需要我提供具体的命令示例吗？' }
+                    ],
+                    createdAt: formatDateTime(yesterday)
+                },
+                {
+                    id: ++conversationIdCounter,
+                    firstQuestion: '云平台如何实现高可用？',
+                    messages: [
+                        { role: 'user', content: '云平台如何实现高可用？' },
+                        { role: 'bot', content: '云平台高可用实现通常包括：\n1. 多可用区部署\n2. 负载均衡\n3. 自动故障转移\n4. 数据备份与恢复\n5. 监控与告警\n\n这些措施可以确保服务在单点故障时仍能正常运行。' }
+                    ],
+                    createdAt: formatDateTime(twoDaysAgo)
+                },
+                {
+                    id: ++conversationIdCounter,
+                    firstQuestion: '数据库索引优化策略',
+                    messages: [
+                        { role: 'user', content: '数据库索引优化策略' },
+                        { role: 'bot', content: '数据库索引优化策略包括：\n1. 选择合适的索引类型（B-tree、Hash、Bitmap等）\n2. 避免过度索引\n3. 定期分析索引使用情况\n4. 考虑复合索引的顺序\n5. 删除未使用的索引\n\n您的数据库类型是什么？我可以提供更具体的建议。' },
+                        { role: 'user', content: 'MySQL的索引优化' },
+                        { role: 'bot', content: 'MySQL索引优化要点：\n1. 使用EXPLAIN分析查询计划\n2. 为WHERE、JOIN、ORDER BY字段创建索引\n3. 避免在索引列上使用函数\n4. 使用覆盖索引减少回表\n5. 定期使用OPTIMIZE TABLE优化表\n\n需要我帮您分析具体的查询语句吗？' }
+                    ],
+                    createdAt: formatDateTime(threeDaysAgo)
+                },
+                {
+                    id: ++conversationIdCounter,
+                    firstQuestion: '操作系统进程调度算法',
+                    messages: [
+                        { role: 'user', content: '操作系统进程调度算法有哪些？' },
+                        { role: 'bot', content: '常见的进程调度算法包括：\n1. 先来先服务（FCFS）\n2. 短作业优先（SJF）\n3. 优先级调度\n4. 时间片轮转（RR）\n5. 多级反馈队列\n\nLinux内核主要使用CFS（完全公平调度器）。您想了解哪种算法的详细实现？' }
+                    ],
+                    createdAt: formatDateTime(threeDaysAgo)
+                }
+            ];
+            
+            // 收藏假数据
+            favoriteItems = [
+                {
+                    id: ++conversationIdCounter,
+                    firstQuestion: 'DCU编程最佳实践',
+                    messages: [
+                        { role: 'user', content: 'DCU编程有哪些最佳实践？' },
+                        { role: 'bot', content: 'DCU编程最佳实践包括：\n1. 合理使用共享内存和全局内存\n2. 优化内存访问模式（合并访问）\n3. 使用向量化指令\n4. 避免线程分歧\n5. 合理设置工作组大小\n6. 使用性能分析工具（rocprof）\n\n这些实践可以显著提升DCU程序性能。' },
+                        { role: 'user', content: '如何优化内存访问模式？' },
+                        { role: 'bot', content: '优化内存访问模式的关键：\n1. 合并访问：让相邻线程访问相邻内存地址\n2. 使用本地内存缓存频繁访问的数据\n3. 避免随机访问模式\n4. 利用内存合并（coalescing）\n5. 减少全局内存访问次数\n\n需要我提供具体的代码示例吗？' }
+                    ],
+                    createdAt: formatDateTime(yesterday)
+                },
+                {
+                    id: ++conversationIdCounter,
+                    firstQuestion: 'CPU向量化优化技巧',
+                    messages: [
+                        { role: 'user', content: 'CPU向量化优化有哪些技巧？' },
+                        { role: 'bot', content: 'CPU向量化优化技巧：\n1. 使用SIMD指令集（SSE、AVX、AVX-512）\n2. 数据对齐到16/32/64字节边界\n3. 循环展开配合向量化\n4. 使用编译器自动向量化选项（-mavx2, -mavx512f）\n5. 避免数据依赖\n6. 使用内联函数优化\n\n这些技巧可以充分利用现代CPU的向量处理能力。' }
+                    ],
+                    createdAt: formatDateTime(twoDaysAgo)
+                },
+                {
+                    id: ++conversationIdCounter,
+                    firstQuestion: '云原生架构设计原则',
+                    messages: [
+                        { role: 'user', content: '云原生架构的设计原则是什么？' },
+                        { role: 'bot', content: '云原生架构的核心设计原则：\n1. 微服务化：将应用拆分为独立服务\n2. 容器化：使用Docker等容器技术\n3. 动态编排：使用Kubernetes等编排工具\n4. DevOps：持续集成和持续部署\n5. 可观测性：日志、监控、追踪\n6. 弹性伸缩：根据负载自动调整资源\n\n这些原则帮助构建高可用、可扩展的云应用。' },
+                        { role: 'user', content: '如何实现服务的弹性伸缩？' },
+                        { role: 'bot', content: '实现服务弹性伸缩的方法：\n1. 水平扩展：增加或减少实例数量\n2. 垂直扩展：调整单个实例的资源\n3. 使用HPA（水平 Pod 自动扩缩）\n4. 基于CPU、内存、请求数等指标\n5. 设置最小和最大实例数\n6. 预热和冷却时间设置\n\nKubernetes提供了丰富的自动扩缩功能。' }
+                    ],
+                    createdAt: formatDateTime(threeDaysAgo)
+                }
+            ];
+            
+            // 更新计数器，避免ID冲突
+            conversationIdCounter = Math.max(
+                ...historyItems.map(item => item.id),
+                ...favoriteItems.map(item => item.id),
+                0
+            );
+        }
         
         // 当前选中的技能与模式
         let currentSkill = '通用';
@@ -1520,6 +1699,15 @@
         
         // 添加消息到对话框
         function addMessage(text, isUser = false) {
+            if (!aiMessages) {
+                console.error('aiMessages 元素不存在');
+                return;
+            }
+            if (!text) {
+                console.warn('消息内容为空');
+                return;
+            }
+            
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
             
@@ -1529,7 +1717,9 @@
             
             const messageBubble = document.createElement('div');
             messageBubble.className = 'message-content';
-            messageBubble.innerHTML = text;
+            // 将换行符转换为 <br>，并转义 HTML 以防止 XSS
+            const escapedText = escapeHtml(text);
+            messageBubble.innerHTML = escapedText.replace(/\n/g, '<br>');
             
             messageDiv.appendChild(avatarDiv);
             messageDiv.appendChild(messageBubble);
@@ -1659,6 +1849,7 @@
                 
                 const response = responses[userMessage] || '感谢您的提问！我会尽力为您提供帮助。如果您有更具体的问题，请详细描述，我会给出更精准的回答。';
                 addMessage(response, false);
+                addAIResponseToConversation(response);
 
                 // 在回答后添加红框提示框
                 const helpBox = document.createElement('div');
@@ -1691,6 +1882,9 @@
 
                 // 回答后收起上方卡片区域，给对话腾出空间
                 setPanelsCollapsed(true);
+                
+                // 保存对话到历史记录
+                saveCurrentConversation();
             }, 1000);
         }
 
@@ -1699,6 +1893,10 @@
             aiSend.addEventListener('click', function() {
                 const message = aiInput.value.trim();
                 if (message) {
+                    // 如果是新对话（currentConversationId为null且当前有消息），先保存之前的对话
+                    if (currentConversationId === null && currentConversationMessages.length > 0) {
+                        saveCurrentConversation();
+                    }
                     // 在消息前添加技能标签（可选，用于显示）
                     const messageWithSkill = currentSkill !== '通用' ? `[${currentSkill}] ${message}` : message;
                     addMessage(messageWithSkill, true);
@@ -1745,95 +1943,243 @@
             return `${y}-${m}-${d} ${hh}:${mm}`;
         }
 
-        function renderFavorites() {
-            if (!favoritesList || !favoritesEmpty || !favoritesCount) return;
-            const count = favoriteItems.length;
-            favoritesCount.textContent = `共 ${count} 条收藏`;
-            if (count === 0) {
-                favoritesEmpty.style.display = 'block';
-                favoritesList.style.display = 'none';
-                favoritesList.innerHTML = '';
+        // 渲染收藏二级菜单
+        function renderFavoritesSubmenu() {
+            const submenu = document.getElementById('favorites-submenu');
+            if (!submenu) return;
+            if (favoriteItems.length === 0) {
+                submenu.innerHTML = '<div style="padding: 8px 12px; color: #9ca3af; font-size: 12px;">暂无收藏</div>';
                 return;
             }
-            favoritesEmpty.style.display = 'none';
-            favoritesList.style.display = 'flex';
-            favoritesList.innerHTML = favoriteItems.map(item => `
-                <div style="padding:12px 14px; border-radius:10px; background:#f9fafb; border:1px solid #e5e7eb; cursor:pointer;">
-                    <div style="font-size:13px; color:#111827; margin-bottom:4px; white-space:pre-line;">${escapeHtml(item.content)}</div>
-                    <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; color:#9ca3af; margin-top:4px;">
-                        <span>收藏于 ${item.createdAt}</span>
-                        <span><i class="fas fa-star" style="color:#f59e0b; margin-right:4px;"></i>对话收藏</span>
-                    </div>
+            submenu.innerHTML = favoriteItems.map(item => `
+                <div class="sidebar-submenu-item" data-id="${item.id}" data-type="favorite">
+                    ${escapeHtml(item.firstQuestion)}
                 </div>
             `).join('');
         }
-
-        function renderHistory() {
-            if (!historyList || !historyEmpty || !historyCount) return;
-            const count = historyItems.length;
-            historyCount.textContent = `最近 ${count} 条会话`;
-            if (count === 0) {
-                historyEmpty.style.display = 'block';
-                historyList.style.display = 'none';
-                historyList.innerHTML = '';
+        
+        // 渲染历史对话二级菜单
+        function renderHistorySubmenu() {
+            const submenu = document.getElementById('history-submenu');
+            if (!submenu) return;
+            if (historyItems.length === 0) {
+                submenu.innerHTML = '<div style="padding: 8px 12px; color: #9ca3af; font-size: 12px;">暂无历史对话</div>';
                 return;
             }
-            historyEmpty.style.display = 'none';
-            historyList.style.display = 'flex';
-            historyList.innerHTML = historyItems.map(item => `
-                <div style="padding:10px 12px; border-radius:8px; border:1px solid #e5e7eb; background:#ffffff; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
-                    <div style="max-width:80%; color:#111827; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(item.question)}</div>
-                    <div style="font-size:11px; color:#9ca3af;">${item.createdAt}</div>
+            submenu.innerHTML = historyItems.map(item => `
+                <div class="sidebar-submenu-item" data-id="${item.id}" data-type="history">
+                    ${escapeHtml(item.firstQuestion)}
                 </div>
             `).join('');
         }
 
         function addHistoryItem(question) {
             if (!question) return;
-            const now = new Date();
-            historyItems.unshift({
-                question,
-                createdAt: formatDateTime(now)
+            // 如果是新对话（currentConversationId为null），创建新对话
+            if (currentConversationId === null) {
+                currentConversationId = ++conversationIdCounter;
+                currentConversationMessages = [];
+            }
+            // 添加用户消息
+            currentConversationMessages.push({
+                role: 'user',
+                content: question
             });
+        }
+        
+        // 保存当前对话到历史记录
+        function saveCurrentConversation() {
+            if (currentConversationId === null || currentConversationMessages.length === 0) return;
+            const firstQuestion = currentConversationMessages.find(m => m.role === 'user')?.content || '';
+            if (!firstQuestion) return;
+            
+            // 检查对话是否已存在
+            const existingIndex = historyItems.findIndex(item => item.id === currentConversationId);
+            const now = new Date();
+            
+            if (existingIndex !== -1) {
+                // 更新现有对话
+                historyItems[existingIndex] = {
+                    id: currentConversationId,
+                    firstQuestion: firstQuestion,
+                    messages: [...currentConversationMessages],
+                    createdAt: historyItems[existingIndex].createdAt // 保持原创建时间
+                };
+                // 移到最前面
+                const updated = historyItems.splice(existingIndex, 1)[0];
+                historyItems.unshift(updated);
+            } else {
+                // 创建新对话
+                historyItems.unshift({
+                    id: currentConversationId,
+                    firstQuestion: firstQuestion,
+                    messages: [...currentConversationMessages],
+                    createdAt: formatDateTime(now)
+                });
+            }
             // 只保留最近 20 条
             historyItems = historyItems.slice(0, 20);
-            renderHistory();
+            renderHistorySubmenu();
+        }
+        
+        // 添加AI回复到当前对话
+        function addAIResponseToConversation(response) {
+            if (currentConversationId !== null) {
+                currentConversationMessages.push({
+                    role: 'bot',
+                    content: response
+                });
+            }
         }
 
+        // 加载对话内容
+        function loadConversation(id, type) {
+            console.log('加载对话，id:', id, 'type:', type, 'id类型:', typeof id);
+            const items = type === 'favorite' ? favoriteItems : historyItems;
+            console.log('可用对话数量:', items.length);
+            console.log('对话ID列表:', items.map(item => ({ id: item.id, type: typeof item.id })));
+            const conversation = items.find(item => item.id == id || item.id === parseInt(id) || String(item.id) === String(id));
+            if (!conversation) {
+                console.error('未找到对话，id:', id, 'type:', type);
+                return;
+            }
+            
+            if (!conversation.messages || conversation.messages.length === 0) {
+                console.error('对话消息为空，id:', id);
+                return;
+            }
+            
+            console.log('找到对话，消息数量:', conversation.messages.length);
+            
+            // 保存当前对话
+            saveCurrentConversation();
+            
+            // 清除选中状态
+            selectedMessages.clear();
+            // 安全地退出多选模式
+            if (typeof exitMultiSelectMode === 'function') {
+                try {
+                    exitMultiSelectMode();
+                } catch (e) {
+                    console.warn('退出多选模式时出错:', e);
+                }
+            }
+            
+            // 确保面板可见
+            if (panelChat) {
+                panelChat.style.display = 'flex';
+            }
+            
+            // 清除当前消息
+            if (aiMessages) {
+                aiMessages.innerHTML = '';
+            }
+            
+            // 直接显示对话消息（简化版本）
+            if (aiMessages && conversation.messages) {
+                conversation.messages.forEach((msg, index) => {
+                    if (msg && msg.content) {
+                        const isUser = msg.role === 'user';
+                        const messageDiv = document.createElement('div');
+                        messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+                        
+                        const avatarDiv = document.createElement('div');
+                        avatarDiv.className = `avatar-small ${isUser ? '' : 'bot-avatar'}`;
+                        avatarDiv.innerHTML = `<i class="fas ${isUser ? 'fa-user' : 'fa-robot'}"></i>`;
+                        
+                        const messageBubble = document.createElement('div');
+                        messageBubble.className = 'message-content';
+                        const escapedText = escapeHtml(msg.content);
+                        messageBubble.innerHTML = escapedText.replace(/\n/g, '<br>');
+                        
+                        messageDiv.appendChild(avatarDiv);
+                        messageDiv.appendChild(messageBubble);
+                        aiMessages.appendChild(messageDiv);
+                    }
+                });
+                
+                // 滚动到底部
+                setTimeout(() => {
+                    if (aiMessages) {
+                        aiMessages.scrollTop = aiMessages.scrollHeight;
+                    }
+                }, 50);
+            }
+            
+            // 切换到聊天面板
+            switchPanel('chat');
+            
+            // 强制显示输入框
+            if (chatInputArea) {
+                chatInputArea.style.display = 'block';
+            }
+            if (inputArea) {
+                inputArea.style.display = 'block';
+            }
+            if (actionButtonsArea) {
+                actionButtonsArea.style.display = 'none';
+            }
+            
+            // 高亮选中的二级菜单项
+            document.querySelectorAll('.sidebar-submenu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            const selectedItem = document.querySelector(`.sidebar-submenu-item[data-id="${id}"][data-type="${type}"]`);
+            if (selectedItem) {
+                selectedItem.classList.add('active');
+            }
+            
+            // 设置当前对话ID
+            currentConversationId = id;
+            currentConversationMessages = [...conversation.messages];
+            
+            console.log('对话加载完成');
+        }
+        
         // 侧边栏：新对话 / 我的收藏 / 历史对话 切换
         const sidebarButtons = document.querySelectorAll('.sidebar-btn');
         const panelChat = document.getElementById('panel-chat');
-        const panelFavorites = document.getElementById('panel-favorites');
-        const panelHistory = document.getElementById('panel-history');
         const chatInputArea = document.getElementById('chat-input-area');
         const chatSubtitleText = document.getElementById('chat-subtitle-text');
 
         function switchPanel(target) {
-            // 按钮高亮
-            sidebarButtons.forEach(btn => {
-                if (btn.getAttribute('data-target') === target) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
+            // 按钮高亮（只处理新对话按钮）
+            if (target === 'chat') {
+                sidebarButtons.forEach(btn => {
+                    if (btn.getAttribute('data-target') === 'chat') {
+                        btn.classList.add('active');
+                    } else if (!btn.classList.contains('sidebar-btn-expandable')) {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
 
             // 面板显示/隐藏
-            if (panelChat) panelChat.style.display = (target === 'chat') ? 'block' : 'none';
-            if (chatInputArea) chatInputArea.style.display = (target === 'chat') ? 'block' : 'none';
-            if (actionButtonsArea) actionButtonsArea.style.display = (target === 'chat' && selectedMessages.size > 0) ? 'flex' : (target === 'chat' ? 'none' : 'none');
-
-            if (panelFavorites) panelFavorites.style.display = (target === 'favorites') ? 'block' : 'none';
-            if (panelHistory) panelHistory.style.display = (target === 'history') ? 'block' : 'none';
+            if (panelChat) panelChat.style.display = (target === 'chat') ? 'flex' : 'none';
+            
+            // 输入框显示逻辑：在聊天模式下，如果没有选中消息，显示输入框
+            if (target === 'chat') {
+                // 确保输入框显示（除非在多选模式下）
+                if (chatInputArea) {
+                    chatInputArea.style.display = (selectedMessages.size === 0 && !isMultiSelectMode) ? 'block' : 'none';
+                }
+                if (inputArea) {
+                    inputArea.style.display = (selectedMessages.size === 0 && !isMultiSelectMode) ? 'block' : 'none';
+                }
+                if (actionButtonsArea) {
+                    actionButtonsArea.style.display = (selectedMessages.size > 0) ? 'flex' : 'none';
+                }
+            } else {
+                // 非聊天模式，隐藏输入框和操作按钮
+                if (chatInputArea) chatInputArea.style.display = 'none';
+                if (inputArea) inputArea.style.display = 'none';
+                if (actionButtonsArea) actionButtonsArea.style.display = 'none';
+            }
 
             // 头部副标题文案
             if (chatSubtitleText) {
                 if (target === 'chat') {
                     chatSubtitleText.textContent = '问你所惑，解你所需';
-                } else if (target === 'favorites') {
-                    chatSubtitleText.textContent = '查看你收藏的高价值问答';
-                } else if (target === 'history') {
-                    chatSubtitleText.textContent = '回顾你与 AI 的历史对话';
                 }
             }
         }
@@ -1842,11 +2188,155 @@
             sidebarButtons.forEach(btn => {
                 btn.addEventListener('click', function () {
                     const target = this.getAttribute('data-target') || 'chat';
-                    switchPanel(target);
+                    
+                    // 如果是可展开的按钮（收藏/历史对话）
+                    if (this.classList.contains('sidebar-btn-expandable')) {
+                        // 切换展开状态
+                        this.classList.toggle('expanded');
+                        const submenuId = target + '-submenu';
+                        const submenu = document.getElementById(submenuId);
+                        if (submenu) {
+                            if (this.classList.contains('expanded')) {
+                                submenu.style.display = 'flex';
+                                // 渲染二级菜单
+                                if (target === 'favorites') {
+                                    renderFavoritesSubmenu();
+                                } else if (target === 'history') {
+                                    renderHistorySubmenu();
+                                }
+                            } else {
+                                submenu.style.display = 'none';
+                            }
+                        }
+                        // 切换按钮高亮
+                        sidebarButtons.forEach(b => {
+                            if (b !== this && b.getAttribute('data-target') !== 'chat') {
+                                b.classList.remove('active');
+                            }
+                        });
+                        this.classList.toggle('active');
+                    } else {
+                        // 普通按钮（新对话）
+                        if (target === 'chat') {
+                            // 保存当前对话
+                            saveCurrentConversation();
+                            // 重置对话状态
+                            currentConversationId = null;
+                            currentConversationMessages = [];
+                            // 清除二级菜单选中状态
+                            document.querySelectorAll('.sidebar-submenu-item').forEach(item => {
+                                item.classList.remove('active');
+                            });
+                            // 恢复初始状态：清除消息并重新添加欢迎消息和卡片
+                            if (aiMessages) {
+                                aiMessages.innerHTML = `
+                                    <div class="message bot-message">
+                                        <div class="avatar-small bot-avatar">
+                                            <i class="fas fa-robot"></i>
+                                        </div>
+                                        <div class="message-content">
+                                            您好！我是AI智能助手，展示认证流程，包括考试预约、获取与验证证书的入口，以及可能涉及的重认证规则。有什么可以帮助您的吗？
+                                        </div>
+                                    </div>
+                                    <div class="ability-panels">
+                                        <div class="ability-card">
+                                            <div class="ability-card-header">
+                                                <span class="ability-card-title">场景领域</span>
+                                            </div>
+                                            <div class="ability-list">
+                                                <button class="ability-item scene-domain-item" data-question="DCU 驱动下载">
+                                                    <div class="ability-item-title">DCU</div>
+                                                    <div class="ability-item-subtitle">获取最新 DCU 驱动与工具</div>
+                                                </button>
+                                                <button class="ability-item scene-domain-item" data-question="CPU 固件与驱动下载">
+                                                    <div class="ability-item-title">CPU</div>
+                                                    <div class="ability-item-subtitle">CPU 固件、驱动及文档资源</div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="ability-card">
+                                            <div class="ability-card-header">
+                                                <span class="ability-card-title">推广</span>
+                                                <div class="ability-card-page">
+                                                    <span>2/3</span>
+                                                    <i class="fas fa-angle-right"></i>
+                                                </div>
+                                            </div>
+                                            <div class="ability-list">
+                                                <button class="ability-item" data-question="在线学习">
+                                                    <div class="ability-item-title">在线学习</div>
+                                                    <div class="ability-item-subtitle">学习在线课程</div>
+                                                </button>
+                                                <button class="ability-item" data-question="认证其他问题">
+                                                    <div class="ability-item-title">认证其他问题</div>
+                                                    <div class="ability-item-subtitle">发起问题单</div>
+                                                </button>
+                                                <button class="ability-item" data-question="证书申请流程">
+                                                    <div class="ability-item-title">证书申请流程</div>
+                                                    <div class="ability-item-subtitle">认证证书申请流程</div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="ability-card">
+                                            <div class="ability-card-header">
+                                                <span class="ability-card-title">Q&A</span>
+                                            </div>
+                                            <div class="guess-questions">
+                                                <button class="guess-question" data-question="HCIE实验预约及考位查询">实验预约及考位查询</button>
+                                                <button class="guess-question" data-question="认证考试证书有效期">认证考试证书有效期</button>
+                                                <button class="guess-question" data-question="取消考试政策">取消考试政策</button>
+                                            </div>
+                                            <div class="guess-banner">
+                                                <div class="guess-banner-content">
+                                                    <div class="guess-banner-title">全新焕变</div>
+                                                    <div class="guess-banner-subtitle">能力升级 AI 问答更懂你</div>
+                                                </div>
+                                                <div class="guess-banner-action">
+                                                    <i class="fas fa-arrow-right"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                                // 重新绑定事件
+                                bindAbilityItems();
+                            }
+                            // 确保输入框显示
+                            selectedMessages.clear();
+                            if (chatInputArea) {
+                                chatInputArea.style.display = 'block';
+                            }
+                            if (actionButtonsArea) {
+                                actionButtonsArea.style.display = 'none';
+                            }
+                        }
+                        switchPanel(target);
+                    }
                 });
             });
         }
 
+        // 初始化假数据
+        initMockData();
+        
+        // 使用事件委托处理二级菜单项点击
+        const sidebar = document.querySelector('.sidebar');
+        if (sidebar) {
+            sidebar.addEventListener('click', function(e) {
+                const submenuItem = e.target.closest('.sidebar-submenu-item');
+                if (submenuItem) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const id = parseInt(submenuItem.getAttribute('data-id'));
+                    const type = submenuItem.getAttribute('data-type');
+                    console.log('点击二级菜单项，id:', id, 'type:', type);
+                    if (id && type) {
+                        loadConversation(id, type);
+                    }
+                }
+            });
+        }
+        
         // 默认展示新对话面板
         switchPanel('chat');
 
@@ -1895,28 +2385,146 @@
             });
         }
 
-        // 能力场景 & 猜你想问卡片点击事件（不包含场景领域标签）
-        const panelButtons = document.querySelectorAll('.ability-item:not(.scene-domain-item), .guess-question');
+        // 绑定能力项和猜你想问按钮的事件
+        function bindAbilityItems() {
+            // 能力场景 & 猜你想问卡片点击事件（不包含场景领域标签）
+            const panelButtons = document.querySelectorAll('.ability-item:not(.scene-domain-item), .guess-question');
         panelButtons.forEach(button => {
-            button.addEventListener('click', function() {
+                // 移除旧的事件监听器（如果存在）
+                const newButton = button.cloneNode(true);
+                button.parentNode.replaceChild(newButton, button);
+                // 添加新的事件监听器
+                newButton.addEventListener('click', function() {
                 const message = this.getAttribute('data-question') || this.textContent.trim();
                 addMessage(message, true);
-                addHistoryItem(message);
+                    addHistoryItem(message);
                 setPanelsCollapsed(true);
                 handleAIResponse(message, currentSkill);
             });
         });
+        }
+        
+        // 初始绑定
+        bindAbilityItems();
 
         // 新对话按钮点击事件
         const newChatBtn = document.querySelector('.fa-plus').closest('button');
         if (newChatBtn) {
             newChatBtn.addEventListener('click', function() {
+                // 保存当前对话
+                saveCurrentConversation();
+                
+                // 清除选中状态和多选模式
+                selectedMessages.clear();
+                isMultiSelectMode = false;
+                if (typeof exitMultiSelectMode === 'function') {
+                    try {
+                        exitMultiSelectMode();
+                    } catch (e) {
+                        console.warn('退出多选模式时出错:', e);
+                    }
+                }
+                
                 // 清空当前消息、进阶推荐和提示框，但保留中部能力模块
                 const toRemove = aiMessages.querySelectorAll('.message, .followups-container, .permission-help-box');
                 toRemove.forEach(node => node.remove());
 
-                // 重新插入欢迎消息到能力模块上方
-                if (abilityPanels) {
+                // 重新查找 abilityPanels（可能已被清除）
+                let currentAbilityPanels = document.querySelector('.ability-panels');
+                
+                // 如果 abilityPanels 不存在，需要重新创建
+                if (!currentAbilityPanels || !aiMessages.contains(currentAbilityPanels)) {
+                    // 重新创建 abilityPanels（使用初始HTML模板）
+                    aiMessages.innerHTML = `
+                        <div class="message bot-message">
+                            <div class="avatar-small bot-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                您好！我是AI智能助手，展示认证流程，包括考试预约、获取与验证证书的入口，以及可能涉及的重认证规则。有什么可以帮助您的吗？
+                            </div>
+                        </div>
+                        <div class="ability-panels">
+                            <div class="ability-card">
+                                <div class="ability-card-header">
+                                    <span class="ability-card-title">场景领域</span>
+                                </div>
+                                <div class="ability-list">
+                                    <button class="ability-item scene-domain-item" data-question="DCU 驱动下载">
+                                        <div class="ability-item-title">DCU</div>
+                                        <div class="ability-item-subtitle">获取最新 DCU 驱动与工具</div>
+                                    </button>
+                                    <button class="ability-item scene-domain-item" data-question="CPU 固件与驱动下载">
+                                        <div class="ability-item-title">CPU</div>
+                                        <div class="ability-item-subtitle">CPU 固件、驱动及文档资源</div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="ability-card">
+                                <div class="ability-card-header">
+                                    <span class="ability-card-title">推广</span>
+                                    <div class="ability-card-page">
+                                        <span>2/3</span>
+                                        <i class="fas fa-angle-right"></i>
+                                    </div>
+                                </div>
+                                <div class="ability-list">
+                                    <button class="ability-item" data-question="在线学习">
+                                        <div class="ability-item-title">在线学习</div>
+                                        <div class="ability-item-subtitle">学习在线课程</div>
+                                    </button>
+                                    <button class="ability-item" data-question="认证其他问题">
+                                        <div class="ability-item-title">认证其他问题</div>
+                                        <div class="ability-item-subtitle">发起问题单</div>
+                                    </button>
+                                    <button class="ability-item" data-question="证书申请流程">
+                                        <div class="ability-item-title">证书申请流程</div>
+                                        <div class="ability-item-subtitle">认证证书申请流程</div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="ability-card">
+                                <div class="ability-card-header">
+                                    <span class="ability-card-title">Q&A</span>
+                                </div>
+                                <div class="guess-questions">
+                                    <button class="guess-question" data-question="HCIE实验预约及考位查询">实验预约及考位查询</button>
+                                    <button class="guess-question" data-question="认证考试证书有效期">认证考试证书有效期</button>
+                                    <button class="guess-question" data-question="取消考试政策">取消考试政策</button>
+                                </div>
+                                <div class="guess-banner">
+                                    <div class="guess-banner-content">
+                                        <div class="guess-banner-title">全新焕变</div>
+                                        <div class="guess-banner-subtitle">能力升级 AI 问答更懂你</div>
+                                    </div>
+                                    <div class="guess-banner-action">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    // 重新绑定事件
+                    bindAbilityItems();
+                    // 重新绑定场景领域标签事件
+                    const newSceneDomainItems = document.querySelectorAll('.scene-domain-item');
+                    newSceneDomainItems.forEach(item => {
+                        item.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            newSceneDomainItems.forEach(i => i.classList.remove('active'));
+                            this.classList.add('active');
+                            const titleEl = this.querySelector('.ability-item-title');
+                            currentSceneDomain = titleEl ? titleEl.textContent.trim() : this.textContent.trim();
+                            if (selectedSceneDomain && selectedSceneDomainText) {
+                                selectedSceneDomain.style.display = 'block';
+                                selectedSceneDomainText.textContent = currentSceneDomain;
+                            }
+                            currentMode = 'download';
+                            updateModeUI();
+                        });
+                    });
+                } else {
+                    // 如果 abilityPanels 存在，在它前面插入欢迎消息
                     const welcome = document.createElement('div');
                     welcome.className = 'message bot-message';
 
@@ -1931,11 +2539,34 @@
                     welcome.appendChild(avatar);
                     welcome.appendChild(content);
 
-                    aiMessages.insertBefore(welcome, abilityPanels);
+                    aiMessages.insertBefore(welcome, currentAbilityPanels);
+                }
+
+                // 确保面板显示
+                if (panelChat) {
+                    panelChat.style.display = 'flex';
+                }
+
+                // 调用 switchPanel 确保所有状态正确
+                switchPanel('chat');
+                
+                // 强制显示输入框（确保在 switchPanel 之后）
+                if (chatInputArea) {
+                    chatInputArea.style.display = 'block';
+                }
+                if (inputArea) {
+                    inputArea.style.display = 'block';
+                }
+                if (actionButtonsArea) {
+                    actionButtonsArea.style.display = 'none';
                 }
 
                 // 新对话：重新展开
                 setPanelsCollapsed(false);
+                
+                // 重置当前对话ID
+                currentConversationId = null;
+                currentConversationMessages = [];
             });
         }
 
@@ -2016,6 +2647,7 @@
         }
 
         function updateActionButtons() {
+            if (!actionButtonsArea || !inputArea) return;
             if (selectedMessages.size > 0) {
                 actionButtonsArea.classList.add('visible');
                 inputArea.style.display = 'none';
@@ -2063,24 +2695,34 @@
                     alert('请先选择要收藏的消息');
                     return;
                 }
-                let content = '';
-                selectedMessages.forEach(message => {
-                    const bubble = message.querySelector('.message-content');
+                // 从当前对话消息中提取选中的消息
+                const messages = [];
+                selectedMessages.forEach(messageEl => {
+                    const bubble = messageEl.querySelector('.message-content');
                     if (bubble) {
-                        content += bubble.textContent.trim() + '\n';
+                        const isUser = messageEl.classList.contains('user-message');
+                        messages.push({
+                            role: isUser ? 'user' : 'bot',
+                            content: bubble.textContent.trim()
+                        });
                     }
                 });
-                content = content.trim();
-                if (!content) return;
+                if (messages.length === 0) return;
+                const firstQuestion = messages.find(m => m.role === 'user')?.content || '';
+                if (!firstQuestion) return;
                 const now = new Date();
+                const id = ++conversationIdCounter;
                 favoriteItems.unshift({
-                    content,
+                    id: id,
+                    firstQuestion: firstQuestion,
+                    messages: messages,
                     createdAt: formatDateTime(now)
                 });
                 // 只保留最近 20 条收藏
                 favoriteItems = favoriteItems.slice(0, 20);
-                renderFavorites();
+                renderFavoritesSubmenu();
                 alert('收藏成功！');
+                exitMultiSelectMode();
             });
         }
 
