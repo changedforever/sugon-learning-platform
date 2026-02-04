@@ -1127,21 +1127,34 @@
   }
   
   function enrollCert(id, button) {
-    // 显示报名成功提示
-    alert('报名成功！');
+    // 显示报名提交提示
+    alert('报名已提交，请等待审核');
     
-    // 切换按钮文本和图标
-    button.innerHTML = '<i class="fa fa-play mr-1"></i>立即学习';
-    button.classList.add('bg-[#2D874B]');
+    // 切换按钮为"报名待审核"状态
+    button.innerHTML = '<i class="fa fa-clock mr-1"></i>报名待审核';
+    button.classList.add('bg-gray-400');
     button.classList.remove('bg-[#4B8CF5]');
-    button.classList.add('hover:bg-[#256e3d]');
+    button.classList.add('cursor-not-allowed');
     button.classList.remove('hover:bg-[#3a6bc4]');
     
-    // 更改点击事件
+    // 禁用点击事件
     button.onclick = function() {
-      // 跳转到学习页面
-      window.location.href = 'task-detail-self-apply.html';
+      return false;
     };
+    
+    // 3秒后切换为"立即学习"状态
+    setTimeout(function() {
+      button.innerHTML = '<i class="fa fa-play mr-1"></i>立即学习';
+      button.classList.add('bg-[#2D874B]');
+      button.classList.remove('bg-gray-400');
+      button.classList.add('hover:bg-[#256e3d]');
+      button.classList.remove('cursor-not-allowed');
+      
+      // 更改点击事件为跳转到学习页面
+      button.onclick = function() {
+        window.location.href = 'task-detail-self-apply.html';
+      };
+    }, 3000);
   }
 
   // ========== 证书查询功能 ==========

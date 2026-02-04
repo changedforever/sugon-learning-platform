@@ -617,6 +617,40 @@
                 </div>
             </div>
         </div>
+
+        <!-- 发起考试弹窗 -->
+        <div
+            id="examModal"
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+        >
+            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-96">
+                <h3 class="text-lg font-medium mb-4 text-white">发起考试</h3>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-300 mb-1">考试链接</label>
+                    <input
+                        type="url"
+                        id="examLinkInput"
+                        class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500"
+                        placeholder="请输入或粘贴考试链接"
+                    />
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button
+                        id="cancelExam"
+                        class="px-4 py-2 border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800"
+                    >
+                        取消
+                    </button>
+                    <button
+                        id="confirmExam"
+                        class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                    >
+                        发起考试
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- 直播间主体 -->
         <div class="flex h-screen bg-black">
             <!-- 左侧：直播播放区域 -->
@@ -1262,6 +1296,57 @@
                                         lotteryOptionsContainer.querySelectorAll('input[name="lotteryCorrectAnswer"]').forEach(r => r.checked = false);
                                         buildLotteryRuleInputs(0);
                                     });
+                                </script>
+                                <!-- 发起考试按钮 -->
+                                <div class="relative group">
+                                    <button
+                                        id="examBtn"
+                                        class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
+                                    >
+                                        <i class="fa fa-file-alt"></i>
+                                    </button>
+                                    <div
+                                        class="absolute bottom-full right-0 mb-2 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                                    >
+                                        发起考试
+                                    </div>
+                                </div>
+
+                                <script>
+                                    (function () {
+                                        var examBtn = document.getElementById('examBtn');
+                                        var examModal = document.getElementById('examModal');
+                                        var examLinkInput = document.getElementById('examLinkInput');
+                                        var cancelExam = document.getElementById('cancelExam');
+                                        var confirmExam = document.getElementById('confirmExam');
+                                        if (examBtn) {
+                                            examBtn.addEventListener('click', function () {
+                                                examModal.classList.remove('hidden');
+                                                examModal.classList.add('flex');
+                                                if (examLinkInput && !examLinkInput.value && typeof window.PRESET_EXAM_LINK === 'string') {
+                                                    examLinkInput.value = window.PRESET_EXAM_LINK;
+                                                }
+                                            });
+                                        }
+                                        if (cancelExam) {
+                                            cancelExam.addEventListener('click', function () {
+                                                examModal.classList.add('hidden');
+                                                examModal.classList.remove('flex');
+                                            });
+                                        }
+                                        if (confirmExam) {
+                                            confirmExam.addEventListener('click', function () {
+                                                var link = examLinkInput ? examLinkInput.value.trim() : '';
+                                                if (!link) {
+                                                    alert('请输入考试链接');
+                                                    return;
+                                                }
+                                                examModal.classList.add('hidden');
+                                                examModal.classList.remove('flex');
+                                                examLinkInput.value = '';
+                                            });
+                                        }
+                                    })();
                                 </script>
 
                                 <div class="relative group">

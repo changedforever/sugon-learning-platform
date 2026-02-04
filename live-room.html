@@ -301,6 +301,9 @@
             <button id="likeBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition">
               <i class="fa fa-thumbs-up"></i>
             </button>
+            <button id="examJoinBtn" class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition" title="参加考试">
+              <i class="fa fa-file-alt"></i>
+            </button>
           </div>
           
           <!-- 右侧控制按钮 -->
@@ -885,6 +888,27 @@
   </div>
 </div>
 
+<!-- 参加考试弹窗 -->
+<div id="examJoinModal" class="fixed inset-0 z-[1000] hidden items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+  <div class="lottery-modal-content w-full max-w-md mx-4 rounded-2xl bg-gray-900 border border-gray-700 shadow-2xl overflow-hidden">
+    <div class="px-5 py-4 border-b border-gray-700">
+      <h3 class="text-lg font-semibold text-white">请参加考试</h3>
+    </div>
+    <div class="p-5 space-y-4">
+      <p class="text-gray-300">请复制考试地址，在浏览器打开，参加考试。</p>
+      <input type="text" id="examAddressToCopy" readonly class="w-full px-4 py-2.5 rounded-xl bg-gray-800 border border-gray-700 text-gray-300 text-sm" value="https://www.baidu.com" placeholder="考试链接将由讲师下发" />
+    </div>
+    <div class="px-5 py-4 border-t border-gray-700 flex justify-end gap-3 bg-gray-800/80">
+      <button id="examJoinCancel" type="button" class="px-4 py-2.5 rounded-xl border border-gray-600 text-gray-300 hover:bg-gray-700 transition text-sm font-medium">
+        取消
+      </button>
+      <button id="examJoinCopy" type="button" class="px-4 py-2.5 rounded-xl bg-[#B01F24] text-white hover:bg-[#8f191d] transition text-sm font-medium">
+        复制考试地址
+      </button>
+    </div>
+  </div>
+</div>
+
 <script>
   // 答题抽奖弹窗：页面打开 5 秒后自动出现；提交答案后显示恭喜中奖弹窗；关闭后缩小为右下角图标；点击图标依次显示未中奖弹框、中奖地址弹框
   (function () {
@@ -971,6 +995,54 @@
     if (lotteryWinIconBtn) {
       lotteryWinIconBtn.addEventListener('click', function () {
         showLoseModal();
+      });
+    }
+  })();
+</script>
+
+<script>
+  (function () {
+    var examJoinBtn = document.getElementById('examJoinBtn');
+    var examJoinModal = document.getElementById('examJoinModal');
+    var examAddressToCopy = document.getElementById('examAddressToCopy');
+    var examJoinCancel = document.getElementById('examJoinCancel');
+    var examJoinCopy = document.getElementById('examJoinCopy');
+    function showExamJoinModal() {
+      examJoinModal.classList.remove('hidden');
+      examJoinModal.classList.add('flex');
+      if (examAddressToCopy && typeof window.EXAM_JOIN_ADDRESS === 'string') {
+        examAddressToCopy.value = window.EXAM_JOIN_ADDRESS;
+      }
+    }
+    function hideExamJoinModal() {
+      examJoinModal.classList.add('hidden');
+      examJoinModal.classList.remove('flex');
+    }
+    if (examJoinBtn) examJoinBtn.addEventListener('click', showExamJoinModal);
+    if (examJoinCancel) examJoinCancel.addEventListener('click', hideExamJoinModal);
+    if (examJoinCopy) {
+      examJoinCopy.addEventListener('click', function () {
+        var url = examAddressToCopy ? examAddressToCopy.value.trim() : '';
+        if (!url) {
+          alert('暂无考试地址，请等待讲师下发');
+          return;
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function () {
+            alert('已复制到剪贴板');
+            hideExamJoinModal();
+          }).catch(function () {
+            examAddressToCopy.select();
+            document.execCommand('copy');
+            alert('已复制到剪贴板');
+            hideExamJoinModal();
+          });
+        } else {
+          examAddressToCopy.select();
+          document.execCommand('copy');
+          alert('已复制到剪贴板');
+          hideExamJoinModal();
+        }
       });
     }
   })();

@@ -208,7 +208,7 @@
           <i class="fas fa-envelope mr-2"></i>收到邀请
         </div>
         <div class="nav-tab px-4 py-3 rounded-lg cursor-pointer" data-target="review-invitation">
-          <i class="fas fa-check-circle mr-2"></i>审核受邀
+          <i class="fas fa-check-circle mr-2"></i>加入审核
         </div>
         <div class="nav-tab px-4 py-3 rounded-lg cursor-pointer" data-target="download-app">
           <i class="fas fa-download mr-2"></i>下载光圈-注册成功
@@ -219,7 +219,7 @@
         <div class="nav-tab px-4 py-3 rounded-lg cursor-pointer" data-target="download-sms">
           <i class="fas fa-sms mr-2"></i>下载光圈-短信
         </div>
-        <div class="nav-tab px-4 py-3 rounded-lg cursor-pointer" data-target="hi-ai">
+        <div class="nav-tab px-4 py-3 rounded-lg cursor-pointer hidden" data-target="hi-ai">
           <i class="fas fa-comment mr-2"></i>光圈打招呼
         </div>
       </div>
@@ -230,7 +230,7 @@
       <!-- 个人注册页面 -->
       <div class="page active" id="personal-register">
         <div class="w-full h-[600px]">
-          <img src="images/registration.png" alt="注册" class="w-full h-full object-cover rounded-lg">
+          <img src="images/register.png" alt="注册" class="w-full h-full object-cover rounded-lg">
         </div>
       </div>
 
@@ -421,18 +421,13 @@
           </div>
 
           <div class="form-group">
-            <label for="identity" class="block text-sm font-medium text-gray-700 mb-1">身份</label>
-            <select id="identity" name="identity" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" required>
-              <option value="">请选择身份</option>
-              <option value="individual">个人</option>
-              <option value="student">学生</option>
-              <option value="developer">开发者</option>
-            </select>
+            <label for="job-title" class="block text-sm font-medium text-gray-700 mb-1">职务</label>
+            <input type="text" id="job-title" name="job-title" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请输入您的职务" required>
           </div>
 
           <div class="form-group">
-            <label for="organization" class="block text-sm font-medium text-gray-700 mb-1">所属机构</label>
-            <input type="text" id="organization" name="organization" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请输入所属机构">
+            <label for="organization" class="block text-sm font-medium text-gray-700 mb-1">所属企业/机构</label>
+            <input type="text" id="organization" name="organization" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" placeholder="请输入所属企业/机构" required>
           </div>
 
           <div class="form-group">
@@ -458,6 +453,93 @@
               </div>
             </div>
           </div>
+
+          <div class="form-group">
+            <label for="identity" class="block text-sm font-medium text-gray-700 mb-1">身份</label>
+            <select id="identity" name="identity" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D874B]" required>
+              <option value="">请选择身份</option>
+              <option value="management">管理</option>
+              <option value="research">研发</option>
+              <option value="business">商务</option>
+              <option value="sales">销售</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="block text-sm font-medium text-gray-700 mb-1">关注的产品</label>
+            <div class="mt-2">
+              <div id="products-container" class="relative">
+                <!-- 选中的产品标签容器 -->
+                <div id="selected-products" class="flex flex-wrap gap-2 p-2 border border-gray-300 rounded-lg min-h-[42px] items-center">
+                  <span id="placeholder" class="text-gray-400">请选择产品</span>
+                </div>
+                
+                <!-- 下拉选择框 -->
+                <select id="products" name="products" class="form-control w-full absolute top-0 left-0 opacity-0 cursor-pointer z-10">
+                  <option value="cpu">CPU</option>
+                  <option value="dcu">DCU</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <script>
+            // 关注的产品选择功能
+            document.addEventListener('DOMContentLoaded', function() {
+              const productsSelect = document.getElementById('products');
+              const selectedProductsContainer = document.getElementById('selected-products');
+              const placeholder = document.getElementById('placeholder');
+              const selectedProducts = new Set();
+              
+              productsSelect.addEventListener('change', function() {
+                const selectedValue = this.value;
+                if (selectedValue) {
+                  selectedProducts.add(selectedValue);
+                  updateSelectedProductsDisplay();
+                }
+              });
+              
+              function updateSelectedProductsDisplay() {
+                // 隐藏或显示占位符
+                if (selectedProducts.size > 0) {
+                  placeholder.style.display = 'none';
+                } else {
+                  placeholder.style.display = 'block';
+                }
+                
+                // 移除所有现有的标签
+                const existingTags = selectedProductsContainer.querySelectorAll('[data-product]');
+                existingTags.forEach(tag => tag.remove());
+                
+                // 添加新的标签
+                selectedProducts.forEach(product => {
+                  const label = document.createElement('div');
+                  label.className = 'bg-[#2D874B]/10 text-[#2D874B] px-2 py-1 rounded-full text-sm flex items-center';
+                  label.setAttribute('data-product', product);
+                  
+                  const productName = product === 'cpu' ? 'CPU' : 'DCU';
+                  label.innerHTML = `
+                    <span>${productName}</span>
+                    <button type="button" class="ml-2 text-[#2D874B] hover:text-[#256e3d]" data-product="${product}">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  `;
+                  
+                  // 在占位符之前添加标签
+                  selectedProductsContainer.insertBefore(label, placeholder);
+                });
+                
+                // 添加删除事件监听器
+                document.querySelectorAll('#selected-products button').forEach(button => {
+                  button.addEventListener('click', function() {
+                    const product = this.getAttribute('data-product');
+                    selectedProducts.delete(product);
+                    updateSelectedProductsDisplay();
+                  });
+                });
+              }
+            });
+          </script>
 
           <div class="flex gap-4 pt-4">
             <button type="button" class="btn btn-secondary flex-1 py-2 px-4 rounded-lg">取消</button>
@@ -726,7 +808,7 @@
         </div>
       </div>
 
-      <!-- 审核受邀页面 -->
+      <!-- 加入审核页面 -->
       <div class="page" id="review-invitation">
         <!-- 个人中心头部 -->
         <div class="mb-6 p-4 bg-gradient-to-r from-[#2D874B] to-[#34D399] rounded-xl text-white">
@@ -744,37 +826,37 @@
           </div>
         </div>
         
-        <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">审核受邀</h2>
+        <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">加入审核</h2>
         
         <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
           <p class="text-blue-800">请审核成员提交的信息，确认无误后通过审核。</p>
         </div>
         
         <div class="glass-card rounded-3xl border border-gray-300 p-6 mb-6">
-          <h3 class="text-lg font-semibold text-gray-800 mb-4">邀请信息</h3>
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">加入信息</h3>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div class="form-group">
-              <label class="block text-sm font-medium text-gray-700 mb-1">邀请组织</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1">加入组织</label>
               <div class="bg-gray-50 px-4 py-3 rounded-lg border border-gray-200">
                 <span class="font-medium">联想集团</span>
                 <span class="ml-2 text-xs bg-green-100 text-green-800 px-2 py-1 rounded">整机伙伴</span>
               </div>
             </div>
             <div class="form-group">
-              <label class="block text-sm font-medium text-gray-700 mb-1">邀请方式</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1">加入方式</label>
               <div class="bg-gray-50 px-4 py-3 rounded-lg border border-gray-200">
                 <span>二维码扫描</span>
               </div>
             </div>
             <div class="form-group">
-              <label class="block text-sm font-medium text-gray-700 mb-1">邀请时间</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1">加入时间</label>
               <div class="bg-gray-50 px-4 py-3 rounded-lg border border-gray-200">
                 <span>2026-02-02 14:30:00</span>
               </div>
             </div>
             <div class="form-group">
-              <label class="block text-sm font-medium text-gray-700 mb-1">邀请人</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1">加入发起人</label>
               <div class="bg-gray-50 px-4 py-3 rounded-lg border border-gray-200">
                 <span>张三（管理员）</span>
               </div>
@@ -899,7 +981,7 @@
 
           <div class="flex gap-4">
             <button type="button" class="btn btn-primary py-2 px-6 rounded-lg" id="search-org-btn">查询</button>
-            <button type="button" class="bg-white text-white py-2 px-6 rounded-lg" id="search-org-with-result-btn">查询有结果</button>
+            <button type="button" class="border border-gray-300 text-gray-600 py-2 px-6 rounded-lg hover:bg-gray-50 transition" id="search-org-with-result-btn">查询有结果</button>
           </div>
 
           <!-- 组织列表 -->
@@ -1042,7 +1124,7 @@
         </div>
       </div>
       <!-- 光圈打招呼页面 -->
-  <div class="page" id="hi-ai">
+  <div class="page hidden" id="hi-ai">
     <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">
       <i class="fas fa-wave mr-2 text-[#2D874B]"></i>光圈打招呼
     </h2>
