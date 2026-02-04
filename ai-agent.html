@@ -99,9 +99,10 @@
             transition: transform 0.2s;
         }
         
-        .sidebar-btn-expandable.expanded .sidebar-btn-arrow {
+        /* 移除箭头旋转效果，由JavaScript控制图标切换 */
+        /* .sidebar-btn-expandable.expanded .sidebar-btn-arrow {
             transform: rotate(180deg);
-        }
+        } */
         
         .sidebar-submenu {
             margin-left: 16px;
@@ -973,7 +974,7 @@
             background: #f0f0f0;
         }
 
-        /* 模式切換開關（問答 / 下載） */
+        /* 模式切換開關（问答 / 下载） */
         .mode-toggle-wrapper {
             flex-shrink: 0;
             margin-left: auto;
@@ -1075,20 +1076,24 @@
                     <i class="fas fa-star"></i>
                     <span>我的收藏</span>
                     </div>
-                    <i class="fas fa-chevron-down sidebar-btn-arrow"></i>
+                    <i class="fas fa-chevron-up sidebar-btn-arrow"></i>
                 </button>
                 <div class="sidebar-submenu" id="favorites-submenu" style="display: none;">
                     <!-- 二级菜单项将在这里动态生成 -->
                 </div>
-                <button class="sidebar-btn sidebar-btn-expandable" data-target="history">
+                <button class="sidebar-btn sidebar-btn-expandable expanded" data-target="history">
                     <div class="sidebar-btn-content">
                     <i class="fas fa-history"></i>
                     <span>历史对话</span>
                     </div>
                     <i class="fas fa-chevron-down sidebar-btn-arrow"></i>
                 </button>
-                <div class="sidebar-submenu" id="history-submenu" style="display: none;">
-                    <!-- 二级菜单项将在这里动态生成 -->
+                <div class="sidebar-submenu" id="history-submenu" style="display: block;">
+                    <div class="sidebar-submenu-item" data-id="1" data-type="history">如何配置DCU开发环境？</div>
+                    <div class="sidebar-submenu-item" data-id="2" data-type="history">CPU性能优化有哪些方法？</div>
+                    <div class="sidebar-submenu-item" data-id="3" data-type="history">云平台如何实现高可用？</div>
+                    <div class="sidebar-submenu-item" data-id="4" data-type="history">数据库索引优化策略</div>
+                    <div class="sidebar-submenu-item" data-id="5" data-type="history">操作系统进程调度算法</div>
                 </div>
             </div>
         </div>
@@ -1113,140 +1118,142 @@
             
             <!-- 新对话主面板 -->
             <div id="panel-chat" class="panel-section">
-            <!-- 消息区域 -->
-            <div id="ai-messages" class="messages-container">
-                <div class="message bot-message">
-                    <div class="avatar-small bot-avatar">
-                        <i class="fas fa-robot"></i>
+                <!-- 消息区域 -->
+                <div id="ai-messages" class="messages-container">
+                    <div class="message bot-message">
+                        <div class="avatar-small bot-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            您好！我是AI智能助手，展示认证流程，包括考试预约、获取与验证证书的入口，以及可能涉及的重认证规则。有什么可以帮助您的吗？
+                        </div>
                     </div>
-                    <div class="message-content">
-                        您好！我是AI智能助手，展示认证流程，包括考试预约、获取与验证证书的入口，以及可能涉及的重认证规则。有什么可以帮助您的吗？
+
+                    <!-- 能力场景 + 猜你想问（移动到中间内容区域） -->
+                    <div class="ability-panels">
+                        <!-- 右侧：下载相关（DCU / CPU） -->
+                        <div class="ability-card">
+                            <div class="ability-card-header">
+                                <span class="ability-card-title">场景领域</span>
+                            </div>
+                            <div class="ability-list">
+                                <button class="ability-item scene-domain-item" data-question="DCU 驱动下载">
+                                    <div class="ability-item-title">DCU</div>
+                                    <div class="ability-item-subtitle">获取最新 DCU 驱动与工具</div>
+                                </button>
+                                <button class="ability-item scene-domain-item" data-question="CPU 固件与驱动下载">
+                                    <div class="ability-item-title">CPU</div>
+                                    <div class="ability-item-subtitle">CPU 固件、驱动及文档资源</div>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- 左侧：能力场景 -->
+                        <div class="ability-card">
+                            <div class="ability-card-header">
+                                <span class="ability-card-title">推广</span>
+                                <div class="ability-card-page">
+                                    <span>2/3</span>
+                                    <i class="fas fa-angle-right"></i>
+                                </div>
+                            </div>
+                            <div class="ability-list">
+                                <button class="ability-item" data-question="在线学习">
+                                    <div class="ability-item-title">在线学习</div>
+                                    <div class="ability-item-subtitle">学习在线课程</div>
+                                </button>
+                                <button class="ability-item" data-question="认证其他问题">
+                                    <div class="ability-item-title">认证其他问题</div>
+                                    <div class="ability-item-subtitle">发起问题单</div>
+                                </button>
+                                <button class="ability-item" data-question="证书申请流程">
+                                    <div class="ability-item-title">证书申请流程</div>
+                                    <div class="ability-item-subtitle">认证证书申请流程</div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 中间：猜你想问 -->
+                        <div class="ability-card">
+                            <div class="ability-card-header">
+                                <span class="ability-card-title">Q&A</span>
+                            </div>
+                            <div class="guess-questions">
+                                <button class="guess-question" data-question="HCIE实验预约及考位查询">实验预约及考位查询</button>
+                                <button class="guess-question" data-question="认证考试证书有效期">认证考试证书有效期</button>
+                                <button class="guess-question" data-question="取消考试政策">取消考试政策</button>
+                            </div>
+                            <div class="guess-banner">
+                                <div class="guess-banner-content">
+                                    <div class="guess-banner-title">全新焕变</div>
+                                    <div class="guess-banner-subtitle">能力升级 AI 问答更懂你</div>
+                                </div>
+                                <div class="guess-banner-action">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 能力场景 + 猜你想问（移动到中间内容区域） -->
-                <div class="ability-panels">
-                    <!-- 右侧：下载相关（DCU / CPU） -->
-                    <div class="ability-card">
-                        <div class="ability-card-header">
-                            <span class="ability-card-title">场景领域</span>
-                        </div>
-                        <div class="ability-list">
-                            <button class="ability-item scene-domain-item" data-question="DCU 驱动下载">
-                                <div class="ability-item-title">DCU</div>
-                                <div class="ability-item-subtitle">获取最新 DCU 驱动与工具</div>
-                            </button>
-                            <button class="ability-item scene-domain-item" data-question="CPU 固件与驱动下载">
-                                <div class="ability-item-title">CPU</div>
-                                <div class="ability-item-subtitle">CPU 固件、驱动及文档资源</div>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- 左侧：能力场景 -->
-                    <div class="ability-card">
-                        <div class="ability-card-header">
-                            <span class="ability-card-title">推广</span>
-                            <div class="ability-card-page">
-                                <span>2/3</span>
-                                <i class="fas fa-angle-right"></i>
-                            </div>
-                        </div>
-                        <div class="ability-list">
-                            <button class="ability-item" data-question="在线学习">
-                                <div class="ability-item-title">在线学习</div>
-                                <div class="ability-item-subtitle">学习在线课程</div>
-                            </button>
-                            <button class="ability-item" data-question="认证其他问题">
-                                <div class="ability-item-title">认证其他问题</div>
-                                <div class="ability-item-subtitle">发起问题单</div>
-                            </button>
-                            <button class="ability-item" data-question="证书申请流程">
-                                <div class="ability-item-title">证书申请流程</div>
-                                <div class="ability-item-subtitle">认证证书申请流程</div>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- 中间：猜你想问 -->
-                    <div class="ability-card">
-                        <div class="ability-card-header">
-                            <span class="ability-card-title">Q&A</span>
-                        </div>
-                        <div class="guess-questions">
-                            <button class="guess-question" data-question="HCIE实验预约及考位查询">实验预约及考位查询</button>
-                            <button class="guess-question" data-question="认证考试证书有效期">认证考试证书有效期</button>
-                            <button class="guess-question" data-question="取消考试政策">取消考试政策</button>
-                        </div>
-                        <div class="guess-banner">
-                            <div class="guess-banner-content">
-                                <div class="guess-banner-title">全新焕变</div>
-                                <div class="guess-banner-subtitle">能力升级 AI 问答更懂你</div>
-                            </div>
-                            <div class="guess-banner-action">
-                                <i class="fas fa-arrow-right"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 输入区域 -->
+                <!-- 输入区域 -->
                 <div class="input-area" id="chat-input-area">
-                <!-- 原有快捷提问，仍然保留 -->
-                <div class="quick-questions" id="ai-quick-questions">
-                    <div class="quick-questions-left">
-                    <button class="quick-question">如何参加考试？</button>
-                    <button class="quick-question">如何认证成为高级云架构师？</button>
-                    <button class="quick-question">如何查看和下载证书</button>
-                    </div>
-                    <!-- 模式切換：問答 / 下載 -->
-                    <div class="mode-toggle-wrapper">
-                        <div id="mode-toggle" class="mode-toggle mode-qa">
-                            <div class="mode-toggle-knob" id="mode-toggle-knob">问答</div>
-                            <div class="mode-toggle-text">
-                                <span class="mode-text-qa">问答</span>
-                                <span class="mode-text-download">下载</span>
+                    <!-- 原有快捷提问，仍然保留 -->
+                    <div class="quick-questions" id="ai-quick-questions">
+                        <div class="quick-questions-left">
+                            <button class="quick-question">如何参加考试？</button>
+                            <button class="quick-question">如何认证成为高级云架构师？</button>
+                            <button class="quick-question">如何查看和下载证书</button>
+                        </div>
+                        <!-- 模式切換：问答 / 下载 -->
+                        <div class="mode-toggle-wrapper">
+                            <div id="mode-toggle" class="mode-toggle mode-qa">
+                                <div class="mode-toggle-knob" id="mode-toggle-knob">问答</div>
+                                <div class="mode-toggle-text">
+                                    <span class="mode-text-qa">问答</span>
+                                    <span class="mode-text-download">下载</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="input-container" style="position: relative;">
-                    <!-- 场景领域提示标签（独立标签） -->
-                    <div id="selected-scene-domain" class="selected-scene-domain">
-                        <span class="selected-scene-domain-tag">
-                            <span class="selected-scene-domain-text" id="selected-scene-domain-text"></span>
-                            <span class="selected-scene-domain-close" id="selected-scene-domain-close">×</span>
-                        </span>
-                    </div>
-                    <!-- 技能选择器 - 放在文本框内部上方 -->
-                    <div class="skill-selector" id="skill-selector">
-                        <div class="skill-main" id="download-main">
-                            <span class="skill-main-label">下载</span>
-                            <span class="skill-main-close" id="download-close">×</span>
+                    <div class="input-container" style="position: relative;">
+                        <!-- 场景领域提示标签（独立标签） -->
+                        <div id="selected-scene-domain" class="selected-scene-domain">
+                            <span class="selected-scene-domain-tag">
+                                <span class="selected-scene-domain-text" id="selected-scene-domain-text"></span>
+                                <span class="selected-scene-domain-close" id="selected-scene-domain-close">×</span>
+                            </span>
                         </div>
-                        <div class="skill-sub-list" id="download-sub-list">
-                            <button class="skill-sub-item">CPU</button>
-                            <button class="skill-sub-item">DCU</button>
-                            <button class="skill-sub-item">云计算</button>
+                        <!-- 技能选择器 - 放在文本框内部上方 -->
+                        <div class="skill-selector" id="skill-selector">
+                            <div class="skill-main" id="download-main">
+                                <span class="skill-main-label">下载</span>
+                                <span class="skill-main-close" id="download-close">×</span>
+                            </div>
+                            <div class="skill-sub-list" id="download-sub-list">
+                                <button class="skill-sub-item">CPU</button>
+                                <button class="skill-sub-item">DCU</button>
+                                <button class="skill-sub-item">云计算</button>
+                            </div>
                         </div>
-                    </div>
-                    <!-- 输入框和发送按钮区域 -->
-                    <div class="input-inner-wrapper">
-                        <textarea 
-                            id="ai-input" 
-                            placeholder="输入您的问题..." 
-                            class="message-input"
-                            rows="1"
-                        ></textarea>
-                        <button id="ai-send" class="send-btn">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
-                    
-                    <!-- 正式联想框样式 - 市面上常见的搜索联想 -->
-                    <div id="suggestion-list" style="position: absolute; bottom: 100%; left: 0; right: 0; margin-bottom: 8px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 9999; display: none; overflow: hidden; width: 100%; border: 1px solid #eaecef;">
-                        <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: all 0.2s;"><span style="color: red;">智能</span>天线</div>
-                        <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: all 0.2s;">全网<span style="color: red;">智能</span></div>
-                        <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; transition: all 0.2s;">体系智<span style="color: red;">能</span>特性</div>
+                        <!-- 输入框和发送按钮区域 -->
+                        <div class="input-inner-wrapper">
+                            <textarea 
+                                id="ai-input" 
+                                placeholder="输入您的问题..." 
+                                class="message-input"
+                                rows="1"
+                            ></textarea>
+                            <button id="ai-send" class="send-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- 正式联想框样式 - 市面上常见的搜索联想 -->
+                        <div id="suggestion-list" style="position: absolute; bottom: 100%; left: 0; right: 0; margin-bottom: 8px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 9999; display: none; overflow: hidden; width: 100%; border: 1px solid #eaecef;">
+                            <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: all 0.2s;"><span style="color: red;">智能</span>天线</div>
+                            <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: all 0.2s;">全网<span style="color: red;">智能</span></div>
+                            <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; transition: all 0.2s;">体系智<span style="color: red;">能</span>特性</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1273,6 +1280,13 @@
         const historyList = document.getElementById('history-list');
         const historyEmpty = document.getElementById('history-empty');
         const historyCount = document.getElementById('history-count');
+
+        // 侧边栏相关 DOM
+        const sidebarButtons = document.querySelectorAll('.sidebar-btn');
+        const panelChat = document.getElementById('panel-chat');
+        const chatInputArea = document.getElementById('chat-input-area');
+        const chatSubtitleText = document.getElementById('chat-subtitle-text');
+        const actionButtonsArea = document.getElementById('action-buttons-area');
 
         // ===== 输入联想（搜索建议）=====
         // 说明：页面原本只有 #suggestion-list 的静态结构且 display:none，但没有任何 JS 去控制它显示/渲染
@@ -1462,7 +1476,6 @@
         // 右键菜单和多选功能
         const contextMenu = document.getElementById('context-menu');
         const contextMenuMultiselect = document.getElementById('context-menu-multiselect');
-        const actionButtonsArea = document.getElementById('action-buttons-area');
         const cancelSelection = document.getElementById('cancel-selection');
         const actionCopy = document.getElementById('action-copy');
         const actionFavorite = document.getElementById('action-favorite');
@@ -1589,7 +1602,7 @@
         
         // 当前选中的技能与模式
         let currentSkill = '通用';
-        let currentMode = 'qa'; // qa 問答模式；download 下載模式
+        let currentMode = 'qa'; // qa 问答模式；download 下载模式
 
         // 模式切換 DOM
         const modeToggle = document.getElementById('mode-toggle');
@@ -1600,12 +1613,12 @@
             if (currentMode === 'qa') {
                 modeToggle.classList.remove('mode-download');
                 modeToggle.classList.add('mode-qa');
-                modeToggleKnob.textContent = '問答';
+                modeToggleKnob.textContent = '问答';
                 aiInput.placeholder = '输入您的问题...';
             } else {
                 modeToggle.classList.remove('mode-qa');
                 modeToggle.classList.add('mode-download');
-                modeToggleKnob.textContent = '下載';
+                modeToggleKnob.textContent = '下载';
                 aiInput.placeholder = '请输入需要下载的内容，如“CPU 驱动下载地址”...';
             }
         }
@@ -1960,17 +1973,28 @@
         
         // 渲染历史对话二级菜单
         function renderHistorySubmenu() {
+            console.log('进入renderHistorySubmenu函数');
             const submenu = document.getElementById('history-submenu');
-            if (!submenu) return;
+            console.log('submenu元素:', submenu);
+            if (!submenu) {
+                console.log('submenu元素不存在');
+                return;
+            }
+            console.log('historyItems长度:', historyItems.length);
             if (historyItems.length === 0) {
+                console.log('historyItems为空，显示暂无历史对话');
                 submenu.innerHTML = '<div style="padding: 8px 12px; color: #9ca3af; font-size: 12px;">暂无历史对话</div>';
                 return;
             }
-            submenu.innerHTML = historyItems.map(item => `
+            console.log('historyItems内容:', historyItems);
+            const renderedItems = historyItems.map(item => `
                 <div class="sidebar-submenu-item" data-id="${item.id}" data-type="history">
                     ${escapeHtml(item.firstQuestion)}
                 </div>
             `).join('');
+            console.log('渲染的历史对话项:', renderedItems);
+            submenu.innerHTML = renderedItems;
+            console.log('渲染完成后submenu.innerHTML:', submenu.innerHTML);
         }
 
         function addHistoryItem(question) {
@@ -2044,13 +2068,6 @@
                 return;
             }
             
-            if (!conversation.messages || conversation.messages.length === 0) {
-                console.error('对话消息为空，id:', id);
-                return;
-            }
-            
-            console.log('找到对话，消息数量:', conversation.messages.length);
-            
             // 保存当前对话
             saveCurrentConversation();
             
@@ -2064,20 +2081,22 @@
                     console.warn('退出多选模式时出错:', e);
                 }
             }
+            // 确保isMultiSelectMode为false
+            isMultiSelectMode = false;
             
             // 确保面板可见
             if (panelChat) {
                 panelChat.style.display = 'flex';
             }
             
-            // 清除当前消息
+            // 清空右侧内容
             if (aiMessages) {
                 aiMessages.innerHTML = '';
             }
             
-            // 直接显示对话消息（简化版本）
-            if (aiMessages && conversation.messages) {
-                conversation.messages.forEach((msg, index) => {
+            // 显示聊天记录（上面部分）
+            if (aiMessages && conversation.messages && conversation.messages.length > 0) {
+                conversation.messages.forEach((msg) => {
                     if (msg && msg.content) {
                         const isUser = msg.role === 'user';
                         const messageDiv = document.createElement('div');
@@ -2106,19 +2125,89 @@
                 }, 50);
             }
             
+            // 调试日志
+            console.log('调试信息:');
+            console.log('chatInputArea:', chatInputArea);
+            console.log('inputArea:', inputArea);
+            console.log('actionButtonsArea:', actionButtonsArea);
+            console.log('aiMessages:', aiMessages);
+            console.log('selectedMessages.size:', selectedMessages.size);
+            console.log('isMultiSelectMode:', isMultiSelectMode);
+            
+            // 强制显示聊天输入框区域（下面部分），确保它显示在历史对话底部
+            console.log('强制显示输入区域...');
+            console.log('chatInputArea元素:', chatInputArea);
+            console.log('inputArea元素:', inputArea);
+            
+            // 确保输入区域的父容器#panel-chat是flex布局
+            if (panelChat) {
+                console.log('设置panelChat样式...');
+                panelChat.style.display = 'flex';
+                panelChat.style.flexDirection = 'column';
+            }
+            
+            // 显示输入区域
+            if (chatInputArea) {
+                console.log('设置chatInputArea.display = block');
+                chatInputArea.style.display = 'block';
+                chatInputArea.style.position = 'relative';
+                chatInputArea.style.zIndex = '10';
+                chatInputArea.style.flexShrink = '0';
+            } else {
+                console.log('chatInputArea为null');
+            }
+            
+            if (inputArea) {
+                console.log('设置inputArea.display = block');
+                inputArea.style.display = 'block';
+                inputArea.style.position = 'relative';
+                inputArea.style.zIndex = '10';
+                inputArea.style.flexShrink = '0';
+            } else {
+                console.log('inputArea为null');
+            }
+            
+            if (actionButtonsArea) {
+                console.log('设置actionButtonsArea.display = none');
+                actionButtonsArea.style.display = 'none';
+            } else {
+                console.log('actionButtonsArea为null');
+            }
+            
+            // 确保消息区域在正确的位置
+            if (aiMessages) {
+                console.log('设置aiMessages样式...');
+                aiMessages.style.flex = '1';
+                aiMessages.style.minHeight = '0';
+                aiMessages.style.overflowY = 'auto';
+            } else {
+                console.log('aiMessages为null');
+            }
+            
+            console.log('输入区域显示设置完成');
+            
+            
             // 切换到聊天面板
+            console.log('调用switchPanel(\'chat\')');
             switchPanel('chat');
             
-            // 强制显示输入框
-            if (chatInputArea) {
-                chatInputArea.style.display = 'block';
-            }
-            if (inputArea) {
-                inputArea.style.display = 'block';
-            }
-            if (actionButtonsArea) {
-                actionButtonsArea.style.display = 'none';
-            }
+            // 再次确保输入区域显示（防止被switchPanel覆盖）
+            setTimeout(() => {
+                console.log('再次确保输入区域显示...');
+                if (chatInputArea) {
+                    chatInputArea.style.display = 'block';
+                    chatInputArea.style.position = 'relative';
+                    chatInputArea.style.zIndex = '10';
+                    chatInputArea.style.flexShrink = '0';
+                }
+                if (inputArea) {
+                    inputArea.style.display = 'block';
+                    inputArea.style.position = 'relative';
+                    inputArea.style.zIndex = '10';
+                    inputArea.style.flexShrink = '0';
+                }
+                console.log('输入区域显示确认完成');
+            }, 100);
             
             // 高亮选中的二级菜单项
             document.querySelectorAll('.sidebar-submenu-item').forEach(item => {
@@ -2129,18 +2218,14 @@
                 selectedItem.classList.add('active');
             }
             
-            // 设置当前对话ID
+            // 设置当前对话ID和消息
             currentConversationId = id;
-            currentConversationMessages = [...conversation.messages];
+            currentConversationMessages = conversation.messages ? [...conversation.messages] : [];
             
             console.log('对话加载完成');
         }
         
         // 侧边栏：新对话 / 我的收藏 / 历史对话 切换
-        const sidebarButtons = document.querySelectorAll('.sidebar-btn');
-        const panelChat = document.getElementById('panel-chat');
-        const chatInputArea = document.getElementById('chat-input-area');
-        const chatSubtitleText = document.getElementById('chat-subtitle-text');
 
         function switchPanel(target) {
             // 按钮高亮（只处理新对话按钮）
@@ -2157,14 +2242,14 @@
             // 面板显示/隐藏
             if (panelChat) panelChat.style.display = (target === 'chat') ? 'flex' : 'none';
             
-            // 输入框显示逻辑：在聊天模式下，如果没有选中消息，显示输入框
+            // 输入框显示逻辑：在聊天模式下，总是显示输入区域
             if (target === 'chat') {
-                // 确保输入框显示（除非在多选模式下）
+                // 确保输入框显示
                 if (chatInputArea) {
-                    chatInputArea.style.display = (selectedMessages.size === 0 && !isMultiSelectMode) ? 'block' : 'none';
+                    chatInputArea.style.display = 'block';
                 }
                 if (inputArea) {
-                    inputArea.style.display = (selectedMessages.size === 0 && !isMultiSelectMode) ? 'block' : 'none';
+                    inputArea.style.display = 'block';
                 }
                 if (actionButtonsArea) {
                     actionButtonsArea.style.display = (selectedMessages.size > 0) ? 'flex' : 'none';
@@ -2195,6 +2280,7 @@
                         this.classList.toggle('expanded');
                         const submenuId = target + '-submenu';
                         const submenu = document.getElementById(submenuId);
+                        const arrow = this.querySelector('.sidebar-btn-arrow');
                         if (submenu) {
                             if (this.classList.contains('expanded')) {
                                 submenu.style.display = 'flex';
@@ -2204,8 +2290,18 @@
                                 } else if (target === 'history') {
                                     renderHistorySubmenu();
                                 }
+                                // 切换箭头为向下
+                                if (arrow) {
+                                    arrow.classList.remove('fa-chevron-up');
+                                    arrow.classList.add('fa-chevron-down');
+                                }
                             } else {
                                 submenu.style.display = 'none';
+                                // 切换箭头为向上
+                                if (arrow) {
+                                    arrow.classList.remove('fa-chevron-down');
+                                    arrow.classList.add('fa-chevron-up');
+                                }
                             }
                         }
                         // 切换按钮高亮
@@ -2300,6 +2396,7 @@
                                 `;
                                 // 重新绑定事件
                                 bindAbilityItems();
+                                bindPanelButtons();
                             }
                             // 确保输入框显示
                             selectedMessages.clear();
@@ -2318,6 +2415,37 @@
 
         // 初始化假数据
         initMockData();
+        
+        // 调试日志：检查历史对话数据
+        console.log('初始化历史对话前:');
+        console.log('historyItems:', historyItems);
+        console.log('historyItems.length:', historyItems.length);
+        
+        // 默认展开历史对话并渲染
+        const historyButton = document.querySelector('.sidebar-btn[data-target="history"]');
+        const historySubmenu = document.getElementById('history-submenu');
+        console.log('historyButton:', historyButton);
+        console.log('historySubmenu:', historySubmenu);
+        
+        if (historyButton && historySubmenu) {
+            console.log('执行历史对话展开操作');
+            // 确保历史对话按钮为展开状态
+            historyButton.classList.add('expanded');
+            // 确保历史对话子菜单显示
+            historySubmenu.style.display = 'flex';
+            // 确保历史对话箭头为向下（展开状态）
+            const historyArrow = historyButton.querySelector('.sidebar-btn-arrow');
+            if (historyArrow) {
+                historyArrow.classList.remove('fa-chevron-up');
+                historyArrow.classList.add('fa-chevron-down');
+            }
+            // 渲染历史对话列表
+            console.log('调用renderHistorySubmenu()');
+            renderHistorySubmenu();
+            console.log('历史对话展开完成');
+        } else {
+            console.log('历史对话元素获取失败');
+        }
         
         // 使用事件委托处理二级菜单项点击
         const sidebar = document.querySelector('.sidebar');
@@ -2340,72 +2468,82 @@
         // 默认展示新对话面板
         switchPanel('chat');
 
-        // 场景领域标签（仅高亮，不触发会话）
-        const sceneDomainItems = document.querySelectorAll('.scene-domain-item');
-        const selectedSceneDomain = document.getElementById('selected-scene-domain');
-        const selectedSceneDomainText = document.getElementById('selected-scene-domain-text');
-        const selectedSceneDomainClose = document.getElementById('selected-scene-domain-close');
-        let currentSceneDomain = '';
-        sceneDomainItems.forEach(item => {
-            item.addEventListener('click', function (e) {
-                e.preventDefault();
-                // 只作为标签选中展示
-                sceneDomainItems.forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
+        // 绑定能力项事件
+        function bindAbilityItems() {
+            // 场景领域标签（仅高亮，不触发会话）
+            const sceneDomainItems = document.querySelectorAll('.scene-domain-item');
+            const selectedSceneDomain = document.getElementById('selected-scene-domain');
+            const selectedSceneDomainText = document.getElementById('selected-scene-domain-text');
+            const selectedSceneDomainClose = document.getElementById('selected-scene-domain-close');
+            let currentSceneDomain = '';
+            sceneDomainItems.forEach(item => {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    // 只作为标签选中展示
+                    sceneDomainItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
 
-                // 标签只保留 DCU / CPU 文本，不带描述
-                const titleEl = this.querySelector('.ability-item-title');
-                currentSceneDomain = titleEl ? titleEl.textContent.trim() : this.textContent.trim();
+                    // 标签只保留 DCU / CPU 文本，不带描述
+                    const titleEl = this.querySelector('.ability-item-title');
+                    currentSceneDomain = titleEl ? titleEl.textContent.trim() : this.textContent.trim();
 
-                // 在输入框上方显示当前选中领域
-                if (selectedSceneDomain && selectedSceneDomainText) {
-                    selectedSceneDomain.style.display = 'block';
-                    selectedSceneDomainText.textContent = currentSceneDomain;
-                }
+                    // 在输入框上方显示当前选中领域
+                    if (selectedSceneDomain && selectedSceneDomainText) {
+                        selectedSceneDomain.style.display = 'block';
+                        selectedSceneDomainText.textContent = currentSceneDomain;
+                    }
 
-                // 切换到下载模式，但不发送消息
-                currentMode = 'download';
-                updateModeUI();
+                    // 切换到下载模式，但不发送消息
+                    currentMode = 'download';
+                    updateModeUI();
+                });
             });
-        });
+        }
 
         // 关闭已选领域标签
+        const selectedSceneDomainClose = document.getElementById('selected-scene-domain-close');
         if (selectedSceneDomainClose) {
             selectedSceneDomainClose.addEventListener('click', function () {
                 // 清空当前选中状态
                 currentSceneDomain = '';
+                const selectedSceneDomain = document.getElementById('selected-scene-domain');
+                const selectedSceneDomainText = document.getElementById('selected-scene-domain-text');
+                const sceneDomainItems = document.querySelectorAll('.scene-domain-item');
                 if (selectedSceneDomain) {
                     selectedSceneDomain.style.display = 'none';
                 }
                 if (selectedSceneDomainText) {
                     selectedSceneDomainText.textContent = '';
                 }
-                sceneDomainItems.forEach(i => i.classList.remove('active'));
+                if (sceneDomainItems) {
+                    sceneDomainItems.forEach(i => i.classList.remove('active'));
+                }
                 // 可选：关闭后仍保持下载模式，不切回问答
             });
         }
 
         // 绑定能力项和猜你想问按钮的事件
-        function bindAbilityItems() {
+        function bindPanelButtons() {
             // 能力场景 & 猜你想问卡片点击事件（不包含场景领域标签）
             const panelButtons = document.querySelectorAll('.ability-item:not(.scene-domain-item), .guess-question');
-        panelButtons.forEach(button => {
+            panelButtons.forEach(button => {
                 // 移除旧的事件监听器（如果存在）
                 const newButton = button.cloneNode(true);
                 button.parentNode.replaceChild(newButton, button);
                 // 添加新的事件监听器
                 newButton.addEventListener('click', function() {
-                const message = this.getAttribute('data-question') || this.textContent.trim();
-                addMessage(message, true);
+                    const message = this.getAttribute('data-question') || this.textContent.trim();
+                    addMessage(message, true);
                     addHistoryItem(message);
-                setPanelsCollapsed(true);
-                handleAIResponse(message, currentSkill);
+                    setPanelsCollapsed(true);
+                    handleAIResponse(message, currentSkill);
+                });
             });
-        });
         }
         
         // 初始绑定
         bindAbilityItems();
+        bindPanelButtons();
 
         // 新对话按钮点击事件
         const newChatBtn = document.querySelector('.fa-plus').closest('button');
