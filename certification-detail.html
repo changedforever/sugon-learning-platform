@@ -414,15 +414,37 @@
         
         <!-- 操作按钮 -->
         <div class="lg:w-48 space-y-3">
-          <a href="task-detail.html" 
-             class="w-full py-2.5 rounded-xl bg-[#2D874B] text-white text-sm font-medium hover:bg-[#24703a] transition flex items-center justify-center gap-2">
-            <i class="fa fa-play-circle"></i>
-            开始学习
-          </a>
-          <!--button class="w-full py-2.5 rounded-xl bg-white border border-gray-300 text-gray-700 text-sm font-medium hover:border-[#2D874B] transition flex items-center justify-center gap-2">
-            <i class="fa fa-bookmark"></i>
-            收藏认证
-          </button-->
+          <button onclick="enrollCert(this)" 
+                  class="w-full py-2.5 rounded-xl bg-[#4B8CF5] text-white text-sm font-medium hover:bg-[#3a6bc4] transition flex items-center justify-center gap-2">
+            <i class="fa fa-plus-circle"></i>
+            立即报名
+          </button>
+          <!-- 报名成功后显示的内容 -->
+          <div id="exam-section" class="hidden space-y-3">
+            <a href="task-detail.html" 
+               class="w-full py-2.5 rounded-xl bg-[#2D874B] text-white text-sm font-medium hover:bg-[#24703a] transition flex items-center justify-center gap-2">
+              <i class="fa fa-play-circle"></i>
+              立即学习
+            </a>
+            <a href="#" 
+               class="w-full py-2.5 rounded-xl bg-white border border-gray-300 text-gray-700 text-sm font-medium hover:border-[#4B8CF5] transition flex items-center justify-center gap-2">
+              <i class="fa fa-external-link-alt"></i>
+              前往工信部考试
+            </a>
+            <div class="text-center">
+              <div class="qrcode-container">
+                <p class="text-sm text-gray-600 mb-2 cursor-pointer">考试缴费二维码</p>
+                <div class="h-32 w-32 mx-auto bg-gray-100 rounded-lg flex items-center justify-center hidden hover:block">
+                  <i class="fa fa-qrcode text-gray-400 text-4xl"></i>
+                </div>
+              </div>
+            </div>
+            <style>
+              .qrcode-container:hover .h-32 {
+                display: flex;
+              }
+            </style>
+          </div>
         </div>
       </div>
     </section>
@@ -656,14 +678,20 @@
     }
   }
 
+  function enrollCert(button) {
+    // 显示报名成功提示
+    alert('报名成功！');
+    
+    // 隐藏报名按钮
+    button.classList.add('hidden');
+    
+    // 显示考试相关内容
+    const examSection = document.getElementById('exam-section');
+    examSection.classList.remove('hidden');
+  }
+  
   // 页面加载时初始化
   document.addEventListener('DOMContentLoaded', function() {
-    // 添加收藏按钮点击事件
-    const favoriteBtn = document.querySelector('button:contains("收藏认证")');
-    if (favoriteBtn) {
-      favoriteBtn.addEventListener('click', toggleFavorite);
-    }
-    
     // 添加模块悬停效果
     const modules = document.querySelectorAll('.module-item');
     modules.forEach(module => {

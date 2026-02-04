@@ -1502,8 +1502,9 @@
         <!-- 分类筛选器 -->
         <div class="mb-6">
           <div class="flex flex-wrap gap-2">
-            <button class="filter-btn px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs active" data-filter="all">全部</button>
-            <button class="filter-btn px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-700 text-xs" data-filter="course">课程</button>
+            <!-- <button class="filter-btn px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="all">全部</button> -->
+            <button class="filter-btn px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="course">课程</button>
+            <!-- <button class="filter-btn px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-700 text-xs active" data-filter="course">课程</button> -->
             <button class="filter-btn px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-700 text-xs" data-filter="live">直播</button>
             <button class="filter-btn px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-700 text-xs" data-filter="news">资讯</button>
 <!--            <button class="filter-btn px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-700 text-xs" data-filter="resource">资源</button>-->
@@ -2447,7 +2448,7 @@
     ];
     
     // 渲染收藏列表的函数
-    function renderFavorites(filter = 'all') {
+    function renderFavorites(filter = 'course') {
       const favWrap = $('favorite-list');
       favWrap.innerHTML = '';
       
