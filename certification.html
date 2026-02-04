@@ -1078,9 +1078,9 @@
           <a href="certification-detail.html" class="flex-1 px-4 py-2.5 rounded-full bg-white border border-gray-300 hover:border-[#4B8CF5] text-sm transition text-center">
             <i class="fa fa-eye mr-1"></i>查看完整课程大纲
           </a>
-          <a href="task-detail-self-apply.html" class="flex-1 px-4 py-2.5 rounded-full bg-[#4B8CF5] text-white text-sm hover:bg-[#3a6bc4] transition text-center">
-            <i class="fa fa-play mr-1"></i>立即学习
-          </a>
+          <button onclick="enrollCert(${cert.id}, this)" class="flex-1 px-4 py-2.5 rounded-full bg-[#4B8CF5] text-white text-sm hover:bg-[#3a6bc4] transition text-center">
+            <i class="fa fa-plus mr-1"></i>立即报名
+          </button>
         </div>
       `;
       
@@ -1125,12 +1125,23 @@
       alert(`查看认证详情：${cert.title}\n\n类别：${cert.category === 'general' ? '通用计算' : '智能计算'}\n级别：${cert.levelText}\n\n核心技能：\\n${cert.coreSkills.join('\\n')}\n\n课程目标：\\n${cert.courseObjectives.join('\\n')}`);
     }
   }
-
-  function enrollCert(id) {
-    const cert = certifications.find(c => c.id === id);
-    if (cert) {
-      alert(`开始学习认证：${cert.title}\n\n系统将为您推荐相关课程和学习路径。`);
-    }
+  
+  function enrollCert(id, button) {
+    // 显示报名成功提示
+    alert('报名成功！');
+    
+    // 切换按钮文本和图标
+    button.innerHTML = '<i class="fa fa-play mr-1"></i>立即学习';
+    button.classList.add('bg-[#2D874B]');
+    button.classList.remove('bg-[#4B8CF5]');
+    button.classList.add('hover:bg-[#256e3d]');
+    button.classList.remove('hover:bg-[#3a6bc4]');
+    
+    // 更改点击事件
+    button.onclick = function() {
+      // 跳转到学习页面
+      window.location.href = 'task-detail-self-apply.html';
+    };
   }
 
   // ========== 证书查询功能 ==========
