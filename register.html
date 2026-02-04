@@ -213,7 +213,7 @@
         <div class="nav-tab px-4 py-3 rounded-lg cursor-pointer" data-target="download-app">
           <i class="fas fa-download mr-2"></i>下载光圈-注册成功
         </div>
-        <div class="nav-tab px-4 py-3 rounded-lg cursor-pointer" data-target="upgrade-popup">
+        <div class="nav-tab px-4 py-3 rounded-lg cursor-pointer" data-target="download-official-popup">
           <i class="fas fa-circle mr-2"></i>下载光圈-官网
         </div>
         <div class="nav-tab px-4 py-3 rounded-lg cursor-pointer" data-target="download-sms">
@@ -240,6 +240,27 @@
         <div class="relative w-full h-[600px]">
           <!-- 底图 -->
           <img src="images/loginpop.png" alt="登录弹窗" class="w-full h-full object-cover rounded-lg">
+          
+          <!-- 右上角账号升级提示弹框 -->
+          <div class="absolute top-[50px] right-6 bg-white rounded-lg shadow-xl border border-gray-200 w-[360px] p-4 text-sm leading-relaxed">
+            <h3 class="text-base font-semibold text-gray-800 mb-2">账号升级提示</h3>
+            <p class="text-gray-600 mb-3">
+              您已注册成为光合组织平台用户，为了让您享受光合组织基本权益，
+              需要您【完善用户信息】。您的公司如果成为光合组织伙伴，可点击
+              【账号升级】以获取更多权益。权限升级后，请重新登录。
+            </p>
+            <div class="flex justify-end space-x-3 mt-2">
+              <button class="px-4 py-1.5 rounded-full text-xs font-medium bg-[#2D874B] text-white hover:bg-[#256e3d] transition">
+                完善信息
+              </button>
+              <button class="px-4 py-1.5 rounded-full text-xs font-medium bg-[#E53935] text-white hover:bg-[#c62828] transition">
+                账号升级
+              </button>
+              <button class="px-4 py-1.5 rounded-full text-xs font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 transition">
+                不再提醒
+              </button>
+            </div>
+          </div>
           
           <!-- 下载光圈按钮 -->
           <div class="absolute top-[10px] right-[112px] flex items-center space-x-4">
@@ -1124,29 +1145,55 @@
         </div>
       </div>
       <!-- 光圈打招呼页面 -->
-  <div class="page hidden" id="hi-ai">
-    <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">
-      <i class="fas fa-wave mr-2 text-[#2D874B]"></i>光圈打招呼
-    </h2>
-    
-    <div class="space-y-8">
-      <!-- PC端打招呼 -->
-      <div>
-        <h3 class="text-xl font-semibold text-gray-800 mb-4">PC端打招呼</h3>
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-          <img src="images/HIAIPC.png" alt="PC端打招呼" class="w-full h-auto rounded">
+      <div class="page hidden" id="hi-ai">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 border-gray-300">
+          <i class="fas fa-wave mr-2 text-[#2D874B]"></i>光圈打招呼
+        </h2>
+        
+        <div class="space-y-8">
+          <!-- PC端打招呼 -->
+          <div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">PC端打招呼</h3>
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+              <img src="images/HIAIPC.png" alt="PC端打招呼" class="w-full h-auto rounded">
+            </div>
+          </div>
+          
+          <!-- 移动端打招呼 -->
+          <div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">移动端打招呼</h3>
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex justify-center">
+              <img src="images/HIAIAPP.png" alt="移动端打招呼" class="max-w-[300px] h-auto rounded">
+            </div>
+          </div>
         </div>
       </div>
-      
-      <!-- 移动端打招呼 -->
-      <div>
-        <h3 class="text-xl font-semibold text-gray-800 mb-4">移动端打招呼</h3>
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex justify-center">
-          <img src="images/HIAIAPP.png" alt="移动端打招呼" class="max-w-[300px] h-auto rounded">
+
+      <!-- 下载光圈-官网弹窗页面 -->
+      <div class="page" id="download-official-popup">
+        <!-- 截图作为底图 -->
+        <div class="relative w-full h-[600px]">
+          <!-- 底图 -->
+          <img src="images/loginpop.png" alt="登录弹窗" class="w-full h-full object-cover rounded-lg">
+          
+          <!-- 下载光圈按钮 -->
+          <div class="absolute top-[10px] right-[112px] flex items-center space-x-4">
+            <div class="relative group">
+              <button class="px-[12px] bg-[#2D874B] text-white h-[25px] text-[10px] leading-[24px] hover:bg-[#256e3d] transition">
+                下载光圈
+              </button>
+              <!-- 二维码下拉 -->
+              <div class="absolute right-0 top-full mt-2 bg-white p-4 rounded-lg shadow-xl hidden group-hover:block z-20">
+                <div class="w-40 h-40 bg-gray-200 flex items-center justify-center">
+                  <!-- 这里可以放真实的二维码图片 -->
+                  <span class="text-gray-500">二维码</span>
+                </div>
+                <p class="text-xs text-center mt-2 text-gray-600">扫码下载光圈APP</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
     </div>
   
   
