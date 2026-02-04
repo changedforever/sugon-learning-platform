@@ -187,6 +187,11 @@
       <i class="fa fa-users text-white text-xs"></i>
       <span class="text-white text-xs ml-1"><span id="expandBtnViewerCount">1.2万</span></span>
     </button>
+
+    <!-- 中奖信息缩小图标：关闭恭喜中奖弹窗后显示在直播区域右下角，点击可重新打开弹窗 -->
+    <button id="lotteryWinIconBtn" type="button" class="lottery-win-icon absolute bottom-[100px] right-[30px] z-20 w-12 h-12 rounded-full bg-[#B01F24] text-white shadow-lg flex items-center justify-center hover:bg-[#8f191d] hover:scale-110 transition-transform hidden" title="中奖信息">
+      <i class="fa fa-gift text-lg"></i>
+    </button>
     
     <!-- 直播视频播放器 -->
     <div class="live-player w-full h-full flex items-center justify-center">
@@ -794,6 +799,182 @@
     </div>
   </div>
 </div>
+
+<!-- 答题抽奖弹窗：打开页面 5 秒后自动出现（深色风格与直播间一致） -->
+<div id="lotteryAnswerModal" class="fixed inset-0 z-[1000] hidden items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+  <div class="lottery-modal-content w-full max-w-md mx-4 rounded-2xl bg-gray-900 border border-gray-700 shadow-2xl overflow-hidden">
+    <div class="px-5 py-4 border-b border-gray-700">
+      <h3 class="text-lg font-semibold text-white">正在抽奖</h3>
+    </div>
+    <div class="p-5 space-y-4">
+      <p id="lotteryQuestionText" class="text-gray-300 font-medium">本次直播的互动环节主题是什么？</p>
+      <div id="lotteryOptionsWrap" class="space-y-3">
+        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-700 bg-gray-800 hover:border-[#B01F24]/60 cursor-pointer transition has-[:checked]:border-[#B01F24] has-[:checked]:bg-[#B01F24]/10">
+          <input type="radio" name="lotteryAnswer" value="A" class="w-4 h-4 text-[#B01F24] bg-gray-800 border-gray-600">
+          <span class="text-gray-300">技术分享</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-700 bg-gray-800 hover:border-[#B01F24]/60 cursor-pointer transition has-[:checked]:border-[#B01F24] has-[:checked]:bg-[#B01F24]/10">
+          <input type="radio" name="lotteryAnswer" value="B" class="w-4 h-4 text-[#B01F24] bg-gray-800 border-gray-600">
+          <span class="text-gray-300">产品介绍</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-700 bg-gray-800 hover:border-[#B01F24]/60 cursor-pointer transition has-[:checked]:border-[#B01F24] has-[:checked]:bg-[#B01F24]/10">
+          <input type="radio" name="lotteryAnswer" value="C" class="w-4 h-4 text-[#B01F24] bg-gray-800 border-gray-600">
+          <span class="text-gray-300">答疑互动</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-700 bg-gray-800 hover:border-[#B01F24]/60 cursor-pointer transition has-[:checked]:border-[#B01F24] has-[:checked]:bg-[#B01F24]/10">
+          <input type="radio" name="lotteryAnswer" value="D" class="w-4 h-4 text-[#B01F24] bg-gray-800 border-gray-600">
+          <span class="text-gray-300">以上皆是</span>
+        </label>
+      </div>
+    </div>
+    <div class="px-5 py-4 border-t border-gray-700 flex justify-end gap-3 bg-gray-800/80">
+      <button id="lotteryAnswerCancel" type="button" class="px-4 py-2.5 rounded-xl border border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white transition text-sm font-medium">
+        取消
+      </button>
+      <button id="lotteryAnswerSubmit" type="button" class="px-4 py-2.5 rounded-xl bg-[#B01F24] text-white hover:bg-[#8f191d] transition text-sm font-medium">
+        提交答案
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 未中奖弹窗：点击右下角中奖图标时先显示此弹框 -->
+<div id="lotteryLoseModal" class="fixed inset-0 z-[1001] hidden items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+  <div class="lottery-modal-content w-full max-w-md mx-4 rounded-2xl bg-gray-900 border border-gray-700 shadow-2xl overflow-hidden">
+    <div class="px-5 py-4 border-b border-gray-700">
+      <h3 class="text-lg font-semibold text-white">未中奖</h3>
+    </div>
+    <div class="p-5">
+      <p class="text-gray-300">很遗憾，本次奖品和您擦肩而过。</p>
+    </div>
+    <div class="px-5 py-4 border-t border-gray-700 flex justify-end bg-gray-800/80">
+      <button id="lotteryLoseConfirm" type="button" class="px-4 py-2.5 rounded-xl bg-[#B01F24] text-white hover:bg-[#8f191d] transition text-sm font-medium">
+        确定
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 恭喜中奖弹窗：提交答案后出现，填写地址与电话；可关闭后缩小为右下角图标 -->
+<div id="lotteryWinModal" class="fixed inset-0 z-[1002] hidden items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+  <div class="lottery-modal-content w-full max-w-md mx-4 rounded-2xl bg-gray-900 border border-gray-700 shadow-2xl overflow-hidden">
+    <div class="px-5 py-4 border-b border-gray-700 flex items-center justify-between">
+      <h3 class="text-lg font-semibold text-white">恭喜您已中奖</h3>
+      <button id="lotteryWinClose" type="button" class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 transition" title="关闭">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+    <div class="p-5 space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-400 mb-1.5">地址</label>
+        <input type="text" id="lotteryWinAddress" class="w-full px-4 py-2.5 rounded-xl bg-gray-800 border border-gray-700 text-gray-300 placeholder-gray-500 focus:border-[#B01F24] focus:outline-none" placeholder="请输入奖品接收地址" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-400 mb-1.5">电话</label>
+        <input type="tel" id="lotteryWinPhone" class="w-full px-4 py-2.5 rounded-xl bg-gray-800 border border-gray-700 text-gray-300 placeholder-gray-500 focus:border-[#B01F24] focus:outline-none" placeholder="请输入中奖联系电话" />
+      </div>
+      <p class="text-xs text-gray-500 leading-relaxed">
+        奖品将在10个工作日后安排寄出，中奖事宜如有问题请联系直播助教<span id="lotteryAssistantName">@直播助教</span>。
+      </p>
+    </div>
+    <div class="px-5 py-4 border-t border-gray-700 flex justify-end gap-3 bg-gray-800/80">
+      <button id="lotteryWinConfirm" type="button" class="px-4 py-2.5 rounded-xl bg-[#B01F24] text-white hover:bg-[#8f191d] transition text-sm font-medium">
+        确定
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 答题抽奖弹窗：页面打开 5 秒后自动出现；提交答案后显示恭喜中奖弹窗；关闭后缩小为右下角图标；点击图标依次显示未中奖弹框、中奖地址弹框
+  (function () {
+    var lotteryModal = document.getElementById('lotteryAnswerModal');
+    var lotteryLoseModal = document.getElementById('lotteryLoseModal');
+    var lotteryWinModal = document.getElementById('lotteryWinModal');
+    var lotteryWinIconBtn = document.getElementById('lotteryWinIconBtn');
+    var lotteryCancel = document.getElementById('lotteryAnswerCancel');
+    var lotterySubmit = document.getElementById('lotteryAnswerSubmit');
+    var lotteryWinClose = document.getElementById('lotteryWinClose');
+    var lotteryWinConfirm = document.getElementById('lotteryWinConfirm');
+    var lotteryLoseConfirm = document.getElementById('lotteryLoseConfirm');
+    var lotteryWinAddress = document.getElementById('lotteryWinAddress');
+    var lotteryWinPhone = document.getElementById('lotteryWinPhone');
+
+    function showLotteryModal() {
+      lotteryModal.classList.remove('hidden');
+      lotteryModal.classList.add('flex');
+    }
+    function hideLotteryModal() {
+      lotteryModal.classList.add('hidden');
+      lotteryModal.classList.remove('flex');
+    }
+    function showLoseModal() {
+      lotteryLoseModal.classList.remove('hidden');
+      lotteryLoseModal.classList.add('flex');
+    }
+    function hideLoseModal() {
+      lotteryLoseModal.classList.add('hidden');
+      lotteryLoseModal.classList.remove('flex');
+    }
+    function showWinModal(skipReset) {
+      lotteryWinModal.classList.remove('hidden');
+      lotteryWinModal.classList.add('flex');
+      if (lotteryWinIconBtn) {
+        lotteryWinIconBtn.classList.add('hidden');
+        lotteryWinIconBtn.classList.remove('lottery-win-icon-visible');
+      }
+      if (!skipReset) {
+        if (lotteryWinAddress) lotteryWinAddress.value = '';
+        if (lotteryWinPhone) lotteryWinPhone.value = '';
+      }
+    }
+    function hideWinModal(showIcon) {
+      lotteryWinModal.classList.add('hidden');
+      lotteryWinModal.classList.remove('flex');
+      if (showIcon && lotteryWinIconBtn) {
+        lotteryWinIconBtn.classList.remove('hidden');
+        lotteryWinIconBtn.classList.add('lottery-win-icon-visible');
+      }
+    }
+
+    setTimeout(showLotteryModal, 5000);
+    if (lotteryCancel) lotteryCancel.addEventListener('click', hideLotteryModal);
+    if (lotterySubmit) {
+      lotterySubmit.addEventListener('click', function () {
+        var selected = document.querySelector('input[name="lotteryAnswer"]:checked');
+        if (selected) { /* 可在此处提交答案到后端 */ }
+        hideLotteryModal();
+        showWinModal(false);
+      });
+    }
+    if (lotteryWinClose) {
+      lotteryWinClose.addEventListener('click', function () {
+        hideWinModal(true);
+      });
+    }
+    if (lotteryWinConfirm) {
+      lotteryWinConfirm.addEventListener('click', function () {
+        var addr = lotteryWinAddress && lotteryWinAddress.value.trim();
+        var phone = lotteryWinPhone && lotteryWinPhone.value.trim();
+        if (!addr) { alert('请输入奖品接收地址'); return; }
+        if (!phone) { alert('请输入中奖联系电话'); return; }
+        // 可在此处提交地址与电话到后端
+        hideWinModal(true);
+      });
+    }
+    if (lotteryLoseConfirm) {
+      lotteryLoseConfirm.addEventListener('click', function () {
+        hideLoseModal();
+        showWinModal(true);
+      });
+    }
+    if (lotteryWinIconBtn) {
+      lotteryWinIconBtn.addEventListener('click', function () {
+        showLoseModal();
+      });
+    }
+  })();
+</script>
 
 <script>
 
@@ -1633,7 +1814,8 @@
 </div>
 
 <style>
-  .share-modal-content {
+  .share-modal-content,
+  .lottery-modal-content {
     animation: modalSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   
@@ -1650,6 +1832,24 @@
   
   #shareModal.show {
     display: flex;
+  }
+
+  /* 中奖信息缩小图标：出现时从右下角弹出动效 */
+  .lottery-win-icon {
+    animation: lotteryIconPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .lottery-win-icon.lottery-win-icon-visible {
+    display: flex !important;
+  }
+  @keyframes lotteryIconPop {
+    from {
+      opacity: 0;
+      transform: scale(0);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
   
   /* 确保只读输入框样式 */

@@ -486,64 +486,65 @@
                 </button>
             </div>
         </div>
-        <!-- 问卷弹窗 -->
-        <div
-            id="surveyModal"
-            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
-        >
-            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-80">
-                <h3 class="text-lg font-medium mb-4 text-white">发布问卷</h3>
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-300 mb-1">填写问卷内容</label>
-                    <textarea
-                        id="surveyQuestion"
-                        class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500"
-                        placeholder="请输入问卷问题"
-                        rows="4"
-                    ></textarea>
-                </div>
-                <div class="flex justify-end space-x-3">
-                    <button
-                        id="cancelSurvey"
-                        class="px-4 py-2 border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800"
-                    >
-                        取消
-                    </button>
-                    <button
-                        id="confirmSurvey"
-                        class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
-                    >
-                        确定
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!-- 发布成功提示 -->
-        <div
-            id="surveySuccess"
-            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
-        >
-            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-64 text-center">
-                <div class="text-4xl text-green-500 mb-4">
-                    <i class="fa fa-check-circle"></i>
-                </div>
-                <h3 class="text-lg font-medium mb-2 text-white">发布成功</h3>
-                <p class="text-gray-300 mb-4">问卷已成功发布给所有观众</p>
-                <button
-                    id="closeSuccess"
-                    class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
-                >
-                    关闭
-                </button>
-            </div>
-        </div>
-        <!-- 抽奖弹窗 -->
+        <!-- 发起抽奖弹窗（合并抽奖条件、答题、奖品、中奖规则） -->
         <div
             id="lotteryModal"
             class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
         >
-            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-80">
+            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-[420px] max-h-[90vh] overflow-y-auto">
                 <h3 class="text-lg font-medium mb-4 text-white">发起抽奖</h3>
+
+                <!-- 1. 抽奖条件：单选项，默认答题 -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-300 mb-2">抽奖条件</label>
+                    <div class="flex items-center gap-4">
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="radio" name="lotteryCondition" value="answer" checked class="form-radio text-red-600 bg-gray-800 border-gray-600">
+                            <span class="ml-2 text-gray-300">答题</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 2. 答题区域（选“答题”时显示） -->
+                <div id="lotteryAnswerSection" class="mb-4 space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1">题目</label>
+                        <input
+                            type="text"
+                            id="lotteryQuestion"
+                            class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500"
+                            placeholder="请输入题目"
+                        />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">答案</label>
+                        <div id="lotteryOptionsContainer" class="space-y-2">
+                            <div class="lottery-option flex items-center gap-2" data-index="0">
+                                <span class="text-gray-400 text-sm w-12">选项一</span>
+                                <input type="text" class="lottery-option-input flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500" placeholder="选项内容" />
+                                <label class="inline-flex items-center cursor-pointer shrink-0">
+                                    <input type="radio" name="lotteryCorrectAnswer" class="lottery-option-correct form-radio text-red-600 bg-gray-800 border-gray-600" value="0">
+                                    <span class="ml-1 text-gray-400 text-sm">正确答案</span>
+                                </label>
+                                <button type="button" class="lottery-option-remove hidden w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500" title="删除选项"><i class="fa fa-times"></i></button>
+                            </div>
+                            <div class="lottery-option flex items-center gap-2" data-index="1">
+                                <span class="text-gray-400 text-sm w-12">选项二</span>
+                                <input type="text" class="lottery-option-input flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500" placeholder="选项内容" />
+                                <label class="inline-flex items-center cursor-pointer shrink-0">
+                                    <input type="radio" name="lotteryCorrectAnswer" class="lottery-option-correct form-radio text-red-600 bg-gray-800 border-gray-600" value="1">
+                                    <span class="ml-1 text-gray-400 text-sm">正确答案</span>
+                                </label>
+                                <button type="button" class="lottery-option-remove hidden w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500" title="删除选项"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" id="lotteryAddOption" class="mt-2 text-sm text-red-500 hover:text-red-400">
+                            <i class="fa fa-plus mr-1"></i>添加选项
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. 奖品名称 -->
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-300 mb-1">奖品名称</label>
                     <input
@@ -553,17 +554,32 @@
                         placeholder="请输入奖品名称"
                     />
                 </div>
+
+                <!-- 4. 抽奖人数 -->
                 <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-300 mb-1">奖品个数</label>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">抽奖人数</label>
                     <input
                         type="number"
                         id="prizeCount"
                         class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500"
-                        placeholder="请输入奖品个数"
+                        placeholder="请输入抽奖人数"
                         min="1"
-                        max="10"
+                        max="99"
                     />
                 </div>
+
+                <!-- 5. 中奖规则：第（）（）（）位答题用户中奖 -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-300 mb-2">中奖规则</label>
+                    <div id="lotteryRuleWrap" class="flex flex-wrap items-center gap-1">
+                        <span class="text-gray-400">第</span>
+                        <div id="lotteryRuleInputs" class="inline-flex flex-wrap gap-1">
+                            <!-- 由 JS 根据抽奖人数动态生成 -->
+                        </div>
+                        <span class="text-gray-400">位答题用户中奖</span>
+                    </div>
+                </div>
+
                 <div class="flex justify-end space-x-3">
                     <button
                         id="cancelLottery"
@@ -575,7 +591,7 @@
                         id="confirmLottery"
                         class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
                     >
-                        确定
+                        发起抽奖
                     </button>
                 </div>
             </div>
@@ -615,6 +631,11 @@
                     <span class="text-white text-xs ml-1"
                         ><span id="expandBtnViewerCount">1.2万</span></span
                     >
+                </button>
+
+                <!-- 抽奖结果缩小图标：关闭抽奖结果弹窗后显示在直播区域右下角，点击可重新查看中奖结果 -->
+                <button id="lotteryResultIconBtn" type="button" class="absolute bottom-[100px] right-[30px] z-20 w-12 h-12 rounded-full bg-red-600 text-white shadow-lg flex items-center justify-center hover:bg-red-700 hover:scale-110 transition-transform hidden" title="查看抽奖结果">
+                    <i class="fa fa-trophy text-lg"></i>
                 </button>
 
                 <!-- 直播视频播放器 -->
@@ -1038,171 +1059,208 @@
                                     </div>
                                 </div> -->
 
-                                <!-- 发布问卷按钮 -->
-                                <div class="relative group">
-                                    <button
-                                        id="surveyBtn"
-                                        class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
-                                    >
-                                        <i class="fa fa-list-alt"></i>
-                                    </button>
-                                    <div
-                                        class="absolute bottom-full right-0 mb-2 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
-                                    >
-                                        发布问卷
-                                    </div>
-                                </div>
-
-                                <script>
-                                    // 问卷发布功能
-                                    const surveyBtn = document.getElementById('surveyBtn');
-                                    const surveyModal = document.getElementById('surveyModal');
-                                    const surveySuccess = document.getElementById('surveySuccess');
-                                    const cancelSurvey = document.getElementById('cancelSurvey');
-                                    const confirmSurvey = document.getElementById('confirmSurvey');
-                                    const closeSuccess = document.getElementById('closeSuccess');
-                                    const surveyQuestion =
-                                        document.getElementById('surveyQuestion');
-
-                                    // 打开问卷弹窗
-                                    surveyBtn.addEventListener('click', function () {
-                                        surveyModal.classList.remove('hidden');
-                                    });
-
-                                    // 关闭问卷弹窗
-                                    cancelSurvey.addEventListener('click', function () {
-                                        surveyModal.classList.add('hidden');
-                                        surveyQuestion.value = '';
-                                    });
-
-                                    // 关闭成功提示
-                                    closeSuccess.addEventListener('click', function () {
-                                        surveySuccess.classList.add('hidden');
-                                    });
-
-                                    // 确认发布问卷
-                                    confirmSurvey.addEventListener('click', function () {
-                                        const question = surveyQuestion.value.trim();
-
-                                        if (!question) {
-                                            alert('请输入问卷问题');
-                                            return;
-                                        }
-
-                                        // 模拟发布成功
-                                        surveyModal.classList.add('hidden');
-                                        surveySuccess.classList.remove('hidden');
-                                        surveyQuestion.value = '';
-                                    });
-                                </script>
-                                <!-- 发起抽奖按钮 -->
+                                <!-- 发起抽奖按钮（合并原发布问卷与发起抽奖） -->
                                 <div class="relative group">
                                     <button
                                         id="giftBtn"
-                                        class="w-10 h-10 rounded-full flex items-center justify-center transition"
+                                        class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center hover:bg-opacity-70 transition"
                                     >
                                         <i class="fa fa-gift"></i>
                                     </button>
                                     <div
-                                        class="absolute bottom-10 right--10 -mt-1 -mr-1 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                                        class="absolute bottom-full right-0 mb-2 w-24 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
                                     >
                                         发起抽奖
                                     </div>
                                 </div>
 
                                 <script>
-                                    // 抽奖功能
+                                    // 发起抽奖功能（合并抽奖条件、答题、奖品、中奖规则）
                                     const giftBtn = document.getElementById('giftBtn');
                                     const lotteryModal = document.getElementById('lotteryModal');
-                                    const lotteryResultModal =
-                                        document.getElementById('lotteryResultModal');
+                                    const lotteryResultModal = document.getElementById('lotteryResultModal');
                                     const cancelLottery = document.getElementById('cancelLottery');
-                                    const confirmLottery =
-                                        document.getElementById('confirmLottery');
+                                    const confirmLottery = document.getElementById('confirmLottery');
                                     const closeResult = document.getElementById('closeResult');
                                     const prizeName = document.getElementById('prizeName');
                                     const prizeCount = document.getElementById('prizeCount');
                                     const lotteryResult = document.getElementById('lotteryResult');
+                                    const lotteryAnswerSection = document.getElementById('lotteryAnswerSection');
+                                    const lotteryQuestion = document.getElementById('lotteryQuestion');
+                                    const lotteryOptionsContainer = document.getElementById('lotteryOptionsContainer');
+                                    const lotteryAddOption = document.getElementById('lotteryAddOption');
+                                    const lotteryRuleInputs = document.getElementById('lotteryRuleInputs');
+
+                                    const optionLabels = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+
+                                    function getOptionLabel(index) {
+                                        return index < 10 ? '选项' + optionLabels[index] : '选项' + (index + 1);
+                                    }
+
+                                    function refreshOptionLabels() {
+                                        const options = lotteryOptionsContainer.querySelectorAll('.lottery-option');
+                                        options.forEach((el, i) => {
+                                            el.querySelector('.text-gray-400.text-sm.w-12').textContent = getOptionLabel(i);
+                                            el.dataset.index = i;
+                                        });
+                                        options.forEach((el, i) => {
+                                            const removeBtn = el.querySelector('.lottery-option-remove');
+                                            removeBtn.classList.toggle('hidden', i < 2);
+                                        });
+                                    }
+
+                                    function buildLotteryRuleInputs(n) {
+                                        const num = Math.max(0, parseInt(n, 10) || 0);
+                                        lotteryRuleInputs.innerHTML = '';
+                                        for (let i = 0; i < num; i++) {
+                                            const input = document.createElement('input');
+                                            input.type = 'number';
+                                            input.min = '1';
+                                            input.className = 'w-12 px-2 py-1 bg-gray-800 border border-gray-700 rounded text-white text-center';
+                                            input.placeholder = (i + 1) + '';
+                                            input.setAttribute('data-rule-index', i);
+                                            lotteryRuleInputs.appendChild(input);
+                                        }
+                                    }
+
+                                    lotteryAddOption.addEventListener('click', function () {
+                                        const options = lotteryOptionsContainer.querySelectorAll('.lottery-option');
+                                        const index = options.length;
+                                        const div = document.createElement('div');
+                                        div.className = 'lottery-option flex items-center gap-2';
+                                        div.dataset.index = index;
+                                        div.innerHTML =
+                                            '<span class="text-gray-400 text-sm w-12">' + getOptionLabel(index) + '</span>' +
+                                            '<input type="text" class="lottery-option-input flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500" placeholder="选项内容" />' +
+                                            '<label class="inline-flex items-center cursor-pointer shrink-0">' +
+                                            '<input type="radio" name="lotteryCorrectAnswer" class="lottery-option-correct form-radio text-red-600 bg-gray-800 border-gray-600" value="' + index + '">' +
+                                            '<span class="ml-1 text-gray-400 text-sm">正确答案</span></label>' +
+                                            '<button type="button" class="lottery-option-remove w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500" title="删除选项"><i class="fa fa-times"></i></button>';
+                                        lotteryOptionsContainer.appendChild(div);
+                                        div.querySelector('.lottery-option-remove').addEventListener('click', function () {
+                                            if (lotteryOptionsContainer.querySelectorAll('.lottery-option').length <= 2) return;
+                                            div.remove();
+                                            refreshOptionLabels();
+                                        });
+                                        refreshOptionLabels();
+                                    });
+
+                                    lotteryOptionsContainer.addEventListener('click', function (e) {
+                                        if (e.target.closest('.lottery-option-remove')) {
+                                            const options = lotteryOptionsContainer.querySelectorAll('.lottery-option');
+                                            if (options.length <= 2) return;
+                                            e.target.closest('.lottery-option').remove();
+                                            refreshOptionLabels();
+                                        }
+                                    });
+
+                                    prizeCount.addEventListener('input', function () {
+                                        buildLotteryRuleInputs(prizeCount.value);
+                                    });
 
                                     // 模拟观众列表
                                     const audienceList2 = [
-                                        '同学',
-                                        '小明',
-                                        '小红',
-                                        '小刚',
-                                        '小丽',
-                                        '小张',
-                                        '小王',
-                                        '小李',
-                                        '小刘',
-                                        '小陈',
-                                        '小赵',
-                                        '小孙',
-                                        '小周',
-                                        '小吴',
-                                        '小郑',
+                                        '同学', '小明', '小红', '小刚', '小丽', '小张', '小王', '小李',
+                                        '小刘', '小陈', '小赵', '小孙', '小周', '小吴', '小郑',
                                     ];
 
-                                    // 打开抽奖弹窗
                                     giftBtn.addEventListener('click', function () {
                                         lotteryModal.classList.remove('hidden');
+                                        buildLotteryRuleInputs(prizeCount.value || 1);
+                                        refreshOptionLabels();
                                     });
 
-                                    // 关闭抽奖弹窗
                                     cancelLottery.addEventListener('click', function () {
                                         lotteryModal.classList.add('hidden');
                                         prizeName.value = '';
                                         prizeCount.value = '';
+                                        lotteryQuestion.value = '';
+                                        lotteryOptionsContainer.querySelectorAll('.lottery-option-input').forEach(inp => inp.value = '');
+                                        lotteryOptionsContainer.querySelectorAll('input[name="lotteryCorrectAnswer"]').forEach(r => r.checked = false);
+                                        buildLotteryRuleInputs(0);
                                     });
 
-                                    // 关闭结果弹窗
-                                    closeResult.addEventListener('click', function () {
+                                    const lotteryResultIconBtn = document.getElementById('lotteryResultIconBtn');
+                                    function showResultModal() {
+                                        lotteryResultModal.classList.remove('hidden');
+                                        if (lotteryResultIconBtn) lotteryResultIconBtn.classList.add('hidden');
+                                    }
+                                    function hideResultModal(showIcon) {
                                         lotteryResultModal.classList.add('hidden');
+                                        if (showIcon && lotteryResultIconBtn) lotteryResultIconBtn.classList.remove('hidden');
+                                    }
+                                    closeResult.addEventListener('click', function () {
+                                        hideResultModal(true);
                                     });
+                                    if (lotteryResultIconBtn) {
+                                        lotteryResultIconBtn.addEventListener('click', function () {
+                                            showResultModal();
+                                        });
+                                    }
 
-                                    // 确认抽奖
                                     confirmLottery.addEventListener('click', function () {
                                         const name = prizeName.value.trim();
-                                        const count = parseInt(prizeCount.value);
+                                        const count = parseInt(prizeCount.value, 10);
 
                                         if (!name) {
                                             alert('请输入奖品名称');
                                             return;
                                         }
-
                                         if (isNaN(count) || count < 1) {
-                                            alert('请输入有效的奖品个数');
+                                            alert('请输入有效的抽奖人数');
                                             return;
+                                        }
+
+                                        // 抽奖条件为答题时校验题目与答案
+                                        const conditionAnswer = document.querySelector('input[name="lotteryCondition"]:checked');
+                                        if (conditionAnswer && conditionAnswer.value === 'answer') {
+                                            const question = lotteryQuestion.value.trim();
+                                            if (!question) {
+                                                alert('请输入题目');
+                                                return;
+                                            }
+                                            const optionInputs = lotteryOptionsContainer.querySelectorAll('.lottery-option-input');
+                                            let hasContent = false;
+                                            let hasCorrect = false;
+                                            optionInputs.forEach((inp, i) => {
+                                                if (inp.value.trim()) hasContent = true;
+                                                const row = inp.closest('.lottery-option');
+                                                if (row.querySelector('.lottery-option-correct').checked) hasCorrect = true;
+                                            });
+                                            if (!hasContent) {
+                                                alert('请至少填写一个选项内容');
+                                                return;
+                                            }
+                                            if (!hasCorrect) {
+                                                alert('请选择正确答案');
+                                                return;
+                                            }
                                         }
 
                                         if (count > audienceList2.length) {
-                                            alert('奖品个数不能超过观众人数');
+                                            alert('抽奖人数不能超过观众人数');
                                             return;
                                         }
 
-                                        // 随机抽奖
-                                        const shuffled = audienceList2.sort(
-                                            () => 0.5 - Math.random(),
-                                        );
+                                        const shuffled = audienceList2.slice().sort(() => 0.5 - Math.random());
                                         const winners = shuffled.slice(0, count);
 
-                                        // 显示抽奖结果
                                         let resultHtml = `<p class="mb-2">奖品：${name}</p>`;
                                         resultHtml += `<p class="mb-2">中奖人数：${count}</p>`;
-                                        resultHtml += '<p class="font-medium">中奖名单：</p>';
-                                        resultHtml += '<ul class="list-disc pl-5">';
-                                        winners.forEach((winner, index) => {
-                                            resultHtml += `<li>${winner}</li>`;
-                                        });
+                                        resultHtml += '<p class="font-medium">中奖名单：</p><ul class="list-disc pl-5">';
+                                        winners.forEach(w => { resultHtml += `<li>${w}</li>`; });
                                         resultHtml += '</ul>';
-
                                         lotteryResult.innerHTML = resultHtml;
                                         lotteryModal.classList.add('hidden');
+                                        if (lotteryResultIconBtn) lotteryResultIconBtn.classList.add('hidden');
                                         lotteryResultModal.classList.remove('hidden');
 
-                                        // 清空表单
                                         prizeName.value = '';
                                         prizeCount.value = '';
+                                        lotteryQuestion.value = '';
+                                        lotteryOptionsContainer.querySelectorAll('.lottery-option-input').forEach(inp => inp.value = '');
+                                        lotteryOptionsContainer.querySelectorAll('input[name="lotteryCorrectAnswer"]').forEach(r => r.checked = false);
+                                        buildLotteryRuleInputs(0);
                                     });
                                 </script>
 
