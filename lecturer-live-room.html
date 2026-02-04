@@ -523,7 +523,7 @@
                                 <span class="text-gray-400 text-sm w-12">选项一</span>
                                 <input type="text" class="lottery-option-input flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500" placeholder="选项内容" />
                                 <label class="inline-flex items-center cursor-pointer shrink-0">
-                                    <input type="checkbox" class="lottery-option-correct form-checkbox text-red-600 bg-gray-800 border-gray-600 rounded">
+                                    <input type="radio" name="lotteryCorrectAnswer" class="lottery-option-correct form-radio text-red-600 bg-gray-800 border-gray-600" value="0">
                                     <span class="ml-1 text-gray-400 text-sm">正确答案</span>
                                 </label>
                                 <button type="button" class="lottery-option-remove hidden w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500" title="删除选项"><i class="fa fa-times"></i></button>
@@ -532,7 +532,7 @@
                                 <span class="text-gray-400 text-sm w-12">选项二</span>
                                 <input type="text" class="lottery-option-input flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500" placeholder="选项内容" />
                                 <label class="inline-flex items-center cursor-pointer shrink-0">
-                                    <input type="checkbox" class="lottery-option-correct form-checkbox text-red-600 bg-gray-800 border-gray-600 rounded">
+                                    <input type="radio" name="lotteryCorrectAnswer" class="lottery-option-correct form-radio text-red-600 bg-gray-800 border-gray-600" value="1">
                                     <span class="ml-1 text-gray-400 text-sm">正确答案</span>
                                 </label>
                                 <button type="button" class="lottery-option-remove hidden w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500" title="删除选项"><i class="fa fa-times"></i></button>
@@ -631,6 +631,11 @@
                     <span class="text-white text-xs ml-1"
                         ><span id="expandBtnViewerCount">1.2万</span></span
                     >
+                </button>
+
+                <!-- 抽奖结果缩小图标：关闭抽奖结果弹窗后显示在直播区域右下角，点击可重新查看中奖结果 -->
+                <button id="lotteryResultIconBtn" type="button" class="absolute bottom-[100px] right-[30px] z-20 w-12 h-12 rounded-full bg-red-600 text-white shadow-lg flex items-center justify-center hover:bg-red-700 hover:scale-110 transition-transform hidden" title="查看抽奖结果">
+                    <i class="fa fa-trophy text-lg"></i>
                 </button>
 
                 <!-- 直播视频播放器 -->
@@ -1128,7 +1133,7 @@
                                             '<span class="text-gray-400 text-sm w-12">' + getOptionLabel(index) + '</span>' +
                                             '<input type="text" class="lottery-option-input flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500" placeholder="选项内容" />' +
                                             '<label class="inline-flex items-center cursor-pointer shrink-0">' +
-                                            '<input type="checkbox" class="lottery-option-correct form-checkbox text-red-600 bg-gray-800 border-gray-600 rounded">' +
+                                            '<input type="radio" name="lotteryCorrectAnswer" class="lottery-option-correct form-radio text-red-600 bg-gray-800 border-gray-600" value="' + index + '">' +
                                             '<span class="ml-1 text-gray-400 text-sm">正确答案</span></label>' +
                                             '<button type="button" class="lottery-option-remove w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500" title="删除选项"><i class="fa fa-times"></i></button>';
                                         lotteryOptionsContainer.appendChild(div);
@@ -1171,13 +1176,27 @@
                                         prizeCount.value = '';
                                         lotteryQuestion.value = '';
                                         lotteryOptionsContainer.querySelectorAll('.lottery-option-input').forEach(inp => inp.value = '');
-                                        lotteryOptionsContainer.querySelectorAll('.lottery-option-correct').forEach(cb => cb.checked = false);
+                                        lotteryOptionsContainer.querySelectorAll('input[name="lotteryCorrectAnswer"]').forEach(r => r.checked = false);
                                         buildLotteryRuleInputs(0);
                                     });
 
-                                    closeResult.addEventListener('click', function () {
+                                    const lotteryResultIconBtn = document.getElementById('lotteryResultIconBtn');
+                                    function showResultModal() {
+                                        lotteryResultModal.classList.remove('hidden');
+                                        if (lotteryResultIconBtn) lotteryResultIconBtn.classList.add('hidden');
+                                    }
+                                    function hideResultModal(showIcon) {
                                         lotteryResultModal.classList.add('hidden');
+                                        if (showIcon && lotteryResultIconBtn) lotteryResultIconBtn.classList.remove('hidden');
+                                    }
+                                    closeResult.addEventListener('click', function () {
+                                        hideResultModal(true);
                                     });
+                                    if (lotteryResultIconBtn) {
+                                        lotteryResultIconBtn.addEventListener('click', function () {
+                                            showResultModal();
+                                        });
+                                    }
 
                                     confirmLottery.addEventListener('click', function () {
                                         const name = prizeName.value.trim();
@@ -1213,7 +1232,7 @@
                                                 return;
                                             }
                                             if (!hasCorrect) {
-                                                alert('请勾选至少一个正确答案');
+                                                alert('请选择正确答案');
                                                 return;
                                             }
                                         }
@@ -1233,13 +1252,14 @@
                                         resultHtml += '</ul>';
                                         lotteryResult.innerHTML = resultHtml;
                                         lotteryModal.classList.add('hidden');
+                                        if (lotteryResultIconBtn) lotteryResultIconBtn.classList.add('hidden');
                                         lotteryResultModal.classList.remove('hidden');
 
                                         prizeName.value = '';
                                         prizeCount.value = '';
                                         lotteryQuestion.value = '';
                                         lotteryOptionsContainer.querySelectorAll('.lottery-option-input').forEach(inp => inp.value = '');
-                                        lotteryOptionsContainer.querySelectorAll('.lottery-option-correct').forEach(cb => cb.checked = false);
+                                        lotteryOptionsContainer.querySelectorAll('input[name="lotteryCorrectAnswer"]').forEach(r => r.checked = false);
                                         buildLotteryRuleInputs(0);
                                     });
                                 </script>
