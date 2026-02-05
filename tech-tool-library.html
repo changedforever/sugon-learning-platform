@@ -385,6 +385,195 @@
             </div>
           </div>
 
+          <!-- 模型专用筛选选项 -->
+          <div id="model-filter" class="space-y-1 mt-6 hidden">
+            <!-- 任务类型 -->
+            <div class="filter-category">
+              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="task-type">
+                <label class="flex items-center cursor-pointer group py-2 flex-1">
+                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">任务类型</span>
+                </label>
+              </div>
+              <!-- 任务类型选项 -->
+              <div class="mt-1 ml-8 space-y-1.5 category-children">
+                <!-- 自然语言处理 -->
+                <div class="filter-subcategory">
+                  <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="nlp">
+                    <label class="flex items-center cursor-pointer group py-2 flex-1">
+                      <span class="text-xs font-medium text-gray-700 group-hover:text-gray-900 transition-colors">自然语言处理</span>
+                    </label>
+                  </div>
+                  <div class="mt-1 ml-8 space-y-1.5 category-children">
+                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                      <input type="checkbox" class="filter-checkbox" data-category="text-classification" value="text-classification">
+                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">文字分类</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                      <input type="checkbox" class="filter-checkbox" data-category="sequence-labeling" value="sequence-labeling">
+                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">序列标注</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                      <input type="checkbox" class="filter-checkbox" data-category="table-qa" value="table-qa">
+                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">表格问答</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                      <input type="checkbox" class="filter-checkbox" data-category="qa" value="qa">
+                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">问答</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                      <input type="checkbox" class="filter-checkbox" data-category="sample-classification" value="sample-classification">
+                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">样本分类</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                      <input type="checkbox" class="filter-checkbox" data-category="translation" value="translation">
+                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">翻译</span>
+                    </label>
+                  </div>
+                </div>
+                <!-- 语音 -->
+                <div class="filter-subcategory">
+                  <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="audio">
+                    <label class="flex items-center cursor-pointer group py-2 flex-1">
+                      <span class="text-xs font-medium text-gray-700 group-hover:text-gray-900 transition-colors">语音</span>
+                    </label>
+                  </div>
+                  <div class="mt-1 ml-8 space-y-1.5 category-children">
+                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                      <input type="checkbox" class="filter-checkbox" data-category="speech-synthesis" value="speech-synthesis">
+                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">语音合成</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                      <input type="checkbox" class="filter-checkbox" data-category="audio-classification" value="audio-classification">
+                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">音频分类</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                      <input type="checkbox" class="filter-checkbox" data-category="audio-generation" value="audio-generation">
+                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">音频生成</span>
+                    </label>
+                  </div>
+                </div>
+                <!-- 多模态 -->
+                <div class="filter-subcategory">
+                  <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="multimodal">
+                    <label class="flex items-center cursor-pointer group py-2 flex-1">
+                      <span class="text-xs font-medium text-gray-700 group-hover:text-gray-900 transition-colors">多模态</span>
+                    </label>
+                  </div>
+                  <div class="mt-1 ml-8 space-y-1.5 category-children">
+                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                      <input type="checkbox" class="filter-checkbox" data-category="image-multimodal" value="image-multimodal">
+                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">图像多模态理解</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                      <input type="checkbox" class="filter-checkbox" data-category="video-multimodal" value="video-multimodal">
+                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">视频多模态理解</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                      <input type="checkbox" class="filter-checkbox" data-category="document-qa" value="document-qa">
+                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">文档问答</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 框架类型 -->
+            <div class="filter-category">
+              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="framework-type">
+                <label class="flex items-center cursor-pointer group py-2 flex-1">
+                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">框架类型</span>
+                </label>
+              </div>
+              <!-- 框架类型选项 -->
+              <div class="mt-1 ml-8 space-y-1.5 category-children">
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="pytorch" value="pytorch">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">PyTorch</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="tensorflow" value="tensorflow">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">TensorFlow</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="jax" value="jax">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">JAX</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="transformers" value="transformers">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Transformers</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="diffusers" value="diffusers">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Diffusers</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="onnx" value="onnx">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">ONNX</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- 组织 -->
+            <div class="filter-category">
+              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="organization">
+                <label class="flex items-center cursor-pointer group py-2 flex-1">
+                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">组织</span>
+                </label>
+              </div>
+              <!-- 组织选项 -->
+              <div class="mt-1 ml-8 space-y-1.5 category-children">
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="sugon" value="sugon">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">曙光智算</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="ai-world" value="ai-world">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">AI世界</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="smart-era" value="smart-era">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">智能时代</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="minimax" value="minimax">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">MiniMax</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="baidu-ai" value="baidu-ai">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">百度AI</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- 适配加速卡 -->
+            <div class="filter-category">
+              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="adapter">
+                <label class="flex items-center cursor-pointer group py-2 flex-1">
+                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">适配加速卡</span>
+                </label>
+              </div>
+              <!-- 适配加速卡选项 -->
+              <div class="mt-1 ml-8 space-y-1.5 category-children">
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="heterogeneous-bw" value="heterogeneous-bw">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">异构加速卡BW</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="heterogeneous-ai" value="heterogeneous-ai">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">异构加速卡AI</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="heterogeneous" value="heterogeneous">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">异构加速卡</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="gpu" value="gpu">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">GPU</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
           <!-- 镜像专用筛选选项 -->
           <div id="image-filter" class="space-y-1 mt-6 hidden">
             <!-- 加速卡 -->
@@ -722,27 +911,82 @@
     // 模型
     {
       id: 18,
-      name: "图像识别模型",
-      desc: "基于深度学习的图像识别模型，支持多种物体分类和检测场景。",
+      name: "DeepSeek-OCR",
+      desc: "DeepSeek-OCR是一个视觉文本压缩工具，利用Huggingface transformers和NVIDIA GPU进行推理，支持多种压缩模式，可应用于文档扫描等场景。",
       type: "download",
       os: ["Windows", "Linux"],
       category: "model",
+      recommend: true,
+      tags: ["图像多模态理解", "safetensors", "开源协议", "mit", "deepseek", "vision-language", "ocr", "custom_code"],
+      updateTime: "4小时前",
+      viewCount: 6,
+      downloadCount: 134,
       downloadUrl: "#",
       onlineUrl: ""
     },
     {
       id: 19,
-      name: "自然语言处理模型",
-      desc: "用于文本分类、情感分析和命名实体识别的自然语言处理模型。",
+      name: "Qwen-Image",
+      desc: "Qwen-Image是一个在复杂文本渲染和精细图像编辑方面取得显著进展的图像生成基础模型。它具有强大的图像生成和编辑能力，特别在文本渲染方面表现出色，支持多种语言风格，适用于艺术家、设计师和普通用户。",
       type: "download",
       os: ["Windows", "Linux"],
       category: "model",
+      recommend: false,
+      tags: ["文本生成图像", "Diffusers", "开源协议", "apache-2.0", "在线体验", "模型部署", "快速开发", "异构加速卡"],
+      updateTime: "20小时前",
+      viewCount: 3,
+      downloadCount: 63,
+      downloadUrl: "#",
+      onlineUrl: ""
+    },
+    {
+      id: 20,
+      name: "GPT-3.5-Turbo",
+      desc: "OpenAI的GPT-3.5-Turbo是一个先进的大型语言模型，支持多种自然语言处理任务，包括文本生成、问答、摘要等。",
+      type: "download",
+      os: ["Windows", "Linux", "macOS"],
+      category: "model",
+      recommend: true,
+      tags: ["自然语言处理", "文本生成", "对话", "OpenAI", "api"],
+      updateTime: "1天前",
+      viewCount: 120,
+      downloadCount: 345,
+      downloadUrl: "#",
+      onlineUrl: ""
+    },
+    {
+      id: 21,
+      name: "Stable Diffusion XL",
+      desc: "Stable Diffusion XL是一个先进的文本到图像生成模型，能够创建高质量、详细的图像，支持多种风格和主题。",
+      type: "download",
+      os: ["Windows", "Linux"],
+      category: "model",
+      recommend: false,
+      tags: ["文本生成图像", "Diffusers", "开源协议", "creativeml-openrail-m"],
+      updateTime: "2天前",
+      viewCount: 89,
+      downloadCount: 276,
+      downloadUrl: "#",
+      onlineUrl: ""
+    },
+    {
+      id: 22,
+      name: "BERT-base-uncased",
+      desc: "BERT-base-uncased是Google开发的预训练语言模型，广泛应用于各种自然语言处理任务，如文本分类、情感分析等。",
+      type: "download",
+      os: ["Windows", "Linux", "macOS"],
+      category: "model",
+      recommend: false,
+      tags: ["自然语言处理", "transformers", "开源协议", "apache-2.0"],
+      updateTime: "3天前",
+      viewCount: 56,
+      downloadCount: 189,
       downloadUrl: "#",
       onlineUrl: ""
     },
     // 镜像仓库
     {
-      id: 20,
+      id: 23,
       name: "vllm",
       desc: "vLLM是一个快速且易于使用的LLM推理服务库,使用PageAttention高效管理KV缓存,支持Continuous batching传入请求,支持很多Hugging Face模型,如LLaMA & LLaMA-2、Qwen、ChatGLM 2等...",
       type: "image",
@@ -756,7 +1000,7 @@
       downloadUrl: "#"
     },
     {
-      id: 21,
+      id: 24,
       name: "dcu-label-node",
       desc: "DCU-Label-Node以容器的形式发布，并以 DaemonSet 的形式部署在 Kubernetes 集群上，该组件运行时，将检查节点上是否存在DCU，若节点存在DCU将自动创建节点标签来描述DCU信息",
       type: "image",
@@ -770,7 +1014,7 @@
       downloadUrl: "#"
     },
     {
-      id: 22,
+      id: 25,
       name: "vscode-sginfer",
       desc: "VS Code 插件，用于代码智能分析和推理。",
       type: "image",
@@ -784,7 +1028,7 @@
       downloadUrl: "#"
     },
     {
-      id: 23,
+      id: 26,
       name: "jupyter-wan2.1-comfyui",
       desc: "基于ComfyUI的wan2.1模型，可实现生图视频、图生视频",
       type: "image",
@@ -798,7 +1042,7 @@
       downloadUrl: "#"
     },
     {
-      id: 24,
+      id: 27,
       name: "custom",
       desc: "自定义镜像，用于特殊场景的部署和测试。",
       type: "image",
@@ -812,7 +1056,7 @@
       downloadUrl: "#"
     },
     {
-      id: 25,
+      id: 28,
       name: "sginfer",
       desc: "SG Infer 是一个高性能的推理服务框架，支持多种模型的部署和管理。",
       type: "image",
@@ -826,7 +1070,7 @@
       downloadUrl: "#"
     },
     {
-      id: 26,
+      id: 29,
       name: "resnet34",
       desc: "基于该镜像创建的容器可 在容器实例-任务 模式下供预留的 resnet34 分布式训练环境",
       type: "image",
@@ -840,7 +1084,7 @@
       downloadUrl: "#"
     },
     {
-      id: 27,
+      id: 30,
       name: "yolov3spp",
       desc: "基于该镜像创建的容器可 在容器实例-任务 模式下供预留的 yolov3spp 分布式训练环境",
       type: "image",
@@ -854,7 +1098,7 @@
       downloadUrl: "#"
     },
     {
-      id: 28,
+      id: 31,
       name: "minigpt",
       desc: "基于该镜像创建的容器可 在容器实例-任务 模式下供预留的 MiniGPT 分布式训练环境。",
       type: "image",
@@ -877,6 +1121,7 @@
   const sortButtons = document.querySelectorAll('.sort-btn');
   const generalFilter = document.getElementById('general-filter');
   const softwareFilter = document.getElementById('software-filter');
+  const modelFilter = document.getElementById('model-filter');
   const imageFilter = document.getElementById('image-filter');
 
   let filteredTools = [...tools];
@@ -972,6 +1217,37 @@
             <p class="text-xs text-gray-600 line-clamp-3">
               ${tool.desc}
             </p>
+          </div>
+        `;
+      } else if (currentFilter === 'model') {
+        // 模型卡片
+        const recommendBadge = tool.recommend ? `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-orange-100 text-orange-800">推荐</span>` : '';
+        const tags = tool.tags || [];
+        const tagElements = tags.map(tag => `
+          <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block">
+            ${tag}
+          </span>
+        `).join('');
+
+        card.innerHTML = `
+          <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800">${tool.name}</h3>
+              ${recommendBadge}
+            </div>
+            <p class="text-xs text-gray-600 line-clamp-3 mb-2">
+              ${tool.desc}
+            </p>
+            <div class="flex flex-wrap gap-1 mb-2">
+              ${tagElements}
+            </div>
+            <div class="mt-auto text-xs text-gray-500 flex justify-between pt-2">
+              <span>${tool.updateTime || '未知'}</span>
+              <div class="flex items-center gap-2">
+                <span><i class="fa fa-eye mr-1"></i>${tool.viewCount || 0}</span>
+                <span><i class="fa fa-download mr-1"></i>${tool.downloadCount || 0}</span>
+              </div>
+            </div>
           </div>
         `;
       } else {
@@ -1094,14 +1370,22 @@
     if (filter === 'image') {
       generalFilter.classList.add('hidden');
       softwareFilter.classList.add('hidden');
+      modelFilter.classList.add('hidden');
       imageFilter.classList.remove('hidden');
     } else if (filter === 'software') {
       generalFilter.classList.add('hidden');
       softwareFilter.classList.remove('hidden');
+      modelFilter.classList.add('hidden');
+      imageFilter.classList.add('hidden');
+    } else if (filter === 'model') {
+      generalFilter.classList.add('hidden');
+      softwareFilter.classList.add('hidden');
+      modelFilter.classList.remove('hidden');
       imageFilter.classList.add('hidden');
     } else {
       generalFilter.classList.remove('hidden');
       softwareFilter.classList.add('hidden');
+      modelFilter.classList.add('hidden');
       imageFilter.classList.add('hidden');
       // 重置镜像筛选参数
       currentAccelerator = '';
