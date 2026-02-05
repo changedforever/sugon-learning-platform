@@ -829,17 +829,51 @@
         `;
       } else if (currentFilter === 'software') {
         // 软件支持卡片
-        const versionTag = tool.version || 'x86';
+        // 根据工具名称生成标签内容
+        let tagContent = 'x86';
+        if (tool.name.includes('Ubuntu')) {
+          tagContent = 'Ubuntu';
+        } else if (tool.name.includes('Debian')) {
+          tagContent = 'Debian';
+        } else if (tool.name.includes('CentOS')) {
+          tagContent = 'CentOS';
+        } else if (tool.name.includes('Rocky')) {
+          tagContent = 'Rocky Linux';
+        } else if (tool.name.includes('AlmaLinux')) {
+          tagContent = 'AlmaLinux';
+        } else if (tool.name.includes('Fedora')) {
+          tagContent = 'Fedora';
+        } else if (tool.name.includes('OpenAnolis')) {
+          tagContent = 'OpenAnolis';
+        } else if (tool.name.includes('openEuler')) {
+          tagContent = 'openEuler';
+        } else if (tool.name.includes('OpenCloudOS')) {
+          tagContent = 'OpenCloudOS';
+        } else if (tool.name.includes('deepin')) {
+          tagContent = 'deepin';
+        } else if (tool.name.includes('优麒麟')) {
+          tagContent = '优麒麟';
+        } else if (tool.name.includes('openKylin')) {
+          tagContent = 'openKylin';
+        } else if (tool.name.includes('Oracle')) {
+          tagContent = 'Oracle Linux';
+        } else if (tool.name.includes('UOS')) {
+          tagContent = 'UOS';
+        } else if (tool.name.includes('银河麒麟')) {
+          tagContent = '银河麒麟';
+        }
 
         card.innerHTML = `
           <div class="flex flex-col h-full">
-            <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800 mb-2">${tool.name}</h3>
-            <p class="text-xs text-gray-600 line-clamp-3 mb-2">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800">${tool.name}</h3>
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] bg-purple-100 text-purple-800">
+                ${tagContent}
+              </span>
+            </div>
+            <p class="text-xs text-gray-600 line-clamp-3">
               ${tool.desc}
             </p>
-            <div class="mt-auto flex justify-between items-center pt-2">
-              <span class="text-xs text-gray-500">${versionTag}</span>
-            </div>
           </div>
         `;
       } else {
