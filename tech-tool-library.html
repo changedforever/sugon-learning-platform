@@ -1232,17 +1232,17 @@
         if (tags.length > 4) {
           const visibleTags = tags.slice(0, 4);
           const hiddenTags = tags.slice(4);
-          const hiddenTagsText = hiddenTags.join(', ');
           tagElements = visibleTags.map(tag => `
             <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block">
               ${tag}
             </span>
           `).join('');
-          tagElements += `
-            <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block" title="${hiddenTagsText}">
-              ...
-            </span>
-          `;
+          // 创建一个临时元素来存储隐藏标签，然后获取其文本内容作为title
+          const moreTag = document.createElement('span');
+          moreTag.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
+          moreTag.textContent = '...';
+          moreTag.title = hiddenTags.join(', ');
+          tagElements += moreTag.outerHTML;
         } else {
           tagElements = tags.map(tag => `
             <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block">
