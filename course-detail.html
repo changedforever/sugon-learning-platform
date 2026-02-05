@@ -770,9 +770,7 @@
               取消报名
             </button>
 
-            <p id="enroll-tip" class="text-[11px] text-gray-600">
-              报名即刻解锁全部课时与实验环境，学习进度将同步到你的「学习中心」。
-            </p>
+
           </div>
         </div>
         
@@ -1112,13 +1110,13 @@
         enrollBtn.style.display = 'none';
         startLearningBtn.style.display = 'flex';
         cancelEnrollBtn.style.display = 'flex';
-        enrollTip.textContent = '已报名，该课程已同步到你的学习中心，可随时继续学习。';
+        enrollTip.textContent = '';
       } else {
         // 未报名状态：显示立即报名按钮
         enrollBtn.style.display = 'flex';
         startLearningBtn.style.display = 'none';
         cancelEnrollBtn.style.display = 'none';
-        enrollTip.textContent = '报名即刻解锁全部课时与实验环境，学习进度将同步到你的「学习中心」。';
+        enrollTip.textContent = '';
       }
     }
 
