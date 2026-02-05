@@ -931,7 +931,7 @@
       type: "download",
       os: ["Windows", "Linux"],
       category: "model",
-      recommend: false,
+      recommend: true,
       tags: ["文本生成图像", "Diffusers", "开源协议", "apache-2.0", "在线体验", "模型部署", "快速开发", "异构加速卡"],
       updateTime: "20小时前",
       viewCount: 3,
@@ -961,7 +961,7 @@
       type: "download",
       os: ["Windows", "Linux"],
       category: "model",
-      recommend: false,
+      hot: true,
       tags: ["文本生成图像", "Diffusers", "开源协议", "creativeml-openrail-m"],
       updateTime: "2天前",
       viewCount: 89,
@@ -976,7 +976,7 @@
       type: "download",
       os: ["Windows", "Linux", "macOS"],
       category: "model",
-      recommend: false,
+      hot: true,
       tags: ["自然语言处理", "transformers", "开源协议", "apache-2.0"],
       updateTime: "3天前",
       viewCount: 56,
@@ -1221,7 +1221,12 @@
         `;
       } else if (currentFilter === 'model') {
         // 模型卡片
-        const recommendBadge = tool.recommend ? `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-orange-100 text-orange-800">推荐</span>` : '';
+        let badge = '';
+        if (tool.recommend) {
+          badge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-orange-100 text-orange-800">推荐</span>`;
+        } else if (tool.hot) {
+          badge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-red-100 text-red-800">热门</span>`;
+        }
         const tags = tool.tags || [];
         const tagElements = tags.map(tag => `
           <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block">
@@ -1233,7 +1238,7 @@
           <div class="flex flex-col h-full">
             <div class="flex items-center justify-between mb-2">
               <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800">${tool.name}</h3>
-              ${recommendBadge}
+              ${badge}
             </div>
             <p class="text-xs text-gray-600 line-clamp-3 mb-2">
               ${tool.desc}
