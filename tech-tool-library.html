@@ -1227,30 +1227,8 @@
         } else if (tool.hot) {
           badge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-red-100 text-red-800">热门</span>`;
         }
-        const tags = tool.tags || [];
-        let tagElements = '';
-        if (tags.length > 4) {
-          const visibleTags = tags.slice(0, 4);
-          const hiddenTags = tags.slice(4);
-          tagElements = visibleTags.map(tag => `
-            <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block">
-              ${tag}
-            </span>
-          `).join('');
-          // 创建一个临时元素来存储隐藏标签，然后获取其文本内容作为title
-          const moreTag = document.createElement('span');
-          moreTag.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
-          moreTag.textContent = '...';
-          moreTag.title = hiddenTags.join(', ');
-          tagElements += moreTag.outerHTML;
-        } else {
-          tagElements = tags.map(tag => `
-            <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block">
-              ${tag}
-            </span>
-          `).join('');
-        }
 
+        // 先设置基本内容
         card.innerHTML = `
           <div class="flex flex-col h-full">
             <div class="flex items-center justify-between mb-2">
@@ -1260,8 +1238,8 @@
             <p class="text-xs text-gray-600 line-clamp-3 mb-2">
               ${tool.desc}
             </p>
-            <div class="flex flex-wrap gap-1 mb-2">
-              ${tagElements}
+            <div class="flex flex-wrap gap-1 mb-2" id="tags-container-${tool.id}">
+              <!-- 标签将通过JS动态添加 -->
             </div>
             <div class="mt-auto text-xs text-gray-500 flex justify-between pt-2">
               <span>${tool.updateTime || '未知'}</span>
@@ -1272,6 +1250,37 @@
             </div>
           </div>
         `;
+
+        // 动态添加标签
+        const tags = tool.tags || [];
+        const tagsContainer = card.querySelector(`#tags-container-${tool.id}`);
+        if (tags.length > 4) {
+          const visibleTags = tags.slice(0, 4);
+          const hiddenTags = tags.slice(4);
+          
+          // 添加可见标签
+          visibleTags.forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
+            tagElement.textContent = tag;
+            tagsContainer.appendChild(tagElement);
+          });
+          
+          // 添加更多标签
+          const moreTag = document.createElement('span');
+          moreTag.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
+          moreTag.textContent = '...';
+          moreTag.title = hiddenTags.join(', ');
+          tagsContainer.appendChild(moreTag);
+        } else {
+          // 添加所有标签
+          tags.forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
+            tagElement.textContent = tag;
+            tagsContainer.appendChild(tagElement);
+          });
+        }
       } else {
         // 普通工具卡片
         const typeBadge = tool.type === "download"
