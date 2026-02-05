@@ -1228,11 +1228,27 @@
           badge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-red-100 text-red-800">热门</span>`;
         }
         const tags = tool.tags || [];
-        const tagElements = tags.map(tag => `
-          <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block">
-            ${tag}
-          </span>
-        `).join('');
+        let tagElements = '';
+        if (tags.length > 4) {
+          const visibleTags = tags.slice(0, 4);
+          const hiddenTags = tags.slice(4);
+          tagElements = visibleTags.map(tag => `
+            <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block">
+              ${tag}
+            </span>
+          `).join('');
+          tagElements += `
+            <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block" title="${hiddenTags.join(', ')}">
+              ...
+            </span>
+          `;
+        } else {
+          tagElements = tags.map(tag => `
+            <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block">
+              ${tag}
+            </span>
+          `).join('');
+        }
 
         card.innerHTML = `
           <div class="flex flex-col h-full">
