@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>PaddlePaddle API兼容列表 - 文档详情 - 光合技术支持平台</title>
+  <title>软件支持详情 - 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -198,83 +198,53 @@
       box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
     }
 
-    /* 文档详情样式 */
-    .doc-detail {
+    /* 软件详情样式 */
+    .software-detail {
       line-height: 1.6;
     }
 
-    .doc-detail h2 {
+    .software-detail h2 {
       font-size: 24px;
       font-weight: 600;
       margin: 24px 0 16px;
       color: #333;
     }
 
-    .doc-detail h3 {
+    .software-detail h3 {
       font-size: 18px;
       font-weight: 600;
       margin: 24px 0 12px;
       color: #444;
     }
 
-    .doc-detail p {
+    .software-detail p {
       margin: 12px 0;
       color: #666;
     }
 
-    .doc-detail ul {
-      margin: 12px 0;
-      padding-left: 20px;
-      color: #666;
-    }
-
-    .doc-detail li {
-      margin: 8px 0;
-    }
-
-    /* 标签导航样式 */
-    .doc-tabs {
-      border-bottom: 1px solid #e5e7eb;
-      margin-bottom: 20px;
-    }
-
-    .doc-tab {
-      padding: 12px 24px;
-      border-bottom: 2px solid transparent;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .doc-tab.active {
-      border-bottom-color: #2D874B;
-      color: #2D874B;
-      font-weight: 500;
-    }
-
-    /* 表格样式 */
-    .doc-table {
+    .software-detail table {
       width: 100%;
       border-collapse: collapse;
-      margin: 20px 0;
+      margin: 16px 0;
     }
 
-    .doc-table th {
-      background-color: #f9fafb;
+    .software-detail th {
+      background-color: #f5f5f5;
       padding: 12px;
       text-align: left;
-      border: 1px solid #e5e7eb;
+      border: 1px solid #e0e0e0;
       font-weight: 600;
       color: #333;
     }
 
-    .doc-table td {
+    .software-detail td {
       padding: 12px;
-      border: 1px solid #e5e7eb;
+      border: 1px solid #e0e0e0;
       color: #666;
     }
 
-    .doc-table tr:nth-child(even) {
-      background-color: #f9fafb;
+    .software-detail tr:nth-child(even) {
+      background-color: #f9f9f9;
     }
   </style>
 </head>
@@ -502,277 +472,85 @@
 <main class="pt-24 lg:pt-28 pb-10">
   <section class="max-w-7xl mx-auto px-4 lg:px-6">
     <!-- 面包屑 -->
-    <div class="breadcrumb mb-8 flex items-center justify-between gap-2">
-      <div class="flex items-center gap-2">
-        <button onclick="window.history.back()" class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center hover:border-[#2D874B] transition">
-          <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
-        </button>
-        <a href="index.html">首页</a>
-        <i class="fa fa-angle-right text-gray-400 text-xs"></i>
-        <a href="resource-center.html">资源</a>
-        <i class="fa fa-angle-right text-gray-400 text-xs"></i>
-        <a href="document.html">技术文档库</a>
-        <i class="fa fa-angle-right text-gray-400 text-xs"></i>
-        <span class="text-gray-900 font-medium">基础知识 · PaddlePaddle API兼容列表</span>
-      </div>
-      <!-- 搜索栏 -->
-      <div class="search-bar">
-        <div class="relative">
-          <input type="text" placeholder="搜索..." class="pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-[#2D874B] transition w-48 lg:w-64">
-          <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+    <div class="breadcrumb mb-8 flex items-center gap-2">
+      <button onclick="window.history.back()" class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center hover:border-[#2D874B] transition">
+        <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
+      </button>
+      <a href="index.html">首页</a>
+      <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+      <a href="resource-center.html">资源</a>
+      <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+      <a href="tech-tool-library.html">技术工具库</a>
+      <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+      <span class="text-gray-900 font-medium">软件支持 · CentOS</span>
+    </div>
+
+    <!-- 工具头部信息 -->
+    <div class="tool-header p-6 lg:p-10 mb-6 bg-white rounded-3xl border border-gray-200">
+      <div class="flex flex-col lg:flex-row lg:items-center gap-6">
+        <div>
+          <h1 class="text-2xl lg:text-3xl font-semibold text-gray-800">CentOS</h1>
+          <p class="mt-2 text-gray-600 max-w-3xl">CentOS (Community Enterprise Operating System) 是Linux发行版之一，它来自于Red Hat Enterprise Linux (RHEL) 依照开放源代码规定发布的源代码所编译而成。</p>
+          <div class="mt-4 flex flex-wrap gap-4 text-sm">
+            <span class="text-gray-500"><i class="fa fa-calendar-alt mr-1"></i> 更新于 2024-01-15</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- 文档内容区域 - 三栏布局 -->
-    <div class="flex flex-col lg:flex-row gap-6">
-      <!-- 左侧目录 -->
-      <div class="lg:w-1/5 bg-white p-4 rounded-3xl border border-gray-200 sticky top-32 self-start">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">目录</h3>
-        <ul class="space-y-2">
-          <li><a href="#section1" class="text-gray-600 hover:text-[#2D874B] transition">1. 简介</a></li>
-          <li>
-            <a href="#section2" class="text-gray-600 hover:text-[#2D874B] transition">2. 适用范围</a>
-            <ul class="pl-4 space-y-1 mt-1">
-              <li><a href="#section2.1" class="text-gray-600 hover:text-[#2D874B] transition text-sm">2.1 支持的PaddlePaddle版本</a></li>
-              <li><a href="#section2.2" class="text-gray-600 hover:text-[#2D874B] transition text-sm">2.2 支持的Python版本</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="#section3" class="text-gray-600 hover:text-[#2D874B] transition">3. 兼容原则</a>
-            <ul class="pl-4 space-y-1 mt-1">
-              <li><a href="#section3.1" class="text-gray-600 hover:text-[#2D874B] transition text-sm">3.1 完全兼容</a></li>
-              <li><a href="#section3.2" class="text-gray-600 hover:text-[#2D874B] transition text-sm">3.2 部分兼容</a></li>
-              <li><a href="#section3.3" class="text-gray-600 hover:text-[#2D874B] transition text-sm">3.3 不兼容</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="#section4" class="text-gray-600 hover:text-[#2D874B] transition">4. API兼容列表</a>
-            <ul class="pl-4 space-y-1 mt-1">
-              <li><a href="#section4.1" class="text-gray-600 hover:text-[#2D874B] transition text-sm">4.1 基础API</a></li>
-              <li><a href="#section4.2" class="text-gray-600 hover:text-[#2D874B] transition text-sm">4.2 神经网络层</a></li>
-              <li><a href="#section4.3" class="text-gray-600 hover:text-[#2D874B] transition text-sm">4.3 损失函数</a></li>
-              <li><a href="#section4.4" class="text-gray-600 hover:text-[#2D874B] transition text-sm">4.4 优化器</a></li>
-            </ul>
-          </li>
-          <li><a href="#section5" class="text-gray-600 hover:text-[#2D874B] transition">5. 不兼容API说明</a></li>
-          <li>
-            <a href="#section6" class="text-gray-600 hover:text-[#2D874B] transition">6. 常见问题</a>
-            <ul class="pl-4 space-y-1 mt-1">
-              <li><a href="#section6.1" class="text-gray-600 hover:text-[#2D874B] transition text-sm">6.1 兼容性检查</a></li>
-              <li><a href="#section6.2" class="text-gray-600 hover:text-[#2D874B] transition text-sm">6.2 不兼容处理</a></li>
-              <li><a href="#section6.3" class="text-gray-600 hover:text-[#2D874B] transition text-sm">6.3 版本更新影响</a></li>
-              <li><a href="#section6.4" class="text-gray-600 hover:text-[#2D874B] transition text-sm">6.4 获取最新版本</a></li>
-            </ul>
-          </li>
-        </ul>
+    <!-- 标签导航 -->
+    <div class="mb-6 border-b border-gray-200">
+      <div class="flex space-x-8">
+        <button class="py-4 px-2 border-b-2 border-blue-600 text-blue-600 font-medium text-sm whitespace-nowrap" onclick="scrollToSection('intro')">简介</button>
+        <button class="py-4 px-2 border-b-2 border-transparent text-gray-600 hover:text-blue-600 font-medium text-sm whitespace-nowrap" onclick="scrollToSection('download')">下载地址</button>
+        <button class="py-4 px-2 border-b-2 border-transparent text-gray-600 hover:text-blue-600 font-medium text-sm whitespace-nowrap" onclick="scrollToSection('links')">相关链接</button>
       </div>
+    </div>
 
-      <!-- 中间内容 -->
-      <div class="lg:w-3/5">
-        <!-- 文档标题 -->
-        <div class="mb-8">
-          <h1 class="text-3xl font-bold text-gray-800 mb-4">PaddlePaddle API兼容列表</h1>
-          <div class="flex items-center gap-4 text-gray-500 text-sm">
-            <span><i class="fa fa-user mr-1"></i> 曙光技术团队</span>
-            <span><i class="fa fa-calendar-alt mr-1"></i> 2024-01-15</span>
-            <span><i class="fa fa-eye mr-1"></i> 1,234 阅读</span>
-          </div>
+    <!-- 软件详情内容 -->
+    <div class="software-detail">
+      <!-- 简介 -->
+      <section id="intro" class="mb-8 bg-white p-6 rounded-3xl border border-gray-200">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">简介</h3>
+        <p class="mb-4 text-gray-600">CentOS (Community Enterprise Operating System) 是Linux发行版之一，它来自于Red Hat Enterprise Linux (RHEL) 依照开放源代码规定发布的源代码所编译而成。由于出自同样的源代码，因此有些要求高度稳定性的服务器以CentOS替代商业版的Red Hat Enterprise Linux使用。两者的不同，在于CentOS不包含封闭源代码软件。CentOS对上游代码的主要修改是为了移除不能自由使用的商标。CentOS使用RHEL一样的方式构建企业级Linux系统环境，但不需要向RedHat付任何的费用。</p>
+        <p class="text-gray-600">CentOS是免费的，可以使用它获得RHEL一样的软件包更新和技术支持。CentOS的技术支持主要通过社区的官方邮件列表、论坛和聊天室。每个版本的CentOS都会获得十年的支持（通过安全更新方式），新版本的 CentOS 大约每两年发行一次，而每个版本的CentOS 会定期（大概每六个月）更新一次，以便支持新的硬件。通过这样建立一个安全、低维护、稳定、高预测性、高重复性的Linux环境。</p>
+      </section>
+
+      <!-- 下载地址 -->
+      <section id="download" class="mb-8 bg-white p-6 rounded-3xl border border-gray-200">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">下载地址</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse">
+            <thead>
+              <tr class="bg-gray-50">
+                <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">版本</th>
+                <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">架构</th>
+                <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">下载链接</th>
+                <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">说明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="p-3 border border-gray-200 text-gray-600">CentOS</td>
+                <td class="p-3 border border-gray-200 text-gray-600">X86_84</td>
+                <td class="p-3 border border-gray-200"><a href="https://pan.baidu.com/s/1NpSO89WyFuyBGx-pk8_A?pwd=rot" class="text-blue-600 hover:underline">https://pan.baidu.com/s/1NpSO89WyFuyBGx-pk8_A?pwd=rot</a></td>
+                <td class="p-3 border border-gray-200 text-gray-600">镜像下载后请优先进行SHA256校验，确保镜像一致性</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </section>
 
-        <!-- 文档内容 -->
-        <div class="doc-content">
-          <section id="section1" class="mb-10">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">1. 简介</h2>
-            <p class="mb-4 text-gray-600">本文档提供了PaddlePaddle API在曙光AI平台上的兼容列表，帮助开发者了解哪些API可以正常使用，以及使用过程中需要注意的事项。</p>
-            <p class="text-gray-600">PaddlePaddle是百度推出的深度学习框架，提供了丰富的API接口，支持各种深度学习任务。在曙光AI平台上，我们对PaddlePaddle的API进行了测试和优化，确保大部分常用API能够正常工作。</p>
-          </section>
-
-          <section id="section2" class="mb-10">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">2. 适用范围</h2>
-            <p class="mb-4 text-gray-600">本兼容列表适用于以下环境：</p>
-            
-            <section id="section2.1" class="mb-6">
-              <h3 class="text-xl font-semibold text-gray-800 mb-3">2.1 支持的PaddlePaddle版本</h3>
-              <p class="text-gray-600">PaddlePaddle 2.5.0及以上版本</p>
-            </section>
-            
-            <section id="section2.2" class="mb-6">
-              <h3 class="text-xl font-semibold text-gray-800 mb-3">2.2 支持的Python版本</h3>
-              <p class="text-gray-600">Python 3.7-3.9</p>
-            </section>
-            
-            <p class="text-gray-600">曙光AI平台</p>
-          </section>
-
-          <section id="section3" class="mb-10">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">3. 兼容原则</h2>
-            <p class="mb-4 text-gray-600">我们遵循以下原则来评估API的兼容性：</p>
-            
-            <section id="section3.1" class="mb-6">
-              <h3 class="text-xl font-semibold text-gray-800 mb-3">3.1 完全兼容</h3>
-              <p class="text-gray-600">API可以正常使用，功能与官方文档一致</p>
-            </section>
-            
-            <section id="section3.2" class="mb-6">
-              <h3 class="text-xl font-semibold text-gray-800 mb-3">3.2 部分兼容</h3>
-              <p class="text-gray-600">API可以使用，但某些参数或功能可能受限</p>
-            </section>
-            
-            <section id="section3.3" class="mb-6">
-              <h3 class="text-xl font-semibold text-gray-800 mb-3">3.3 不兼容</h3>
-              <p class="text-gray-600">API无法正常使用，或使用后可能导致错误</p>
-            </section>
-          </section>
-
-          <section id="section4" class="mb-10">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">4. API兼容列表</h2>
-            
-            <section id="section4.1" class="mb-6">
-              <h3 class="text-xl font-semibold text-gray-800 mb-3">4.1 基础API</h3>
-              <div class="overflow-x-auto">
-                <table class="w-full border-collapse">
-                  <thead>
-                    <tr class="bg-gray-50">
-                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">API名称</th>
-                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">兼容状态</th>
-                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">备注</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="p-3 border border-gray-200 text-gray-600">paddle.Tensor</td>
-                      <td class="p-3 border border-gray-200 text-green-600">完全兼容</td>
-                      <td class="p-3 border border-gray-200 text-gray-600">无特殊说明</td>
-                    </tr>
-                    <tr>
-                      <td class="p-3 border border-gray-200 text-gray-600">paddle.to_tensor</td>
-                      <td class="p-3 border border-gray-200 text-green-600">完全兼容</td>
-                      <td class="p-3 border border-gray-200 text-gray-600">无特殊说明</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-            
-            <section id="section4.2" class="mb-6">
-              <h3 class="text-xl font-semibold text-gray-800 mb-3">4.2 神经网络层</h3>
-              <div class="overflow-x-auto">
-                <table class="w-full border-collapse">
-                  <thead>
-                    <tr class="bg-gray-50">
-                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">API名称</th>
-                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">兼容状态</th>
-                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">备注</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="p-3 border border-gray-200 text-gray-600">paddle.nn.Linear</td>
-                      <td class="p-3 border border-gray-200 text-green-600">完全兼容</td>
-                      <td class="p-3 border border-gray-200 text-gray-600">无特殊说明</td>
-                    </tr>
-                    <tr>
-                      <td class="p-3 border border-gray-200 text-gray-600">paddle.nn.Conv2D</td>
-                      <td class="p-3 border border-gray-200 text-green-600">完全兼容</td>
-                      <td class="p-3 border border-gray-200 text-gray-600">无特殊说明</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-            
-            <section id="section4.3" class="mb-6">
-              <h3 class="text-xl font-semibold text-gray-800 mb-3">4.3 损失函数</h3>
-              <div class="overflow-x-auto">
-                <table class="w-full border-collapse">
-                  <thead>
-                    <tr class="bg-gray-50">
-                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">API名称</th>
-                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">兼容状态</th>
-                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">备注</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="p-3 border border-gray-200 text-gray-600">paddle.nn.CrossEntropyLoss</td>
-                      <td class="p-3 border border-gray-200 text-green-600">完全兼容</td>
-                      <td class="p-3 border border-gray-200 text-gray-600">无特殊说明</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-            
-            <section id="section4.4" class="mb-6">
-              <h3 class="text-xl font-semibold text-gray-800 mb-3">4.4 优化器</h3>
-              <div class="overflow-x-auto">
-                <table class="w-full border-collapse">
-                  <thead>
-                    <tr class="bg-gray-50">
-                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">API名称</th>
-                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">兼容状态</th>
-                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">备注</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="p-3 border border-gray-200 text-gray-600">paddle.optimizer.Adam</td>
-                      <td class="p-3 border border-gray-200 text-green-600">完全兼容</td>
-                      <td class="p-3 border border-gray-200 text-gray-600">无特殊说明</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          </section>
-
-          <section id="section5" class="mb-10">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">5. 不兼容API说明</h2>
-            <p class="mb-4 text-gray-600">目前发现的不兼容API如下：</p>
-            <ul class="list-disc pl-5 space-y-2 text-gray-600">
-              <li>paddle.fluid.core：底层API，可能与平台环境不兼容</li>
-              <li>paddle.device.cuda：依赖CUDA环境，在某些平台可能不可用</li>
-            </ul>
-          </section>
-
-          <section id="section6" class="mb-10">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">6. 常见问题</h2>
-            
-            <section id="section6.1" class="mb-6">
-              <h3 class="text-xl font-semibold text-gray-800 mb-3">6.1 兼容性检查</h3>
-              <p class="text-gray-600">Q: 如何检查PaddlePaddle API的兼容性？</p>
-              <p class="text-gray-600">A: 您可以参考本文档提供的API兼容列表，或者通过运行简单的测试代码来验证API是否可以正常工作。</p>
-            </section>
-            
-            <section id="section6.2" class="mb-6">
-              <h3 class="text-xl font-semibold text-gray-800 mb-3">6.2 不兼容处理</h3>
-              <p class="text-gray-600">Q: 如果遇到API不兼容的情况，应该如何处理？</p>
-              <p class="text-gray-600">A: 您可以尝试使用替代API，或者联系曙光技术支持团队获取帮助。</p>
-            </section>
-            
-            <section id="section6.3" class="mb-6">
-              <h3 class="text-xl font-semibold text-gray-800 mb-3">6.3 版本更新影响</h3>
-              <p class="text-gray-600">Q: PaddlePaddle的版本更新会影响API兼容性吗？</p>
-              <p class="text-gray-600">A: 是的，PaddlePaddle的版本更新可能会影响API兼容性。我们会定期更新本文档，以反映最新的API兼容状态。</p>
-            </section>
-            
-            <section id="section6.4" class="mb-6">
-              <h3 class="text-xl font-semibold text-gray-800 mb-3">6.4 获取最新版本</h3>
-              <p class="text-gray-600">Q: 如何获取PaddlePaddle的最新版本？</p>
-              <p class="text-gray-600">A: 您可以通过pip命令安装最新版本的PaddlePaddle，或者从PaddlePaddle官网下载安装包。</p>
-            </section>
-          </section>
-        </div>
-      </div>
-
-      <!-- 右侧目录 -->
-      <div class="lg:w-1/5 bg-white p-4 rounded-3xl border border-gray-200 sticky top-32 self-start">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">目录</h3>
-        <ul class="space-y-2">
-          <li><a href="#section4" class="text-gray-600 hover:text-[#2D874B] transition">PaddlePaddle API兼容列表</a></li>
+      <!-- 相关链接 -->
+      <section id="links" class="mb-8 bg-white p-6 rounded-3xl border border-gray-200">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">相关链接</h3>
+        <ul class="list-disc pl-5 space-y-3">
+          <li class="text-gray-600">CentOS官方地址: <a href="https://www.centos.org/CentOS" class="text-blue-600 hover:underline">https://www.centos.org/CentOS</a></li>
+          <li class="text-gray-600">论坛地址: <a href="https://forums.centos.org/CentOS" class="text-blue-600 hover:underline">https://forums.centos.org/CentOS</a></li>
+          <li class="text-gray-600">Wiki地址: <a href="https://wiki.centos.org/CentOS" class="text-blue-600 hover:underline">https://wiki.centos.org/CentOS</a></li>
+          <li class="text-gray-600">邮件列表地址: <a href="http://wiki.centos.org/GettingHelp/ListInfo" class="text-blue-600 hover:underline">http://wiki.centos.org/GettingHelp/ListInfo</a></li>
         </ul>
-      </div>
+      </section>
     </div>
   </section>
 </main>
@@ -872,7 +650,130 @@
         });
       }
     });
+
+    // 模拟软件数据
+    const softwares = [
+      {
+        id: 1,
+        name: "CentOS",
+        desc: "CentOS (Community Enterprise Operating System) 是Linux发行版之一，它来自于Red Hat Enterprise Linux (RHEL) 依照开放源代码规定发布的源代码所编译而成。",
+        download: {
+          version: "CentOS",
+          architecture: "X86_84",
+          url: "https://pan.baidu.com/s/1NpSO89WyFuyBGx-pk8_A?pwd=rot",
+          description: "镜像下载后请优先进行SHA256校验，确保镜像一致性"
+        },
+        links: [
+          { name: "CentOS官方地址", url: "https://www.centos.org/CentOS" },
+          { name: "论坛地址", url: "https://forums.centos.org/CentOS" },
+          { name: "Wiki地址", url: "https://wiki.centos.org/CentOS" },
+          { name: "邮件列表地址", url: "http://wiki.centos.org/GettingHelp/ListInfo" }
+        ]
+      },
+      {
+        id: 2,
+        name: "Ubuntu",
+        desc: "Ubuntu是一个基于Debian的开源Linux操作系统，是最受欢迎的Linux发行版之一，广泛用于桌面、服务器和云环境。",
+        download: {
+          version: "Ubuntu",
+          architecture: "X86_84",
+          url: "https://ubuntu.com/download",
+          description: "镜像下载后请优先进行SHA256校验，确保镜像一致性"
+        },
+        links: [
+          { name: "Ubuntu官方地址", url: "https://ubuntu.com" },
+          { name: "论坛地址", url: "https://ubuntuforums.org" },
+          { name: "Wiki地址", url: "https://wiki.ubuntu.com" },
+          { name: "文档中心", url: "https://help.ubuntu.com" }
+        ]
+      }
+    ];
+    
+    // 获取URL参数
+    function getUrlParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+    
+    // 根据ID加载软件
+    function loadSoftwareById(id) {
+      const softwareData = softwares.find(s => s.id == id);
+      if (softwareData) {
+        // 更新标题
+        document.title = `${softwareData.name} - 软件支持详情 - 光合技术支持平台`;
+        
+        // 更新面包屑
+        const breadcrumb = document.querySelector('.breadcrumb span:last-child');
+        if (breadcrumb) {
+          breadcrumb.textContent = `软件支持 · ${softwareData.name}`;
+        }
+        
+        // 更新工具头部信息
+        const toolHeaderTitle = document.querySelector('.tool-header h1');
+        if (toolHeaderTitle) {
+          toolHeaderTitle.textContent = softwareData.name;
+        }
+        
+        const toolHeaderDesc = document.querySelector('.tool-header p');
+        if (toolHeaderDesc) {
+          toolHeaderDesc.textContent = softwareData.desc;
+        }
+        
+        // 更新下载地址
+        const downloadTable = document.querySelector('#download table tbody');
+        if (downloadTable) {
+          downloadTable.innerHTML = `
+            <tr>
+              <td>${softwareData.download.version}</td>
+              <td>${softwareData.download.architecture}</td>
+              <td><a href="${softwareData.download.url}" class="text-blue-600 hover:underline">${softwareData.download.url}</a></td>
+              <td>${softwareData.download.description}</td>
+            </tr>
+          `;
+        }
+        
+        // 更新相关链接
+        const linksList = document.querySelector('#links ul');
+        if (linksList) {
+          linksList.innerHTML = '';
+          softwareData.links.forEach(link => {
+            const li = document.createElement('li');
+            li.className = 'text-gray-600';
+            li.innerHTML = `${link.name}: <a href="${link.url}" class="text-blue-600 hover:underline">${link.url}</a>`;
+            linksList.appendChild(li);
+          });
+        }
+      }
+    }
+    
+    // 加载软件
+    const softwareId = getUrlParam('id') || 1;
+    loadSoftwareById(softwareId);
   });
+
+  // 滚动到指定 section
+  function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      window.scrollTo({
+        top: section.offsetTop - 200,
+        behavior: 'smooth'
+      });
+      
+      // 更新标签样式
+      const tabs = document.querySelectorAll('.border-b-2');
+      tabs.forEach(tab => {
+        tab.classList.remove('border-blue-600', 'text-blue-600');
+        tab.classList.add('border-transparent', 'text-gray-600');
+      });
+      
+      // 激活当前标签
+      if (event && event.target) {
+        event.target.classList.remove('border-transparent', 'text-gray-600');
+        event.target.classList.add('border-blue-600', 'text-blue-600');
+      }
+    }
+  }
 </script>
 
 </body>
