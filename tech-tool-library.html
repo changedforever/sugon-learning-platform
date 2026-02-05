@@ -719,21 +719,8 @@
                 ${tool.imageType}
               </span>
             </div>
-            <div class="mt-2 text-xs text-gray-500 flex justify-between">
+            <div class="mt-auto text-xs text-gray-500 flex justify-start pt-2">
               <span>${tool.updateTime}</span>
-              <div class="flex items-center gap-2">
-                <span><i class="fa fa-eye mr-1"></i>${tool.viewCount}</span>
-                <span><i class="fa fa-download mr-1"></i>${tool.downloadCount}</span>
-              </div>
-            </div>
-            <div class="flex gap-2 mt-3">
-              <button class="flex-1 py-2 rounded-full bg-white border border-[#2D874B] text-[#2D874B] text-xs hover:bg-[#2D874B]/10 flex items-center justify-center gap-1">
-                <i class="fa fa-copy text-[11px]"></i> 复制链接
-              </button>
-              <a href="${tool.downloadUrl}"
-                 class="flex-1 py-2 rounded-full bg-[#2D874B] text-white text-xs font-medium hover:opacity-90 flex items-center justify-center gap-1">
-                <i class="fa fa-download text-[11px]"></i> 下载
-              </a>
             </div>
           </div>
         `;
@@ -757,21 +744,6 @@
              </div>`
           : "";
 
-        const actionBtn = tool.type === "download" || tool.type === "online"
-          ? `<div class="flex gap-2 mt-3">
-               <button class="flex-1 py-2 rounded-full bg-white border border-[#2D874B] text-[#2D874B] text-xs hover:bg-[#2D874B]/10 flex items-center justify-center gap-1">
-                 <i class="fa fa-copy text-[11px]"></i> 复制下载链接
-               </button>
-               <a href="${tool.type === "download" ? tool.downloadUrl : tool.onlineUrl}"
-                  class="flex-1 py-2 rounded-full bg-[#2D874B] text-white text-xs font-medium hover:opacity-90 flex items-center justify-center gap-1">
-                 <i class="fa fa-download text-[11px]"></i> 立即下载
-               </a>
-             </div>`
-          : `<a href="${tool.onlineUrl}"
-                class="w-full py-2 mt-3 rounded-full bg-white border border-[#2D874B] text-[#2D874B] text-xs hover:bg-[#2D874B]/10 flex items-center justify-center gap-1">
-               <i class="fa fa-external-link-alt text-[11px]"></i> 在线使用
-             </a>`;
-
         card.innerHTML = `
           <div class="flex flex-col h-full">
             <div class="flex items-center justify-between mb-2">
@@ -782,41 +754,14 @@
               ${tool.desc}
             </p>
             ${osTags}
-            <div class="mt-auto">
-              ${actionBtn}
-            </div>
           </div>
         `;
       }
 
       // 点击卡片主体跳转到工具详情页
       card.addEventListener('click', (e) => {
-        // 避免点击按钮时重复跳转
-        if (e.target.tagName === 'A' || e.target.closest('a') || e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
         window.location.href = 'tool-detail.html?id=' + tool.id;
       });
-
-      // 为复制下载链接按钮添加点击事件
-      const copyBtn = card.querySelector('button');
-      if (copyBtn) {
-        copyBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const url = tool.downloadUrl || tool.onlineUrl || '#';
-          navigator.clipboard.writeText(url).then(() => {
-            // 临时修改按钮文本为"已复制"
-            const originalText = copyBtn.innerHTML;
-            copyBtn.innerHTML = '<i class="fa fa-check text-[11px]"></i> 已复制';
-            copyBtn.classList.add('bg-[#2D874B]/10');
-            // 2秒后恢复原文本
-            setTimeout(() => {
-              copyBtn.innerHTML = originalText;
-              copyBtn.classList.remove('bg-[#2D874B]/10');
-            }, 2000);
-          }).catch(err => {
-            console.error('复制失败:', err);
-          });
-        });
-      }
 
       grid.appendChild(card);
     });
