@@ -398,10 +398,13 @@
               </div>
               <div class="flex flex-wrap items-center gap-2">
                 <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-white/85 border border-gray-300 text-[11px] text-[#B01F24]">
-                  <i class="fa fa-cloud mr-1 text-[10px]"></i> 云基础设施学院
+                  <i class="fa fa-cloud mr-1 text-[10px]"></i> 应用软件性能优化系列
                 </span>
                 <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-emerald-100 border border-emerald-300 text-[11px] text-emerald-800">
                   中级 · 实战
+                </span>
+                <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-white/85 border border-gray-300 text-[11px] text-[#B01F24]">
+                  <i class="fa fa-award mr-1 text-[10px]"></i> 关联认证：伙伴云架构工程师（P-Cloud Architect）
                 </span>
                 <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-amber-100 border border-amber-300 text-[11px] text-amber-800">
                   <i class="fa fa-fire mr-1 text-[10px]"></i> 1.2w+ 人在学
@@ -424,15 +427,6 @@
 
         <!-- 标签 / 元数据 -->
         <div class="flex flex-wrap gap-2 text-[11px] text-gray-700">
-          <span class="inline-flex items-center px-2 py-1 rounded-full bg-white/90 border border-gray-300 text-[#B01F24]">
-            <i class="fa fa-layer-group mr-1 text-[10px]"></i> 云基础设施
-          </span>
-          <span class="inline-flex items-center px-2 py-1 rounded-full bg-white/90 border border-gray-300 text-[#B01F24]">
-            <i class="fa fa-user-gear mr-1 text-[10px]"></i> 适合人群：云架构师 / 解决方案顾问
-          </span>
-          <span class="inline-flex items-center px-2 py-1 rounded-full bg-white/90 border border-gray-300 text-[#B01F24]">
-            <i class="fa fa-award mr-1 text-[10px]"></i> 关联认证：伙伴云架构工程师（P-Cloud Architect）
-          </span>
         </div>
 
         <!-- 下部：Tab 区域：课程介绍 / 课程目录 / 课程评价 / 课程信息 -->
@@ -776,9 +770,7 @@
               取消报名
             </button>
 
-            <p id="enroll-tip" class="text-[11px] text-gray-600">
-              报名即刻解锁全部课时与实验环境，学习进度将同步到你的「学习中心」。
-            </p>
+
           </div>
         </div>
         
@@ -1118,13 +1110,13 @@
         enrollBtn.style.display = 'none';
         startLearningBtn.style.display = 'flex';
         cancelEnrollBtn.style.display = 'flex';
-        enrollTip.textContent = '已报名，该课程已同步到你的学习中心，可随时继续学习。';
+        enrollTip.textContent = '';
       } else {
         // 未报名状态：显示立即报名按钮
         enrollBtn.style.display = 'flex';
         startLearningBtn.style.display = 'none';
         cancelEnrollBtn.style.display = 'none';
-        enrollTip.textContent = '报名即刻解锁全部课时与实验环境，学习进度将同步到你的「学习中心」。';
+        enrollTip.textContent = '';
       }
     }
 

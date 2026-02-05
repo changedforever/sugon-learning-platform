@@ -679,15 +679,37 @@
   }
 
   function enrollCert(button) {
-    // 显示报名成功提示
-    alert('报名成功！');
+    // 显示报名提交提示
+    alert('报名已提交，请等待审核');
     
-    // 隐藏报名按钮
-    button.classList.add('hidden');
+    // 切换按钮为"报名待审核"状态
+    button.innerHTML = '<i class="fa fa-clock"></i> 报名待审核';
+    button.classList.add('bg-gray-400');
+    button.classList.remove('bg-[#4B8CF5]');
+    button.classList.add('cursor-not-allowed');
+    button.classList.remove('hover:bg-[#3a6bc4]');
     
-    // 显示考试相关内容
-    const examSection = document.getElementById('exam-section');
-    examSection.classList.remove('hidden');
+    // 禁用点击事件
+    button.onclick = function() {
+      return false;
+    };
+    
+    // 3秒后切换为"立即学习"状态并显示考试相关内容
+    setTimeout(function() {
+      // 隐藏原按钮
+      button.classList.add('hidden');
+      
+      // 显示考试相关内容
+      const examSection = document.getElementById('exam-section');
+      examSection.classList.remove('hidden');
+      
+      // 修改"立即学习"按钮的点击事件
+      const learnButton = examSection.querySelector('a:first-child');
+      learnButton.onclick = function(e) {
+        e.preventDefault();
+        window.location.href = 'task-detail-self-apply.html';
+      };
+    }, 3000);
   }
   
   // 页面加载时初始化

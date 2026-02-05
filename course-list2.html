@@ -735,6 +735,7 @@
                             class="rounded-full bg-white/80 border border-gray-300 px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-[#2D874B]">
                             <option value="newest">最新</option>
                             <option value="most-popular">最热</option>
+                            <option value="highest-rating">评分最高</option>
                         </select>
                     </div>
                 </div>
@@ -1001,18 +1002,18 @@
     <script>
         // 模拟课程数据（可后续替换为接口返回）
         const allCourses = [
-            { id: 1, name: "云原生解决方案实战 | 中级", source: "云基础设施学院", date: "2026-01-15", learners: 12340, scene: "云原生部署", domain: "金融科技", system: "应用软件性能优化系列" },
-            { id: 2, name: "AI 与数据智能入门", source: "AI 与数据智能学院", date: "2026-01-12", learners: 9800, scene: "AI大模型训练", domain: "教育创新", system: "DCU-AI大模型基础课程" },
-            { id: 3, name: "解决方案售前训练营", source: "解决方案与售前学院", date: "2026-01-10", learners: 8700, scene: "企业数字化转型", domain: "政务服务", system: "HG认证系列课程" },
-            { id: 4, name: "DevOps 自动化与监控实践", source: "云基础设施学院", date: "2026-01-08", learners: 7600, scene: "云原生部署", domain: "智能制造", system: "基础软件性能优化系列" },
-            { id: 5, name: "AIGC 应用实战：从提示词到落地", source: "AI 与数据智能学院", date: "2026-01-06", learners: 6400, scene: "AI大模型训练", domain: "智慧医疗", system: "基于DCU加速的大模型训练与推理" },
-            { id: 6, name: "伙伴销售赋能：场景化方案演示", source: "伙伴业务与运营学院", date: "2026-01-04", learners: 5900, scene: "企业数字化转型", domain: "金融科技", system: "光耀百城系列课程" },
-            { id: 7, name: "云成本优化与FinOps", source: "云基础设施学院", date: "2026-01-03", learners: 4200, scene: "云原生部署", domain: "金融科技", system: "海光应用加速套件系列" },
-            { id: 8, name: "数据治理与合规实践", source: "AI 与数据智能学院", date: "2026-01-02", learners: 3100, scene: "企业数字化转型", domain: "政务服务", system: "海光芯片安全系列" },
-            { id: 9, name: "生态技术领袖高级课程", source: "解决方案与售前学院", date: "2025-12-28", learners: 2800, scene: "企业数字化转型", domain: "智能制造", system: "HG认证系列课程" },
-            { id: 10, name: "云安全与零信任架构", source: "云基础设施学院", date: "2025-12-25", learners: 2600, scene: "云原生部署", domain: "金融科技", system: "海光芯片安全系列" },
-            { id: 11, name: "金融行业云原生解决方案", source: "解决方案与售前学院", date: "2025-12-22", learners: 2400, scene: "云原生部署", domain: "金融科技", system: "应用软件性能优化系列" },
-            { id: 12, name: "智能运维与AIOps", source: "AI 与数据智能学院", date: "2025-12-20", learners: 2300, scene: "数据中心运维", domain: "智能制造", system: "DCU+Al for Science课程" }
+            { id: 1, name: "云原生解决方案实战 | 中级", source: "云基础设施学院", date: "2026-01-15", learners: 12340, scene: "云原生部署", domain: "金融科技", system: "应用软件性能优化系列", rating: 4.8 },
+            { id: 2, name: "AI 与数据智能入门", source: "AI 与数据智能学院", date: "2026-01-12", learners: 9800, scene: "AI大模型训练", domain: "教育创新", system: "DCU-AI大模型基础课程", rating: 4.5 },
+            { id: 3, name: "解决方案售前训练营", source: "解决方案与售前学院", date: "2026-01-10", learners: 8700, scene: "企业数字化转型", domain: "政务服务", system: "HG认证系列课程", rating: 4.6 },
+            { id: 4, name: "DevOps 自动化与监控实践", source: "云基础设施学院", date: "2026-01-08", learners: 7600, scene: "云原生部署", domain: "智能制造", system: "基础软件性能优化系列", rating: 4.7 },
+            { id: 5, name: "AIGC 应用实战：从提示词到落地", source: "AI 与数据智能学院", date: "2026-01-06", learners: 6400, scene: "AI大模型训练", domain: "智慧医疗", system: "基于DCU加速的大模型训练与推理", rating: 4.9 },
+            { id: 6, name: "伙伴销售赋能：场景化方案演示", source: "伙伴业务与运营学院", date: "2026-01-04", learners: 5900, scene: "企业数字化转型", domain: "金融科技", system: "光耀百城系列课程", rating: 4.4 },
+            { id: 7, name: "云成本优化与FinOps", source: "云基础设施学院", date: "2026-01-03", learners: 4200, scene: "云原生部署", domain: "金融科技", system: "海光应用加速套件系列", rating: 4.3 },
+            { id: 8, name: "数据治理与合规实践", source: "AI 与数据智能学院", date: "2026-01-02", learners: 3100, scene: "企业数字化转型", domain: "政务服务", system: "海光芯片安全系列", rating: 4.2 },
+            { id: 9, name: "生态技术领袖高级课程", source: "解决方案与售前学院", date: "2025-12-28", learners: 2800, scene: "企业数字化转型", domain: "智能制造", system: "HG认证系列课程", rating: 4.6 },
+            { id: 10, name: "云安全与零信任架构", source: "云基础设施学院", date: "2025-12-25", learners: 2600, scene: "云原生部署", domain: "金融科技", system: "海光芯片安全系列", rating: 4.5 },
+            { id: 11, name: "金融行业云原生解决方案", source: "解决方案与售前学院", date: "2025-12-22", learners: 2400, scene: "云原生部署", domain: "金融科技", system: "应用软件性能优化系列", rating: 4.7 },
+            { id: 12, name: "智能运维与AIOps", source: "AI 与数据智能学院", date: "2025-12-20", learners: 2300, scene: "数据中心运维", domain: "智能制造", system: "DCU+Al for Science课程", rating: 4.4 }
         ];
 
         const pageSize = 8;
@@ -1112,8 +1113,10 @@
             // 排序
             if (sortSelect.value === 'newest') {
                 filteredCourses.sort((a, b) => b.date.localeCompare(a.date));
-            } else {
+            } else if (sortSelect.value === 'most-popular') {
                 filteredCourses.sort((a, b) => b.learners - a.learners);
+            } else if (sortSelect.value === 'highest-rating') {
+                filteredCourses.sort((a, b) => b.rating - a.rating);
             }
 
             currentPage = 1;
@@ -1144,13 +1147,19 @@
                 const card = document.createElement('article');
                 card.className = 'glass-card rounded-3xl p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer';
                 card.innerHTML = `
-  <!-- 顶部：课程体系 + 热度 -->
+  <!-- 顶部：课程体系 + 热度 + 评分 -->
   <div class="flex items-center justify-between mb-2">
-    <span class="text-[11px] text-[#2D874B] font-medium truncate max-w-[120px]">${course.system}</span>
-    <span class="text-[11px] text-[#B01F24] flex items-center gap-1">
-      <i class="fa fa-fire text-[10px] text-[#B01F24]"></i>
-      ${(course.learners / 1000).toFixed(1)}k 在学
-    </span>
+    <span class="text-[11px] text-[#2D874B] font-medium truncate max-w-[100px]">${course.system}</span>
+    <div class="flex items-center gap-2">
+      <span class="text-[11px] text-amber-600 flex items-center gap-1">
+        <i class="fa fa-star text-[10px] text-amber-500"></i>
+        ${course.rating}
+      </span>
+      <span class="text-[11px] text-[#B01F24] flex items-center gap-1">
+        <i class="fa fa-fire text-[10px] text-[#B01F24]"></i>
+        ${(course.learners / 1000).toFixed(1)}k
+      </span>
+    </div>
   </div>
   <!-- 标题 -->
   <h3 class="text-sm font-semibold line-clamp-2 mb-2 text-left text-gray-800">

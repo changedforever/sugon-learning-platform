@@ -36,6 +36,8 @@
             flex-direction: column;
             padding: 16px;
             transition: all 0.3s ease;
+            /* 确保下拉菜单不被裁剪 */
+            overflow: visible;
         }
         
         .sidebar-header {
@@ -125,8 +127,82 @@
             cursor: pointer;
             transition: all 0.2s;
             white-space: nowrap;
+            text-overflow: ellipsis;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* 确保下拉菜单不被裁剪 */
+            overflow: visible;
+        }
+
+        .sidebar-submenu-item-content {
+            flex: 1;
+            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+        .sidebar-submenu-item-actions {
+            margin-left: 8px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .sidebar-submenu-item:hover .sidebar-submenu-item-actions {
+            opacity: 1;
+        }
+
+        .more-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .more-btn:hover {
+            background: #e6eeff;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 4px;
+            background: white;
+            border: 1px solid #eaecef;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+            min-width: 120px;
+            display: none;
+            /* 确保下拉菜单可见 */
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .dropdown-item:hover {
+            background: #f0f4ff;
+        }
+
+        .dropdown-item i {
+            margin-right: 8px;
+            font-size: 12px;
         }
         
         .sidebar-submenu-item:hover {
@@ -592,10 +668,17 @@
         .resource-item:last-child {
             margin-bottom: 0;
         }
-        
+
         .resource-img {
             width: 48px;
             height: 48px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .r-i-radio {
+            width: 300px;
+            height: auto;
             border-radius: 8px;
             object-fit: cover;
         }
@@ -1029,15 +1112,15 @@
         }
 
         .mode-toggle.mode-download {
-            background: #ecfdf5;
-            border-color: #a7f3d0;
-            box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.25);
+            background: #dbeafe;
+            border-color: #93c5fd;
+            box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.25);
         }
 
         .mode-toggle.mode-download .mode-toggle-knob {
             transform: translateX(54px);
-            background: #10b981;
-            box-shadow: 0 6px 12px rgba(16, 185, 129, 0.35);
+            background: #1d4ed8;
+            box-shadow: 0 6px 12px rgba(30, 64, 175, 0.35);
         }
 
         .mode-toggle.mode-qa .mode-text-qa {
@@ -1046,7 +1129,7 @@
         }
 
         .mode-toggle.mode-download .mode-text-download {
-            color: #047857;
+            color: #1e40af;
             font-weight: 600;
         }
     </style>
@@ -1089,11 +1172,116 @@
                     <i class="fas fa-chevron-down sidebar-btn-arrow"></i>
                 </button>
                 <div class="sidebar-submenu" id="history-submenu" style="display: block;">
-                    <div class="sidebar-submenu-item" data-id="1" data-type="history">如何配置DCU开发环境？</div>
-                    <div class="sidebar-submenu-item" data-id="2" data-type="history">CPU性能优化有哪些方法？</div>
-                    <div class="sidebar-submenu-item" data-id="3" data-type="history">云平台如何实现高可用？</div>
-                    <div class="sidebar-submenu-item" data-id="4" data-type="history">数据库索引优化策略</div>
-                    <div class="sidebar-submenu-item" data-id="5" data-type="history">操作系统进程调度算法</div>
+                    <div class="sidebar-submenu-item" data-id="1" data-type="history">
+                        <div class="sidebar-submenu-item-content">如何配置DCU开发环境？</div>
+                        <div class="sidebar-submenu-item-actions">
+                            <div class="more-btn" data-id="1">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </div>
+                            <div class="dropdown-menu" data-id="1">
+                                <div class="dropdown-item favorite-item" data-id="1">
+                                    <i class="fas fa-star"></i>
+                                    <span>收藏</span>
+                                </div>
+                                <div class="dropdown-item rename-item" data-id="1">
+                                    <i class="fas fa-edit"></i>
+                                    <span>重命名</span>
+                                </div>
+                                <div class="dropdown-item delete-item" data-id="1">
+                                    <i class="fas fa-trash"></i>
+                                    <span>删除</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar-submenu-item" data-id="2" data-type="history">
+                        <div class="sidebar-submenu-item-content">CPU性能优化有哪些方法？</div>
+                        <div class="sidebar-submenu-item-actions">
+                            <div class="more-btn" data-id="2">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </div>
+                            <div class="dropdown-menu" data-id="2">
+                                <div class="dropdown-item favorite-item" data-id="2">
+                                    <i class="fas fa-star"></i>
+                                    <span>收藏</span>
+                                </div>
+                                <div class="dropdown-item rename-item" data-id="2">
+                                    <i class="fas fa-edit"></i>
+                                    <span>重命名</span>
+                                </div>
+                                <div class="dropdown-item delete-item" data-id="2">
+                                    <i class="fas fa-trash"></i>
+                                    <span>删除</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar-submenu-item" data-id="3" data-type="history">
+                        <div class="sidebar-submenu-item-content">云平台如何实现高可用？</div>
+                        <div class="sidebar-submenu-item-actions">
+                            <div class="more-btn" data-id="3">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </div>
+                            <div class="dropdown-menu" data-id="3">
+                                <div class="dropdown-item favorite-item" data-id="3">
+                                    <i class="fas fa-star"></i>
+                                    <span>收藏</span>
+                                </div>
+                                <div class="dropdown-item rename-item" data-id="3">
+                                    <i class="fas fa-edit"></i>
+                                    <span>重命名</span>
+                                </div>
+                                <div class="dropdown-item delete-item" data-id="3">
+                                    <i class="fas fa-trash"></i>
+                                    <span>删除</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar-submenu-item" data-id="4" data-type="history">
+                        <div class="sidebar-submenu-item-content">数据库索引优化策略</div>
+                        <div class="sidebar-submenu-item-actions">
+                            <div class="more-btn" data-id="4">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </div>
+                            <div class="dropdown-menu" data-id="4">
+                                <div class="dropdown-item favorite-item" data-id="4">
+                                    <i class="fas fa-star"></i>
+                                    <span>收藏</span>
+                                </div>
+                                <div class="dropdown-item rename-item" data-id="4">
+                                    <i class="fas fa-edit"></i>
+                                    <span>重命名</span>
+                                </div>
+                                <div class="dropdown-item delete-item" data-id="4">
+                                    <i class="fas fa-trash"></i>
+                                    <span>删除</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar-submenu-item" data-id="5" data-type="history">
+                        <div class="sidebar-submenu-item-content">操作系统进程调度算法</div>
+                        <div class="sidebar-submenu-item-actions">
+                            <div class="more-btn" data-id="5">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </div>
+                            <div class="dropdown-menu" data-id="5">
+                                <div class="dropdown-item favorite-item" data-id="5">
+                                    <i class="fas fa-star"></i>
+                                    <span>收藏</span>
+                                </div>
+                                <div class="dropdown-item rename-item" data-id="5">
+                                    <i class="fas fa-edit"></i>
+                                    <span>重命名</span>
+                                </div>
+                                <div class="dropdown-item delete-item" data-id="5">
+                                    <i class="fas fa-trash"></i>
+                                    <span>删除</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1150,24 +1338,24 @@
                         <!-- 左侧：能力场景 -->
                         <div class="ability-card">
                             <div class="ability-card-header">
-                                <span class="ability-card-title">推广</span>
+                                <span class="ability-card-title">服务器产品</span>
                                 <div class="ability-card-page">
                                     <span>2/3</span>
                                     <i class="fas fa-angle-right"></i>
                                 </div>
                             </div>
                             <div class="ability-list">
-                                <button class="ability-item" data-question="在线学习">
-                                    <div class="ability-item-title">在线学习</div>
-                                    <div class="ability-item-subtitle">学习在线课程</div>
+                                <button class="ability-item" data-question="服务器产品介绍">
+                                    <div class="ability-item-title">产品介绍</div>
+                                    <div class="ability-item-subtitle">了解服务器产品系列</div>
                                 </button>
-                                <button class="ability-item" data-question="认证其他问题">
-                                    <div class="ability-item-title">认证其他问题</div>
-                                    <div class="ability-item-subtitle">发起问题单</div>
+                                <button class="ability-item" data-question="服务器配置方案">
+                                    <div class="ability-item-title">配置方案</div>
+                                    <div class="ability-item-subtitle">根据需求推荐配置</div>
                                 </button>
-                                <button class="ability-item" data-question="证书申请流程">
-                                    <div class="ability-item-title">证书申请流程</div>
-                                    <div class="ability-item-subtitle">认证证书申请流程</div>
+                                <button class="ability-item" data-question="服务器技术支持">
+                                    <div class="ability-item-title">技术支持</div>
+                                    <div class="ability-item-subtitle">获取服务器技术支持</div>
                                 </button>
                             </div>
                         </div>
@@ -1505,7 +1693,7 @@
             // 历史对话假数据
             historyItems = [
                 {
-                    id: ++conversationIdCounter,
+                    id: 1,
                     firstQuestion: '如何配置DCU开发环境？',
                     messages: [
                         { role: 'user', content: '如何配置DCU开发环境？' },
@@ -1516,7 +1704,7 @@
                     createdAt: formatDateTime(now)
                 },
                 {
-                    id: ++conversationIdCounter,
+                    id: 2,
                     firstQuestion: 'CPU性能优化有哪些方法？',
                     messages: [
                         { role: 'user', content: 'CPU性能优化有哪些方法？' },
@@ -1527,7 +1715,7 @@
                     createdAt: formatDateTime(yesterday)
                 },
                 {
-                    id: ++conversationIdCounter,
+                    id: 3,
                     firstQuestion: '云平台如何实现高可用？',
                     messages: [
                         { role: 'user', content: '云平台如何实现高可用？' },
@@ -1536,7 +1724,7 @@
                     createdAt: formatDateTime(twoDaysAgo)
                 },
                 {
-                    id: ++conversationIdCounter,
+                    id: 4,
                     firstQuestion: '数据库索引优化策略',
                     messages: [
                         { role: 'user', content: '数据库索引优化策略' },
@@ -1547,7 +1735,7 @@
                     createdAt: formatDateTime(threeDaysAgo)
                 },
                 {
-                    id: ++conversationIdCounter,
+                    id: 5,
                     firstQuestion: '操作系统进程调度算法',
                     messages: [
                         { role: 'user', content: '操作系统进程调度算法有哪些？' },
@@ -1708,6 +1896,15 @@
             if (!clickedInsideSuggestion && !clickedInsideInput) {
                 hideSuggestions();
             }
+            
+            // 点击外部关闭下拉菜单
+            const clickedInsideMoreBtn = target.closest('.more-btn');
+            const clickedInsideDropdown = target.closest('.dropdown-menu');
+            if (!clickedInsideMoreBtn && !clickedInsideDropdown) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+            }
         });
         
         // 添加消息到对话框
@@ -1759,16 +1956,16 @@
                       </ul>
                       <div class="resource-card">
                         <div class="resource-item">
-                          <img src="https://images.unsplash.com/photo-1581093458791-8a0a5d5c5f5a?auto=format&fit=crop&w=100&q=80" 
-                               class="resource-img" 
+                          <img src="./images/radio1.png"
+                               class="resource-img r-i-radio"
                                alt="考试流程">
                           <div class="resource-info">
                             <div class="resource-title">考试流程详解视频</div>
                             <div class="resource-desc">详细讲解考试报名和参加流程</div>
                           </div>
-                          <button class="resource-btn">
+                          <!--<button class="resource-btn">
                             <i class="fas fa-play"></i> 播放
-                          </button>
+                          </button>-->
                         </div>
                       </div>
                     </div>
@@ -1785,16 +1982,16 @@
                       </ul>
                       <div class="resource-card">
                         <div class="resource-item">
-                          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=100&q=80" 
-                               class="resource-img" 
+                          <img src="./images/radio2.png"
+                               class="resource-img  r-i-radio"
                                alt="云架构师认证">
                           <div class="resource-info">
                             <div class="resource-title">高级云架构师认证指南</div>
                             <div class="resource-desc">完整认证流程和备考策略</div>
                           </div>
-                          <button class="resource-btn">
+                          <!--<button class="resource-btn">
                             <i class="fas fa-play"></i> 播放
-                          </button>
+                          </button>-->
                         </div>
                       </div>
                     </div>
@@ -1811,26 +2008,29 @@
                       </ul>
                       <div class="resource-card">
                         <div class="resource-item">
-                          <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=100&q=80" 
-                               class="resource-img" 
+                          <img src="./images/radio2.png"
+                               class="resource-img r-i-radio"
                                alt="证书管理">
                           <div class="resource-info">
                             <div class="resource-title">证书管理操作教程</div>
                             <div class="resource-desc">详细演示证书查看和下载流程</div>
                           </div>
-                          <button class="resource-btn">
+                          <!--<button class="resource-btn">
                             <i class="fas fa-play"></i> 播放
-                          </button>
+                          </button>-->
                         </div>
                       </div>
                     </div>
                   `,
-                  '在线学习': '您可以通过平台的「课程学习」或「培训中心」模块，选择适合您的在线课程进行自主学习。支持视频课程、实验课程和配套资料下载。',
+                  '在线学习': '您可以通过平台的「课程学习」或「培训中心」模块，选择适合您的在线课程进行自主学习。支持视频课程、实验课程和配套资料下载。<div style="margin-top: 16px;"><img src="https://picsum.photos/id/3/400/200" alt="在线学习平台" style="max-width: 100%; max-height: 90px; object-fit: cover; border-radius: 8px;"></div>',
                   '认证其他问题': '如果您在认证过程中遇到其他问题，可以在「帮助与支持」或「工单中心」中发起问题单，我们会有专人进行跟进并答复。',
                   '证书申请流程': '通过考试后，系统会自动生成您的认证信息。您需要完善个人资料并提交证书申请，审核通过后即可在线查看与下载电子证书。',
                   'HCIE实验预约及考位查询': 'HCIE 实验考试需要提前在考试中心进行预约，您可以在「我的考试」中查看可预约考位与时间，并完成缴费后确认。',
                   '认证考试证书有效期': '大部分认证证书有效期为 3 年，具体以认证项目规则为准。您可以在「我的证书」中查看每张证书的有效期与到期提醒。',
                   '取消考试政策': '对于已预约的考试，如需取消或改期，请在考试规定时间前在「我的考试」中操作，逾期将可能无法退款或需要支付改期费用。',
+                  '服务器产品介绍': '曙光服务器产品线丰富，涵盖多种应用场景：\n1. 通用服务器：适用于企业日常业务处理\n2. 高性能计算服务器：专为科学计算、AI训练等场景设计\n3. 存储服务器：提供大容量、高可靠性的数据存储解决方案\n4. 边缘服务器：满足边缘计算低延迟、高可靠性需求\n5. 液冷服务器：通过液冷技术实现高效散热，降低能耗\n\n每个系列都有多种配置可选，满足不同规模企业的需求。<div style="margin-top: 16px;"><img src="https://picsum.photos/id/3/400/200" alt="服务器产品" style="max-width: 100%; max-height: 90px; object-fit: cover; border-radius: 8px;"></div>',
+                  '服务器配置方案': '选择服务器配置需要考虑以下因素：\n1. 业务类型：不同业务对CPU、内存、存储的需求不同\n2. 性能要求：根据并发用户数、数据处理量等评估\n3. 扩展性：预留未来业务增长的扩展空间\n4. 可靠性：关键业务需要考虑冗余设计\n5. 成本预算：在满足需求的前提下控制成本\n\n我们提供定制化配置方案，根据您的具体需求推荐最适合的服务器配置。<div style="margin-top: 16px;"><img src="https://picsum.photos/id/3/400/200" alt="服务器配置方案" style="max-width: 100%; max-height: 90px; object-fit: cover; border-radius: 8px;"></div>',
+                  '服务器技术支持': '曙光服务器提供全方位技术支持服务：\n1. 7×24小时远程技术支持\n2. 现场服务：根据服务级别提供不同响应时间的现场支持\n3. 备件服务：快速备件更换，减少停机时间\n4. 技术培训：为您的IT团队提供服务器维护培训\n5. 定期巡检：预防性维护，提前发现并解决潜在问题\n\n我们的技术支持团队由经验丰富的工程师组成，确保您的服务器系统稳定运行。<div style="margin-top: 16px;"><img src="https://picsum.photos/id/3/400/200" alt="服务器技术支持" style="max-width: 100%; max-height: 90px; object-fit: cover; border-radius: 8px;"></div>',
 
                   // 进阶提问固定回答
                   '考试报名入口在哪里？': '您可以在平台顶部导航进入「考试中心」或「我的考试」，在「可报名考试」列表中点击对应考试右侧的“立即报名”按钮完成报名。',
@@ -1964,11 +2164,96 @@
                 submenu.innerHTML = '<div style="padding: 8px 12px; color: #9ca3af; font-size: 12px;">暂无收藏</div>';
                 return;
             }
-            submenu.innerHTML = favoriteItems.map(item => `
-                <div class="sidebar-submenu-item" data-id="${item.id}" data-type="favorite">
-                    ${escapeHtml(item.firstQuestion)}
-                </div>
-            `).join('');
+            
+            // 清空子菜单
+            submenu.innerHTML = '';
+            
+            // 为每个收藏项创建DOM元素
+            favoriteItems.forEach(item => {
+                console.log('创建收藏项:', item.id);
+                
+                // 创建收藏项容器
+                const favoriteItem = document.createElement('div');
+                favoriteItem.className = 'sidebar-submenu-item';
+                favoriteItem.setAttribute('data-id', item.id);
+                favoriteItem.setAttribute('data-type', 'favorite');
+                
+                // 创建内容区域
+                const content = document.createElement('div');
+                content.className = 'sidebar-submenu-item-content';
+                content.textContent = item.firstQuestion;
+                favoriteItem.appendChild(content);
+                
+                // 创建操作区域
+                const actions = document.createElement('div');
+                actions.className = 'sidebar-submenu-item-actions';
+                
+                // 创建更多按钮
+                const moreBtn = document.createElement('div');
+                moreBtn.className = 'more-btn';
+                moreBtn.setAttribute('data-id', item.id);
+                moreBtn.innerHTML = '<i class="fas fa-ellipsis-v"></i>';
+                actions.appendChild(moreBtn);
+                
+                // 创建下拉菜单
+                const dropdown = document.createElement('div');
+                dropdown.className = 'dropdown-menu';
+                dropdown.setAttribute('data-id', item.id);
+                
+                // 创建重命名菜单项
+                const renameItem = document.createElement('div');
+                renameItem.className = 'dropdown-item rename-item';
+                renameItem.setAttribute('data-id', item.id);
+                renameItem.innerHTML = '<i class="fas fa-edit"></i><span>重命名</span>';
+                dropdown.appendChild(renameItem);
+                
+                // 创建删除菜单项
+                const deleteItem = document.createElement('div');
+                deleteItem.className = 'dropdown-item delete-item';
+                deleteItem.setAttribute('data-id', item.id);
+                deleteItem.innerHTML = '<i class="fas fa-trash"></i><span>删除</span>';
+                dropdown.appendChild(deleteItem);
+                
+                actions.appendChild(dropdown);
+                favoriteItem.appendChild(actions);
+                submenu.appendChild(favoriteItem);
+                
+                // 为更多按钮添加点击事件
+                moreBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('点击收藏更多按钮:', item.id);
+                    
+                    // 关闭其他所有下拉菜单
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.classList.remove('show');
+                    });
+                    
+                    // 显示当前下拉菜单
+                    dropdown.classList.add('show');
+                    console.log('显示收藏下拉菜单:', dropdown);
+                });
+                
+                // 为重命名菜单项添加点击事件
+                renameItem.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('点击收藏重命名:', item.id);
+                    renameConversation(item.id);
+                    dropdown.classList.remove('show');
+                });
+                
+                // 为删除菜单项添加点击事件
+                deleteItem.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('点击收藏删除:', item.id);
+                    deleteConversation(item.id);
+                    dropdown.classList.remove('show');
+                });
+            });
+            
+            console.log('渲染完成后favorites-submenu.innerHTML:', submenu.innerHTML);
         }
         
         // 渲染历史对话二级菜单
@@ -1987,13 +2272,111 @@
                 return;
             }
             console.log('historyItems内容:', historyItems);
-            const renderedItems = historyItems.map(item => `
-                <div class="sidebar-submenu-item" data-id="${item.id}" data-type="history">
-                    ${escapeHtml(item.firstQuestion)}
-                </div>
-            `).join('');
-            console.log('渲染的历史对话项:', renderedItems);
-            submenu.innerHTML = renderedItems;
+            
+            // 清空子菜单
+            submenu.innerHTML = '';
+            
+            // 为每个历史项创建DOM元素
+            historyItems.forEach(item => {
+                console.log('创建历史项:', item.id);
+                
+                // 创建历史项容器
+                const historyItem = document.createElement('div');
+                historyItem.className = 'sidebar-submenu-item';
+                historyItem.setAttribute('data-id', item.id);
+                historyItem.setAttribute('data-type', 'history');
+                
+                // 创建内容区域
+                const content = document.createElement('div');
+                content.className = 'sidebar-submenu-item-content';
+                content.textContent = item.firstQuestion;
+                historyItem.appendChild(content);
+                
+                // 创建操作区域
+                const actions = document.createElement('div');
+                actions.className = 'sidebar-submenu-item-actions';
+                
+                // 创建更多按钮
+                const moreBtn = document.createElement('div');
+                moreBtn.className = 'more-btn';
+                moreBtn.setAttribute('data-id', item.id);
+                moreBtn.innerHTML = '<i class="fas fa-ellipsis-v"></i>';
+                actions.appendChild(moreBtn);
+                
+                // 创建下拉菜单
+                const dropdown = document.createElement('div');
+                dropdown.className = 'dropdown-menu';
+                dropdown.setAttribute('data-id', item.id);
+                
+                // 创建收藏菜单项
+                const favoriteItem = document.createElement('div');
+                favoriteItem.className = 'dropdown-item favorite-item';
+                favoriteItem.setAttribute('data-id', item.id);
+                favoriteItem.innerHTML = '<i class="fas fa-star"></i><span>收藏</span>';
+                dropdown.appendChild(favoriteItem);
+                
+                // 创建重命名菜单项
+                const renameItem = document.createElement('div');
+                renameItem.className = 'dropdown-item rename-item';
+                renameItem.setAttribute('data-id', item.id);
+                renameItem.innerHTML = '<i class="fas fa-edit"></i><span>重命名</span>';
+                dropdown.appendChild(renameItem);
+                
+                // 创建删除菜单项
+                const deleteItem = document.createElement('div');
+                deleteItem.className = 'dropdown-item delete-item';
+                deleteItem.setAttribute('data-id', item.id);
+                deleteItem.innerHTML = '<i class="fas fa-trash"></i><span>删除</span>';
+                dropdown.appendChild(deleteItem);
+                
+                actions.appendChild(dropdown);
+                historyItem.appendChild(actions);
+                submenu.appendChild(historyItem);
+                
+                // 为更多按钮添加点击事件
+                moreBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('点击更多按钮:', item.id);
+                    
+                    // 关闭其他所有下拉菜单
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.classList.remove('show');
+                    });
+                    
+                    // 显示当前下拉菜单
+                    dropdown.classList.add('show');
+                    console.log('显示下拉菜单:', dropdown);
+                });
+                
+                // 为收藏菜单项添加点击事件
+                favoriteItem.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('点击收藏:', item.id);
+                    favoriteConversation(item.id);
+                    dropdown.classList.remove('show');
+                });
+                
+                // 为重命名菜单项添加点击事件
+                renameItem.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('点击重命名:', item.id);
+                    renameConversation(item.id);
+                    dropdown.classList.remove('show');
+                });
+                
+                // 为删除菜单项添加点击事件
+                deleteItem.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('点击删除:', item.id);
+                    deleteConversation(item.id);
+                    dropdown.classList.remove('show');
+                });
+            });
+            
             console.log('渲染完成后submenu.innerHTML:', submenu.innerHTML);
         }
 
@@ -2447,10 +2830,20 @@
             console.log('历史对话元素获取失败');
         }
         
+        // 内联事件处理，无需手动绑定
+        
         // 使用事件委托处理二级菜单项点击
         const sidebar = document.querySelector('.sidebar');
         if (sidebar) {
             sidebar.addEventListener('click', function(e) {
+                // 检查是否点击了更多按钮或下拉菜单项
+                const moreBtn = e.target.closest('.more-btn');
+                const dropdownItem = e.target.closest('.dropdown-item');
+                if (moreBtn || dropdownItem) {
+                    // 不执行任何操作，让事件冒泡到对应的监听器
+                    return;
+                }
+                
                 const submenuItem = e.target.closest('.sidebar-submenu-item');
                 if (submenuItem) {
                     e.preventDefault();
@@ -2539,6 +2932,148 @@
                     handleAIResponse(message, currentSkill);
                 });
             });
+        }
+        
+        // 绑定更多按钮事件
+        function bindMoreButtons() {
+            console.log('开始绑定更多按钮事件');
+            const moreButtons = document.querySelectorAll('.more-btn');
+            console.log('找到的更多按钮数量:', moreButtons.length);
+            
+            // 为每个更多按钮添加点击事件
+            moreButtons.forEach(button => {
+                console.log('绑定按钮事件:', button);
+                
+                // 移除旧的事件监听器
+                const newButton = button.cloneNode(true);
+                button.parentNode.replaceChild(newButton, button);
+                
+                // 添加新的事件监听器
+                newButton.addEventListener('click', function(e) {
+                    console.log('点击更多按钮:', this);
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const id = this.getAttribute('data-id');
+                    console.log('按钮ID:', id);
+                    const dropdown = document.querySelector(`.dropdown-menu[data-id="${id}"]`);
+                    console.log('找到的下拉菜单:', dropdown);
+                    
+                    // 关闭其他所有下拉菜单
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        if (menu.getAttribute('data-id') !== id) {
+                            menu.classList.remove('show');
+                        }
+                    });
+                    
+                    // 切换当前下拉菜单
+                    if (dropdown) {
+                        console.log('切换下拉菜单显示状态');
+                        dropdown.classList.toggle('show');
+                        console.log('切换后状态:', dropdown.classList.contains('show'));
+                    }
+                });
+            });
+            
+            // 为每个下拉菜单项添加点击事件
+            const dropdownItems = document.querySelectorAll('.dropdown-item');
+            console.log('找到的下拉菜单项数量:', dropdownItems.length);
+            dropdownItems.forEach(item => {
+                console.log('绑定菜单项事件:', item);
+                
+                // 移除旧的事件监听器
+                const newItem = item.cloneNode(true);
+                item.parentNode.replaceChild(newItem, item);
+                
+                // 添加新的事件监听器
+                newItem.addEventListener('click', function(e) {
+                    console.log('点击下拉菜单项:', this);
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const id = parseInt(this.getAttribute('data-id'));
+                    console.log('菜单项ID:', id);
+                    const action = this.classList.contains('favorite-item') ? 'favorite' : 
+                                  this.classList.contains('rename-item') ? 'rename' : 'delete';
+                    console.log('执行操作:', action);
+                    
+                    // 关闭下拉菜单
+                    const dropdown = this.closest('.dropdown-menu');
+                    if (dropdown) {
+                        dropdown.classList.remove('show');
+                    }
+                    
+                    // 执行相应操作
+                    switch(action) {
+                        case 'favorite':
+                            favoriteConversation(id);
+                            break;
+                        case 'rename':
+                            renameConversation(id);
+                            break;
+                        case 'delete':
+                            deleteConversation(id);
+                            break;
+                    }
+                });
+            });
+        }
+        
+        // 收藏对话
+        function favoriteConversation(id) {
+            const conversation = historyItems.find(item => item.id === id);
+            if (!conversation) return;
+            
+            // 检查是否已收藏
+            const existingIndex = favoriteItems.findIndex(item => item.id === id);
+            if (existingIndex !== -1) {
+                alert('该对话已收藏');
+                return;
+            }
+            
+            // 添加到收藏
+            favoriteItems.unshift({
+                id: conversation.id,
+                firstQuestion: conversation.firstQuestion,
+                messages: [...conversation.messages],
+                createdAt: conversation.createdAt
+            });
+            
+            // 更新收藏列表
+            renderFavoritesSubmenu();
+            alert('收藏成功');
+        }
+        
+        // 重命名对话
+        function renameConversation(id) {
+            const conversation = historyItems.find(item => item.id === id);
+            if (!conversation) return;
+            
+            const newName = prompt('请输入新的对话名称:', conversation.firstQuestion);
+            if (newName && newName.trim()) {
+                conversation.firstQuestion = newName.trim();
+                renderHistorySubmenu();
+                alert('重命名成功');
+            }
+        }
+        
+        // 删除对话
+        function deleteConversation(id) {
+            if (confirm('确定要删除此对话吗？')) {
+                // 从历史对话中删除
+                const historyIndex = historyItems.findIndex(item => item.id === id);
+                if (historyIndex !== -1) {
+                    historyItems.splice(historyIndex, 1);
+                    renderHistorySubmenu();
+                }
+                
+                // 从收藏中删除
+                const favoriteIndex = favoriteItems.findIndex(item => item.id === id);
+                if (favoriteIndex !== -1) {
+                    favoriteItems.splice(favoriteIndex, 1);
+                    renderFavoritesSubmenu();
+                }
+                
+                alert('删除成功');
+            }
         }
         
         // 初始绑定
