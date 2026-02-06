@@ -96,6 +96,34 @@
       background: rgba(45, 135, 75, 0.2);
       transform: scale(1.1);
     }
+
+    /* 面包屑样式 */
+    .breadcrumb {
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .breadcrumb a {
+      color: #2D874B;
+      text-decoration: none;
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    /* 搜索框样式优化 */
+    #search-input {
+      transition: all 0.2s ease;
+      border: none;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    
+    #search-input:focus {
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 4px 16px rgba(45, 135, 75, 0.15);
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -103,31 +131,235 @@
 <!-- 顶部导航 -->
 <header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
-    <div class="flex items-center justify-between h-14">
-      <!-- 左侧：返回资源中心 -->
-      <div class="flex items-center space-x-3">
-        <a href="index.html" class="flex items-center space-x-2 group">
-          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center group-hover:border-[#2D874B]">
-            <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
-          </button>
-          <div class="hidden sm:block">
-            <div class="text-[11px] uppercase tracking-widest text-gray-600">HIECO</div>
-            <div class="text-sm font-semibold group-hover:text-[#2D874B] text-[#2D874B]">
-              资源中心 · 技术文档库
-            </div>
-          </div>
+    <div class="flex items-center justify-between h-16">
+      <!-- LOGO + 品牌 -->
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+          <img src="images/logo2.png" alt="HIECO Logo" class="h-32 w-32 object-contain">
         </a>
+        <div>
+          <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200">光合技术支持平台</div>
+          </a>
+        </div>
       </div>
 
-      <!-- 中间：标题 -->
-      <!--div class="hidden md:flex flex-col items-center">
-        <span class="text-[11px] text-gray-400">资源中心</span>
-        <span class="text-sm font-medium line-clamp-1 max-w-xs text-white">
-          技术文档库
-        </span>
-      </div-->
+      <!-- 导航入口（桌面端） -->
+      <nav class="hidden md:flex items-center space-x-3 text-sm">
+        <!-- 专家 - 无下拉 -->
+        <a href="expert-center.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">
+          专家
+        </a>
 
-      <!-- 右侧：资源中心其他入口 -->
+        <!-- 培训 - 带下拉浮窗（合并培训、考试、认证、讲师） -->
+        <div class="nav-dropdown relative group">
+          <span class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer">
+            培训
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
+          </span>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-96 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="grid grid-cols-2 gap-4">
+                <!-- 左侧：二级菜单 -->
+                <div class="space-y-3">
+                  <!-- 课程（原培训） -->
+                  <div class="nav-item group/item relative">
+                    <a href="course-list2.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between">
+                      课程
+                      <i class="fa fa-chevron-right text-xs opacity-0 group-hover/item:opacity-100"></i>
+                    </a>
+                    <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
+                      <div class="p-3">
+                        <h4 class="text-sm font-semibold text-gray-800 mb-2">课程分类</h4>
+                        <div class="grid grid-cols-2 gap-2">
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">云基础设施</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">AI与数据智能</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">解决方案</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">安全技术</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">运维管理</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">开发技术</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- 考试 -->
+                  <div class="nav-item group/item relative">
+                    <a href="exam-list.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between">
+                      考试
+                      <i class="fa fa-chevron-right text-xs opacity-0 group-hover/item:opacity-100"></i>
+                    </a>
+                    <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
+                      <div class="p-3">
+                        <h4 class="text-sm font-semibold text-gray-800 mb-2">考试分类</h4>
+                        <div class="grid grid-cols-2 gap-2">
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">资格认证考试</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">技能水平考试</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">岗位能力考试</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">产品认证考试</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">在线考试</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">线下考试</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- 认证 -->
+                  <div class="nav-item group/item relative">
+                    <a href="certification.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between">
+                      认证
+                      <i class="fa fa-chevron-right text-xs opacity-0 group-hover/item:opacity-100"></i>
+                    </a>
+                    <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
+                      <div class="p-3">
+                        <h4 class="text-sm font-semibold text-gray-800 mb-2">认证分类</h4>
+                        <div class="grid grid-cols-2 gap-2">
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">通用计算认证</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">智能计算认证</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">行业解决方案认证</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">专业技术认证</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">初级认证</a>
+                          <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">高级认证</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- 讲师 -->
+                  <a href="lecturer-list.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] block">
+                    讲师
+                  </a>
+                </div>
+                
+                <!-- 右侧：快速入口 -->
+                <div class="space-y-3">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">快速入口</h3>
+                  <div class="space-y-2">
+                    <a href="personal-center.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
+                      <i class="fa fa-user text-[#2D874B] text-xs"></i>
+                      个人中心
+                    </a>
+                    <a href="task-detail.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
+                      <i class="fa fa-tasks text-[#2D874B] text-xs"></i>
+                      我的任务
+                    </a>
+                    <a href="course-learning.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
+                      <i class="fa fa-book text-[#2D874B] text-xs"></i>
+                      继续学习
+                    </a>
+                    <a href="certification.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
+                      <i class="fa fa-certificate text-[#2D874B] text-xs"></i>
+                      我的证书
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 直播 - 带下拉浮窗 -->
+        <div class="nav-dropdown relative group">
+          <a href="live-list.html" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1">
+            直播
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
+          </a>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">直播状态</h3>
+                  <div class="space-y-1">
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">未开始</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">直播中</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">已结束</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">可预约</a>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <h3 class="text-sm font-semibold text-gray-800 mb-2">直播类型</h3>
+                  <div class="space-y-1">
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">技术分享</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">产品发布</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">案例解析</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1">专家访谈</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 其他导航项（无下拉） -->
+        <a href="#" class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800">论坛</a>
+        <a href="resource-center.html" class="px-3 py-1.5 rounded-full bg-[#2D874B] text-white transition">资源</a>
+        
+        <!-- 资讯 - 带下拉浮窗（合并资讯、活动） -->
+        <div class="nav-dropdown relative group">
+          <span class="px-3 py-1.5 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer">
+            资讯
+            <i class="fa fa-chevron-down text-xs text-gray-500"></i>
+          </span>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="space-y-3">
+                <!-- 资讯 -->
+                <a href="news-announcement-list.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-newspaper mr-3 text-[#2D874B]"></i>
+                  <span>资讯</span>
+                </a>
+                
+                <!-- 活动 -->
+                <a href="activity-list.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-calendar-alt mr-3 text-[#2D874B]"></i>
+                  <span>活动</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- 右侧功能区 -->
+      <div class="flex items-center space-x-3">
+        <!-- 搜索图标（桌面端） -->
+        <div class="relative">
+          <button class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <i class="fa fa-search text-sm"></i>
+          </button>
+        </div>
+        
+        <!-- 用户头像 -->
+        <div class="relative">
+          <a href="personal-center.html" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <i class="fa fa-user"></i>
+          </a>
+        </div>
+        
+        <!-- 移动端菜单按钮 -->
+        <button class="md:hidden h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+          <i class="fa fa-bars text-sm"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16 lg:pt-20 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6 space-y-6">
+
+    <!-- 面包屑 -->
+    <div class="breadcrumb mb-8 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <button onclick="window.history.back()" class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center hover:border-[#2D874B] transition">
+          <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
+        </button>
+        <a href="index.html">首页</a>
+        <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+        <a href="resource-center.html">资源</a>
+        <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+        <span class="text-gray-900 font-medium">技术文档库</span>
+      </div>
       <div class="flex items-center space-x-2 text-xs">
         <a href="tech-tool-library.html"
            class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
@@ -139,11 +371,6 @@
         </a>
       </div>
     </div>
-  </div>
-</header>
-
-<main class="pt-16 lg:pt-20 pb-10">
-  <section class="max-w-7xl mx-auto px-4 lg:px-6 space-y-6">
 
     <!-- 顶部说明 -->
     <div class="glass-card rounded-3xl border border-gray-300 p-4 md:p-6">
@@ -165,83 +392,73 @@
     </div>
 
     <!-- 筛选和文档列表 -->
-    <div class="flex flex-col lg:flex-row gap-6">
-      <!-- 左侧筛选侧边栏 -->
-      <aside class="w-full lg:w-64 flex-shrink-0">
-        <div class="glass-card rounded-2xl p-5">
-          <h3 class="text-lg font-semibold text-gray-800 mb-5">文档分类</h3>
-          
-          <!-- 分类筛选 -->
-          <div id="filter-tree" class="space-y-2">
-            <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors">
-              <input type="checkbox" class="category-filter-checkbox" value="基础知识">
-              <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">基础知识</span>
-            </label>
-            <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors">
-              <input type="checkbox" class="category-filter-checkbox" value="虚拟化">
-              <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">虚拟化</span>
-            </label>
-            <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors">
-              <input type="checkbox" class="category-filter-checkbox" value="数据库">
-              <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">数据库</span>
-            </label>
-            <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors">
-              <input type="checkbox" class="category-filter-checkbox" value="大数据">
-              <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">大数据</span>
-            </label>
-            <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors">
-              <input type="checkbox" class="category-filter-checkbox" value="分布式存储">
-              <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">分布式存储</span>
-            </label>
-            <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors">
-              <input type="checkbox" class="category-filter-checkbox" value="人工智能">
-              <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">人工智能</span>
-            </label>
-            <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors">
-              <input type="checkbox" class="category-filter-checkbox" value="高端计算">
-              <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">高端计算</span>
-            </label>
-            <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors">
-              <input type="checkbox" class="category-filter-checkbox" value="常见问题">
-              <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">常见问题</span>
-            </label>
-          </div>
+    <div class="space-y-6">
+      <!-- 文档分类标签 -->
+      <div class="glass-card rounded-2xl p-4">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">文档列表</h3>
+        <!-- 分类筛选标签 -->
+        <div id="filter-tags" class="flex flex-wrap gap-2">
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="">
+            全部
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="基础知识">
+            基础知识
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="虚拟化">
+            虚拟化
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="数据库">
+            数据库
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="大数据">
+            大数据
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="分布式存储">
+            分布式存储
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="人工智能">
+            人工智能
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="高端计算">
+            高端计算
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="常见问题">
+            常见问题
+          </button>
         </div>
-      </aside>
-
-      <!-- 右侧文档列表 -->
-      <div class="flex-1 min-w-0">
-        <!-- 顶部排序和已选中的分类标签 -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
-          <!-- 排序选项 -->
-          <div class="flex items-center gap-2 flex-wrap">
-            <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="comprehensive">
-              综合排序
-            </button>
-            <button class="sort-btn px-4 py-2 rounded-full transition text-sm flex items-center gap-1.5" data-sort="latest">
-              最新
-              <i class="fa fa-chevron-down text-[10px] opacity-60"></i>
-            </button>
-            <button class="sort-btn px-4 py-2 rounded-full transition text-sm flex items-center gap-1.5" data-sort="hottest">
-              最热
-              <i class="fa fa-chevron-down text-[10px] opacity-60"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- 已选中的分类标签 -->
-        <div id="selected-category-container" class="flex flex-wrap items-center gap-2 mb-4">
-          <!-- JS 动态渲染标签 -->
-        </div>
-
-        <!-- 文档列表 -->
-        <section>
-          <div id="doc-grid"
-               class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            <!-- JS 注入卡片 -->
-          </div>
-        </section>
       </div>
+
+      <!-- 顶部排序和搜索 -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div class="flex items-center gap-2 flex-wrap">
+          <!-- 排序选项 -->
+          <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="comprehensive">
+            综合排序
+          </button>
+          <button class="sort-btn px-4 py-2 rounded-full transition text-sm flex items-center gap-1.5" data-sort="latest">
+            最新
+            <i class="fa fa-chevron-down text-[10px] opacity-60"></i>
+          </button>
+          <button class="sort-btn px-4 py-2 rounded-full transition text-sm flex items-center gap-1.5" data-sort="hottest">
+            最热
+            <i class="fa fa-chevron-down text-[10px] opacity-60"></i>
+          </button>
+        </div>
+
+        <!-- 搜索框 -->
+        <div class="relative flex-shrink-0">
+          <i class="fa fa-search text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2 text-sm"></i>
+          <input id="search-input" type="text" placeholder="搜索..." class="w-full sm:w-72 rounded-full pl-10 pr-4 py-2.5 text-sm placeholder:text-gray-400 focus:outline-none transition-all" />
+        </div>
+      </div>
+
+      <!-- 文档列表 -->
+      <section>
+        <div id="doc-grid"
+             class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <!-- JS 注入卡片 -->
+        </div>
+      </section>
     </div>
 
   </section>
@@ -470,54 +687,30 @@
 
   const grid = document.getElementById('doc-grid');
   const countEl = document.getElementById('doc-count');
-  const selectedCategoryContainer = document.getElementById('selected-category-container');
-  const categoryCheckboxes = document.querySelectorAll('.category-filter-checkbox');
+  const categoryTags = document.querySelectorAll('.category-tag');
   const sortButtons = document.querySelectorAll('.sort-btn');
+  const searchInput = document.getElementById('search-input');
 
-  let selectedCategories = []; // 改为数组，支持多选
+  let selectedCategory = ''; // 改为单选，使用字符串
   let filteredDocuments = [...documents];
   let currentSort = 'comprehensive'; // 当前排序方式
-
-  // 更新已选中的分类标签
-  function updateSelectedCategoryTags() {
-    if (!selectedCategoryContainer) return;
-    
-    selectedCategoryContainer.innerHTML = '';
-    
-    // 显示所有选中的分类标签
-    selectedCategories.forEach(category => {
-      const tag = document.createElement('div');
-      tag.className = 'filter-tag';
-      tag.innerHTML = `
-        <span>${category}</span>
-        <i class="fa fa-times filter-tag-close text-xs" data-category="${category}"></i>
-      `;
-      selectedCategoryContainer.appendChild(tag);
-      
-      // 绑定清除按钮事件
-      tag.querySelector('.filter-tag-close').addEventListener('click', (e) => {
-        e.stopPropagation();
-        const categoryToRemove = e.currentTarget.dataset.category;
-        // 取消对应的复选框
-        const checkbox = document.querySelector(`.category-filter-checkbox[value="${categoryToRemove}"]`);
-        if (checkbox) {
-          checkbox.checked = false;
-        }
-        // 从选中列表中移除
-        selectedCategories = selectedCategories.filter(cat => cat !== categoryToRemove);
-        updateSelectedCategoryTags();
-        applyFiltersAndSort();
-      });
-    });
-  }
+  let searchKeyword = ''; // 搜索关键词
 
   // 应用筛选和排序
   function applyFiltersAndSort() {
     // 分类筛选
-    if (selectedCategories.length === 0) {
+    if (selectedCategory === '') {
       filteredDocuments = [...documents];
     } else {
-      filteredDocuments = documents.filter(doc => selectedCategories.includes(doc.docCategory));
+      filteredDocuments = documents.filter(doc => doc.docCategory === selectedCategory);
+    }
+    
+    // 搜索筛选
+    if (searchKeyword) {
+      filteredDocuments = filteredDocuments.filter(doc => 
+        doc.title.toLowerCase().includes(searchKeyword.toLowerCase()) || 
+        doc.desc.toLowerCase().includes(searchKeyword.toLowerCase())
+      );
     }
     
     // 排序
@@ -559,15 +752,25 @@
     const card = document.createElement('article');
     card.className = "glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#B01F24]/80 transition cursor-pointer";
 
+    // 将文档类型映射到分类标签文案
+    const categoryMap = {
+      "白皮书": "基础知识",
+      "手册": "虚拟化",
+      "指南": "数据库",
+      "培训资料": "大数据"
+    };
+
+    const tagText = categoryMap[doc.type] || doc.docCategory || "全部";
+
     const typeClass =
-      doc.type === "白皮书" ? "doc-type-whitepaper" :
-      doc.type === "手册"    ? "doc-type-manual" :
-      doc.type === "指南"    ? "doc-type-guide" :
+      tagText === "基础知识" ? "doc-type-whitepaper" :
+      tagText === "虚拟化"    ? "doc-type-manual" :
+      tagText === "数据库"    ? "doc-type-guide" :
                                "doc-type-training";
 
     const typeTag = `
       <span class="inline-flex items-center px-2 py-0.5 rounded-full border ${typeClass} text-[10px]">
-        <i class="fa fa-file-contract mr-1 text-[9px]"></i>${doc.type}
+        <i class="fa fa-file-contract mr-1 text-[9px]"></i>${tagText}
       </span>`;
 
     const dateObj = new Date(doc.createdAt);
@@ -575,8 +778,14 @@
       year: 'numeric', month: '2-digit', day: '2-digit'
     });
 
+    // 模拟浏览量数据
+    const viewCount = doc.viewCount || Math.floor(Math.random() * 10000) + 1000;
+
     card.innerHTML = `
       <div class="flex flex-col h-full">
+        <div class="mb-3 rounded-xl overflow-hidden">
+          <img src="images/tool-detail-bg.png" alt="${doc.title}" class="w-full h-32 object-cover">
+        </div>
         <div class="flex items-center justify-between mb-2">
           <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800">${doc.title}</h3>
           ${typeTag}
@@ -584,20 +793,9 @@
         <p class="text-xs text-gray-600 line-clamp-3">
           ${doc.desc}
         </p>
-        <div class="mt-2 flex flex-wrap gap-1 text-[11px] text-gray-400">
+        <div class="mt-2 flex items-center justify-between text-[11px] text-gray-400">
           <span><i class="fa fa-calendar mr-1 text-[10px]"></i>${formattedDate}</span>
-          <span><i class="fa fa-folder-open mr-1 text-[10px]"></i>${doc.category}</span>
-        </div>
-        <div class="mt-auto flex gap-2 pt-2">
-          <button
-            class="flex-1 py-2 rounded-full bg-white border border-gray-300 hover:bg-gray-100 text-xs text-gray-800"
-            data-preview="${doc.previewUrl}">
-            <i class="fa fa-file text-[11px]"></i> 在线预览
-          </button>
-          <a href="${doc.downloadUrl}" target="_blank"
-             class="flex-1 py-2 rounded-full bg-[#2D874B] text-white text-xs font-medium hover:opacity-90 text-center">
-            <i class="fa fa-download text-[11px]"></i> 下载
-          </a>
+          <span><i class="fa fa-eye mr-1 text-[10px]"></i>${viewCount}</span>
         </div>
       </div>
     `;
@@ -607,38 +805,20 @@
       window.location.href = `doc-detail.html?id=${doc.id}`;
     });
 
-    // 预览按钮事件：新标签页打开 PDF（实际可替换为内嵌预览）
-    const previewButton = card.querySelector('button[data-preview]');
-    previewButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const url = e.currentTarget.dataset.preview;
-      if (!url) return;
-      window.open(url, '_blank');
-    });
-
-    // 下载链接事件：阻止冒泡，确保点击下载时不触发卡片跳转
-    const downloadLink = card.querySelector('a[href]');
-    downloadLink.addEventListener('click', (e) => {
-      e.stopPropagation();
-    });
-
     grid.appendChild(card);
     });
   }
 
-  // 分类筛选事件绑定（多选）
-  categoryCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', () => {
-      if (checkbox.checked) {
-        // 选中时，添加到选中列表
-        if (!selectedCategories.includes(checkbox.value)) {
-          selectedCategories.push(checkbox.value);
-        }
-      } else {
-        // 取消选中时，从选中列表移除
-        selectedCategories = selectedCategories.filter(cat => cat !== checkbox.value);
-      }
-      updateSelectedCategoryTags();
+  // 分类标签点击事件绑定
+  categoryTags.forEach(tag => {
+    tag.addEventListener('click', function() {
+      // 移除所有标签的选中状态
+      categoryTags.forEach(t => t.classList.remove('active', 'border-[#2D874B]', 'bg-[#2D874B]/10'));
+      // 添加当前标签的选中状态
+      this.classList.add('active', 'border-[#2D874B]', 'bg-[#2D874B]/10');
+      // 更新选中的分类
+      selectedCategory = this.dataset.category;
+      // 应用筛选和排序
       applyFiltersAndSort();
     });
   });
@@ -653,14 +833,27 @@
     });
   });
 
-  // 初始化：默认激活「综合排序」
+  // 搜索框事件绑定
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      searchKeyword = this.value.trim();
+      applyFiltersAndSort();
+    });
+  }
+
+  // 初始化：默认激活「综合排序」和「全部」分类
   sortButtons.forEach(btn => {
     if (btn.dataset.sort === 'comprehensive') {
       btn.classList.add('active');
     }
   });
   
-  updateSelectedCategoryTags();
+  categoryTags.forEach(tag => {
+    if (tag.dataset.category === '') {
+      tag.classList.add('active', 'border-[#2D874B]', 'bg-[#2D874B]/10');
+    }
+  });
+  
   applyFiltersAndSort();
 </script>
 
