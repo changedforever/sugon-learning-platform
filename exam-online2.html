@@ -366,6 +366,10 @@
         <!-- 顶部操作区：交卷 -->
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
           <div class="flex items-center gap-2 text-xs">
+            <button id="start-btn"
+                    class="px-4 py-2 rounded-full bg-rose-500 text-white font-medium hover:bg-rose-600 disabled:opacity-40 disabled:cursor-not-allowed">
+              开始考试
+            </button>
             <button id="submit-btn"
                     class="px-4 py-2 rounded-full bg-rose-500 text-white font-medium hover:bg-rose-600 disabled:opacity-40 disabled:cursor-not-allowed">
               交卷
@@ -557,6 +561,7 @@
   const overallProgressTextEl = document.getElementById('overall-progress-text');
   const overallProgressBarEl = document.getElementById('overall-progress-bar');
   const submitBtn = document.getElementById('submit-btn');
+  const startBtn = document.getElementById('start-btn');
   const autoNextToggle = document.getElementById('auto-next-toggle');
   const autoNextThumb = document.getElementById('auto-next-thumb');
   const flagBtn = document.getElementById('flag-btn');
@@ -581,12 +586,20 @@
   renderNav();
   updateStats();
   
+  // 默认隐藏题目区域
+  questionArea.classList.add('hidden');
+  
   // 显示考生须知弹窗
   const noticeModal = document.getElementById('notice-modal');
   const noticeConfirmBtn = document.getElementById('notice-confirm');
   const noticeCancelBtn = document.getElementById('notice-cancel');
   
-  noticeModal.classList.remove('hidden');
+  // 默认隐藏弹窗
+  noticeModal.classList.add('hidden');
+  
+  // 初始化按钮状态
+  startBtn.disabled = false;
+  submitBtn.disabled = true;
   
   // 点击"我已知晓"后开始考试
   noticeConfirmBtn.addEventListener('click', () => {
@@ -595,6 +608,7 @@
     // 开始考试
     started = true;
     finished = false;
+    startBtn.disabled = true;
     submitBtn.disabled = false;
     currentIndex = 0;
     renderQuestion();
@@ -602,9 +616,15 @@
     startTimer();
   });
   
-  // 点击"取消"后返回上一页
+  // 点击"开始考试"按钮后显示弹窗
+  startBtn.addEventListener('click', () => {
+    if (started || finished) return;
+    noticeModal.classList.remove('hidden');
+  });
+  
+  // 点击"取消"后关闭弹窗
   noticeCancelBtn.addEventListener('click', () => {
-    window.history.back();
+    noticeModal.classList.add('hidden');
   });
 
   // ===================== 目录渲染 =====================
@@ -786,6 +806,7 @@
     started = false;
     clearInterval(timerId);
     submitBtn.disabled = true;
+    startBtn.disabled = true;
 
     // 禁用操作
     prevBtn.disabled = true;

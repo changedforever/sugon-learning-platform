@@ -636,6 +636,81 @@
               </div>
             </div>
           </div>
+
+          <!-- 代码专用筛选选项 -->
+          <div id="code-filter" class="space-y-1 mt-6 hidden">
+            <!-- 语言 -->
+            <div class="filter-category">
+              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="language">
+                <label class="flex items-center cursor-pointer group py-2 flex-1">
+                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">语言</span>
+                </label>
+              </div>
+              <!-- 语言选项 -->
+              <div class="mt-1 ml-8 space-y-1.5 category-children">
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="python" value="python">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Python</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="cpp" value="cpp">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">C++</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="c" value="c">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">C</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="verilog" value="verilog">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Verilog</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="java" value="java">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Java</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="javascript" value="javascript">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">JavaScript</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="shell" value="shell">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Shell</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="html" value="html">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">HTML</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="csharp" value="csharp">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">C#</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="vhdl" value="vhdl">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">VHDL</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- 归档 -->
+            <div class="filter-category">
+              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="archived">
+                <label class="flex items-center cursor-pointer group py-2 flex-1">
+                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">归档</span>
+                </label>
+              </div>
+              <!-- 归档选项 -->
+              <div class="mt-1 ml-8 space-y-1.5 category-children">
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="public" value="public">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Public</span>
+                </label>
+                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" class="filter-checkbox" data-category="private" value="private">
+                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Private</span>
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
       </aside>
 
@@ -890,21 +965,71 @@
     // 代码资源
     {
       id: 16,
-      name: "微服务脚手架",
-      desc: "基于 Spring Boot 和 Kubernetes 的微服务快速开发脚手架，包含完整的 CI/CD 配置。",
+      name: "jsarizk/cpuminer",
+      desc: "CPU miner for bitcoin",
       type: "software",
-      os: ["Windows", "Linux", "macOS"],
+      os: ["Linux", "macOS"],
       category: "code",
+      tags: ["bitcoin", "mining"],
+      language: "C",
+      stars: "1k",
+      updateTime: "2022年7月2日",
       downloadUrl: "#",
       onlineUrl: ""
     },
     {
       id: 17,
-      name: "云原生监控插件",
-      desc: "用于 Prometheus 和 Grafana 的云原生环境监控插件，提供丰富的dashboard模板。",
+      name: "pooler/cpuminer",
+      desc: "CPU miner for Litecoin and Bitcoin",
+      type: "software",
+      os: ["Linux", "macOS"],
+      category: "code",
+      tags: ["litecoin", "bitcoin", "mining"],
+      language: "Assembly",
+      stars: "3k",
+      updateTime: "2023年4月6日",
+      downloadUrl: "#",
+      onlineUrl: ""
+    },
+    {
+      id: 18,
+      name: "lucasjones/cpuminer-multi",
+      desc: "Multi-algo CPUMiner & Reference Cryptonote Miner (JSON-RPC 2.0)",
+      type: "software",
+      os: ["Linux", "macOS"],
+      category: "code",
+      tags: ["bitcoin", "cryptocurrency", "monero"],
+      language: "C",
+      stars: "661",
+      updateTime: "2022年6月21日",
+      downloadUrl: "#",
+      onlineUrl: ""
+    },
+    {
+      id: 19,
+      name: "AdnanHodzic/auto-cpufreq",
+      desc: "Automatic CPU speed & power optimizer for Linux",
       type: "software",
       os: ["Linux"],
       category: "code",
+      tags: ["linux", "cli", "frequency", "cpu", "monitor"],
+      language: "Python",
+      stars: "7.3k",
+      updateTime: "Updated on days ago",
+      downloadUrl: "#",
+      onlineUrl: ""
+    },
+    {
+      id: 20,
+      name: "InkboxSoftware/excelCPU",
+      desc: "16-bit CPU for Excel, and related files",
+      type: "software",
+      os: ["Windows"],
+      category: "code",
+      tags: ["excel", "cpu"],
+      language: "Unknown",
+      stars: "0",
+      updateTime: "Unknown",
       downloadUrl: "#",
       onlineUrl: ""
     },
@@ -924,7 +1049,7 @@
       onlineUrl: ""
     },
     {
-      id: 18,
+      id: 24,
       name: "DeepSeek-OCR",
       desc: "DeepSeek-OCR是一个视觉文本压缩工具，利用Huggingface transformers和NVIDIA GPU进行推理，支持多种压缩模式，可应用于文档扫描等场景。",
       type: "software",
@@ -939,7 +1064,7 @@
       onlineUrl: ""
     },
     {
-      id: 19,
+      id: 25,
       name: "Qwen-Image",
       desc: "Qwen-Image是一个在复杂文本渲染和精细图像编辑方面取得显著进展的图像生成基础模型。它具有强大的图像生成和编辑能力，特别在文本渲染方面表现出色，支持多种语言风格，适用于艺术家、设计师和普通用户。",
       type: "software",
@@ -954,7 +1079,7 @@
       onlineUrl: ""
     },
     {
-      id: 20,
+      id: 26,
       name: "GPT-3.5-Turbo",
       desc: "OpenAI的GPT-3.5-Turbo是一个先进的大型语言模型，支持多种自然语言处理任务，包括文本生成、问答、摘要等。",
       type: "software",
@@ -969,7 +1094,7 @@
       onlineUrl: ""
     },
     {
-      id: 21,
+      id: 27,
       name: "Stable Diffusion XL",
       desc: "Stable Diffusion XL是一个先进的文本到图像生成模型，能够创建高质量、详细的图像，支持多种风格和主题。",
       type: "software",
@@ -984,7 +1109,7 @@
       onlineUrl: ""
     },
     {
-      id: 22,
+      id: 28,
       name: "BERT-base-uncased",
       desc: "BERT-base-uncased是Google开发的预训练语言模型，广泛应用于各种自然语言处理任务，如文本分类、情感分析等。",
       type: "software",
@@ -1000,7 +1125,7 @@
     },
     // 镜像仓库
     {
-      id: 23,
+      id: 29,
       name: "vllm",
       desc: "vLLM是一个快速且易于使用的LLM推理服务库,使用PageAttention高效管理KV缓存,支持Continuous batching传入请求,支持很多Hugging Face模型,如LLaMA & LLaMA-2、Qwen、ChatGLM 2等...",
       type: "image",
@@ -1014,7 +1139,7 @@
       downloadUrl: "#"
     },
     {
-      id: 24,
+      id: 30,
       name: "dcu-label-node",
       desc: "DCU-Label-Node以容器的形式发布，并以 DaemonSet 的形式部署在 Kubernetes 集群上，该组件运行时，将检查节点上是否存在DCU，若节点存在DCU将自动创建节点标签来描述DCU信息",
       type: "image",
@@ -1028,7 +1153,7 @@
       downloadUrl: "#"
     },
     {
-      id: 25,
+      id: 31,
       name: "vscode-sginfer",
       desc: "VS Code 插件，用于代码智能分析和推理。",
       type: "image",
@@ -1042,7 +1167,7 @@
       downloadUrl: "#"
     },
     {
-      id: 26,
+      id: 32,
       name: "jupyter-wan2.1-comfyui",
       desc: "基于ComfyUI的wan2.1模型，可实现生图视频、图生视频",
       type: "image",
@@ -1056,7 +1181,7 @@
       downloadUrl: "#"
     },
     {
-      id: 27,
+      id: 33,
       name: "custom",
       desc: "自定义镜像，用于特殊场景的部署和测试。",
       type: "image",
@@ -1070,7 +1195,7 @@
       downloadUrl: "#"
     },
     {
-      id: 28,
+      id: 34,
       name: "sginfer",
       desc: "SG Infer 是一个高性能的推理服务框架，支持多种模型的部署和管理。",
       type: "image",
@@ -1084,7 +1209,7 @@
       downloadUrl: "#"
     },
     {
-      id: 29,
+      id: 35,
       name: "resnet34",
       desc: "基于该镜像创建的容器可 在容器实例-任务 模式下供预留的 resnet34 分布式训练环境",
       type: "image",
@@ -1098,7 +1223,7 @@
       downloadUrl: "#"
     },
     {
-      id: 30,
+      id: 36,
       name: "yolov3spp",
       desc: "基于该镜像创建的容器可 在容器实例-任务 模式下供预留的 yolov3spp 分布式训练环境",
       type: "image",
@@ -1112,7 +1237,7 @@
       downloadUrl: "#"
     },
     {
-      id: 31,
+      id: 37,
       name: "minigpt",
       desc: "基于该镜像创建的容器可 在容器实例-任务 模式下供预留的 MiniGPT 分布式训练环境。",
       type: "image",
@@ -1137,6 +1262,7 @@
   const softwareFilter = document.getElementById('software-filter');
   const modelFilter = document.getElementById('model-filter');
   const imageFilter = document.getElementById('image-filter');
+  const codeFilter = document.getElementById('code-filter');
 
   let filteredTools = [...tools];
   let currentFilter = 'all';
@@ -1144,6 +1270,8 @@
   let currentSearch = '';
   let currentAccelerator = '';
   let currentImageTypes = [];
+  let currentLanguages = [];
+  let currentArchived = [];
 
   // 分类名称映射
   const categoryNames = {
@@ -1324,6 +1452,60 @@
             });
           }
         }
+      } else if (currentFilter === 'code') {
+        // 代码卡片
+        // 先设置基本内容
+        card.innerHTML = `
+          <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800">${tool.name}</h3>
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-blue-100 text-blue-800">
+                ${tool.language || '未知'}
+              </span>
+            </div>
+            <p class="text-xs text-gray-600 line-clamp-3 mb-2">
+              ${tool.desc}
+            </p>
+            <div class="flex flex-wrap gap-1 mb-2" id="tags-container-${tool.id}">
+              <!-- 标签将通过JS动态添加 -->
+            </div>
+            <div class="mt-auto text-xs text-gray-500 flex justify-between pt-2">
+              <span>${tool.updateTime || '未知'}</span>
+              <span><i class="fa fa-download mr-1"></i>${tool.stars || 0}</span>
+            </div>
+          </div>
+        `;
+
+        // 动态添加标签
+        const tags = tool.tags || [];
+        const tagsContainer = card.querySelector(`#tags-container-${tool.id}`);
+        if (tags.length > 4) {
+          const visibleTags = tags.slice(0, 4);
+          const hiddenTags = tags.slice(4);
+          
+          // 添加可见标签
+          visibleTags.forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
+            tagElement.textContent = tag;
+            tagsContainer.appendChild(tagElement);
+          });
+          
+          // 添加更多标签
+          const moreTag = document.createElement('span');
+          moreTag.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
+          moreTag.textContent = '...';
+          moreTag.title = hiddenTags.join(', ');
+          tagsContainer.appendChild(moreTag);
+        } else {
+          // 添加所有标签
+          tags.forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
+            tagElement.textContent = tag;
+            tagsContainer.appendChild(tagElement);
+          });
+        }
       } else {
         // 普通工具卡片
         const typeBadge = tool.type === "download"
@@ -1360,7 +1542,10 @@
 
       // 点击卡片主体跳转到详情页
       card.addEventListener('click', (e) => {
-        if (currentFilter === 'model') {
+        if (currentFilter === 'code') {
+          // 代码卡片跳转到指定链接
+          window.open('https://developer.sourcefind.cn/codes/-/profile', '_blank');
+        } else if (currentFilter === 'model') {
           if (tool.isThirdParty) {
             // 第三方模型入口跳转到指定链接
             window.open('https://www.scnet.cn/ui/aihub/models', '_blank');
@@ -1459,29 +1644,44 @@
       generalFilter.classList.add('hidden');
       softwareFilter.classList.add('hidden');
       modelFilter.classList.add('hidden');
+      codeFilter.classList.add('hidden');
       imageFilter.classList.remove('hidden');
     } else if (filter === 'software') {
       generalFilter.classList.add('hidden');
       softwareFilter.classList.remove('hidden');
       modelFilter.classList.add('hidden');
+      codeFilter.classList.add('hidden');
       imageFilter.classList.add('hidden');
     } else if (filter === 'model') {
       generalFilter.classList.add('hidden');
       softwareFilter.classList.add('hidden');
       modelFilter.classList.remove('hidden');
+      codeFilter.classList.add('hidden');
+      imageFilter.classList.add('hidden');
+    } else if (filter === 'code') {
+      generalFilter.classList.add('hidden');
+      softwareFilter.classList.add('hidden');
+      modelFilter.classList.add('hidden');
+      codeFilter.classList.remove('hidden');
       imageFilter.classList.add('hidden');
     } else {
       generalFilter.classList.remove('hidden');
       softwareFilter.classList.add('hidden');
       modelFilter.classList.add('hidden');
+      codeFilter.classList.add('hidden');
       imageFilter.classList.add('hidden');
-      // 重置镜像筛选参数
+      // 重置筛选参数
       currentAccelerator = '';
       currentImageTypes = [];
+      currentLanguages = [];
+      currentArchived = [];
       document.querySelectorAll('input[name="accelerator"]').forEach(radio => {
         radio.checked = false;
       });
       document.querySelectorAll('#image-filter input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+      });
+      document.querySelectorAll('#code-filter input[type="checkbox"]').forEach(checkbox => {
         checkbox.checked = false;
       });
     }
@@ -1548,7 +1748,15 @@
       const matchImageType = currentImageTypes.length === 0 || 
         (tool.imageType && currentImageTypes.includes(tool.imageType));
 
-      return matchFilter && matchSearch && matchAccelerator && matchImageType;
+      // 语言筛选（仅代码）
+      const matchLanguage = currentLanguages.length === 0 || 
+        (tool.language && currentLanguages.includes(tool.language.toLowerCase()));
+
+      // 归档筛选（仅代码）
+      const matchArchived = currentArchived.length === 0 || 
+        (tool.archived && currentArchived.includes(tool.archived.toLowerCase()));
+
+      return matchFilter && matchSearch && matchAccelerator && matchImageType && matchLanguage && matchArchived;
     });
 
     // 排序
@@ -1612,6 +1820,21 @@
   document.querySelectorAll('#image-filter input[type="checkbox"]').forEach(checkbox => {
     checkbox.addEventListener('change', () => {
       setImageType(checkbox.value, checkbox.checked);
+    });
+  });
+
+  // 绑定代码语言筛选事件
+  document.querySelectorAll('#code-filter input[type="checkbox"]').forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      const value = checkbox.value;
+      if (checkbox.checked) {
+        if (!currentLanguages.includes(value)) {
+          currentLanguages.push(value);
+        }
+      } else {
+        currentLanguages = currentLanguages.filter(l => l !== value);
+      }
+      applyFiltersAndRender();
     });
   });
 
