@@ -141,6 +141,17 @@
       border-color: #ffffff;
     }
     
+    /* 标签页样式 */
+    .tab-button {
+      transition: all 0.2s ease;
+    }
+    
+    .tab-button.active {
+      color: #2D874B;
+      border-bottom: 2px solid #2D874B;
+      font-weight: 600;
+    }
+    
     /* 面包屑样式 */
     .breadcrumb {
       font-size: 14px;
@@ -498,51 +509,182 @@
       </div>
     </div>
 
-    <!-- 标签导航 -->
-    <div class="mb-6 border-b border-gray-200">
-      <div class="flex space-x-8">
-        <button class="py-4 px-2 border-b-2 border-blue-600 text-blue-600 font-medium text-sm whitespace-nowrap" onclick="scrollToSection('intro')">简介</button>
-        <button class="py-4 px-2 border-b-2 border-transparent text-gray-600 hover:text-blue-600 font-medium text-sm whitespace-nowrap" onclick="scrollToSection('download')">下载地址</button>
-        <button class="py-4 px-2 border-b-2 border-transparent text-gray-600 hover:text-blue-600 font-medium text-sm whitespace-nowrap" onclick="scrollToSection('links')">相关链接</button>
+    <!-- 标签页导航 -->
+    <div class="glass-card rounded-3xl border border-gray-300 mb-4">
+      <div class="flex border-b border-gray-300">
+        <button class="tab-button active px-6 py-3 text-sm font-medium" data-tab="overview">简介</button>
+        <button class="tab-button px-6 py-3 text-sm font-medium" data-tab="download">下载地址</button>
+        <button class="tab-button px-6 py-3 text-sm font-medium" data-tab="links">相关链接</button>
       </div>
-    </div>
 
-    <!-- 软件详情内容 -->
-    <div class="software-detail">
-      <!-- 简介 -->
-      <section id="intro" class="mb-8 bg-white p-6 rounded-3xl border border-gray-200">
+      <!-- 简介标签内容 -->
+      <div class="tab-content p-6" id="overview">
         <h3 class="text-xl font-semibold text-gray-800 mb-4">简介</h3>
         <p class="mb-4 text-gray-600">CentOS (Community Enterprise Operating System) 是Linux发行版之一，它来自于Red Hat Enterprise Linux (RHEL) 依照开放源代码规定发布的源代码所编译而成。由于出自同样的源代码，因此有些要求高度稳定性的服务器以CentOS替代商业版的Red Hat Enterprise Linux使用。两者的不同，在于CentOS不包含封闭源代码软件。CentOS对上游代码的主要修改是为了移除不能自由使用的商标。CentOS使用RHEL一样的方式构建企业级Linux系统环境，但不需要向RedHat付任何的费用。</p>
         <p class="text-gray-600">CentOS是免费的，可以使用它获得RHEL一样的软件包更新和技术支持。CentOS的技术支持主要通过社区的官方邮件列表、论坛和聊天室。每个版本的CentOS都会获得十年的支持（通过安全更新方式），新版本的 CentOS 大约每两年发行一次，而每个版本的CentOS 会定期（大概每六个月）更新一次，以便支持新的硬件。通过这样建立一个安全、低维护、稳定、高预测性、高重复性的Linux环境。</p>
-      </section>
+      </div>
 
-      <!-- 下载地址 -->
-      <section id="download" class="mb-8 bg-white p-6 rounded-3xl border border-gray-200">
-        <h3 class="text-xl font-semibold text-gray-800 mb-4">下载地址</h3>
-        <div class="overflow-x-auto">
-          <table class="w-full border-collapse">
-            <thead>
-              <tr class="bg-gray-50">
-                <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">版本</th>
-                <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">架构</th>
-                <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">下载链接</th>
-                <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">说明</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="p-3 border border-gray-200 text-gray-600">CentOS</td>
-                <td class="p-3 border border-gray-200 text-gray-600">X86_84</td>
-                <td class="p-3 border border-gray-200"><a href="https://pan.baidu.com/s/1NpSO89WyFuyBGx-pk8_A?pwd=rot" class="text-blue-600 hover:underline">https://pan.baidu.com/s/1NpSO89WyFuyBGx-pk8_A?pwd=rot</a></td>
-                <td class="p-3 border border-gray-200 text-gray-600">镜像下载后请优先进行SHA256校验，确保镜像一致性</td>
-              </tr>
-            </tbody>
-          </table>
+      <!-- 下载地址标签内容 -->
+      <div class="tab-content p-6 hidden" id="download">
+        
+        <!-- 搜索和筛选 -->
+        <div class="flex flex-wrap items-center gap-4 mb-6">
+          <div class="flex items-center gap-2">
+            <label class="text-sm text-gray-600">版本：</label>
+            <select class="text-sm border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="all">全部</option>
+              <option value="2.7.1+das.opt.dtk25042">2.7.1+das.opt.dtk25042</option>
+              <option value="2.5.1+das.opt.dtk25042">2.5.1+das.opt.dtk25042</option>
+              <option value="2.5.1+das.opt.dtk25041">2.5.1+das.opt.dtk25041</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-2">
+            <label class="text-sm text-gray-600">软件包名称：</label>
+            <input type="text" class="text-sm border border-gray-300 rounded-md px-3 py-1.5 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="搜索软件包">
+            <button class="text-gray-600 hover:text-blue-600">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
         </div>
-      </section>
+        
+        <!-- 软件包列表 -->
+        <div class="space-y-6">
+          <!-- 版本 2.7.1+das.opt.dtk25042 -->
+          <div class="border border-gray-200 rounded-lg">
+            <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex justify-between items-center">
+              <h4 class="font-medium text-gray-800">2.7.1+das.opt.dtk25042</h4>
+              <span class="text-sm text-gray-600">发布时间：2025-11-07</span>
+            </div>
+            <div class="p-4">
+              <table class="w-full border-collapse">
+                <thead>
+                  <tr class="bg-gray-50">
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">软件包名称</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">大小</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">修改日期</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="p-3 border border-gray-200 text-gray-600">torch-2.7.1+das.opt.dtk25042-cp310-cp310-manylinux_2.28...</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">523MB</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">2025-10-22</td>
+                    <td class="p-3 border border-gray-200">
+                      <div class="flex gap-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-download"></i></a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-copy"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 border border-gray-200 text-gray-600">torch-2.7.1+das.opt.dtk25042-cp311-cp311-manylinux_2.28...</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">523MB</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">2025-11-11</td>
+                    <td class="p-3 border border-gray-200">
+                      <div class="flex gap-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-download"></i></a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-copy"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- 版本 2.5.1+das.opt.dtk25042 -->
+          <div class="border border-gray-200 rounded-lg">
+            <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex justify-between items-center">
+              <h4 class="font-medium text-gray-800">2.5.1+das.opt.dtk25042</h4>
+              <span class="text-sm text-gray-600">发布时间：2025-11-07</span>
+            </div>
+            <div class="p-4">
+              <table class="w-full border-collapse">
+                <thead>
+                  <tr class="bg-gray-50">
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">软件包名称</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">大小</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">修改日期</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="p-3 border border-gray-200 text-gray-600">torch-2.5.1+das.opt.dtk25042-cp310-cp310-manylinux_2.28...</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">499MB</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">2025-10-22</td>
+                    <td class="p-3 border border-gray-200">
+                      <div class="flex gap-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-download"></i></a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-copy"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 border border-gray-200 text-gray-600">torch-2.5.1+das.opt.dtk25042-cp311-cp311-manylinux_2.28...</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">499MB</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">2025-11-11</td>
+                    <td class="p-3 border border-gray-200">
+                      <div class="flex gap-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-download"></i></a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-copy"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- 版本 2.5.1+das.opt.dtk25041 -->
+          <div class="border border-gray-200 rounded-lg">
+            <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex justify-between items-center">
+              <h4 class="font-medium text-gray-800">2.5.1+das.opt.dtk25041</h4>
+              <span class="text-sm text-gray-600">发布时间：2025-07-02</span>
+            </div>
+            <div class="p-4">
+              <table class="w-full border-collapse">
+                <thead>
+                  <tr class="bg-gray-50">
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">软件包名称</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">大小</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">修改日期</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="p-3 border border-gray-200 text-gray-600">torch-2.5.1+das.opt.dtk25041-cp310-cp310-manylinux_2.28...</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">495MB</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">2025-06-15</td>
+                    <td class="p-3 border border-gray-200">
+                      <div class="flex gap-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-download"></i></a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-copy"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 border border-gray-200 text-gray-600">torch-2.5.1+das.opt.dtk25041-cp311-cp311-manylinux_2.28...</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">495MB</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">2025-07-01</td>
+                    <td class="p-3 border border-gray-200">
+                      <div class="flex gap-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-download"></i></a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-copy"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <!-- 相关链接 -->
-      <section id="links" class="mb-8 bg-white p-6 rounded-3xl border border-gray-200">
+      <!-- 相关链接标签内容 -->
+      <div class="tab-content p-6 hidden" id="links">
         <h3 class="text-xl font-semibold text-gray-800 mb-4">相关链接</h3>
         <ul class="list-disc pl-5 space-y-3">
           <li class="text-gray-600">CentOS官方地址: <a href="https://www.centos.org/CentOS" class="text-blue-600 hover:underline">https://www.centos.org/CentOS</a></li>
@@ -550,7 +692,7 @@
           <li class="text-gray-600">Wiki地址: <a href="https://wiki.centos.org/CentOS" class="text-blue-600 hover:underline">https://wiki.centos.org/CentOS</a></li>
           <li class="text-gray-600">邮件列表地址: <a href="http://wiki.centos.org/GettingHelp/ListInfo" class="text-blue-600 hover:underline">http://wiki.centos.org/GettingHelp/ListInfo</a></li>
         </ul>
-      </section>
+      </div>
     </div>
   </section>
 </main>
@@ -720,16 +862,9 @@
         }
         
         // 更新下载地址
-        const downloadTable = document.querySelector('#download table tbody');
-        if (downloadTable) {
-          downloadTable.innerHTML = `
-            <tr>
-              <td>${softwareData.download.version}</td>
-              <td>${softwareData.download.architecture}</td>
-              <td><a href="${softwareData.download.url}" class="text-blue-600 hover:underline">${softwareData.download.url}</a></td>
-              <td>${softwareData.download.description}</td>
-            </tr>
-          `;
+        const downloadTabContent = document.querySelector('#download');
+        if (downloadTabContent) {
+          // 这里可以根据需要更新下载地址内容
         }
         
         // 更新相关链接
@@ -774,6 +909,24 @@
       }
     }
   }
+
+  // 处理标签页切换
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabContents = document.querySelectorAll('.tab-content');
+  
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const tabId = this.dataset.tab;
+      
+      // 切换按钮状态
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      
+      // 切换内容
+      tabContents.forEach(content => content.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+    });
+  });
 </script>
 
 </body>
