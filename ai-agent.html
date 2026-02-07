@@ -1586,18 +1586,8 @@
                             <button class="quick-question">如何认证成为高级云架构师？</button>
                             <button class="quick-question">如何查看和下载证书</button>
                         </div>
-                        <!-- 模式切換：问答 / 下载 -->
-                        <div class="mode-toggle-wrapper">
-                            <div id="mode-toggle" class="mode-toggle mode-qa">
-                                <div class="mode-toggle-knob" id="mode-toggle-knob">问答</div>
-                                <div class="mode-toggle-text">
-                                    <span class="mode-text-qa">问答</span>
-                                    <span class="mode-text-download">下载</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                    <div class="input-container" style="position: relative;">
+                    <div class="input-container" style="position: relative; padding: 8px 8px 8px 6px;">
                         <!-- 场景领域提示标签（独立标签） -->
                         <div id="selected-scene-domain" class="selected-scene-domain">
                             <span class="selected-scene-domain-tag">
@@ -1618,14 +1608,35 @@
                             </div>
                         </div>
                         <!-- 输入框和发送按钮区域 -->
-                        <div class="input-inner-wrapper">
-                            <textarea 
-                                id="ai-input" 
-                                placeholder="输入您的问题..." 
-                                class="message-input"
-                                rows="1"
-                            ></textarea>
-                            <button id="ai-send" class="send-btn">
+                        <div class="input-inner-wrapper" style="display: flex; gap: 8px; min-height: 80px; align-items: flex-start;">
+                            <!-- 模式切换：问答 / 下载 - 放在输入框内部左下角 -->
+                            <div class="mode-toggle-wrapper" style="position: absolute; bottom: 8px; left: 6px; z-index: 10;">
+                                <div id="mode-toggle" class="mode-toggle mode-qa">
+                                    <div class="mode-toggle-knob" id="mode-toggle-knob">问答</div>
+                                    <div class="mode-toggle-text">
+                                        <span class="mode-text-qa">问答</span>
+                                        <span class="mode-text-download">下载</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 输入框容器，包含标签和输入区域 -->
+                            <div style="flex: 1; display: flex; align-items: flex-start; gap: 8px; min-height: 60px;">
+                                <!-- 模式标签显示 -->
+                                <div class="input-mode-tag" id="input-mode-tag" style="background: #4a86ff; color: white; padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 500; z-index: 5;">问答</div>
+                                <!-- 提示文案和输入区域 -->
+                                <div style="flex: 1; position: relative;">
+                                    <!-- 动态提示文案 -->
+                                    <div id="input-placeholder" style="position: absolute; left: 0; top: 0; color: #9ca3af; font-size: 15px; pointer-events: none;">请输入您的问题...</div>
+                                    <!-- 输入框 -->
+                                    <textarea 
+                                        id="ai-input" 
+                                        class="message-input"
+                                        rows="2"
+                                        style="padding: 0; border: none; outline: none; background: transparent; width: 100%; min-height: 60px; max-height: 150px; resize: none; font-size: 15px;"
+                                    ></textarea>
+                                </div>
+                            </div>
+                            <button id="ai-send" class="send-btn" style="align-self: flex-start; margin-top: 4px;">
                                 <i class="fas fa-paper-plane"></i>
                             </button>
                         </div>
@@ -2125,20 +2136,53 @@
         // 模式切換 DOM
         const modeToggle = document.getElementById('mode-toggle');
         const modeToggleKnob = document.getElementById('mode-toggle-knob');
+        const inputModeTag = document.getElementById('input-mode-tag');
+        const inputPlaceholder = document.getElementById('input-placeholder');
 
         function updateModeUI() {
-            if (!modeToggle || !modeToggleKnob || !aiInput) return;
+            if (!modeToggle || !modeToggleKnob || !aiInput || !inputPlaceholder) return;
             if (currentMode === 'qa') {
                 modeToggle.classList.remove('mode-download');
                 modeToggle.classList.add('mode-qa');
                 modeToggleKnob.textContent = '问答';
-                aiInput.placeholder = '输入您的问题...';
+                inputPlaceholder.textContent = '请输入您的问题...';
+                if (inputModeTag) {
+                    inputModeTag.textContent = '问答';
+                    inputModeTag.style.background = '#4a86ff';
+                }
             } else {
                 modeToggle.classList.remove('mode-qa');
                 modeToggle.classList.add('mode-download');
                 modeToggleKnob.textContent = '下载';
-                aiInput.placeholder = '请输入需要下载的内容，如“CPU 驱动下载地址”...';
+                inputPlaceholder.textContent = '请输入需要下载的内容，如“CPU 驱动下载地址”...';
+                if (inputModeTag) {
+                    inputModeTag.textContent = '下载';
+                    inputModeTag.style.background = '#1d4ed8';
+                }
             }
+        }
+
+        // 处理输入框的聚焦和失焦事件
+        if (aiInput && inputPlaceholder) {
+            aiInput.addEventListener('input', function() {
+                if (aiInput.value.trim() === '') {
+                    inputPlaceholder.style.display = 'block';
+                } else {
+                    inputPlaceholder.style.display = 'none';
+                }
+            });
+
+            aiInput.addEventListener('focus', function() {
+                if (aiInput.value.trim() !== '') {
+                    inputPlaceholder.style.display = 'none';
+                }
+            });
+
+            aiInput.addEventListener('blur', function() {
+                if (aiInput.value.trim() === '') {
+                    inputPlaceholder.style.display = 'block';
+                }
+            });
         }
 
         if (modeToggle) {
