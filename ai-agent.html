@@ -1000,6 +1000,12 @@
             display: none;
             justify-content: space-between;
             align-items: center;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .action-buttons-area.visible {
@@ -1249,6 +1255,7 @@
             resize: vertical;
             min-height: 100px;
             font-family: inherit;
+            box-sizing: border-box;
         }
 
         .feedback-input:focus {
@@ -1320,7 +1327,7 @@
         }
 
         .line-action-btn.liked {
-            color: #4CAF50;
+            color: #4a86ff;
         }
 
         .line-action-btn.favorited {
@@ -1578,7 +1585,7 @@
                 </div>
 
                 <!-- 输入区域 -->
-                <div class="input-area" id="chat-input-area">
+                <div class="input-area" id="chat-input-area" style="position: relative;">
                     <!-- 原有快捷提问，仍然保留 -->
                     <div class="quick-questions" id="ai-quick-questions">
                         <div class="quick-questions-left">
@@ -1647,6 +1654,29 @@
                             <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: all 0.2s;">全网<span style="color: red;">智能</span></div>
                             <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; transition: all 0.2s;">体系智<span style="color: red;">能</span>特性</div>
                         </div>
+                    </div>
+                </div>
+                
+                <!-- 底部操作按钮区域 -->
+                <div id="action-buttons-area" class="action-buttons-area">
+                    <div class="action-buttons">
+                        <button class="action-btn" id="cancel-selection">
+                            <i class="fas fa-times"></i><span>取消</span>
+                        </button>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn" id="action-copy">
+                            <i class="fas fa-copy"></i><span>复制</span>
+                        </button>
+                        <button class="action-btn" id="action-favorite">
+                            <i class="fas fa-star"></i><span>收藏对话</span>
+                        </button>
+                        <button class="action-btn" id="action-share">
+                            <i class="fas fa-share-alt"></i><span>分享</span>
+                        </button>
+                        <button class="action-btn" id="action-ticket">
+                            <i class="fas fa-ticket-alt"></i><span>工单</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1918,6 +1948,117 @@
         let isMultiSelectMode = false;
         let selectedMessages = new Set();
         let currentMessage = null;
+        
+        // 多选功能
+        function enterMultiSelectMode() {
+            isMultiSelectMode = true;
+            const messages = aiMessages.querySelectorAll('.message');
+            messages.forEach(message => {
+                // 添加复选框
+                let checkbox = message.querySelector('.message-checkbox');
+                if (!checkbox) {
+                    checkbox = document.createElement('div');
+                    checkbox.className = 'message-checkbox';
+                    message.appendChild(checkbox);
+                }
+                checkbox.classList.add('visible');
+
+                // 添加点击事件
+                checkbox.addEventListener('click', function() {
+                    toggleMessageSelection(message);
+                });
+            });
+        }
+
+        function exitMultiSelectMode() {
+            isMultiSelectMode = false;
+            selectedMessages.clear();
+            const messages = aiMessages.querySelectorAll('.message');
+            messages.forEach(message => {
+                const checkbox = message.querySelector('.message-checkbox');
+                if (checkbox) {
+                    checkbox.classList.remove('visible', 'checked');
+                }
+                message.classList.remove('selected');
+            });
+            updateActionButtons();
+        }
+
+        function toggleMessageSelection(message) {
+            if (selectedMessages.has(message)) {
+                selectedMessages.delete(message);
+                message.classList.remove('selected');
+                const checkbox = message.querySelector('.message-checkbox');
+                if (checkbox) {
+                    checkbox.classList.remove('checked');
+                }
+            } else {
+                selectedMessages.add(message);
+                message.classList.add('selected');
+                const checkbox = message.querySelector('.message-checkbox');
+                if (checkbox) {
+                    checkbox.classList.add('checked');
+                }
+            }
+            updateActionButtons();
+        }
+
+        function updateActionButtons() {
+            if (!actionButtonsArea || !inputArea) return;
+            if (selectedMessages.size > 0) {
+                actionButtonsArea.classList.add('visible');
+                inputArea.style.display = 'none';
+            } else {
+                actionButtonsArea.classList.remove('visible');
+                inputArea.style.display = 'block';
+            }
+        }
+        
+        // 全选功能
+        function selectAllMessages() {
+            const messages = aiMessages.querySelectorAll('.message');
+            messages.forEach(message => {
+                if (!selectedMessages.has(message)) {
+                    selectedMessages.add(message);
+                    message.classList.add('selected');
+                    const checkbox = message.querySelector('.message-checkbox');
+                    if (checkbox) {
+                        checkbox.classList.add('checked');
+                    }
+                }
+            });
+            updateActionButtons();
+        }
+        
+        // 为取消选择按钮添加全选功能
+        if (cancelSelection) {
+            // 创建全选按钮
+            const selectAllBtn = document.createElement('button');
+            selectAllBtn.className = 'action-btn';
+            selectAllBtn.innerHTML = '<i class="fas fa-check-square"></i><span>全选</span>';
+            selectAllBtn.addEventListener('click', selectAllMessages);
+            
+            // 将全选按钮添加到取消选择按钮旁边
+            const parent = cancelSelection.parentElement;
+            if (parent) {
+                parent.insertBefore(selectAllBtn, cancelSelection);
+            }
+        }
+        
+        // 右键菜单多选选项点击事件
+        if (contextMenuMultiselect) {
+            contextMenuMultiselect.addEventListener('click', function() {
+                enterMultiSelectMode();
+                hideContextMenu();
+            });
+        }
+
+        // 取消选择
+        if (cancelSelection) {
+            cancelSelection.addEventListener('click', function() {
+                exitMultiSelectMode();
+            });
+        }
         
         // 我的收藏 & 历史对话数据
         // 收藏项：存储完整对话内容
@@ -2479,6 +2620,69 @@
                 
                 // 保存对话到历史记录
                 saveCurrentConversation();
+                
+                // 为新添加的点赞和收藏按钮添加事件监听器
+                setTimeout(() => {
+                    const likeBtn = helpBox.querySelector('.like-btn');
+                    const favoriteBtn = helpBox.querySelector('.favorite-btn');
+                    
+                    if (likeBtn) {
+                        likeBtn.addEventListener('click', function() {
+                            const icon = this.querySelector('i');
+                            if (icon.classList.contains('far')) {
+                                // 点赞
+                                icon.classList.remove('far');
+                                icon.classList.add('fas');
+                                icon.style.color = '#4a86ff';
+                                this.classList.add('liked');
+                            } else {
+                                // 取消点赞
+                                icon.classList.remove('fas');
+                                icon.classList.add('far');
+                                icon.style.color = '';
+                                this.classList.remove('liked');
+                            }
+                        });
+                    }
+                    
+                    if (favoriteBtn) {
+                        favoriteBtn.addEventListener('click', function() {
+                            // 进入多选模式
+                            isMultiSelectMode = true;
+                            const messages = aiMessages.querySelectorAll('.message');
+                            messages.forEach(message => {
+                                // 添加复选框
+                                let checkbox = message.querySelector('.message-checkbox');
+                                if (!checkbox) {
+                                    checkbox = document.createElement('div');
+                                    checkbox.className = 'message-checkbox';
+                                    message.appendChild(checkbox);
+                                }
+                                checkbox.classList.add('visible');
+
+                                // 添加点击事件
+                                checkbox.addEventListener('click', function() {
+                                    if (selectedMessages.has(message)) {
+                                        selectedMessages.delete(message);
+                                        message.classList.remove('selected');
+                                        const checkbox = message.querySelector('.message-checkbox');
+                                        if (checkbox) {
+                                            checkbox.classList.remove('checked');
+                                        }
+                                    } else {
+                                        selectedMessages.add(message);
+                                        message.classList.add('selected');
+                                        const checkbox = message.querySelector('.message-checkbox');
+                                        if (checkbox) {
+                                            checkbox.classList.add('checked');
+                                        }
+                                    }
+                                    updateActionButtons();
+                                });
+                            });
+                        });
+                    }
+                }, 100);
             }, 1000);
         }
 
@@ -3646,85 +3850,7 @@
         // 点击其他地方隐藏右键菜单
         document.addEventListener('click', hideContextMenu);
 
-        // 多选功能
-        function enterMultiSelectMode() {
-            isMultiSelectMode = true;
-            const messages = aiMessages.querySelectorAll('.message');
-            messages.forEach(message => {
-                // 添加复选框
-                let checkbox = message.querySelector('.message-checkbox');
-                if (!checkbox) {
-                    checkbox = document.createElement('div');
-                    checkbox.className = 'message-checkbox';
-                    message.appendChild(checkbox);
-                }
-                checkbox.classList.add('visible');
 
-                // 添加点击事件
-                checkbox.addEventListener('click', function() {
-                    toggleMessageSelection(message);
-                });
-            });
-        }
-
-        function exitMultiSelectMode() {
-            isMultiSelectMode = false;
-            selectedMessages.clear();
-            const messages = aiMessages.querySelectorAll('.message');
-            messages.forEach(message => {
-                const checkbox = message.querySelector('.message-checkbox');
-                if (checkbox) {
-                    checkbox.classList.remove('visible', 'checked');
-                }
-                message.classList.remove('selected');
-            });
-            updateActionButtons();
-        }
-
-        function toggleMessageSelection(message) {
-            if (selectedMessages.has(message)) {
-                selectedMessages.delete(message);
-                message.classList.remove('selected');
-                const checkbox = message.querySelector('.message-checkbox');
-                if (checkbox) {
-                    checkbox.classList.remove('checked');
-                }
-            } else {
-                selectedMessages.add(message);
-                message.classList.add('selected');
-                const checkbox = message.querySelector('.message-checkbox');
-                if (checkbox) {
-                    checkbox.classList.add('checked');
-                }
-            }
-            updateActionButtons();
-        }
-
-        function updateActionButtons() {
-            if (!actionButtonsArea || !inputArea) return;
-            if (selectedMessages.size > 0) {
-                actionButtonsArea.classList.add('visible');
-                inputArea.style.display = 'none';
-            } else {
-                actionButtonsArea.classList.remove('visible');
-                inputArea.style.display = 'block';
-            }
-        }
-
-        // 右键菜单多选选项点击事件
-        if (contextMenuMultiselect) {
-            contextMenuMultiselect.addEventListener('click', function() {
-                enterMultiSelectMode();
-                hideContextMenu();
-            });
-        }
-
-        // 取消选择
-        if (cancelSelection) {
-            cancelSelection.addEventListener('click', function() {
-                exitMultiSelectMode();
-            });
-        }
 
         // 操作按钮点击事件
         if (actionCopy) {

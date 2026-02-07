@@ -390,7 +390,7 @@
       <i class="fa fa-angle-right text-gray-400 text-xs"></i>
       <a href="tech-tool-library.html">技术工具库</a>
       <i class="fa fa-angle-right text-gray-400 text-xs"></i>
-      <span class="text-gray-900 font-medium">镜像仓库 · vllm</span>
+      <span class="text-gray-900 font-medium">工具详情 · vllm</span>
     </div>
 
     <!-- 镜像头部信息 -->
@@ -929,12 +929,12 @@
       const imageData = images.find(i => i.id == id);
       if (imageData) {
         // 更新标题
-        document.title = `${imageData.name} - 镜像仓库详情 - 光合技术支持平台`;
+        document.title = `${imageData.name} - 工具详情 - 光合技术支持平台`;
         
         // 更新面包屑
         const breadcrumb = document.querySelector('.breadcrumb span:last-child');
         if (breadcrumb) {
-          breadcrumb.textContent = `镜像仓库 · ${imageData.name}`;
+          breadcrumb.textContent = `工具详情 · ${imageData.name}`;
         }
         
         // 更新镜像名称

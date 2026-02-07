@@ -770,7 +770,8 @@
               取消报名
             </button>
 
-
+            <!-- 报名提示 -->
+            <div id="enroll-tip" class="text-xs text-gray-500 text-center"></div>
           </div>
         </div>
         
@@ -1082,8 +1083,7 @@
 
     console.log('所有按钮元素已找到');
 
-    // 假设当前课程 ID
-    // const COURSE_ID = 'course-cloud-native-001';
+    // 使用全局定义的COURSE_ID
     const STORAGE_KEY = 'partner_enrolled_courses';
 
     // 检查是否已报名

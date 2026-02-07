@@ -493,16 +493,23 @@
       <i class="fa fa-angle-right text-gray-400 text-xs"></i>
       <a href="tech-tool-library.html">技术工具库</a>
       <i class="fa fa-angle-right text-gray-400 text-xs"></i>
-      <span class="text-gray-900 font-medium">软件支持 · CentOS</span>
+      <span class="text-gray-900 font-medium">工具详情 · PyTorch</span>
     </div>
 
     <!-- 工具头部信息 -->
     <div class="tool-header p-6 lg:p-10 mb-6 bg-white rounded-3xl border border-gray-200">
       <div class="flex flex-col lg:flex-row lg:items-center gap-6">
         <div>
-          <h1 class="text-2xl lg:text-3xl font-semibold text-gray-800">CentOS</h1>
-          <p class="mt-2 text-gray-600 max-w-3xl">CentOS (Community Enterprise Operating System) 是Linux发行版之一，它来自于Red Hat Enterprise Linux (RHEL) 依照开放源代码规定发布的源代码所编译而成。</p>
+          <h1 class="text-2xl lg:text-3xl font-semibold text-gray-800">PyTorch</h1>
+          <div class="mt-2 flex flex-wrap gap-2">
+            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">计算机视觉</span>
+            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">自然语言处理</span>
+            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">pytorch</span>
+            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">推荐</span>
+          </div>
+          <p class="mt-2 text-gray-600 max-w-3xl">PyTorch是一个基于Python的开源机器学习框架，以其强大的GPU加速张量计算能力和动态计算图技术，在深度学习领域占据重要地位。</p>
           <div class="mt-4 flex flex-wrap gap-4 text-sm">
+            <span class="text-gray-500"><i class="fa fa-code-branch mr-1"></i> 最新版本 2.7.1+das.opt1.dtk25042</span>
             <span class="text-gray-500"><i class="fa fa-calendar-alt mr-1"></i> 更新于 2024-01-15</span>
           </div>
         </div>
@@ -513,15 +520,198 @@
     <div class="glass-card rounded-3xl border border-gray-300 mb-4">
       <div class="flex border-b border-gray-300">
         <button class="tab-button active px-6 py-3 text-sm font-medium" data-tab="overview">简介</button>
-        <button class="tab-button px-6 py-3 text-sm font-medium" data-tab="download">下载地址</button>
-        <button class="tab-button px-6 py-3 text-sm font-medium" data-tab="links">相关链接</button>
+        <button class="tab-button px-6 py-3 text-sm font-medium" data-tab="version">版本说明</button>
+        <button class="tab-button px-6 py-3 text-sm font-medium" data-tab="download">软件包下载</button>
+
       </div>
 
       <!-- 简介标签内容 -->
       <div class="tab-content p-6" id="overview">
         <h3 class="text-xl font-semibold text-gray-800 mb-4">简介</h3>
-        <p class="mb-4 text-gray-600">CentOS (Community Enterprise Operating System) 是Linux发行版之一，它来自于Red Hat Enterprise Linux (RHEL) 依照开放源代码规定发布的源代码所编译而成。由于出自同样的源代码，因此有些要求高度稳定性的服务器以CentOS替代商业版的Red Hat Enterprise Linux使用。两者的不同，在于CentOS不包含封闭源代码软件。CentOS对上游代码的主要修改是为了移除不能自由使用的商标。CentOS使用RHEL一样的方式构建企业级Linux系统环境，但不需要向RedHat付任何的费用。</p>
-        <p class="text-gray-600">CentOS是免费的，可以使用它获得RHEL一样的软件包更新和技术支持。CentOS的技术支持主要通过社区的官方邮件列表、论坛和聊天室。每个版本的CentOS都会获得十年的支持（通过安全更新方式），新版本的 CentOS 大约每两年发行一次，而每个版本的CentOS 会定期（大概每六个月）更新一次，以便支持新的硬件。通过这样建立一个安全、低维护、稳定、高预测性、高重复性的Linux环境。</p>
+        <p class="mb-4 text-gray-600">PyTorch是一个基于Python的开源机器学习框架，以其强大的GPU加速张量计算能力和动态计算图技术，在深度学习领域占据重要地位。它广泛应用于计算机视觉、自然语言处理等人工智能关键领域。PyTorch之所以备受青睐，得益于其易用性、灵活性和高效性，尤其适合快速原型开发、学术研究以及生产环境中的深度学习任务。DAS软件栈中的PyTorch版本，不仅保证了PyTorch 核心功能在DCU加速卡的可用性,还针对DCU特有的硬件架构进行了深度定制优化。这使得开发者能够以极低的成本，轻松实现应用程序在DCU加速卡上的快速迁移和性能提升。</p>
+        
+        <h4 class="text-lg font-semibold text-gray-800 mb-3">版本约束</h4>
+        <p class="mb-3 text-sm text-gray-600">1. PyTorch软件版本配套关系</p>
+        <table class="w-full border-collapse mb-4">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-3 py-2 text-left text-sm font-medium text-gray-700">PyTorch版本</th>
+              <th class="border border-gray-300 px-3 py-2 text-left text-sm font-medium text-gray-700">DCU适配版PyTorch软件包版本</th>
+              <th class="border border-gray-300 px-3 py-2 text-left text-sm font-medium text-gray-700">DCU加速卡型号</th>
+              <th class="border border-gray-300 px-3 py-2 text-left text-sm font-medium text-gray-700">DTK版本</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.3.0</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.3.0+das.opt1.dtk24042</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">24.04.2</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.1.0</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.1.0+das.opt1.dtk24042</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">24.04.2</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.1.0</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.1.0+das.opt2.dtk24043</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">24.04.3</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.3.0</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.3.0+das.opt2.dtk24043</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">24.04.3</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.4.1</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.4.1+das.opt2.dtk2504</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI、BW</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">25.04</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.4.1</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.4.1+das.opt1.dtk25041</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI、BW</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">25.04.1</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.5.1</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.5.1+das.opt1.dtk25041</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI、BW</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">25.04.1</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.5.1</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.5.1+das.opt1.dtk25042</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI、BW</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">25.04.2</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.7.1</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.7.1+das.opt1.dtk25042</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI、BW</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">25.04.2</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <p class="mb-3 text-sm text-gray-600">2. 注意事项</p>
+        <ul class="list-disc pl-5 space-y-1 mb-6 text-sm text-gray-600">
+          <li>DAS框架组件的whl包版本应与环境中已安装的DTK版本对应，请参考上述版本约束。例如已安装dtk-24.04.2，则需要在软件下载页面搜索软件包名称：2.3.0+das.opt1.dtk24042，下载whl包并安装。</li>
+        </ul>
+        
+        <h4 class="text-lg font-semibold text-gray-800 mb-3">前置条件</h4>
+        <p class="mb-3 text-sm text-gray-600">安装DAS软件前，需要确保安装环境中已安装了合适的软硬件。</p>
+        
+        <ul class="list-disc pl-5 space-y-1 mb-4 text-sm text-gray-600">
+          <li>DCU加速卡及其驱动</li>
+          <li>DTK</li>
+          <li>Python环境</li>
+        </ul>
+        
+        <p class="mb-3 text-sm text-gray-600">比如，在DCU环境上安装torch-2.3.0+das.opt1.dtk24042-cp310-cp310-manylinux_2_28_x86_64.whl，需要确保环境已安装了上述K100_AI等DCU加速卡及其驱动，要确保安装了dtk 24.04.2版本以及安装了python 3.10版本和pytorch等，该示例的详细安装步骤如下：</p>
+        
+        <p class="mb-2 text-sm font-medium text-gray-700">DCU加速卡及其驱动安装</p>
+        <ol class="list-decimal pl-5 space-y-1 mb-4 text-sm text-gray-600">
+          <li>硬件安装请参考： <a href="https://developer.sourcefind.cn/gitbook//dcu_tutorial/index.html" class="text-blue-600 hover:underline">https://developer.sourcefind.cn/gitbook//dcu_tutorial/index.html</a></li>
+          <li>驱动安装请参考： <a href="https://developer.sourcefind.cn/gitbook//dcu_tutorial/index.html" class="text-blue-600 hover:underline">https://developer.sourcefind.cn/gitbook//dcu_tutorial/index.html</a></li>
+        </ol>
+        
+        <p class="mb-2 text-sm font-medium text-gray-700">物理机安装DTK</p>
+        <p class="mb-2 text-sm text-gray-600">DTK安装前需要获取DTK的安装包及其部署文档，相关下载地址为： <a href="https://download.sourcefind.cn:65024/1/main/" class="text-blue-600 hover:underline">https://download.sourcefind.cn:65024/1/main/</a></p>
+        <p class="mb-4 text-sm text-gray-600">DTK安装步骤可以根据部署文档安装，也可参考： <a href="https://developer.sourcefind.cn/gitbook//dcu_tutorial/index.html" class="text-blue-600 hover:underline">https://developer.sourcefind.cn/gitbook//dcu_tutorial/index.html</a></p>
+        
+        <p class="mb-2 text-sm font-medium text-gray-700">python安装</p>
+        <pre class="bg-gray-100 p-3 rounded-md mb-4 text-sm text-gray-600 overflow-x-auto">cd /tmp \
+&& wget -O python.tgz https://registry.npmmirror.com/-/binary/python/3.10.0/Python-3.10.0.tgz \
+&& mkdir python-tmp \
+&& tar -xvf python.tgz -C ./python-tmp --strip-components 1 \
+&& cd python-tmp \
+&& ./configure \
+&& --enable-shared \
+&& make -j64 \
+&& make install \
+&& rm -rf /tmp/python* \
+&& ln -sf /usr/local/bin/python3 /usr/local/bin/python \
+&& ln -sf /usr/local/bin/pip3 /usr/local/bin/pip</pre>
+        
+        <p class="mb-3 text-sm font-medium text-gray-700">使用pip安装PyTorch</p>
+        <p class="mb-2 text-sm text-gray-600">1. 下载Pytorch</p>
+        <p class="mb-3 text-sm text-gray-600">在平台下载torch的软件包。</p>
+        <p class="mb-2 text-sm text-gray-600">2. 安装Pytorch</p>
+        <pre class="bg-gray-100 p-3 rounded-md mb-4 text-sm text-gray-600 overflow-x-auto">pip3 install torch-xxx.whl</pre>
+        
+        <p class="mb-3 text-sm font-medium text-gray-700">验证</p>
+        <p class="mb-3 text-sm text-gray-600">安装完成之后，可通过以下指令验证是否安装成功,指令执行后会显示当前PyTorch的版本号。</p>
+        <pre class="bg-gray-100 p-3 rounded-md mb-4 text-sm text-gray-600 overflow-x-auto">python -c "import torch; print(torch.__version__)"</pre>
+        
+        <p class="mb-3 text-sm font-medium text-gray-700">建议阅读</p>
+        <p class="mb-2 text-sm text-gray-600">有关PyTorch的更多信息，请参见:</p>
+        <ul class="list-disc pl-5 space-y-1 mb-6 text-sm text-gray-600">
+          <li><a href="#" class="text-blue-600 hover:underline">AI生态包</a></li>
+          <li><a href="#" class="text-blue-600 hover:underline">Model Zoo</a></li>
+          <li><a href="#" class="text-blue-600 hover:underline">DCU Toolkit</a></li>
+          <li><a href="#" class="text-blue-600 hover:underline">驱动</a></li>
+          <li><a href="#" class="text-blue-600 hover:underline">学习中心</a></li>
+          <li><a href="#" class="text-blue-600 hover:underline">论坛</a></li>
+          <li><a href="#" class="text-blue-600 hover:underline">PyTorch 2.1官方文档</a></li>
+        </ul>
+      </div>
+
+      <!-- 版本说明标签内容 -->
+      <div class="tab-content p-6 hidden" id="version">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">版本说明</h3>
+        
+        <div class="mb-6">
+          <div class="flex items-center mb-4">
+            <label class="text-sm font-medium text-gray-700 w-24">版本</label>
+            <div class="relative flex-grow max-w-md">
+              <select class="w-full text-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white pr-8">
+                <option value="2.7.1+das.opt1.dtk25042">2.7.1+das.opt1.dtk25042</option>
+                <option value="2.5.1+das.opt1.dtk25042">2.5.1+das.opt1.dtk25042</option>
+                <option value="2.5.1+das.opt1.dtk25041">2.5.1+das.opt1.dtk25041</option>
+                <option value="2.4.1+das.opt1.dtk25041">2.4.1+das.opt1.dtk25041</option>
+                <option value="2.4.1+das.opt2.dtk2504">2.4.1+das.opt2.dtk2504</option>
+                <option value="2.3.0+das.opt2.dtk24043">2.3.0+das.opt2.dtk24043</option>
+                <option value="2.1.0+das.opt2.dtk24043">2.1.0+das.opt2.dtk24043</option>
+                <option value="2.3.0+das.opt1.dtk24042">2.3.0+das.opt1.dtk24042</option>
+                <option value="2.1.0+das.opt1.dtk24042">2.1.0+das.opt1.dtk24042</option>
+              </select>
+              <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                <i class="fa fa-chevron-down text-gray-400 text-xs"></i>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex items-center mb-4">
+            <label class="text-sm font-medium text-gray-700 w-24">版本信息</label>
+            <span class="text-sm text-gray-600">2.7.1+das.opt1.dtk25042</span>
+          </div>
+          
+          <div class="flex items-center mb-4">
+            <label class="text-sm font-medium text-gray-700 w-24">发布时间</label>
+            <span class="text-sm text-gray-600">2025-11-07</span>
+          </div>
+          
+          <div class="mb-4">
+            <label class="text-sm font-medium text-gray-700 w-24 inline-block mb-2">版本介绍</label>
+            <div class="pl-24">
+              <p class="mb-3 text-sm text-gray-600">1. 功能改进</p>
+              <ul class="list-disc pl-5 space-y-1 mb-4 text-sm text-gray-600">
+                <li>支持dtk25.04.2系列软件栈；</li>
+                <li>支持python3.10和python3.11版本。</li>
+              </ul>
+              <p class="mb-3 text-sm text-gray-600">2. 已知问题</p>
+              <ul class="list-disc pl-5 space-y-1 mb-4 text-sm text-gray-600">
+                <li>当前torch2.7.1为预发版，由于配套组件如triton、apex等未进行同步更新适配，因此，当联合使用时，功能受限，正式使用版本将在DAS1.8支持。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- 下载地址标签内容 -->
@@ -683,16 +873,7 @@
         </div>
       </div>
 
-      <!-- 相关链接标签内容 -->
-      <div class="tab-content p-6 hidden" id="links">
-        <h3 class="text-xl font-semibold text-gray-800 mb-4">相关链接</h3>
-        <ul class="list-disc pl-5 space-y-3">
-          <li class="text-gray-600">CentOS官方地址: <a href="https://www.centos.org/CentOS" class="text-blue-600 hover:underline">https://www.centos.org/CentOS</a></li>
-          <li class="text-gray-600">论坛地址: <a href="https://forums.centos.org/CentOS" class="text-blue-600 hover:underline">https://forums.centos.org/CentOS</a></li>
-          <li class="text-gray-600">Wiki地址: <a href="https://wiki.centos.org/CentOS" class="text-blue-600 hover:underline">https://wiki.centos.org/CentOS</a></li>
-          <li class="text-gray-600">邮件列表地址: <a href="http://wiki.centos.org/GettingHelp/ListInfo" class="text-blue-600 hover:underline">http://wiki.centos.org/GettingHelp/ListInfo</a></li>
-        </ul>
-      </div>
+
     </div>
   </section>
 </main>
@@ -797,19 +978,19 @@
     const softwares = [
       {
         id: 1,
-        name: "CentOS",
-        desc: "CentOS (Community Enterprise Operating System) 是Linux发行版之一，它来自于Red Hat Enterprise Linux (RHEL) 依照开放源代码规定发布的源代码所编译而成。",
+        name: "PyTorch",
+        desc: "PyTorch是一个基于Python的开源机器学习框架，以其强大的GPU加速张量计算能力和动态计算图技术，在深度学习领域占据重要地位。",
         download: {
-          version: "CentOS",
+          version: "PyTorch",
           architecture: "X86_84",
-          url: "https://pan.baidu.com/s/1NpSO89WyFuyBGx-pk8_A?pwd=rot",
-          description: "镜像下载后请优先进行SHA256校验，确保镜像一致性"
+          url: "https://pytorch.org/get-started/locally/",
+          description: "请根据您的系统配置选择合适的安装方式"
         },
         links: [
-          { name: "CentOS官方地址", url: "https://www.centos.org/CentOS" },
-          { name: "论坛地址", url: "https://forums.centos.org/CentOS" },
-          { name: "Wiki地址", url: "https://wiki.centos.org/CentOS" },
-          { name: "邮件列表地址", url: "http://wiki.centos.org/GettingHelp/ListInfo" }
+          { name: "PyTorch官方地址", url: "https://pytorch.org" },
+          { name: "GitHub地址", url: "https://github.com/pytorch/pytorch" },
+          { name: "文档地址", url: "https://pytorch.org/docs/stable/" },
+          { name: "论坛地址", url: "https://discuss.pytorch.org" }
         ]
       },
       {
@@ -842,12 +1023,12 @@
       const softwareData = softwares.find(s => s.id == id);
       if (softwareData) {
         // 更新标题
-        document.title = `${softwareData.name} - 软件支持详情 - 光合技术支持平台`;
+        document.title = `${softwareData.name} - 工具详情 - 光合技术支持平台`;
         
         // 更新面包屑
         const breadcrumb = document.querySelector('.breadcrumb span:last-child');
         if (breadcrumb) {
-          breadcrumb.textContent = `软件支持 · ${softwareData.name}`;
+          breadcrumb.textContent = `工具详情 · ${softwareData.name}`;
         }
         
         // 更新工具头部信息
