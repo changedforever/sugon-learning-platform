@@ -27,6 +27,27 @@
       color: #B01F24;
       background: rgba(255, 255, 255, 0.9);
     }
+    
+    /* 排序按钮样式优化 */
+    .sort-btn {
+      transition: all 0.2s ease;
+      font-weight: 500;
+      border: none;
+      background: rgba(255, 255, 255, 0.8);
+    }
+    
+    .sort-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    .sort-btn.active {
+      color: #B01F24;
+      background: rgba(176, 31, 36, 0.1);
+      box-shadow: 0 2px 8px rgba(176, 31, 36, 0.12);
+      font-weight: 600;
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -664,26 +685,7 @@
         </p>
       </div>
 
-      <div class="flex flex-wrap items-center gap-2 justify-end">
-        <!-- 搜索 -->
-        <div class="relative">
-          <i class="fa fa-search text-gray-400 absolute left-2 top-2.5 text-xs"></i>
-          <input id="search-input"
-                 type="text"
-                 placeholder="搜索讲师姓名 / 专业领域 / 机构"
-                 class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]" />
-        </div>
-        <!-- 排序 -->
-        <div class="flex items-center gap-1 text-xs">
-          <span class="text-gray-400">排序：</span>
-          <select id="sort-select"
-                  class="rounded-full bg-white/80 border border-gray-300 px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-[#B01F24]">
-            <option value="newest">最新</option>
-            <option value="most-popular">最受欢迎</option>
-            <option value="highest-rated">评分最高</option>
-          </select>
-        </div>
-      </div>
+
     </div>
 
     <!-- 讲师列表与左侧筛选 -->
@@ -748,23 +750,28 @@
 
         <!-- 右侧讲师列表 -->
         <div class="flex-1">
-          <!-- 统计 + 分页信息 -->
-          <div
-            class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 text-[11px] text-gray-600 gap-2">
-            <div>
-              共 <span id="total-count">32</span> 位讲师，当前显示
-              <span id="current-range">1–12</span>
+          <!-- 顶部排序和搜索 -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+            <!-- 排序选项 -->
+            <div class="flex items-center gap-2 flex-wrap">
+              <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="comprehensive">
+                综合排序
+              </button>
+              <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="latest">
+                最新
+              </button>
+              <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="hottest">
+                最受欢迎
+              </button>
             </div>
-            <div class="flex items-center gap-2">
-              <button id="prev-btn"
-                class="px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 hover:bg-gray-100 transition text-gray-800">
-                上一页
-              </button>
-              <span id="page-info">1 / 3</span>
-              <button id="next-btn"
-                class="px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 hover:bg-gray-100 transition text-gray-800">
-                下一页
-              </button>
+            
+            <!-- 搜索框 -->
+            <div class="relative">
+              <i class="fa fa-search text-gray-400 absolute left-2 top-2.5 text-xs"></i>
+              <input id="search-input"
+                     type="text"
+                     placeholder="搜索讲师姓名 / 专业领域 / 机构"
+                     class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]" />
             </div>
           </div>
 
@@ -1012,24 +1019,45 @@
         </div>
       </a>
     </div>
+
+          <!-- 底部标准分页组件 -->
+          <div class="mt-6 flex flex-col sm:flex-row sm:items-center gap-4">
+              <!-- 讲师统计信息 -->
+              <div class="text-[11px] text-gray-600 sm:w-64">
+                  共 <span id="total-count-bottom">32</span> 位讲师，当前显示
+                  <span id="current-range-bottom">1–12</span>
+              </div>
+              <!-- 分页控制 -->
+              <div class="flex flex-1 items-center justify-center gap-2">
+                  <button id="prev-btn-bottom"
+                      class="px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-100 transition text-gray-800 text-sm">
+                      上一页
+                  </button>
+                  <div id="page-numbers" class="flex items-center gap-1">
+                      <!-- 页码由 JS 生成 -->
+                  </div>
+                  <button id="next-btn-bottom"
+                      class="px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-100 transition text-gray-800 text-sm">
+                      下一页
+                  </button>
+                  <span class="text-[11px] text-gray-600 ml-4">
+                      共 <span id="total-pages-bottom">3</span> 页
+                  </span>
+                  <span class="text-[11px] text-gray-600">
+                      到第
+                      <input type="number" id="page-jump-input" min="1" value="1"
+                          class="w-12 px-2 py-1.5 border border-gray-300 rounded-lg text-sm text-center mx-1">
+                      页
+                      <button id="page-jump-btn"
+                          class="px-2 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-100 transition text-gray-800 text-sm ml-1">
+                          确定
+                      </button>
+                  </span>
+              </div>
+          </div>
         </div>
       </div>
     </section>
-
-    <!-- 分页 -->
-    <div class="mt-8 flex items-center justify-center">
-      <nav class="flex items-center space-x-1">
-        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/80 border border-gray-300 text-sm hover:bg-[#B01F24] hover:text-white">
-          <i class="fa fa-chevron-left"></i>
-        </a>
-        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-[#B01F24] text-white font-medium">1</a>
-        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/80 border border-gray-300 text-sm hover:bg-[#B01F24] hover:text-white">2</a>
-        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/80 border border-gray-300 text-sm hover:bg-[#B01F24] hover:text-white">3</a>
-        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/80 border border-gray-300 text-sm hover:bg-[#B01F24] hover:text-white">
-          <i class="fa fa-chevron-right"></i>
-        </a>
-      </nav>
-    </div>
   </section>
 </main>
 
@@ -1040,11 +1068,7 @@
     console.log('搜索:', e.target.value);
   });
 
-  // 排序功能
-  document.getElementById('sort-select').addEventListener('change', function(e) {
-    // 模拟排序功能
-    console.log('排序方式:', e.target.value);
-  });
+
 
   // 筛选按钮功能
   const filterButtons = document.querySelectorAll('.filter-chip-active');
@@ -1084,6 +1108,174 @@
       }
     });
   });
+
+  // 排序按钮事件
+  const sortBtns = document.querySelectorAll('.sort-btn');
+  let currentSort = 'comprehensive';
+  
+  sortBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sortType = btn.dataset.sort;
+      currentSort = sortType;
+      
+      // 更新按钮状态
+      sortBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // 这里可以添加排序逻辑
+      console.log('排序方式:', sortType);
+    });
+  });
+  
+  // 默认激活综合排序
+  document.querySelector('.sort-btn[data-sort="comprehensive"]').classList.add('active');
+
+  // 底部分页按钮事件
+  const prevBtnBottom = document.getElementById('prev-btn-bottom');
+  const nextBtnBottom = document.getElementById('next-btn-bottom');
+  const pageNumbersEl = document.getElementById('page-numbers');
+  const totalPagesBottomEl = document.getElementById('total-pages-bottom');
+  const pageJumpInput = document.getElementById('page-jump-input');
+  const pageJumpBtn = document.getElementById('page-jump-btn');
+  
+  let currentPage = 1;
+  const totalPages = 3;
+  
+  // 生成页码按钮
+  function generatePageNumbers() {
+    if (!pageNumbersEl) return;
+    
+    pageNumbersEl.innerHTML = '';
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    
+    // 调整起始页，确保显示足够的页码
+    if (endPage - startPage + 1 < maxVisiblePages) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+    
+    // 添加首页按钮
+    if (startPage > 1) {
+      const firstPageBtn = document.createElement('button');
+      firstPageBtn.className = 'px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-100 transition text-gray-800 text-sm';
+      firstPageBtn.textContent = '1';
+      firstPageBtn.addEventListener('click', () => {
+        currentPage = 1;
+        updatePagination();
+      });
+      pageNumbersEl.appendChild(firstPageBtn);
+      
+      if (startPage > 2) {
+        const ellipsis = document.createElement('span');
+        ellipsis.className = 'px-2 text-gray-600';
+        ellipsis.textContent = '...';
+        pageNumbersEl.appendChild(ellipsis);
+      }
+    }
+    
+    // 添加中间页码按钮
+    for (let i = startPage; i <= endPage; i++) {
+      const pageBtn = document.createElement('button');
+      pageBtn.className = `px-3 py-1.5 rounded-lg transition text-sm ${i === currentPage ? 'bg-[#B01F24] text-white' : 'border border-gray-300 hover:bg-gray-100 text-gray-800'}`;
+      pageBtn.textContent = i;
+      pageBtn.addEventListener('click', () => {
+        currentPage = i;
+        updatePagination();
+      });
+      pageNumbersEl.appendChild(pageBtn);
+    }
+    
+    // 添加末页按钮
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        const ellipsis = document.createElement('span');
+        ellipsis.className = 'px-2 text-gray-600';
+        ellipsis.textContent = '...';
+        pageNumbersEl.appendChild(ellipsis);
+      }
+      
+      const lastPageBtn = document.createElement('button');
+      lastPageBtn.className = 'px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-100 transition text-gray-800 text-sm';
+      lastPageBtn.textContent = totalPages;
+      lastPageBtn.addEventListener('click', () => {
+        currentPage = totalPages;
+        updatePagination();
+      });
+      pageNumbersEl.appendChild(lastPageBtn);
+    }
+  }
+  
+  // 更新分页状态
+  function updatePagination() {
+    generatePageNumbers();
+    
+    // 更新当前范围
+    const currentRangeBottomEl = document.getElementById('current-range-bottom');
+    if (currentRangeBottomEl) {
+      const start = (currentPage - 1) * 12 + 1;
+      const end = Math.min(currentPage * 12, 32);
+      currentRangeBottomEl.textContent = `${start}–${end}`;
+    }
+    
+    // 更新页码输入框
+    if (pageJumpInput) {
+      pageJumpInput.value = currentPage;
+    }
+  }
+  
+  // 上一页按钮事件
+  if (prevBtnBottom) {
+    prevBtnBottom.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        updatePagination();
+      }
+    });
+  }
+  
+  // 下一页按钮事件
+  if (nextBtnBottom) {
+    nextBtnBottom.addEventListener('click', () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        updatePagination();
+      }
+    });
+  }
+  
+  // 页码跳转事件
+  if (pageJumpBtn) {
+    pageJumpBtn.addEventListener('click', () => {
+      let jumpPage = parseInt(pageJumpInput.value);
+      if (!isNaN(jumpPage) && jumpPage >= 1 && jumpPage <= totalPages) {
+        currentPage = jumpPage;
+        updatePagination();
+      } else {
+        // 输入无效，重置为当前页
+        pageJumpInput.value = currentPage;
+      }
+    });
+  }
+  
+  // 页码输入框回车事件
+  if (pageJumpInput) {
+    pageJumpInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        let jumpPage = parseInt(pageJumpInput.value);
+        if (!isNaN(jumpPage) && jumpPage >= 1 && jumpPage <= totalPages) {
+          currentPage = jumpPage;
+          updatePagination();
+        } else {
+          // 输入无效，重置为当前页
+          pageJumpInput.value = currentPage;
+        }
+      }
+    });
+  }
+  
+  // 初始化分页
+  generatePageNumbers();
 </script>
 
 </body>
