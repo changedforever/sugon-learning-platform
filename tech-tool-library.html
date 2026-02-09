@@ -408,559 +408,27 @@
       </div>
     </div>
 
-    <div class="flex flex-col lg:flex-row gap-6">
-      <!-- 左侧筛选侧边栏 -->
-      <aside class="w-full lg:w-64 flex-shrink-0">
-        <div class="glass-card rounded-2xl p-5">
-          <h3 class="text-lg font-semibold text-gray-800 mb-5">筛选</h3>
-          
-          <!-- 通用筛选选项 -->
-          <div id="general-filter" class="space-y-1">
-            <!-- 工具类型 -->
-            <div class="filter-category">
-              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="tool-type">
-                <label class="flex items-center cursor-pointer group py-2 flex-1">
-                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">工具类型</span>
-                </label>
-                <i class="fa fa-plus text-xs text-gray-400 category-toggle" data-target="tool-type-categories"></i>
-              </div>
-              <!-- 工具类型二级分类 -->
-              <div class="mt-1 ml-8 space-y-1.5 category-children" id="category-tool-type-categories">
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="development" value="development">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">开发工具</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="operation" value="operation">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">运维工具</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="monitoring" value="monitoring">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">监控工具</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="troubleshooting" value="troubleshooting">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">故障排查</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="performance" value="performance">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">性能压测</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- 适用平台 -->
-            <div class="filter-category">
-              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="platform">
-                <label class="flex items-center cursor-pointer group py-2 flex-1">
-                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">适用平台</span>
-                </label>
-                <i class="fa fa-plus text-xs text-gray-400 category-toggle" data-target="platform-categories"></i>
-              </div>
-              <!-- 适用平台二级分类 -->
-              <div class="mt-1 ml-8 space-y-1.5 category-children" id="category-platform-categories">
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="windows" value="windows">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Windows</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="linux" value="linux">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Linux</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="macos" value="macos">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">macOS</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="cloud" value="cloud">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">云平台</span>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <!-- 软件支持专用筛选选项 -->
-          <div id="software-filter" class="space-y-1 mt-6 hidden">
-            <!-- 社区版本 -->
-            <div class="filter-category">
-              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="community">
-                <label class="flex items-center cursor-pointer group py-2 flex-1">
-                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">社区版本</span>
-                </label>
-              </div>
-              <!-- 社区版本选项 -->
-              <div class="mt-1 ml-8 space-y-1.5 category-children">
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="centos" value="centos">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">CentOS</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="ubuntu" value="ubuntu">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Ubuntu</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="debian" value="debian">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Debian</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="rocky" value="rocky">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Rocky Linux</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="almalinux" value="almalinux">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">AlmaLinux</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="fedora" value="fedora">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Fedora</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="openanolis" value="openanolis">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">OpenAnolis</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="openeuler" value="openeuler">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">openEuler</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="opencloudos" value="opencloudos">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">OpenCloudOS</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="deepin" value="deepin">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">deepin</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="优麒麟" value="优麒麟">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">优麒麟</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="openkylin" value="openkylin">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">openKylin</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- 商业版本 -->
-            <div class="filter-category">
-              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="commercial">
-                <label class="flex items-center cursor-pointer group py-2 flex-1">
-                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">商业版本</span>
-                </label>
-              </div>
-              <!-- 商业版本选项 -->
-              <div class="mt-1 ml-8 space-y-1.5 category-children">
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="oraclelinux" value="oraclelinux">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Oracle Linux</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="uos" value="uos">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">UOS</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="银河麒麟" value="银河麒麟">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">银河麒麟</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="中科方德" value="中科方德">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">中科方德</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="中标麒麟" value="中标麒麟">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">中标麒麟</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="麒麟软件" value="麒麟软件">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">麒麟软件</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="中科曙光" value="中科曙光">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">中科曙光</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="bclinux" value="bclinux">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">BCLinux</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="中标软件" value="中标软件">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">中标软件</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="红旗linux" value="红旗linux">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">红旗Linux</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="cuiimax" value="cuiimax">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">CUIimax</span>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <!-- 模型专用筛选选项 -->
-          <div id="model-filter" class="space-y-1 mt-6 hidden">
-            <!-- 任务类型 -->
-            <div class="filter-category">
-              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="task-type">
-                <label class="flex items-center cursor-pointer group py-2 flex-1">
-                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">任务类型</span>
-                </label>
-              </div>
-              <!-- 任务类型选项 -->
-              <div class="mt-1 ml-8 space-y-1.5 category-children">
-                <!-- 自然语言处理 -->
-                <div class="filter-subcategory">
-                  <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="nlp">
-                    <label class="flex items-center cursor-pointer group py-2 flex-1">
-                      <span class="text-xs font-medium text-gray-700 group-hover:text-gray-900 transition-colors">自然语言处理</span>
-                    </label>
-                  </div>
-                  <div class="mt-1 ml-8 space-y-1.5 category-children">
-                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                      <input type="checkbox" class="filter-checkbox" data-category="text-classification" value="text-classification">
-                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">文字分类</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                      <input type="checkbox" class="filter-checkbox" data-category="sequence-labeling" value="sequence-labeling">
-                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">序列标注</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                      <input type="checkbox" class="filter-checkbox" data-category="table-qa" value="table-qa">
-                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">表格问答</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                      <input type="checkbox" class="filter-checkbox" data-category="qa" value="qa">
-                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">问答</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                      <input type="checkbox" class="filter-checkbox" data-category="sample-classification" value="sample-classification">
-                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">样本分类</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                      <input type="checkbox" class="filter-checkbox" data-category="translation" value="translation">
-                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">翻译</span>
-                    </label>
-                  </div>
-                </div>
-                <!-- 语音 -->
-                <div class="filter-subcategory">
-                  <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="audio">
-                    <label class="flex items-center cursor-pointer group py-2 flex-1">
-                      <span class="text-xs font-medium text-gray-700 group-hover:text-gray-900 transition-colors">语音</span>
-                    </label>
-                  </div>
-                  <div class="mt-1 ml-8 space-y-1.5 category-children">
-                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                      <input type="checkbox" class="filter-checkbox" data-category="speech-synthesis" value="speech-synthesis">
-                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">语音合成</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                      <input type="checkbox" class="filter-checkbox" data-category="audio-classification" value="audio-classification">
-                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">音频分类</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                      <input type="checkbox" class="filter-checkbox" data-category="audio-generation" value="audio-generation">
-                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">音频生成</span>
-                    </label>
-                  </div>
-                </div>
-                <!-- 多模态 -->
-                <div class="filter-subcategory">
-                  <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="multimodal">
-                    <label class="flex items-center cursor-pointer group py-2 flex-1">
-                      <span class="text-xs font-medium text-gray-700 group-hover:text-gray-900 transition-colors">多模态</span>
-                    </label>
-                  </div>
-                  <div class="mt-1 ml-8 space-y-1.5 category-children">
-                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                      <input type="checkbox" class="filter-checkbox" data-category="image-multimodal" value="image-multimodal">
-                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">图像多模态理解</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                      <input type="checkbox" class="filter-checkbox" data-category="video-multimodal" value="video-multimodal">
-                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">视频多模态理解</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                      <input type="checkbox" class="filter-checkbox" data-category="document-qa" value="document-qa">
-                      <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">文档问答</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- 框架类型 -->
-            <div class="filter-category">
-              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="framework-type">
-                <label class="flex items-center cursor-pointer group py-2 flex-1">
-                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">框架类型</span>
-                </label>
-              </div>
-              <!-- 框架类型选项 -->
-              <div class="mt-1 ml-8 space-y-1.5 category-children">
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="pytorch" value="pytorch">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">PyTorch</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="tensorflow" value="tensorflow">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">TensorFlow</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="jax" value="jax">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">JAX</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="transformers" value="transformers">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Transformers</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="diffusers" value="diffusers">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Diffusers</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="onnx" value="onnx">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">ONNX</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- 组织 -->
-            <div class="filter-category">
-              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="organization">
-                <label class="flex items-center cursor-pointer group py-2 flex-1">
-                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">组织</span>
-                </label>
-              </div>
-              <!-- 组织选项 -->
-              <div class="mt-1 ml-8 space-y-1.5 category-children">
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="sugon" value="sugon">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">曙光智算</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="ai-world" value="ai-world">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">AI世界</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="smart-era" value="smart-era">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">智能时代</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="minimax" value="minimax">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">MiniMax</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="baidu-ai" value="baidu-ai">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">百度AI</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- 适配加速卡 -->
-            <div class="filter-category">
-              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="adapter">
-                <label class="flex items-center cursor-pointer group py-2 flex-1">
-                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">适配加速卡</span>
-                </label>
-              </div>
-              <!-- 适配加速卡选项 -->
-              <div class="mt-1 ml-8 space-y-1.5 category-children">
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="heterogeneous-bw" value="heterogeneous-bw">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">异构加速卡BW</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="heterogeneous-ai" value="heterogeneous-ai">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">异构加速卡AI</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="heterogeneous" value="heterogeneous">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">异构加速卡</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="gpu" value="gpu">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">GPU</span>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <!-- 镜像专用筛选选项 -->
-          <div id="image-filter" class="space-y-1 mt-6 hidden">
-            <!-- 加速卡 -->
-            <div class="filter-category">
-              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="accelerator">
-                <label class="flex items-center cursor-pointer group py-2 flex-1">
-                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">加速卡</span>
-                </label>
-              </div>
-              <!-- 加速卡选项 -->
-              <div class="mt-1 ml-8 space-y-1.5 category-children">
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="radio" name="accelerator" class="filter-radio" value="cpu">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">CPU</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="radio" name="accelerator" class="filter-radio" value="gpu">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">GPU</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="radio" name="accelerator" class="filter-radio" value="dcu">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">DCU</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- 镜像类型 -->
-            <div class="filter-category">
-              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="image-type">
-                <label class="flex items-center cursor-pointer group py-2 flex-1">
-                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">镜像类型</span>
-                </label>
-              </div>
-              <!-- 镜像类型选项 -->
-              <div class="mt-1 ml-8 space-y-1.5 category-children">
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="jupyter" value="jupyter">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Jupyter</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="pytorch" value="pytorch">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">PyTorch</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="tensorflow" value="tensorflow">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">TensorFlow</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="rstudio" value="rstudio">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Rstudio</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="tensorboard" value="tensorboard">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">TensorBoard</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="vscode" value="vscode">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">VS Code</span>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <!-- 代码专用筛选选项 -->
-          <div id="code-filter" class="space-y-1 mt-6 hidden">
-            <!-- 语言 -->
-            <div class="filter-category">
-              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="language">
-                <label class="flex items-center cursor-pointer group py-2 flex-1">
-                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">语言</span>
-                </label>
-              </div>
-              <!-- 语言选项 -->
-              <div class="mt-1 ml-8 space-y-1.5 category-children">
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="python" value="python">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Python</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="cpp" value="cpp">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">C++</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="c" value="c">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">C</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="verilog" value="verilog">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Verilog</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="java" value="java">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Java</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="javascript" value="javascript">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">JavaScript</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="shell" value="shell">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Shell</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="html" value="html">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">HTML</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="csharp" value="csharp">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">C#</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="vhdl" value="vhdl">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">VHDL</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- 归档 -->
-            <div class="filter-category">
-              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="archived">
-                <label class="flex items-center cursor-pointer group py-2 flex-1">
-                  <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">归档</span>
-                </label>
-              </div>
-              <!-- 归档选项 -->
-              <div class="mt-1 ml-8 space-y-1.5 category-children">
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="public" value="public">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Public</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="private" value="private">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">Private</span>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      <!-- 右侧主内容区 -->
-      <div class="flex-1 min-w-0">
+    <!-- 主内容区 -->
+    <div class="min-w-0">
         <div class="mb-6">
-          <!-- 筛选标签 -->
-          <div class="flex flex-wrap items-center gap-2 mb-4">
-            <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all active" data-filter="all">
-              全部
-            </button>
-            <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="model">
-              模型
-            </button>
-            <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="code">
-              代码
-            </button>
-            <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="software">
-              软件支持
-            </button>
-            <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="image">
-              镜像仓库
-            </button>
-          </div>
-
-          <!-- 顶部排序和搜索 -->
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
-            <!-- 排序选项 -->
-            <div class="flex items-center gap-2 flex-wrap">
-              <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="comprehensive">
-                综合排序
+          <!-- 筛选标签和搜索 -->
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+            <!-- 筛选标签 -->
+            <div class="flex flex-wrap items-center gap-2">
+              <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all active" data-filter="all">
+                全部
               </button>
-              <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="latest">
-                最新
+              <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="model">
+                模型
               </button>
-              <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="hottest">
-                最热
+              <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="code">
+                代码
+              </button>
+              <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="software">
+                软件支持
+              </button>
+              <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="image">
+                镜像仓库
               </button>
             </div>
 
@@ -974,6 +442,101 @@
             </div>
           </div>
 
+          <!-- 标签行 -->
+          <div class="space-y-3 mb-4">
+            <!-- 操作系统标签 -->
+            <div id="os-filter" class="flex flex-wrap items-center gap-2">
+              <span class="text-sm font-medium text-gray-700 whitespace-nowrap">操作系统：</span>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                CentOS
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                Ubuntu
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                Debian
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                Rocky Linux
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                AlmaLinux
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                Fedora
+              </button>
+            </div>
+
+            <!-- 人工智能标签 -->
+            <div id="ai-filter" class="flex flex-wrap items-center gap-2">
+              <span class="text-sm font-medium text-gray-700 whitespace-nowrap">人工智能：</span>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                DTK
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                DAS
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                DAP
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                Dcu K8s组件
+              </button>
+            </div>
+
+            <!-- 加速卡标签 -->
+            <div id="accelerator-filter" class="flex flex-wrap items-center gap-2">
+              <span class="text-sm font-medium text-gray-700 whitespace-nowrap">加速卡：</span>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                CPU
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                GPU
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                DCU
+              </button>
+            </div>
+
+            <!-- 镜像类型标签 -->
+            <div id="image-type-filter" class="flex flex-wrap items-center gap-2">
+              <span class="text-sm font-medium text-gray-700 whitespace-nowrap">镜像类型：</span>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                Jupyter
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                PyTorch
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                PyTorch Horovod
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                PyTorch Inference
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                Rstudio
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                TensorBoard
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                TensorFlow
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                TF Horovod
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                TF Inference
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                TF Tuning
+              </button>
+              <button class="filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all">
+                VS Code
+              </button>
+            </div>
+          </div>
+
           <!-- 已选中的分类标签 -->
           <div id="selected-tags-container" class="flex flex-wrap items-center gap-2 mb-4">
             <!-- JS 动态渲染标签 -->
@@ -981,8 +544,101 @@
         </div>
         <!-- 工具列表 -->
         <section>
-          <!-- 工具网格 -->
-          <div id="tool-grid"
+          <!-- 热门模型标题 -->
+          <div id="model-section" class="hidden">
+            <h2 class="text-lg font-semibold text-center mb-6 text-gray-800">热门模型</h2>
+            
+            <!-- 工具网格 -->
+            <div id="tool-grid"
+                 class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
+              <!-- 卡片由 JS 注入 -->
+            </div>
+            
+            <!-- SCnet模型仓库部分 -->
+            <div class="border-t border-gray-200 pt-8">
+              <div class="flex justify-between items-start mb-6">
+                <div class="flex-1">
+                  <div class="text-center">
+                    <a href="https://www.scnet.cn/ui/aihub/models" target="_blank" class="block">
+                      <h2 class="text-lg font-semibold mb-2 text-gray-800">SCnet模型仓库</h2>
+                      <p class="text-sm text-gray-600 mb-4">汇聚千行百业优质模型，一键调用赋能 AI 创新</p>
+                    </a>
+                  </div>
+                </div>
+                <a href="https://www.scnet.cn/ui/aihub/models" target="_blank" class="text-sm text-[#2D874B] hover:underline ml-4">查看更多</a>
+              </div>
+              
+              <!-- 模型链接列表 -->
+              <div class="space-y-4">
+                <div class="border border-gray-200 rounded-xl p-4 hover:border-[#2D874B]/50 transition">
+                  <a href="https://www.scnet.cn/ui/aihub/models/sugon_scnet/DeepSeek-OCR" target="_blank" class="text-sm font-medium text-[#2D874B] hover:underline">deepseek-ai DeepSeek-OCR</a>
+                  <p class="text-xs text-gray-600 mt-1">适配加速卡的优化模型库，助力开发者快速部署 AI 与科学计算任务</p>
+                </div>
+                <div class="border border-gray-200 rounded-xl p-4 hover:border-[#2D874B]/50 transition">
+                  <a href="https://www.scnet.cn/ui/aihub/models/sugon_scnet/Qwen-Image" target="_blank" class="text-sm font-medium text-[#2D874B] hover:underline">Qwen Qwen-Image</a>
+                  <p class="text-xs text-gray-600 mt-1">适配加速卡的优化模型库，助力开发者快速部署 AI 与科学计算任务</p>
+                </div>
+                <div class="border border-gray-200 rounded-xl p-4 hover:border-[#2D874B]/50 transition">
+                  <a href="https://www.scnet.cn/ui/aihub/models/sugon_scnet/DeepSeek-OCR" target="_blank" class="text-sm font-medium text-[#2D874B] hover:underline">deepseek-ai DeepSeek-OCR-2</a>
+                  <p class="text-xs text-gray-600 mt-1">适配加速卡的优化模型库，助力开发者快速部署 AI 与科学计算任务</p>
+                </div>
+                <div class="border border-gray-200 rounded-xl p-4 hover:border-[#2D874B]/50 transition">
+                  <a href="https://www.scnet.cn/ui/aihub/models/sugon_scnet/DeepSeek-OCR" target="_blank" class="text-sm font-medium text-[#2D874B] hover:underline">Qwen3-30B-A3B</a>
+                  <p class="text-xs text-gray-600 mt-1">适配加速卡的优化模型库，助力开发者快速部署 AI 与科学计算任务</p>
+                </div>
+                <div class="border border-gray-200 rounded-xl p-4 hover:border-[#2D874B]/50 transition">
+                  <a href="https://www.scnet.cn/ui/aihub/models/sugon_scnet/DeepSeek-OCR" target="_blank" class="text-sm font-medium text-[#2D874B] hover:underline">deepseek-ai DeepSeek-V3.2</a>
+                  <p class="text-xs text-gray-600 mt-1">适配加速卡的优化模型库，助力开发者快速部署 AI 与科学计算任务</p>
+                </div>
+                <div class="border border-gray-200 rounded-xl p-4 hover:border-[#2D874B]/50 transition">
+                  <a href="https://www.scnet.cn/ui/aihub/models/sugon_scnet/DeepSeek-OCR" target="_blank" class="text-sm font-medium text-[#2D874B] hover:underline">Wan-AI Wan2.2-S2V-14B</a>
+                  <p class="text-xs text-gray-600 mt-1">适配加速卡的优化模型库，助力开发者快速部署 AI 与科学计算任务</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 光源模型仓库部分 -->
+            <div class="border-t border-gray-200 pt-8">
+              <div class="flex justify-between items-start mb-6">
+                <div class="flex-1">
+                  <div class="text-center">
+                    <a href="https://developer.sourcefind.cn/modelzoo" target="_blank" class="block">
+                      <h2 class="text-lg font-semibold mb-2 text-gray-800">光源模型仓库</h2>
+                      <p class="text-sm text-gray-600 mb-4">适配加速卡的优化模型库，助力开发者快速部署 AI 与科学计算任务。</p>
+                    </a>
+                  </div>
+                </div>
+                <a href="https://developer.sourcefind.cn/modelzoo" target="_blank" class="text-sm text-[#2D874B] hover:underline ml-4">查看更多</a>
+              </div>
+              
+              <!-- 模型链接列表 -->
+              <div class="space-y-4">
+                <div class="border border-gray-200 rounded-xl p-4 hover:border-[#2D874B]/50 transition">
+                  <a href="https://developer.sourcefind.cn/modelzoo/list/deepseek-ocr-2_pytorch/detail?post_id=bfd44b89-018f-11f1-9fd5-0242ac150003" target="_blank" class="text-sm font-medium text-[#2D874B] hover:underline">deepseek-ocr-2_pytorch</a>
+                  <p class="text-xs text-gray-600 mt-1">DeepSeek-OCR-2 通过引入 DeepEncoder V2 架构，实现了视觉编码从「固定扫描」向「语义推理」的范式转变！</p>
+                </div>
+                <div class="border border-gray-200 rounded-xl p-4 hover:border-[#2D874B]/50 transition">
+                  <a href="https://developer.sourcefind.cn/modelzoo/list/paddleocr-vl-1.5_paddle/detail?post_id=adae190b-fd10-11f0-a195-0242ac150003" target="_blank" class="text-sm font-medium text-[#2D874B] hover:underline">paddleocr-vl-1.5_paddle</a>
+                  <p class="text-xs text-gray-600 mt-1">PaddleOCR-VL-1.5 是 PaddleOCR-VL 的下一代先进模型，在 OmniDocBench v1.5 基准上实现了 94.5% 的全新 SOTA（当前最优）准确率。</p>
+                </div>
+                <div class="border border-gray-200 rounded-xl p-4 hover:border-[#2D874B]/50 transition">
+                  <a href="https://developer.sourcefind.cn/modelzoo/list/minimax-m2_vllm/detail?post_id=66b4acaf-cc26-11f0-a654-0242ac150003" target="_blank" class="text-sm font-medium text-[#2D874B] hover:underline">minimax-m2_vllm</a>
+                  <p class="text-xs text-gray-600 mt-1">MiniMax-M2是一个紧凑、快速且成本效益高的 MoE 模型（总参数量为 2300 亿，激活参数量为 100 亿），旨在在编码和代理任务中提供精英级性能，同时保持强大的通用智能。</p>
+                </div>
+                <div class="border border-gray-200 rounded-xl p-4 hover:border-[#2D874B]/50 transition">
+                  <a href="https://developer.sourcefind.cn/modelzoo/list/fun-asr-nano_pytorch/detail?post_id=3c2ca988-f126-11f0-a600-0242ac150003" target="_blank" class="text-sm font-medium text-[#2D874B] hover:underline">Fun-ASR-Nano_pytorc</a>
+                  <p class="text-xs text-gray-600 mt-1">通义实验室推出的一款端到端语音识别大模型。</p>
+                </div>
+                <div class="border border-gray-200 rounded-xl p-4 hover:border-[#2D874B]/50 transition">
+                  <a href="https://developer.sourcefind.cn/modelzoo/list/kimi-k2-instruct-quantized.w4a16_vllm/detail?post_id=93a6b78a-ee04-11f0-a600-0242ac150003" target="_blank" class="text-sm font-medium text-[#2D874B] hover:underline">kimi-k2-instruct-quantized.w4a16_vllm</a>
+                  <p class="text-xs text-gray-600 mt-1">kimi-k2-instruct-quantized.w4a16是通过将Kimi-K2-Instruct的权重量化为INT4数据类型而获得的。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 其他分类的工具网格 -->
+          <div id="default-tool-grid"
                class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             <!-- 卡片由 JS 注入 -->
           </div>
@@ -1463,21 +1119,71 @@
     }
   ];
 
-  const grid = document.getElementById('tool-grid');
+  const modelSection = document.getElementById('model-section');
+  const toolGrid = document.getElementById('tool-grid');
+  const defaultToolGrid = document.getElementById('default-tool-grid');
   const countEl = document.getElementById('tool-count');
   const searchInput = document.getElementById('search-input');
   const selectedTagsContainer = document.getElementById('selected-tags-container');
   const filterChips = document.querySelectorAll('.filter-chip');
-  const sortButtons = document.querySelectorAll('.sort-btn');
-  const generalFilter = document.getElementById('general-filter');
-  const softwareFilter = document.getElementById('software-filter');
-  const modelFilter = document.getElementById('model-filter');
-  const imageFilter = document.getElementById('image-filter');
-  const codeFilter = document.getElementById('code-filter');
+  
+  // 筛选标签元素
+  const osFilter = document.getElementById('os-filter');
+  const aiFilter = document.getElementById('ai-filter');
+  const acceleratorFilter = document.getElementById('accelerator-filter');
+  const imageTypeFilter = document.getElementById('image-type-filter');
+  
+  // 根据当前筛选条件获取对应的网格容器
+  function getGridContainer() {
+    return currentFilter === 'model' ? toolGrid : defaultToolGrid;
+  }
+  
+  // 根据当前分类显示或隐藏筛选项
+  function updateFilterVisibility() {
+    switch(currentFilter) {
+      case 'all':
+        // 选中全部时，四个筛选项全部显示
+        osFilter.style.display = 'flex';
+        aiFilter.style.display = 'flex';
+        acceleratorFilter.style.display = 'flex';
+        imageTypeFilter.style.display = 'flex';
+        break;
+      case 'model':
+      case 'code':
+        // 选中模型和代码时，四个筛选项全部隐藏
+        osFilter.style.display = 'none';
+        aiFilter.style.display = 'none';
+        acceleratorFilter.style.display = 'none';
+        imageTypeFilter.style.display = 'none';
+        break;
+      case 'software':
+        // 选中软件支持时，仅显示操作系统和人工智能
+        osFilter.style.display = 'flex';
+        aiFilter.style.display = 'flex';
+        acceleratorFilter.style.display = 'none';
+        imageTypeFilter.style.display = 'none';
+        break;
+      case 'image':
+        // 选中镜像仓库时，仅显示加速卡和镜像类型
+        osFilter.style.display = 'none';
+        aiFilter.style.display = 'none';
+        acceleratorFilter.style.display = 'flex';
+        imageTypeFilter.style.display = 'flex';
+        break;
+      default:
+        // 默认显示全部
+        osFilter.style.display = 'flex';
+        aiFilter.style.display = 'flex';
+        acceleratorFilter.style.display = 'flex';
+        imageTypeFilter.style.display = 'flex';
+    }
+  }
+
+
 
   let filteredTools = [...tools];
   let currentFilter = 'all';
-  let currentSort = 'comprehensive';
+
   let currentSearch = '';
   let currentAccelerator = '';
   let currentImageTypes = [];
@@ -1495,184 +1201,56 @@
 
   // 渲染工具列表
   function renderTools() {
-    grid.innerHTML = '';
+    // 显示/隐藏模型专用部分
+    if (currentFilter === 'model') {
+      modelSection.classList.remove('hidden');
+    } else {
+      modelSection.classList.add('hidden');
+    }
+    
+    // 清空所有网格容器
+    toolGrid.innerHTML = '';
+    defaultToolGrid.innerHTML = '';
+    
+    // 获取当前使用的网格容器
+    const grid = getGridContainer();
     countEl.textContent = filteredTools.length;
 
-    filteredTools.forEach(tool => {
-      const card = document.createElement('article');
-      card.className = "glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer";
-
-      if (tool.type === "image") {
-        // 镜像卡片
-        const acceleratorBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] bg-gray-100 text-gray-800">
-          ${tool.accelerator}
-        </span>`;
-
-        card.innerHTML = `
-          <div class="flex flex-col h-full">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800">${tool.name}</h3>
-              ${acceleratorBadge}
-            </div>
-            <p class="text-xs text-gray-600 line-clamp-3">
-              ${tool.desc}
-            </p>
-            <div class="mt-auto text-xs text-gray-500 flex justify-between pt-2">
-              <span>${tool.updateTime}</span>
-              <span><i class="fa fa-download mr-1"></i>${tool.downloadCount}</span>
-            </div>
-          </div>
-        `;
-      } else if (currentFilter === 'software') {
-        // 软件支持卡片
-        // 根据工具名称生成标签内容
-        let tagContent = 'x86';
-        if (tool.name.includes('Ubuntu')) {
-          tagContent = 'Ubuntu';
-        } else if (tool.name.includes('Debian')) {
-          tagContent = 'Debian';
-        } else if (tool.name.includes('CentOS')) {
-          tagContent = 'CentOS';
-        } else if (tool.name.includes('Rocky')) {
-          tagContent = 'Rocky Linux';
-        } else if (tool.name.includes('AlmaLinux')) {
-          tagContent = 'AlmaLinux';
-        } else if (tool.name.includes('Fedora')) {
-          tagContent = 'Fedora';
-        } else if (tool.name.includes('OpenAnolis')) {
-          tagContent = 'OpenAnolis';
-        } else if (tool.name.includes('openEuler')) {
-          tagContent = 'openEuler';
-        } else if (tool.name.includes('OpenCloudOS')) {
-          tagContent = 'OpenCloudOS';
-        } else if (tool.name.includes('deepin')) {
-          tagContent = 'deepin';
-        } else if (tool.name.includes('优麒麟')) {
-          tagContent = '优麒麟';
-        } else if (tool.name.includes('openKylin')) {
-          tagContent = 'openKylin';
-        } else if (tool.name.includes('Oracle')) {
-          tagContent = 'Oracle Linux';
-        } else if (tool.name.includes('UOS')) {
-          tagContent = 'UOS';
-        } else if (tool.name.includes('银河麒麟')) {
-          tagContent = '银河麒麟';
+    // 处理模型分类的特殊显示逻辑
+    if (currentFilter === 'model') {
+      // 过滤出非第三方模型的卡片（排除第一个第三方模型入口）
+      const modelTools = filteredTools.filter(tool => !tool.isThirdParty);
+      
+      // 复制模型数据以达到8个卡片
+      let displayTools = [...modelTools];
+      while (displayTools.length < 8) {
+        // 从现有模型中随机添加
+        const randomIndex = Math.floor(Math.random() * modelTools.length);
+        displayTools.push({...modelTools[randomIndex], id: displayTools.length + 1000});
+      }
+      
+      // 只显示前8个卡片
+      displayTools = displayTools.slice(0, 8);
+      
+      // 渲染模型卡片
+      displayTools.forEach(tool => {
+        const card = document.createElement('article');
+        card.className = "glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer";
+        
+        // 普通模型卡片
+        let badge = '';
+        if (tool.recommend) {
+          badge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-orange-100 text-orange-800">推荐</span>`;
+        } else if (tool.hot) {
+          badge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-red-100 text-red-800">热门</span>`;
         }
 
-        card.innerHTML = `
-          <div class="flex flex-col h-full">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800">${tool.name}</h3>
-              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-blue-100 text-blue-800">
-                ${tagContent}
-              </span>
-            </div>
-            <p class="text-xs text-gray-600 line-clamp-3">
-              ${tool.desc}
-            </p>
-          </div>
-        `;
-      } else if (currentFilter === 'model') {
-        // 模型卡片
-        if (tool.isThirdParty) {
-          // 第三方模型入口卡片
-          card.innerHTML = `
-            <div class="flex flex-col h-full bg-gradient-to-b from-gray-50 to-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition">
-              <div class="p-4 flex flex-col h-full">
-                <div class="flex justify-between items-start mb-3">
-                  <h3 class="text-sm font-semibold text-gray-800">${tool.name}</h3>
-                </div>
-                <div class="flex-1 flex flex-col justify-center">
-                  <div class="flex items-center justify-center mb-3">
-                    <div class="text-center">
-                      <div class="flex items-center justify-center mb-2">
-                        <img src="images/image.png" alt="SCNet" class="h-6 mr-2">
-                        <span class="text-xs font-semibold text-gray-800">SCNet</span>
-                      </div>
-                      <p class="text-xs text-gray-600">${tool.desc}</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="mt-2 flex justify-center">
-                  <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
-                    模型库
-                  </span>
-                </div>
-              </div>
-            </div>
-          `;
-        } else {
-          // 普通模型卡片
-          let badge = '';
-          if (tool.recommend) {
-            badge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-orange-100 text-orange-800">推荐</span>`;
-          } else if (tool.hot) {
-            badge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-red-100 text-red-800">热门</span>`;
-          }
-
-          // 先设置基本内容
-          card.innerHTML = `
-            <div class="flex flex-col h-full">
-              <div class="flex items-center justify-between mb-2">
-                <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800">${tool.name}</h3>
-                ${badge}
-              </div>
-              <p class="text-xs text-gray-600 line-clamp-3 mb-2">
-                ${tool.desc}
-              </p>
-              <div class="flex flex-wrap gap-1 mb-2" id="tags-container-${tool.id}">
-                <!-- 标签将通过JS动态添加 -->
-              </div>
-              <div class="mt-auto text-xs text-gray-500 flex justify-between pt-2">
-                <span>${tool.updateTime || '未知'}</span>
-                <div class="flex items-center gap-2">
-                  <span><i class="fa fa-download mr-1"></i>${tool.downloadCount || 0}</span>
-                </div>
-              </div>
-            </div>
-          `;
-
-          // 动态添加标签
-          const tags = tool.tags || [];
-          const tagsContainer = card.querySelector(`#tags-container-${tool.id}`);
-          if (tags.length > 4) {
-            const visibleTags = tags.slice(0, 4);
-            const hiddenTags = tags.slice(4);
-            
-            // 添加可见标签
-            visibleTags.forEach(tag => {
-              const tagElement = document.createElement('span');
-              tagElement.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
-              tagElement.textContent = tag;
-              tagsContainer.appendChild(tagElement);
-            });
-            
-            // 添加更多标签
-            const moreTag = document.createElement('span');
-            moreTag.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
-            moreTag.textContent = '...';
-            moreTag.title = hiddenTags.join(', ');
-            tagsContainer.appendChild(moreTag);
-          } else {
-            // 添加所有标签
-            tags.forEach(tag => {
-              const tagElement = document.createElement('span');
-              tagElement.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
-              tagElement.textContent = tag;
-              tagsContainer.appendChild(tagElement);
-            });
-          }
-        }
-      } else if (currentFilter === 'code') {
-        // 代码卡片
         // 先设置基本内容
         card.innerHTML = `
           <div class="flex flex-col h-full">
             <div class="flex items-center justify-between mb-2">
               <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800">${tool.name}</h3>
-              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-blue-100 text-blue-800">
-                ${tool.language || '未知'}
-              </span>
+              ${badge}
             </div>
             <p class="text-xs text-gray-600 line-clamp-3 mb-2">
               ${tool.desc}
@@ -1682,7 +1260,9 @@
             </div>
             <div class="mt-auto text-xs text-gray-500 flex justify-between pt-2">
               <span>${tool.updateTime || '未知'}</span>
-              <span><i class="fa fa-download mr-1"></i>${tool.stars || 0}</span>
+              <div class="flex items-center gap-2">
+                <span><i class="fa fa-download mr-1"></i>${tool.downloadCount || 0}</span>
+              </div>
             </div>
           </div>
         `;
@@ -1717,64 +1297,373 @@
             tagsContainer.appendChild(tagElement);
           });
         }
-      } else {
-        // 普通工具卡片
-        const typeBadge = tool.type === "download"
-          ? `<span class="inline-flex items-center px-2 py-0.5 rounded-full border tool-type-download text-[10px]">
-               <i class="fa fa-download mr-1 text-[9px]"></i>本地工具
-             </span>`
-          : `<span class="inline-flex items-center px-2 py-0.5 rounded-full border tool-type-online text-[10px]">
-               <i class="fa fa-globe mr-1 text-[9px]"></i>在线工具
-             </span>`;
+        
+        // 点击卡片主体跳转到详情页
+        card.addEventListener('click', (e) => {
+          // 普通模型卡片跳转到外部链接
+          window.open('https://www.scnet.cn/ui/aihub/models/sugon_scnet/DeepSeek-OCR', '_blank');
+        });
 
-        const osTags = (tool.os && tool.os.length)
-          ? `<div class="flex flex-wrap gap-1 mt-1">
-               ${tool.os.map(os => `
-                 <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B]">
-                   ${os}
-                 </span>
-               `).join('')}
-             </div>`
-          : "";
-
+        grid.appendChild(card);
+      });
+    } else if (currentFilter === 'code') {
+      // 代码分类的特殊布局
+      
+      // 创建OpenDAS水平铺满卡片
+      const opendDasCard = document.createElement('div');
+      opendDasCard.className = "glass-card rounded-3xl border border-gray-300 p-6 mb-6 hover:border-[#2D874B]/80 transition";
+      opendDasCard.innerHTML = `
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold mb-2 text-gray-800">代码库 OpenDAS</h3>
+            <p class="text-sm text-gray-600">OpenDAS是一个开源的数据分析系统，提供高效的数据处理和分析能力，支持多种数据源和格式，为开发者提供便捷的数据处理工具链。</p>
+          </div>
+          <div class="flex gap-3">
+            <a href="https://developer.sourcefind.cn/codes/-/profile" target="_blank" class="px-4 py-2 rounded-full border border-gray-300 text-gray-800 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition">
+              查看更多
+            </a>
+          </div>
+        </div>
+      `;
+      grid.appendChild(opendDasCard);
+      
+      // 创建OpenDAS下方的三个代码块卡片
+      const opendDasGrid = document.createElement('div');
+      opendDasGrid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8";
+      
+      // 从filteredTools中获取前3个代码工具
+      const codeTools = filteredTools.slice(0, 3);
+      codeTools.forEach(tool => {
+        const card = document.createElement('article');
+        card.className = "glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer";
+        
         card.innerHTML = `
           <div class="flex flex-col h-full">
             <div class="flex items-center justify-between mb-2">
               <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800">${tool.name}</h3>
-              ${typeBadge}
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-blue-100 text-blue-800">
+                ${tool.language || '未知'}
+              </span>
             </div>
-            <p class="text-xs text-gray-600 line-clamp-3">
+            <p class="text-xs text-gray-600 line-clamp-3 mb-2">
               ${tool.desc}
             </p>
-            ${osTags}
+            <div class="flex flex-wrap gap-1 mb-2" id="tags-container-${tool.id}">
+              <!-- 标签将通过JS动态添加 -->
+            </div>
+            <div class="mt-auto text-xs text-gray-500 flex justify-between pt-2">
+              <span>${tool.updateTime || '未知'}</span>
+              <span><i class="fa fa-download mr-1"></i>${tool.stars || 0}</span>
+            </div>
           </div>
         `;
-      }
-
-      // 点击卡片主体跳转到详情页
-      card.addEventListener('click', (e) => {
-        if (currentFilter === 'code') {
+        
+        // 动态添加标签
+        const tags = tool.tags || [];
+        const tagsContainer = card.querySelector(`#tags-container-${tool.id}`);
+        if (tags.length > 4) {
+          const visibleTags = tags.slice(0, 4);
+          const hiddenTags = tags.slice(4);
+          
+          // 添加可见标签
+          visibleTags.forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
+            tagElement.textContent = tag;
+            tagsContainer.appendChild(tagElement);
+          });
+          
+          // 添加更多标签
+          const moreTag = document.createElement('span');
+          moreTag.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
+          moreTag.textContent = '...';
+          moreTag.title = hiddenTags.join(', ');
+          tagsContainer.appendChild(moreTag);
+        } else {
+          // 添加所有标签
+          tags.forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
+            tagElement.textContent = tag;
+            tagsContainer.appendChild(tagElement);
+          });
+        }
+        
+        // 点击卡片主体跳转到详情页
+        card.addEventListener('click', (e) => {
           // 代码卡片跳转到指定链接
           window.open('https://developer.sourcefind.cn/codes/-/profile', '_blank');
-        } else if (currentFilter === 'model') {
-          if (tool.isThirdParty) {
-            // 第三方模型入口跳转到指定链接
-            window.open('https://www.scnet.cn/ui/aihub/models', '_blank');
-          } else {
-            // 普通模型卡片跳转到外部链接
-            window.open('https://www.scnet.cn/ui/aihub/models/sugon_scnet/DeepSeek-OCR', '_blank');
-          }
-        } else if (tool.type === "image") {
-          window.location.href = 'image-detail.html?id=' + tool.id;
-        } else if (tool.type === "software") {
-          window.location.href = 'software-detail.html?id=' + tool.id;
-        } else {
-          window.location.href = 'tool-detail.html?id=' + tool.id;
-        }
+        });
+        
+        opendDasGrid.appendChild(card);
       });
+      
+      grid.appendChild(opendDasGrid);
+      
+      // 创建ModelZoo水平铺满卡片
+      const modelZooCard = document.createElement('div');
+      modelZooCard.className = "glass-card rounded-3xl border border-gray-300 p-6 mb-6 hover:border-[#2D874B]/80 transition";
+      modelZooCard.innerHTML = `
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold mb-2 text-gray-800">ModelZoo</h3>
+            <p class="text-sm text-gray-600">ModelZoo是一个模型仓库，汇聚了各种预训练模型和算法实现，为开发者提供便捷的模型获取和使用渠道，支持多种深度学习框架。</p>
+          </div>
+          <div class="flex gap-3">
+            <a href="https://developer.sourcefind.cn/codes/-/profile" target="_blank" class="px-4 py-2 rounded-full border border-gray-300 text-gray-800 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition">
+              查看更多
+            </a>
+          </div>
+        </div>
+      `;
+      grid.appendChild(modelZooCard);
+      
+      // 创建ModelZoo下方的三个代码块卡片
+      const modelZooGrid = document.createElement('div');
+      modelZooGrid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8";
+      
+      // 从filteredTools中获取接下来的3个代码工具
+      const modelZooTools = filteredTools.slice(3, 6);
+      modelZooTools.forEach(tool => {
+        const card = document.createElement('article');
+        card.className = "glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer";
+        
+        card.innerHTML = `
+          <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800">${tool.name}</h3>
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-blue-100 text-blue-800">
+                ${tool.language || '未知'}
+              </span>
+            </div>
+            <p class="text-xs text-gray-600 line-clamp-3 mb-2">
+              ${tool.desc}
+            </p>
+            <div class="flex flex-wrap gap-1 mb-2" id="tags-container-${tool.id}">
+              <!-- 标签将通过JS动态添加 -->
+            </div>
+            <div class="mt-auto text-xs text-gray-500 flex justify-between pt-2">
+              <span>${tool.updateTime || '未知'}</span>
+              <span><i class="fa fa-download mr-1"></i>${tool.stars || 0}</span>
+            </div>
+          </div>
+        `;
+        
+        // 动态添加标签
+        const tags = tool.tags || [];
+        const tagsContainer = card.querySelector(`#tags-container-${tool.id}`);
+        if (tags.length > 4) {
+          const visibleTags = tags.slice(0, 4);
+          const hiddenTags = tags.slice(4);
+          
+          // 添加可见标签
+          visibleTags.forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
+            tagElement.textContent = tag;
+            tagsContainer.appendChild(tagElement);
+          });
+          
+          // 添加更多标签
+          const moreTag = document.createElement('span');
+          moreTag.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
+          moreTag.textContent = '...';
+          moreTag.title = hiddenTags.join(', ');
+          tagsContainer.appendChild(moreTag);
+        } else {
+          // 添加所有标签
+          tags.forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B] mr-1 mb-1 inline-block';
+            tagElement.textContent = tag;
+            tagsContainer.appendChild(tagElement);
+          });
+        }
+        
+        // 点击卡片主体跳转到详情页
+        card.addEventListener('click', (e) => {
+          // 代码卡片跳转到指定链接
+          window.open('https://developer.sourcefind.cn/codes/-/profile', '_blank');
+        });
+        
+        modelZooGrid.appendChild(card);
+      });
+      
+      grid.appendChild(modelZooGrid);
+      
+      // 添加三个"名字 devkite描述git url"的水平铺满卡片
+      const devkiteSection = document.createElement('div');
+      devkiteSection.className = "space-y-4";
+      
+      // 模拟devkite数据
+      const devkiteData = [
+        {
+          name: "devkite-core",
+          description: "DevKite核心库，提供基础工具和功能",
+          gitUrl: "https://github.com/devkite/devkite-core"
+        },
+        {
+          name: "devkite-cli",
+          description: "DevKite命令行工具，用于项目管理和构建",
+          gitUrl: "https://github.com/devkite/devkite-cli"
+        },
+        {
+          name: "devkite-plugin-system",
+          description: "DevKite插件系统，支持扩展功能",
+          gitUrl: "https://github.com/devkite/devkite-plugin-system"
+        }
+      ];
+      
+      devkiteData.forEach(item => {
+        const devkiteCard = document.createElement('div');
+        devkiteCard.className = "glass-card rounded-3xl border border-gray-300 p-6 hover:border-[#2D874B]/80 transition";
+        devkiteCard.innerHTML = `
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex-1">
+              <h3 class="text-md font-semibold mb-2 text-gray-800">${item.name}</h3>
+              <p class="text-sm text-gray-600 mb-2">${item.description}</p>
+              <a href="${item.gitUrl}" target="_blank" class="text-xs text-[#2D874B] hover:underline flex items-center gap-1">
+                <i class="fa fa-github"></i> ${item.gitUrl}
+              </a>
+            </div>
+            <div class="flex gap-3">
+              <a href="${item.gitUrl}" target="_blank" class="px-4 py-2 rounded-full border border-gray-300 text-gray-800 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition">
+                查看更多
+              </a>
+            </div>
+          </div>
+        `;
+        devkiteSection.appendChild(devkiteCard);
+      });
+      
+      grid.appendChild(devkiteSection);
+    } else {
+      // 渲染其他分类的卡片
+      filteredTools.forEach(tool => {
+        const card = document.createElement('article');
+        card.className = "glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer";
 
-      grid.appendChild(card);
-    });
+        if (tool.type === "image") {
+          // 镜像卡片
+          const acceleratorBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] bg-gray-100 text-gray-800">
+            ${tool.accelerator}
+          </span>`;
+
+          card.innerHTML = `
+            <div class="flex flex-col h-full">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800">${tool.name}</h3>
+                ${acceleratorBadge}
+              </div>
+              <p class="text-xs text-gray-600 line-clamp-3">
+                ${tool.desc}
+              </p>
+              <div class="mt-auto text-xs text-gray-500 flex justify-between pt-2">
+                <span>${tool.updateTime}</span>
+                <span><i class="fa fa-download mr-1"></i>${tool.downloadCount}</span>
+              </div>
+            </div>
+          `;
+        } else if (currentFilter === 'software') {
+          // 软件支持卡片
+          // 根据工具名称生成标签内容
+          let tagContent = 'x86';
+          if (tool.name.includes('Ubuntu')) {
+            tagContent = 'Ubuntu';
+          } else if (tool.name.includes('Debian')) {
+            tagContent = 'Debian';
+          } else if (tool.name.includes('CentOS')) {
+            tagContent = 'CentOS';
+          } else if (tool.name.includes('Rocky')) {
+            tagContent = 'Rocky Linux';
+          } else if (tool.name.includes('AlmaLinux')) {
+            tagContent = 'AlmaLinux';
+          } else if (tool.name.includes('Fedora')) {
+            tagContent = 'Fedora';
+          } else if (tool.name.includes('OpenAnolis')) {
+            tagContent = 'OpenAnolis';
+          } else if (tool.name.includes('openEuler')) {
+            tagContent = 'openEuler';
+          } else if (tool.name.includes('OpenCloudOS')) {
+            tagContent = 'OpenCloudOS';
+          } else if (tool.name.includes('deepin')) {
+            tagContent = 'deepin';
+          } else if (tool.name.includes('优麒麟')) {
+            tagContent = '优麒麟';
+          } else if (tool.name.includes('openKylin')) {
+            tagContent = 'openKylin';
+          } else if (tool.name.includes('Oracle')) {
+            tagContent = 'Oracle Linux';
+          } else if (tool.name.includes('UOS')) {
+            tagContent = 'UOS';
+          } else if (tool.name.includes('银河麒麟')) {
+            tagContent = '银河麒麟';
+          }
+
+          card.innerHTML = `
+            <div class="flex flex-col h-full">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800">${tool.name}</h3>
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-blue-100 text-blue-800">
+                  ${tagContent}
+                </span>
+              </div>
+              <p class="text-xs text-gray-600 line-clamp-3">
+                ${tool.desc}
+              </p>
+            </div>
+          `;
+        } else {
+          // 普通工具卡片
+          const typeBadge = tool.type === "download"
+            ? `<span class="inline-flex items-center px-2 py-0.5 rounded-full border tool-type-download text-[10px]">
+                 <i class="fa fa-download mr-1 text-[9px]"></i>本地工具
+               </span>`
+            : `<span class="inline-flex items-center px-2 py-0.5 rounded-full border tool-type-online text-[10px]">
+                 <i class="fa fa-globe mr-1 text-[9px]"></i>在线工具
+               </span>`;
+
+          const osTags = (tool.os && tool.os.length)
+            ? `<div class="flex flex-wrap gap-1 mt-1">
+                 ${tool.os.map(os => `
+                   <span class="px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[10px] text-[#2D874B]">
+                     ${os}
+                   </span>
+                 `).join('')}
+               </div>`
+            : "";
+
+          card.innerHTML = `
+            <div class="flex flex-col h-full">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-sm font-semibold line-clamp-2 pr-1 text-gray-800">${tool.name}</h3>
+                ${typeBadge}
+              </div>
+              <p class="text-xs text-gray-600 line-clamp-3">
+                ${tool.desc}
+              </p>
+              ${osTags}
+            </div>
+          `;
+        }
+
+        // 点击卡片主体跳转到详情页
+        card.addEventListener('click', (e) => {
+          if (currentFilter === 'code') {
+            // 代码卡片跳转到指定链接
+            window.open('https://developer.sourcefind.cn/codes/-/profile', '_blank');
+          } else if (tool.type === "image") {
+            window.location.href = 'image-detail.html?id=' + tool.id;
+          } else if (tool.type === "software") {
+            window.location.href = 'software-detail.html?id=' + tool.id;
+          } else {
+            window.location.href = 'tool-detail.html?id=' + tool.id;
+          }
+        });
+
+        grid.appendChild(card);
+      });
+    }
   }
 
   // 更新已选中的分类标签
@@ -1850,71 +1739,18 @@
       }
     });
 
-    // 切换筛选面板
-    if (filter === 'image') {
-      generalFilter.classList.add('hidden');
-      softwareFilter.classList.add('hidden');
-      modelFilter.classList.add('hidden');
-      codeFilter.classList.add('hidden');
-      imageFilter.classList.remove('hidden');
-    } else if (filter === 'software') {
-      generalFilter.classList.add('hidden');
-      softwareFilter.classList.remove('hidden');
-      modelFilter.classList.add('hidden');
-      codeFilter.classList.add('hidden');
-      imageFilter.classList.add('hidden');
-    } else if (filter === 'model') {
-      generalFilter.classList.add('hidden');
-      softwareFilter.classList.add('hidden');
-      modelFilter.classList.remove('hidden');
-      codeFilter.classList.add('hidden');
-      imageFilter.classList.add('hidden');
-    } else if (filter === 'code') {
-      generalFilter.classList.add('hidden');
-      softwareFilter.classList.add('hidden');
-      modelFilter.classList.add('hidden');
-      codeFilter.classList.remove('hidden');
-      imageFilter.classList.add('hidden');
-    } else {
-      generalFilter.classList.remove('hidden');
-      softwareFilter.classList.add('hidden');
-      modelFilter.classList.add('hidden');
-      codeFilter.classList.add('hidden');
-      imageFilter.classList.add('hidden');
-      // 重置筛选参数
-      currentAccelerator = '';
-      currentImageTypes = [];
-      currentLanguages = [];
-      currentArchived = [];
-      document.querySelectorAll('input[name="accelerator"]').forEach(radio => {
-        radio.checked = false;
-      });
-      document.querySelectorAll('#image-filter input[type="checkbox"]').forEach(checkbox => {
-        checkbox.checked = false;
-      });
-      document.querySelectorAll('#code-filter input[type="checkbox"]').forEach(checkbox => {
-        checkbox.checked = false;
-      });
-    }
+    // 重置筛选参数
+    currentAccelerator = '';
+    currentImageTypes = [];
+    currentLanguages = [];
+    currentArchived = [];
 
+    // 更新筛选项可见性
+    updateFilterVisibility();
     applyFiltersAndRender();
   }
 
-  // 设置排序
-  function setSort(sort) {
-    currentSort = sort;
 
-    // 更新排序按钮状态
-    sortButtons.forEach(btn => {
-      if (btn.dataset.sort === sort) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
-
-    applyFiltersAndRender();
-  }
 
   // 设置搜索
   function setSearch(search) {
@@ -1970,31 +1806,12 @@
       return matchFilter && matchSearch && matchAccelerator && matchImageType && matchLanguage && matchArchived;
     });
 
-    // 排序
-    if (currentSort === 'latest') {
-      // 按更新时间降序排序（模拟最新）
-      filteredTools.sort((a, b) => {
-        if (a.updateTime && b.updateTime) {
-          return new Date(b.updateTime) - new Date(a.updateTime);
-        }
-        return b.id - a.id;
-      });
-    } else if (currentSort === 'hottest') {
-      // 按下载量降序排序（模拟最热）
-      filteredTools.sort((a, b) => {
-        const downloadA = a.downloadCount || 0;
-        const downloadB = b.downloadCount || 0;
-        return downloadB - downloadA;
-      });
-    } else {
-      // 综合排序（默认顺序）
-      // 让第三方模型入口卡片排在最前面，然后按id排序
-      filteredTools.sort((a, b) => {
-        if (a.isThirdParty && !b.isThirdParty) return -1;
-        if (!a.isThirdParty && b.isThirdParty) return 1;
-        return a.id - b.id;
-      });
-    }
+    // 默认排序：让第三方模型入口卡片排在最前面，然后按id排序
+    filteredTools.sort((a, b) => {
+      if (a.isThirdParty && !b.isThirdParty) return -1;
+      if (!a.isThirdParty && b.isThirdParty) return 1;
+      return a.id - b.id;
+    });
 
     // 渲染
     renderTools();
@@ -2007,72 +1824,15 @@
     });
   });
 
-  sortButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      setSort(btn.dataset.sort);
-    });
-  });
+
 
   searchInput.addEventListener('input', () => {
     setSearch(searchInput.value.trim());
   });
 
-  // 绑定加速卡筛选事件
-  document.querySelectorAll('input[name="accelerator"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-      if (radio.checked) {
-        setAccelerator(radio.value);
-      }
-    });
-  });
-
-  // 绑定镜像类型筛选事件
-  document.querySelectorAll('#image-filter input[type="checkbox"]').forEach(checkbox => {
-    checkbox.addEventListener('change', () => {
-      setImageType(checkbox.value, checkbox.checked);
-    });
-  });
-
-  // 绑定代码语言筛选事件
-  document.querySelectorAll('#code-filter input[type="checkbox"]').forEach(checkbox => {
-    checkbox.addEventListener('change', () => {
-      const value = checkbox.value;
-      if (checkbox.checked) {
-        if (!currentLanguages.includes(value)) {
-          currentLanguages.push(value);
-        }
-      } else {
-        currentLanguages = currentLanguages.filter(l => l !== value);
-      }
-      applyFiltersAndRender();
-    });
-  });
-
-  // 绑定分类切换事件
-  document.querySelectorAll('.category-toggle').forEach(toggle => {
-    toggle.addEventListener('click', () => {
-      const targetId = toggle.dataset.target;
-      const target = document.getElementById(`category-${targetId}`);
-      if (target) {
-        target.classList.toggle('hidden');
-        toggle.classList.toggle('fa-plus');
-        toggle.classList.toggle('fa-minus');
-      }
-    });
-  });
-
   // 初始化
   renderTools();
   updateSelectedTags();
-
-  // 初始化分类面板状态
-  document.querySelectorAll('.category-children').forEach(child => {
-    child.classList.remove('hidden');
-  });
-  document.querySelectorAll('.category-toggle').forEach(toggle => {
-    toggle.classList.remove('fa-plus');
-    toggle.classList.add('fa-minus');
-  });
 </script>
 
 </body>
