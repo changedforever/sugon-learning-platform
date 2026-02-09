@@ -1471,7 +1471,74 @@
                                                     // 显示默认场次内容
                                                     const defaultSession = document.querySelector('input[name="lotterySession"]:checked');
                                                     if (defaultSession) {
-                                                        updateSessionContent(defaultSession.value);
+                                                        // 直接显示场次内容，不调用updateSessionContent避免提示
+                                                        const sessionData = sessionsData[defaultSession.value];
+                                                        if (sessionData) {
+                                                            // 更新题目
+                                                            lotteryQuestion.value = sessionData.question;
+                                                            
+                                                            // 更新选项
+                                                            lotteryOptionsContainer.innerHTML = '';
+                                                            sessionData.options.forEach((option, index) => {
+                                                                const div = document.createElement('div');
+                                                                div.className = 'lottery-option flex items-center gap-1';
+                                                                div.dataset.index = index;
+                                                                const isCorrect = index === sessionData.correctAnswer;
+                                                                 
+                                                                let inputHtml;
+                                                                if (isCorrect) {
+                                                                    inputHtml = '<div class="relative flex-1">' +
+                                                                        '<input type="text" class="lottery-option-input w-full px-3 py-2 bg-gray-800 border-2 border-red-600 rounded-md text-white cursor-pointer" value="' + option + '" data-correct="true" />' +
+                                                                        '<span class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-1 rounded-tr-md rounded-bl-md">正确答案</span>' +
+                                                                        '</div>';
+                                                                } else {
+                                                                    inputHtml = '<div class="flex-1">' +
+                                                                        '<input type="text" class="lottery-option-input w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white cursor-pointer" value="' + option + '" data-correct="false" />' +
+                                                                        '</div>';
+                                                                }
+                                                                 
+                                                                div.innerHTML = 
+                                                                    '<span class="text-gray-400 text-sm w-12">选项' + ['一', '二', '三'][index] + '</span>' +
+                                                                    inputHtml +
+                                                                    '<div class="answer-count text-gray-400 text-xs whitespace-nowrap hidden">0人已答</div>';
+                                                                lotteryOptionsContainer.appendChild(div);
+                                                            });
+                                                            
+                                                            // 重新绑定输入框点击事件
+                                                            const newLotteryInputs = document.querySelectorAll('.lottery-option-input');
+                                                            newLotteryInputs.forEach(input => {
+                                                                input.addEventListener('click', function() {
+                                                                    // 移除所有输入框的正确答案标记
+                                                                    const allInputs = document.querySelectorAll('.lottery-option-input');
+                                                                    allInputs.forEach(input => {
+                                                                        input.dataset.correct = 'false';
+                                                                    });
+                                                                    
+                                                                    // 将当前输入框标记为正确答案
+                                                                    this.dataset.correct = 'true';
+                                                                    
+                                                                    // 更新显示
+                                                                    updateLotteryCorrectAnswerDisplay();
+                                                                });
+                                                            });
+                                                            
+                                                            // 更新正确答案显示
+                                                            updateLotteryCorrectAnswerDisplay();
+                                                            
+                                                            // 更新奖品名称
+                                                            prizeName.value = sessionData.prizeName;
+                                                            
+                                                            // 更新中奖人数
+                                                            prizeCount.value = sessionData.winnerCount;
+                                                            
+                                                            // 更新中奖规则
+                                                            let ruleHtml = '<span class="text-gray-400">第</span>';
+                                                            sessionData.winnerPositions.forEach(position => {
+                                                                ruleHtml += '<input type="text" class="w-10 px-2 py-1 bg-gray-800 border border-gray-700 rounded-md text-white text-center" value="' + position + '" disabled>';
+                                                            });
+                                                            ruleHtml += '<span class="text-gray-400">位答对用户中奖</span>';
+                                                            lotteryRuleWrap.innerHTML = ruleHtml;
+                                                        }
                                                     }
                                                     
                                                     // 如果有抽奖正在进行，显示结束抽奖按钮
