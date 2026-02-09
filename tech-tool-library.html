@@ -1201,6 +1201,14 @@
 
   // 渲染工具列表
   function renderTools() {
+    // 根据当前分类调整默认工具网格容器布局
+    // 代码分类下需要整块内容铺满一行显示，因此不使用多列网格布局
+    if (currentFilter === 'code') {
+      defaultToolGrid.className = "space-y-4";
+    } else {
+      defaultToolGrid.className = "grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4";
+    }
+
     // 显示/隐藏模型专用部分
     if (currentFilter === 'model') {
       modelSection.classList.remove('hidden');
