@@ -385,7 +385,7 @@
         </a>
         <a href="case-library.html"
            class="px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:border-[#2D874B] transition text-[#2D874B]">
-          案例库
+          解决方案
         </a>
       </div>
     </div>
@@ -415,10 +415,7 @@
           <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
             <!-- 筛选标签 -->
             <div class="flex flex-wrap items-center gap-2">
-              <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all active" data-filter="all">
-                全部
-              </button>
-              <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="model">
+              <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all active" data-filter="model">
                 模型
               </button>
               <button class="filter-chip px-4 py-2 rounded-full border border-gray-300 text-sm hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-filter="code">
@@ -1171,18 +1168,18 @@
         imageTypeFilter.style.display = 'flex';
         break;
       default:
-        // 默认显示全部
-        osFilter.style.display = 'flex';
-        aiFilter.style.display = 'flex';
-        acceleratorFilter.style.display = 'flex';
-        imageTypeFilter.style.display = 'flex';
+        // 默认隐藏全部（因为已经删除了"全部"标签）
+        osFilter.style.display = 'none';
+        aiFilter.style.display = 'none';
+        acceleratorFilter.style.display = 'none';
+        imageTypeFilter.style.display = 'none';
     }
   }
 
 
 
   let filteredTools = [...tools];
-  let currentFilter = 'all';
+  let currentFilter = 'model';
 
   let currentSearch = '';
   let currentAccelerator = '';
@@ -1317,10 +1314,14 @@
     } else if (currentFilter === 'code') {
       // 代码分类的特殊布局
       
-      // 创建OpenDAS水平铺满卡片
-      const opendDasCard = document.createElement('div');
-      opendDasCard.className = "glass-card rounded-3xl border border-gray-300 p-6 mb-6 hover:border-[#2D874B]/80 transition";
-      opendDasCard.innerHTML = `
+      // 创建OpenDAS整体容器
+      const opendDasContainer = document.createElement('div');
+      opendDasContainer.className = "glass-card rounded-3xl border border-gray-300 p-6 mb-6 hover:border-[#2D874B]/80 transition";
+      
+      // 创建OpenDAS标题和描述部分
+      const opendDasHeader = document.createElement('div');
+      opendDasHeader.className = "mb-6";
+      opendDasHeader.innerHTML = `
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="flex-1">
             <h3 class="text-lg font-semibold mb-2 text-gray-800">代码库 OpenDAS</h3>
@@ -1333,11 +1334,11 @@
           </div>
         </div>
       `;
-      grid.appendChild(opendDasCard);
+      opendDasContainer.appendChild(opendDasHeader);
       
       // 创建OpenDAS下方的三个代码块卡片
       const opendDasGrid = document.createElement('div');
-      opendDasGrid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8";
+      opendDasGrid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4";
       
       // 从filteredTools中获取前3个代码工具
       const codeTools = filteredTools.slice(0, 3);
@@ -1406,12 +1407,20 @@
         opendDasGrid.appendChild(card);
       });
       
-      grid.appendChild(opendDasGrid);
+      // 将卡片网格添加到OpenDAS容器中
+      opendDasContainer.appendChild(opendDasGrid);
       
-      // 创建ModelZoo水平铺满卡片
-      const modelZooCard = document.createElement('div');
-      modelZooCard.className = "glass-card rounded-3xl border border-gray-300 p-6 mb-6 hover:border-[#2D874B]/80 transition";
-      modelZooCard.innerHTML = `
+      // 将整个OpenDAS容器添加到grid中
+      grid.appendChild(opendDasContainer);
+      
+      // 创建ModelZoo整体容器
+      const modelZooContainer = document.createElement('div');
+      modelZooContainer.className = "glass-card rounded-3xl border border-gray-300 p-6 mb-6 hover:border-[#2D874B]/80 transition";
+      
+      // 创建ModelZoo标题和描述部分
+      const modelZooHeader = document.createElement('div');
+      modelZooHeader.className = "mb-6";
+      modelZooHeader.innerHTML = `
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="flex-1">
             <h3 class="text-lg font-semibold mb-2 text-gray-800">ModelZoo</h3>
@@ -1424,11 +1433,11 @@
           </div>
         </div>
       `;
-      grid.appendChild(modelZooCard);
+      modelZooContainer.appendChild(modelZooHeader);
       
       // 创建ModelZoo下方的三个代码块卡片
       const modelZooGrid = document.createElement('div');
-      modelZooGrid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8";
+      modelZooGrid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4";
       
       // 从filteredTools中获取接下来的3个代码工具
       const modelZooTools = filteredTools.slice(3, 6);
@@ -1497,7 +1506,11 @@
         modelZooGrid.appendChild(card);
       });
       
-      grid.appendChild(modelZooGrid);
+      // 将卡片网格添加到ModelZoo容器中
+      modelZooContainer.appendChild(modelZooGrid);
+      
+      // 将整个ModelZoo容器添加到grid中
+      grid.appendChild(modelZooContainer);
       
       // 添加三个"名字 devkite描述git url"的水平铺满卡片
       const devkiteSection = document.createElement('div');
@@ -1506,19 +1519,9 @@
       // 模拟devkite数据
       const devkiteData = [
         {
-          name: "devkite-core",
+          name: "devkite",
           description: "DevKite核心库，提供基础工具和功能",
-          gitUrl: "https://github.com/devkite/devkite-core"
-        },
-        {
-          name: "devkite-cli",
-          description: "DevKite命令行工具，用于项目管理和构建",
-          gitUrl: "https://github.com/devkite/devkite-cli"
-        },
-        {
-          name: "devkite-plugin-system",
-          description: "DevKite插件系统，支持扩展功能",
-          gitUrl: "https://github.com/devkite/devkite-plugin-system"
+          gitUrl: "https://github.com/devkite/devkite"
         }
       ];
       
@@ -1678,21 +1681,23 @@
   function updateSelectedTags() {
     selectedTagsContainer.innerHTML = '';
 
-    if (currentFilter !== 'all') {
-      const tag = document.createElement('div');
-      tag.className = 'filter-tag';
-      tag.innerHTML = `
-        <span>${categoryNames[currentFilter] || currentFilter}</span>
-        <i class="fa fa-times filter-tag-close text-xs" data-filter="${currentFilter}"></i>
-      `;
-      selectedTagsContainer.appendChild(tag);
+    // 不显示模型标签的关闭按钮版本
+    // if (currentFilter && currentFilter !== 'model') {
+    //   const tag = document.createElement('div');
+    //   tag.className = 'filter-tag';
+    //   tag.innerHTML = `
+    //     <span>${categoryNames[currentFilter] || currentFilter}</span>
+    //     <i class="fa fa-times filter-tag-close text-xs" data-filter="${currentFilter}"></i>
+    //   `;
+    //   selectedTagsContainer.appendChild(tag);
 
-      // 绑定标签关闭按钮的点击事件
-      tag.querySelector('.filter-tag-close').addEventListener('click', (e) => {
-        e.stopPropagation();
-        setFilter('all');
-      });
-    }
+    //   // 绑定标签关闭按钮的点击事件
+    //   tag.querySelector('.filter-tag-close').addEventListener('click', (e) => {
+    //     e.stopPropagation();
+    //     setFilter('model');
+    //   });
+    // }
+
 
     if (currentAccelerator) {
       const tag = document.createElement('div');
@@ -1839,6 +1844,7 @@
   });
 
   // 初始化
+  updateFilterVisibility();
   renderTools();
   updateSelectedTags();
 </script>
