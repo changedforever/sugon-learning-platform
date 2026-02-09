@@ -284,9 +284,9 @@
         
         <!-- 用户头像 -->
         <div class="relative">
-          <button id="user-avatar" class="h-9 w-9 rounded-full bg-gradient-to-br from-[#2D874B] to-[#34D399] hover:from-[#256e3d] hover:to-[#2bbd8a] transition-all duration-300 flex items-center justify-center text-white font-semibold text-sm shadow-md hover:shadow-lg">
+          <a href="personal-center.html" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
             <i class="fa fa-user"></i>
-          </button>
+          </a>
         </div>
         
         <!-- 移动端菜单按钮 -->
@@ -586,93 +586,137 @@
       </div>
       <!-- 工具资源网格 -->
       <div class="resource-grid">
-        <!-- 工具1 -->
-        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="devkit">
+        <!-- 代码标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="code">
           <div class="flex items-center mb-4">
             <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-4">
               <i class="fa fa-code text-white text-xl"></i>
             </div>
             <div>
               <h3 class="text-lg font-semibold text-gray-800">SDK开发工具包</h3>
-              <p class="text-sm text-gray-500">DevKit · 开发工具</p>
+              <p class="text-sm text-gray-500">代码资源 · 开发工具</p>
             </div>
           </div>
           <p class="text-gray-600 mb-4 text-sm">
             提供完整的SDK开发工具包，支持多种编程语言，包含丰富的API接口和示例代码。
           </p>
           <div class="flex items-center justify-between">
-            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">开发工具</span>
+            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">代码资源</span>
             <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
               下载 <i class="fa fa-arrow-right ml-1"></i>
             </a>
           </div>
         </div>
         
-        <!-- 工具2 -->
-        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="devkit">
+        <!-- 代码标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="code">
           <div class="flex items-center mb-4">
             <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mr-4">
               <i class="fa fa-bug text-white text-xl"></i>
             </div>
             <div>
               <h3 class="text-lg font-semibold text-gray-800">调试分析工具</h3>
-              <p class="text-sm text-gray-500">DevKit · 调试工具</p>
+              <p class="text-sm text-gray-500">代码资源 · 调试工具</p>
             </div>
           </div>
           <p class="text-gray-600 mb-4 text-sm">
             专业的调试分析工具，支持性能分析、内存检测、代码调试等多种调试功能。
           </p>
           <div class="flex items-center justify-between">
-            <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">调试工具</span>
+            <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">代码资源</span>
             <a href="#" class="text-green-600 hover:text-green-800 text-sm font-medium">
               下载 <i class="fa fa-arrow-right ml-1"></i>
             </a>
           </div>
         </div>
         
-        <!-- 工具3 -->
-        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="all">
+        <!-- 模型标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="model">
           <div class="flex items-center mb-4">
             <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mr-4">
-              <i class="fa fa-cogs text-white text-xl"></i>
+              <i class="fa fa-brain text-white text-xl"></i>
             </div>
             <div>
-              <h3 class="text-lg font-semibold text-gray-800">性能监控工具</h3>
-              <p class="text-sm text-gray-500">监控工具</p>
+              <h3 class="text-lg font-semibold text-gray-800">AI模型库</h3>
+              <p class="text-sm text-gray-500">模型资源 · AI工具</p>
             </div>
           </div>
           <p class="text-gray-600 mb-4 text-sm">
-            实时性能监控工具，监控系统运行状态，提供详细的性能指标和报警功能。
+            提供丰富的AI模型库，包括预训练模型、模型权重和模型部署工具，支持多种AI框架。
           </p>
           <div class="flex items-center justify-between">
-            <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">监控工具</span>
+            <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">模型资源</span>
             <a href="#" class="text-purple-600 hover:text-purple-800 text-sm font-medium">
               下载 <i class="fa fa-arrow-right ml-1"></i>
             </a>
           </div>
         </div>
         
-        <!-- 工具4 -->
-        <!--<div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="all">
+        <!-- 软件支持标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="software">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mr-4">
-              <i class="fa fa-shield-alt text-white text-xl"></i>
+            <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-desktop text-white text-xl"></i>
             </div>
             <div>
-              <h3 class="text-lg font-semibold text-gray-800">安全检测工具</h3>
-              <p class="text-sm text-gray-500">安全工具</p>
+              <h3 class="text-lg font-semibold text-gray-800">软件支持服务</h3>
+              <p class="text-sm text-gray-500">软件支持 · 技术服务</p>
             </div>
           </div>
           <p class="text-gray-600 mb-4 text-sm">
-            全面的安全检测工具，检测系统漏洞、安全配置，提供安全评估报告。
+            提供全方位的软件支持服务，包括安装配置、故障排查、版本升级等技术支持。
           </p>
           <div class="flex items-center justify-between">
-            <span class="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded-full">安全工具</span>
-            <a href="#" class="text-orange-600 hover:text-orange-800 text-sm font-medium">
-              下载 <i class="fa fa-arrow-right ml-1"></i>
+            <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full">软件支持</span>
+            <a href="#" class="text-yellow-600 hover:text-yellow-800 text-sm font-medium">
+              了解 <i class="fa fa-arrow-right ml-1"></i>
             </a>
           </div>
-        </div>-->
+        </div>
+        
+        <!-- 镜像仓库标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="image">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-database text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">容器镜像仓库</h3>
+              <p class="text-sm text-gray-500">镜像仓库 · 容器工具</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            提供安全可靠的容器镜像仓库，支持多种容器镜像格式，包含官方镜像和自定义镜像。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-red-100 text-red-700 text-xs rounded-full">镜像仓库</span>
+            <a href="#" class="text-red-600 hover:text-red-800 text-sm font-medium">
+              访问 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 软件支持标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="software">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-headset text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">技术支持热线</h3>
+              <p class="text-sm text-gray-500">软件支持 · 技术服务</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            提供7×24小时技术支持热线，专业技术人员为您解答各类技术问题，保障系统稳定运行。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full">软件支持</span>
+            <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+              联系 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -694,33 +738,55 @@
 
       <!-- 文档标签筛选 -->
       <div class="flex flex-wrap justify-center gap-3 mb-8">
-        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200 active" data-tag="all">
-          全部文档
-        </button>
-        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="basic">
-          基础知识
-        </button>
-        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="virtualization">
-          虚拟化
-        </button>
-        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="database">
-          数据库
-        </button>
-        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="bigdata">
-          大数据
-        </button>
-        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="storage">
-          分布式存储
-        </button>
-        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="ai">
-          人工智能
-        </button>
-        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="hpc">
-          高端计算
-        </button>
-        <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="faq">
-          常见问题
-        </button>
+        <div class="flex justify-center gap-3 mb-3">
+          <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200 active" data-tag="all">
+            全部
+          </button>
+          <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="compatibility">
+            兼容性
+          </button>
+          <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="ai">
+            人工智能
+          </button>
+          <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="cloud">
+            云计算/虚拟化
+          </button>
+          <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="database">
+            数据库
+          </button>
+          <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="os">
+            操作系统
+          </button>
+          <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="bigdata">
+            大数据
+          </button>
+        </div>
+        <div class="flex justify-center gap-3">
+          <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="network">
+            网络流量
+          </button>
+          <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="basic-software">
+            基础软件
+          </button>
+          <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="hpc">
+            高端计算(HPC)
+          </button>
+          <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="storage">
+            存储
+          </button>
+          <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="security">
+            海光内生安全
+          </button>
+          <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="benchmark">
+            基准测试
+          </button>
+          <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="dev-suite">
+            应用开发套件
+          </button>
+          <button class="tag-filter px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-all duration-200" data-tag="policy">
+            光耀百城政策
+          </button>
+        </div>
       </div>
       <div style="text-align: right;margin-bottom: 10px;">
         <a href="doc-library.html" class="text-blue-0 hover:text-blue-800 hover:underline transition-all duration-300 font-medium" style="font-size: 14px;color: #2563EB;">
@@ -730,73 +796,29 @@
       </div>
       <!-- 文档资源网格 -->
       <div class="resource-grid">
-        <!-- 文档1 -->
-        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="basic">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mr-4">
-              <i class="fa fa-graduation-cap text-white text-xl"></i>
-            </div>
-            <div>
-              <h3 class="text-lg font-semibold text-gray-800">云计算基础入门</h3>
-              <p class="text-sm text-gray-500">基础知识 · 入门指南</p>
-            </div>
-          </div>
-          <p class="text-gray-600 mb-4 text-sm">
-            云计算基础概念、架构原理、服务模式等入门知识，适合初学者学习。
-          </p>
-          <div class="flex items-center justify-between">
-            <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">基础知识</span>
-            <a href="#" class="text-green-600 hover:text-green-800 text-sm font-medium">
-              阅读 <i class="fa fa-arrow-right ml-1"></i>
-            </a>
-          </div>
-        </div>
-        
-        <!-- 文档2 -->
-        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="virtualization">
+        <!-- 兼容性标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="compatibility">
           <div class="flex items-center mb-4">
             <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-4">
-              <i class="fa fa-server text-white text-xl"></i>
+              <i class="fa fa-check-circle text-white text-xl"></i>
             </div>
             <div>
-              <h3 class="text-lg font-semibold text-gray-800">虚拟化技术详解</h3>
-              <p class="text-sm text-gray-500">虚拟化 · 技术文档</p>
+              <h3 class="text-lg font-semibold text-gray-800">硬件兼容性指南</h3>
+              <p class="text-sm text-gray-500">兼容性 · 硬件支持</p>
             </div>
           </div>
           <p class="text-gray-600 mb-4 text-sm">
-            深入解析虚拟化技术原理、实现方式、性能优化等专业技术内容。
+            详细列出支持的硬件设备型号、驱动程序版本和兼容性测试结果，确保系统稳定运行。
           </p>
           <div class="flex items-center justify-between">
-            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">虚拟化</span>
+            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">兼容性</span>
             <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
               阅读 <i class="fa fa-arrow-right ml-1"></i>
             </a>
           </div>
         </div>
         
-        <!-- 文档3 -->
-        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="database">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mr-4">
-              <i class="fa fa-database text-white text-xl"></i>
-            </div>
-            <div>
-              <h3 class="text-lg font-semibold text-gray-800">数据库优化指南</h3>
-              <p class="text-sm text-gray-500">数据库 · 性能优化</p>
-            </div>
-          </div>
-          <p class="text-gray-600 mb-4 text-sm">
-            数据库性能优化、索引设计、查询优化等实用技术指南。
-          </p>
-          <div class="flex items-center justify-between">
-            <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">数据库</span>
-            <a href="#" class="text-purple-600 hover:text-purple-800 text-sm font-medium">
-              阅读 <i class="fa fa-arrow-right ml-1"></i>
-            </a>
-          </div>
-        </div>
-        
-        <!-- 文档4 -->
+        <!-- 人工智能标签卡片 -->
         <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="ai">
           <div class="flex items-center mb-4">
             <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mr-4">
@@ -808,7 +830,7 @@
             </div>
           </div>
           <p class="text-gray-600 mb-4 text-sm">
-            机器学习、深度学习算法原理、实践案例和应用场景详解。
+            机器学习、深度学习算法原理、实践案例和应用场景详解，助力AI应用开发。
           </p>
           <div class="flex items-center justify-between">
             <span class="px-2 py-1 bg-pink-100 text-pink-700 text-xs rounded-full">人工智能</span>
@@ -818,45 +840,265 @@
           </div>
         </div>
         
-        <!-- 文档5 -->
-        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="faq">
+        <!-- 云计算/虚拟化标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="cloud">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mr-4">
-              <i class="fa fa-question-circle text-white text-xl"></i>
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-cloud text-white text-xl"></i>
             </div>
             <div>
-              <h3 class="text-lg font-semibold text-gray-800">常见问题解答</h3>
-              <p class="text-sm text-gray-500">FAQ · 问题解决</p>
+              <h3 class="text-lg font-semibold text-gray-800">云计算架构设计</h3>
+              <p class="text-sm text-gray-500">云计算 · 架构设计</p>
             </div>
           </div>
           <p class="text-gray-600 mb-4 text-sm">
-            常见技术问题、故障排除、配置问题等实用解决方案列表。
+            云计算系统架构设计原则、最佳实践和部署方案，适合架构师和技术决策者参考。
           </p>
           <div class="flex items-center justify-between">
-            <span class="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded-full">常见问题</span>
-            <a href="#" class="text-orange-600 hover:text-orange-800 text-sm font-medium">
+            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">云计算</span>
+            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
               阅读 <i class="fa fa-arrow-right ml-1"></i>
             </a>
           </div>
         </div>
         
-        <!-- 文档6 -->
+        <!-- 数据库标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="database">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-database text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">数据库优化指南</h3>
+              <p class="text-sm text-gray-500">数据库 · 性能优化</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            数据库性能优化、索引设计、查询优化等实用技术指南，提升数据库运行效率。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">数据库</span>
+            <a href="#" class="text-purple-600 hover:text-purple-800 text-sm font-medium">
+              阅读 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 操作系统标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="os">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-desktop text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">操作系统配置指南</h3>
+              <p class="text-sm text-gray-500">操作系统 · 配置管理</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mb-4">
+            操作系统安装、配置、优化和维护的详细指南，确保系统安全稳定运行。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">操作系统</span>
+            <a href="#" class="text-green-600 hover:text-green-800 text-sm font-medium">
+              阅读 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 大数据标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="bigdata">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-chart-bar text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">大数据处理技术</h3>
+              <p class="text-sm text-gray-500">大数据 · 处理技术</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            大数据采集、存储、处理和分析技术详解，包括Hadoop、Spark等主流框架应用。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full">大数据</span>
+            <a href="#" class="text-yellow-600 hover:text-yellow-800 text-sm font-medium">
+              阅读 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 网络流量标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="network">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-network-wired text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">网络流量优化</h3>
+              <p class="text-sm text-gray-500">网络流量 · 优化策略</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            网络流量监控、分析和优化技术，提升网络传输效率和系统响应速度。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full">网络流量</span>
+            <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+              阅读 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 基础软件标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="basic-software">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-cogs text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">基础软件部署指南</h3>
+              <p class="text-sm text-gray-500">基础软件 · 部署配置</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            常用基础软件的安装、配置和管理指南，包括Web服务器、应用服务器等。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">基础软件</span>
+            <a href="#" class="text-purple-600 hover:text-purple-800 text-sm font-medium">
+              阅读 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 高端计算(HPC)标签卡片 -->
         <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="hpc">
           <div class="flex items-center mb-4">
             <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mr-4">
               <i class="fa fa-microchip text-white text-xl"></i>
             </div>
             <div>
-              <h3 class="text-lg font-semibold text-gray-800">高性能计算指南</h3>
-              <p class="text-sm text-gray-500">高端计算 · HPC</p>
+              <h3 class="text-lg font-semibold text-gray-800">HPC集群搭建指南</h3>
+              <p class="text-sm text-gray-500">高端计算 · 集群管理</p>
             </div>
           </div>
           <p class="text-gray-600 mb-4 text-sm">
-            高性能计算架构、并行计算、集群管理等专业技术文档。
+            高性能计算集群的设计、搭建、配置和管理技术，提升计算资源利用率。
           </p>
           <div class="flex items-center justify-between">
             <span class="px-2 py-1 bg-red-100 text-red-700 text-xs rounded-full">高端计算</span>
             <a href="#" class="text-red-600 hover:text-red-800 text-sm font-medium">
+              阅读 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 存储标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="storage">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-hdd text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">存储系统配置指南</h3>
+              <p class="text-sm text-gray-500">存储 · 系统配置</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            存储系统的规划、配置、管理和优化技术，确保数据安全可靠存储。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">存储</span>
+            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+              阅读 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 海光内生安全标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="security">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-shield-alt text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">海光内生安全技术</h3>
+              <p class="text-sm text-gray-500">安全 · 技术方案</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            海光处理器内生安全技术详解，包括安全架构、加密算法和安全防护措施。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">安全</span>
+            <a href="#" class="text-green-600 hover:text-green-800 text-sm font-medium">
+              阅读 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 基准测试标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="benchmark">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-tachometer-alt text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">系统基准测试指南</h3>
+              <p class="text-sm text-gray-500">基准测试 · 性能评估</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            系统性能基准测试方法、工具和最佳实践，帮助评估和优化系统性能。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded-full">基准测试</span>
+            <a href="#" class="text-orange-600 hover:text-orange-800 text-sm font-medium">
+              阅读 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 应用开发套件标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="dev-suite">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-code text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">应用开发套件使用指南</h3>
+              <p class="text-sm text-gray-500">开发套件 · 应用开发</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            应用开发套件的安装、配置和使用指南，加速应用开发和部署过程。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">开发套件</span>
+            <a href="#" class="text-purple-600 hover:text-purple-800 text-sm font-medium">
+              阅读 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 光耀百城政策标签卡片 -->
+        <div class="resource-card glass-card rounded-2xl p-6 border border-gray-200" data-tags="policy">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center mr-4">
+              <i class="fa fa-lightbulb text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">光耀百城政策解读</h3>
+              <p class="text-sm text-gray-500">政策解读 · 项目支持</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4 text-sm">
+            详细解读光耀百城政策内容、申请条件和支持措施，助力企业把握政策机遇。
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full">政策</span>
+            <a href="#" class="text-yellow-600 hover:text-yellow-800 text-sm font-medium">
               阅读 <i class="fa fa-arrow-right ml-1"></i>
             </a>
           </div>

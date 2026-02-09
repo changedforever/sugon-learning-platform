@@ -491,92 +491,105 @@
             id="lotteryModal"
             class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
         >
-            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-[420px] max-h-[90vh] overflow-y-auto">
-                <h3 class="text-lg font-medium mb-4 text-white">发起抽奖</h3>
+            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-[420px] max-h-[90vh] overflow-y-auto text-xs">
+                <h3 class="text-sm font-medium mb-4 text-white">发起抽奖</h3>
 
-                <!-- 1. 抽奖条件：单选项，默认答题 -->
+                <!-- 1. 场次选择：单选，3个预设场次 -->
                 <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-300 mb-2">抽奖条件</label>
-                    <div class="flex items-center gap-4">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="lotteryCondition" value="answer" checked class="form-radio text-red-600 bg-gray-800 border-gray-600">
-                            <span class="ml-2 text-gray-300">答题</span>
+                    <div class="flex space-x-4">
+                        <label class="flex flex-col items-center cursor-pointer flex-1">
+                            <input type="radio" name="lotterySession" value="session1" checked class="form-radio text-red-600 bg-gray-800 border-gray-700 mb-2">
+                            <span class="text-gray-300 text-center">场次一：</span>
+                            <span class="text-gray-300 text-center">基础题</span>
+                        </label>
+                        <label class="flex flex-col items-center cursor-pointer flex-1">
+                            <input type="radio" name="lotterySession" value="session2" class="form-radio text-red-600 bg-gray-800 border-gray-700 mb-2">
+                            <span class="text-gray-300 text-center">场次二：</span>
+                            <span class="text-gray-300 text-center">进阶题</span>
+                        </label>
+                        <label class="flex flex-col items-center cursor-pointer flex-1">
+                            <input type="radio" name="lotterySession" value="session3" class="form-radio text-red-600 bg-gray-800 border-gray-700 mb-2">
+                            <span class="text-gray-300 text-center">场次三：</span>
+                            <span class="text-gray-300 text-center">高级题</span>
                         </label>
                     </div>
                 </div>
 
-                <!-- 2. 答题区域（选“答题”时显示） -->
-                <div id="lotteryAnswerSection" class="mb-4 space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-1">题目</label>
+                <!-- 场次内容区域 -->
+                <div id="sessionContent">
+                    <!-- 2. 答题区域 -->
+                    <div class="mb-4 space-y-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-300 mb-1">题目</label>
+                            <input
+                                type="text"
+                                id="lotteryQuestion"
+                                class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500"
+                                value="云计算的核心特征是什么？"
+                            />
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-300 mb-2">选项和答案</label>
+                            <div id="lotteryOptionsContainer" class="space-y-2">
+                                <div class="lottery-option flex items-center gap-1" data-index="0">
+                                    <span class="text-gray-400 text-xs w-12">选项一</span>
+                                    <div class="relative flex-1">
+                                        <input type="text" class="lottery-option-input w-full px-3 py-2 bg-gray-800 border-2 border-red-600 rounded-md text-white cursor-pointer" value="按需自助服务、广泛的网络访问、资源池化、快速弹性、可测量的服务" data-correct="true" />
+                                        <span class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-1 rounded-tr-md rounded-bl-md">正确答案</span>
+                                    </div>
+                                    <div class="answer-count text-gray-400 text-xs whitespace-nowrap hidden">0人已答</div>
+                                </div>
+                                <div class="lottery-option flex items-center gap-1" data-index="1">
+                                    <span class="text-gray-400 text-xs w-12">选项二</span>
+                                    <div class="flex-1">
+                                        <input type="text" class="lottery-option-input w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white cursor-pointer" value="只有按需自助服务和广泛的网络访问" data-correct="false" />
+                                    </div>
+                                    <div class="answer-count text-gray-400 text-xs whitespace-nowrap hidden">0人已答</div>
+                                </div>
+                                <div class="lottery-option flex items-center gap-1" data-index="2">
+                                    <span class="text-gray-400 text-xs w-12">选项三</span>
+                                    <div class="flex-1">
+                                        <input type="text" class="lottery-option-input w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white cursor-pointer" value="只有资源池化和快速弹性" data-correct="false" />
+                                    </div>
+                                    <div class="answer-count text-gray-400 text-xs whitespace-nowrap hidden">0人已答</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. 奖品名称 -->
+                    <div class="mb-4">
+                        <label class="block text-xs font-medium text-gray-300 mb-1">奖品名称</label>
                         <input
                             type="text"
-                            id="lotteryQuestion"
-                            class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500"
-                            placeholder="请输入题目"
+                            id="prizeName"
+                            class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white"
+                            value="云计算基础书籍"
                         />
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-2">答案</label>
-                        <div id="lotteryOptionsContainer" class="space-y-2">
-                            <div class="lottery-option flex items-center gap-2" data-index="0">
-                                <span class="text-gray-400 text-sm w-12">选项一</span>
-                                <input type="text" class="lottery-option-input flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500" placeholder="选项内容" />
-                                <label class="inline-flex items-center cursor-pointer shrink-0">
-                                    <input type="radio" name="lotteryCorrectAnswer" class="lottery-option-correct form-radio text-red-600 bg-gray-800 border-gray-600" value="0">
-                                    <span class="ml-1 text-gray-400 text-sm">正确答案</span>
-                                </label>
-                                <button type="button" class="lottery-option-remove hidden w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500" title="删除选项"><i class="fa fa-times"></i></button>
-                            </div>
-                            <div class="lottery-option flex items-center gap-2" data-index="1">
-                                <span class="text-gray-400 text-sm w-12">选项二</span>
-                                <input type="text" class="lottery-option-input flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500" placeholder="选项内容" />
-                                <label class="inline-flex items-center cursor-pointer shrink-0">
-                                    <input type="radio" name="lotteryCorrectAnswer" class="lottery-option-correct form-radio text-red-600 bg-gray-800 border-gray-600" value="1">
-                                    <span class="ml-1 text-gray-400 text-sm">正确答案</span>
-                                </label>
-                                <button type="button" class="lottery-option-remove hidden w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500" title="删除选项"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                        <button type="button" id="lotteryAddOption" class="mt-2 text-sm text-red-500 hover:text-red-400">
-                            <i class="fa fa-plus mr-1"></i>添加选项
-                        </button>
+
+                    <!-- 4. 中奖人数 -->
+                    <div class="mb-4">
+                        <label class="block text-xs font-medium text-gray-300 mb-1">中奖人数</label>
+                        <input
+                            type="text"
+                            id="prizeCount"
+                            class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white"
+                            value="3"
+                            disabled
+                        />
                     </div>
-                </div>
 
-                <!-- 3. 奖品名称 -->
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-300 mb-1">奖品名称</label>
-                    <input
-                        type="text"
-                        id="prizeName"
-                        class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500"
-                        placeholder="请输入奖品名称"
-                    />
-                </div>
-
-                <!-- 4. 抽奖人数 -->
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-300 mb-1">抽奖人数</label>
-                    <input
-                        type="number"
-                        id="prizeCount"
-                        class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500"
-                        placeholder="请输入抽奖人数"
-                        min="1"
-                        max="99"
-                    />
-                </div>
-
-                <!-- 5. 中奖规则：第（）（）（）位答题用户中奖 -->
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-300 mb-2">中奖规则</label>
-                    <div id="lotteryRuleWrap" class="flex flex-wrap items-center gap-1">
-                        <span class="text-gray-400">第</span>
-                        <div id="lotteryRuleInputs" class="inline-flex flex-wrap gap-1">
-                            <!-- 由 JS 根据抽奖人数动态生成 -->
+                    <!-- 5. 中奖规则：第x x x位答对用户中奖 -->
+                    <div class="mb-4">
+                        <label class="block text-xs font-medium text-gray-300 mb-2">中奖规则</label>
+                        <div id="lotteryRuleWrap" class="flex flex-wrap items-center gap-2">
+                            <span class="text-gray-400">第</span>
+                            <input type="text" class="w-10 px-2 py-1 bg-gray-800 border border-gray-700 rounded-md text-white text-center" value="3" disabled>
+                            <input type="text" class="w-10 px-2 py-1 bg-gray-800 border border-gray-700 rounded-md text-white text-center" value="5" disabled>
+                            <input type="text" class="w-10 px-2 py-1 bg-gray-800 border border-gray-700 rounded-md text-white text-center" value="9" disabled>
+                            <span class="text-gray-400">位答对用户中奖</span>
                         </div>
-                        <span class="text-gray-400">位答题用户中奖</span>
                     </div>
                 </div>
 
@@ -602,11 +615,35 @@
             id="lotteryResultModal"
             class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
         >
-            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-80">
-                <h3 class="text-lg font-medium mb-4 text-white">抽奖结果</h3>
+            <div class="bg-gray-900 border border-gray-700 rounded-lg p-6 w-[420px] max-h-[90vh] overflow-y-auto text-xs">
+                <h3 class="text-sm font-medium mb-4 text-white">抽奖结果</h3>
+                
+                <!-- 场次选择 -->
+                <div class="mb-4">
+                    <div class="flex space-x-4">
+                        <label class="flex flex-col items-center cursor-pointer flex-1">
+                            <input type="radio" name="resultSession" value="session1" checked class="form-radio text-red-600 bg-gray-800 border-gray-700 mb-2">
+                            <span class="text-gray-300 text-center">场次一：</span>
+                            <span class="text-gray-300 text-center">基础题</span>
+                        </label>
+                        <label class="flex flex-col items-center cursor-pointer flex-1">
+                            <input type="radio" name="resultSession" value="session2" class="form-radio text-red-600 bg-gray-800 border-gray-700 mb-2">
+                            <span class="text-gray-300 text-center">场次二：</span>
+                            <span class="text-gray-300 text-center">进阶题</span>
+                        </label>
+                        <label class="flex flex-col items-center cursor-pointer flex-1">
+                            <input type="radio" name="resultSession" value="session3" class="form-radio text-red-600 bg-gray-800 border-gray-700 mb-2">
+                            <span class="text-gray-300 text-center">场次三：</span>
+                            <span class="text-gray-300 text-center">高级题</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- 结果显示区域 -->
                 <div id="lotteryResult" class="mb-4 p-3 bg-gray-800 rounded-md text-gray-300">
                     <!-- 抽奖结果将在这里显示 -->
                 </div>
+                
                 <div class="flex justify-end">
                     <button
                         id="closeResult"
@@ -970,8 +1007,7 @@
 
                                     // 批量操作 - 下课按钮
                                     endClassBatch.addEventListener('click', function () {
-                                        const selectedCheckboxes =
-                                            document.querySelectorAll('.user-checkbox:checked');
+                                        const selectedCheckboxes = document.querySelectorAll('.user-checkbox:checked');
                                         if (selectedCheckboxes.length === 0) {
                                             alert('请先选择用户');
                                             return;
@@ -985,6 +1021,110 @@
                                         alert(`已让 ${selectedUsers.join('、')} 下课`);
                                         permissionModal.classList.add('hidden');
                                     });
+
+                                    // 抽奖弹窗 - 正确答案选择功能
+                                    const lotteryOptionsContainer = document.getElementById('lotteryOptionsContainer');
+                                    const lotteryCorrectAnswers = document.querySelectorAll('input[name="lotteryCorrectAnswer"]');
+
+                                    // 初始化正确答案显示
+                                    function initLotteryCorrectAnswer() {
+                                        updateLotteryCorrectAnswerDisplay();
+                                    }
+
+                                    // 更新正确答案显示
+                                    function updateLotteryCorrectAnswerDisplay() {
+                                        const options = document.querySelectorAll('.lottery-option');
+                                        options.forEach(option => {
+                                            let input = option.querySelector('.lottery-option-input');
+                                            const existingContainer = input.parentElement;
+                                            const existingLabel = existingContainer.querySelector('.absolute');
+                                            const isCorrect = input.dataset.correct === 'true';
+                                            
+                                            // 移除现有的正确答案标签
+                                            if (existingLabel) {
+                                                existingLabel.remove();
+                                            }
+                                            
+                                            // 重置边框样式
+                                            input.classList.remove('border-2', 'border-red-600');
+                                            input.classList.add('border', 'border-gray-700');
+                                            
+                                            // 如果是正确答案，添加特殊样式和角标
+                                            if (isCorrect) {
+                                                // 确保input在relative容器中
+                                                let container;
+                                                if (!existingContainer.classList.contains('relative')) {
+                                                    container = document.createElement('div');
+                                                    container.className = 'relative flex-1';
+                                                    existingContainer.replaceChild(container, input);
+                                                    container.appendChild(input);
+                                                } else {
+                                                    container = existingContainer;
+                                                    container.className = 'relative flex-1';
+                                                    container.style.width = '';
+                                                }
+                                                
+                                                // 更新input引用
+                                                input = container.querySelector('.lottery-option-input');
+                                                
+                                                // 添加红色边框
+                                                input.classList.remove('border', 'border-gray-700');
+                                                input.classList.add('border-2', 'border-red-600');
+                                                
+                                                // 添加正确答案角标
+                                                const label = document.createElement('span');
+                                                label.className = 'absolute top-0 right-0 bg-red-600 text-white text-[10px] px-1 rounded-tr-md rounded-bl-md';
+                                                label.textContent = '正确答案';
+                                                container.appendChild(label);
+                                            } else {
+                                                // 确保非正确答案的input在flex-1容器中
+                                                let container;
+                                                if (!existingContainer.classList.contains('relative') && existingContainer.style.width) {
+                                                    container = document.createElement('div');
+                                                    container.className = 'flex-1';
+                                                    existingContainer.replaceChild(container, input);
+                                                    container.appendChild(input);
+                                                } else if (existingContainer.classList.contains('relative')) {
+                                                    // 如果是从正确答案切换过来的，移除relative类
+                                                    const parent = existingContainer.parentElement;
+                                                    container = document.createElement('div');
+                                                    container.className = 'flex-1';
+                                                    parent.replaceChild(container, existingContainer);
+                                                    container.appendChild(input);
+                                                } else {
+                                                    // 已经是flex-1容器
+                                                    existingContainer.className = 'flex-1';
+                                                    existingContainer.style.width = '';
+                                                }
+                                            }
+                                        });
+                                    }
+
+                                    // 绑定输入框点击事件，点击输入框将其设为正确答案
+                                    function bindInputClickEvents() {
+                                        const inputs = document.querySelectorAll('.lottery-option-input');
+                                        inputs.forEach(input => {
+                                            input.addEventListener('click', function() {
+                                                // 移除所有输入框的正确答案标记
+                                                const allInputs = document.querySelectorAll('.lottery-option-input');
+                                                allInputs.forEach(input => {
+                                                    input.dataset.correct = 'false';
+                                                });
+                                                
+                                                // 将当前输入框标记为正确答案
+                                                this.dataset.correct = 'true';
+                                                
+                                                // 更新显示
+                                                updateLotteryCorrectAnswerDisplay();
+                                            });
+                                        });
+                                    }
+
+                                    // 绑定输入框点击事件
+                                    bindInputClickEvents();
+
+                                    // 初始化抽奖弹窗功能
+                                    initLotteryCorrectAnswer();
 
                                     // 禁言踢人选择弹框 - 取消按钮
                                     cancelMuteKick.addEventListener('click', function () {
@@ -1110,191 +1250,485 @@
 
                                 <script>
                                     // 发起抽奖功能（合并抽奖条件、答题、奖品、中奖规则）
-                                    const giftBtn = document.getElementById('giftBtn');
-                                    const lotteryModal = document.getElementById('lotteryModal');
-                                    const lotteryResultModal = document.getElementById('lotteryResultModal');
-                                    const cancelLottery = document.getElementById('cancelLottery');
-                                    const confirmLottery = document.getElementById('confirmLottery');
-                                    const closeResult = document.getElementById('closeResult');
-                                    const prizeName = document.getElementById('prizeName');
-                                    const prizeCount = document.getElementById('prizeCount');
-                                    const lotteryResult = document.getElementById('lotteryResult');
-                                    const lotteryAnswerSection = document.getElementById('lotteryAnswerSection');
-                                    const lotteryQuestion = document.getElementById('lotteryQuestion');
-                                    const lotteryOptionsContainer = document.getElementById('lotteryOptionsContainer');
-                                    const lotteryAddOption = document.getElementById('lotteryAddOption');
-                                    const lotteryRuleInputs = document.getElementById('lotteryRuleInputs');
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        const giftBtn = document.getElementById('giftBtn');
+                                        const lotteryModal = document.getElementById('lotteryModal');
+                                        const lotteryResultModal = document.getElementById('lotteryResultModal');
+                                        const cancelLottery = document.getElementById('cancelLottery');
+                                        const confirmLottery = document.getElementById('confirmLottery');
+                                        const closeResult = document.getElementById('closeResult');
+                                        const prizeName = document.getElementById('prizeName');
+                                        const prizeCount = document.getElementById('prizeCount');
+                                        const lotteryResult = document.getElementById('lotteryResult');
+                                        const lotteryQuestion = document.getElementById('lotteryQuestion');
+                                        const lotteryOptionsContainer = document.getElementById('lotteryOptionsContainer');
+                                        const lotteryRuleWrap = document.getElementById('lotteryRuleWrap');
 
-                                    const optionLabels = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
-
-                                    function getOptionLabel(index) {
-                                        return index < 10 ? '选项' + optionLabels[index] : '选项' + (index + 1);
-                                    }
-
-                                    function refreshOptionLabels() {
-                                        const options = lotteryOptionsContainer.querySelectorAll('.lottery-option');
-                                        options.forEach((el, i) => {
-                                            el.querySelector('.text-gray-400.text-sm.w-12').textContent = getOptionLabel(i);
-                                            el.dataset.index = i;
-                                        });
-                                        options.forEach((el, i) => {
-                                            const removeBtn = el.querySelector('.lottery-option-remove');
-                                            removeBtn.classList.toggle('hidden', i < 2);
-                                        });
-                                    }
-
-                                    function buildLotteryRuleInputs(n) {
-                                        const num = Math.max(0, parseInt(n, 10) || 0);
-                                        lotteryRuleInputs.innerHTML = '';
-                                        for (let i = 0; i < num; i++) {
-                                            const input = document.createElement('input');
-                                            input.type = 'number';
-                                            input.min = '1';
-                                            input.className = 'w-12 px-2 py-1 bg-gray-800 border border-gray-700 rounded text-white text-center';
-                                            input.placeholder = (i + 1) + '';
-                                            input.setAttribute('data-rule-index', i);
-                                            lotteryRuleInputs.appendChild(input);
-                                        }
-                                    }
-
-                                    lotteryAddOption.addEventListener('click', function () {
-                                        const options = lotteryOptionsContainer.querySelectorAll('.lottery-option');
-                                        const index = options.length;
-                                        const div = document.createElement('div');
-                                        div.className = 'lottery-option flex items-center gap-2';
-                                        div.dataset.index = index;
-                                        div.innerHTML =
-                                            '<span class="text-gray-400 text-sm w-12">' + getOptionLabel(index) + '</span>' +
-                                            '<input type="text" class="lottery-option-input flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500" placeholder="选项内容" />' +
-                                            '<label class="inline-flex items-center cursor-pointer shrink-0">' +
-                                            '<input type="radio" name="lotteryCorrectAnswer" class="lottery-option-correct form-radio text-red-600 bg-gray-800 border-gray-600" value="' + index + '">' +
-                                            '<span class="ml-1 text-gray-400 text-sm">正确答案</span></label>' +
-                                            '<button type="button" class="lottery-option-remove w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500" title="删除选项"><i class="fa fa-times"></i></button>';
-                                        lotteryOptionsContainer.appendChild(div);
-                                        div.querySelector('.lottery-option-remove').addEventListener('click', function () {
-                                            if (lotteryOptionsContainer.querySelectorAll('.lottery-option').length <= 2) return;
-                                            div.remove();
-                                            refreshOptionLabels();
-                                        });
-                                        refreshOptionLabels();
-                                    });
-
-                                    lotteryOptionsContainer.addEventListener('click', function (e) {
-                                        if (e.target.closest('.lottery-option-remove')) {
-                                            const options = lotteryOptionsContainer.querySelectorAll('.lottery-option');
-                                            if (options.length <= 2) return;
-                                            e.target.closest('.lottery-option').remove();
-                                            refreshOptionLabels();
-                                        }
-                                    });
-
-                                    prizeCount.addEventListener('input', function () {
-                                        buildLotteryRuleInputs(prizeCount.value);
-                                    });
-
-                                    // 模拟观众列表
-                                    const audienceList2 = [
-                                        '同学', '小明', '小红', '小刚', '小丽', '小张', '小王', '小李',
-                                        '小刘', '小陈', '小赵', '小孙', '小周', '小吴', '小郑',
-                                    ];
-
-                                    giftBtn.addEventListener('click', function () {
-                                        lotteryModal.classList.remove('hidden');
-                                        buildLotteryRuleInputs(prizeCount.value || 1);
-                                        refreshOptionLabels();
-                                    });
-
-                                    cancelLottery.addEventListener('click', function () {
-                                        lotteryModal.classList.add('hidden');
-                                        prizeName.value = '';
-                                        prizeCount.value = '';
-                                        lotteryQuestion.value = '';
-                                        lotteryOptionsContainer.querySelectorAll('.lottery-option-input').forEach(inp => inp.value = '');
-                                        lotteryOptionsContainer.querySelectorAll('input[name="lotteryCorrectAnswer"]').forEach(r => r.checked = false);
-                                        buildLotteryRuleInputs(0);
-                                    });
-
-                                    const lotteryResultIconBtn = document.getElementById('lotteryResultIconBtn');
-                                    function showResultModal() {
-                                        lotteryResultModal.classList.remove('hidden');
-                                        if (lotteryResultIconBtn) lotteryResultIconBtn.classList.add('hidden');
-                                    }
-                                    function hideResultModal(showIcon) {
-                                        lotteryResultModal.classList.add('hidden');
-                                        if (showIcon && lotteryResultIconBtn) lotteryResultIconBtn.classList.remove('hidden');
-                                    }
-                                    closeResult.addEventListener('click', function () {
-                                        hideResultModal(true);
-                                    });
-                                    if (lotteryResultIconBtn) {
-                                        lotteryResultIconBtn.addEventListener('click', function () {
-                                            showResultModal();
-                                        });
-                                    }
-
-                                    confirmLottery.addEventListener('click', function () {
-                                        const name = prizeName.value.trim();
-                                        const count = parseInt(prizeCount.value, 10);
-
-                                        if (!name) {
-                                            alert('请输入奖品名称');
-                                            return;
-                                        }
-                                        if (isNaN(count) || count < 1) {
-                                            alert('请输入有效的抽奖人数');
-                                            return;
-                                        }
-
-                                        // 抽奖条件为答题时校验题目与答案
-                                        const conditionAnswer = document.querySelector('input[name="lotteryCondition"]:checked');
-                                        if (conditionAnswer && conditionAnswer.value === 'answer') {
-                                            const question = lotteryQuestion.value.trim();
-                                            if (!question) {
-                                                alert('请输入题目');
-                                                return;
-                                            }
-                                            const optionInputs = lotteryOptionsContainer.querySelectorAll('.lottery-option-input');
-                                            let hasContent = false;
-                                            let hasCorrect = false;
-                                            optionInputs.forEach((inp, i) => {
-                                                if (inp.value.trim()) hasContent = true;
-                                                const row = inp.closest('.lottery-option');
-                                                if (row.querySelector('.lottery-option-correct').checked) hasCorrect = true;
+                                        // 初始化选项输入框长度
+                                        function initLotteryOptions() {
+                                            const options = document.querySelectorAll('.lottery-option');
+                                            options.forEach(option => {
+                                                const input = option.querySelector('.lottery-option-input');
+                                                const existingContainer = input.parentElement;
+                                                
+                                                // 确保input在固定宽度容器中
+                                                if (!existingContainer.style.width) {
+                                                    const container = document.createElement('div');
+                                                    container.style.width = 'calc(100% * 7/8)';
+                                                    existingContainer.replaceChild(container, input);
+                                                    container.appendChild(input);
+                                                }
                                             });
-                                            if (!hasContent) {
-                                                alert('请至少填写一个选项内容');
+                                        }
+
+                                        // 初始化抽奖弹窗功能
+                                        initLotteryOptions();
+
+                                        // 场次预设数据
+                                        const sessionsData = {
+                                            session1: {
+                                                question: '云计算的核心特征是什么？',
+                                                options: [
+                                                    '按需自助服务、广泛的网络访问、资源池化、快速弹性、可测量的服务',
+                                                    '只有按需自助服务和广泛的网络访问',
+                                                    '只有资源池化和快速弹性'
+                                                ],
+                                                correctAnswer: 0,
+                                                prizeName: '云计算基础书籍',
+                                                winnerCount: 3,
+                                                winnerPositions: [3, 5, 9]
+                                            },
+                                            session2: {
+                                                question: '容器技术的主要优势是什么？',
+                                                options: [
+                                                    '轻量级、快速启动、资源隔离',
+                                                    '与虚拟机完全相同',
+                                                    '只能在特定操作系统上运行'
+                                                ],
+                                                correctAnswer: 0,
+                                                prizeName: '容器技术实战指南',
+                                                winnerCount: 2,
+                                                winnerPositions: [2, 7]
+                                            },
+                                            session3: {
+                                                question: '人工智能的三大核心技术是什么？',
+                                                options: [
+                                                    '机器学习、深度学习、自然语言处理',
+                                                    '只有机器学习',
+                                                    '只有深度学习和计算机视觉'
+                                                ],
+                                                correctAnswer: 0,
+                                                prizeName: '人工智能进阶手册',
+                                                winnerCount: 1,
+                                                winnerPositions: [5]
+                                            }
+                                        };
+
+                                        // 为场次选择添加事件监听器
+                                        const sessionRadios = document.querySelectorAll('input[name="lotterySession"]');
+                                        sessionRadios.forEach(radio => {
+                                            radio.addEventListener('change', function() {
+                                                if (this.checked) {
+                                                    updateSessionContent(this.value);
+                                                }
+                                            });
+                                        });
+
+                                        // 更新场次内容
+                                        function updateSessionContent(sessionValue) {
+                                            // 如果有抽奖正在进行，不允许切换场次
+                                            if (lotteryInProgress) {
+                                                alert('当前有抽奖正在进行，结束后才能切换场次');
+                                                // 恢复到当前正在进行的场次
+                                                const currentSessionRadio = document.querySelector(`input[name="lotterySession"][value="${currentLotterySession}"]`);
+                                                if (currentSessionRadio) {
+                                                    currentSessionRadio.checked = true;
+                                                }
                                                 return;
                                             }
-                                            if (!hasCorrect) {
-                                                alert('请选择正确答案');
-                                                return;
+                                            
+                                            const sessionData = sessionsData[sessionValue];
+                                            if (!sessionData) return;
+                                            
+                                            // 更新题目
+                                            lotteryQuestion.value = sessionData.question;
+                                            
+                                            // 更新选项
+                                            lotteryOptionsContainer.innerHTML = '';
+                                            sessionData.options.forEach((option, index) => {
+                                                const div = document.createElement('div');
+                                                div.className = 'lottery-option flex items-center gap-1';
+                                                div.dataset.index = index;
+                                                const isCorrect = index === sessionData.correctAnswer;
+                                                
+                                                let inputHtml;
+                                                if (isCorrect) {
+                                                    inputHtml = '<div class="relative flex-1">' +
+                                                        '<input type="text" class="lottery-option-input w-full px-3 py-2 bg-gray-800 border-2 border-red-600 rounded-md text-white cursor-pointer" value="' + option + '" data-correct="true" />' +
+                                                        '<span class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-1 rounded-tr-md rounded-bl-md">正确答案</span>' +
+                                                        '</div>';
+                                                } else {
+                                                    inputHtml = '<div class="flex-1">' +
+                                                        '<input type="text" class="lottery-option-input w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white cursor-pointer" value="' + option + '" data-correct="false" />' +
+                                                        '</div>';
+                                                }
+                                                
+                                                div.innerHTML = 
+                                                    '<span class="text-gray-400 text-sm w-12">选项' + ['一', '二', '三'][index] + '</span>' +
+                                                    inputHtml +
+                                                    '<div class="answer-count text-gray-400 text-xs whitespace-nowrap hidden">0人已答</div>';
+                                                lotteryOptionsContainer.appendChild(div);
+                                            });
+                                            
+                                            // 重新绑定输入框点击事件
+                                            const newLotteryInputs = document.querySelectorAll('.lottery-option-input');
+                                            newLotteryInputs.forEach(input => {
+                                                input.addEventListener('click', function() {
+                                                    // 移除所有输入框的正确答案标记
+                                                    const allInputs = document.querySelectorAll('.lottery-option-input');
+                                                    allInputs.forEach(input => {
+                                                        input.dataset.correct = 'false';
+                                                    });
+                                                    
+                                                    // 将当前输入框标记为正确答案
+                                                    this.dataset.correct = 'true';
+                                                    
+                                                    // 更新显示
+                                                    updateLotteryCorrectAnswerDisplay();
+                                                });
+                                            });
+                                            
+                                            // 更新正确答案显示
+                                            updateLotteryCorrectAnswerDisplay();
+                                            
+                                            // 更新奖品名称
+                                            prizeName.value = sessionData.prizeName;
+                                            
+                                            // 更新中奖人数
+                                            prizeCount.value = sessionData.winnerCount;
+                                            
+                                            // 更新中奖规则
+                                            let ruleHtml = '<span class="text-gray-400">第</span>';
+                                            sessionData.winnerPositions.forEach(position => {
+                                                ruleHtml += '<input type="text" class="w-10 px-2 py-1 bg-gray-800 border border-gray-700 rounded-md text-white text-center" value="' + position + '" disabled>';
+                                            });
+                                            ruleHtml += '<span class="text-gray-400">位答对用户中奖</span>';
+                                            lotteryRuleWrap.innerHTML = ruleHtml;
+                                        }
+
+                                        // 模拟观众列表
+                                        const audienceList2 = [
+                                            '同学', '小明', '小红', '小刚', '小丽', '小张', '小王', '小李',
+                                            '小刘', '小陈', '小赵', '小孙', '小周', '小吴', '小郑',
+                                        ];
+
+                                        // 存储不同场次的抽奖结果
+                                        const sessionResults = {
+                                            session1: {
+                                                name: '云计算基础书籍',
+                                                count: 3,
+                                                winners: ['小明', '小红', '小刚']
+                                            }
+                                        };
+
+                                        // 为结果弹窗中的场次选择添加事件监听器
+                                        const resultSessionRadios = document.querySelectorAll('input[name="resultSession"]');
+                                        resultSessionRadios.forEach(radio => {
+                                            radio.addEventListener('change', function() {
+                                                if (this.checked) {
+                                                    updateResultContent(this.value);
+                                                }
+                                            });
+                                        });
+
+                                        // 更新结果内容
+                                        function updateResultContent(sessionValue) {
+                                            if (sessionResults[sessionValue]) {
+                                                const result = sessionResults[sessionValue];
+                                                let resultHtml = `<p class="mb-2">奖品：${result.name}</p>`;
+                                                resultHtml += `<p class="mb-2">中奖人数：${result.count}</p>`;
+                                                resultHtml += '<p class="font-medium">中奖名单：</p><ul class="list-disc pl-5">';
+                                                result.winners.forEach(w => { resultHtml += `<li>${w}</li>`; });
+                                                resultHtml += '</ul>';
+                                                if (lotteryResult) {
+                                                    lotteryResult.innerHTML = resultHtml;
+                                                }
+                                            } else {
+                                                if (lotteryResult) {
+                                                    lotteryResult.innerHTML = '<p class="text-center text-gray-400">该场次暂无抽奖结果</p>';
+                                                }
                                             }
                                         }
 
-                                        if (count > audienceList2.length) {
-                                            alert('抽奖人数不能超过观众人数');
-                                            return;
+                                        // 全局变量：跟踪当前是否有抽奖正在进行
+                                        let lotteryInProgress = false;
+                                        let currentLotterySession = null;
+
+                                        if (giftBtn) {
+                                            giftBtn.addEventListener('click', function () {
+                                                if (lotteryModal) {
+                                                    lotteryModal.classList.remove('hidden');
+                                                    // 显示默认场次内容
+                                                    const defaultSession = document.querySelector('input[name="lotterySession"]:checked');
+                                                    if (defaultSession) {
+                                                        // 直接显示场次内容，不调用updateSessionContent避免提示
+                                                        const sessionData = sessionsData[defaultSession.value];
+                                                        if (sessionData) {
+                                                            // 更新题目
+                                                            lotteryQuestion.value = sessionData.question;
+                                                            
+                                                            // 更新选项
+                                                            lotteryOptionsContainer.innerHTML = '';
+                                                            sessionData.options.forEach((option, index) => {
+                                                                const div = document.createElement('div');
+                                                                div.className = 'lottery-option flex items-center gap-1';
+                                                                div.dataset.index = index;
+                                                                const isCorrect = index === sessionData.correctAnswer;
+                                                                 
+                                                                let inputHtml;
+                                                                if (isCorrect) {
+                                                                    inputHtml = '<div class="relative flex-1">' +
+                                                                        '<input type="text" class="lottery-option-input w-full px-3 py-2 bg-gray-800 border-2 border-red-600 rounded-md text-white cursor-pointer" value="' + option + '" data-correct="true" />' +
+                                                                        '<span class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-1 rounded-tr-md rounded-bl-md">正确答案</span>' +
+                                                                        '</div>';
+                                                                } else {
+                                                                    inputHtml = '<div class="flex-1">' +
+                                                                        '<input type="text" class="lottery-option-input w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white cursor-pointer" value="' + option + '" data-correct="false" />' +
+                                                                        '</div>';
+                                                                }
+                                                                 
+                                                                div.innerHTML = 
+                                                                    '<span class="text-gray-400 text-sm w-12">选项' + ['一', '二', '三'][index] + '</span>' +
+                                                                    inputHtml +
+                                                                    '<div class="answer-count text-gray-400 text-xs whitespace-nowrap hidden">0人已答</div>';
+                                                                lotteryOptionsContainer.appendChild(div);
+                                                            });
+                                                            
+                                                            // 重新绑定输入框点击事件
+                                                            const newLotteryInputs = document.querySelectorAll('.lottery-option-input');
+                                                            newLotteryInputs.forEach(input => {
+                                                                input.addEventListener('click', function() {
+                                                                    // 移除所有输入框的正确答案标记
+                                                                    const allInputs = document.querySelectorAll('.lottery-option-input');
+                                                                    allInputs.forEach(input => {
+                                                                        input.dataset.correct = 'false';
+                                                                    });
+                                                                    
+                                                                    // 将当前输入框标记为正确答案
+                                                                    this.dataset.correct = 'true';
+                                                                    
+                                                                    // 更新显示
+                                                                    updateLotteryCorrectAnswerDisplay();
+                                                                });
+                                                            });
+                                                            
+                                                            // 更新正确答案显示
+                                                            updateLotteryCorrectAnswerDisplay();
+                                                            
+                                                            // 更新奖品名称
+                                                            prizeName.value = sessionData.prizeName;
+                                                            
+                                                            // 更新中奖人数
+                                                            prizeCount.value = sessionData.winnerCount;
+                                                            
+                                                            // 更新中奖规则
+                                                            let ruleHtml = '<span class="text-gray-400">第</span>';
+                                                            sessionData.winnerPositions.forEach(position => {
+                                                                ruleHtml += '<input type="text" class="w-10 px-2 py-1 bg-gray-800 border border-gray-700 rounded-md text-white text-center" value="' + position + '" disabled>';
+                                                            });
+                                                            ruleHtml += '<span class="text-gray-400">位答对用户中奖</span>';
+                                                            lotteryRuleWrap.innerHTML = ruleHtml;
+                                                        }
+                                                    }
+                                                    
+                                                    // 如果有抽奖正在进行，显示结束抽奖按钮
+                                                    if (lotteryInProgress) {
+                                                        confirmLottery.textContent = '结束抽奖';
+                                                        // 显示“xxx人已答”
+                                                        const answerCounts = document.querySelectorAll('.answer-count');
+                                                        answerCounts.forEach(count => {
+                                                            count.classList.remove('hidden');
+                                                        });
+                                                    } else {
+                                                        confirmLottery.textContent = '发起抽奖';
+                                                        // 隐藏“xxx人已答”
+                                                        const answerCounts = document.querySelectorAll('.answer-count');
+                                                        answerCounts.forEach(count => {
+                                                            count.classList.add('hidden');
+                                                        });
+                                                    }
+                                                }
+                                            });
                                         }
 
-                                        const shuffled = audienceList2.slice().sort(() => 0.5 - Math.random());
-                                        const winners = shuffled.slice(0, count);
+                                        if (cancelLottery) {
+                                            cancelLottery.addEventListener('click', function () {
+                                                if (lotteryModal) {
+                                                    lotteryModal.classList.add('hidden');
+                                                    // 如果没有抽奖正在进行，重置到默认场次
+                                                    if (!lotteryInProgress) {
+                                                        const defaultSession = document.querySelector('input[name="lotterySession"]:first-child');
+                                                        if (defaultSession) {
+                                                            defaultSession.checked = true;
+                                                            updateSessionContent(defaultSession.value);
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        }
 
-                                        let resultHtml = `<p class="mb-2">奖品：${name}</p>`;
-                                        resultHtml += `<p class="mb-2">中奖人数：${count}</p>`;
-                                        resultHtml += '<p class="font-medium">中奖名单：</p><ul class="list-disc pl-5">';
-                                        winners.forEach(w => { resultHtml += `<li>${w}</li>`; });
-                                        resultHtml += '</ul>';
-                                        lotteryResult.innerHTML = resultHtml;
-                                        lotteryModal.classList.add('hidden');
-                                        if (lotteryResultIconBtn) lotteryResultIconBtn.classList.add('hidden');
-                                        lotteryResultModal.classList.remove('hidden');
+                                        const lotteryResultIconBtn = document.getElementById('lotteryResultIconBtn');
+                                        function showResultModal() {
+                                            if (lotteryResultModal) {
+                                                lotteryResultModal.classList.remove('hidden');
+                                                if (lotteryResultIconBtn) lotteryResultIconBtn.classList.add('hidden');
+                                                // 更新为当前选中的场次结果
+                                                const currentResultSession = document.querySelector('input[name="resultSession"]:checked');
+                                                if (currentResultSession) {
+                                                    updateResultContent(currentResultSession.value);
+                                                }
+                                            }
+                                        }
+                                        function hideResultModal(showIcon) {
+                                            if (lotteryResultModal) {
+                                                lotteryResultModal.classList.add('hidden');
+                                                if (showIcon && lotteryResultIconBtn) lotteryResultIconBtn.classList.remove('hidden');
+                                            }
+                                        }
+                                        if (closeResult) {
+                                            closeResult.addEventListener('click', function () {
+                                                hideResultModal(true);
+                                            });
+                                        }
+                                        if (lotteryResultIconBtn) {
+                                            lotteryResultIconBtn.addEventListener('click', function () {
+                                                showResultModal();
+                                            });
+                                        }
 
-                                        prizeName.value = '';
-                                        prizeCount.value = '';
-                                        lotteryQuestion.value = '';
-                                        lotteryOptionsContainer.querySelectorAll('.lottery-option-input').forEach(inp => inp.value = '');
-                                        lotteryOptionsContainer.querySelectorAll('input[name="lotteryCorrectAnswer"]').forEach(r => r.checked = false);
-                                        buildLotteryRuleInputs(0);
+                                        if (confirmLottery) {
+                                            let lotteryStarted = false;
+                                            confirmLottery.addEventListener('click', function () {
+                                                if (!lotteryStarted && !lotteryInProgress) {
+                                                    // 发起抽奖
+                                                    const name = prizeName.value.trim();
+                                                    const count = parseInt(prizeCount.value, 10);
+
+                                                    if (!name) {
+                                                        alert('请输入奖品名称');
+                                                        return;
+                                                    }
+                                                    if (isNaN(count) || count < 1) {
+                                                        alert('请输入有效的抽奖人数');
+                                                        return;
+                                                    }
+
+                                                    // 校验题目与答案
+                                                    const question = lotteryQuestion.value.trim();
+                                                    if (!question) {
+                                                        alert('请输入题目');
+                                                        return;
+                                                    }
+                                                    const optionInputs = lotteryOptionsContainer.querySelectorAll('.lottery-option-input');
+                                                    let hasContent = false;
+                                                    let hasCorrect = false;
+                                                    optionInputs.forEach((inp, i) => {
+                                                        if (inp.value.trim()) hasContent = true;
+                                                        if (inp.dataset.correct === 'true') hasCorrect = true;
+                                                    });
+                                                    if (!hasContent) {
+                                                        alert('请至少填写一个选项内容');
+                                                        return;
+                                                    }
+                                                    if (!hasCorrect) {
+                                                        alert('请选择正确答案');
+                                                        return;
+                                                    }
+
+                                                    if (count > audienceList2.length) {
+                                                        alert('抽奖人数不能超过观众人数');
+                                                        return;
+                                                    }
+
+                                                    // 标记抽奖已开始
+                                                    lotteryStarted = true;
+                                                    lotteryInProgress = true;
+                                                    
+                                                    // 获取当前选中的场次
+                                                    const currentSession = document.querySelector('input[name="lotterySession"]:checked');
+                                                    currentLotterySession = currentSession ? currentSession.value : 'session1';
+                                                    
+                                                    // 显示“xxx人已答”
+                                                    const answerCounts = document.querySelectorAll('.answer-count');
+                                                    answerCounts.forEach(count => {
+                                                        count.classList.remove('hidden');
+                                                        // 模拟随机人数已答
+                                                        const randomCount = Math.floor(Math.random() * 100) + 1;
+                                                        count.textContent = randomCount + '人已答';
+                                                    });
+                                                    
+                                                    // 按钮变为“结束抽奖”
+                                                    confirmLottery.textContent = '结束抽奖';
+                                                    
+                                                    // 关闭弹窗，进入抽奖中状态
+                                                    if (lotteryModal) {
+                                                        lotteryModal.classList.add('hidden');
+                                                    }
+                                                } else {
+                                                    // 结束抽奖，进入原“发起抽奖”的步骤
+                                                    lotteryStarted = false;
+                                                    lotteryInProgress = false;
+
+                                                    const name = prizeName.value.trim();
+                                                    const count = parseInt(prizeCount.value, 10);
+
+                                                    // 获取当前选中的场次
+                                                    const currentSession = document.querySelector('input[name="lotterySession"]:checked');
+                                                    const sessionValue = currentSession ? currentSession.value : 'session1';
+
+                                                    const shuffled = audienceList2.slice().sort(() => 0.5 - Math.random());
+                                                    const winners = shuffled.slice(0, count);
+
+                                                    // 存储结果
+                                                    sessionResults[sessionValue] = {
+                                                        name: name,
+                                                        count: count,
+                                                        winners: winners
+                                                    };
+
+                                                    // 更新结果内容
+                                                    updateResultContent(sessionValue);
+
+                                                    // 选中结果弹窗中对应的场次
+                                                    const resultSessionRadio = document.querySelector(`input[name="resultSession"][value="${sessionValue}"]`);
+                                                    if (resultSessionRadio) {
+                                                        resultSessionRadio.checked = true;
+                                                    }
+
+                                                    // 重置按钮文本
+                                                    confirmLottery.textContent = '发起抽奖';
+                                                    
+                                                    // 隐藏“xxx人已答”
+                                                    const answerCounts = document.querySelectorAll('.answer-count');
+                                                    answerCounts.forEach(count => {
+                                                        count.classList.add('hidden');
+                                                    });
+
+                                                    if (lotteryModal) {
+                                                        lotteryModal.classList.add('hidden');
+                                                    }
+                                                    
+                                                    // 显示抽奖名单弹窗
+                                                    if (lotteryResultModal) {
+                                                        lotteryResultModal.classList.remove('hidden');
+                                                    }
+                                                    
+                                                    if (lotteryResultIconBtn) {
+                                                        lotteryResultIconBtn.classList.remove('hidden');
+                                                    }
+                                                }
+                                            });
+                                        }
                                     });
                                 </script>
                                 <!-- 发起考试按钮 -->

@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>软件支持详情 - 光合技术支持平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标（Font Awesome，可按需替换为你自己的图标方案） -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* 轮播容器和卡片 ceshi*/
+    .banner-card {
+      height: 600px;
+    }
+    .banner-slide {
+      position: relative;
+    }
+    .banner-slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      /* 浅色模式下的淡白遮罩渐变 */
+      background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
+      pointer-events: none;
+    }
+    .glass-card {
+      /* 浅色玻璃风卡片 */
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(14px);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+
+    
+    /* 优化banner视觉效果 */
+    .banner-card {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    /* 增强banner遮罩效果 */
+    .banner-slide::after {
+      background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 30%, rgba(255,255,255,0.3) 70%, rgba(255,255,255,0.1) 100%);
+    }
+    
+    /* 个人信息模块悬浮效果 */
+    .user-info-card {
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border: none;
+    }
+    
+    /* 个人信息卡片内容区域固定高度，确保切换标签时卡片尺寸不变 */
+    #card-content {
+      min-height: 300px;
+    }
+    
+    .tab-content {
+      height: auto;
+    }
+    
+    /* 响应式调整 */
+    @media (max-width: 1024px) {
+      .user-info-card {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: 100%;
+        margin-top: 1rem;
+      }
+    }
+    
+    /* 全屏宽度下拉弹窗样式 */
+    .full-width-dropdown {
+      width: 100vw;
+      max-width: none;
+      position: fixed;
+      top: auto;
+      left: 0;
+      margin-top: 0;
+      border-top: 1px solid #e5e7eb;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      z-index: 60;
+    }
+    
+    /* 当前激活的下拉菜单样式 */
+    .full-width-dropdown.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* 左侧导航项目样式 */
+    .nav-item {
+      transition: all 0.2s ease;
+    }
+    
+    .nav-item.selected {
+      background-color: #3B82F6 !important;
+      color: white !important;
+      font-weight: 500;
+    }
+    
+    /* 右侧内容区域样式 */
+    .nav-content.hidden {
+      display: none;
+    }
+    
+    .nav-content.active-content {
+      display: block;
+    }
+    
+    /* 防止下拉浮窗闪烁 */
+    .nav-dropdown:hover .full-width-dropdown {
+      pointer-events: auto;
+    }
+    .full-width-dropdown {
+      pointer-events: none;
+    }
+    .full-width-dropdown * {
+      pointer-events: auto;
+    }
+    
+    /* 专家头像选中状态样式 */
+    .expert-tab.active img {
+      border-color: #3B82F6 !important;
+      transform: scale(1.05);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    }
+    
+    .expert-tab:not(.active) img {
+      border-color: #ffffff;
+    }
+    
+    /* 标签页样式 */
+    .tab-button {
+      transition: all 0.2s ease;
+    }
+    
+    .tab-button.active {
+      color: #2D874B;
+      border-bottom: 2px solid #2D874B;
+      font-weight: 600;
+    }
+    
+    /* 面包屑样式 */
+    .breadcrumb {
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .breadcrumb a {
+      color: #2D874B;
+      text-decoration: none;
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    /* 工具详情样式 */
+    .tool-detail-content {
+      line-height: 1.6;
+    }
+    
+    .tool-detail-content h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 24px 0 16px;
+      color: #333;
+    }
+    
+    .tool-detail-content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 20px 0 12px;
+      color: #444;
+    }
+    
+    .tool-detail-content p {
+      margin: 12px 0;
+      color: #666;
+    }
+    
+    /* 工具头部样式 */
+    .tool-header {
+      background: url('images/tool-detail-bg.png') no-repeat center center;
+      background-size: cover;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    
+    /* 工具功能模块样式 */
+    .tool-module {
+      transition: all 0.3s ease;
+    }
+    
+    .tool-module:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 软件详情样式 */
+    .software-detail {
+      line-height: 1.6;
+    }
+
+    .software-detail h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 24px 0 16px;
+      color: #333;
+    }
+
+    .software-detail h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 24px 0 12px;
+      color: #444;
+    }
+
+    .software-detail p {
+      margin: 12px 0;
+      color: #666;
+    }
+
+    .software-detail table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+    }
+
+    .software-detail th {
+      background-color: #f5f5f5;
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #e0e0e0;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .software-detail td {
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      color: #666;
+    }
+
+    .software-detail tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+<!-- 顶部导航 + 全站搜索 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-16 relative">
+      <!-- LOGO + 品牌 -->
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+          <img src="images/logo2.png" alt="HIECO Logo" class="h-32 w-32 object-contain">
+        </a>
+        <div>
+          <!--div class="text-xs uppercase tracking-widest text-white">HIECO</div-->
+          <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200" style="font-size: 18px;">光合技术支持平台</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 导航入口（桌面端） -->
+      <nav class="hidden md:flex items-center space-x-4 text-base">
+        <!-- 专家 - 无下拉 -->
+        <a href="expert-center.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">
+          专家
+        </a>
+
+        <div class="nav-dropdown relative group">
+          <a href="training.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            培训
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </a>
+          <div class="full-width-dropdown fixed top-0 left-0 w-screen bg-white shadow-xl border-t border-gray-200 opacity-0 invisible transition-all duration-300 z-40" id="training-full-dropdown">
+            <div class="container mx-auto px-4 py-16">
+              <div class="flex">
+                <!-- 左侧导航 -->
+                <div class="w-48 pr-6 border-r border-gray-200">
+                  <div class="space-y-2">
+                    <a href="course-list2.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 active-nav-item nav-item selected" data-target="course">课程</a>
+                    <a href="exam-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="exam">考试</a>
+                    <a href="certification.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="certification">认证</a>
+                    <a href="lecturer-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="lecturer">讲师</a>
+                  </div>
+                </div>
+                
+                <!-- 分隔线 -->
+                <div class="mx-6 h-full w-px bg-gray-200"></div>
+                
+                <!-- 右侧分类内容 -->
+                <div class="flex-1">
+                  <!-- 课程 -->
+                  <div id="course" class="nav-content active-content">
+                    <div class="grid grid-cols-4 gap-6">
+                      <a href="course-detail.html" class="group">
+                        <div class="aspect-video rounded-xl overflow-hidden mb-3 bg-gray-200">
+                          <img src="https://via.placeholder.com/400x225?text=Course+1" alt="Course 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h3 class="text-base font-medium group-hover:text-blue-600 transition-colors">云计算基础入门</h3>
+                        <p class="text-sm text-gray-600 mt-1">适合初学者的云计算基础知识培训</p>
+                      </a>
+                      <a href="course-detail.html" class="group">
+                        <div class="aspect-video rounded-xl overflow-hidden mb-3 bg-gray-200">
+                          <img src="https://via.placeholder.com/400x225?text=Course+2" alt="Course 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h3 class="text-base font-medium group-hover:text-blue-600 transition-colors">人工智能应用开发</h3>
+                        <p class="text-sm text-gray-600 mt-1">学习AI应用开发的核心技术</p>
+                      </a>
+                      <a href="course-detail.html" class="group">
+                        <div class="aspect-video rounded-xl overflow-hidden mb-3 bg-gray-200">
+                          <img src="https://via.placeholder.com/400x225?text=Course+3" alt="Course 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h3 class="text-base font-medium group-hover:text-blue-600 transition-colors">网络安全防护</h3>
+                        <p class="text-sm text-gray-600 mt-1">网络安全防护技术与实践</p>
+                      </a>
+                      <a href="course-detail.html" class="group">
+                        <div class="aspect-video rounded-xl overflow-hidden mb-3 bg-gray-200">
+                          <img src="https://via.placeholder.com/400x225?text=Course+4" alt="Course 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h3 class="text-base font-medium group-hover:text-blue-600 transition-colors">大数据分析实战</h3>
+                        <p class="text-sm text-gray-600 mt-1">大数据分析工具与技术应用</p>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 直播 - 带下拉浮窗 -->
+        <div class="nav-dropdown relative group">
+          <a href="live-list.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            直播
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </a>
+          <div class="full-width-dropdown fixed top-0 left-0 w-screen bg-white shadow-xl border-t border-gray-200 opacity-0 invisible transition-all duration-300 z-40" id="live-full-dropdown">
+            <div class="container mx-auto px-4 py-16">
+              <div class="flex">
+                <!-- 直播没有左侧导航和分隔线，直接显示右侧分类内容 -->
+                <div class="flex-1">
+                  <h3 class="text-lg font-semibold mb-6">直播分类</h3>
+                  <div class="grid grid-cols-3 gap-6">
+                    <div>
+                      <h4 class="font-medium text-gray-800 mb-2 text-base">技术直播</h4>
+                      <ul class="space-y-1">
+                        <li class="mb-2">
+                          <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">云计算技术</a>
+                          <ul class="mt-1 space-y-1 pl-2">
+                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">Kubernetes实践</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 资源 - 高亮状态 -->
+        <a href="resource-center.html" class="px-4 py-2 rounded-full bg-gray-300 transition text-[#2D874B] font-medium">资源</a>
+        
+        <!-- 资讯 - 带下拉浮窗（合并资讯、活动） -->
+        <div class="nav-dropdown relative group">
+          <span class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            资讯
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </span>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="space-y-3">
+                <!-- 资讯 -->
+                <a href="news-announcement-list.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-newspaper mr-3 text-[#2D874B]"></i>
+                  <span>资讯</span>
+                </a>
+                
+                <!-- 活动 -->
+                <a href="activity-list.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-calendar-alt mr-3 text-[#2D874B]"></i>
+                  <span>活动</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <a href="https://forum.sourcefind.cn/" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">论坛</a>
+      </nav>
+
+      <!-- 移动端菜单按钮 -->
+      <button class="md:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none">
+        <i class="fa fa-bars text-xl"></i>
+      </button>
+
+      <!-- 右侧功能区 -->
+      <div class="flex items-center space-x-3">
+        <!-- 搜索图标（桌面端） -->
+        <div class="relative">
+          <!-- 搜索图标按钮 -->
+          <button id="search-toggle" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <i class="fa fa-search text-sm"></i>
+          </button>
+          
+          <!-- 下拉搜索栏 -->
+          <div id="search-dropdown" class="absolute top-full right-0 mt-2 w-96 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible transition-all duration-300 z-50">
+            <div class="p-4">
+              <!-- 搜索输入框 -->
+              <div class="relative mb-3">
+                <input
+                  type="text"
+                  id="search-input"
+                  placeholder="搜索培训、考试、认证、资讯..."
+                  class="w-full rounded-xl bg-gray-100 border border-gray-300 px-4 py-3 pl-10 text-sm
+                         placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]"
+                />
+                <i class="fa fa-search text-gray-500 absolute left-3 top-3.5 text-sm"></i>
+              </div>
+              
+              <!-- 热搜推荐 -->
+              <div id="hot-search" class="mb-3">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-medium text-gray-600">热搜推荐</span>
+                  <button class="text-xs text-blue-500 hover:text-blue-700 transition">换一换</button>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <button class="search-tag px-2 py-1 bg-gray-100 hover:bg-blue-50 text-xs text-gray-600 hover:text-blue-600 rounded-lg transition">
+                    云计算基础
+                  </button>
+                  <button class="search-tag px-2 py-1 bg-gray-100 hover:bg-blue-50 text-xs text-gray-600 hover:text-blue-600 rounded-lg transition">
+                    人工智能
+                  </button>
+                  <button class="search-tag px-2 py-1 bg-gray-100 hover:bg-blue-50 text-xs text-gray-600 hover:text-blue-600 rounded-lg transition">
+                    网络安全
+                  </button>
+                  <button class="search-tag px-2 py-1 bg-gray-100 hover:bg-blue-50 text-xs text-gray-600 hover:text-blue-600 rounded-lg transition">
+                    大数据分析
+                  </button>
+                  <button class="search-tag px-2 py-1 bg-gray-100 hover:bg-blue-50 text-xs text-gray-600 hover:text-blue-600 rounded-lg transition">
+                    机器学习
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 用户头像 -->
+        <div class="relative">
+          <button id="user-avatar" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <a href="personal-center.html">
+              <i class="fa fa-user text-sm"></i>
+            </a>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 面包屑导航 -->
+<main class="pt-24 lg:pt-28 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6">
+    <!-- 面包屑 -->
+    <div class="breadcrumb mb-8 flex items-center gap-2">
+      <button onclick="window.history.back()" class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center hover:border-[#2D874B] transition">
+        <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
+      </button>
+      <a href="index.html">首页</a>
+      <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+      <a href="resource-center.html">资源</a>
+      <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+      <a href="tech-tool-library.html">技术工具库</a>
+      <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+      <span class="text-gray-900 font-medium">工具详情 · PyTorch</span>
+    </div>
+
+    <!-- 工具头部信息 -->
+    <div class="tool-header p-6 lg:p-10 mb-6 bg-white rounded-3xl border border-gray-200">
+      <div class="flex flex-col lg:flex-row lg:items-center gap-6">
+        <div>
+          <h1 class="text-2xl lg:text-3xl font-semibold text-gray-800">PyTorch</h1>
+          <div class="mt-2 flex flex-wrap gap-2">
+            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">计算机视觉</span>
+            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">自然语言处理</span>
+            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">pytorch</span>
+            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">推荐</span>
+          </div>
+          <p class="mt-2 text-gray-600 max-w-3xl">PyTorch是一个基于Python的开源机器学习框架，以其强大的GPU加速张量计算能力和动态计算图技术，在深度学习领域占据重要地位。</p>
+          <div class="mt-4 flex flex-wrap gap-4 text-sm">
+            <span class="text-gray-500"><i class="fa fa-code-branch mr-1"></i> 最新版本 2.7.1+das.opt1.dtk25042</span>
+            <span class="text-gray-500"><i class="fa fa-calendar-alt mr-1"></i> 更新于 2024-01-15</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 标签页导航 -->
+    <div class="glass-card rounded-3xl border border-gray-300 mb-4">
+      <div class="flex border-b border-gray-300">
+        <button class="tab-button active px-6 py-3 text-sm font-medium" data-tab="overview">简介</button>
+        <button class="tab-button px-6 py-3 text-sm font-medium" data-tab="version">版本说明</button>
+        <button class="tab-button px-6 py-3 text-sm font-medium" data-tab="download">软件包下载</button>
+
+      </div>
+
+      <!-- 简介标签内容 -->
+      <div class="tab-content p-6" id="overview">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">简介</h3>
+        <p class="mb-4 text-gray-600">PyTorch是一个基于Python的开源机器学习框架，以其强大的GPU加速张量计算能力和动态计算图技术，在深度学习领域占据重要地位。它广泛应用于计算机视觉、自然语言处理等人工智能关键领域。PyTorch之所以备受青睐，得益于其易用性、灵活性和高效性，尤其适合快速原型开发、学术研究以及生产环境中的深度学习任务。DAS软件栈中的PyTorch版本，不仅保证了PyTorch 核心功能在DCU加速卡的可用性,还针对DCU特有的硬件架构进行了深度定制优化。这使得开发者能够以极低的成本，轻松实现应用程序在DCU加速卡上的快速迁移和性能提升。</p>
+        
+        <h4 class="text-lg font-semibold text-gray-800 mb-3">版本约束</h4>
+        <p class="mb-3 text-sm text-gray-600">1. PyTorch软件版本配套关系</p>
+        <table class="w-full border-collapse mb-4">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-3 py-2 text-left text-sm font-medium text-gray-700">PyTorch版本</th>
+              <th class="border border-gray-300 px-3 py-2 text-left text-sm font-medium text-gray-700">DCU适配版PyTorch软件包版本</th>
+              <th class="border border-gray-300 px-3 py-2 text-left text-sm font-medium text-gray-700">DCU加速卡型号</th>
+              <th class="border border-gray-300 px-3 py-2 text-left text-sm font-medium text-gray-700">DTK版本</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.3.0</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.3.0+das.opt1.dtk24042</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">24.04.2</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.1.0</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.1.0+das.opt1.dtk24042</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">24.04.2</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.1.0</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.1.0+das.opt2.dtk24043</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">24.04.3</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.3.0</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.3.0+das.opt2.dtk24043</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">24.04.3</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.4.1</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.4.1+das.opt2.dtk2504</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI、BW</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">25.04</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.4.1</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.4.1+das.opt1.dtk25041</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI、BW</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">25.04.1</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.5.1</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.5.1+das.opt1.dtk25041</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI、BW</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">25.04.1</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.5.1</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.5.1+das.opt1.dtk25042</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI、BW</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">25.04.2</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.7.1</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">2.7.1+das.opt1.dtk25042</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">Z100、Z100L、K100、K100_AI、BW</td>
+              <td class="border border-gray-300 px-3 py-2 text-sm text-gray-600">25.04.2</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <p class="mb-3 text-sm text-gray-600">2. 注意事项</p>
+        <ul class="list-disc pl-5 space-y-1 mb-6 text-sm text-gray-600">
+          <li>DAS框架组件的whl包版本应与环境中已安装的DTK版本对应，请参考上述版本约束。例如已安装dtk-24.04.2，则需要在软件下载页面搜索软件包名称：2.3.0+das.opt1.dtk24042，下载whl包并安装。</li>
+        </ul>
+        
+        <h4 class="text-lg font-semibold text-gray-800 mb-3">前置条件</h4>
+        <p class="mb-3 text-sm text-gray-600">安装DAS软件前，需要确保安装环境中已安装了合适的软硬件。</p>
+        
+        <ul class="list-disc pl-5 space-y-1 mb-4 text-sm text-gray-600">
+          <li>DCU加速卡及其驱动</li>
+          <li>DTK</li>
+          <li>Python环境</li>
+        </ul>
+        
+        <p class="mb-3 text-sm text-gray-600">比如，在DCU环境上安装torch-2.3.0+das.opt1.dtk24042-cp310-cp310-manylinux_2_28_x86_64.whl，需要确保环境已安装了上述K100_AI等DCU加速卡及其驱动，要确保安装了dtk 24.04.2版本以及安装了python 3.10版本和pytorch等，该示例的详细安装步骤如下：</p>
+        
+        <p class="mb-2 text-sm font-medium text-gray-700">DCU加速卡及其驱动安装</p>
+        <ol class="list-decimal pl-5 space-y-1 mb-4 text-sm text-gray-600">
+          <li>硬件安装请参考： <a href="https://developer.sourcefind.cn/gitbook//dcu_tutorial/index.html" class="text-blue-600 hover:underline">https://developer.sourcefind.cn/gitbook//dcu_tutorial/index.html</a></li>
+          <li>驱动安装请参考： <a href="https://developer.sourcefind.cn/gitbook//dcu_tutorial/index.html" class="text-blue-600 hover:underline">https://developer.sourcefind.cn/gitbook//dcu_tutorial/index.html</a></li>
+        </ol>
+        
+        <p class="mb-2 text-sm font-medium text-gray-700">物理机安装DTK</p>
+        <p class="mb-2 text-sm text-gray-600">DTK安装前需要获取DTK的安装包及其部署文档，相关下载地址为： <a href="https://download.sourcefind.cn:65024/1/main/" class="text-blue-600 hover:underline">https://download.sourcefind.cn:65024/1/main/</a></p>
+        <p class="mb-4 text-sm text-gray-600">DTK安装步骤可以根据部署文档安装，也可参考： <a href="https://developer.sourcefind.cn/gitbook//dcu_tutorial/index.html" class="text-blue-600 hover:underline">https://developer.sourcefind.cn/gitbook//dcu_tutorial/index.html</a></p>
+        
+        <p class="mb-2 text-sm font-medium text-gray-700">python安装</p>
+        <pre class="bg-gray-100 p-3 rounded-md mb-4 text-sm text-gray-600 overflow-x-auto">cd /tmp \
+&& wget -O python.tgz https://registry.npmmirror.com/-/binary/python/3.10.0/Python-3.10.0.tgz \
+&& mkdir python-tmp \
+&& tar -xvf python.tgz -C ./python-tmp --strip-components 1 \
+&& cd python-tmp \
+&& ./configure \
+&& --enable-shared \
+&& make -j64 \
+&& make install \
+&& rm -rf /tmp/python* \
+&& ln -sf /usr/local/bin/python3 /usr/local/bin/python \
+&& ln -sf /usr/local/bin/pip3 /usr/local/bin/pip</pre>
+        
+        <p class="mb-3 text-sm font-medium text-gray-700">使用pip安装PyTorch</p>
+        <p class="mb-2 text-sm text-gray-600">1. 下载Pytorch</p>
+        <p class="mb-3 text-sm text-gray-600">在平台下载torch的软件包。</p>
+        <p class="mb-2 text-sm text-gray-600">2. 安装Pytorch</p>
+        <pre class="bg-gray-100 p-3 rounded-md mb-4 text-sm text-gray-600 overflow-x-auto">pip3 install torch-xxx.whl</pre>
+        
+        <p class="mb-3 text-sm font-medium text-gray-700">验证</p>
+        <p class="mb-3 text-sm text-gray-600">安装完成之后，可通过以下指令验证是否安装成功,指令执行后会显示当前PyTorch的版本号。</p>
+        <pre class="bg-gray-100 p-3 rounded-md mb-4 text-sm text-gray-600 overflow-x-auto">python -c "import torch; print(torch.__version__)"</pre>
+        
+        <p class="mb-3 text-sm font-medium text-gray-700">建议阅读</p>
+        <p class="mb-2 text-sm text-gray-600">有关PyTorch的更多信息，请参见:</p>
+        <ul class="list-disc pl-5 space-y-1 mb-6 text-sm text-gray-600">
+          <li><a href="#" class="text-blue-600 hover:underline">AI生态包</a></li>
+          <li><a href="#" class="text-blue-600 hover:underline">Model Zoo</a></li>
+          <li><a href="#" class="text-blue-600 hover:underline">DCU Toolkit</a></li>
+          <li><a href="#" class="text-blue-600 hover:underline">驱动</a></li>
+          <li><a href="#" class="text-blue-600 hover:underline">学习中心</a></li>
+          <li><a href="#" class="text-blue-600 hover:underline">论坛</a></li>
+          <li><a href="#" class="text-blue-600 hover:underline">PyTorch 2.1官方文档</a></li>
+        </ul>
+      </div>
+
+      <!-- 版本说明标签内容 -->
+      <div class="tab-content p-6 hidden" id="version">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">版本说明</h3>
+        
+        <div class="mb-6">
+          <div class="flex items-center mb-4">
+            <label class="text-sm font-medium text-gray-700 w-24">版本</label>
+            <div class="relative flex-grow max-w-md">
+              <select class="w-full text-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white pr-8">
+                <option value="2.7.1+das.opt1.dtk25042">2.7.1+das.opt1.dtk25042</option>
+                <option value="2.5.1+das.opt1.dtk25042">2.5.1+das.opt1.dtk25042</option>
+                <option value="2.5.1+das.opt1.dtk25041">2.5.1+das.opt1.dtk25041</option>
+                <option value="2.4.1+das.opt1.dtk25041">2.4.1+das.opt1.dtk25041</option>
+                <option value="2.4.1+das.opt2.dtk2504">2.4.1+das.opt2.dtk2504</option>
+                <option value="2.3.0+das.opt2.dtk24043">2.3.0+das.opt2.dtk24043</option>
+                <option value="2.1.0+das.opt2.dtk24043">2.1.0+das.opt2.dtk24043</option>
+                <option value="2.3.0+das.opt1.dtk24042">2.3.0+das.opt1.dtk24042</option>
+                <option value="2.1.0+das.opt1.dtk24042">2.1.0+das.opt1.dtk24042</option>
+              </select>
+              <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                <i class="fa fa-chevron-down text-gray-400 text-xs"></i>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex items-center mb-4">
+            <label class="text-sm font-medium text-gray-700 w-24">版本信息</label>
+            <span class="text-sm text-gray-600">2.7.1+das.opt1.dtk25042</span>
+          </div>
+          
+          <div class="flex items-center mb-4">
+            <label class="text-sm font-medium text-gray-700 w-24">发布时间</label>
+            <span class="text-sm text-gray-600">2025-11-07</span>
+          </div>
+          
+          <div class="mb-4">
+            <label class="text-sm font-medium text-gray-700 w-24 inline-block mb-2">版本介绍</label>
+            <div class="pl-24">
+              <p class="mb-3 text-sm text-gray-600">1. 功能改进</p>
+              <ul class="list-disc pl-5 space-y-1 mb-4 text-sm text-gray-600">
+                <li>支持dtk25.04.2系列软件栈；</li>
+                <li>支持python3.10和python3.11版本。</li>
+              </ul>
+              <p class="mb-3 text-sm text-gray-600">2. 已知问题</p>
+              <ul class="list-disc pl-5 space-y-1 mb-4 text-sm text-gray-600">
+                <li>当前torch2.7.1为预发版，由于配套组件如triton、apex等未进行同步更新适配，因此，当联合使用时，功能受限，正式使用版本将在DAS1.8支持。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 下载地址标签内容 -->
+      <div class="tab-content p-6 hidden" id="download">
+        
+        <!-- 搜索和筛选 -->
+        <div class="flex flex-wrap items-center gap-4 mb-6">
+          <div class="flex items-center gap-2">
+            <label class="text-sm text-gray-600">版本：</label>
+            <select class="text-sm border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="all">全部</option>
+              <option value="2.7.1+das.opt.dtk25042">2.7.1+das.opt.dtk25042</option>
+              <option value="2.5.1+das.opt.dtk25042">2.5.1+das.opt.dtk25042</option>
+              <option value="2.5.1+das.opt.dtk25041">2.5.1+das.opt.dtk25041</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-2">
+            <label class="text-sm text-gray-600">软件包名称：</label>
+            <input type="text" class="text-sm border border-gray-300 rounded-md px-3 py-1.5 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="搜索软件包">
+            <button class="text-gray-600 hover:text-blue-600">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- 软件包列表 -->
+        <div class="space-y-6">
+          <!-- 版本 2.7.1+das.opt.dtk25042 -->
+          <div class="border border-gray-200 rounded-lg">
+            <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex justify-between items-center">
+              <h4 class="font-medium text-gray-800">2.7.1+das.opt.dtk25042</h4>
+              <span class="text-sm text-gray-600">发布时间：2025-11-07</span>
+            </div>
+            <div class="p-4">
+              <table class="w-full border-collapse">
+                <thead>
+                  <tr class="bg-gray-50">
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">软件包名称</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">大小</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">修改日期</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="p-3 border border-gray-200 text-gray-600">torch-2.7.1+das.opt.dtk25042-cp310-cp310-manylinux_2.28...</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">523MB</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">2025-10-22</td>
+                    <td class="p-3 border border-gray-200">
+                      <div class="flex gap-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-download"></i></a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-copy"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 border border-gray-200 text-gray-600">torch-2.7.1+das.opt.dtk25042-cp311-cp311-manylinux_2.28...</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">523MB</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">2025-11-11</td>
+                    <td class="p-3 border border-gray-200">
+                      <div class="flex gap-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-download"></i></a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-copy"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- 版本 2.5.1+das.opt.dtk25042 -->
+          <div class="border border-gray-200 rounded-lg">
+            <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex justify-between items-center">
+              <h4 class="font-medium text-gray-800">2.5.1+das.opt.dtk25042</h4>
+              <span class="text-sm text-gray-600">发布时间：2025-11-07</span>
+            </div>
+            <div class="p-4">
+              <table class="w-full border-collapse">
+                <thead>
+                  <tr class="bg-gray-50">
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">软件包名称</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">大小</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">修改日期</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="p-3 border border-gray-200 text-gray-600">torch-2.5.1+das.opt.dtk25042-cp310-cp310-manylinux_2.28...</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">499MB</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">2025-10-22</td>
+                    <td class="p-3 border border-gray-200">
+                      <div class="flex gap-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-download"></i></a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-copy"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 border border-gray-200 text-gray-600">torch-2.5.1+das.opt.dtk25042-cp311-cp311-manylinux_2.28...</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">499MB</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">2025-11-11</td>
+                    <td class="p-3 border border-gray-200">
+                      <div class="flex gap-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-download"></i></a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-copy"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- 版本 2.5.1+das.opt.dtk25041 -->
+          <div class="border border-gray-200 rounded-lg">
+            <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex justify-between items-center">
+              <h4 class="font-medium text-gray-800">2.5.1+das.opt.dtk25041</h4>
+              <span class="text-sm text-gray-600">发布时间：2025-07-02</span>
+            </div>
+            <div class="p-4">
+              <table class="w-full border-collapse">
+                <thead>
+                  <tr class="bg-gray-50">
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">软件包名称</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">大小</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">修改日期</th>
+                    <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="p-3 border border-gray-200 text-gray-600">torch-2.5.1+das.opt.dtk25041-cp310-cp310-manylinux_2.28...</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">495MB</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">2025-06-15</td>
+                    <td class="p-3 border border-gray-200">
+                      <div class="flex gap-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-download"></i></a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-copy"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 border border-gray-200 text-gray-600">torch-2.5.1+das.opt.dtk25041-cp311-cp311-manylinux_2.28...</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">495MB</td>
+                    <td class="p-3 border border-gray-200 text-gray-600">2025-07-01</td>
+                    <td class="p-3 border border-gray-200">
+                      <div class="flex gap-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-download"></i></a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fa fa-copy"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+</main>
+
+<!-- 底部 -->
+<footer class="bg-gray-50 border-t border-gray-200 py-12">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <h3 class="font-semibold text-gray-800 mb-4">关于我们</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-600 hover:text-blue-600 transition">平台介绍</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-blue-600 transition">组织架构</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-blue-600 transition">联系我们</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-800 mb-4">资源中心</h3>
+        <ul class="space-y-2">
+          <li><a href="tech-tool-library.html" class="text-gray-600 hover:text-blue-600 transition">技术工具库</a></li>
+          <li><a href="case-study.html" class="text-gray-600 hover:text-blue-600 transition">案例研究</a></li>
+          <li><a href="document.html" class="text-gray-600 hover:text-blue-600 transition">文档中心</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-800 mb-4">培训服务</h3>
+        <ul class="space-y-2">
+          <li><a href="training.html" class="text-gray-600 hover:text-blue-600 transition">培训课程</a></li>
+          <li><a href="exam-list.html" class="text-gray-600 hover:text-blue-600 transition">认证考试</a></li>
+          <li><a href="certification.html" class="text-gray-600 hover:text-blue-600 transition">证书查询</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-800 mb-4">支持与服务</h3>
+        <ul class="space-y-2">
+          <li><a href="expert-center.html" class="text-gray-600 hover:text-blue-600 transition">专家咨询</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-blue-600 transition">技术支持</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-blue-600 transition">常见问题</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+      <div class="text-gray-500 text-sm mb-4 md:mb-0">
+        © 2026 光合技术支持平台. 保留所有权利.
+      </div>
+      <div class="flex space-x-4">
+        <a href="#" class="text-gray-400 hover:text-gray-500 transition">
+          <i class="fa fa-weixin text-xl"></i>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-gray-500 transition">
+          <i class="fa fa-weibo text-xl"></i>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-gray-500 transition">
+          <i class="fa fa-github text-xl"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- 导航下拉菜单脚本 -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 处理搜索框切换
+    const searchToggle = document.getElementById('search-toggle');
+    const searchDropdown = document.getElementById('search-dropdown');
+    
+    if (searchToggle && searchDropdown) {
+      searchToggle.addEventListener('click', function() {
+        searchDropdown.classList.toggle('opacity-0');
+        searchDropdown.classList.toggle('invisible');
+      });
+      
+      // 点击其他地方关闭搜索框
+      document.addEventListener('click', function(e) {
+        if (!searchToggle.contains(e.target) && !searchDropdown.contains(e.target)) {
+          searchDropdown.classList.add('opacity-0', 'invisible');
+        }
+      });
+    }
+    
+    // 处理全屏下拉菜单
+    const navDropdowns = document.querySelectorAll('.nav-dropdown');
+    
+    navDropdowns.forEach(dropdown => {
+      const fullDropdown = dropdown.querySelector('.full-width-dropdown');
+      
+      if (fullDropdown) {
+        dropdown.addEventListener('mouseenter', function() {
+          fullDropdown.classList.remove('opacity-0', 'invisible');
+          fullDropdown.classList.add('opacity-100', 'visible');
+        });
+        
+        dropdown.addEventListener('mouseleave', function() {
+          fullDropdown.classList.add('opacity-0', 'invisible');
+          fullDropdown.classList.remove('opacity-100', 'visible');
+        });
+      }
+    });
+
+    // 模拟软件数据
+    const softwares = [
+      {
+        id: 1,
+        name: "PyTorch",
+        desc: "PyTorch是一个基于Python的开源机器学习框架，以其强大的GPU加速张量计算能力和动态计算图技术，在深度学习领域占据重要地位。",
+        download: {
+          version: "PyTorch",
+          architecture: "X86_84",
+          url: "https://pytorch.org/get-started/locally/",
+          description: "请根据您的系统配置选择合适的安装方式"
+        },
+        links: [
+          { name: "PyTorch官方地址", url: "https://pytorch.org" },
+          { name: "GitHub地址", url: "https://github.com/pytorch/pytorch" },
+          { name: "文档地址", url: "https://pytorch.org/docs/stable/" },
+          { name: "论坛地址", url: "https://discuss.pytorch.org" }
+        ]
+      },
+      {
+        id: 2,
+        name: "Ubuntu",
+        desc: "Ubuntu是一个基于Debian的开源Linux操作系统，是最受欢迎的Linux发行版之一，广泛用于桌面、服务器和云环境。",
+        download: {
+          version: "Ubuntu",
+          architecture: "X86_84",
+          url: "https://ubuntu.com/download",
+          description: "镜像下载后请优先进行SHA256校验，确保镜像一致性"
+        },
+        links: [
+          { name: "Ubuntu官方地址", url: "https://ubuntu.com" },
+          { name: "论坛地址", url: "https://ubuntuforums.org" },
+          { name: "Wiki地址", url: "https://wiki.ubuntu.com" },
+          { name: "文档中心", url: "https://help.ubuntu.com" }
+        ]
+      }
+    ];
+    
+    // 获取URL参数
+    function getUrlParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+    
+    // 根据ID加载软件
+    function loadSoftwareById(id) {
+      const softwareData = softwares.find(s => s.id == id);
+      if (softwareData) {
+        // 更新标题
+        document.title = `${softwareData.name} - 工具详情 - 光合技术支持平台`;
+        
+        // 更新面包屑
+        const breadcrumb = document.querySelector('.breadcrumb span:last-child');
+        if (breadcrumb) {
+          breadcrumb.textContent = `工具详情 · ${softwareData.name}`;
+        }
+        
+        // 更新工具头部信息
+        const toolHeaderTitle = document.querySelector('.tool-header h1');
+        if (toolHeaderTitle) {
+          toolHeaderTitle.textContent = softwareData.name;
+        }
+        
+        const toolHeaderDesc = document.querySelector('.tool-header p');
+        if (toolHeaderDesc) {
+          toolHeaderDesc.textContent = softwareData.desc;
+        }
+        
+        // 更新下载地址
+        const downloadTabContent = document.querySelector('#download');
+        if (downloadTabContent) {
+          // 这里可以根据需要更新下载地址内容
+        }
+        
+        // 更新相关链接
+        const linksList = document.querySelector('#links ul');
+        if (linksList) {
+          linksList.innerHTML = '';
+          softwareData.links.forEach(link => {
+            const li = document.createElement('li');
+            li.className = 'text-gray-600';
+            li.innerHTML = `${link.name}: <a href="${link.url}" class="text-blue-600 hover:underline">${link.url}</a>`;
+            linksList.appendChild(li);
+          });
+        }
+      }
+    }
+    
+    // 加载软件
+    const softwareId = getUrlParam('id') || 1;
+    loadSoftwareById(softwareId);
+  });
+
+  // 滚动到指定 section
+  function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      window.scrollTo({
+        top: section.offsetTop - 200,
+        behavior: 'smooth'
+      });
+      
+      // 更新标签样式
+      const tabs = document.querySelectorAll('.border-b-2');
+      tabs.forEach(tab => {
+        tab.classList.remove('border-blue-600', 'text-blue-600');
+        tab.classList.add('border-transparent', 'text-gray-600');
+      });
+      
+      // 激活当前标签
+      if (event && event.target) {
+        event.target.classList.remove('border-transparent', 'text-gray-600');
+        event.target.classList.add('border-blue-600', 'text-blue-600');
+      }
+    }
+  }
+
+  // 处理标签页切换
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabContents = document.querySelectorAll('.tab-content');
+  
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const tabId = this.dataset.tab;
+      
+      // 切换按钮状态
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      
+      // 切换内容
+      tabContents.forEach(content => content.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+    });
+  });
+</script>
+
+</body>
+</html>

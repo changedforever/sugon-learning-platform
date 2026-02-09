@@ -27,6 +27,27 @@
       color: #2D874B;
       background: rgba(255, 255, 255, 0.9);
     }
+    
+    /* 排序按钮样式优化 */
+    .sort-btn {
+      transition: all 0.2s ease;
+      font-weight: 500;
+      border: none;
+      background: rgba(255, 255, 255, 0.8);
+    }
+    
+    .sort-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    .sort-btn.active {
+      color: #2D874B;
+      background: rgba(45, 135, 75, 0.1);
+      box-shadow: 0 2px 8px rgba(45, 135, 75, 0.12);
+      font-weight: 600;
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -551,6 +572,26 @@
     </header>
 <main class="pt-16 lg:pt-20 pb-10">
   <section class="max-w-7xl mx-auto px-4 lg:px-6">
+    <!-- 面包屑导航 -->
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center space-x-3">
+        <!-- 返回按钮 -->
+        <a href="training.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center text-[#2D874B] group-hover:border-[#2D874B]">
+            <i class="fa fa-chevron-left text-[#2D874B] text-xs"></i>
+          </button>
+        </a>
+        <!-- 面包屑路径 -->
+        <div class="text-xs text-gray-600 flex items-center space-x-1">
+          <a href="index.html" class="hover:text-[#2D874B]">首页</a>
+          <span>&gt;</span>
+          <a href="training.html" class="hover:text-[#2D874B]">培训</a>
+          <span>&gt;</span>
+          <span class="text-gray-800 font-medium">考试</span>
+        </div>
+      </div>
+    </div>
+
     <!-- 顶部说明 + 搜索 & 排序 -->
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-6">
       <div>
@@ -561,25 +602,7 @@
 
       </div>
 
-      <div class="flex flex-wrap items-center gap-2 justify-end">
-        <!-- 搜索 -->
-        <div class="relative">
-          <i class="fa fa-search text-gray-400 absolute left-2 top-2.5 text-xs"></i>
-          <input id="search-input"
-                 type="text"
-                 placeholder="搜索考试名称 / 发布来源 / 岗位"
-                 class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]" />
-        </div>
-        <!-- 排序 -->
-        <div class="flex items-center gap-1 text-xs">
-          <span class="text-gray-400">排序：</span>
-          <select id="sort-select"
-                  class="rounded-full bg-white/80 border border-gray-300 px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-[#2D874B]">
-            <option value="newest">最新</option>
-            <option value="most-popular">最热</option>
-          </select>
-        </div>
-      </div>
+
     </div>
 
     <!-- 考试列表与左侧筛选 -->
@@ -650,38 +673,76 @@
               </div>
             </div>
 
-            <span id="active-filter-text" class="text-[11px] text-gray-600 block mt-2">
-              已选条件：全部
-            </span>
+
           </div>
         </div>
 
         <!-- 右侧考试列表 -->
         <div class="flex-1">
-          <!-- 统计 + 分页信息 -->
-          <div
-            class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 text-[11px] text-gray-600 gap-2">
-            <div>
-              共 <span id="total-count">0</span> 场考试，当前显示
-              <span id="current-range">0–0</span>
+          <!-- 顶部排序和搜索 -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+            <!-- 排序选项 -->
+            <div class="flex items-center gap-2 flex-wrap">
+              <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="comprehensive">
+                综合排序
+              </button>
+              <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="latest">
+                最新
+              </button>
+              <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="hottest">
+                最热
+              </button>
             </div>
-            <div class="flex items-center gap-2">
-              <button id="prev-btn"
-                class="px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 hover:bg-gray-100 transition text-gray-800">
-                上一页
-              </button>
-              <span id="page-info">1 / 1</span>
-              <button id="next-btn"
-                class="px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 hover:bg-gray-100 transition text-gray-800">
-                下一页
-              </button>
+            
+            <!-- 搜索框 -->
+            <div class="relative">
+              <i class="fa fa-search text-gray-400 absolute left-2 top-2.5 text-xs"></i>
+              <input id="search-input"
+                     type="text"
+                     placeholder="搜索考试名称 / 发布来源 / 岗位"
+                     class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]" />
             </div>
           </div>
-
           <!-- 网格卡片 -->
           <div id="exam-list"
                class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <!-- 卡片由 JS 注入 -->
+          </div>
+          
+          <!-- 底部标准分页组件 -->
+          <div class="mt-6 flex flex-col sm:flex-row sm:items-center gap-4">
+              <!-- 考试统计信息 -->
+              <div class="text-[11px] text-gray-600 sm:w-64">
+                  共 <span id="total-count-bottom">0</span> 场考试，当前显示
+                  <span id="current-range-bottom">0–0</span>
+              </div>
+              <!-- 分页控制 -->
+              <div class="flex flex-1 items-center justify-center gap-2">
+                  <button id="prev-btn-bottom"
+                      class="px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-100 transition text-gray-800 text-sm">
+                      上一页
+                  </button>
+                  <div id="page-numbers" class="flex items-center gap-1">
+                      <!-- 页码由 JS 生成 -->
+                  </div>
+                  <button id="next-btn-bottom"
+                      class="px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-100 transition text-gray-800 text-sm">
+                      下一页
+                  </button>
+                  <span class="text-[11px] text-gray-600 ml-4">
+                      共 <span id="total-pages-bottom">0</span> 页
+                  </span>
+                  <span class="text-[11px] text-gray-600">
+                      到第
+                      <input type="number" id="page-jump-input" min="1" value="1"
+                          class="w-12 px-2 py-1.5 border border-gray-300 rounded-lg text-sm text-center mx-1">
+                      页
+                      <button id="page-jump-btn"
+                          class="px-2 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-100 transition text-gray-800 text-sm ml-1">
+                          确定
+                      </button>
+                  </span>
+              </div>
           </div>
         </div>
       </div>
@@ -727,15 +788,18 @@
 
   // DOM 引用
   const searchInput = document.getElementById('search-input');
-  const sortSelect = document.getElementById('sort-select');
   const examList = document.getElementById('exam-list');
-  const totalCountEl = document.getElementById('total-count');
-  const currentRangeEl = document.getElementById('current-range');
-  const pageInfoEl = document.getElementById('page-info');
-  const prevBtn = document.getElementById('prev-btn');
-  const nextBtn = document.getElementById('next-btn');
-  const activeFilterText = document.getElementById('active-filter-text');
   const filterChips = document.querySelectorAll('.filter-chip');
+  
+  // 底部分页组件元素
+  const totalCountBottomEl = document.getElementById('total-count-bottom');
+  const currentRangeBottomEl = document.getElementById('current-range-bottom');
+  const prevBtnBottom = document.getElementById('prev-btn-bottom');
+  const nextBtnBottom = document.getElementById('next-btn-bottom');
+  const pageNumbersEl = document.getElementById('page-numbers');
+  const totalPagesBottomEl = document.getElementById('total-pages-bottom');
+  const pageJumpInput = document.getElementById('page-jump-input');
+  const pageJumpBtn = document.getElementById('page-jump-btn');
 
   // 绑定筛选 chip
   filterChips.forEach(chip => {
@@ -755,26 +819,139 @@
     filters.search = searchInput.value.trim().toLowerCase();
     applyFiltersAndRender();
   });
-
-  // 排序
-  sortSelect.addEventListener('change', () => {
-    applyFiltersAndRender();
+  
+  // 排序按钮事件
+  const sortBtns = document.querySelectorAll('.sort-btn');
+  let currentSort = 'comprehensive';
+  
+  sortBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sortType = btn.dataset.sort;
+      currentSort = sortType;
+      
+      // 更新按钮状态
+      sortBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // 重新应用筛选和渲染
+      applyFiltersAndRender();
+    });
   });
+  
+  // 默认激活综合排序
+  document.querySelector('.sort-btn[data-sort="comprehensive"]').classList.add('active');
 
-  // 分页按钮
-  prevBtn.addEventListener('click', () => {
+  // 底部分页按钮事件
+  prevBtnBottom.addEventListener('click', () => {
     if (currentPage > 1) {
       currentPage--;
       renderList();
     }
   });
-  nextBtn.addEventListener('click', () => {
+  nextBtnBottom.addEventListener('click', () => {
     const totalPages = Math.ceil(filteredExams.length / pageSize) || 1;
     if (currentPage < totalPages) {
       currentPage++;
       renderList();
     }
   });
+  
+  // 页码跳转事件
+  if (pageJumpBtn) {
+    pageJumpBtn.addEventListener('click', () => {
+      const totalPages = Math.ceil(filteredExams.length / pageSize) || 1;
+      let jumpPage = parseInt(pageJumpInput.value);
+      if (!isNaN(jumpPage) && jumpPage >= 1 && jumpPage <= totalPages) {
+        currentPage = jumpPage;
+        renderList();
+      } else {
+        // 输入无效，重置为当前页
+        pageJumpInput.value = currentPage;
+      }
+    });
+  }
+  
+  // 页码输入框回车事件
+  if (pageJumpInput) {
+    pageJumpInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        const totalPages = Math.ceil(filteredExams.length / pageSize) || 1;
+        let jumpPage = parseInt(pageJumpInput.value);
+        if (!isNaN(jumpPage) && jumpPage >= 1 && jumpPage <= totalPages) {
+          currentPage = jumpPage;
+          renderList();
+        } else {
+          // 输入无效，重置为当前页
+          pageJumpInput.value = currentPage;
+        }
+      }
+    });
+  }
+  
+  // 生成页码按钮
+  function generatePageNumbers(totalPages) {
+    if (!pageNumbersEl) return;
+    
+    pageNumbersEl.innerHTML = '';
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    
+    // 调整起始页，确保显示足够的页码
+    if (endPage - startPage + 1 < maxVisiblePages) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+    
+    // 添加首页按钮
+    if (startPage > 1) {
+      const firstPageBtn = document.createElement('button');
+      firstPageBtn.className = 'px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-100 transition text-gray-800 text-sm';
+      firstPageBtn.textContent = '1';
+      firstPageBtn.addEventListener('click', () => {
+        currentPage = 1;
+        renderList();
+      });
+      pageNumbersEl.appendChild(firstPageBtn);
+      
+      if (startPage > 2) {
+        const ellipsis = document.createElement('span');
+        ellipsis.className = 'px-2 text-gray-600';
+        ellipsis.textContent = '...';
+        pageNumbersEl.appendChild(ellipsis);
+      }
+    }
+    
+    // 添加中间页码按钮
+    for (let i = startPage; i <= endPage; i++) {
+      const pageBtn = document.createElement('button');
+      pageBtn.className = `px-3 py-1.5 rounded-lg transition text-sm ${i === currentPage ? 'bg-[#2D874B] text-white' : 'border border-gray-300 hover:bg-gray-100 text-gray-800'}`;
+      pageBtn.textContent = i;
+      pageBtn.addEventListener('click', () => {
+        currentPage = i;
+        renderList();
+      });
+      pageNumbersEl.appendChild(pageBtn);
+    }
+    
+    // 添加末页按钮
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        const ellipsis = document.createElement('span');
+        ellipsis.className = 'px-2 text-gray-600';
+        ellipsis.textContent = '...';
+        pageNumbersEl.appendChild(ellipsis);
+      }
+      
+      const lastPageBtn = document.createElement('button');
+      lastPageBtn.className = 'px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-100 transition text-gray-800 text-sm';
+      lastPageBtn.textContent = totalPages;
+      lastPageBtn.addEventListener('click', () => {
+        currentPage = totalPages;
+        renderList();
+      });
+      pageNumbersEl.appendChild(lastPageBtn);
+    }
+  }
 
   // 应用筛选 + 排序
   function applyFiltersAndRender() {
@@ -790,25 +967,22 @@
       return matchRole && matchDifficulty && matchSearch;
     });
 
-    // 排序：最新（按时间字符串倒序，这里可改为后端返回时间戳）、最热（已考人数）
-    if (sortSelect.value === 'newest') {
+    // 排序
+    if (currentSort === 'latest') {
+      // 最新：按时间倒序
       filteredExams.sort((a, b) => b.date.localeCompare(a.date));
-    } else {
+    } else if (currentSort === 'hottest') {
+      // 最热：按参与人数倒序
       filteredExams.sort((a, b) => b.participants - a.participants);
+    } else {
+      // 综合排序：默认顺序
+      // 这里可以根据实际需求调整综合排序逻辑
+      filteredExams.sort((a, b) => b.date.localeCompare(a.date));
     }
 
-    currentPage = 1;
-    updateFilterText();
-    renderList();
-  }
 
-  // 更新“已选条件”
-  function updateFilterText() {
-    const parts = [];
-    if (filters.role !== 'all') parts.push(`岗位：${filters.role}`);
-    if (filters.difficulty !== 'all') parts.push(`难度：${filters.difficulty}`);
-    if (filters.search) parts.push(`关键词：“${filters.search}”`);
-    activeFilterText.textContent = '已选条件：' + (parts.length ? parts.join(' / ') : '全部');
+    currentPage = 1;
+    renderList();
   }
 
   // 渲染列表
@@ -823,6 +997,7 @@
     pageData.forEach(exam => {
       const card = document.createElement('article');
       card.className = 'glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer';
+      card.dataset.id = exam.id;
 
       card.innerHTML = `
         <div>
@@ -859,14 +1034,24 @@
       examList.appendChild(card);
     });
 
-    totalCountEl.textContent = total;
-    currentRangeEl.textContent = total ? `${startIndex + 1}–${endIndex}` : '0–0';
-    pageInfoEl.textContent = `${currentPage} / ${totalPages}`;
+    // 更新底部分页信息
+    if (totalCountBottomEl) totalCountBottomEl.textContent = total;
+    if (currentRangeBottomEl) currentRangeBottomEl.textContent = total ? `${startIndex + 1}–${endIndex}` : '0–0';
+    if (totalPagesBottomEl) totalPagesBottomEl.textContent = totalPages;
+    if (pageJumpInput) pageJumpInput.value = currentPage;
 
-    prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPages;
-    prevBtn.classList.toggle('opacity-50', prevBtn.disabled);
-    nextBtn.classList.toggle('opacity-50', nextBtn.disabled);
+    // 生成页码按钮
+    generatePageNumbers(totalPages);
+
+    // 禁用/启用底部分页按钮
+    if (prevBtnBottom) {
+        prevBtnBottom.disabled = currentPage === 1;
+        prevBtnBottom.classList.toggle('opacity-50', prevBtnBottom.disabled);
+    }
+    if (nextBtnBottom) {
+        nextBtnBottom.disabled = currentPage === totalPages;
+        nextBtnBottom.classList.toggle('opacity-50', nextBtnBottom.disabled);
+    }
 
     // 开始考试按钮：实际使用时跳转到在线考试页或详情页
     document.querySelectorAll('.start-btn').forEach(btn => {
@@ -876,6 +1061,14 @@
         const exam = allExams.find(item => item.id == id);
         // 这里仅示例，实际应检查报名状态后跳转
         alert(`即将进入「${exam.name}」，可在考试详情页确认场次并开始考试。`);
+        window.location.href = 'exam-online.html?id=' + id;
+      });
+    });
+    
+    // 考试卡片点击跳转到在线考试页
+    document.querySelectorAll('.glass-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const id = card.dataset.id;
         window.location.href = 'exam-online.html?id=' + id;
       });
     });

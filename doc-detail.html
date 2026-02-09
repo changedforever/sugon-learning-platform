@@ -2,25 +2,878 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>文档详情 - 光合技术支持平台</title>
+  <title>PaddlePaddle API兼容列表 - 文档详情 - 光合技术支持平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标（Font Awesome，可按需替换为你自己的图标方案） -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background-color: #f3f4f6;
+    /* 轮播容器和卡片 ceshi*/
+    .banner-card {
+      height: 600px;
     }
-    img {
-      max-width: 100%;
+    .banner-slide {
+      position: relative;
+    }
+    .banner-slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      /* 浅色模式下的淡白遮罩渐变 */
+      background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
+      pointer-events: none;
+    }
+    .glass-card {
+      /* 浅色玻璃风卡片 */
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(14px);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+
+    
+    /* 优化banner视觉效果 */
+    .banner-card {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    /* 增强banner遮罩效果 */
+    .banner-slide::after {
+      background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 30%, rgba(255,255,255,0.3) 70%, rgba(255,255,255,0.1) 100%);
+    }
+    
+    /* 个人信息模块悬浮效果 */
+    .user-info-card {
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border: none;
+    }
+    
+    /* 个人信息卡片内容区域固定高度，确保切换标签时卡片尺寸不变 */
+    #card-content {
+      min-height: 300px;
+    }
+    
+    .tab-content {
       height: auto;
+    }
+    
+    /* 响应式调整 */
+    @media (max-width: 1024px) {
+      .user-info-card {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: 100%;
+        margin-top: 1rem;
+      }
+    }
+    
+    /* 全屏宽度下拉弹窗样式 */
+    .full-width-dropdown {
+      width: 100vw;
+      max-width: none;
+      position: fixed;
+      top: auto;
+      left: 0;
+      margin-top: 0;
+      border-top: 1px solid #e5e7eb;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      z-index: 60;
+    }
+    
+    /* 当前激活的下拉菜单样式 */
+    .full-width-dropdown.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* 左侧导航项目样式 */
+    .nav-item {
+      transition: all 0.2s ease;
+    }
+    
+    .nav-item.selected {
+      background-color: #3B82F6 !important;
+      color: white !important;
+      font-weight: 500;
+    }
+    
+    /* 右侧内容区域样式 */
+    .nav-content.hidden {
+      display: none;
+    }
+    
+    .nav-content.active-content {
+      display: block;
+    }
+    
+    /* 防止下拉浮窗闪烁 */
+    .nav-dropdown:hover .full-width-dropdown {
+      pointer-events: auto;
+    }
+    .full-width-dropdown {
+      pointer-events: none;
+    }
+    .full-width-dropdown * {
+      pointer-events: auto;
+    }
+    
+    /* 专家头像选中状态样式 */
+    .expert-tab.active img {
+      border-color: #3B82F6 !important;
+      transform: scale(1.05);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    }
+    
+    .expert-tab:not(.active) img {
+      border-color: #ffffff;
+    }
+    
+    /* 面包屑样式 */
+    .breadcrumb {
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .breadcrumb a {
+      color: #2D874B;
+      text-decoration: none;
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    /* 工具详情样式 */
+    .tool-detail-content {
+      line-height: 1.6;
+    }
+    
+    .tool-detail-content h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 24px 0 16px;
+      color: #333;
+    }
+    
+    .tool-detail-content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 20px 0 12px;
+      color: #444;
+    }
+    
+    .tool-detail-content p {
+      margin: 12px 0;
+      color: #666;
+    }
+    
+    /* 工具头部样式 */
+    .tool-header {
+      background: url('images/tool-detail-bg.png') no-repeat center center;
+      background-size: cover;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    
+    /* 工具功能模块样式 */
+    .tool-module {
+      transition: all 0.3s ease;
+    }
+    
+    .tool-module:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 文档详情样式 */
+    .doc-detail {
+      line-height: 1.6;
+    }
+
+    .doc-detail h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 24px 0 16px;
+      color: #333;
+    }
+
+    .doc-detail h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 24px 0 12px;
+      color: #444;
+    }
+
+    .doc-detail p {
+      margin: 12px 0;
+      color: #666;
+    }
+
+    .doc-detail ul {
+      margin: 12px 0;
+      padding-left: 20px;
+      color: #666;
+    }
+
+    .doc-detail li {
+      margin: 8px 0;
+    }
+
+    /* 标签导航样式 */
+    .doc-tabs {
+      border-bottom: 1px solid #e5e7eb;
+      margin-bottom: 20px;
+    }
+
+    .doc-tab {
+      padding: 12px 24px;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .doc-tab.active {
+      border-bottom-color: #2D874B;
+      color: #2D874B;
+      font-weight: 500;
+    }
+
+    /* 表格样式 */
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    .doc-table th {
+      background-color: #f9fafb;
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #e5e7eb;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .doc-table td {
+      padding: 12px;
+      border: 1px solid #e5e7eb;
+      color: #666;
+    }
+
+    .doc-table tr:nth-child(even) {
+      background-color: #f9fafb;
     }
   </style>
 </head>
-<body>
-  <img src="images/docdetail.png" alt="文档详情" />
+<body class="bg-white text-gray-800">
+
+<!-- 顶部导航 + 全站搜索 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-16 relative">
+      <!-- LOGO + 品牌 -->
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+          <img src="images/logo2.png" alt="HIECO Logo" class="h-32 w-32 object-contain">
+        </a>
+        <div>
+          <!--div class="text-xs uppercase tracking-widest text-white">HIECO</div-->
+          <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200" style="font-size: 18px;">光合技术支持平台</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 导航入口（桌面端） -->
+      <nav class="hidden md:flex items-center space-x-4 text-base">
+        <!-- 专家 - 无下拉 -->
+        <a href="expert-center.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">
+          专家
+        </a>
+
+        <div class="nav-dropdown relative group">
+          <a href="training.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            培训
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </a>
+          <div class="full-width-dropdown fixed top-0 left-0 w-screen bg-white shadow-xl border-t border-gray-200 opacity-0 invisible transition-all duration-300 z-40" id="training-full-dropdown">
+            <div class="container mx-auto px-4 py-16">
+              <div class="flex">
+                <!-- 左侧导航 -->
+                <div class="w-48 pr-6 border-r border-gray-200">
+                  <div class="space-y-2">
+                    <a href="course-list2.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 active-nav-item nav-item selected" data-target="course">课程</a>
+                    <a href="exam-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="exam">考试</a>
+                    <a href="certification.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="certification">认证</a>
+                    <a href="lecturer-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="lecturer">讲师</a>
+                  </div>
+                </div>
+                
+                <!-- 分隔线 -->
+                <div class="mx-6 h-full w-px bg-gray-200"></div>
+                
+                <!-- 右侧分类内容 -->
+                <div class="flex-1">
+                  <!-- 课程 -->
+                  <div id="course" class="nav-content active-content">
+                    <div class="grid grid-cols-4 gap-6">
+                      <a href="course-detail.html" class="group">
+                        <div class="aspect-video rounded-xl overflow-hidden mb-3 bg-gray-200">
+                          <img src="https://via.placeholder.com/400x225?text=Course+1" alt="Course 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h3 class="text-base font-medium group-hover:text-blue-600 transition-colors">云计算基础入门</h3>
+                        <p class="text-sm text-gray-600 mt-1">适合初学者的云计算基础知识培训</p>
+                      </a>
+                      <a href="course-detail.html" class="group">
+                        <div class="aspect-video rounded-xl overflow-hidden mb-3 bg-gray-200">
+                          <img src="https://via.placeholder.com/400x225?text=Course+2" alt="Course 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h3 class="text-base font-medium group-hover:text-blue-600 transition-colors">人工智能应用开发</h3>
+                        <p class="text-sm text-gray-600 mt-1">学习AI应用开发的核心技术</p>
+                      </a>
+                      <a href="course-detail.html" class="group">
+                        <div class="aspect-video rounded-xl overflow-hidden mb-3 bg-gray-200">
+                          <img src="https://via.placeholder.com/400x225?text=Course+3" alt="Course 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h3 class="text-base font-medium group-hover:text-blue-600 transition-colors">网络安全防护</h3>
+                        <p class="text-sm text-gray-600 mt-1">网络安全防护技术与实践</p>
+                      </a>
+                      <a href="course-detail.html" class="group">
+                        <div class="aspect-video rounded-xl overflow-hidden mb-3 bg-gray-200">
+                          <img src="https://via.placeholder.com/400x225?text=Course+4" alt="Course 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h3 class="text-base font-medium group-hover:text-blue-600 transition-colors">大数据分析实战</h3>
+                        <p class="text-sm text-gray-600 mt-1">大数据分析工具与技术应用</p>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 直播 - 带下拉浮窗 -->
+        <div class="nav-dropdown relative group">
+          <a href="live-list.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            直播
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </a>
+          <div class="full-width-dropdown fixed top-0 left-0 w-screen bg-white shadow-xl border-t border-gray-200 opacity-0 invisible transition-all duration-300 z-40" id="live-full-dropdown">
+            <div class="container mx-auto px-4 py-16">
+              <div class="flex">
+                <!-- 直播没有左侧导航和分隔线，直接显示右侧分类内容 -->
+                <div class="flex-1">
+                  <h3 class="text-lg font-semibold mb-6">直播分类</h3>
+                  <div class="grid grid-cols-3 gap-6">
+                    <div>
+                      <h4 class="font-medium text-gray-800 mb-2 text-base">技术直播</h4>
+                      <ul class="space-y-1">
+                        <li class="mb-2">
+                          <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">云计算技术</a>
+                          <ul class="mt-1 space-y-1 pl-2">
+                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">Kubernetes实践</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 资源 - 高亮状态 -->
+        <a href="resource-center.html" class="px-4 py-2 rounded-full bg-gray-300 transition text-[#2D874B] font-medium">资源</a>
+        
+        <!-- 资讯 - 带下拉浮窗（合并资讯、活动） -->
+        <div class="nav-dropdown relative group">
+          <span class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            资讯
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </span>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="space-y-3">
+                <!-- 资讯 -->
+                <a href="news-announcement-list.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-newspaper mr-3 text-[#2D874B]"></i>
+                  <span>资讯</span>
+                </a>
+                
+                <!-- 活动 -->
+                <a href="activity-list.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-calendar-alt mr-3 text-[#2D874B]"></i>
+                  <span>活动</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <a href="https://forum.sourcefind.cn/" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">论坛</a>
+      </nav>
+
+      <!-- 移动端菜单按钮 -->
+      <button class="md:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none">
+        <i class="fa fa-bars text-xl"></i>
+      </button>
+
+      <!-- 右侧功能区 -->
+      <div class="flex items-center space-x-3">
+        <!-- 搜索图标（桌面端） -->
+        <div class="relative">
+          <!-- 搜索图标按钮 -->
+          <button id="search-toggle" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <i class="fa fa-search text-sm"></i>
+          </button>
+          
+          <!-- 下拉搜索栏 -->
+          <div id="search-dropdown" class="absolute top-full right-0 mt-2 w-96 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible transition-all duration-300 z-50">
+            <div class="p-4">
+              <!-- 搜索输入框 -->
+              <div class="relative mb-3">
+                <input
+                  type="text"
+                  id="search-input"
+                  placeholder="搜索培训、考试、认证、资讯..."
+                  class="w-full rounded-xl bg-gray-100 border border-gray-300 px-4 py-3 pl-10 text-sm
+                         placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]"
+                />
+                <i class="fa fa-search text-gray-500 absolute left-3 top-3.5 text-sm"></i>
+              </div>
+              
+              <!-- 热搜推荐 -->
+              <div id="hot-search" class="mb-3">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-medium text-gray-600">热搜推荐</span>
+                  <button class="text-xs text-blue-500 hover:text-blue-700 transition">换一换</button>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <button class="search-tag px-2 py-1 bg-gray-100 hover:bg-blue-50 text-xs text-gray-600 hover:text-blue-600 rounded-lg transition">
+                    云计算基础
+                  </button>
+                  <button class="search-tag px-2 py-1 bg-gray-100 hover:bg-blue-50 text-xs text-gray-600 hover:text-blue-600 rounded-lg transition">
+                    人工智能
+                  </button>
+                  <button class="search-tag px-2 py-1 bg-gray-100 hover:bg-blue-50 text-xs text-gray-600 hover:text-blue-600 rounded-lg transition">
+                    网络安全
+                  </button>
+                  <button class="search-tag px-2 py-1 bg-gray-100 hover:bg-blue-50 text-xs text-gray-600 hover:text-blue-600 rounded-lg transition">
+                    大数据分析
+                  </button>
+                  <button class="search-tag px-2 py-1 bg-gray-100 hover:bg-blue-50 text-xs text-gray-600 hover:text-blue-600 rounded-lg transition">
+                    机器学习
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 用户头像 -->
+        <div class="relative">
+          <button id="user-avatar" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <a href="personal-center.html">
+              <i class="fa fa-user text-sm"></i>
+            </a>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 面包屑导航 -->
+<main class="pt-24 lg:pt-28 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6">
+    <!-- 面包屑 -->
+    <div class="breadcrumb mb-8 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <button onclick="window.history.back()" class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center hover:border-[#2D874B] transition">
+          <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
+        </button>
+        <a href="index.html">首页</a>
+        <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+        <a href="resource-center.html">资源</a>
+        <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+        <a href="document.html">技术文档库</a>
+        <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+        <span class="text-gray-900 font-medium">文档详情 · PaddlePaddle API兼容列表</span>
+      </div>
+      <!-- 搜索栏 -->
+      <div class="search-bar">
+        <div class="relative">
+          <input type="text" placeholder="搜索..." class="pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-[#2D874B] transition w-48 lg:w-64">
+          <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- 文档内容区域 - 三栏布局 -->
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- 左侧目录 -->
+      <div class="lg:w-1/5 bg-white p-4 rounded-3xl border border-gray-200 sticky top-32 self-start">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">目录</h3>
+        <ul class="space-y-2">
+          <li><a href="#section1" class="text-gray-600 hover:text-[#2D874B] transition">1. 简介</a></li>
+          <li>
+            <a href="#section2" class="text-gray-600 hover:text-[#2D874B] transition">2. 适用范围</a>
+            <ul class="pl-4 space-y-1 mt-1">
+              <li><a href="#section2.1" class="text-gray-600 hover:text-[#2D874B] transition text-sm">2.1 支持的PaddlePaddle版本</a></li>
+              <li><a href="#section2.2" class="text-gray-600 hover:text-[#2D874B] transition text-sm">2.2 支持的Python版本</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#section3" class="text-gray-600 hover:text-[#2D874B] transition">3. 兼容原则</a>
+            <ul class="pl-4 space-y-1 mt-1">
+              <li><a href="#section3.1" class="text-gray-600 hover:text-[#2D874B] transition text-sm">3.1 完全兼容</a></li>
+              <li><a href="#section3.2" class="text-gray-600 hover:text-[#2D874B] transition text-sm">3.2 部分兼容</a></li>
+              <li><a href="#section3.3" class="text-gray-600 hover:text-[#2D874B] transition text-sm">3.3 不兼容</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#section4" class="text-gray-600 hover:text-[#2D874B] transition">4. API兼容列表</a>
+            <ul class="pl-4 space-y-1 mt-1">
+              <li><a href="#section4.1" class="text-gray-600 hover:text-[#2D874B] transition text-sm">4.1 基础API</a></li>
+              <li><a href="#section4.2" class="text-gray-600 hover:text-[#2D874B] transition text-sm">4.2 神经网络层</a></li>
+              <li><a href="#section4.3" class="text-gray-600 hover:text-[#2D874B] transition text-sm">4.3 损失函数</a></li>
+              <li><a href="#section4.4" class="text-gray-600 hover:text-[#2D874B] transition text-sm">4.4 优化器</a></li>
+            </ul>
+          </li>
+          <li><a href="#section5" class="text-gray-600 hover:text-[#2D874B] transition">5. 不兼容API说明</a></li>
+          <li>
+            <a href="#section6" class="text-gray-600 hover:text-[#2D874B] transition">6. 常见问题</a>
+            <ul class="pl-4 space-y-1 mt-1">
+              <li><a href="#section6.1" class="text-gray-600 hover:text-[#2D874B] transition text-sm">6.1 兼容性检查</a></li>
+              <li><a href="#section6.2" class="text-gray-600 hover:text-[#2D874B] transition text-sm">6.2 不兼容处理</a></li>
+              <li><a href="#section6.3" class="text-gray-600 hover:text-[#2D874B] transition text-sm">6.3 版本更新影响</a></li>
+              <li><a href="#section6.4" class="text-gray-600 hover:text-[#2D874B] transition text-sm">6.4 获取最新版本</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 中间内容 -->
+      <div class="lg:w-3/5">
+        <!-- 文档标题 -->
+        <div class="mb-8">
+          <h1 class="text-3xl font-bold text-gray-800 mb-4">PaddlePaddle API兼容列表</h1>
+          <div class="flex items-center gap-4 text-gray-500 text-sm">
+              <span><i class="fa fa-calendar-alt mr-1"></i> 2024-01-15</span>
+            <span><i class="fa fa-eye mr-1"></i> 1,234 阅读</span>
+            <button class="flex items-center gap-1 text-sm px-3 py-1 bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition-colors"><i class="fa fa-download"></i> 下载</button>
+          </div>
+        </div>
+
+        <!-- 文档内容 -->
+        <div class="doc-content">
+          <section id="section1" class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">1. 简介</h2>
+            <p class="mb-4 text-gray-600">本文档提供了PaddlePaddle API在曙光AI平台上的兼容列表，帮助开发者了解哪些API可以正常使用，以及使用过程中需要注意的事项。</p>
+            <p class="text-gray-600">PaddlePaddle是百度推出的深度学习框架，提供了丰富的API接口，支持各种深度学习任务。在曙光AI平台上，我们对PaddlePaddle的API进行了测试和优化，确保大部分常用API能够正常工作。</p>
+          </section>
+
+          <section id="section2" class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">2. 适用范围</h2>
+            <p class="mb-4 text-gray-600">本兼容列表适用于以下环境：</p>
+            
+            <section id="section2.1" class="mb-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">2.1 支持的PaddlePaddle版本</h3>
+              <p class="text-gray-600">PaddlePaddle 2.5.0及以上版本</p>
+            </section>
+            
+            <section id="section2.2" class="mb-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">2.2 支持的Python版本</h3>
+              <p class="text-gray-600">Python 3.7-3.9</p>
+            </section>
+            
+            <p class="text-gray-600">曙光AI平台</p>
+          </section>
+
+          <section id="section3" class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">3. 兼容原则</h2>
+            <p class="mb-4 text-gray-600">我们遵循以下原则来评估API的兼容性：</p>
+            
+            <section id="section3.1" class="mb-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">3.1 完全兼容</h3>
+              <p class="text-gray-600">API可以正常使用，功能与官方文档一致</p>
+            </section>
+            
+            <section id="section3.2" class="mb-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">3.2 部分兼容</h3>
+              <p class="text-gray-600">API可以使用，但某些参数或功能可能受限</p>
+            </section>
+            
+            <section id="section3.3" class="mb-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">3.3 不兼容</h3>
+              <p class="text-gray-600">API无法正常使用，或使用后可能导致错误</p>
+            </section>
+          </section>
+
+          <section id="section4" class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">4. API兼容列表</h2>
+            
+            <section id="section4.1" class="mb-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">4.1 基础API</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                  <thead>
+                    <tr class="bg-gray-50">
+                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">API名称</th>
+                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">兼容状态</th>
+                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">备注</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="p-3 border border-gray-200 text-gray-600">paddle.Tensor</td>
+                      <td class="p-3 border border-gray-200 text-green-600">完全兼容</td>
+                      <td class="p-3 border border-gray-200 text-gray-600">无特殊说明</td>
+                    </tr>
+                    <tr>
+                      <td class="p-3 border border-gray-200 text-gray-600">paddle.to_tensor</td>
+                      <td class="p-3 border border-gray-200 text-green-600">完全兼容</td>
+                      <td class="p-3 border border-gray-200 text-gray-600">无特殊说明</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+            
+            <section id="section4.2" class="mb-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">4.2 神经网络层</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                  <thead>
+                    <tr class="bg-gray-50">
+                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">API名称</th>
+                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">兼容状态</th>
+                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">备注</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="p-3 border border-gray-200 text-gray-600">paddle.nn.Linear</td>
+                      <td class="p-3 border border-gray-200 text-green-600">完全兼容</td>
+                      <td class="p-3 border border-gray-200 text-gray-600">无特殊说明</td>
+                    </tr>
+                    <tr>
+                      <td class="p-3 border border-gray-200 text-gray-600">paddle.nn.Conv2D</td>
+                      <td class="p-3 border border-gray-200 text-green-600">完全兼容</td>
+                      <td class="p-3 border border-gray-200 text-gray-600">无特殊说明</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+            
+            <section id="section4.3" class="mb-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">4.3 损失函数</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                  <thead>
+                    <tr class="bg-gray-50">
+                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">API名称</th>
+                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">兼容状态</th>
+                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">备注</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="p-3 border border-gray-200 text-gray-600">paddle.nn.CrossEntropyLoss</td>
+                      <td class="p-3 border border-gray-200 text-green-600">完全兼容</td>
+                      <td class="p-3 border border-gray-200 text-gray-600">无特殊说明</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+            
+            <section id="section4.4" class="mb-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">4.4 优化器</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                  <thead>
+                    <tr class="bg-gray-50">
+                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">API名称</th>
+                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">兼容状态</th>
+                      <th class="p-3 text-left text-gray-600 font-medium border border-gray-200">备注</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="p-3 border border-gray-200 text-gray-600">paddle.optimizer.Adam</td>
+                      <td class="p-3 border border-gray-200 text-green-600">完全兼容</td>
+                      <td class="p-3 border border-gray-200 text-gray-600">无特殊说明</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </section>
+
+          <section id="section5" class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">5. 不兼容API说明</h2>
+            <p class="mb-4 text-gray-600">目前发现的不兼容API如下：</p>
+            <ul class="list-disc pl-5 space-y-2 text-gray-600">
+              <li>paddle.fluid.core：底层API，可能与平台环境不兼容</li>
+              <li>paddle.device.cuda：依赖CUDA环境，在某些平台可能不可用</li>
+            </ul>
+          </section>
+
+          <section id="section6" class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">6. 常见问题</h2>
+            
+            <section id="section6.1" class="mb-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">6.1 兼容性检查</h3>
+              <p class="text-gray-600">Q: 如何检查PaddlePaddle API的兼容性？</p>
+              <p class="text-gray-600">A: 您可以参考本文档提供的API兼容列表，或者通过运行简单的测试代码来验证API是否可以正常工作。</p>
+            </section>
+            
+            <section id="section6.2" class="mb-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">6.2 不兼容处理</h3>
+              <p class="text-gray-600">Q: 如果遇到API不兼容的情况，应该如何处理？</p>
+              <p class="text-gray-600">A: 您可以尝试使用替代API，或者联系曙光技术支持团队获取帮助。</p>
+            </section>
+            
+            <section id="section6.3" class="mb-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">6.3 版本更新影响</h3>
+              <p class="text-gray-600">Q: PaddlePaddle的版本更新会影响API兼容性吗？</p>
+              <p class="text-gray-600">A: 是的，PaddlePaddle的版本更新可能会影响API兼容性。我们会定期更新本文档，以反映最新的API兼容状态。</p>
+            </section>
+            
+            <section id="section6.4" class="mb-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">6.4 获取最新版本</h3>
+              <p class="text-gray-600">Q: 如何获取PaddlePaddle的最新版本？</p>
+              <p class="text-gray-600">A: 您可以通过pip命令安装最新版本的PaddlePaddle，或者从PaddlePaddle官网下载安装包。</p>
+            </section>
+          </section>
+        </div>
+      </div>
+
+      <!-- 右侧目录 -->
+      <div class="lg:w-1/5 bg-white p-4 rounded-3xl border border-gray-200 sticky top-32 self-start">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">目录</h3>
+        <ul class="space-y-2">
+          <li><a href="#section4" class="text-gray-600 hover:text-[#2D874B] transition">PaddlePaddle API兼容列表</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- 底部 -->
+<footer class="bg-gray-50 border-t border-gray-200 py-12">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <h3 class="font-semibold text-gray-800 mb-4">关于我们</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-600 hover:text-blue-600 transition">平台介绍</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-blue-600 transition">组织架构</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-blue-600 transition">联系我们</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-800 mb-4">资源中心</h3>
+        <ul class="space-y-2">
+          <li><a href="tech-tool-library.html" class="text-gray-600 hover:text-blue-600 transition">技术工具库</a></li>
+          <li><a href="case-study.html" class="text-gray-600 hover:text-blue-600 transition">案例研究</a></li>
+          <li><a href="document.html" class="text-gray-600 hover:text-blue-600 transition">文档中心</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-800 mb-4">培训服务</h3>
+        <ul class="space-y-2">
+          <li><a href="training.html" class="text-gray-600 hover:text-blue-600 transition">培训课程</a></li>
+          <li><a href="exam-list.html" class="text-gray-600 hover:text-blue-600 transition">认证考试</a></li>
+          <li><a href="certification.html" class="text-gray-600 hover:text-blue-600 transition">证书查询</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-800 mb-4">支持与服务</h3>
+        <ul class="space-y-2">
+          <li><a href="expert-center.html" class="text-gray-600 hover:text-blue-600 transition">专家咨询</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-blue-600 transition">技术支持</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-blue-600 transition">常见问题</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+      <div class="text-gray-500 text-sm mb-4 md:mb-0">
+        © 2026 光合技术支持平台. 保留所有权利.
+      </div>
+      <div class="flex space-x-4">
+        <a href="#" class="text-gray-400 hover:text-gray-500 transition">
+          <i class="fa fa-weixin text-xl"></i>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-gray-500 transition">
+          <i class="fa fa-weibo text-xl"></i>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-gray-500 transition">
+          <i class="fa fa-github text-xl"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- 导航下拉菜单脚本 -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 处理搜索框切换
+    const searchToggle = document.getElementById('search-toggle');
+    const searchDropdown = document.getElementById('search-dropdown');
+    
+    if (searchToggle && searchDropdown) {
+      searchToggle.addEventListener('click', function() {
+        searchDropdown.classList.toggle('opacity-0');
+        searchDropdown.classList.toggle('invisible');
+      });
+      
+      // 点击其他地方关闭搜索框
+      document.addEventListener('click', function(e) {
+        if (!searchToggle.contains(e.target) && !searchDropdown.contains(e.target)) {
+          searchDropdown.classList.add('opacity-0', 'invisible');
+        }
+      });
+    }
+    
+    // 处理全屏下拉菜单
+    const navDropdowns = document.querySelectorAll('.nav-dropdown');
+    
+    navDropdowns.forEach(dropdown => {
+      const fullDropdown = dropdown.querySelector('.full-width-dropdown');
+      
+      if (fullDropdown) {
+        dropdown.addEventListener('mouseenter', function() {
+          fullDropdown.classList.remove('opacity-0', 'invisible');
+          fullDropdown.classList.add('opacity-100', 'visible');
+        });
+        
+        dropdown.addEventListener('mouseleave', function() {
+          fullDropdown.classList.add('opacity-0', 'invisible');
+          fullDropdown.classList.remove('opacity-100', 'visible');
+        });
+      }
+    });
+  });
+</script>
+
 </body>
 </html>

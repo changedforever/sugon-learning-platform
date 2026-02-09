@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>镜像仓库详情 - 光合技术支持平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标（Font Awesome） -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* 轮播容器和卡片 */
+    .banner-card {
+      height: 600px;
+    }
+    .banner-slide {
+      position: relative;
+    }
+    .banner-slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
+      pointer-events: none;
+    }
+    .glass-card {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(14px);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    /* 优化banner视觉效果 */
+    .banner-card {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    /* 增强banner遮罩效果 */
+    .banner-slide::after {
+      background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 30%, rgba(255,255,255,0.3) 70%, rgba(255,255,255,0.1) 100%);
+    }
+    
+    /* 个人信息模块悬浮效果 */
+    .user-info-card {
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border: none;
+    }
+    
+    /* 个人信息卡片内容区域固定高度，确保切换标签时卡片尺寸不变 */
+    #card-content {
+      min-height: 300px;
+    }
+    
+    .tab-content {
+      height: auto;
+    }
+    
+    /* 响应式调整 */
+    @media (max-width: 1024px) {
+      .user-info-card {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: 100%;
+        margin-top: 1rem;
+      }
+    }
+    
+    /* 全屏宽度下拉弹窗样式 */
+    .full-width-dropdown {
+      width: 100vw;
+      max-width: none;
+      position: fixed;
+      top: auto;
+      left: 0;
+      margin-top: 0;
+      border-top: 1px solid #e5e7eb;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      z-index: 60;
+    }
+    
+    /* 当前激活的下拉菜单样式 */
+    .full-width-dropdown.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* 左侧导航项目样式 */
+    .nav-item {
+      transition: all 0.2s ease;
+    }
+    
+    .nav-item.selected {
+      background-color: #3B82F6 !important;
+      color: white !important;
+      font-weight: 500;
+    }
+    
+    /* 右侧内容区域样式 */
+    .nav-content.hidden {
+      display: none;
+    }
+    
+    .nav-content.active-content {
+      display: block;
+    }
+    
+    /* 防止下拉浮窗闪烁 */
+    .nav-dropdown:hover .full-width-dropdown {
+      pointer-events: auto;
+    }
+    .full-width-dropdown {
+      pointer-events: none;
+    }
+    .full-width-dropdown * {
+      pointer-events: auto;
+    }
+    
+    /* 专家头像选中状态样式 */
+    .expert-tab.active img {
+      border-color: #3B82F6 !important;
+      transform: scale(1.05);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    }
+    
+    /* 面包屑样式 */
+    .breadcrumb {
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .breadcrumb a {
+      color: #2D874B;
+      text-decoration: none;
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    /* 标签页样式 */
+    .tab-button {
+      transition: all 0.2s ease;
+    }
+    
+    .tab-button.active {
+      color: #2D874B;
+      border-bottom: 2px solid #2D874B;
+      font-weight: 600;
+    }
+    
+    /* 代码块样式 */
+    .code-block {
+      background: #1e293b;
+      color: #f8fafc;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      overflow-x: auto;
+    }
+    
+    /* 镜像标签样式 */
+    .image-tag {
+      transition: all 0.2s ease;
+    }
+    
+    .image-tag:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    /* 评论样式 */
+    .comment-item {
+      transition: all 0.2s ease;
+    }
+    
+    .comment-item:hover {
+      background: rgba(249, 250, 251, 1);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+<!-- 顶部导航 + 全站搜索 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-16 relative">
+      <!-- LOGO + 品牌 -->
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+          <img src="images/logo2.png" alt="HIECO Logo" class="h-32 w-32 object-contain">
+        </a>
+        <div>
+          <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200" style="font-size: 18px;">光合技术支持平台</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 导航入口（桌面端） -->
+      <nav class="hidden md:flex items-center space-x-4 text-base">
+        <!-- 专家 - 无下拉 -->
+        <a href="expert-center.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">
+          专家
+        </a>
+
+        <div class="nav-dropdown relative group">
+          <a href="training.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            培训
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </a>
+          <div class="full-width-dropdown fixed top-0 left-0 w-screen bg-white shadow-xl border-t border-gray-200 opacity-0 invisible transition-all duration-300 z-40" id="training-full-dropdown">
+            <div class="container mx-auto px-4 py-16">
+              <div class="flex">
+                <!-- 左侧导航 -->
+                <div class="w-48 pr-6 border-r border-gray-200">
+                  <div class="space-y-2">
+                    <a href="course-list2.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 active-nav-item nav-item selected" data-target="course">课程</a>
+                    <a href="exam-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="exam">考试</a>
+                    <a href="certification.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="certification">认证</a>
+                    <a href="lecturer-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="lecturer">讲师</a>
+                  </div>
+                </div>
+                
+                <!-- 分隔线 -->
+                <div class="mx-6 h-full w-px bg-gray-200"></div>
+                
+                <!-- 右侧分类内容 -->
+                <div class="flex-1 pl-6">
+                  <div id="course-content" class="nav-content active-content">
+                    <h3 class="text-lg font-semibold mb-6">课程分类</h3>
+                    <div class="grid grid-cols-3 gap-6">
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2 text-base">技术方向</h4>
+                        <ul class="space-y-1">
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">云计算</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">公有云服务</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 直播 - 带下拉浮窗 -->
+        <div class="nav-dropdown relative group">
+          <a href="live-list.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            直播
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </a>
+          <div class="full-width-dropdown fixed top-0 left-0 w-screen bg-white shadow-xl border-t border-gray-200 opacity-0 invisible transition-all duration-300 z-40" id="live-full-dropdown">
+            <div class="container mx-auto px-4 py-16">
+              <div class="flex">
+                <!-- 直播没有左侧导航和分隔线，直接显示右侧分类内容 -->
+                <div class="flex-1">
+                  <h3 class="text-lg font-semibold mb-6">直播分类</h3>
+                  <div class="grid grid-cols-3 gap-6">
+                    <div>
+                      <h4 class="font-medium text-gray-800 mb-2 text-base">技术直播</h4>
+                      <ul class="space-y-1">
+                        <li class="mb-2">
+                          <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">云计算技术</a>
+                          <ul class="mt-1 space-y-1 pl-2">
+                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">Kubernetes实践</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 资源 - 高亮状态 -->
+        <a href="resource-center.html" class="px-4 py-2 rounded-full bg-gray-300 transition text-[#2D874B] font-medium">资源</a>
+        
+        <!-- 资讯 - 带下拉浮窗（合并资讯、活动） -->
+        <div class="nav-dropdown relative group">
+          <span class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            资讯
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </span>
+          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="p-4">
+              <div class="space-y-3">
+                <!-- 资讯 -->
+                <a href="news-announcement-list.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-newspaper mr-3 text-[#2D874B]"></i>
+                  <span>资讯</span>
+                </a>
+                
+                <!-- 活动 -->
+                <a href="activity-list.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
+                  <i class="fa fa-calendar-alt mr-3 text-[#2D874B]"></i>
+                  <span>活动</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <a href="https://forum.sourcefind.cn/" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">论坛</a>
+      </nav>
+
+      <!-- 右侧功能区 -->
+      <div class="flex items-center space-x-3">
+        <!-- 搜索图标（桌面端） -->
+        <div class="relative">
+          <!-- 搜索图标按钮 -->
+          <button id="search-toggle" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <i class="fa fa-search text-sm"></i>
+          </button>
+          
+          <!-- 下拉搜索栏 -->
+          <div id="search-dropdown" class="absolute top-full right-0 mt-2 w-96 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible transition-all duration-300 z-50">
+            <div class="p-4">
+              <!-- 搜索输入框 -->
+              <div class="relative mb-3">
+                <input
+                  type="text"
+                  id="search-input"
+                  placeholder="搜索培训、考试、认证、资讯..."
+                  class="w-full rounded-xl bg-gray-100 border border-gray-300 px-4 py-3 pl-10 text-sm
+                         placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]"
+                />
+                <i class="fa fa-search text-gray-500 absolute left-3 top-3.5 text-sm"></i>
+              </div>
+              
+              <!-- 热搜推荐 -->
+              <div id="hot-search" class="mb-3">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-medium text-gray-600">热搜推荐</span>
+                  <button class="text-xs text-blue-500 hover:text-blue-700 transition">换一换</button>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <button class="search-tag px-2 py-1 bg-gray-100 hover:bg-blue-50 text-xs text-gray-600 hover:text-blue-600 rounded-lg transition">
+                    云计算基础
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 用户头像 -->
+        <div class="relative">
+          <button id="user-avatar" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+            <a href="personal-center.html">
+              <i class="fa fa-user text-sm"></i>
+            </a>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 面包屑导航 -->
+<main class="pt-24 lg:pt-28 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6">
+    <!-- 面包屑 -->
+    <div class="breadcrumb mb-8 flex items-center gap-2">
+      <button onclick="window.history.back()" class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center hover:border-[#2D874B] transition">
+        <i class="fa fa-chevron-left text-gray-600 text-xs"></i>
+      </button>
+      <a href="index.html">首页</a>
+      <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+      <a href="resource-center.html">资源</a>
+      <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+      <a href="tech-tool-library.html">技术工具库</a>
+      <i class="fa fa-angle-right text-gray-400 text-xs"></i>
+      <span class="text-gray-900 font-medium">工具详情 · vllm</span>
+    </div>
+
+    <!-- 镜像头部信息 -->
+    <div class="bg-blue-50 p-4 lg:p-6 mb-4 rounded-3xl">
+      <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <!-- 镜像Logo和名称 -->
+        <div class="flex flex-col items-start">
+          <div class="flex items-center gap-3">
+            <h1 class="text-xl lg:text-2xl font-bold text-gray-800">vllm</h1>
+            <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">DCU</span>
+          </div>
+          <p class="text-gray-600 text-sm mt-1">vLLM是一个快速且易于使用的LLM推理服务库，使用PageAttention高效管理KV缓存，支持Continuous batching传入请求，支持很多Hugging Face模型，如LLaMA & LLaMA-2、Qwen、ChatGLM2 & ChatGLM3等。</p>
+          <div class="flex items-center gap-4 mt-3">
+            <a href="#" class="px-6 py-2 rounded-full bg-red-600 text-white text-sm font-medium hover:bg-red-700 transition">
+              下载
+            </a>
+            <span class="text-gray-500 text-xs">更新于 2026-02-03 15:38:46</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 标签页导航 -->
+    <div class="glass-card rounded-3xl border border-gray-300 mb-4">
+      <div class="flex border-b border-gray-300">
+        <button class="tab-button active px-6 py-3 text-sm font-medium" data-tab="overview">镜像概述</button>
+        <button class="tab-button px-6 py-3 text-sm font-medium" data-tab="tags">Tag下载</button>
+        <button class="tab-button px-6 py-3 text-sm font-medium" data-tab="comments">评论</button>
+      </div>
+
+      <!-- 镜像概述标签内容 -->
+      <div class="tab-content p-4" id="overview">
+        <div class="space-y-4">
+          <div>
+            <p class="text-sm text-gray-600">基于镜像创建的容器可提升通用的vllm运行环境，配合DCU可获得显著的加速效果。</p>
+          </div>
+
+          <div>
+            <h3 class="text-base font-semibold mb-2">前置条件</h3>
+            <ol class="text-sm text-gray-600 space-y-1 list-decimal pl-5">
+              <li>安装DCU加速卡，并完成其对应驱动的安装；</li>
+              <li>正确安装docker；可参考<a href="#" class="text-[#2D874B] hover:underline">DCU入门手册</a>；</li>
+            </ol>
+          </div>
+
+          <div>
+            <h3 class="text-base font-semibold mb-2">启动方式</h3>
+            <div class="code-block">
+              <pre>docker run -it \
+  --network=host \
+  --ipc=host \
+  --shm-size=16G \
+  --device=/dev/kfd \
+  --device=/dev/dri \
+  --group-add video \
+  --volume=/path/to/host:/hyal \
+  --cap-add SYS_PTRACE \
+  --security-opt seccomp=unconfined \
+  images.sourcefind.cn/deepai/base/vllm:0.8.5-duntu22.04-dtk26.04-py3.10 \
+  python -m vllm.entrypoints.openai.api_server \
+  --model /hyal/model_path \
+  --tensor-parallel-size 1 \
+  --served-model-name gpt2 \
+  --trust-remote-code</pre>
+            </div>
+            <div class="mt-3 text-xs text-gray-500 space-y-1">
+              <p>注：(1) 若出现libGL.so.1: cannot open shared object file: No such file or directory错误，请在启动命令上加上-v /usr/lib64/libGL.so.1:/usr/lib64/libGL.so.1 *</p>
+              <p>(2) 打开容器后若无法输入，-t分配一个伪终端</p>
+              <p>--network=host 设置网络模式（bridge/host/自定义网络）。</p>
+              <p>--shm-size=16G 设置shm大小</p>
+              <p>--device=/dev/kfd 指定访问设备（DCU需要添加此选项）</p>
+              <p>--device=/dev/dri</p>
+              <p>--group-add video 设置用户权限组（需要使用DCU需要）。</p>
+              <p>--volume=/path/to/host:/hyal 将主机目录挂载到容器内</p>
+              <p>--cap-add SYS_PTRACE 启用PTrace权限</p>
+              <p>--security-opt seccomp=unconfined 安全配置（Seccomp=unconfined）</p>
+              <p>images.sourcefind.cn/deepai/base/vllm:0.8.5-duntu22.04-dtk26.04-py3.10 镜像地址</p>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-base font-semibold mb-2">镜像组成</h3>
+            <ul class="text-sm text-gray-600 space-y-1">
+              <li><strong>软件开发包：</strong>dk</li>
+              <li><strong>驱动：</strong>vllm</li>
+              <li><strong>软件：</strong>triton, lm-sys, flash-attn</li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+
+      <!-- Tag下载标签内容 -->
+      <div class="tab-content p-4 hidden" id="tags">
+        <div class="space-y-4">
+          <!-- 版本切换和搜索框 -->
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <!-- 版本切换 -->
+            <div class="flex gap-2">
+              <button id="dev-version" onclick="switchVersion('dev')" class="px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-medium hover:bg-blue-200 transition">开发版</button>
+              <button id="stable-version" onclick="switchVersion('stable')" class="px-4 py-2 rounded-full bg-gray-100 text-gray-600 text-sm font-medium hover:bg-gray-200 transition">稳定版</button>
+            </div>
+
+            <!-- 搜索框 -->
+            <div id="search-container">
+              <div class="relative">
+                <input type="text" placeholder="请输入关键词搜索" class="pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B] text-sm">
+                <i class="fa fa-search text-gray-400 absolute left-3 top-2.5"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tag列表 -->
+          <div id="tag-list" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <!-- Tag项 -->
+            <div class="image-tag glass-card rounded-2xl border border-gray-300 p-3 hover:border-[#2D874B]">
+              <div class="flex justify-between items-start">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="bg-orange-100 text-orange-600 px-2 py-1 rounded text-xs font-medium">开发</span>
+                    <span class="text-sm font-medium">0.9.2-ubuntu22.04-dtk26.04-0130-py3.10-20260202</span>
+                  </div>
+                  <div class="flex items-center gap-3 mt-2 text-xs text-gray-500">
+                    <span><i class="fa fa-exclamation-triangle text-yellow-500 mr-1"></i>该版本目前还不稳定，生产环境不推荐部署！</span>
+                    <span><i class="fa fa-lightbulb-o text-blue-500 mr-1"></i>推荐设置 - 推荐环境变量设置(多卡推理场景推荐配...</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button class="text-gray-500 hover:text-[#2D874B] transition">
+                    <i class="fa fa-copy"></i>
+                  </button>
+                  <button class="comment-btn text-gray-500 hover:text-[#2D874B] transition flex items-center gap-1 whitespace-nowrap text-xs">
+                    <i class="fa fa-comment"></i>
+                    <span>0</span>
+                  </button>
+                </div>
+              </div>
+              <div class="mt-2 flex justify-between items-center text-xs text-gray-500">
+                <div class="flex items-center gap-3">
+                  <span><i class="fa fa-clock-o mr-1"></i>2026-02-03 15:38:46</span>
+                  <span><i class="fa fa-hdd-o mr-1"></i>8.20GiB</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tag项 -->
+            <div class="image-tag glass-card rounded-2xl border border-gray-300 p-3 hover:border-[#2D874B]">
+              <div class="flex justify-between items-start">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="bg-orange-100 text-orange-600 px-2 py-1 rounded text-xs font-medium">开发</span>
+                    <span class="text-sm font-medium">0.11.0-ubuntu22.04-dtk26.04-0130-py3.10-20260202</span>
+                  </div>
+                  <div class="flex items-center gap-3 mt-2 text-xs text-gray-500">
+                    <span><i class="fa fa-exclamation-triangle text-yellow-500 mr-1"></i>该版本目前还不稳定，生产环境不推荐部署！</span>
+                    <span><i class="fa fa-lightbulb-o text-blue-500 mr-1"></i>推荐设置 - 高精密场景要求 - vllm服务端添加如...</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button class="text-gray-500 hover:text-[#2D874B] transition">
+                    <i class="fa fa-copy"></i>
+                  </button>
+                  <button class="comment-btn text-gray-500 hover:text-[#2D874B] transition flex items-center gap-1 whitespace-nowrap text-xs">
+                    <i class="fa fa-comment"></i>
+                    <span>0</span>
+                  </button>
+                </div>
+              </div>
+              <div class="mt-2 flex justify-between items-center text-xs text-gray-500">
+                <div class="flex items-center gap-3">
+                  <span><i class="fa fa-clock-o mr-1"></i>2026-02-03 14:24:13</span>
+                  <span><i class="fa fa-hdd-o mr-1"></i>8.25GiB</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tag项 -->
+            <div class="image-tag glass-card rounded-2xl border border-gray-300 p-3 hover:border-[#2D874B]">
+              <div class="flex justify-between items-start">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="bg-orange-100 text-orange-600 px-2 py-1 rounded text-xs font-medium">开发</span>
+                    <span class="text-sm font-medium">0.11.0-ubuntu22.04-dtk25.04-1230-das1.7-py3.10-20260109</span>
+                  </div>
+                  <div class="flex items-center gap-3 mt-2 text-xs text-gray-500">
+                    <span><i class="fa fa-exclamation-triangle text-red-500 mr-1"></i>存在风险 - 不支持Z1000、K100（不包括K100l）系列卡</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button class="text-gray-500 hover:text-[#2D874B] transition">
+                    <i class="fa fa-copy"></i>
+                  </button>
+                  <button class="comment-btn text-gray-500 hover:text-[#2D874B] transition flex items-center gap-1 whitespace-nowrap text-xs">
+                    <i class="fa fa-comment"></i>
+                    <span>0</span>
+                  </button>
+                </div>
+              </div>
+              <div class="mt-2 flex justify-between items-center text-xs text-gray-500">
+                <div class="flex items-center gap-3">
+                  <span><i class="fa fa-clock-o mr-1"></i>2026-02-03 10:51:18</span>
+                  <span><i class="fa fa-hdd-o mr-1"></i>7.51GiB</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tag项 -->
+            <div class="image-tag glass-card rounded-2xl border border-gray-300 p-3 hover:border-[#2D874B]">
+              <div class="flex justify-between items-start">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="bg-orange-100 text-orange-600 px-2 py-1 rounded text-xs font-medium">开发</span>
+                    <span class="text-sm font-medium">0.11.0-ubuntu22.04-dtk25.04.2-1226-das1.7-py3.10-20251226</span>
+                  </div>
+                  <div class="flex items-center gap-3 mt-2 text-xs text-gray-500">
+                    <span><i class="fa fa-exclamation-triangle text-yellow-500 mr-1"></i>该版本目前还不稳定，生产环境不推荐部署！</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button class="text-gray-500 hover:text-[#2D874B] transition">
+                    <i class="fa fa-copy"></i>
+                  </button>
+                  <button class="comment-btn text-gray-500 hover:text-[#2D874B] transition flex items-center gap-1 whitespace-nowrap text-xs">
+                    <i class="fa fa-comment"></i>
+                    <span>0</span>
+                  </button>
+                </div>
+              </div>
+              <div class="mt-2 flex justify-between items-center text-xs text-gray-500">
+                <div class="flex items-center gap-3">
+                  <span><i class="fa fa-clock-o mr-1"></i>2025-12-26 15:43:43</span>
+                  <span><i class="fa fa-hdd-o mr-1"></i>7.36GiB</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 暂无数据提示 -->
+          <div id="no-data" class="hidden flex flex-col items-center justify-center py-12">
+            <div class="w-20 h-20 flex items-center justify-center bg-gray-100 rounded-full mb-4">
+              <i class="fa fa-folder-open text-gray-400 text-3xl"></i>
+            </div>
+            <p class="text-gray-500">暂无数据</p>
+          </div>
+
+          <!-- 分页 -->
+          <div id="pagination" class="flex justify-between items-center mt-4">
+            <div class="text-sm text-gray-500">共 20 条</div>
+            <div class="flex items-center gap-2">
+              <button class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 hover:border-[#2D874B] hover:text-[#2D874B] transition">
+                <i class="fa fa-chevron-left text-xs"></i>
+              </button>
+              <button class="w-8 h-8 flex items-center justify-center rounded-full bg-[#2D874B] text-white font-medium">1</button>
+              <button class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:border-[#2D874B] hover:text-[#2D874B] transition">2</button>
+              <button class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 hover:border-[#2D874B] hover:text-[#2D874B] transition">
+                <i class="fa fa-chevron-right text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 评论标签内容 -->
+      <div class="tab-content p-4 hidden" id="comments">
+        <div class="space-y-4">
+          <!-- 评论统计和筛选 -->
+          <div class="flex justify-between items-center">
+            <div class="text-sm font-medium">55条评论</div>
+            <div class="relative">
+              <select class="pl-4 pr-10 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B] text-sm appearance-none bg-white" style="max-height: 200px; overflow-y: auto;">
+                <option selected>全部</option>
+                <option>0.9.2-ubuntu22.04-dtk26.04-0130-py3.10-20260202</option>
+                <option>0.11.0-ubuntu22.04-dtk26.04-0130-py3.10-20260202</option>
+                <option>0.11.0-ubuntu22.04-dtk25.04.4-1230-das1.7-py3.10-20260109</option>
+                <option>0.11.0-ubuntu22.04-dtk25.04.2-1226-das1.7-py3.10-20251226</option>
+                <option>0.9.2-ubuntu22.04-dtk25.04.2-1226-das1.7-py3.10-20251226</option>
+                <option>0.9.2-ubuntu22.04-dtk25.04.2-roclas1121-das1.7-py3.10-20251203-bw</option>
+                <option>0.9.2-ubuntu22.04-dtk25.04.2-das1.7-py3.10-20251203</option>
+              </select>
+              <i class="fa fa-chevron-down text-gray-400 absolute right-3 top-2.5 pointer-events-none"></i>
+            </div>
+          </div>
+
+          <!-- 评论输入框 -->
+          <div class="glass-card rounded-2xl border border-gray-300 p-3">
+            <div class="flex gap-3">
+              <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-medium">王</div>
+              <div class="flex-1">
+                <textarea placeholder="写下您的评论..." class="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B] text-sm resize-none"></textarea>
+                <div class="flex justify-between items-center mt-2">
+                  <div class="relative">
+                    <select class="pl-8 pr-4 py-1 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B] text-xs appearance-none bg-white">
+                      <option>暂未选择Tag</option>
+                      <option>0.9.2-ubuntu22.04-dtk26.04-0130-py3.10-20260202</option>
+                      <option>0.11.0-ubuntu22.04-dtk26.04-0130-py3.10-20260202</option>
+                    </select>
+                    <i class="fa fa-tag text-gray-400 absolute left-2.5 top-1.5 pointer-events-none text-xs"></i>
+                  </div>
+                  <button class="px-4 py-1.5 rounded-full bg-[#2D874B] text-white text-sm font-medium hover:bg-[#256e3d] transition">发布</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 评论列表 -->
+          <div class="space-y-3">
+            <!-- 评论项 -->
+            <div class="comment-item glass-card rounded-2xl border border-gray-300 p-3">
+              <div class="flex gap-3">
+                <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-medium">C</div>
+                <div class="flex-1">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <h4 class="font-medium text-sm">chenwanhu</h4>
+                      <p class="text-xs text-gray-500 mt-1">回复 <span class="text-[#2D874B]">@hujw</span>：您好，1000l目前还不支持</p>
+                      <div class="flex items-center gap-2 mt-2 text-xs text-gray-400">
+                        <span>3小时前</span>
+                        <span><i class="fa fa-tag mr-1"></i>0.9.2-ubuntu22.04-dtk26.04-0130-py3.10-20260202</span>
+                      </div>
+                    </div>
+                    <button class="reply-btn text-gray-400 hover:text-[#2D874B] transition text-sm">回复</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 评论项 -->
+            <div class="comment-item glass-card rounded-2xl border border-gray-300 p-3">
+              <div class="flex gap-3">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-medium">网</div>
+                <div class="flex-1">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <h4 class="font-medium text-sm">网友</h4>
+                      <p class="text-xs text-gray-500 mt-1">请问V4-310的推理很慢，请问如何解决呀，直接用KNL_run_llm.py脚本推理，使用的是1000l的卡</p>
+                      <div class="flex items-center gap-2 mt-2 text-xs text-gray-400">
+                        <span>20小时前</span>
+                        <span><i class="fa fa-tag mr-1"></i>0.9.2-ubuntu22.04-dtk26.04-0130-py3.10-20260202</span>
+                      </div>
+                    </div>
+                    <button class="reply-btn text-gray-400 hover:text-[#2D874B] transition text-sm">回复</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 评论项 -->
+            <div class="comment-item glass-card rounded-2xl border border-gray-300 p-3">
+              <div class="flex gap-3">
+                <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-medium">H</div>
+                <div class="flex-1">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <h4 class="font-medium text-sm">Hi</h4>
+                      <p class="text-xs text-gray-500 mt-1">没有测试版，支持了Z100L卡吗</p>
+                      <div class="flex items-center gap-2 mt-2 text-xs text-gray-400">
+                        <span>2026-02-04 11:44:03</span>
+                        <span><i class="fa fa-tag mr-1"></i>0.9.2-ubuntu22.04-dtk26.04-0130-py3.10-20260202</span>
+                      </div>
+                    </div>
+                    <button class="reply-btn text-gray-400 hover:text-[#2D874B] transition text-sm">回复</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 评论项 -->
+            <div class="comment-item glass-card rounded-2xl border border-gray-300 p-3">
+              <div class="flex gap-3">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-medium">用</div>
+                <div class="flex-1">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <h4 class="font-medium text-sm">网友HiGH-NN</h4>
+                      <p class="text-xs text-gray-500 mt-1">请问v100的2000额度支持什么版本的vllm，现在用的0.9.2的是直接报推理indexError: max(): Expected reduction dim 2 to have non-zero size，是因为版本问题吗？会的DSA-04.02的驱动</p>
+                      <div class="flex items-center gap-2 mt-2 text-xs text-gray-400">
+                        <span>2026-02-02 20:09:03</span>
+                        <span><i class="fa fa-tag mr-1"></i>0.9.2-ubuntu22.04-dtk26.04-0130-py3.10-20260202</span>
+                      </div>
+                    </div>
+                    <button class="text-gray-400 hover:text-[#2D874B] transition text-sm">回复</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  </section>
+</main>
+
+<footer class="border-t border-gray-300 mt-12 pt-6 pb-8">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+    <div>© 2026 HIECO 光合技术支持平台</div>
+    <div class="flex flex-wrap gap-4">
+      <span>隐私政策</span>
+      <span>法律声明</span>
+      <span>版权信息</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 导航下拉菜单脚本 -->
+<script>
+  // 全局版本切换函数
+  function switchVersion(version) {
+    console.log('切换到版本:', version);
+    
+    const devVersionBtn = document.getElementById('dev-version');
+    const stableVersionBtn = document.getElementById('stable-version');
+    const tagList = document.getElementById('tag-list');
+    const noData = document.getElementById('no-data');
+    const pagination = document.getElementById('pagination');
+
+    if (version === 'dev') {
+      // 切换到开发版
+      console.log('切换到开发版');
+      
+      // 切换按钮样式
+      devVersionBtn.className = 'px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-medium hover:bg-blue-200 transition';
+      stableVersionBtn.className = 'px-4 py-2 rounded-full bg-gray-100 text-gray-600 text-sm font-medium hover:bg-gray-200 transition';
+
+      // 显示开发版内容
+      if (tagList) tagList.style.display = 'grid';
+      if (pagination) pagination.style.display = 'flex';
+      if (noData) noData.style.display = 'none';
+    } else if (version === 'stable') {
+      // 切换到稳定版
+      console.log('切换到稳定版');
+      
+      // 切换按钮样式
+      stableVersionBtn.className = 'px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-medium hover:bg-blue-200 transition';
+      devVersionBtn.className = 'px-4 py-2 rounded-full bg-gray-100 text-gray-600 text-sm font-medium hover:bg-gray-200 transition';
+
+      // 显示暂无数据
+      if (tagList) tagList.style.display = 'none';
+      if (pagination) pagination.style.display = 'none';
+      if (noData) noData.style.display = 'flex';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // 处理搜索框切换
+    const searchToggle = document.getElementById('search-toggle');
+    const searchDropdown = document.getElementById('search-dropdown');
+    
+    if (searchToggle && searchDropdown) {
+      searchToggle.addEventListener('click', function() {
+        searchDropdown.classList.toggle('opacity-0');
+        searchDropdown.classList.toggle('invisible');
+      });
+      
+      // 点击其他地方关闭搜索框
+      document.addEventListener('click', function(e) {
+        if (!searchToggle.contains(e.target) && !searchDropdown.contains(e.target)) {
+          searchDropdown.classList.add('opacity-0', 'invisible');
+        }
+      });
+    }
+    
+    // 处理全屏下拉菜单
+    const navDropdowns = document.querySelectorAll('.nav-dropdown');
+    
+    navDropdowns.forEach(dropdown => {
+      const fullDropdown = dropdown.querySelector('.full-width-dropdown');
+      
+      if (fullDropdown) {
+        dropdown.addEventListener('mouseenter', function() {
+          fullDropdown.classList.remove('opacity-0', 'invisible');
+          fullDropdown.classList.add('opacity-100', 'visible');
+        });
+        
+        dropdown.addEventListener('mouseleave', function() {
+          fullDropdown.classList.add('opacity-0', 'invisible');
+          fullDropdown.classList.remove('opacity-100', 'visible');
+        });
+      }
+    });
+
+    // 处理标签页切换
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const tabId = this.dataset.tab;
+        
+        // 切换按钮状态
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        
+        // 切换内容
+        tabContents.forEach(content => content.classList.add('hidden'));
+        document.getElementById(tabId).classList.remove('hidden');
+      });
+    });
+
+    // 模拟镜像数据
+    const images = [
+      {
+        id: 23,
+        name: "vllm",
+        desc: "vLLM是一个快速且易于使用的LLM推理服务库,使用PageAttention高效管理KV缓存,支持Continuous batching传入请求,支持很多Hugging Face模型,如LLaMA & LLaMA-2、Qwen、ChatGLM 2等...",
+        accelerator: "DCU",
+        updateTime: "2026-02-03 15:38:46",
+        viewCount: 53,
+        downloadCount: 4700,
+        downloadUrl: "#"
+      },
+      {
+        id: 24,
+        name: "dcu-label-node",
+        desc: "DCU-Label-Node以容器的形式发布，并以 DaemonSet 的形式部署在 Kubernetes 集群上，该组件运行时，将检查节点上是否存在DCU，若节点存在DCU将自动创建节点标签来描述DCU信息",
+        accelerator: "DCU",
+        updateTime: "2026-02-09 14:55:28",
+        viewCount: 0,
+        downloadCount: 445,
+        downloadUrl: "#"
+      }
+    ];
+    
+    // 获取URL参数
+    function getUrlParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+    
+    // 根据ID加载镜像
+    function loadImageById(id) {
+      const imageData = images.find(i => i.id == id);
+      if (imageData) {
+        // 更新标题
+        document.title = `${imageData.name} - 工具详情 - 光合技术支持平台`;
+        
+        // 更新面包屑
+        const breadcrumb = document.querySelector('.breadcrumb span:last-child');
+        if (breadcrumb) {
+          breadcrumb.textContent = `工具详情 · ${imageData.name}`;
+        }
+        
+        // 更新镜像名称
+        const imageTitle = document.querySelector('.tool-header h1');
+        if (imageTitle) {
+          imageTitle.textContent = imageData.name;
+        }
+        
+        // 更新镜像描述
+        const imageDesc = document.querySelector('.tool-header p');
+        if (imageDesc) {
+          imageDesc.textContent = imageData.desc;
+        }
+        
+        // 更新更新时间
+        const updateTimeEl = document.querySelector('.tool-header .text-white\/80 + div p');
+        if (updateTimeEl) {
+          updateTimeEl.textContent = `更新于 ${imageData.updateTime}`;
+        }
+      }
+    }
+    
+    // 加载镜像
+    const imageId = getUrlParam('id') || 23;
+    loadImageById(imageId);
+
+    // 处理评论按钮点击事件
+    setTimeout(function() {
+      const commentBtns = document.querySelectorAll('.comment-btn');
+      const commentsTabBtn = document.querySelector('[data-tab="comments"]');
+      
+      console.log('评论按钮数量:', commentBtns.length);
+      console.log('评论标签按钮:', commentsTabBtn);
+      
+      commentBtns.forEach(btn => {
+        console.log('添加点击事件监听器到评论按钮');
+        btn.addEventListener('click', function() {
+          console.log('点击了评论按钮');
+          // 触发评论标签按钮的点击事件
+          if (commentsTabBtn) {
+            console.log('触发评论标签按钮点击');
+            commentsTabBtn.click();
+          } else {
+            console.log('找不到评论标签按钮');
+          }
+        });
+      });
+
+      // 直接为回复按钮添加点击事件
+      function addReplyEventListeners() {
+        const replyBtns = document.querySelectorAll('.reply-btn');
+        console.log('回复按钮数量:', replyBtns.length);
+        
+        replyBtns.forEach(btn => {
+          console.log('为回复按钮添加点击事件监听器');
+          btn.onclick = function() {
+            console.log('点击了回复按钮');
+            
+            // 找到当前评论项
+            const commentItem = this.closest('.comment-item');
+            if (!commentItem) {
+              console.log('找不到评论项');
+              return;
+            }
+            
+            console.log('找到评论项:', commentItem);
+            
+            // 检查是否已经存在回复输入框
+            let replyForm = commentItem.querySelector('.reply-form');
+            if (replyForm) {
+              // 如果已经存在，切换显示/隐藏
+              replyForm.classList.toggle('hidden');
+              console.log('切换回复输入框显示状态');
+              return;
+            }
+            
+            // 创建回复输入框
+            replyForm = document.createElement('div');
+            replyForm.className = 'reply-form mt-3 pl-12';
+            replyForm.innerHTML = `
+              <div class="flex gap-3">
+                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-medium text-xs">王</div>
+                <div class="flex-1">
+                  <textarea placeholder="写下您的回复..." class="w-full border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B] text-sm resize-none h-20"></textarea>
+                  <div class="flex justify-end mt-2">
+                    <button class="cancel-reply-btn px-3 py-1 rounded-full border border-gray-300 text-gray-600 text-sm font-medium hover:bg-gray-100 transition mr-2">取消</button>
+                    <button class="submit-reply-btn px-3 py-1 rounded-full bg-[#2D874B] text-white text-sm font-medium hover:bg-[#256e3d] transition">回复</button>
+                  </div>
+                </div>
+              </div>
+            `;
+            
+            // 添加到评论项中
+            commentItem.appendChild(replyForm);
+            console.log('添加回复输入框');
+            
+            // 为取消按钮添加点击事件
+            const cancelBtn = replyForm.querySelector('.cancel-reply-btn');
+            if (cancelBtn) {
+              cancelBtn.onclick = function() {
+                replyForm.remove();
+                console.log('取消回复，移除回复输入框');
+              };
+            }
+            
+            // 为提交按钮添加点击事件
+            const submitBtn = replyForm.querySelector('.submit-reply-btn');
+            if (submitBtn) {
+              submitBtn.onclick = function() {
+                const textarea = replyForm.querySelector('textarea');
+                const replyContent = textarea.value.trim();
+                
+                if (replyContent) {
+                  console.log('提交回复:', replyContent);
+                  // 这里可以添加回复提交的逻辑
+                  // 模拟提交成功
+                  alert('回复成功！');
+                  replyForm.remove();
+                } else {
+                  alert('请输入回复内容');
+                }
+              };
+            }
+          };
+        });
+      }
+      
+      // 页面加载完成后添加事件监听器
+      addReplyEventListeners();
+      
+      // 当标签页切换时，重新添加事件监听器
+      const tabButtons = document.querySelectorAll('.tab-button');
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+          setTimeout(addReplyEventListeners, 100);
+        });
+      });
+      
+      console.log('添加了回复按钮事件监听器');
+
+
+    }, 100);
+
+  });
+</script>
+
+</body>
+</html>
