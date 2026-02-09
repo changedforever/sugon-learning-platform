@@ -1565,11 +1565,13 @@
                                             cancelLottery.addEventListener('click', function () {
                                                 if (lotteryModal) {
                                                     lotteryModal.classList.add('hidden');
-                                                    // 重置到默认场次
-                                                    const defaultSession = document.querySelector('input[name="lotterySession"]:first-child');
-                                                    if (defaultSession) {
-                                                        defaultSession.checked = true;
-                                                        updateSessionContent(defaultSession.value);
+                                                    // 如果没有抽奖正在进行，重置到默认场次
+                                                    if (!lotteryInProgress) {
+                                                        const defaultSession = document.querySelector('input[name="lotterySession"]:first-child');
+                                                        if (defaultSession) {
+                                                            defaultSession.checked = true;
+                                                            updateSessionContent(defaultSession.value);
+                                                        }
                                                     }
                                                 }
                                             });
