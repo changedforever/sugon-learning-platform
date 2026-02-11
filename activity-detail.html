@@ -535,7 +535,9 @@
 
   // ===== 4. 渲染静态信息 =====
   function renderBaseInfo() {
-    headerTitle.textContent = activity.title;
+    if (headerTitle) {
+      headerTitle.textContent = activity.title;
+    }
     activityTitle.textContent = activity.title;
     if (breadcrumbTitle) {
       breadcrumbTitle.textContent = activity.title;
@@ -576,11 +578,7 @@
   // ===== 5. 计算倒计时 =====
   function calculateCountdown() {
     const now = new Date();
-    // 确保startTime是本地时间
-    const [datePart, timePart] = activity.start.split(' ');
-    const [year, month, day] = datePart.split('-').map(Number);
-    const [hour, minute] = timePart.split(':').map(Number);
-    const startTime = new Date(year, month - 1, day, hour, minute);
+    const startTime = new Date(activity.start);
     const timeDiff = startTime - now;
 
     if (timeDiff <= 0) {
