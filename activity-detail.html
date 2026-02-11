@@ -576,7 +576,11 @@
   // ===== 5. 计算倒计时 =====
   function calculateCountdown() {
     const now = new Date();
-    const startTime = new Date(activity.start);
+    // 确保startTime是本地时间
+    const [datePart, timePart] = activity.start.split(' ');
+    const [year, month, day] = datePart.split('-').map(Number);
+    const [hour, minute] = timePart.split(':').map(Number);
+    const startTime = new Date(year, month - 1, day, hour, minute);
     const timeDiff = startTime - now;
 
     if (timeDiff <= 0) {
@@ -585,9 +589,8 @@
 
     const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
 
-    return { days, hours, minutes };
+    return { days, hours };
   }
 
   // ===== 6. 更新倒计时显示 =====
@@ -602,7 +605,7 @@
       return;
     }
 
-    const countdownText = `倒计时 ${countdown.days} 天 ${countdown.hours}小时 ${countdown.minutes}分`;
+    const countdownText = `倒计时 ${countdown.days} 天 ${countdown.hours}小时`;
     
     // 更新两个倒计时标签
     if (tagStatus) {
