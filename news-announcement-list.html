@@ -508,6 +508,18 @@
 </header>
 
 <main class="pt-16 lg:pt-20 pb-10">
+  <!-- 顶部说明 + 搜索 & 排序 & 分页控制 -->
+  <section class="max-w-7xl mx-auto px-4 lg:px-6 mb-6">
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+      <div>
+        <h2 class="text-lg font-semibold flex items-center gap-2">
+          <span class="inline-flex h-6 w-1 rounded-full bg-[#2D874B]"></span>
+          资讯列表
+        </h2>
+      </div>
+    </div>
+  </section>
+
   <section class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex flex-col lg:flex-row gap-6">
       <!-- 左侧筛选侧边栏 -->
@@ -517,37 +529,45 @@
           
           <!-- 树形分类结构 -->
           <div id="filter-tree" class="space-y-1">
-            <!-- 仅看资讯 -->
+            <!-- 全部 -->
             <div class="filter-category">
-              <div class="flex items-center justify-between cursor-pointer px-2 rounded-lg" data-type="news">
-                <label class="flex items-center cursor-pointer group py-2 flex-1">
-                  <input type="checkbox" class="type-filter-checkbox filter-checkbox" value="news">
-                  <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">仅看资讯</span>
-                </label>
-                <i class="fa fa-plus text-xs text-gray-400 category-toggle" data-target="news-categories"></i>
-              </div>
-              <!-- 资讯二级分类 -->
-              <div class="mt-1 ml-8 space-y-1.5 category-children hidden" id="category-news-categories">
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="certification" value="certification">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">认证专题</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="industry" value="industry">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">行业动态</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="policy" value="policy">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">政策流程</span>
-                </label>
-                <label class="flex items-center cursor-pointer group py-1.5 px-2 rounded-md hover:bg-gray-50 transition-colors">
-                  <input type="checkbox" class="filter-checkbox" data-category="platform" value="platform">
-                  <span class="ml-2.5 text-xs text-gray-600 group-hover:text-gray-800 transition-colors">平台新闻</span>
-                </label>
-              </div>
+              <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg">
+                <input type="radio" name="type-filter" class="type-filter-radio" value="all" checked>
+                <span class="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors">全部</span>
+              </label>
             </div>
 
+            <!-- 认证专题 -->
+            <div class="filter-category">
+              <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg">
+                <input type="radio" name="type-filter" class="type-filter-radio" value="certification">
+                <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">认证专题</span>
+              </label>
+            </div>
 
+            <!-- 行业动态 -->
+            <div class="filter-category">
+              <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg">
+                <input type="radio" name="type-filter" class="type-filter-radio" value="industry">
+                <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">行业动态</span>
+              </label>
+            </div>
+
+            <!-- 政策流程 -->
+            <div class="filter-category">
+              <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg">
+                <input type="radio" name="type-filter" class="type-filter-radio" value="policy">
+                <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">政策流程</span>
+              </label>
+            </div>
+
+            <!-- 平台新闻 -->
+            <div class="filter-category">
+              <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg">
+                <input type="radio" name="type-filter" class="type-filter-radio" value="platform">
+                <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">平台新闻</span>
+              </label>
+            </div>
           </div>
         </div>
       </aside>
@@ -651,8 +671,7 @@
   let filteredArticles = [...articles];
 
   const filters = {
-    types: [],             // 选中的一级分类数组 ['news', 'announcement']
-    categories: [],        // 选中的二级分类数组 (仅当types包含news时有效)
+    type: 'all',  // all / certification / industry / policy / platform
     search: '',
     sort: 'comprehensive'  // comprehensive / latest / hottest
   };
@@ -668,206 +687,55 @@
   const nextBtn = document.getElementById('next-btn');
   
   // 分类名称映射
-  const typeNames = {
-    'news': '仅看资讯'
-  };
-  
   const categoryNames = {
+    'all': '全部',
     'certification': '认证专题',
     'industry': '行业动态',
     'policy': '政策流程',
     'platform': '平台新闻'
   };
   
-  // 树形筛选相关
-  const typeFilterCheckboxes = document.querySelectorAll('.type-filter-checkbox');
-  const filterCheckboxes = document.querySelectorAll('.filter-checkbox:not(.type-filter-checkbox)'); // 排除一级分类的checkbox
+  // 筛选相关
+  const typeFilterRadios = document.querySelectorAll('.type-filter-radio');
   const sortButtons = document.querySelectorAll('.sort-btn');
 
   // ========== 工具函数 ==========
-  // 树形分类展开/折叠
-  function toggleCategory(categoryId) {
-    const children = document.getElementById(`category-${categoryId}`);
-    const toggle = document.querySelector(`[data-target="${categoryId}"]`);
-    
-    if (children && toggle) {
-      const isHidden = children.classList.contains('hidden');
-      if (isHidden) {
-        children.classList.remove('hidden');
-        toggle.classList.remove('fa-plus');
-        toggle.classList.add('fa-minus');
-      } else {
-        children.classList.add('hidden');
-        toggle.classList.remove('fa-minus');
-        toggle.classList.add('fa-plus');
-      }
-    }
-  }
-  
   // 更新已选中的分类标签
   function updateSelectedTags() {
     if (!selectedTagsContainer) return;
     
     selectedTagsContainer.innerHTML = '';
     
-    // 添加一级分类标签
-    filters.types.forEach(type => {
+    // 如果不是"全部"，添加选中的分类标签
+    if (filters.type !== 'all') {
       const tag = document.createElement('div');
       tag.className = 'filter-tag';
       tag.innerHTML = `
-        <span>${typeNames[type] || type}</span>
-        <i class="fa fa-times filter-tag-close text-xs" data-tag-type="type" data-tag-value="${type}"></i>
+        <span>${categoryNames[filters.type] || filters.type}</span>
+        <i class="fa fa-times filter-tag-close text-xs" data-tag-value="${filters.type}"></i>
       `;
       selectedTagsContainer.appendChild(tag);
-    });
-    
-    // 添加二级分类标签（仅当选中了"仅看资讯"时）
-    if (filters.types.includes('news')) {
-      filters.categories.forEach(category => {
-        const tag = document.createElement('div');
-        tag.className = 'filter-tag';
-        tag.innerHTML = `
-          <span>${categoryNames[category] || category}</span>
-          <i class="fa fa-times filter-tag-close text-xs" data-tag-type="category" data-tag-value="${category}"></i>
-        `;
-        selectedTagsContainer.appendChild(tag);
-      });
-    }
-    
-    // 绑定标签关闭按钮的点击事件
-    selectedTagsContainer.querySelectorAll('.filter-tag-close').forEach(closeBtn => {
-      closeBtn.addEventListener('click', (e) => {
+      
+      // 绑定标签关闭按钮的点击事件
+      tag.querySelector('.filter-tag-close').addEventListener('click', (e) => {
         e.stopPropagation();
-        const tagType = closeBtn.dataset.tagType;
-        const tagValue = closeBtn.dataset.tagValue;
-        
-        if (tagType === 'type') {
-          // 关闭一级分类标签
-          const checkbox = document.querySelector(`.type-filter-checkbox[value="${tagValue}"]`);
-          if (checkbox) {
-            checkbox.checked = false;
-            filters.types = filters.types.filter(type => type !== tagValue);
-            updateCategoryDisplay();
-            updateSelectedTags();
-            applyFiltersAndRender();
-          }
-        } else if (tagType === 'category') {
-          // 关闭二级分类标签
-          const checkbox = document.querySelector(`.filter-checkbox:not(.type-filter-checkbox)[value="${tagValue}"]`);
-          if (checkbox) {
-            checkbox.checked = false;
-            filters.categories = filters.categories.filter(cat => cat !== tagValue);
-            updateTypeCheckboxState();
-            updateSelectedTags();
-            applyFiltersAndRender();
-          }
+        // 重置为"全部"
+        const allRadio = document.querySelector('.type-filter-radio[value="all"]');
+        if (allRadio) {
+          allRadio.checked = true;
+          filters.type = 'all';
+          updateSelectedTags();
+          applyFiltersAndRender();
         }
       });
-    });
-  }
-
-  // 更新分类显示
-  function updateCategoryDisplay() {
-    const isNewsSelected = filters.types.includes('news');
-    
-    if (isNewsSelected) {
-      // 自动选中所有二级分类
-      filterCheckboxes.forEach(cb => {
-        cb.checked = true;
-        if (!filters.categories.includes(cb.value)) {
-          filters.categories.push(cb.value);
-        }
-      });
-    } else {
-      // 清空所有二级分类复选框
-      filterCheckboxes.forEach(cb => cb.checked = false);
-      filters.categories = [];
     }
   }
 
   // ========== 事件绑定 ==========
-  // 一级分类筛选（checkbox）- 支持多选
-  typeFilterCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', () => {
-      if (checkbox.checked) {
-        // 选中时，添加到types数组
-        if (!filters.types.includes(checkbox.value)) {
-          filters.types.push(checkbox.value);
-        }
-      } else {
-        // 取消选中时，从types数组移除
-        filters.types = filters.types.filter(type => type !== checkbox.value);
-      }
-      updateCategoryDisplay();
-      updateSelectedTags();
-      applyFiltersAndRender();
-    });
-  });
-
-  // 分类展开/折叠（仅看资讯的二级分类）
-  document.querySelectorAll('.category-toggle').forEach(toggle => {
-    toggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      // 允许随时展开/折叠，不限制一级分类是否选中
-      const target = toggle.dataset.target;
-      toggleCategory(target);
-    });
-  });
-  
-  // 点击"仅看资讯"标签也可以展开/折叠二级分类
-  document.querySelector('[data-type="news"]')?.addEventListener('click', (e) => {
-    // 如果点击的是checkbox，不处理（由checkbox的change事件处理）
-    if (e.target.type === 'checkbox') return;
-    // 允许随时展开/折叠
-    const toggle = document.querySelector('[data-target="news-categories"]');
-    if (toggle) {
-      toggle.click();
-    }
-  });
-
-  // 更新一级分类的选中状态（根据二级分类的选中情况）
-  function updateTypeCheckboxState() {
-    // 检查是否有二级分类选中
-    const anySecondaryChecked = Array.from(filterCheckboxes).some(cb => cb.checked);
-    
-    // 找到"仅看资讯"的一级分类checkbox
-    const newsTypeCheckbox = document.querySelector('.type-filter-checkbox[value="news"]');
-    
-    if (newsTypeCheckbox) {
-      if (anySecondaryChecked) {
-        // 如果有二级分类选中，确保一级分类选中
-        if (!newsTypeCheckbox.checked) {
-          newsTypeCheckbox.checked = true;
-          if (!filters.types.includes('news')) {
-            filters.types.push('news');
-          }
-        }
-      } else {
-        // 如果所有二级分类都未选中，取消一级分类选中
-        if (newsTypeCheckbox.checked) {
-          newsTypeCheckbox.checked = false;
-          filters.types = filters.types.filter(type => type !== 'news');
-        }
-      }
-    }
-    // 更新标签显示（当一级分类状态改变时）
-    updateSelectedTags();
-  }
-
-  // 资讯分类复选框
-  filterCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', () => {
-      if (checkbox.checked) {
-        // 选中时，添加到选中列表
-        if (!filters.categories.includes(checkbox.value)) {
-          filters.categories.push(checkbox.value);
-        }
-      } else {
-        // 取消选中时，从选中列表移除
-        filters.categories = filters.categories.filter(cat => cat !== checkbox.value);
-      }
-      // 更新一级分类的选中状态
-      updateTypeCheckboxState();
+  // 类型筛选（radio按钮）
+  typeFilterRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      filters.type = radio.value;
       updateSelectedTags();
       applyFiltersAndRender();
     });
@@ -908,13 +776,12 @@
   // ========== 筛选 + 排序 =============
   function applyFiltersAndRender() {
     filteredArticles = articles.filter(a => {
-      // 类型筛选：如果没有选中任何类型，显示全部；否则只显示选中的类型
-      const matchType = filters.types.length === 0 || filters.types.includes(a.type);
-      
-      // 分类筛选（仅当选中了资讯类型时）
-      const matchCategory = !filters.types.includes('news') || 
-        filters.categories.length === 0 || 
-        filters.categories.includes(a.category);
+      // 类型筛选：如果是"全部"，显示所有资讯和公告；否则只显示对应分类的资讯
+      let matchType = true;
+      if (filters.type !== 'all') {
+        // 只显示资讯类型，并且分类匹配
+        matchType = a.type === 'news' && a.category === filters.type;
+      }
 
       // 搜索筛选
       const kw = filters.search;
@@ -923,7 +790,7 @@
         (a.description && a.description.toLowerCase().includes(kw)) ||
         a.source.toLowerCase().includes(kw);
 
-      return matchType && matchCategory && matchSearch;
+      return matchType && matchSearch;
     });
 
     // 排序
@@ -1027,7 +894,6 @@
       btn.classList.add('active');
     }
   });
-  updateCategoryDisplay();
   updateSelectedTags();
   applyFiltersAndRender();
 </script>
