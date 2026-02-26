@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>课程列表 - 光合技术支持平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background: #FFFFFF;
+            color: #333333;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(14px);
+            border: 1px solid #e5e7eb;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* 激活筛选 Chip：2D874B 边框+文字，浅色底 */
+        .filter-chip-active {
+            border-color: rgb(45 135 75 / 1);
+            color: rgb(45 135 75);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .course-card-img {
+            border-radius: 0.75rem;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        /* 光合课程体系个性化样式 */
+        .course-system-section {
+            position: relative;
+            background: linear-gradient(135deg, #f0f9e8 0%, #e8f5e0 25%, #ffffff 50%, #f5faf2 75%, #ffffff 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+            box-shadow: 0 4px 20px rgba(45, 135, 75, 0.08), 0 1px 3px rgba(45, 135, 75, 0.1);
+            border: 1px solid rgba(45, 135, 75, 0.15);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .course-system-title {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .course-system-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(180deg, #2D874B 0%, #4CAF50 100%);
+            border-radius: 2px;
+            box-shadow: 0 2px 4px rgba(45, 135, 75, 0.3);
+        }
+
+        .course-system-title::after {
+            content: '✨';
+            font-size: 18px;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .system-filter-chip {
+            position: relative;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid transparent;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .system-filter-chip::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .system-filter-chip:hover::before {
+            left: 100%;
+        }
+
+        .system-filter-chip:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 135, 75, 0.15), 0 2px 4px rgba(45, 135, 75, 0.1);
+            border-color: rgba(45, 135, 75, 0.3);
+        }
+
+        .system-filter-chip.filter-chip-active {
+            background: linear-gradient(135deg, #2D874B 0%, #3a9f52 100%);
+            color: white;
+            border-color: #2D874B;
+            box-shadow: 0 4px 16px rgba(45, 135, 75, 0.25), 0 2px 8px rgba(45, 135, 75, 0.15);
+            transform: translateY(-1px);
+            font-weight: 600;
+            padding-right: 2.5rem;
+        }
+
+        .system-filter-chip.filter-chip-active::after {
+            content: '✓';
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            font-weight: bold;
+            opacity: 0.95;
+            line-height: 1;
+        }
+
+        .system-filter-chip:active {
+            transform: translateY(0);
+        }
+
+        /* 课程体系卡片样式 */
+        .system-card-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .system-card-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .system-card-item:hover::before {
+            left: 100%;
+        }
+
+        .system-card-item:hover {
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .system-card-item.filter-chip-active {
+            background: rgba(45, 135, 75, 0.1) !important;
+            color: #2D874B !important;
+            border-color: #2D874B !important;
+            box-shadow: 0 4px 12px rgba(45, 135, 75, 0.15) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .system-card-item.filter-chip-active i {
+            color: #2D874B !important;
+        }
+
+        .system-card-item.filter-chip-active span {
+            color: #2D874B !important;
+            font-weight: 600 !important;
+        }
+
+        .system-card-item.filter-chip-active .w-6.h-6 {
+            background: rgba(45, 135, 75, 0.2) !important;
+        }
+
+        /* 网格布局下的系统卡片样式 */
+        .grid .system-card-item {
+            flex: 1;
+        }
+
+        .grid .system-card-item.col-span-3 {
+            max-width: 100%;
+        }
+
+        /* 排序按钮样式 */
+        .sort-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #666;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sort-btn:hover {
+            background: rgba(255, 255, 255, 1);
+            color: #2D874B;
+            box-shadow: 0 2px 8px rgba(45, 135, 75, 0.1);
+        }
+        
+        .sort-btn.active {
+            color: #2D874B;
+            background: rgba(45, 135, 75, 0.1);
+            box-shadow: 0 2px 8px rgba(45, 135, 75, 0.12);
+            font-weight: 600;
+        }
+
+        /* 移动端筛选面板 */
+        .filter-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 50;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .filter-panel.active {
+            transform: translateY(0);
+        }
+
+        .filter-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 49;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .filter-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* 移动端课程卡片 */
+        .mobile-course-card {
+            transition: all 0.3s ease;
+        }
+
+        .mobile-course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        /* 移动端搜索栏 */
+        .mobile-search-bar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 移动端导航栏 */
+        .mobile-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 移动端课程体系滚动 */
+        .system-scroll {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* 移动端分页 */
+        .mobile-pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 0;
+        }
+
+        .mobile-pagination button {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid #e5e7eb;
+            background: white;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .mobile-pagination button.active {
+            background: #2D874B;
+            color: white;
+            border-color: #2D874B;
+        }
+
+        .mobile-pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* 移动端侧边栏导航 */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 49;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .menu-sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease-in-out;
+            z-index: 50;
+            overflow-y: auto;
+        }
+
+        .menu-sidebar.active {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-800">
+
+    <!-- 移动端顶部导航 -->
+    <header class="mobile-navbar sticky top-0 z-20 bg-white border-b border-gray-200">
+        <div class="flex items-center justify-between h-14 px-4">
+            <!-- 左侧返回按钮 -->
+            <button class="h-8 w-8 flex items-center justify-center text-gray-600">
+                <i class="fa fa-arrow-left text-lg"></i>
+            </button>
+            
+            <!-- 中间标题 -->
+            <h1 class="text-base font-semibold text-gray-800">课程列表</h1>
+            
+            <!-- 右侧菜单按钮 -->
+            <button id="menu-toggle" class="h-8 w-8 flex items-center justify-center text-gray-600">
+                <i class="fa fa-bars text-lg"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- 移动端搜索栏 -->
+    <div class="mobile-search-bar sticky top-14 z-10 bg-white border-b border-gray-200">
+        <div class="px-4 py-3">
+            <div class="relative">
+                <i class="fa fa-search text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2 text-sm"></i>
+                <input id="search-input" type="text" placeholder="搜索课程名称 / 课程体系 / 标签"
+                    class="w-full rounded-full pl-10 pr-4 py-2.5 text-sm placeholder:text-gray-400 focus:outline-none transition-all border border-gray-300" />
+            </div>
+        </div>
+    </div>
+
+    <main class="pt-4 pb-20">
+
+        <!-- 光合课程体系筛选 -->
+        <section class="px-4 mb-4">
+            <div class="course-system-section glass-card rounded-xl p-4 space-y-3">
+                <!-- 标题区域 -->
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-2">
+                        <i class="fa fa-graduation-cap text-xl text-[#2D874B] opacity-80"></i>
+                        <span class="course-system-title text-lg font-bold text-[#2D874B]">光合课程体系</span>
+                    </div>
+                </div>
+
+                <!-- 课程体系卡片网格布局 -->
+                <div class="grid grid-cols-5 gap-2">
+                    <!-- 全部体系 -->
+                    <button
+                        class="system-card-item filter-chip p-2 rounded-md bg-white border border-gray-200 hover:border-[#2D874B] hover:shadow-sm transition-all duration-300 flex flex-col items-center justify-center gap-1 min-h-[80px]"
+                        data-filter="system" data-value="all">
+                        <div class="w-6 h-6 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                            <i class="fa fa-th-large text-sm text-[#2D874B]"></i>
+                        </div>
+                        <span class="text-[9px] font-medium text-gray-700 text-center leading-tight">全部体系</span>
+                    </button>
+
+                    <!-- 应用软件性能优化系列 -->
+                    <button
+                        class="system-card-item filter-chip p-2 rounded-md bg-white border border-gray-200 hover:border-[#2D874B] hover:shadow-sm transition-all duration-300 flex flex-col items-center justify-center gap-1 min-h-[80px]"
+                        data-filter="system" data-value="应用软件性能优化系列">
+                        <div class="w-6 h-6 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                            <i class="fa fa-rocket text-sm text-[#2D874B]"></i>
+                        </div>
+                        <span class="text-[9px] font-medium text-gray-700 text-center leading-tight">应用软件性能优化</span>
+                    </button>
+
+                    <!-- 海光应用加速套件系列 -->
+                    <button
+                        class="system-card-item filter-chip p-2 rounded-md bg-white border border-gray-200 hover:border-[#2D874B] hover:shadow-sm transition-all duration-300 flex flex-col items-center justify-center gap-1 min-h-[80px]"
+                        data-filter="system" data-value="海光应用加速套件系列">
+                        <div class="w-6 h-6 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                            <i class="fa fa-tachometer-alt text-sm text-[#2D874B]"></i>
+                        </div>
+                        <span class="text-[9px] font-medium text-gray-700 text-center leading-tight">海光应用加速套件</span>
+                    </button>
+
+                    <!-- 基础软件性能优化系列 -->
+                    <button
+                        class="system-card-item filter-chip p-2 rounded-md bg-white border border-gray-200 hover:border-[#2D874B] hover:shadow-sm transition-all duration-300 flex flex-col items-center justify-center gap-1 min-h-[80px]"
+                        data-filter="system" data-value="基础软件性能优化系列">
+                        <div class="w-6 h-6 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                            <i class="fa fa-cogs text-sm text-[#2D874B]"></i>
+                        </div>
+                        <span class="text-[9px] font-medium text-gray-700 text-center leading-tight">基础软件性能优化</span>
+                    </button>
+
+                    <!-- 海光芯片安全系列 -->
+                    <button
+                        class="system-card-item filter-chip p-2 rounded-md bg-white border border-gray-200 hover:border-[#2D874B] hover:shadow-sm transition-all duration-300 flex flex-col items-center justify-center gap-1 min-h-[80px]"
+                        data-filter="system" data-value="海光芯片安全系列">
+                        <div class="w-6 h-6 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                            <i class="fa fa-shield-alt text-sm text-[#2D874B]"></i>
+                        </div>
+                        <span class="text-[9px] font-medium text-gray-700 text-center leading-tight">海光芯片安全</span>
+                    </button>
+
+                    <!-- DCU技术基础课程 -->
+                    <button
+                        class="system-card-item filter-chip p-2 rounded-md bg-white border border-gray-200 hover:border-[#2D874B] hover:shadow-sm transition-all duration-300 flex flex-col items-center justify-center gap-1 min-h-[80px]"
+                        data-filter="system" data-value="DCU技术基础课程">
+                        <div class="w-6 h-6 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                            <i class="fa fa-book text-sm text-[#2D874B]"></i>
+                        </div>
+                        <span class="text-[9px] font-medium text-gray-700 text-center leading-tight">DCU技术基础</span>
+                    </button>
+
+                    <!-- DCU-AI大模型基础课程 -->
+                    <button
+                        class="system-card-item filter-chip p-2 rounded-md bg-white border border-gray-200 hover:border-[#2D874B] hover:shadow-sm transition-all duration-300 flex flex-col items-center justify-center gap-1 min-h-[80px]"
+                        data-filter="system" data-value="DCU-AI大模型基础课程">
+                        <div class="w-6 h-6 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                            <i class="fa fa-brain text-sm text-[#2D874B]"></i>
+                        </div>
+                        <span class="text-[9px] font-medium text-gray-700 text-center leading-tight">DCU-AI大模型基础</span>
+                    </button>
+
+                    <!-- DCU-DeepSeek课程 -->
+                    <button
+                        class="system-card-item filter-chip p-2 rounded-md bg-white border border-gray-200 hover:border-[#2D874B] hover:shadow-sm transition-all duration-300 flex flex-col items-center justify-center gap-1 min-h-[80px]"
+                        data-filter="system" data-value="DCU-DeepSeek课程">
+                        <div class="w-6 h-6 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                            <i class="fa fa-code text-sm text-[#2D874B]"></i>
+                        </div>
+                        <span class="text-[9px] font-medium text-gray-700 text-center leading-tight">DCU-DeepSeek课程</span>
+                    </button>
+
+                    <!-- HG认证系列课程 -->
+                    <button
+                        class="system-card-item filter-chip p-2 rounded-md bg-white border border-gray-200 hover:border-[#2D874B] hover:shadow-sm transition-all duration-300 flex flex-col items-center justify-center gap-1 min-h-[80px]"
+                        data-filter="system" data-value="HG认证系列课程">
+                        <div class="w-6 h-6 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                            <i class="fa fa-certificate text-sm text-[#2D874B]"></i>
+                        </div>
+                        <span class="text-[9px] font-medium text-gray-700 text-center leading-tight">HG认证系列课程</span>
+                    </button>
+
+                    <!-- 光耀百城系列课程 -->
+                    <button
+                        class="system-card-item filter-chip p-2 rounded-md bg-white border border-gray-200 hover:border-[#2D874B] hover:shadow-sm transition-all duration-300 flex flex-col items-center justify-center gap-1 min-h-[80px]"
+                        data-filter="system" data-value="光耀百城系列课程">
+                        <div class="w-6 h-6 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                            <i class="fa fa-city text-sm text-[#2D874B]"></i>
+                        </div>
+                        <span class="text-[9px] font-medium text-gray-700 text-center leading-tight">光耀百城系列课程</span>
+                    </button>
+
+                    <!-- DCU+高性能计算课程 -->
+                    <button
+                        class="system-card-item filter-chip p-2 rounded-md bg-white border border-gray-200 hover:border-[#2D874B] hover:shadow-sm transition-all duration-300 flex flex-col items-center justify-center gap-1 min-h-[80px]"
+                        data-filter="system" data-value="DCU+高性能计算课程">
+                        <div class="w-6 h-6 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                            <i class="fa fa-calculator text-sm text-[#2D874B]"></i>
+                        </div>
+                        <span class="text-[9px] font-medium text-gray-700 text-center leading-tight">DCU+高性能计算</span>
+                    </button>
+
+                    <!-- DCU+AI for Science课程 -->
+                    <button
+                        class="system-card-item filter-chip p-2 rounded-md bg-white border border-gray-200 hover:border-[#2D874B] hover:shadow-sm transition-all duration-300 flex flex-col items-center justify-center gap-1 min-h-[80px]"
+                        data-filter="system" data-value="DCU+AI for Science课程">
+                        <div class="w-6 h-6 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                            <i class="fa fa-flask text-sm text-[#2D874B]"></i>
+                        </div>
+                        <span class="text-[9px] font-medium text-gray-700 text-center leading-tight">DCU+AI for Science</span>
+                    </button>
+
+                    <!-- BenchMark工具性能优化系列 -->
+                    <button
+                        class="system-card-item filter-chip p-2 rounded-md bg-white border border-gray-200 hover:border-[#2D874B] hover:shadow-sm transition-all duration-300 flex flex-col items-center justify-center gap-1 min-h-[80px]"
+                        data-filter="system" data-value="BenchMark工具性能优化系列">
+                        <div class="w-6 h-6 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                            <i class="fa fa-chart-line text-sm text-[#2D874B]"></i>
+                        </div>
+                        <span class="text-[9px] font-medium text-gray-700 text-center leading-tight">BenchMark工具性能优化</span>
+                    </button>
+
+                    <!-- DCU优化策略与工程实践 -->
+                    <button
+                        class="system-card-item filter-chip p-2 rounded-md bg-white border border-gray-200 hover:border-[#2D874B] hover:shadow-sm transition-all duration-300 flex flex-col items-center justify-center gap-1 min-h-[80px]"
+                        data-filter="system" data-value="DCU优化策略与工程实践">
+                        <div class="w-6 h-6 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                            <i class="fa fa-cogs text-sm text-[#2D874B]"></i>
+                        </div>
+                        <span class="text-[9px] font-medium text-gray-700 text-center leading-tight">DCU优化策略与工程实践</span>
+                    </button>
+
+                    <!-- 基于DCU加速的大模型训练与推理 -->
+                    <button
+                        class="system-card-item filter-chip p-2 rounded-md bg-white border border-gray-200 hover:border-[#2D874B] hover:shadow-sm transition-all duration-300 flex flex-col items-center justify-center gap-1 min-h-[80px]"
+                        data-filter="system" data-value="基于DCU加速的大模型训练与推理">
+                        <div class="w-6 h-6 rounded-full bg-[#2D874B]/10 flex items-center justify-center">
+                            <i class="fa fa-robot text-sm text-[#2D874B]"></i>
+                        </div>
+                        <span class="text-[9px] font-medium text-gray-700 text-center leading-tight">基于DCU加速的大模型训练与推理</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 排序和筛选按钮 -->
+        <section class="px-4 mb-4">
+            <div class="flex items-center justify-between">
+                <!-- 排序选项 -->
+                <div class="flex items-center gap-2 overflow-x-auto no-scrollbar -mx-4 px-4">
+                    <button class="sort-btn px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] transition text-sm active whitespace-nowrap" data-sort="comprehensive">
+                        综合排序
+                    </button>
+                    <button class="sort-btn px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] transition text-sm whitespace-nowrap" data-sort="latest">
+                        最新
+                    </button>
+                    <button class="sort-btn px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] transition text-sm whitespace-nowrap" data-sort="hottest">
+                        最热
+                    </button>
+                </div>
+                
+                <!-- 筛选按钮 -->
+                <button id="filter-toggle" class="px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] transition text-sm flex items-center gap-1">
+                    <i class="fa fa-filter"></i>
+                    <span>筛选</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 课程列表 -->
+        <section class="px-4">
+            <!-- 网格卡片 -->
+            <div id="course-list" class="space-y-4">
+                <!-- 卡片由 JS 注入 -->
+            </div>
+            
+            <!-- 移动端分页 -->
+            <div class="mobile-pagination mt-8">
+                <button id="prev-btn" disabled>
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+                <div id="page-numbers" class="flex items-center gap-2">
+                    <!-- 页码由 JS 生成 -->
+                </div>
+                <button id="next-btn">
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页面切换悬浮按钮 -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button id="page-toggle" class="w-12 h-12 rounded-full bg-[#2D874B] text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300">
+            <i class="fa fa-refresh text-lg"></i>
+        </button>
+    </div>
+
+    <!-- 简洁页脚 -->
+    <footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
+        <div
+            class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-600 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <div>© 2026 光合技术支持平台 · 课程中心</div>
+            <div class="flex flex-wrap gap-3">
+                <span>隐私政策</span>
+                <span>法律声明</span>
+                <span>版权信息</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 移动端侧边栏导航 -->
+    <div class="menu-overlay" id="menu-overlay"></div>
+    <div class="menu-sidebar" id="menu-sidebar">
+        <div class="p-4 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold">导航菜单</h3>
+                <button id="menu-close" class="h-8 w-8 flex items-center justify-center text-gray-600">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="p-4 space-y-4">
+            <a href="index.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                <i class="fa fa-home text-xl text-[#2D874B]"></i>
+                <span class="text-base font-medium">首页</span>
+            </a>
+            <a href="expert-center.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                <i class="fa fa-user-tie text-xl text-[#2D874B]"></i>
+                <span class="text-base font-medium">专家</span>
+            </a>
+            <a href="course-list2.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                <i class="fa fa-graduation-cap text-xl text-[#2D874B]"></i>
+                <span class="text-base font-medium">培训</span>
+            </a>
+            <a href="live-list.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                <i class="fa fa-video text-xl text-[#2D874B]"></i>
+                <span class="text-base font-medium">直播</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                <i class="fa fa-comments text-xl text-[#2D874B]"></i>
+                <span class="text-base font-medium">论坛</span>
+            </a>
+            <a href="resource-center.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                <i class="fa fa-folder-open text-xl text-[#2D874B]"></i>
+                <span class="text-base font-medium">资源</span>
+            </a>
+            <a href="news-announcement-list.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                <i class="fa fa-newspaper text-xl text-[#2D874B]"></i>
+                <span class="text-base font-medium">资讯</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- 移动端筛选面板 -->
+    <div class="filter-overlay" id="filter-overlay"></div>
+    <div class="filter-panel" id="filter-panel">
+        <div class="p-4">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold">筛选条件</h3>
+                <button id="filter-close" class="h-8 w-8 flex items-center justify-center text-gray-600">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+
+            <!-- 场景 -->
+            <div class="mb-6">
+                <div class="text-gray-600 mb-3 font-medium">场景</div>
+                <div class="grid grid-cols-3 gap-2">
+                    <button
+                        class="filter-chip px-3 py-2 rounded-lg bg-[#2D874B] text-[12px] text-white text-center hover:bg-[#256e3d] transition-colors duration-200"
+                        data-filter="scene" data-value="all">
+                        全部
+                    </button>
+                    <button
+                        class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200"
+                        data-filter="scene" data-value="系统优化系列">
+                        系统优化系列
+                    </button>
+                    <button
+                        class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200"
+                        data-filter="scene" data-value="开发者赋能">
+                        开发者赋能
+                    </button>
+                    <button
+                        class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200"
+                        data-filter="scene" data-value="产品策略">
+                        产品策略
+                    </button>
+                    <button
+                        class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200"
+                        data-filter="scene" data-value="认证培训">
+                        认证培训
+                    </button>
+                </div>
+            </div>
+
+            <!-- 领域 -->
+            <div class="mb-6">
+                <div class="text-gray-600 mb-3 font-medium">领域</div>
+                <div class="grid grid-cols-3 gap-2">
+                    <button
+                        class="filter-chip px-3 py-2 rounded-lg bg-[#2D874B] text-[12px] text-white text-center hover:bg-[#256e3d] transition-colors duration-200"
+                        data-filter="domain" data-value="all">
+                        全部
+                    </button>
+                    <button
+                        class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200"
+                        data-filter="domain" data-value="操作系统">
+                        操作系统
+                    </button>
+                    <button
+                        class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200"
+                        data-filter="domain" data-value="数据库">
+                        数据库
+                    </button>
+                    <button
+                        class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200"
+                        data-filter="domain" data-value="虚拟化&云">
+                        虚拟化&云
+                    </button>
+                    <button
+                        class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200"
+                        data-filter="domain" data-value="大数据">
+                        大数据
+                    </button>
+                    <button
+                        class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200"
+                        data-filter="domain" data-value="网络流量">
+                        网络流量
+                    </button>
+                    <button
+                        class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200"
+                        data-filter="domain" data-value="高性能计算">
+                        高性能计算
+                    </button>
+                    <button
+                        class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200"
+                        data-filter="domain" data-value="人工智能">
+                        人工智能
+                    </button>
+                </div>
+            </div>
+
+            <!-- 确认按钮 -->
+            <button id="filter-apply" class="w-full py-3 rounded-xl bg-[#2D874B] text-white font-medium text-base hover:opacity-90 transition-opacity">
+                确认筛选
+            </button>
+        </div>
+    </div>
+
+    <!-- 懒加载脚本 -->
+    <script>
+        // 图片懒加载
+        function lazyLoadImages() {
+            const images = document.querySelectorAll('.lazyload');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazyload');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+            
+            images.forEach(img => imageObserver.observe(img));
+        }
+        
+        // 页面加载完成后执行懒加载
+        window.addEventListener('load', lazyLoadImages);
+        
+        // 内容更新后重新执行懒加载
+        function updateLazyLoad() {
+            setTimeout(lazyLoadImages, 100);
+        }
+    </script>
+
+    <!-- 交互脚本：筛选 / 排序 / 分页 / 报名 -->
+    <script>
+        // 模拟课程数据（可后续替换为接口返回）
+        const allCourses = [
+            { id: 1, name: "云原生解决方案实战 | 中级", source: "云基础设施学院", date: "2026-01-15", learners: 12340, scene: "系统优化系列", domain: "虚拟化&云", system: "应用软件性能优化系列", rating: 4.8 },
+            { id: 2, name: "AI 与数据智能入门", source: "AI 与数据智能学院", date: "2026-01-12", learners: 9800, scene: "人工智能", domain: "开发者赋能", system: "DCU-AI大模型基础课程", rating: 4.5 },
+            { id: 3, name: "解决方案售前训练营", source: "解决方案与售前学院", date: "2026-01-10", learners: 8700, scene: "产品策略", domain: "认证培训", system: "HG认证系列课程", rating: 4.6 },
+            { id: 4, name: "DevOps 自动化与监控实践", source: "云基础设施学院", date: "2026-01-08", learners: 7600, scene: "开发者赋能", domain: "系统优化系列", system: "基础软件性能优化系列", rating: 4.7 },
+            { id: 5, name: "AIGC 应用实战：从提示词到落地", source: "AI 与数据智能学院", date: "2026-01-06", learners: 6400, scene: "人工智能", domain: "高性能计算", system: "基于DCU加速的大模型训练与推理", rating: 4.9 },
+            { id: 6, name: "伙伴销售赋能：场景化方案演示", source: "伙伴业务与运营学院", date: "2026-01-04", learners: 5900, scene: "产品策略", domain: "开发者赋能", system: "光耀百城系列课程", rating: 4.4 },
+            { id: 7, name: "云成本优化与FinOps", source: "云基础设施学院", date: "2026-01-03", learners: 4200, scene: "虚拟化&云", domain: "系统优化系列", system: "海光应用加速套件系列", rating: 4.3 },
+            { id: 8, name: "数据治理与合规实践", source: "AI 与数据智能学院", date: "2026-01-02", learners: 3100, scene: "大数据", domain: "认证培训", system: "海光芯片安全系列", rating: 4.2 },
+            { id: 9, name: "生态技术领袖高级课程", source: "解决方案与售前学院", date: "2025-12-28", learners: 2800, scene: "产品策略", domain: "开发者赋能", system: "HG认证系列课程", rating: 4.6 },
+            { id: 10, name: "云安全与零信任架构", source: "云基础设施学院", date: "2025-12-25", learners: 2600, scene: "网络流量", domain: "虚拟化&云", system: "海光芯片安全系列", rating: 4.5 },
+            { id: 11, name: "金融行业云原生解决方案", source: "解决方案与售前学院", date: "2025-12-22", learners: 2400, scene: "虚拟化&云", domain: "系统优化系列", system: "应用软件性能优化系列", rating: 4.7 },
+            { id: 12, name: "智能运维与AIOps", source: "AI 与数据智能学院", date: "2025-12-20", learners: 2300, scene: "系统优化系列", domain: "人工智能", system: "DCU+Al for Science课程", rating: 4.4 }
+        ];
+
+        const pageSize = 6;
+        let currentPage = 1;
+        let filteredCourses = [...allCourses];
+
+        const filters = {
+            system: 'all',
+            scene: 'all',
+            domain: 'all',
+            search: '',
+            sort: 'comprehensive'
+        };
+
+        // DOM elements
+        const searchInput = document.getElementById('search-input');
+        const courseList = document.getElementById('course-list');
+        const filterChips = document.querySelectorAll('.filter-chip');
+        const sortBtns = document.querySelectorAll('.sort-btn');
+        const filterToggle = document.getElementById('filter-toggle');
+        const filterPanel = document.getElementById('filter-panel');
+        const filterOverlay = document.getElementById('filter-overlay');
+        const filterClose = document.getElementById('filter-close');
+        const filterApply = document.getElementById('filter-apply');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const pageNumbersEl = document.getElementById('page-numbers');
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuSidebar = document.getElementById('menu-sidebar');
+        const menuOverlay = document.getElementById('menu-overlay');
+        const menuClose = document.getElementById('menu-close');
+
+        // 筛选面板切换
+        filterToggle.addEventListener('click', () => {
+            filterPanel.classList.add('active');
+            filterOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        filterClose.addEventListener('click', () => {
+            filterPanel.classList.remove('active');
+            filterOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        filterOverlay.addEventListener('click', () => {
+            filterPanel.classList.remove('active');
+            filterOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // 侧边栏导航切换
+        menuToggle.addEventListener('click', () => {
+            menuSidebar.classList.add('active');
+            menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        menuClose.addEventListener('click', () => {
+            menuSidebar.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        menuOverlay.addEventListener('click', () => {
+            menuSidebar.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // 绑定筛选 chip 点击事件（单选，支持取消选中）
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                const type = chip.dataset.filter;
+                const value = chip.dataset.value;
+                
+                // 立即更新样式，提供即时视觉反馈
+                // 重置同类型所有芯片的样式
+                document.querySelectorAll(`.filter-chip[data-filter="${type}"]`)
+                    .forEach(c => {
+                        if (c.classList.contains('system-card-item')) {
+                            // 系统卡片使用特殊的激活样式
+                            c.classList.remove('filter-chip-active');
+                            c.classList.add('bg-white', 'border', 'border-gray-200');
+                            c.querySelector('i')?.classList.add('text-[#2D874B]');
+                            c.querySelector('span')?.classList.add('text-gray-700');
+                            // 同时处理w-12、w-10、w-8和w-6的图标背景
+                            c.querySelector('.w-12.h-12')?.classList.add('bg-[#2D874B]/10');
+                            c.querySelector('.w-10.h-10')?.classList.add('bg-[#2D874B]/10');
+                            c.querySelector('.w-8.h-8')?.classList.add('bg-[#2D874B]/10');
+                            c.querySelector('.w-6.h-6')?.classList.add('bg-[#2D874B]/10');
+                        } else {
+                            // 普通筛选芯片使用默认激活样式
+                            c.classList.remove('filter-chip-active');
+                            c.classList.remove('bg-[#2D874B]', 'text-white');
+                            c.classList.add('bg-white', 'text-gray-800', 'border', 'border-gray-200');
+                        }
+                    });
+                
+                // 激活当前芯片
+                if (chip.classList.contains('system-card-item')) {
+                    // 系统卡片使用特殊的激活样式
+                    chip.classList.add('filter-chip-active');
+                    chip.classList.remove('bg-white', 'border-gray-200');
+                } else {
+                    // 普通筛选芯片使用默认激活样式
+                    chip.classList.remove('bg-white', 'text-gray-800', 'border', 'border-gray-200');
+                    chip.classList.add('bg-[#2D874B]', 'text-white');
+                }
+                filters[type] = value;
+                
+                // 如果不是在筛选面板中点击的，直接应用筛选
+                if (!chip.closest('#filter-panel')) {
+                    applyFiltersAndRender();
+                }
+            });
+        });
+
+        // 应用筛选
+        filterApply.addEventListener('click', () => {
+            applyFiltersAndRender();
+            filterPanel.classList.remove('active');
+            filterOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // 搜索输入
+        searchInput.addEventListener('input', () => {
+            filters.search = searchInput.value.trim().toLowerCase();
+            applyFiltersAndRender();
+        });
+
+        // 排序按钮事件
+        sortBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 移除所有按钮的active状态
+                sortBtns.forEach(b => b.classList.remove('active'));
+                // 添加当前按钮的active状态
+                this.classList.add('active');
+                
+                const sortType = this.dataset.sort;
+                filters.sort = sortType;
+                applyFiltersAndRender();
+            });
+        });
+
+        // 分页按钮事件
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderList();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredCourses.length / pageSize) || 1;
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderList();
+            }
+        });
+
+        // 应用筛选 + 排序
+        function applyFiltersAndRender() {
+            filteredCourses = allCourses.filter(c => {
+                const matchSystem = filters.system === 'all' || c.system === filters.system;
+                const matchScene = filters.scene === 'all' || c.scene === filters.scene;
+                const matchDomain = filters.domain === 'all' || c.domain === filters.domain;
+                const kw = filters.search;
+                const matchSearch = !kw ||
+                    c.name.toLowerCase().includes(kw) ||
+                    c.source.toLowerCase().includes(kw) ||
+                    (c.scene || '').toLowerCase().includes(kw) ||
+                    (c.domain || '').toLowerCase().includes(kw) ||
+                    (c.system || '').toLowerCase().includes(kw);
+                return matchSystem && matchScene && matchDomain && matchSearch;
+            });
+
+            // 排序
+            if (filters.sort === 'latest') {
+                filteredCourses.sort((a, b) => b.date.localeCompare(a.date));
+            } else if (filters.sort === 'hottest') {
+                filteredCourses.sort((a, b) => b.learners - a.learners);
+            } else if (filters.sort === 'comprehensive') {
+                // 综合排序，保持原始顺序
+            }
+
+            currentPage = 1;
+            renderList();
+        }
+
+        // 渲染当前页列表
+        function renderList() {
+            courseList.innerHTML = '';
+            const total = filteredCourses.length;
+            const totalPages = Math.ceil(total / pageSize) || 1;
+            const startIndex = (currentPage - 1) * pageSize;
+            const endIndex = Math.min(startIndex + pageSize, total);
+
+            const pageData = filteredCourses.slice(startIndex, endIndex);
+            pageData.forEach((course, index) => {
+                const card = document.createElement('article');
+                card.className = 'mobile-course-card glass-card rounded-3xl p-4 hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer';
+                card.innerHTML = `
+  <!-- 顶部：课程体系 + 热度 + 评分 -->
+  <div class="flex items-center justify-between mb-2">
+    <span class="text-[11px] text-[#2D874B] font-medium truncate max-w-[120px]">${course.system}</span>
+    <div class="flex items-center gap-2">
+      <span class="text-[11px] text-amber-600 flex items-center gap-1">
+        <i class="fa fa-star text-[10px] text-amber-500"></i>
+        ${course.rating}
+      </span>
+      <span class="text-[11px] text-[#B01F24] flex items-center gap-1">
+        <i class="fa fa-fire text-[10px] text-[#B01F24]"></i>
+        ${(course.learners / 1000).toFixed(1)}k
+      </span>
+    </div>
+  </div>
+  <!-- 标题 -->
+  <h3 class="text-base font-semibold line-clamp-2 mb-3 text-left text-gray-800">
+    ${course.name}
+  </h3>
+
+  <!-- 标题下方课程图片，居中展示 -->
+  <div class="course-card-img mb-3">
+    <a href="course-detail.html?id=${course.id}" target="_blank">
+    <img
+      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 400'%3E%3Cg fill='%23f0f0f0'%3E%3Crect width='800' height='400'/%3E%3Cg fill='%23ccc'%3E%3Ccircle cx='400' cy='200' r='60'/%3E%3Cpath d='M380 200h40M400 180v40' stroke='%23999' stroke-width='4' stroke-linecap='round'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"
+      data-src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
+      alt="${course.name}"
+      class="w-full object-cover h-48 rounded-xl lazyload"
+    />
+    </a>
+  </div>
+  <!-- 底部：左侧时间+人数，中间标签，右侧报名按钮 -->
+  <div class="mt-2 flex flex-col gap-2 text-[11px] text-gray-600">
+    <!-- 上架时间 & 学习人数 -->
+    <div class="flex items-center justify-between">
+      <div class="space-y-0.5">
+        <div><i class="fa fa-clock mr-1 text-[9px] text-gray-400"></i>上架时间：${course.date}</div>
+      </div>
+    </div>
+    <!-- 标签区域，与时间/人数同级 -->
+    <div class="flex flex-wrap justify-start gap-2">
+      <span class="inline-flex items-center px-2 py-1 rounded-full bg-gray-100 border border-gray-200">
+        <i class="fa fa-sitemap mr-1 text-[9px] text-[#2D874B]"></i>${course.scene}
+      </span>
+      <span class="inline-flex items-center px-2 py-1 rounded-full bg-gray-100 border border-gray-200">
+        <i class="fa fa-globe mr-1 text-[9px] text-[#2D874B]"></i>${course.domain}
+      </span>
+    </div>
+    <!-- 报名按钮：底色 B01F24 + 白字 -->
+    <div class="flex justify-end items-center">
+      <button class="enroll-btn px-4 py-2 rounded-full bg-[#2D874B] text-white text-[12px] font-medium hover:opacity-90"
+              data-id="${course.id}">
+        立即报名
+      </button>
+    </div>
+  </div>
+`;
+                courseList.appendChild(card);
+            });
+
+            // 生成页码按钮
+            generatePageNumbers(totalPages);
+
+            // 禁用/启用分页按钮
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+
+            // 绑定报名事件（每次重新绑定）
+            document.querySelectorAll('.enroll-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = btn.dataset.id;
+                    const course = allCourses.find(c => c.id == id);
+                    alert(`已报名课程：「${course.name}」，即将跳转到课程详情页。`);
+                });
+            });
+
+            // 更新懒加载
+            updateLazyLoad();
+        }
+        
+        // 生成页码按钮
+        function generatePageNumbers(totalPages) {
+            if (!pageNumbersEl) return;
+            
+            pageNumbersEl.innerHTML = '';
+            
+            // 计算显示的页码范围
+            let startPage = Math.max(1, currentPage - 1);
+            let endPage = Math.min(totalPages, startPage + 2);
+            
+            // 调整起始页码，确保显示3个页码
+            if (endPage - startPage < 2) {
+                startPage = Math.max(1, endPage - 2);
+            }
+            
+            // 添加页码
+            for (let i = startPage; i <= endPage; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = `${i === currentPage ? 'active' : ''}`;
+                pageBtn.textContent = i;
+                pageBtn.addEventListener('click', () => {
+                    currentPage = i;
+                    renderList();
+                });
+                pageNumbersEl.appendChild(pageBtn);
+            }
+        }
+
+        // 页面切换功能
+        let currentPageType = 1; // 1: 默认页面（图标+文字）, 2: 只显示文字, 3: 只显示图标, 4: 下拉框显示
+        const pageToggle = document.getElementById('page-toggle');
+        const courseSystemSection = document.querySelector('.course-system-section');
+        const courseSystemGrid = document.querySelector('.grid.grid-cols-5');
+        const courseSystemTitle = document.querySelector('.course-system-title').parentElement;
+        const courseSystemHeader = document.querySelector('.course-system-section .flex.items-center.justify-between'); // 外层flex容器
+
+        // 保存原始课程体系HTML
+        const originalSystemHTML = courseSystemGrid.innerHTML;
+
+        // 页面切换函数
+        function switchPage() {
+            currentPageType = currentPageType % 4 + 1;
+            updatePageDisplay();
+        }
+
+        // 更新页面显示
+        function updatePageDisplay() {
+            // 重置课程体系HTML
+            courseSystemGrid.innerHTML = originalSystemHTML;
+            
+            // 移除之前添加的全部按钮
+            const existingAllBtn = courseSystemHeader.querySelector('.all-system-btn');
+            if (existingAllBtn) {
+                existingAllBtn.remove();
+            }
+            
+            // 移除之前添加的水平滚动课程体系图标行
+            const existingScrollableIcons = courseSystemSection.querySelector('.system-scrollable-icons');
+            if (existingScrollableIcons) {
+                existingScrollableIcons.remove();
+            }
+            
+            // 移除之前添加的下拉框
+            const existingDropdown = courseSystemSection.querySelector('.system-dropdown');
+            if (existingDropdown) {
+                existingDropdown.remove();
+            }
+            
+            // 移除之前添加的系统弹窗元素
+            const existingSystemOverlay = document.querySelector('.system-overlay');
+            if (existingSystemOverlay) {
+                existingSystemOverlay.remove();
+            }
+            
+            const existingSystemPanel = document.querySelector('.system-panel');
+            if (existingSystemPanel) {
+                existingSystemPanel.remove();
+            }
+            
+            // 恢复body样式
+            document.body.style.overflow = 'auto';
+            
+            // 移除之前添加的隐藏滚动条样式
+            const existingScrollbarStyles = document.querySelectorAll('style');
+            existingScrollbarStyles.forEach(styleEl => {
+                if (styleEl.textContent.includes('.system-scrollable-icons::-webkit-scrollbar')) {
+                    styleEl.remove();
+                }
+            });
+
+            switch (currentPageType) {
+                case 1:
+                    // 默认页面（图标+文字）
+                    courseSystemGrid.classList.remove('hidden');
+                    break;
+                case 2:
+                    // 只显示文字
+                    courseSystemGrid.classList.remove('hidden');
+                    courseSystemGrid.querySelectorAll('.w-6.h-6').forEach(icon => {
+                        icon.remove();
+                    });
+                    courseSystemGrid.querySelectorAll('.system-card-item').forEach(card => {
+                        card.classList.remove('flex-col', 'items-center', 'justify-center', 'gap-1', 'min-h-[80px]');
+                        card.classList.add('flex', 'items-center', 'justify-center', 'min-h-[40px]');
+                    });
+                    break;
+                case 3:
+                    // 只显示图标
+                    courseSystemGrid.classList.remove('hidden');
+                    courseSystemGrid.querySelectorAll('span').forEach(text => {
+                        text.remove();
+                    });
+                    courseSystemGrid.querySelectorAll('.system-card-item').forEach(card => {
+                        card.classList.remove('flex-col', 'items-center', 'justify-center', 'gap-1', 'min-h-[80px]');
+                        card.classList.add('flex', 'items-center', 'justify-center', 'min-h-[60px]');
+                    });
+                    break;
+                case 4:
+                    // 只显示一行课程体系图标（可左右滑动），标题右侧加"全部"按钮
+                    courseSystemGrid.classList.add('hidden');
+                    
+                    // 添加全部按钮到外层flex容器中（居右显示）
+                    const allBtn = document.createElement('button');
+                    allBtn.className = 'all-system-btn px-3 py-1 text-sm text-[#2D874B] border border-[#2D874B] rounded-full hover:bg-[#2D874B]/10 transition-colors';
+                    allBtn.textContent = '全部';
+                    courseSystemHeader.appendChild(allBtn);
+                    
+                    // 创建水平滚动的课程体系文字行
+                    const scrollableText = document.createElement('div');
+                    scrollableText.className = 'system-scrollable-icons mt-3 overflow-x-auto pb-2 -mx-4 px-4';
+                    // 添加隐藏滚动条的样式
+                    scrollableText.style.scrollbarWidth = 'none'; // Firefox
+                    scrollableText.style.msOverflowStyle = 'none'; // IE and Edge
+                    
+                    // 直接构建只包含文字的课程体系卡片
+                    let scrollableContent = '<div class="flex gap-3 min-w-max">';
+                    
+                    // 从原始HTML中提取课程体系数据
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(originalSystemHTML, 'text/html');
+                    const systemItems = doc.querySelectorAll('.system-card-item');
+                    
+                    systemItems.forEach(item => {
+                        const value = item.dataset.value;
+                        const text = item.querySelector('span').textContent;
+                        scrollableContent += `
+                            <button class="system-card-item filter-chip px-3 py-2 rounded-md bg-white border border-gray-200 hover:border-[#2D874B] hover:shadow-sm transition-all duration-300 flex items-center justify-center min-w-[80px] text-center" data-filter="system" data-value="${value}">
+                                <span class="text-[9px] font-medium text-gray-700 text-center leading-tight">${text}</span>
+                            </button>
+                        `;
+                    });
+                    
+                    scrollableContent += '</div>';
+                    scrollableText.innerHTML = scrollableContent;
+                    
+                    // 添加webkit隐藏滚动条样式
+                    const style = document.createElement('style');
+                    style.textContent = `.system-scrollable-icons::-webkit-scrollbar { display: none; }`;
+                    document.head.appendChild(style);
+                    courseSystemSection.appendChild(scrollableText);
+                    
+                    // 创建从底部上拉的弹窗
+                    const systemOverlay = document.createElement('div');
+                    systemOverlay.className = 'system-overlay fixed inset-0 bg-black bg-opacity-50 z-40 hidden';
+                    
+                    const systemPanel = document.createElement('div');
+                    systemPanel.className = 'system-panel fixed bottom-0 left-0 right-0 bg-white z-50 transform translate-y-full transition-transform duration-300';
+                    
+                    // 构建弹窗内容，为每个卡片添加点击事件
+                    const popupContent = `
+                        <div class="p-4">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold">全部课程体系</h3>
+                                <button class="system-close h-8 w-8 flex items-center justify-center text-gray-600">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-3">
+                                ${originalSystemHTML}
+                            </div>
+                        </div>
+                    `;
+                    systemPanel.innerHTML = popupContent;
+                    
+                    document.body.appendChild(systemOverlay);
+                    document.body.appendChild(systemPanel);
+                    
+                    // 全部按钮点击事件
+                    allBtn.addEventListener('click', () => {
+                        systemOverlay.classList.remove('hidden');
+                        systemPanel.classList.remove('translate-y-full');
+                        document.body.style.overflow = 'hidden';
+                        
+                        // 延迟为弹窗中的所有课程体系卡片添加点击事件，确保弹窗已经显示
+                        setTimeout(() => {
+                            // 获取实际显示在页面上的弹窗元素
+                            const actualSystemOverlay = document.querySelector('.system-overlay');
+                            const actualSystemPanel = document.querySelector('.system-panel');
+                            
+                            if (actualSystemOverlay && actualSystemPanel) {
+                                // 为弹窗中的所有课程体系卡片添加点击事件
+                                const popupCards = actualSystemPanel.querySelectorAll('.system-card-item');
+                                popupCards.forEach(card => {
+                                    // 移除之前可能绑定的事件
+                                    const newCard = card.cloneNode(true);
+                                    card.parentNode.replaceChild(newCard, card);
+                                    
+                                    // 绑定新的点击事件
+                                    newCard.addEventListener('click', function(e) {
+                                        e.stopPropagation();
+                                        const value = this.dataset.value;
+                                        filters.system = value;
+                                        updateFilterChips('system');
+                                        
+                                        // 关闭弹窗
+                                        actualSystemOverlay.classList.add('hidden');
+                                        actualSystemPanel.classList.add('translate-y-full');
+                                        document.body.style.overflow = 'auto';
+                                        
+                                        // 重新渲染课程列表
+                                        applyFiltersAndRender();
+                                    });
+                                });
+                            }
+                        }, 100);
+                    });
+                    
+                    // 关闭按钮点击事件
+                    const systemClose = systemPanel.querySelector('.system-close');
+                    if (systemClose) {
+                        systemClose.addEventListener('click', () => {
+                            // 获取实际显示在页面上的弹窗元素
+                            const actualSystemOverlay = document.querySelector('.system-overlay');
+                            const actualSystemPanel = document.querySelector('.system-panel');
+                            if (actualSystemOverlay && actualSystemPanel) {
+                                actualSystemOverlay.classList.add('hidden');
+                                actualSystemPanel.classList.add('translate-y-full');
+                                document.body.style.overflow = 'auto';
+                            }
+                        });
+                    }
+                    
+                    // 点击遮罩关闭弹窗
+                    systemOverlay.addEventListener('click', () => {
+                        // 获取实际显示在页面上的弹窗元素
+                        const actualSystemOverlay = document.querySelector('.system-overlay');
+                        const actualSystemPanel = document.querySelector('.system-panel');
+                        if (actualSystemOverlay && actualSystemPanel) {
+                            actualSystemOverlay.classList.add('hidden');
+                            actualSystemPanel.classList.add('translate-y-full');
+                            document.body.style.overflow = 'auto';
+                        }
+                    });
+                    break;
+            }
+            
+            // 重新绑定事件
+            bindSystemCardEvents();
+            
+            // 如果是第四页，为水平滚动的课程体系文字行中的卡片绑定事件
+            if (currentPageType === 4) {
+                setTimeout(() => {
+                    const scrollableCards = document.querySelectorAll('.system-scrollable-icons .system-card-item');
+                    scrollableCards.forEach(card => {
+                        card.addEventListener('click', function() {
+                            const value = this.dataset.value;
+                            filters.system = value;
+                            updateFilterChips('system');
+                            applyFiltersAndRender();
+                        });
+                    });
+                }, 100);
+            }
+        }
+
+        // 绑定课程体系卡片事件（不包括弹窗中的卡片）
+        function bindSystemCardEvents() {
+            // 只选择非弹窗中的课程体系卡片
+            const systemCards = document.querySelectorAll('.system-card-item:not(.system-panel .system-card-item)');
+            systemCards.forEach(card => {
+                // 移除之前可能绑定的事件，避免重复绑定
+                const newCard = card.cloneNode(true);
+                card.parentNode.replaceChild(newCard, card);
+                
+                // 绑定新的点击事件
+                newCard.addEventListener('click', function() {
+                    const value = this.dataset.value;
+                    filters.system = value;
+                    updateFilterChips('system');
+                    
+                    // 重新渲染课程列表
+                    applyFiltersAndRender();
+                });
+            });
+        }
+
+        // 绑定页面切换按钮事件
+        if (pageToggle) {
+            pageToggle.addEventListener('click', switchPage);
+        }
+
+        // 初始化：默认显示全部课程
+        applyFiltersAndRender();
+        bindSystemCardEvents();
+    </script>
+
+</body>
+
+</html>
