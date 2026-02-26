@@ -49,8 +49,111 @@
       max-width: 260px;
     }
   </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 获取元素
+      const preStateOverlay = document.getElementById('preStateOverlay');
+      const examEndMessage = document.getElementById('examEndMessage');
+      const optionA = document.getElementById('optionA');
+      const optionB = document.getElementById('optionB');
+      const optionC = document.getElementById('optionC');
+      const tabBtnDetail = document.getElementById('tab-btn-detail');
+      const panelDetail = document.getElementById('panel-detail');
+      const btnViewDetail = document.getElementById('btn-view-detail');
+
+      // 选项 A：查看完整考试结果
+      optionA.addEventListener('click', function() {
+        preStateOverlay.classList.add('hidden');
+        // 确保所有内容都可见
+        if (tabBtnDetail) tabBtnDetail.style.display = 'block';
+        if (panelDetail) panelDetail.style.display = 'block';
+        if (btnViewDetail) btnViewDetail.style.display = 'block';
+      });
+
+      // 选项 B：查看考试结果（不含试题）
+      optionB.addEventListener('click', function() {
+        preStateOverlay.classList.add('hidden');
+        // 隐藏答题详情相关内容
+        if (tabBtnDetail) tabBtnDetail.style.display = 'none';
+        if (panelDetail) panelDetail.style.display = 'none';
+        if (btnViewDetail) btnViewDetail.style.display = 'none';
+        // 默认显示考试报告
+        document.getElementById('panel-report').classList.remove('hidden');
+        document.getElementById('tab-btn-report').classList.add('tab-btn-active');
+      });
+
+      // 选项 C：仅提示考试结束
+      optionC.addEventListener('click', function() {
+        preStateOverlay.classList.add('hidden');
+        examEndMessage.classList.remove('hidden');
+        
+        // 倒计时功能
+        let seconds = 5;
+        const btnBackToList = document.getElementById('btnBackToList');
+        const countdownInterval = setInterval(function() {
+          seconds--;
+          btnBackToList.textContent = '返回考试中心（' + seconds + '）';
+          
+          if (seconds <= 0) {
+            clearInterval(countdownInterval);
+            window.location.href = 'exam-list.html';
+          }
+        }, 1000);
+        
+        // 立即返回按钮
+        btnBackToList.addEventListener('click', function() {
+          clearInterval(countdownInterval);
+          window.location.href = 'exam-list.html';
+        });
+        
+        // 个人中心按钮
+        document.getElementById('btnToPersonal').addEventListener('click', function() {
+          clearInterval(countdownInterval);
+          window.location.href = 'personal-center.html';
+        });
+      });
+    });
+  </script>
 </head>
 <body class="bg-white text-gray-800">
+
+<!-- 前置状态覆盖层 -->
+<div id="preStateOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-white">
+  <div class="max-w-md w-full px-6 py-8 rounded-3xl border border-gray-300 shadow-lg text-center">
+    <h2 class="text-lg font-semibold text-gray-800 mb-6">查看考试结果</h2>
+    <p class="text-sm text-gray-600 mb-8">请选择您的查看权限</p>
+    <div class="space-y-4">
+      <button id="optionA" class="w-full py-3 rounded-full bg-[#B01F24] text-white text-sm font-medium hover:opacity-90 transition">
+        A 可查看完整考试结果
+      </button>
+      <button id="optionB" class="w-full py-3 rounded-full bg-white border border-gray-300 text-gray-800 text-sm font-medium hover:border-[#B01F24] hover:text-[#B01F24] transition">
+        B 可查看考试结果（不含试题）
+      </button>
+      <button id="optionC" class="w-full py-3 rounded-full bg-white border border-gray-300 text-gray-800 text-sm font-medium hover:border-[#B01F24] hover:text-[#B01F24] transition">
+        C 不可查看考试结果，仅提示考试结束
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 考试结束提示（选项C） -->
+<div id="examEndMessage" class="fixed inset-0 z-40 flex items-center justify-center bg-white hidden">
+  <div class="text-center space-y-6 max-w-md px-6">
+    <div class="space-y-3">
+      <h2 class="text-xl font-semibold text-gray-800">考试已完成</h2>
+      <p class="text-gray-600">您已完成本次考试，感谢您的积极参与！</p>
+      <p class="text-sm text-gray-500">系统已记录本次考试行为，考试结果为非公开信息。</p>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <button id="btnToPersonal" class="px-6 py-2 rounded-full bg-white border border-gray-300 text-gray-800 text-sm font-medium hover:border-[#B01F24] hover:text-[#B01F24] transition">
+        个人中心
+      </button>
+      <button id="btnBackToList" class="px-6 py-2 rounded-full bg-[#B01F24] text-white text-sm font-medium hover:opacity-90 transition">
+        返回考试中心（5）
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- 顶部导航 + 全站搜索 -->
 <header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
