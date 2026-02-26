@@ -605,104 +605,75 @@
 
     </div>
 
-    <!-- 考试列表与左侧筛选 -->
-    <section class="max-w-7xl mx-auto px-4 lg:px-6">
-      <div class="flex flex-col lg:flex-row gap-6">
-        <!-- 左侧筛选：岗位 / 难度 -->
-        <div class="lg:w-48 shrink-0">
-          <div class="glass-card rounded-3xl p-4 space-y-4 sticky top-24">
-            <div class="flex items-center justify-between">
-              <span class="text-sm font-semibold text-[#2D874B]">筛选条件</span>
-            </div>
-
-            <!-- 类型 -->
-            <div>
-              <div class="text-gray-600 mb-2 flex items-center justify-between">
-                <span class="text-sm">类型</span>
-              </div>
-              <div class="flex flex-col gap-1">
-                <button
-                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-[#2D874B] text-[11px] text-white text-left hover:bg-[#256e3d] transition-colors duration-200"
-                  data-filter="role" data-value="all">
-                  全部
-                </button>
-                <button
-                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
-                  data-filter="role" data-value="工程师认证">
-                  工程师认证
-                </button>
-                <button
-                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
-                  data-filter="role" data-value="销售认证">
-                  销售认证
-                </button>
-                <button
-                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
-                  data-filter="role" data-value="讲师认证">
-                  讲师认证
-                </button>
-              </div>
-            </div>
-
-            <!-- 难度 -->
-            <div>
-              <div class="text-gray-600 mb-2 flex items-center justify-between">
-                <span class="text-sm">难度</span>
-              </div>
-              <div class="flex flex-col gap-1">
-                <button
-                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-[#2D874B] text-[11px] text-white text-left hover:bg-[#256e3d] transition-colors duration-200"
-                  data-filter="difficulty" data-value="all">
-                  全部
-                </button>
-                <button
-                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
-                  data-filter="difficulty" data-value="初级">
-                  初级
-                </button>
-                <button
-                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
-                  data-filter="difficulty" data-value="中级">
-                  中级
-                </button>
-                <button
-                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
-                  data-filter="difficulty" data-value="高级">
-                  高级
-                </button>
-              </div>
-            </div>
-
-
+    <!-- 筛选栏 -->
+    <div class="space-y-4 mb-6">
+      <!-- 考试分类标签 -->
+      <div class="p-4">
+        <!-- 类型筛选标签 -->
+        <div class="flex items-center gap-3 mb-3">
+          <span class="text-sm font-medium text-gray-700">类型</span>
+          <div id="role-filter-tags" class="flex flex-wrap gap-2">
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm active border-[#2D874B] bg-[#2D874B]/10" data-filter="role" data-value="all">
+              全部
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-filter="role" data-value="工程师认证">
+              工程师认证
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-filter="role" data-value="销售认证">
+              销售认证
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-filter="role" data-value="讲师认证">
+              讲师认证
+            </button>
           </div>
         </div>
 
-        <!-- 右侧考试列表 -->
-        <div class="flex-1">
-          <!-- 顶部排序和搜索 -->
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
-            <!-- 排序选项 -->
-            <div class="flex items-center gap-2 flex-wrap">
-              <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="comprehensive">
-                综合排序
-              </button>
-              <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="latest">
-                最新
-              </button>
-              <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="hottest">
-                最热
-              </button>
-            </div>
-            
-            <!-- 搜索框 -->
-            <div class="relative">
-              <i class="fa fa-search text-gray-400 absolute left-2 top-2.5 text-xs"></i>
-              <input id="search-input"
-                     type="text"
-                     placeholder="搜索考试名称 / 发布来源 / 岗位"
-                     class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]" />
-            </div>
+        <!-- 难度筛选选项 -->
+        <div class="flex items-center gap-3">
+          <span class="text-sm font-medium text-gray-700">难度</span>
+          <div id="difficulty-filter-tags" class="flex flex-wrap gap-2">
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm active border-[#2D874B] bg-[#2D874B]/10" data-filter="difficulty" data-value="all">
+              全部
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-filter="difficulty" data-value="初级">
+              初级
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-filter="difficulty" data-value="中级">
+              中级
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-filter="difficulty" data-value="高级">
+              高级
+            </button>
           </div>
+        </div>
+      </div>
+
+      <!-- 右侧主内容区 -->
+      <div class="flex-1 min-w-0">
+        <!-- 顶部排序和搜索 -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+          <!-- 排序选项 -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="comprehensive">
+              综合排序
+            </button>
+            <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="latest">
+              最新
+            </button>
+            <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="hottest">
+              最热
+            </button>
+          </div>
+          
+          <!-- 搜索框 -->
+          <div class="relative">
+            <i class="fa fa-search text-gray-400 absolute left-2 top-2.5 text-xs"></i>
+            <input id="search-input"
+                   type="text"
+                   placeholder="搜索考试名称 / 发布来源 / 岗位"
+                   class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]" />
+          </div>
+        </div>
           <!-- 网格卡片 -->
           <div id="exam-list"
                class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -746,7 +717,6 @@
           </div>
         </div>
       </div>
-    </section>
   </section>
 </main>
 
@@ -801,14 +771,15 @@
   const pageJumpInput = document.getElementById('page-jump-input');
   const pageJumpBtn = document.getElementById('page-jump-btn');
 
-  // 绑定筛选 chip
-  filterChips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      const type = chip.dataset.filter;
-      const value = chip.dataset.value;
-      document.querySelectorAll(`.filter-chip[data-filter="${type}"]`)
-        .forEach(c => c.classList.remove('filter-chip-active'));
-      chip.classList.add('filter-chip-active');
+  // 绑定筛选标签
+  const filterTags = document.querySelectorAll('.category-tag');
+  filterTags.forEach(tag => {
+    tag.addEventListener('click', () => {
+      const type = tag.dataset.filter;
+      const value = tag.dataset.value;
+      document.querySelectorAll(`.category-tag[data-filter="${type}"]`)
+        .forEach(t => t.classList.remove('active', 'border-[#2D874B]', 'bg-[#2D874B]/10'));
+      tag.classList.add('active', 'border-[#2D874B]', 'bg-[#2D874B]/10');
       filters[type] = value;
       applyFiltersAndRender();
     });
@@ -1094,9 +1065,9 @@
     });
   }
 
-  // 初始化：默认“全部”chip激活
-  document.querySelectorAll('.filter-chip[data-value="all"]').forEach(chip => {
-    chip.classList.add('filter-chip-active');
+  // 初始化：默认“全部”标签激活
+  document.querySelectorAll('.category-tag[data-value="all"]').forEach(tag => {
+    tag.classList.add('active', 'border-[#2D874B]', 'bg-[#2D874B]/10');
   });
   applyFiltersAndRender();
 </script>
