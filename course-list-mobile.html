@@ -294,34 +294,24 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        /* 移动端分页 */
-        .mobile-pagination {
+        /* 无限滚动加载 */
+        .loading-indicator {
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 12px;
-            padding: 16px 0;
-        }
-
-        .mobile-pagination button {
-            padding: 8px 16px;
-            border-radius: 20px;
-            border: 1px solid #e5e7eb;
-            background: white;
+            align-items: center;
+            padding: 20px;
             color: #666;
+        }
+        .no-more-data {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #999;
             font-size: 14px;
         }
 
-        .mobile-pagination button.active {
-            background: #2D874B;
-            color: white;
-            border-color: #2D874B;
-        }
 
-        .mobile-pagination button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
 
         /* 移动端侧边栏导航 */
         .menu-overlay {
@@ -591,17 +581,12 @@
                 <!-- 卡片由 JS 注入 -->
             </div>
             
-            <!-- 移动端分页 -->
-            <div class="mobile-pagination mt-8">
-                <button id="prev-btn" disabled>
-                    <i class="fa fa-chevron-left"></i>
-                </button>
-                <div id="page-numbers" class="flex items-center gap-2">
-                    <!-- 页码由 JS 生成 -->
-                </div>
-                <button id="next-btn">
-                    <i class="fa fa-chevron-right"></i>
-                </button>
+            <!-- 无限滚动加载指示器 -->
+            <div id="loading-indicator" class="loading-indicator hidden">
+                <i class="fa fa-spinner fa-spin mr-2"></i> 加载中...
+            </div>
+            <div id="no-more-data" class="no-more-data hidden">
+                没有更多课程了
             </div>
         </section>
     </main>
@@ -835,9 +820,8 @@
         const filterOverlay = document.getElementById('filter-overlay');
         const filterClose = document.getElementById('filter-close');
         const filterApply = document.getElementById('filter-apply');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const pageNumbersEl = document.getElementById('page-numbers');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const noMoreData = document.getElementById('no-more-data');
         const menuToggle = document.getElementById('menu-toggle');
         const menuSidebar = document.getElementById('menu-sidebar');
         const menuOverlay = document.getElementById('menu-overlay');
@@ -958,20 +942,138 @@
         });
 
         // 分页按钮事件
-        prevBtn.addEventListener('click', () => {
-            if (currentPage > 1) {
-                currentPage--;
-                renderList();
+        // 无限滚动相关变量
+        let isLoading = false;
+        let hasMoreData = true;
+
+        // 滚动事件监听器
+        window.addEventListener('scroll', () => {
+            if (isLoading || !hasMoreData) return;
+
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+
+            // 当滚动到距离底部100px时，加载更多数据
+            if (scrollTop + windowHeight >= documentHeight - 100) {
+                loadMoreData();
             }
         });
 
-        nextBtn.addEventListener('click', () => {
-            const totalPages = Math.ceil(filteredCourses.length / pageSize) || 1;
-            if (currentPage < totalPages) {
+        // 加载更多数据
+        function loadMoreData() {
+            if (isLoading || !hasMoreData) return;
+
+            isLoading = true;
+            loadingIndicator.classList.remove('hidden');
+
+            // 模拟网络请求延迟
+            setTimeout(() => {
+                const total = filteredCourses.length;
+                const startIndex = currentPage * pageSize;
+                const endIndex = Math.min(startIndex + pageSize, total);
+
+                if (startIndex >= total) {
+                    hasMoreData = false;
+                    loadingIndicator.classList.add('hidden');
+                    noMoreData.classList.remove('hidden');
+                    isLoading = false;
+                    return;
+                }
+
+                const pageData = filteredCourses.slice(startIndex, endIndex);
+                renderMoreItems(pageData);
+
                 currentPage++;
-                renderList();
-            }
-        });
+                isLoading = false;
+                loadingIndicator.classList.add('hidden');
+
+                // 检查是否还有更多数据
+                if (currentPage * pageSize >= total) {
+                    hasMoreData = false;
+                    noMoreData.classList.remove('hidden');
+                }
+            }, 1000);
+        }
+
+        // 渲染更多项目
+        function renderMoreItems(items) {
+            items.forEach((course, index) => {
+                const card = document.createElement('article');
+                card.className = 'mobile-course-card glass-card rounded-3xl p-4 hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer';
+                card.innerHTML = `
+  <!-- 顶部：课程体系 + 热度 + 评分 -->
+  <div class="flex items-center justify-between mb-2">
+    <span class="text-[11px] text-[#2D874B] font-medium truncate max-w-[120px]">${course.system}</span>
+    <div class="flex items-center gap-2">
+      <span class="text-[11px] text-amber-600 flex items-center gap-1">
+        <i class="fa fa-star text-[10px] text-amber-500"></i>
+        ${course.rating}
+      </span>
+      <span class="text-[11px] text-[#B01F24] flex items-center gap-1">
+        <i class="fa fa-fire text-[10px] text-[#B01F24]"></i>
+        ${(course.learners / 1000).toFixed(1)}k
+      </span>
+    </div>
+  </div>
+  <!-- 标题 -->
+  <h3 class="text-base font-semibold line-clamp-2 mb-3 text-left text-gray-800">
+    ${course.name}
+  </h3>
+
+  <!-- 标题下方课程图片，居中展示 -->
+  <div class="course-card-img mb-3">
+    <a href="course-detail.html?id=${course.id}" target="_blank">
+    <img
+      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 400'%3E%3Cg fill='%23f0f0f0'%3E%3Crect width='800' height='400'/%3E%3Cg fill='%23ccc'%3E%3Ccircle cx='400' cy='200' r='60'/%3E%3Cpath d='M380 200h40M400 180v40' stroke='%23999' stroke-width='4' stroke-linecap='round'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"
+      data-src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
+      alt="${course.name}"
+      class="w-full object-cover h-48 rounded-xl lazyload"
+    />
+    </a>
+  </div>
+  <!-- 底部：左侧时间+人数，中间标签，右侧报名按钮 -->
+  <div class="mt-2 flex flex-col gap-2 text-[11px] text-gray-600">
+    <!-- 上架时间 & 学习人数 -->
+    <div class="flex items-center justify-between">
+      <div class="space-y-0.5">
+        <div><i class="fa fa-clock mr-1 text-[9px] text-gray-400"></i>上架时间：${course.date}</div>
+      </div>
+    </div>
+    <!-- 标签区域，与时间/人数同级 -->
+    <div class="flex flex-wrap justify-start gap-2">
+      <span class="inline-flex items-center px-2 py-1 rounded-full bg-gray-100 border border-gray-200">
+        <i class="fa fa-sitemap mr-1 text-[9px] text-[#2D874B]"></i>${course.scene}
+      </span>
+      <span class="inline-flex items-center px-2 py-1 rounded-full bg-gray-100 border border-gray-200">
+        <i class="fa fa-globe mr-1 text-[9px] text-[#2D874B]"></i>${course.domain}
+      </span>
+    </div>
+    <!-- 报名按钮：底色 B01F24 + 白字 -->
+    <div class="flex justify-end items-center">
+      <button class="enroll-btn px-4 py-2 rounded-full bg-[#2D874B] text-white text-[12px] font-medium hover:opacity-90"
+              data-id="${course.id}">
+        立即报名
+      </button>
+    </div>
+  </div>
+`;
+                courseList.appendChild(card);
+            });
+
+            // 绑定报名事件
+            document.querySelectorAll('.enroll-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = btn.dataset.id;
+                    const course = allCourses.find(c => c.id == id);
+                    alert(`已报名课程：「${course.name}」，即将跳转到课程详情页。`);
+                });
+            });
+
+            // 更新懒加载
+            updateLazyLoad();
+        }
 
         // 应用筛选 + 排序
         function applyFiltersAndRender() {
@@ -1002,13 +1104,12 @@
             renderList();
         }
 
-        // 渲染当前页列表
+        // 渲染初始列表
         function renderList() {
             courseList.innerHTML = '';
             const total = filteredCourses.length;
-            const totalPages = Math.ceil(total / pageSize) || 1;
-            const startIndex = (currentPage - 1) * pageSize;
-            const endIndex = Math.min(startIndex + pageSize, total);
+            const startIndex = 0;
+            const endIndex = Math.min(pageSize, total);
 
             const pageData = filteredCourses.slice(startIndex, endIndex);
             pageData.forEach((course, index) => {
@@ -1074,14 +1175,14 @@
                 courseList.appendChild(card);
             });
 
-            // 生成页码按钮
-            generatePageNumbers(totalPages);
+            // 重置无限滚动状态
+            currentPage = 1;
+            isLoading = false;
+            hasMoreData = true;
+            loadingIndicator.classList.add('hidden');
+            noMoreData.classList.add('hidden');
 
-            // 禁用/启用分页按钮
-            prevBtn.disabled = currentPage === 1;
-            nextBtn.disabled = currentPage === totalPages;
-
-            // 绑定报名事件（每次重新绑定）
+            // 绑定报名事件
             document.querySelectorAll('.enroll-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -1093,34 +1194,6 @@
 
             // 更新懒加载
             updateLazyLoad();
-        }
-        
-        // 生成页码按钮
-        function generatePageNumbers(totalPages) {
-            if (!pageNumbersEl) return;
-            
-            pageNumbersEl.innerHTML = '';
-            
-            // 计算显示的页码范围
-            let startPage = Math.max(1, currentPage - 1);
-            let endPage = Math.min(totalPages, startPage + 2);
-            
-            // 调整起始页码，确保显示3个页码
-            if (endPage - startPage < 2) {
-                startPage = Math.max(1, endPage - 2);
-            }
-            
-            // 添加页码
-            for (let i = startPage; i <= endPage; i++) {
-                const pageBtn = document.createElement('button');
-                pageBtn.className = `${i === currentPage ? 'active' : ''}`;
-                pageBtn.textContent = i;
-                pageBtn.addEventListener('click', () => {
-                    currentPage = i;
-                    renderList();
-                });
-                pageNumbersEl.appendChild(pageBtn);
-            }
         }
 
         // 页面切换功能

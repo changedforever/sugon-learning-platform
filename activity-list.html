@@ -335,62 +335,56 @@
   </section>
 
   <section class="max-w-7xl mx-auto px-4 lg:px-6">
-    <div class="flex flex-col lg:flex-row gap-6">
-      <!-- 左侧筛选侧边栏 -->
-      <aside class="w-full lg:w-64 flex-shrink-0">
-        <div class="glass-card rounded-2xl p-5">
-          <h3 class="text-lg font-semibold text-gray-800 mb-5">筛选</h3>
-          
-          <!-- 树形分类结构 -->
-          <div id="filter-tree" class="space-y-1">
-            <!-- 全部 -->
-            <div class="filter-category">
-              <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg">
-                <input type="radio" name="type-filter" class="type-filter-radio" value="all" checked>
-                <span class="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors">全部</span>
-              </label>
-            </div>
-
-            <!-- 技术分享 -->
-            <div class="filter-category">
-              <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg">
-                <input type="radio" name="type-filter" class="type-filter-radio" value="online">
-                <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">技术分享</span>
-              </label>
-            </div>
-
-            <!-- 产品发布 -->
-            <div class="filter-category">
-              <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg">
-                <input type="radio" name="type-filter" class="type-filter-radio" value="offline">
-                <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">产品发布</span>
-              </label>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      <!-- 右侧主内容区 -->
-      <div class="flex-1 min-w-0">
-        <!-- 顶部排序和搜索 -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-          <!-- 状态筛选选项 -->
-          <div class="flex items-center gap-2 flex-wrap">
-            <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-status="all">
+    <!-- 筛选栏 -->
+    <div class="space-y-4">
+      <!-- 活动分类标签 -->
+      <div class="p-4">
+        <!-- 分类筛选标签 -->
+        <div class="flex items-center gap-3 mb-3">
+          <span class="text-sm font-medium text-gray-700">类别</span>
+          <div id="filter-tags" class="flex flex-wrap gap-2">
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm active border-[#2D874B] bg-[#2D874B]/10" data-category="all">
               全部
             </button>
-            <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-status="upcoming">
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="live">
+              直播
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="industry-meeting">
+              行业会议
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="regional-meeting">
+              区域会议
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="exhibition">
+              展会
+            </button>
+          </div>
+        </div>
+
+        <!-- 状态筛选选项 -->
+        <div class="flex items-center gap-3">
+          <span class="text-sm font-medium text-gray-700">状态</span>
+          <div class="flex flex-wrap gap-2">
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm active border-[#2D874B] bg-[#2D874B]/10" data-status="all">
+              全部
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-status="upcoming">
               未开始
             </button>
-            <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-status="live">
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-status="live">
               进行中
             </button>
-            <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-status="ended">
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-status="ended">
               已结束
             </button>
           </div>
+        </div>
+      </div>
 
-          <!-- 搜索框 -->
+      <!-- 右侧主内容区 -->
+      <div class="flex-1 min-w-0">
+        <!-- 搜索框 -->
+        <div class="flex justify-end mb-6">
           <div class="relative flex-shrink-0">
             <i class="fa fa-search text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2 text-sm"></i>
             <input id="search-input"
@@ -430,7 +424,7 @@
       title: "云原生架构设计实战工作坊",
       datetime: "2026-01-20 19:00-21:00",
       place: "上海 · 陆家嘴",
-      type: "online",
+      type: "live",
       status: "upcoming", // upcoming: 倒计时, live: 活动中, ended: 已结束
       attendees: 1234,
       imageUrl: "./images/news-detail.webp"
@@ -440,7 +434,7 @@
       title: "AI 与数据智能技术沙龙",
       datetime: "2026-01-18 14:00-17:30",
       place: "北京 · 中关村创新中心 3F",
-      type: "offline",
+      type: "industry-meeting",
       status: "live",
       attendees: 856,
       imageUrl: "./images/news-detail.webp"
@@ -450,7 +444,7 @@
       title: "行业解决方案深度交流会（金融专场）",
       datetime: "2025-12-30 13:30-17:00",
       place: "上海 · 陆家嘴 XX 大厦 18F",
-      type: "offline",
+      type: "industry-meeting",
       status: "ended",
       attendees: 620,
       imageUrl: "./images/news-detail.webp"
@@ -460,7 +454,7 @@
       title: "DevOps 工具链与实践体验营",
       datetime: "2026-02-05 09:00-17:00",
       place: "杭州 · 云栖小镇会议中心",
-      type: "offline",
+      type: "regional-meeting",
       status: "upcoming",
       attendees: 432,
       imageUrl: "./images/news-detail.webp"
@@ -470,7 +464,7 @@
       title: "生态技术领袖闭门交流会",
       datetime: "2025-12-25 18:30-21:00",
       place: "北京 · 中关村会议中心",
-      type: "online",
+      type: "live",
       status: "ended",
       attendees: 210,
       imageUrl: "./images/news-detail.webp"
@@ -480,7 +474,7 @@
       title: "伙伴销售能力提升训练营",
       datetime: "2026-01-22 09:30-17:30",
       place: "深圳 · 科技园会议中心",
-      type: "offline",
+      type: "exhibition",
       status: "upcoming",
       attendees: 980,
       imageUrl: "./images/news-detail.webp"
@@ -530,12 +524,12 @@
   // ========== 3. 渲染活动卡片 ==========
   const gridEl = document.getElementById('activity-grid');
   const searchInput = document.getElementById('search-input');
-  const typeFilterRadios = document.querySelectorAll('.type-filter-radio');
+  const categoryTags = document.querySelectorAll('.category-tag');
   const sortButtons = document.querySelectorAll('.sort-btn');
   
   // 添加筛选参数
   const filters = {
-    type: 'all',  // all / online / offline
+    type: 'all',  // all / live / industry-meeting / regional-meeting / exhibition
     search: '',
     status: 'all'  // all / upcoming / live / ended
   };
@@ -559,7 +553,13 @@
       const card = document.createElement('article');
       card.className = 'glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#2D874B]/80 transition';
 
-      const isOnline = act.type === 'online';
+      const typeCfg = {
+        'live': { text: '直播', icon: 'fa-video' },
+        'industry-meeting': { text: '行业会议', icon: 'fa-users' },
+        'regional-meeting': { text: '区域会议', icon: 'fa-map-marker-alt' },
+        'exhibition': { text: '展会', icon: 'fa-store' }
+      }[act.type] || { text: '活动', icon: 'fa-calendar' };
+      
       const statusCfg = {
         upcoming: { text: '倒计时', cls: 'status-badge-upcoming', icon: 'fa-hourglass-half' },
         live: { text: '活动中', cls: 'status-badge-live', icon: 'fa-signal' },
@@ -581,11 +581,9 @@
           <div class="flex flex-col flex-1 justify-between">
             <div>
               <div class="flex items-center justify-between mb-2">
-                <span class="text-[11px] inline-flex items-center px-2 py-0.5 rounded-full bg-white border border-gray-300 ${
-                  isOnline ? 'text-[#2D874B]' : 'text-[#2D874B]'
-                }">
-                  <i class="fa ${isOnline ? 'fa-wifi' : 'fa-building'} mr-1 text-[9px] text-[#2D874B]"></i>
-                  ${isOnline ? '技术分享' : '产品发布'}
+                <span class="text-[11px] inline-flex items-center px-2 py-0.5 rounded-full bg-white border border-gray-300 text-[#2D874B]">
+                  <i class="fa ${typeCfg.icon} mr-1 text-[9px] text-[#2D874B]"></i>
+                  ${typeCfg.text}
                 </span>
                 <span class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] ${statusCfg.cls}">
                   <i class="fa ${statusCfg.icon} mr-1 text-[9px]"></i>${statusCfg.text}
@@ -652,20 +650,32 @@
     });
   }
 
-  // 类型筛选（radio按钮）
-  typeFilterRadios.forEach(radio => {
-    radio.addEventListener('change', () => {
-      filters.type = radio.value;
+  // 类型筛选（标签按钮）
+  categoryTags.forEach(tag => {
+    tag.addEventListener('click', () => {
+      // 移除所有标签的active状态
+      categoryTags.forEach(t => {
+        t.classList.remove('active', 'border-[#2D874B]', 'bg-[#2D874B]/10');
+      });
+      // 添加当前标签的active状态
+      tag.classList.add('active', 'border-[#2D874B]', 'bg-[#2D874B]/10');
+      
+      filters.type = tag.dataset.category;
       applyFiltersAndRender();
     });
   });
 
   // 状态筛选按钮
-  sortButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      sortButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      filters.status = btn.dataset.status;
+  const statusTags = document.querySelectorAll('[data-status]');
+  statusTags.forEach(tag => {
+    tag.addEventListener('click', () => {
+      // 移除所有标签的active状态
+      statusTags.forEach(t => {
+        t.classList.remove('active', 'border-[#2D874B]', 'bg-[#2D874B]/10');
+      });
+      // 添加当前标签的active状态
+      tag.classList.add('active', 'border-[#2D874B]', 'bg-[#2D874B]/10');
+      filters.status = tag.dataset.status;
       applyFiltersAndRender();
     });
   });
@@ -711,9 +721,9 @@
   document.head.appendChild(styleSheet);
 
   // 初始化：默认激活「全部」状态
-  sortButtons.forEach(btn => {
-    if (btn.dataset.status === 'all') {
-      btn.classList.add('active');
+  statusTags.forEach(tag => {
+    if (tag.dataset.status === 'all') {
+      tag.classList.add('active', 'border-[#2D874B]', 'bg-[#2D874B]/10');
     }
   });
 

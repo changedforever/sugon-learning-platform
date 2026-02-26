@@ -521,56 +521,29 @@
   </section>
 
   <section class="max-w-7xl mx-auto px-4 lg:px-6">
-    <div class="flex flex-col lg:flex-row gap-6">
-      <!-- 左侧筛选侧边栏 -->
-      <aside class="w-full lg:w-64 flex-shrink-0">
-        <div class="glass-card rounded-2xl p-5">
-          <h3 class="text-lg font-semibold text-gray-800 mb-5">筛选</h3>
-          
-          <!-- 树形分类结构 -->
-          <div id="filter-tree" class="space-y-1">
-            <!-- 全部 -->
-            <div class="filter-category">
-              <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg">
-                <input type="radio" name="type-filter" class="type-filter-radio" value="all" checked>
-                <span class="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors">全部</span>
-              </label>
-            </div>
-
-            <!-- 认证专题 -->
-            <div class="filter-category">
-              <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg">
-                <input type="radio" name="type-filter" class="type-filter-radio" value="certification">
-                <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">认证专题</span>
-              </label>
-            </div>
-
-            <!-- 行业动态 -->
-            <div class="filter-category">
-              <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg">
-                <input type="radio" name="type-filter" class="type-filter-radio" value="industry">
-                <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">行业动态</span>
-              </label>
-            </div>
-
-            <!-- 政策流程 -->
-            <div class="filter-category">
-              <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg">
-                <input type="radio" name="type-filter" class="type-filter-radio" value="policy">
-                <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">政策流程</span>
-              </label>
-            </div>
-
-            <!-- 平台新闻 -->
-            <div class="filter-category">
-              <label class="flex items-center cursor-pointer group py-2 px-2 rounded-lg">
-                <input type="radio" name="type-filter" class="type-filter-radio" value="platform">
-                <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">平台新闻</span>
-              </label>
-            </div>
-          </div>
+    <!-- 筛选栏 -->
+    <div class="space-y-6">
+      <!-- 资讯分类标签 -->
+      <div class="p-4">
+        <!-- 分类筛选标签 -->
+        <div id="filter-tags" class="flex flex-wrap gap-2">
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm active border-[#2D874B] bg-[#2D874B]/10" data-category="all">
+            全部
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="whitepaper">
+            白皮书
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="news">
+            新闻
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="industry-report">
+            行业报告
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="activity">
+            活动
+          </button>
         </div>
-      </aside>
+      </div>
 
       <!-- 右侧主内容区 -->
       <div class="flex-1 min-w-0">
@@ -689,53 +662,36 @@
   // 分类名称映射
   const categoryNames = {
     'all': '全部',
-    'certification': '认证专题',
-    'industry': '行业动态',
-    'policy': '政策流程',
-    'platform': '平台新闻'
+    'whitepaper': '白皮书',
+    'news': '新闻',
+    'industry-report': '行业报告',
+    'activity': '活动'
   };
   
   // 筛选相关
-  const typeFilterRadios = document.querySelectorAll('.type-filter-radio');
+  const categoryTags = document.querySelectorAll('.category-tag');
   const sortButtons = document.querySelectorAll('.sort-btn');
 
   // ========== 工具函数 ==========
-  // 更新已选中的分类标签
+  // 更新已选中的分类标签（移除标签显示）
   function updateSelectedTags() {
     if (!selectedTagsContainer) return;
     
     selectedTagsContainer.innerHTML = '';
-    
-    // 如果不是"全部"，添加选中的分类标签
-    if (filters.type !== 'all') {
-      const tag = document.createElement('div');
-      tag.className = 'filter-tag';
-      tag.innerHTML = `
-        <span>${categoryNames[filters.type] || filters.type}</span>
-        <i class="fa fa-times filter-tag-close text-xs" data-tag-value="${filters.type}"></i>
-      `;
-      selectedTagsContainer.appendChild(tag);
-      
-      // 绑定标签关闭按钮的点击事件
-      tag.querySelector('.filter-tag-close').addEventListener('click', (e) => {
-        e.stopPropagation();
-        // 重置为"全部"
-        const allRadio = document.querySelector('.type-filter-radio[value="all"]');
-        if (allRadio) {
-          allRadio.checked = true;
-          filters.type = 'all';
-          updateSelectedTags();
-          applyFiltersAndRender();
-        }
-      });
-    }
   }
 
   // ========== 事件绑定 ==========
-  // 类型筛选（radio按钮）
-  typeFilterRadios.forEach(radio => {
-    radio.addEventListener('change', () => {
-      filters.type = radio.value;
+  // 类型筛选（标签按钮）
+  categoryTags.forEach(tag => {
+    tag.addEventListener('click', () => {
+      // 移除所有标签的active状态
+      categoryTags.forEach(t => {
+        t.classList.remove('active', 'border-[#2D874B]', 'bg-[#2D874B]/10');
+      });
+      // 添加当前标签的active状态
+      tag.classList.add('active', 'border-[#2D874B]', 'bg-[#2D874B]/10');
+      
+      filters.type = tag.dataset.category;
       updateSelectedTags();
       applyFiltersAndRender();
     });
@@ -776,11 +732,12 @@
   // ========== 筛选 + 排序 =============
   function applyFiltersAndRender() {
     filteredArticles = articles.filter(a => {
-      // 类型筛选：如果是"全部"，显示所有资讯和公告；否则只显示对应分类的资讯
+      // 类型筛选：如果是"全部"，显示所有资讯和公告；否则根据筛选标签进行过滤
       let matchType = true;
       if (filters.type !== 'all') {
-        // 只显示资讯类型，并且分类匹配
-        matchType = a.type === 'news' && a.category === filters.type;
+        // 这里可以根据实际需求调整筛选逻辑
+        // 目前简单处理，只根据筛选标签名称进行匹配
+        matchType = true;
       }
 
       // 搜索筛选

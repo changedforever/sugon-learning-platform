@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>个人中心 - HIECO 光合技术支持平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: #FFFFFF;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid #e5e7eb;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .profile-avatar {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #B01F24, #d946ef);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+
+    .main-tab-active {
+      color: #B01F24;
+      background: white;
+      border-bottom: 2px solid #B01F24;
+    }
+    .main-tab {
+      background: white;
+      color: #6b7280;
+    }
+
+    .badge-verified {
+      background: rgba(16,185,129,0.12);
+      color: #10b981;
+      border-color: rgba(16,185,129,0.5);
+    }
+    .badge-unverified {
+      background: rgba(248,113,113,0.12);
+      color: #f87171;
+      border-color: rgba(248,113,113,0.5);
+    }
+
+    .status-upcoming {
+      background: rgba(56,189,248,0.12);
+      color: #0ea5e9;
+      border-color: rgba(56,189,248,0.5);
+    }
+    .status-live {
+      background: rgba(248,113,113,0.12);
+      color: #f87171;
+      border-color: rgba(248,113,113,0.5);
+    }
+    .status-ended {
+      background: rgba(148,163,184,0.15);
+      color: #9ca3af;
+      border-color: rgba(148,163,184,0.7);
+    }
+    .status-pass {
+      background: rgba(16,185,129,0.12);
+      color: #10b981;
+      border-color: rgba(16,185,129,0.5);
+    }
+    .status-fail {
+      background: rgba(248,113,113,0.12);
+      color: #f87171;
+      border-color: rgba(248,113,113,0.5);
+    }
+    .status-wait {
+      background: rgba(251,191,36,0.12);
+      color: #fbbf24;
+      border-color: rgba(251,191,36,0.5);
+    }
+    
+    .status-badge {
+      font-size: 0.75rem; /* text-sm equivalent but slightly smaller */
+      padding: 0.125rem 0.5rem; /* py-0.5 px-2 equivalent */
+      border-radius: 9999px; /* full round for pill shape */
+    }
+    .domain-badge2 {
+      border: 1px solid #ddd;
+      padding: 4px 8px;
+      border-radius: 20px;
+      color: #666 !important;
+      background-color: #fff !important;
+    }
+    
+    /* 导航栏样式 */
+    .navbar {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    /* 侧边栏样式 */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: 100vh;
+      background: white;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+      z-index: 60;
+      transition: right 0.3s ease;
+      overflow-y: auto;
+    }
+    
+    .sidebar.active {
+      right: 0;
+    }
+    
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      z-index: 50;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* 标签页样式 */
+    .tab-container {
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    
+    .tab-container::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* 卡片阴影效果 */
+    .card-shadow {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    
+    /* 动画效果 */
+    .fade-in {
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- 顶部导航栏 -->
+<header class="navbar fixed top-0 inset-x-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-16 relative">
+      <!-- LOGO + 品牌 -->
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+          <img src="images/logo2.png" alt="HIECO Logo" class="h-8 w-8 object-contain">
+        </a>
+        <div>
+          <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200">个人中心</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 右侧功能区 -->
+      <div class="flex items-center space-x-3">
+        <!-- 系统消息按钮 -->
+        <div class="relative group">
+          <button id="message-icon-btn" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center relative">
+            <i class="fa fa-bell text-gray-600 text-sm"></i>
+            <span class="absolute top-0 right-0 h-4 w-4 rounded-full bg-[#B01F24] text-white text-[10px] flex items-center justify-center">3</span>
+          </button>
+          <!-- 消息下拉浮窗 -->
+          <div id="message-dropdown" class="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-gray-300 z-50 hidden group-hover:block">
+            <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200">
+              <h3 class="text-sm font-semibold text-gray-800">系统消息</h3>
+              <button id="mark-all-read-btn" class="text-xs text-[#B01F24] hover:underline">全部已读</button>
+            </div>
+            <div class="max-h-80 overflow-y-auto">
+              <div class="message-item p-3 border-b border-gray-100 hover:bg-gray-50 relative">
+                <div class="absolute top-3 left-3 h-2 w-2 rounded-full bg-[#B01F24]"></div>
+                <div class="pl-6">
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-800">中奖通知</span>
+                    <span class="text-xs text-gray-400">5分钟前</span>
+                  </div>
+                  <p class="text-xs text-gray-600">恭喜您在《云计算基础》直播课程的抽奖活动中中奖，获得「云计算基础书籍」一本，请及时领取奖品。</p>
+                </div>
+              </div>
+              <div class="message-item p-3 border-b border-gray-100 hover:bg-gray-50 relative">
+                <div class="absolute top-3 left-3 h-2 w-2 rounded-full bg-[#B01F24]"></div>
+                <div class="pl-6">
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-800">课程报名结果</span>
+                    <span class="text-xs text-gray-400">10分钟前</span>
+                  </div>
+                  <p class="text-xs text-gray-600">您报名的《云计算基础》课程已成功通过审核，课程将于明天开始。</p>
+                </div>
+              </div>
+              <div class="message-item p-3 border-b border-gray-100 hover:bg-gray-50 relative">
+                <div class="absolute top-3 left-3 h-2 w-2 rounded-full bg-[#B01F24]"></div>
+                <div class="pl-6">
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-800">直播开播提醒</span>
+                    <span class="text-xs text-gray-400">1小时前</span>
+                  </div>
+                  <p class="text-xs text-gray-600">您关注的《Kubernetes进阶》直播将于30分钟后开始，请及时进入直播间。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 移动端菜单按钮 -->
+        <button id="menu-toggle" class="inline-flex items-center justify-center h-9 w-9 rounded-full bg-gray-300 text-gray-800">
+          <i class="fa fa-bars text-lg"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 侧边栏导航 -->
+<div id="sidebar" class="sidebar">
+  <div class="p-4 border-b border-gray-200">
+    <div class="flex items-center space-x-3">
+      <div class="profile-avatar">
+        <span>U</span>
+      </div>
+      <div>
+        <div class="font-medium">周圆圆</div>
+        <div class="text-xs text-gray-500">联想集团 · 技术人员</div>
+      </div>
+    </div>
+  </div>
+  <nav class="p-4">
+    <ul class="space-y-4">
+      <li>
+        <a href="personal-center-mobile.html" class="flex items-center space-x-3 p-2 rounded-lg bg-[#fef2f2] text-[#B01F24]">
+          <i class="fa fa-user"></i>
+          <span>个人中心</span>
+        </a>
+      </li>
+      <li>
+        <a href="course-list-mobile.html" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100">
+          <i class="fa fa-book"></i>
+          <span>课程列表</span>
+        </a>
+      </li>
+      <li>
+        <a href="expert-center.html" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100">
+          <i class="fa fa-headset"></i>
+          <span>专家中心</span>
+        </a>
+      </li>
+      <li>
+        <a href="live-list.html" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100">
+          <i class="fa fa-video"></i>
+          <span>直播列表</span>
+        </a>
+      </li>
+      <li>
+        <a href="resource-center.html" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100">
+          <i class="fa fa-folder"></i>
+          <span>资源中心</span>
+        </a>
+      </li>
+      <li>
+        <a href="news-announcement-list.html" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100">
+          <i class="fa fa-newspaper"></i>
+          <span>资讯公告</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://forum.sourcefind.cn/" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100">
+          <i class="fa fa-comments"></i>
+          <span>论坛</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="absolute bottom-4 left-4 right-4">
+    <button id="sidebar-close" class="w-full py-2 rounded-lg bg-gray-200 text-gray-700">
+      <i class="fa fa-times mr-2"></i>关闭菜单
+    </button>
+  </div>
+</div>
+
+<!-- 侧边栏遮罩 -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<main class="pt-20 pb-10">
+  <section class="max-w-7xl mx-auto px-4 lg:px-6 space-y-6">
+    <!-- 面包屑导航 -->
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center space-x-3">
+        <!-- 返回按钮 -->
+        <a href="index.html" class="flex items-center space-x-2 group">
+          <button class="h-8 w-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center text-[#2D874B] group-hover:border-[#2D874B]">
+            <i class="fa fa-chevron-left text-[#2D874B] text-xs"></i>
+          </button>
+        </a>
+        <!-- 面包屑路径 -->
+        <div class="text-xs text-gray-600 flex items-center space-x-1">
+          <a href="index.html" class="hover:text-[#2D874B]">首页</a>
+          <span>&gt;</span>
+          <span class="text-gray-800 font-medium">个人中心</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 顶部个人信息总览 -->
+    <section class="glass-card rounded-3xl border border-gray-300 p-4 md:p-6 relative z-10 card-shadow">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="profile-avatar" id="profile-avatar">
+            <span id="profile-avatar-text">U</span>
+          </div>
+          <div class="space-y-1 text-xs">
+            <div class="flex items-center gap-2">
+              <span id="profile-name-display" class="text-base font-semibold text-gray-800">周圆圆</span>
+              <button id="auth-badge" class="inline-flex items-center px-2 py-0.5 rounded-full border text-[11px] badge-unverified cursor-pointer">
+                <i class="fa fa-circle-exclamation mr-1 text-[9px]"></i> 未关联组织
+              </button>
+            </div>
+            <div class="flex items-center gap-1">
+              <i class="fa-solid fa-coins text-yellow-500"></i>
+              <span class="text-xs text-gray-700">积分: <span id="profile-points" class="font-semibold">1,280</span></span>
+            </div>
+            <div class="text-gray-400 flex flex-wrap gap-3">
+              <span id="profile-company-display" class="text-gray-600">联想集团</span>
+              <span class="text-gray-500">·</span>
+              <span id="profile-role-display" class="text-gray-600">技术人员</span>
+            </div>
+          </div>
+        </div>
+        <div class="text-[11px] text-gray-400 space-y-1 lg:text-right hidden">
+          <div>在学课程：<span class="text-[#B01F24]" id="summary-learning">0</span> 门</div>
+          <div>通过考试：<span class="text-[#B01F24]" id="summary-exams">0</span> 门</div>
+          <div>已获证书：<span class="text-[#B01F24]" id="summary-cert">2</span> 张</div>
+          <div>待考试/活动：<span class="text-[#B01F24]" id="summary-todo">0</span> 项</div>
+        </div>
+      </div>
+      
+      <!-- 新增：专家服务、在学课程、通过考试、已获证书横向排列 -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
+        <div class="text-center">
+          <div class="text-gray-400 text-[11px]">专家服务</div>
+          <div class="text-[#B01F24] text-lg font-semibold">12</div>
+          <div class="text-[11px] text-gray-400">次</div>
+        </div>
+        <div class="text-center">
+          <div class="text-gray-400 text-[11px]">在学课程</div>
+          <div id="summary-learning-large" class="text-[#B01F24] text-lg font-semibold">0</div>
+          <div class="text-[11px] text-gray-400">门</div>
+        </div>
+        <div class="text-center">
+          <div class="text-gray-400 text-[11px]">通过考试</div>
+          <div id="summary-exams-large" class="text-[#B01F24] text-lg font-semibold">0</div>
+          <div class="text-[11px] text-gray-400">门</div>
+        </div>
+        <div class="text-center">
+          <div class="text-gray-400 text-[11px]">已获证书</div>
+          <div id="summary-cert-large" class="text-[#B01F24] text-lg font-semibold">2</div>
+          <div class="text-[11px] text-gray-400">张</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第二行：支持概览 / 能力概览 -->
+    <section class="grid gap-4 md:grid-cols-2">
+      <!-- 支持概览 -->
+      <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5 space-y-3 card-shadow">
+        <div class="flex items-center justify-between mb-1">
+          <h2 class="text-sm md:text-base font-semibold text-gray-800 flex items-center gap-2">
+            <i class="fa fa-chart-line text-[#B01F24]"></i> 支持概览
+          </h2>
+        </div>
+        <div class="grid grid-cols-2 gap-3 text-xs">
+          <div class="rounded-2xl bg-white border border-gray-300 p-3">
+            <div class="text-gray-400 mb-1">已获专家服务</div>
+            <div id="overview-expert-support" class="text-lg font-semibold text-[#B01F24]">12</div>
+          </div>
+          <div class="rounded-2xl bg-white border border-gray-300 p-3">
+            <div class="text-gray-400 mb-1">已完成/报名课程</div>
+            <div id="overview-completed-enrolled" class="text-lg font-semibold text-[#B01F24]">3/12</div>
+          </div>
+          <div class="rounded-2xl bg-white border border-gray-300 p-3">
+            <div class="text-gray-400 mb-1">已通过/报名考试</div>
+            <div id="overview-passed-exams" class="text-lg font-semibold text-[#B01F24]">2/5</div>
+          </div>
+          <div class="rounded-2xl bg-white border border-gray-300 p-3">
+            <div class="text-gray-400 mb-1">观看/预约直播</div>
+            <div id="overview-watched-live" class="text-lg font-semibold text-[#B01F24]">8/15</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 能力概览 -->
+      <article class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5 space-y-3 card-shadow">
+        <div class="flex items-center justify-between mb-1">
+          <h2 class="text-sm md:text-base font-semibold text-gray-800 flex items-center gap-2">
+            <i class="fa fa-award text-[#B01F24]"></i> 能力概览
+          </h2>
+        </div>
+        <ul id="ability-cert-list" class="text-xs text-gray-600 space-y-2">
+          <li class="flex items-center justify-between p-2 border border-gray-200 rounded-lg">
+            <span>云计算架构师</span>
+            <span class="text-[#B01F24]">已获得</span>
+          </li>
+          <li class="flex items-center justify-between p-2 border border-gray-200 rounded-lg">
+            <span>网络安全专家</span>
+            <span class="text-[#B01F24]">已获得</span>
+          </li>
+          <li class="flex items-center justify-between p-2 border border-gray-200 rounded-lg">
+            <span>DevOps工程师</span>
+            <span class="text-gray-400">学习中</span>
+          </li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- Tab：我的服务 / 我的任务 / 我的课程 / 我的证书 / 我的直播 / 我的活动 / 我的收藏 / 消息中心 -->
+    <section class="space-y-4">
+      <div class="tab-container flex gap-2 text-base overflow-x-auto pb-2">
+        <button class="main-tab main-tab-active px-3 py-1.5 whitespace-nowrap" data-target="tab-service">
+          <i class="fa fa-headset mr-1 text-sm text-[#B01F24]"></i> 我的服务
+        </button>
+        <button class="main-tab px-3 py-1.5 whitespace-nowrap" data-target="tab-tasks">
+          <i class="fa fa-tasks mr-1 text-sm text-[#B01F24]"></i> 我的任务
+        </button>
+        <button class="main-tab px-3 py-1.5 whitespace-nowrap" data-target="tab-learning">
+          <i class="fa fa-book-open mr-1 text-sm text-[#B01F24]"></i> 我的课程
+        </button>
+        <button class="main-tab px-3 py-1.5 whitespace-nowrap" data-target="tab-exams">
+          <i class="fa fa-file-pen mr-1 text-sm text-[#B01F24]"></i> 我的考试
+        </button>
+        <button class="main-tab px-3 py-1.5 whitespace-nowrap" data-target="tab-live">
+          <i class="fa fa-video mr-1 text-sm text-[#B01F24]"></i> 我的直播
+        </button>
+      </div>
+
+      <!-- 更多标签 -->
+      <div class="flex gap-2 mb-4">
+        <button class="main-tab px-3 py-1.5" data-target="tab-events">
+          <i class="fa fa-calendar-check mr-1 text-sm text-[#B01F24]"></i> 我的活动
+        </button>
+        <button class="main-tab px-3 py-1.5" data-target="tab-favorites">
+          <i class="fa fa-star mr-1 text-sm text-[#B01F24]"></i> 我的收藏
+        </button>
+        <button class="main-tab px-3 py-1.5" data-target="tab-following">
+          <i class="fa fa-heart mr-1 text-sm text-[#B01F24]"></i> 我的关注
+        </button>
+      </div>
+
+      <!-- 我的服务：服务记录列表 -->
+      <section id="tab-service" class="main-panel">
+        <!-- 筛选标签和搜索栏 -->
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div class="flex flex-wrap gap-2">
+            <button class="filter-btn-task active px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="all">全部</button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="cpu">CPU</button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="dcp">DCP</button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="os-db-cloud">操作系统/数据库/云</button>
+          </div>
+          <div class="flex items-center">
+            <div class="flex">
+              <input 
+                type="text" 
+                placeholder="搜索服务..." 
+                class="pl-8 pr-4 py-1.5 text-sm border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-[#B01F24] focus:border-transparent w-48"
+              >
+              <button class="px-3 py-1.5 bg-[#B01F24] text-white rounded-r-lg hover:bg-[#9a1b1f] transition flex items-center justify-center">
+                <i class="fa fa-search text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 服务记录列表 -->
+        <div class="mb-8">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-base font-bold text-gray-800">专家服务记录</h2>
+            <div class="text-sm text-gray-500">
+              共 <span id="service-count">12</span> 条服务记录
+            </div>
+          </div>
+          
+          <div class="space-y-4" id="service-list">
+            <!-- 服务记录示例 -->
+            <div class="service-record-card bg-white rounded-xl p-4 border-l-4 border-[#2D874B] fade-in card-shadow">
+              <div class="flex flex-col md:flex-row md:items-center justify-between">
+                <div class="flex-1 mb-4 md:mb-0">
+                  <div class="flex items-center flex-wrap gap-2">
+                    <h3 class="text-base font-semibold text-gray-800">张明 - 云计算专家</h3>
+                    <span class="status-badge bg-green-100 text-green-700 border border-green-300">已解决</span>
+                  </div>
+                  <p class="text-gray-600 mt-2">Q：如何优化Kubernetes集群性能？</p>
+                  <p class="text-gray-600 text-sm">A：通过合理配置资源请求和限制，优化调度策略，使用节点亲和性和反亲和性，以及定期清理未使用的资源，可以显著提升Kubernetes集群性能。</p>
+                  <div class="flex items-center text-sm text-gray-500 mt-2 flex-wrap gap-4">
+                    <span class="flex items-center"><i class="fa fa-clock mr-1"></i> 2024-01-15 14:30</span>
+                    <span class="flex items-center"><i class="fa fa-tag mr-1"></i> 性能优化</span>
+                  </div>
+                </div>
+                <div class="flex space-x-2">
+                  <button class="px-3 py-1.5 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition">
+                    <i class="fa fa-eye mr-1 text-xs"></i> 查看沟通记录
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="service-record-card bg-white rounded-xl p-4 border-l-4 border-[#2D874B] fade-in card-shadow">
+              <div class="flex flex-col md:flex-row md:items-center justify-between">
+                <div class="flex-1 mb-4 md:mb-0">
+                  <div class="flex items-center flex-wrap gap-2">
+                    <h3 class="text-base font-semibold text-gray-800">李华 - 运维专家</h3>
+                    <span class="status-badge bg-orange-100 text-orange-600 border border-orange-300">处理中</span>
+                  </div>
+                  <p class="text-gray-600 mt-2">Q：服务器异常重启如何排查？</p>
+                  <p class="text-gray-600 text-sm">A：首先检查系统日志和应用日志，分析重启前的错误信息；其次检查硬件状态，包括内存、硬盘和电源；最后检查系统负载和进程情况，识别可能的资源耗尽问题。</p>
+                  <div class="flex items-center text-sm text-gray-500 mt-2 flex-wrap gap-4">
+                    <span class="flex items-center"><i class="fa fa-clock mr-1"></i> 2024-01-14 09:15</span>
+                    <span class="flex items-center"><i class="fa fa-tag mr-1"></i> 故障排查</span>
+                  </div>
+                </div>
+                <div class="flex space-x-2">
+                  <button class="px-3 py-1.5 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition">
+                    <i class="fa fa-eye mr-1 text-xs"></i> 查看沟通记录
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="service-record-card bg-white rounded-xl p-4 border-l-4 border-[#2D874B] fade-in card-shadow">
+              <div class="flex flex-col md:flex-row md:items-center justify-between">
+                <div class="flex-1 mb-4 md:mb-0">
+                  <div class="flex items-center flex-wrap gap-2">
+                    <h3 class="text-base font-semibold text-gray-800">王强 - 安全专家</h3>
+                    <span class="status-badge bg-green-100 text-green-700 border border-green-300">已解决</span>
+                  </div>
+                  <p class="text-gray-600 mt-2">Q：如何分析Web应用安全漏洞扫描结果？</p>
+                  <p class="text-gray-600 text-sm">A：首先对扫描结果进行分类和优先级排序，重点关注高危漏洞；其次验证漏洞的真实性，排除误报；最后根据漏洞类型制定相应的修复方案，包括代码修复、配置调整和安全控制措施。</p>
+                  <div class="flex items-center text-sm text-gray-500 mt-2 flex-wrap gap-4">
+                    <span class="flex items-center"><i class="fa fa-clock mr-1"></i> 2024-01-13 16:45</span>
+                    <span class="flex items-center"><i class="fa fa-tag mr-1"></i> 安全审计</span>
+                  </div>
+                </div>
+                <div class="flex space-x-2">
+                  <button class="px-3 py-1.5 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition">
+                    <i class="fa fa-eye mr-1 text-xs"></i> 查看沟通记录
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 查看更多按钮 -->
+            <div class="text-center mt-6">
+              <button id="load-more-services" class="px-6 py-2 rounded-lg bg-white border border-[#B01F24] text-[#B01F24] text-sm hover:bg-[#fef2f2] transition">
+                <i class="fa fa-plus mr-1"></i> 查看更多
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 我的任务：任务列表 -->
+      <section id="tab-tasks" class="main-panel hidden">
+        <!-- 筛选按钮和搜索栏 -->
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div class="flex flex-wrap gap-2">
+            <button class="filter-btn-task active px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="all">全部</button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="派发">派发</button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="自主申请">自主申请</button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="待开始">待开始</button>
+          </div>
+          <div class="flex items-center">
+            <div class="flex">
+              <input 
+                type="text" 
+                id="task-search-input" 
+                placeholder="搜索任务..." 
+                class="pl-8 pr-4 py-1.5 text-sm border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-[#B01F24] focus:border-transparent w-48"
+              >
+              <button class="px-3 py-1.5 bg-[#B01F24] text-white rounded-r-lg hover:bg-[#9a1b1f] transition flex items-center justify-center">
+                <i class="fa fa-search text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="task-list" class="space-y-3">
+          <!-- 任务列表将通过JS注入 -->
+          <div class="bg-white rounded-xl p-4 card-shadow">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-semibold">完成Kubernetes课程学习</h3>
+              <span class="text-xs text-gray-500">2024-01-30</span>
+            </div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">进行中</span>
+              <span class="text-xs text-gray-500">进度: 60%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-[#B01F24] h-2 rounded-full" style="width: 60%"></div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl p-4 card-shadow">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-semibold">准备网络安全认证考试</h3>
+              <span class="text-xs text-gray-500">2024-02-15</span>
+            </div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">待开始</span>
+              <span class="text-xs text-gray-500">进度: 0%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-[#B01F24] h-2 rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 我的学习：课程列表 + 进度 -->
+      <section id="tab-learning" class="main-panel hidden">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <!-- 筛选标签 -->
+          <div class="mb-4 flex flex-wrap gap-2">
+            <button class="filter-btn-task active px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="all">全部</button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="进行中">进行中</button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="已报名">已报名</button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="已完成">已完成</button>
+          </div>
+        </div>
+        <div id="learning-list" class="grid sm:grid-cols-2 gap-4">
+          <!-- 课程卡片示例 -->
+          <div class="bg-white rounded-xl p-4 card-shadow">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-semibold">Kubernetes进阶实践</h3>
+              <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">进行中</span>
+            </div>
+            <div class="text-xs text-gray-500 mb-2">讲师：张教授</div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-3">
+              <div class="bg-[#B01F24] h-2 rounded-full" style="width: 60%"></div>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-gray-500">12/20课时</span>
+              <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300 transition">
+                继续学习
+              </button>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl p-4 card-shadow">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-semibold">网络安全防护实战</h3>
+              <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">已完成</span>
+            </div>
+            <div class="text-xs text-gray-500 mb-2">讲师：王强</div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-3">
+              <div class="bg-[#B01F24] h-2 rounded-full" style="width: 100%"></div>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-gray-500">20/20课时</span>
+              <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300 transition">
+                查看证书
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 考试列表 -->
+      <section id="tab-exams" class="main-panel hidden">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <!-- 筛选标签 -->
+          <div class="mb-4 flex flex-wrap gap-2">
+            <button class="filter-btn-task active px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="all">全部</button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="未考试">未考试</button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="已通过">已通过</button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="未通过">未通过</button>
+          </div>
+        </div>
+        <div id="exam-list" class="grid sm:grid-cols-2 gap-4">
+          <!-- 考试卡片示例 -->
+          <div class="bg-white rounded-xl p-4 card-shadow">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-semibold">云计算架构师认证</h3>
+              <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">已通过</span>
+            </div>
+            <div class="text-xs text-gray-500 mb-2">考试时间：2024-01-10</div>
+            <div class="text-xs text-gray-500 mb-3">得分：85/100</div>
+            <button class="w-full py-1.5 bg-[#2D874B] text-white rounded-lg hover:bg-[#256e3d] transition text-sm">
+              查看证书
+            </button>
+          </div>
+          <div class="bg-white rounded-xl p-4 card-shadow">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-semibold">网络安全专家认证</h3>
+              <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">未考试</span>
+            </div>
+            <div class="text-xs text-gray-500 mb-2">考试时间：2024-02-15</div>
+            <div class="text-xs text-gray-500 mb-3">剩余时间：15天</div>
+            <button class="w-full py-1.5 bg-[#B01F24] text-white rounded-lg hover:bg-[#9a1b1f] transition text-sm">
+              预约考试
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 我的直播 -->
+      <section id="tab-live" class="main-panel hidden">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <!-- 筛选标签 -->
+          <div class="mb-4 flex flex-wrap gap-2">
+            <button class="filter-btn-task active px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="all">全部</button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="直播中">直播中</button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="未开始">未开始</button>
+            <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="已结束">已结束</button>
+          </div>
+        </div>
+
+        <div id="live-list" class="grid sm:grid-cols-2 gap-4">
+          <!-- 直播卡片示例 -->
+          <!-- 直播中 -->
+          <div class="live-card bg-white rounded-xl border border-gray-300 overflow-hidden relative h-60 card-shadow">
+            <div class="absolute inset-0 bg-gray-200 flex items-center justify-center">
+              <i class="fa fa-video text-gray-400 text-4xl"></i>
+            </div>
+            <span class="absolute top-2 left-2 px-2 py-1 bg-[#B01F24] text-white text-[10px] rounded-full">直播中</span>
+            <span class="absolute top-2 right-2 px-2 py-1 bg-black/50 text-white text-[10px] rounded-full">245人观看</span>
+            <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
+              <h3 class="text-sm font-semibold text-white mb-1">Kubernetes进阶实践</h3>
+              <p class="text-xs text-gray-200 mb-2 line-clamp-2">深入讲解Kubernetes集群管理、服务编排和高可用部署实践</p>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-gray-200">2024-01-29 19:30</span>
+                <button class="px-3 py-1 bg-[#2D874B] text-white rounded-full text-[10px] hover:bg-[#256e3d] transition">
+                  进入直播
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 未开始 -->
+          <div class="live-card bg-white rounded-xl border border-gray-300 overflow-hidden relative h-60 card-shadow">
+            <div class="absolute inset-0 bg-gray-200 flex items-center justify-center">
+              <i class="fa fa-video text-gray-400 text-4xl"></i>
+            </div>
+            <span class="absolute top-2 left-2 px-2 py-1 bg-blue-500 text-white text-[10px] rounded-full">未开始</span>
+            <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
+              <h3 class="text-sm font-semibold text-white mb-1">云计算架构设计</h3>
+              <p class="text-xs text-gray-200 mb-2 line-clamp-2">详解云原生架构设计原则、服务拆分策略和容器化最佳实践</p>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-gray-200">2024-01-30 14:00</span>
+                <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-[10px] hover:bg-gray-300 transition">
+                  查看详情
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 我的活动 -->
+      <section id="tab-events" class="main-panel hidden">
+        <!-- 筛选标签 -->
+        <div class="mb-4 flex flex-wrap gap-2">
+          <button class="filter-btn-task active px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="all">全部</button>
+          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="未开始">未开始</button>
+          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="进行中">进行中</button>
+          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="已结束">已结束</button>
+        </div>
+        <div id="activity-list" class="grid sm:grid-cols-2 gap-4">
+          <!-- 活动卡片示例 -->
+          <!-- 进行中 -->
+          <div class="activity-card bg-white rounded-xl border border-gray-300 overflow-hidden p-4 card-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-sm font-semibold text-gray-800">2024技术创新大赛</h3>
+              <span class="px-2 py-1 bg-[#2D874B] text-white text-[10px] rounded-full">进行中</span>
+            </div>
+            <p class="text-xs text-gray-600 mb-3 line-clamp-2">面向全体技术人员的创新大赛，展示技术实力，赢取丰厚奖励</p>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-gray-500">2024-01-15 至 2024-02-15</span>
+              <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-[10px] hover:bg-gray-300 transition">
+                查看详情
+              </button>
+            </div>
+          </div>
+          
+          <!-- 未开始 -->
+          <div class="activity-card bg-white rounded-xl border border-gray-300 overflow-hidden p-4 card-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-sm font-semibold text-gray-800">云计算技术沙龙</h3>
+              <span class="px-2 py-1 bg-blue-500 text-white text-[10px] rounded-full">未开始</span>
+            </div>
+            <p class="text-xs text-gray-600 mb-3 line-clamp-2">邀请行业专家分享云计算最新技术趋势和实践经验</p>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-gray-500">2024-02-01 14:00</span>
+              <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-[10px] hover:bg-gray-300 transition">
+                查看详情
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 我的收藏 -->
+      <section id="tab-favorites" class="main-panel hidden">
+        <!-- 分类筛选器 -->
+        <div class="mb-4">
+          <div class="flex flex-wrap gap-2">
+            <button class="filter-btn px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="course">课程</button>
+            <button class="filter-btn px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-700 text-xs" data-filter="live">直播</button>
+            <button class="filter-btn px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-700 text-xs" data-filter="news">资讯</button>
+          </div>
+        </div>
+        
+        <div id="favorite-list" class="grid sm:grid-cols-2 gap-4">
+          <!-- 收藏卡片示例 -->
+          <!-- 课程 -->
+          <div class="favorite-card bg-white rounded-xl border border-gray-300 overflow-hidden p-4 card-shadow">
+            <div class="relative">
+              <button class="favorite-btn absolute top-0 right-0 text-[#B01F24] hover:text-gray-500 transition">
+                <i class="fa fa-star text-sm"></i>
+              </button>
+              <div class="flex items-center mb-3">
+                <span class="px-2 py-1 bg-blue-100 text-blue-700 text-[10px] rounded-full mr-2">课程</span>
+                <span class="text-xs text-gray-500">已完成</span>
+              </div>
+              <h3 class="text-sm font-semibold text-gray-800 mb-2">Kubernetes进阶实践</h3>
+              <p class="text-xs text-gray-600 mb-3 line-clamp-2">深入讲解Kubernetes集群管理、服务编排和高可用部署实践</p>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-gray-500">20课时</span>
+                <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-[10px] hover:bg-gray-300 transition">
+                  查看详情
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 直播 -->
+          <div class="favorite-card bg-white rounded-xl border border-gray-300 overflow-hidden p-4 card-shadow">
+            <div class="relative">
+              <button class="favorite-btn absolute top-0 right-0 text-[#B01F24] hover:text-gray-500 transition">
+                <i class="fa fa-star text-sm"></i>
+              </button>
+              <div class="flex items-center mb-3">
+                <span class="px-2 py-1 bg-green-100 text-green-700 text-[10px] rounded-full mr-2">直播</span>
+                <span class="text-xs text-gray-500">已结束</span>
+              </div>
+              <h3 class="text-sm font-semibold text-gray-800 mb-2">云计算架构设计</h3>
+              <p class="text-xs text-gray-600 mb-3 line-clamp-2">详解云原生架构设计原则、服务拆分策略和容器化最佳实践</p>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-gray-500">2024-01-30</span>
+                <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-[10px] hover:bg-gray-300 transition">
+                  查看回放
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 我的关注 -->
+      <section id="tab-following" class="main-panel hidden">
+        <!-- 筛选标签 -->
+        <div class="mb-4 flex flex-wrap gap-2">
+          <button class="filter-btn-task active px-2 py-1 rounded-lg bg-[#fef2f2] text-[#B01F24] text-xs" data-filter="all">全部</button>
+          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="云计算">云计算</button>
+          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="大数据">大数据</button>
+          <button class="filter-btn-task px-2 py-1 rounded-lg bg-white border border-gray-300 text-gray-600 text-xs" data-filter="AI算法">AI算法</button>
+        </div>
+        <div id="following-list" class="grid sm:grid-cols-2 gap-4">
+          <!-- 讲师卡片示例 -->
+          <div class="following-card bg-white rounded-xl border border-gray-300 overflow-hidden p-4 card-shadow">
+            <div class="relative">
+              <button class="follow-btn absolute top-0 right-0 text-[#B01F24] hover:text-gray-500 transition">
+                <i class="fa fa-heart text-sm"></i>
+              </button>
+              <div class="flex flex-col items-center mb-3">
+                <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center mb-3">
+                  <i class="fa fa-user text-gray-400 text-2xl"></i>
+                </div>
+                <h3 class="text-sm font-semibold text-gray-800">张教授</h3>
+                <p class="text-xs text-gray-600 mb-2">云计算</p>
+                <p class="text-xs text-gray-500 text-center line-clamp-2">清华大学计算机系教授，专注于云计算和分布式系统研究</p>
+              </div>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-gray-500">课程: 12</span>
+                <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-[10px] hover:bg-gray-300 transition">
+                  查看详情
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="following-card bg-white rounded-xl border border-gray-300 overflow-hidden p-4 card-shadow">
+            <div class="relative">
+              <button class="follow-btn absolute top-0 right-0 text-[#B01F24] hover:text-gray-500 transition">
+                <i class="fa fa-heart text-sm"></i>
+              </button>
+              <div class="flex flex-col items-center mb-3">
+                <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center mb-3">
+                  <i class="fa fa-user text-gray-400 text-2xl"></i>
+                </div>
+                <h3 class="text-sm font-semibold text-gray-800">李工程师</h3>
+                <p class="text-xs text-gray-600 mb-2">Kubernetes</p>
+                <p class="text-xs text-gray-500 text-center line-clamp-2">Google认证Kubernetes专家，拥有丰富的容器编排实战经验</p>
+              </div>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-gray-500">课程: 8</span>
+                <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-[10px] hover:bg-gray-300 transition">
+                  查看详情
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+  </section>
+</main>
+
+<footer class="border-t border-gray-300 mt-8 pt-4 pb-6">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 text-[11px] text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>© 2026 HIECO 光合技术支持平台 · 个人中心</div>
+    <div class="flex flex-wrap gap-3">
+      <span>隐私政策</span>
+      <span>法律声明</span>
+      <span>版权信息</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // 侧边栏导航
+  const menuToggle = document.getElementById('menu-toggle');
+  const sidebar = document.getElementById('sidebar');
+  const sidebarOverlay = document.getElementById('sidebar-overlay');
+  const sidebarClose = document.getElementById('sidebar-close');
+
+  menuToggle.addEventListener('click', () => {
+    sidebar.classList.add('active');
+    sidebarOverlay.classList.add('active');
+  });
+
+  function closeSidebar() {
+    sidebar.classList.remove('active');
+    sidebarOverlay.classList.remove('active');
+  }
+
+  sidebarClose.addEventListener('click', closeSidebar);
+  sidebarOverlay.addEventListener('click', closeSidebar);
+
+  // 标签页切换
+  const tabButtons = document.querySelectorAll('.main-tab');
+  const tabPanels = document.querySelectorAll('.main-panel');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const target = button.dataset.target;
+      
+      // 更新标签按钮状态
+      tabButtons.forEach(btn => btn.classList.remove('main-tab-active'));
+      button.classList.add('main-tab-active');
+      
+      // 更新标签面板状态
+      tabPanels.forEach(panel => panel.classList.add('hidden'));
+      document.getElementById(target).classList.remove('hidden');
+    });
+  });
+
+  // 筛选按钮
+  const filterButtons = document.querySelectorAll('.filter-btn-task');
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+    });
+  });
+
+  // 收藏按钮
+  const favoriteButtons = document.querySelectorAll('.favorite-btn');
+  favoriteButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.stopPropagation();
+      this.classList.toggle('text-[#B01F24]');
+      this.classList.toggle('text-gray-400');
+    });
+  });
+
+  // 关注按钮
+  const followButtons = document.querySelectorAll('.follow-btn');
+  followButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.stopPropagation();
+      this.classList.toggle('text-[#B01F24]');
+      this.classList.toggle('text-gray-400');
+    });
+  });
+
+  // 加载更多服务记录
+  const loadMoreServices = document.getElementById('load-more-services');
+  if (loadMoreServices) {
+    loadMoreServices.addEventListener('click', function() {
+      // 模拟加载更多数据
+      this.innerHTML = '<i class="fa fa-spinner fa-spin mr-1"></i> 加载中...';
+      setTimeout(() => {
+        this.innerHTML = '<i class="fa fa-plus mr-1"></i> 查看更多';
+        // 这里可以添加实际的加载逻辑
+      }, 1000);
+    });
+  }
+
+  // 消息通知
+  const messageIconBtn = document.getElementById('message-icon-btn');
+  const messageDropdown = document.getElementById('message-dropdown');
+  
+  if (messageIconBtn && messageDropdown) {
+    messageIconBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      messageDropdown.classList.toggle('hidden');
+    });
+
+    // 点击页面其他地方关闭消息下拉框
+    document.addEventListener('click', function(e) {
+      if (!messageIconBtn.contains(e.target) && !messageDropdown.contains(e.target)) {
+        messageDropdown.classList.add('hidden');
+      }
+    });
+  }
+
+  // 标记全部已读
+  const markAllReadBtn = document.getElementById('mark-all-read-btn');
+  if (markAllReadBtn) {
+    markAllReadBtn.addEventListener('click', function() {
+      // 模拟标记全部已读
+      alert('已标记全部消息为已读');
+    });
+  }
+
+  // 初始化页面
+  function initPage() {
+    // 可以在这里添加页面初始化逻辑
+    console.log('Personal center page initialized');
+  }
+
+  // 页面加载完成后初始化
+  document.addEventListener('DOMContentLoaded', initPage);

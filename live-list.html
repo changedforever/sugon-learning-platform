@@ -477,9 +477,6 @@
             <!--i class="fa fa-filter text-indigo-400 text-sm"></i>
             <span class="text-sm font-medium">筛选条件</span-->
           </div>
-          <span id="active-filter-text" class="text-[11px] text-gray-600">
-            已选条件：全部
-          </span>
         </div>
 
         <div class="flex flex-col md:flex-row gap-6 mt-3">
@@ -508,30 +505,7 @@
             </div>
           </div>
 
-          <!-- 赛道 -->
-          <div class="flex-1">
-            <div class="flex items-center flex-wrap gap-1">
-              <span class="text-gray-600 mr-2 whitespace-nowrap">赛道</span>
-              <div class="flex flex-wrap gap-1">
-                <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px]"
-                        data-filter="track" data-value="all">
-                  全部
-                </button>
-                <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-[#B01F24]"
-                        data-filter="track" data-value="DevOps">
-                  DevOps
-                </button>
-                <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-purple-600"
-                        data-filter="track" data-value="AI">
-                  AI 赛道
-                </button>
-                <button class="filter-chip px-2.5 py-1 rounded-full bg-white/80 border border-gray-300 text-[11px] text-amber-600"
-                        data-filter="track" data-value="业务运营">
-                  业务运营
-                </button>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
     </section>
@@ -631,7 +605,6 @@
 
   const filters = {
     category: 'all',
-    track: 'all',
     search: ''
   };
 
@@ -645,7 +618,6 @@
   const pageInfoEl = document.getElementById('page-info');
   const prevBtn = document.getElementById('prev-btn');
   const nextBtn = document.getElementById('next-btn');
-  const activeFilterText = document.getElementById('active-filter-text');
   const filterChips = document.querySelectorAll('.filter-chip');
 
   // 预约状态本地存储（可替换为后端状态）
@@ -742,15 +714,13 @@
   function applyFiltersAndRender() {
     filteredLives = allLives.filter(l => {
       const mc = filters.category === 'all' || l.category === filters.category;
-      const mk = filters.track === 'all' || l.track === filters.track;
       const kw = filters.search;
       const mkw = !kw ||
         l.title.toLowerCase().includes(kw) ||
         l.source.toLowerCase().includes(kw) ||
-        (l.category || '').toLowerCase().includes(kw) ||
-        (l.track || '').toLowerCase().includes(kw);
+        (l.category || '').toLowerCase().includes(kw);
 
-      return mc && mk && mkw;
+      return mc && mkw;
     });
 
     // 排序逻辑
@@ -786,16 +756,7 @@
     });
 
     currentPage = 1;
-    updateFilterText();
     renderList();
-  }
-
-  function updateFilterText() {
-    const parts = [];
-    if (filters.category !== 'all') parts.push(`类别：${filters.category}`);
-    if (filters.track !== 'all') parts.push(`赛道：${filters.track}`);
-    if (filters.search) parts.push(`关键词：“${filters.search}”`);
-    activeFilterText.textContent = '已选条件：' + (parts.length ? parts.join(' / ') : '全部');
   }
 
   // 计算倒计时天数（只返回正数）
@@ -1434,7 +1395,7 @@
   }
 
   // 初始化
-  document.querySelectorAll('.filter-chip[data-filter="category"][data-value="all"], .filter-chip[data-filter="track"][data-value="all"]').forEach(chip => {
+  document.querySelectorAll('.filter-chip[data-filter="category"][data-value="all"]').forEach(chip => {
     chip.classList.add('filter-chip-active');
   });
   applyFiltersAndRender();
