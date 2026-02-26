@@ -738,47 +738,129 @@
       <aside class="lg:col-span-1 space-y-4">
         <div class="glass-card rounded-3xl border border-gray-300 p-4 md:p-5 space-y-3 text-xs text-gray-600">
           <!-- 主讲人信息 -->
-          <div class="pb-3 border-b border-gray-200">
+          <div class="pb-3 border-b border-gray-200" style="max-height: 384px;overflow-y: auto">
             <h2 class="text-sm md:text-base font-semibold mb-2 flex items-center gap-2 text-gray-800">
               <i class="fa fa-user-tie mr-1 text-[#B01F24]"></i> 主讲人
             </h2>
-            <div class="flex items-start gap-3 mb-3">
-              <img id="speaker-avatar"
-                   src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=80&q=80"
-                   class="h-12 w-12 rounded-full object-cover border border-gray-300" alt="speaker">
-              <div class="flex-1 text-xs text-gray-600">
-                <div id="speaker-name" class="font-medium text-gray-800">王云</div>
-                <div id="speaker-title" class="text-gray-500">首席云架构师 · 云基础设施学院</div>
-                <p id="speaker-intro" class="mt-1 leading-snug text-gray-600">
-                  拥有 10 年云原生项目经验，主导多家头部企业云原生转型项目，对 Kubernetes、服务网格和 DevOps 实践有深入研究。
-                </p>
+            <div>
+              <div class="flex items-start gap-3 mb-3">
+                <img id="speaker-avatar"
+                     src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=80&q=80"
+                     class="h-12 w-12 rounded-full object-cover border border-gray-300" alt="speaker">
+                <div class="flex-1 text-xs text-gray-600">
+                  <div id="speaker-name" class="font-medium text-gray-800">王云</div>
+                  <div id="speaker-title" class="text-gray-500">首席云架构师 · 云基础设施学院</div>
+                  <p id="speaker-intro" class="mt-1 leading-snug text-gray-600">
+                    拥有 10 年云原生项目经验，主导多家头部企业云原生转型项目，对 Kubernetes、服务网格和 DevOps 实践有深入研究。
+                  </p>
+                </div>
               </div>
-            </div>
-            <div class="mb-3">
-              <!-- 关注状态按钮容器 -->
-              <div id="followed-buttons" class="flex gap-2 hidden">
-                <button class="flex-1 py-1.5 rounded-xl bg-[#B01F24] text-white text-xs font-medium hover:opacity-90">
+              <div class="mb-3">
+                <!-- 关注状态按钮容器 -->
+                <div id="followed-buttons" class="flex gap-2 hidden">
+                  <button class="flex-1 py-1.5 rounded-xl bg-[#B01F24] text-white text-xs font-medium hover:opacity-90">
+                    <i class="fa fa-heart mr-1"></i>
+                    已关注
+                  </button>
+                  <button id="unfollow-btn" class="w-28 py-1.5 rounded-xl border border-[#B01F24] text-[#B01F24] text-xs font-medium hover:bg-[#B01F24]/10">
+                    取消关注
+                  </button>
+                </div>
+                <!-- 未关注状态按钮 -->
+                <button id="follow-btn"
+                        class="w-full py-1.5 rounded-xl bg-[#B01F24] text-white text-xs font-medium hover:opacity-90">
                   <i class="fa fa-heart mr-1"></i>
-                  已关注
-                </button>
-                <button id="unfollow-btn" class="w-28 py-1.5 rounded-xl border border-[#B01F24] text-[#B01F24] text-xs font-medium hover:bg-[#B01F24]/10">
-                  取消关注
+                  关注讲师
                 </button>
               </div>
-              <!-- 未关注状态按钮 -->
-              <button id="follow-btn"
-                      class="w-full py-1.5 rounded-xl bg-[#B01F24] text-white text-xs font-medium hover:opacity-90">
-                <i class="fa fa-heart mr-1"></i>
-                关注讲师
-              </button>
+              <div class="flex flex-wrap gap-2 text-[11px]">
+                <a href="#" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#B01F24] hover:border-[#B01F24]">
+                  <i class="fa fa-id-badge mr-1 text-[9px]"></i> 查看讲师主页
+                </a>
+                <a href="#" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#B01F24] hover:border-[#B01F24]">
+                  <i class="fa fa-video mr-1 text-[9px]"></i> 查看讲师更多直播
+                </a>
+              </div>
             </div>
-            <div class="flex flex-wrap gap-2 text-[11px]">
-              <a href="#" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#B01F24] hover:border-[#B01F24]">
-                <i class="fa fa-id-badge mr-1 text-[9px]"></i> 查看讲师主页
-              </a>
-              <a href="#" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#B01F24] hover:border-[#B01F24]">
-                <i class="fa fa-video mr-1 text-[9px]"></i> 查看讲师更多直播
-              </a>
+            <div class="pt-3">
+              <div class="flex items-start gap-3 mb-3">
+                <img id="speaker-avatar3"
+                     src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=80&q=80"
+                     class="h-12 w-12 rounded-full object-cover border border-gray-300" alt="speaker">
+                <div class="flex-1 text-xs text-gray-600">
+                  <div id="speaker-name3" class="font-medium text-gray-800">张立</div>
+                  <div id="speaker-title3" class="text-gray-500">首席云架构师 · 云基础设施学院</div>
+                  <p id="speaker-intro3" class="mt-1 leading-snug text-gray-600">
+                    拥有 10 年云原生项目经验，主导多家头部企业云原生转型项目，对 Kubernetes、服务网格和 DevOps 实践有深入研究。
+                  </p>
+                </div>
+              </div>
+              <div class="mb-3">
+                <!-- 关注状态按钮容器 -->
+                <div id="followed-buttons3" class="flex gap-2 hidden">
+                  <button class="flex-1 py-1.5 rounded-xl bg-[#B01F24] text-white text-xs font-medium hover:opacity-90">
+                    <i class="fa fa-heart mr-1"></i>
+                    已关注
+                  </button>
+                  <button id="unfollow-btn3" class="w-28 py-1.5 rounded-xl border border-[#B01F24] text-[#B01F24] text-xs font-medium hover:bg-[#B01F24]/10">
+                    取消关注
+                  </button>
+                </div>
+                <!-- 未关注状态按钮 -->
+                <button id="follow-btn3"
+                        class="w-full py-1.5 rounded-xl bg-[#B01F24] text-white text-xs font-medium hover:opacity-90">
+                  <i class="fa fa-heart mr-1"></i>
+                  关注讲师
+                </button>
+              </div>
+              <div class="flex flex-wrap gap-2 text-[11px]">
+                <a href="#" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#B01F24] hover:border-[#B01F24]">
+                  <i class="fa fa-id-badge mr-1 text-[9px]"></i> 查看讲师主页
+                </a>
+                <a href="#" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#B01F24] hover:border-[#B01F24]">
+                  <i class="fa fa-video mr-1 text-[9px]"></i> 查看讲师更多直播
+                </a>
+              </div>
+            </div>
+            <div class="pt-3">
+              <div class="flex items-start gap-3 mb-3">
+                <img id="speaker-avatar2"
+                     src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=80&q=80"
+                     class="h-12 w-12 rounded-full object-cover border border-gray-300" alt="speaker">
+                <div class="flex-1 text-xs text-gray-600">
+                  <div id="speaker-name2" class="font-medium text-gray-800">程伟</div>
+                  <div id="speaker-title2" class="text-gray-500">首席云架构师 · 云基础设施学院</div>
+                  <p id="speaker-intro2" class="mt-1 leading-snug text-gray-600">
+                    拥有 10 年云原生项目经验，主导多家头部企业云原生转型项目，对 Kubernetes、服务网格和 DevOps 实践有深入研究。
+                  </p>
+                </div>
+              </div>
+              <div class="mb-3">
+                <!-- 关注状态按钮容器 -->
+                <div id="followed-buttons2" class="flex gap-2 hidden">
+                  <button class="flex-1 py-1.5 rounded-xl bg-[#B01F24] text-white text-xs font-medium hover:opacity-90">
+                    <i class="fa fa-heart mr-1"></i>
+                    已关注
+                  </button>
+                  <button id="unfollow-btn2" class="w-28 py-1.5 rounded-xl border border-[#B01F24] text-[#B01F24] text-xs font-medium hover:bg-[#B01F24]/10">
+                    取消关注
+                  </button>
+                </div>
+                <!-- 未关注状态按钮 -->
+                <button id="follow-btn2"
+                        class="w-full py-1.5 rounded-xl bg-[#B01F24] text-white text-xs font-medium hover:opacity-90">
+                  <i class="fa fa-heart mr-1"></i>
+                  关注讲师
+                </button>
+              </div>
+              <div class="flex flex-wrap gap-2 text-[11px]">
+                <a href="#" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#B01F24] hover:border-[#B01F24]">
+                  <i class="fa fa-id-badge mr-1 text-[9px]"></i> 查看讲师主页
+                </a>
+                <a href="#" class="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-gray-300 text-[#B01F24] hover:border-[#B01F24]">
+                  <i class="fa fa-video mr-1 text-[9px]"></i> 查看讲师更多直播
+                </a>
+              </div>
             </div>
           </div>
           <div class="flex items-center justify-between mb-1">
