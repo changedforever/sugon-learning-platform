@@ -994,10 +994,13 @@
     const endIndex = Math.min(startIndex + pageSize, total);
 
     const pageData = filteredExams.slice(startIndex, endIndex);
-    pageData.forEach(exam => {
+    pageData.forEach((exam, index) => {
       const card = document.createElement('article');
       card.className = 'glass-card rounded-3xl border border-gray-300 p-4 flex flex-col justify-between hover:-translate-y-1 hover:border-[#2D874B]/80 transition cursor-pointer';
       card.dataset.id = exam.id;
+
+      // 检查是否是第一个考试卡片
+      const isFirstCard = index === 0;
 
       card.innerHTML = `
         <div>
@@ -1029,6 +1032,12 @@
                   data-id="${exam.id}">
             报名考试
           </button>
+          ${isFirstCard ? `
+            <button class="upgrade-btn px-3 py-1.5 rounded-full bg-white border border-[#2D874B] text-[#2D874B] text-[11px] font-medium hover:bg-[#2D874B]/10 transition"
+                    data-id="${exam.id}">
+              升级为公信部认证
+            </button>
+          ` : ''}
         </div>
       `;
       examList.appendChild(card);
@@ -1062,6 +1071,17 @@
         // 这里仅示例，实际应检查报名状态后跳转
         alert(`即将进入「${exam.name}」，可在考试详情页确认场次并开始考试。`);
         window.location.href = 'exam-online.html?id=' + id;
+      });
+    });
+    
+    // 升级为公信部认证按钮：跳转到认证详情页
+    document.querySelectorAll('.upgrade-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.dataset.id;
+        const exam = allExams.find(item => item.id == id);
+        // 跳转到认证详情页
+        window.location.href = 'certification-detail.html?id=' + id;
       });
     });
     
