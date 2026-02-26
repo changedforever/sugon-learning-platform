@@ -47,7 +47,7 @@
         }
         
         .sidebar-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             color: #333;
             display: flex;
@@ -70,7 +70,7 @@
             border: 1px solid #eaecef;
             background: white;
             color: #333;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -97,7 +97,7 @@
         }
         
         .sidebar-btn-arrow {
-            font-size: 12px;
+            font-size: 11px;
             transition: transform 0.2s;
         }
         
@@ -123,7 +123,7 @@
             background: #f8fafd;
             border: 1px solid #eaecef;
             color: #333;
-            font-size: 13px;
+            font-size: 12px;
             cursor: pointer;
             transition: all 0.2s;
             white-space: nowrap;
@@ -194,6 +194,7 @@
             cursor: pointer;
             transition: background 0.2s;
             white-space: nowrap;
+            font-size: 12px;
         }
 
         .dropdown-item:hover {
@@ -202,7 +203,7 @@
 
         .dropdown-item i {
             margin-right: 8px;
-            font-size: 12px;
+            font-size: 11px;
         }
         
         .sidebar-submenu-item:hover {
@@ -262,17 +263,17 @@
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 16px;
+            font-size: 15px;
         }
         
         .chat-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             color: #333;
         }
         
         .chat-subtitle {
-            font-size: 13px;
+            font-size: 12px;
             color: #666;
         }
         
@@ -352,7 +353,7 @@
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 14px;
+            font-size: 13px;
             flex-shrink: 0;
         }
         
@@ -364,7 +365,7 @@
             padding: 16px;
             border-radius: 18px;
             line-height: 1.5;
-            font-size: 15px;
+            font-size: 14px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
         
@@ -400,7 +401,7 @@
             background: #f0f4ff;
             border: 1px solid #d0ddf7;
             border-radius: 20px;
-            font-size: 13px;
+            font-size: 12px;
             color: #4a86ff;
             cursor: pointer;
             transition: all 0.2s;
@@ -427,16 +428,16 @@
         .ability-panels {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            max-width: 900px;          /* 略微加宽，容纳三列卡片 */
-            margin: 40px auto 16px;    /* 在对话区中间偏上的位置居中 */
+            gap: 12px;
+            max-width: 800px;          /* 减小最大宽度 */
+            margin: 24px auto 12px;    /* 减小上下边距，使卡片更靠上 */
         }
 
         .ability-card {
             background: linear-gradient(135deg, #fff7f7, #fff9fb);
-            border-radius: 18px;
-            padding: 14px 16px 16px;
-            box-shadow: 0 8px 18px rgba(255, 139, 154, 0.1);
+            border-radius: 14px;
+            padding: 10px 12px 12px;
+            box-shadow: 0 6px 14px rgba(255, 139, 154, 0.1);
             border: 1px solid rgba(255, 160, 180, 0.35);
         }
 
@@ -450,13 +451,13 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 13px;
+            margin-bottom: 8px;
+            font-size: 11px;
             color: #555;
         }
 
         .ability-card-title {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
             color: #333;
         }
@@ -464,25 +465,25 @@
         .ability-card-page {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            font-size: 12px;
+            gap: 3px;
+            font-size: 10px;
             color: #999;
         }
 
         .ability-card-page i {
-            font-size: 11px;
+            font-size: 10px;
         }
 
         .ability-list {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
 
         .ability-item {
             text-align: left;
-            padding: 10px 12px;
-            border-radius: 12px;
+            padding: 8px 10px;
+            border-radius: 10px;
             border: none;
             background: rgba(255, 255, 255, 0.85);
             cursor: pointer;
@@ -492,34 +493,34 @@
         .ability-item:hover {
             background: #ffffff;
             transform: translateY(-1px);
-            box-shadow: 0 6px 12px rgba(255, 160, 180, 0.18);
+            box-shadow: 0 4px 8px rgba(255, 160, 180, 0.18);
         }
 
         .ability-item-title {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 500;
             color: #333;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
 
         .ability-item-subtitle {
-            font-size: 12px;
+            font-size: 10px;
             color: #999;
         }
 
         .guess-questions {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 10px;
+            gap: 6px;
+            margin-bottom: 8px;
         }
 
         .guess-question {
-            padding: 6px 10px;
-            border-radius: 16px;
+            padding: 5px 8px;
+            border-radius: 14px;
             border: none;
             background: rgba(255, 255, 255, 0.9);
-            font-size: 12px;
+            font-size: 10px;
             color: #666;
             cursor: pointer;
             transition: all 0.18s ease;
@@ -528,19 +529,19 @@
         .guess-question:hover {
             background: #ffffff;
             color: #333;
-            box-shadow: 0 4px 10px rgba(255, 193, 120, 0.25);
+            box-shadow: 0 3px 6px rgba(255, 193, 120, 0.25);
             transform: translateY(-1px);
         }
 
         .guess-banner {
-            margin-top: 6px;
-            padding: 10px 12px;
-            border-radius: 12px;
+            margin-top: 4px;
+            padding: 8px 10px;
+            border-radius: 10px;
             background: linear-gradient(90deg, #fef0ff, #e3f0ff);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 8px;
+            gap: 6px;
         }
 
         .guess-banner-content {
@@ -548,27 +549,27 @@
         }
 
         .guess-banner-title {
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 600;
             color: #444;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
 
         .guess-banner-subtitle {
-            font-size: 11px;
+            font-size: 10px;
             color: #888;
         }
 
         .guess-banner-action {
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
             border-radius: 999px;
             background: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #ff8a4a;
-            font-size: 13px;
+            font-size: 11px;
         }
 
         /* 收起动画：回答问题时隐藏能力场景/猜你想问（以及可选的快捷提问） */
@@ -613,7 +614,7 @@
             padding: 8px 12px;
             border: none;
             border-radius: 0;
-            font-size: 15px;
+            font-size: 14px;
             resize: none;
             min-height: 50px;
             max-height: 120px;
@@ -688,14 +689,14 @@
         }
         
         .resource-title {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             color: #333;
             margin-bottom: 2px;
         }
         
         .resource-desc {
-            font-size: 12px;
+            font-size: 11px;
             color: #666;
         }
         
@@ -705,7 +706,7 @@
             color: white;
             border: none;
             border-radius: 6px;
-            font-size: 12px;
+            font-size: 11px;
             cursor: pointer;
         }
         
@@ -722,12 +723,12 @@
         }
         
         .welcome-text {
-            font-size: 16px;
+            font-size: 15px;
             margin-bottom: 8px;
         }
         
         .welcome-subtext {
-            font-size: 14px;
+            font-size: 13px;
             color: #718096;
         }
 
@@ -748,7 +749,7 @@
             color: #4b5563;
             border-radius: 999px;
             padding: 8px 14px;
-            font-size: 13px;
+            font-size: 12px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -770,7 +771,7 @@
         }
 
         .followup-icon {
-            font-size: 12px;
+            font-size: 11px;
             color: #9ca3af;
         }
 
@@ -783,7 +784,7 @@
         }
 
         .permission-help-text {
-            font-size: 16px;
+            font-size: 15px;
             color: #333;
             line-height: 1.6;
             font-weight: 500;
@@ -816,7 +817,7 @@
             border-radius: 14px;
             background: #f7f7f8;
             border: 1px solid transparent;
-            font-size: 13px;
+            font-size: 12px;
             color: #555;
             cursor: pointer;
             white-space: nowrap;
@@ -846,7 +847,7 @@
         /* 已选领域提示为独立标签样式 */
         .selected-scene-domain {
             margin: 4px 12px 0;
-            font-size: 12px;
+            font-size: 11px;
             display: none;
         }
 
@@ -870,7 +871,7 @@
 
         .selected-scene-domain-close {
             cursor: pointer;
-            font-size: 11px;
+            font-size: 10px;
             color: #9ca3af;
             padding-left: 2px;
         }
@@ -893,7 +894,7 @@
         .context-menu-item {
             padding: 8px 16px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             color: #333;
             border-radius: 4px;
             transition: background 0.2s;
@@ -979,7 +980,7 @@
             border-radius: 8px;
             background: white;
             color: #333;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
@@ -1008,7 +1009,7 @@
             background: none;
             border: none;
             color: #666;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             padding: 8px 12px;
             border-radius: 4px;
@@ -1026,7 +1027,7 @@
         }
 
         .mode-toggle-label {
-            font-size: 12px;
+            font-size: 11px;
             color: #888;
         }
 
@@ -1055,7 +1056,7 @@
             border-radius: 999px;
             background: #4a86ff;
             color: #fff;
-            font-size: 12px;
+            font-size: 11px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1068,7 +1069,7 @@
             display: flex;
             justify-content: space-between;
             padding: 0 10px;
-            font-size: 12px;
+            font-size: 11px;
             color: #9ca3af;
             user-select: none;
         }
@@ -1128,7 +1129,7 @@
 
         .modal-header h3 {
             margin: 0;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 600;
             color: #333;
         }
@@ -1136,7 +1137,7 @@
         .modal-close-btn {
             background: none;
             border: none;
-            font-size: 16px;
+            font-size: 15px;
             color: #666;
             cursor: pointer;
             padding: 0;
@@ -1169,7 +1170,7 @@
         }
 
         .rating-label {
-            font-size: 14px;
+            font-size: 13px;
             color: #333;
             margin-right: 12px;
         }
@@ -1197,7 +1198,7 @@
 
         .feedback-label {
             display: block;
-            font-size: 14px;
+            font-size: 13px;
             color: #333;
             margin-bottom: 8px;
         }
@@ -1207,7 +1208,7 @@
             padding: 12px;
             border: 1px solid #eaecef;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 13px;
             resize: vertical;
             min-height: 100px;
             font-family: inherit;
@@ -1231,7 +1232,7 @@
         .modal-btn {
             padding: 10px 20px;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -1490,6 +1491,10 @@
                                     <div class="ability-item-title">CPU</div>
                                     <div class="ability-item-subtitle">CPU 固件、驱动及文档资源</div>
                                 </button>
+                                <button class="ability-item scene-domain-item" data-question="云计算 相关资源下载">
+                                    <div class="ability-item-title">云计算</div>
+                                    <div class="ability-item-subtitle">云计算相关资源与工具下载</div>
+                                </button>
                             </div>
                         </div>
                         <!-- 左侧：能力场景 -->
@@ -1551,6 +1556,50 @@
                         </div>
                     </div>
                     <div class="input-container" style="position: relative; padding: 8px 8px 8px 6px;">
+                        <!-- 问答/下载模式切换（放在输入框最上一行） -->
+                        <div id="mode-toggle-container" style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                            <!-- 默认状态：同时显示问答和下载 -->
+                            <div id="default-mode-toggle" style="display: flex; gap: 8px;">
+                                <button id="qa-mode-btn" class="mode-btn active" style="display: flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: 6px; background: #4a86ff; color: white; border: none; cursor: pointer; font-size: 13px;">
+                                    <i class="fas fa-comment-dots"></i>
+                                    <span>问答</span>
+                                </button>
+                                <button id="download-mode-btn" class="mode-btn" style="display: flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: 6px; background: #f3f4f6; color: #666; border: none; cursor: pointer; font-size: 13px;">
+                                    <i class="fas fa-download"></i>
+                                    <span>下载</span>
+                                </button>
+                            </div>
+                            
+                            <!-- 单独显示问答模式 -->
+                            <div id="single-qa-mode" style="display: none; align-items: center; gap: 8px; width: 100%;">
+                                <div style="display: flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: 6px; background: #4a86ff; color: white; border: none; cursor: pointer; font-size: 13px;">
+                                    <i class="fas fa-comment-dots"></i>
+                                    <span>问答</span>
+                                    <button id="qa-close-btn" class="mode-close-btn" style="background: transparent; border: none; color: white; cursor: pointer; font-size: 13px; margin-left: 8px;">×</button>
+                                </div>
+                                <!-- CPU/DCU/云计算标签 -->
+                                <div class="skill-sub-list" id="qa-skill-list" style="display: flex; gap: 6px;">
+                                    <button class="skill-sub-item">CPU</button>
+                                    <button class="skill-sub-item">DCU</button>
+                                    <button class="skill-sub-item">云计算</button>
+                                </div>
+                            </div>
+                            
+                            <!-- 单独显示下载模式 -->
+                            <div id="single-download-mode" style="display: none; align-items: center; gap: 8px; width: 100%;">
+                                <div style="display: flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: 6px; background: #4a86ff; color: white; border: none; cursor: pointer; font-size: 13px;">
+                                    <i class="fas fa-download"></i>
+                                    <span>下载</span>
+                                    <button id="download-close-btn" class="mode-close-btn" style="background: transparent; border: none; color: white; cursor: pointer; font-size: 13px; margin-left: 8px;">×</button>
+                                </div>
+                                <!-- CPU/DCU/云计算标签 -->
+                                <div class="skill-sub-list" id="download-skill-list" style="display: flex; gap: 6px;">
+                                    <button class="skill-sub-item">CPU</button>
+                                    <button class="skill-sub-item">DCU</button>
+                                    <button class="skill-sub-item">云计算</button>
+                                </div>
+                            </div>
+                        </div>
                         <!-- 场景领域提示标签（独立标签） -->
                         <div id="selected-scene-domain" class="selected-scene-domain">
                             <span class="selected-scene-domain-tag">
@@ -1560,40 +1609,21 @@
                         </div>
                         <!-- 输入框和发送按钮区域 -->
                         <div class="input-inner-wrapper" style="display: flex; gap: 8px; min-height: 80px; align-items: flex-start;">
-                            <!-- 模式切换：问答 / 下载 - 放在输入框内部左下角 -->
-                            <div style="display: flex; align-items: center; gap: 8px; position: absolute; bottom: 8px; left: 6px; z-index: 10;">
-                                <div class="mode-toggle-wrapper">
-                                    <div id="mode-toggle" class="mode-toggle mode-qa">
-                                        <div class="mode-toggle-knob" id="mode-toggle-knob">问答</div>
-                                        <div class="mode-toggle-text">
-                                            <span class="mode-text-qa">问答</span>
-                                            <span class="mode-text-download">下载</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- 技能选择器 - 放在模式切换按钮右侧 -->
-                                <div class="skill-selector" id="skill-selector">
-                                    <div class="skill-sub-list" id="download-sub-list">
-                                        <button class="skill-sub-item">CPU</button>
-                                        <button class="skill-sub-item">DCU</button>
-                                        <button class="skill-sub-item">云计算</button>
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- 技能选择器 - 已移除，因为在单独模式下已显示标签 -->
                             <!-- 输入框容器，包含标签和输入区域 -->
                             <div style="flex: 1; display: flex; align-items: flex-start; gap: 8px; min-height: 60px;">
                                 <!-- 模式标签显示 -->
-                                <div class="input-mode-tag" id="input-mode-tag" style="background: #4a86ff; color: white; padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 500; z-index: 5;">问答</div>
+                                <div class="input-mode-tag" id="input-mode-tag" style="display: none; background: #4a86ff; color: white; padding: 4px 12px; border-radius: 16px; font-size: 11px; font-weight: 500; z-index: 5;">问答</div>
                                 <!-- 提示文案和输入区域 -->
                                 <div style="flex: 1; position: relative;">
                                     <!-- 动态提示文案 -->
-                                    <div id="input-placeholder" style="position: absolute; left: 0; top: 0; color: #9ca3af; font-size: 15px; pointer-events: none;">请输入您的问题...</div>
+                                    <div id="input-placeholder" style="position: absolute; left: 0; top: 0; color: #9ca3af; font-size: 14px; pointer-events: none;">请输入您的问题...</div>
                                     <!-- 输入框 -->
                                     <textarea 
                                         id="ai-input" 
                                         class="message-input"
                                         rows="2"
-                                        style="padding: 0; border: none; outline: none; background: transparent; width: 100%; min-height: 60px; max-height: 150px; resize: none; font-size: 15px;"
+                                        style="padding: 0; border: none; outline: none; background: transparent; width: 100%; min-height: 60px; max-height: 150px; resize: none; font-size: 14px;"
                                     ></textarea>
                                 </div>
                             </div>
@@ -1604,9 +1634,9 @@
                         
                         <!-- 正式联想框样式 - 市面上常见的搜索联想 -->
                         <div id="suggestion-list" style="position: absolute; bottom: 100%; left: 0; right: 0; margin-bottom: 8px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 9999; display: none; overflow: hidden; width: 100%; border: 1px solid #eaecef;">
-                            <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: all 0.2s;"><span style="color: red;">智能</span>天线</div>
-                            <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: all 0.2s;">全网<span style="color: red;">智能</span></div>
-                            <div style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; transition: all 0.2s;">体系智<span style="color: red;">能</span>特性</div>
+                            <div style="padding: 12px 16px; font-size: 13px; color: #333; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: all 0.2s;"><span style="color: red;">智能</span>天线</div>
+                            <div style="padding: 12px 16px; font-size: 13px; color: #333; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: all 0.2s;">全网<span style="color: red;">智能</span></div>
+                            <div style="padding: 12px 16px; font-size: 13px; color: #333; cursor: pointer; transition: all 0.2s;">体系智<span style="color: red;">能</span>特性</div>
                         </div>
                     </div>
                 </div>
@@ -1819,7 +1849,7 @@
                 return `
                     <div class="suggestion-item"
                          data-text="${escapeHtml(t)}"
-                         style="padding: 12px 16px; font-size: 14px; color: #333; cursor: pointer; ${border} transition: all 0.2s;">
+                         style="padding: 12px 16px; font-size: 13px; color: #333; cursor: pointer; ${border} transition: all 0.2s;">
                         ${highlight(t, query)}
                     </div>
                 `;
@@ -2229,18 +2259,21 @@
         let currentMode = 'qa'; // qa 问答模式；download 下载模式
 
         // 模式切換 DOM
-        const modeToggle = document.getElementById('mode-toggle');
-        const modeToggleKnob = document.getElementById('mode-toggle-knob');
+        const defaultModeToggle = document.getElementById('default-mode-toggle');
+        const singleQaMode = document.getElementById('single-qa-mode');
+        const singleDownloadMode = document.getElementById('single-download-mode');
+        const qaModeBtn = document.getElementById('qa-mode-btn');
+        const downloadModeBtn = document.getElementById('download-mode-btn');
+        const qaCloseBtn = document.getElementById('qa-close-btn');
+        const downloadCloseBtn = document.getElementById('download-close-btn');
         const inputModeTag = document.getElementById('input-mode-tag');
         const inputPlaceholder = document.getElementById('input-placeholder');
 
         function updateModeUI() {
-            if (!modeToggle || !modeToggleKnob || !aiInput || !inputPlaceholder) return;
+            if (!aiInput || !inputPlaceholder) return;
             const skillSelector = document.getElementById('skill-selector');
             if (currentMode === 'qa') {
-                modeToggle.classList.remove('mode-download');
-                modeToggle.classList.add('mode-qa');
-                modeToggleKnob.textContent = '问答';
+                // 更新输入框UI
                 inputPlaceholder.textContent = '请输入您的问题...';
                 if (inputModeTag) {
                     inputModeTag.textContent = '问答';
@@ -2251,9 +2284,7 @@
                     skillSelector.style.display = 'none';
                 }
             } else {
-                modeToggle.classList.remove('mode-qa');
-                modeToggle.classList.add('mode-download');
-                modeToggleKnob.textContent = '下载';
+                // 更新输入框UI
                 inputPlaceholder.textContent = '请输入需要下载的内容，如“CPU 驱动下载地址”...';
                 if (inputModeTag) {
                     inputModeTag.textContent = '下载';
@@ -2263,6 +2294,27 @@
                 if (skillSelector) {
                     skillSelector.style.display = 'flex';
                 }
+            }
+        }
+
+        // 显示单独的模式（问答或下载）
+        function showSingleMode(mode) {
+            // 隐藏默认模式切换
+            if (defaultModeToggle) {
+                defaultModeToggle.style.display = 'none';
+            }
+            // 隐藏所有单独模式
+            if (singleQaMode) {
+                singleQaMode.style.display = 'none';
+            }
+            if (singleDownloadMode) {
+                singleDownloadMode.style.display = 'none';
+            }
+            // 显示指定的单独模式
+            if (mode === 'qa' && singleQaMode) {
+                singleQaMode.style.display = 'flex';
+            } else if (mode === 'download' && singleDownloadMode) {
+                singleDownloadMode.style.display = 'flex';
             }
         }
 
@@ -2289,14 +2341,52 @@
             });
         }
 
-        if (modeToggle) {
-            modeToggle.addEventListener('click', function () {
-                currentMode = currentMode === 'qa' ? 'download' : 'qa';
+        // 添加模式切换按钮点击事件
+        if (qaModeBtn) {
+            qaModeBtn.addEventListener('click', function () {
+                currentMode = 'qa';
                 updateModeUI();
+                showSingleMode('qa');
             });
-            // 初始化一次 UI
-            updateModeUI();
         }
+
+        if (downloadModeBtn) {
+            downloadModeBtn.addEventListener('click', function () {
+                currentMode = 'download';
+                updateModeUI();
+                showSingleMode('download');
+            });
+        }
+
+        // 添加关闭按钮点击事件
+        if (qaCloseBtn) {
+            qaCloseBtn.addEventListener('click', function () {
+                currentMode = 'download';
+                updateModeUI();
+                showSingleMode('download');
+                // 清除所有技能标签的选中状态
+                const skillItems = document.querySelectorAll('.skill-sub-item');
+                skillItems.forEach(skillItem => {
+                    skillItem.classList.remove('active');
+                });
+            });
+        }
+
+        if (downloadCloseBtn) {
+            downloadCloseBtn.addEventListener('click', function () {
+                currentMode = 'qa';
+                updateModeUI();
+                showSingleMode('qa');
+                // 清除所有技能标签的选中状态
+                const skillItems = document.querySelectorAll('.skill-sub-item');
+                skillItems.forEach(skillItem => {
+                    skillItem.classList.remove('active');
+                });
+            });
+        }
+
+        // 初始化一次 UI
+        updateModeUI();
 
         // 二级标签选中样式（CPU / DCU / 云计算）
         const subItems = document.querySelectorAll('.skill-sub-item');
@@ -3388,19 +3478,22 @@
                     sceneDomainItems.forEach(i => i.classList.remove('active'));
                     this.classList.add('active');
 
-                    // 标签只保留 DCU / CPU 文本，不带描述
+                    // 标签只保留 DCU / CPU / 云计算 文本，不带描述
                     const titleEl = this.querySelector('.ability-item-title');
                     currentSceneDomain = titleEl ? titleEl.textContent.trim() : this.textContent.trim();
 
-                    // 在输入框上方显示当前选中领域
-                    if (selectedSceneDomain && selectedSceneDomainText) {
-                        selectedSceneDomain.style.display = 'block';
-                        selectedSceneDomainText.textContent = currentSceneDomain;
-                    }
-
-                    // 切换到下载模式，但不发送消息
-                    currentMode = 'download';
-                    updateModeUI();
+                    // 显示单独模式（问答或下载）
+                    showSingleMode(currentMode);
+                    
+                    // 选中相应的技能标签
+                    const skillItems = document.querySelectorAll('.skill-sub-item');
+                    skillItems.forEach(skillItem => {
+                        if (skillItem.textContent.trim() === currentSceneDomain) {
+                            skillItem.classList.add('active');
+                        } else {
+                            skillItem.classList.remove('active');
+                        }
+                    });
                 });
             });
         }
