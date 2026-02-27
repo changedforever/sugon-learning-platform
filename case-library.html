@@ -362,14 +362,29 @@
           <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm active border-[#2D874B] bg-[#2D874B]/10" data-category="">
             全部
           </button>
-          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="industry">
-            行业方案
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="government">
+            政府
           </button>
-          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="product">
-            产品方案
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="research">
+            科研
           </button>
-          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="scenario">
-            场景方案
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="communication">
+            通信
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="finance">
+            金融
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="internet">
+            互联网
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="enterprise">
+            企业
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="power">
+            电力
+          </button>
+          <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#2D874B] hover:bg-[#2D874B]/10 transition text-sm" data-category="media">
+            广媒
           </button>
         </div>
       </div>
@@ -498,7 +513,20 @@
 
   function renderCases(caseList = null) {
     grid.innerHTML = '';
-    const list = caseList || (currentFilter === 'all' ? cases : cases.filter(c => c.type === currentFilter));
+    const list = caseList || (currentFilter === 'all' ? cases : cases.filter(c => {
+      // 映射新的分类标签到对应的industry值
+      const categoryMap = {
+        'government': '政务',
+        'research': '科研',
+        'communication': '通信',
+        'finance': '金融',
+        'internet': '互联网',
+        'enterprise': '企业',
+        'power': '电力',
+        'media': '广媒'
+      };
+      return c.industry === categoryMap[currentFilter];
+    }));
 
     list.forEach(c => {
       const card = document.createElement('article');
