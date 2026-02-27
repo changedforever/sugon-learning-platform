@@ -853,11 +853,11 @@
   const certifications = [
     {
       id: 1,
-      title: '海光 CPU 基础认证',
+      title: '海光认证CPU工程师',
       category: 'general',
       level: 'beginner',
       levelText: '初级认证',
-      description: '掌握海光 CPU 基础架构和运维技能',
+      description: 'HYGON CERTIFIED CPU ASSOCIATE（HCCA）',
       coreSkills: [
         '具备海光芯片售前／售后技术支持',
         '系统运维、性能优化、故障诊断等',
@@ -877,11 +877,11 @@
     },
     {
       id: 2,
-      title: '海光 CPU 高级认证',
+      title: '海光认证CPU高级工程师',
       category: 'general',
       level: 'advanced',
       levelText: '高级认证',
-      description: '深入掌握海光 CPU 高级特性和优化技术',
+      description: 'HYGON CERTIFIED CPU PROFESSIONAL（HCCP）',
       coreSkills: [
         '海光 CPU 高级性能调优',
         '复杂场景下的故障诊断与解决',
@@ -900,11 +900,11 @@
     },
     {
       id: 4,
-      title: 'AI 基础算法认证',
+      title: '海光认证DCU工程师',
       category: 'ai',
       level: 'beginner',
       levelText: '初级认证',
-      description: '掌握人工智能基础算法和理论',
+      description: 'HYGON CERTIFIED DCU ASSOCIATE（HCDA）',
       coreSkills: [
         '机器学习基础算法理解',
         '深度学习模型基础应用',
@@ -923,11 +923,11 @@
     },
     {
       id: 5,
-      title: '智能计算平台高级认证',
+      title: '海光认证DCU高级工程师',
       category: 'ai',
       level: 'advanced',
       levelText: '高级认证',
-      description: '深入掌握智能计算平台架构和优化',
+      description: 'HYGON CERTIFIED DCU PROFESSIONAL （HCDP）',
       coreSkills: [
         '智能计算平台架构设计',
         '大规模模型训练优化',
@@ -946,22 +946,13 @@
     },
     {
       id: 6,
-      title: '智慧城市基础认证',
+      title: '海光CPU销售认证',
       category: 'city',
       level: 'beginner',
       levelText: '初级认证',
-      description: '掌握智慧城市建设的基础概念和技术架构',
+      description: '',
       coreSkills: [
-        '智慧城市顶层设计',
-        '城市数据治理',
-        '智能感知系统部署'
-      ],
-      courseObjectives: [
-        '掌握智慧城市的基本概念、发展历程和技术体系',
-        '熟悉智慧城市顶层设计方法和实施路径',
-        '了解城市数据治理的基本原理和实践方法',
-        '掌握智能感知系统的部署和运维技术',
-        '具备智慧城市项目的基础规划能力'
+        '掌握国产化政策与海光芯片认知能力，具备行业应用洞察及客户推广落地能力。'
       ],
       duration: '2.5个月',
       points: 65,
@@ -969,22 +960,15 @@
     },
     {
       id: 7,
-      title: '数字政府高级认证',
+      title: '海光CPU讲师认证',
       category: 'city',
       level: 'advanced',
       levelText: '高级认证',
-      description: '深入掌握数字政府建设的核心技术和实践',
+      description: '',
       coreSkills: [
-        '数字政府架构设计',
-        '政务数据共享与开放',
-        '智慧政务应用开发'
-      ],
-      courseObjectives: [
-        '深入理解数字政府的建设理念和发展趋势',
-        '掌握数字政府的整体架构设计方法',
-        '熟悉政务数据共享与开放的技术实现',
-        '具备智慧政务应用的开发和部署能力',
-        '能够设计和实施数字政府解决方案'
+        '具备市场活动专业演讲能力，能清晰传递产品价值与品牌优势。',
+        '结合客户场景进行内容输出。',
+        '能精准对接市场需求，有效传递方案亮点，强化现场互动与转化。'
       ],
       duration: '3.5个月',
       points: 90,
@@ -1006,44 +990,49 @@
       card.className = 'glass-card rounded-3xl border border-gray-300 p-6 hover:-translate-y-1 hover:border-[#4B8CF5]/80 transition';
       
       card.innerHTML = `
-        <!-- 认证级别标签 -->
-        <div class="flex items-center justify-between mb-4">
-          <span class="inline-flex items-center px-3 py-1.5 rounded-full border text-sm cert-level-${cert.level}">
-            ${cert.levelText}
-          </span>
-          <span class="text-sm text-gray-500">${cert.category === 'general' ? '通用计算' : '智能计算'}</span>
-        </div>
-        
-        <!-- 认证标题和描述 -->
-        <h3 class="text-base font-semibold text-gray-800 mb-3">${cert.title}</h3>
-        <p class="text-sm text-gray-600 mb-4">${cert.description}</p>
-        
-        <!-- 核心技能 -->
-        <div class="mb-4">
-          <h4 class="text-sm font-medium text-gray-700 mb-2">核心技能：</h4>
-          <ul class="text-sm text-gray-600 space-y-1">
-            ${cert.coreSkills.map(skill => `<li>· ${skill}</li>`).join('')}
-          </ul>
-        </div>
-        
-        <!-- 课程目标 -->
-        <div class="mb-5">
-          <h4 class="text-sm font-medium text-gray-700 mb-2">课程目标：</h4>
-          <ul class="text-sm text-gray-600 space-y-1">
-            ${cert.courseObjectives.map(obj => `<li>· ${obj}</li>`).join('')}
-          </ul>
-        </div>
-        
-
-        
-        <!-- 操作按钮 -->
-        <div class="flex gap-3">
-          <a href="certification-detail.html" class="flex-1 px-4 py-2.5 rounded-full bg-white border border-gray-300 hover:border-[#4B8CF5] text-sm transition text-center">
-            <i class="fa fa-eye mr-1"></i>查看完整课程大纲
-          </a>
-          <button onclick="enrollCert(${cert.id}, this)" class="flex-1 px-4 py-2.5 rounded-full bg-[#4B8CF5] text-white text-sm hover:bg-[#3a6bc4] transition text-center">
-            <i class="fa fa-plus mr-1"></i>立即报名
-          </button>
+        <div class="flex flex-col h-full">
+          <!-- 认证级别标签 -->
+          <div class="flex items-center justify-between mb-4">
+            <span class="inline-flex items-center px-3 py-1.5 rounded-full border text-sm cert-level-${cert.level}">
+              ${cert.levelText}
+            </span>
+            <span class="text-sm text-gray-500">${cert.category === 'general' ? '通用计算' : cert.category === 'ai' ? '智能计算' : '其他'}</span>
+          </div>
+          
+          <!-- 认证标题和描述 -->
+          <h3 class="text-base font-semibold text-gray-800 mb-3">${cert.title}</h3>
+          <p class="text-sm text-gray-600 mb-4">${cert.description}</p>
+          
+          <!-- 核心技能 -->
+          <div class="mb-4">
+            <h4 class="text-sm font-medium text-gray-700 mb-2">核心技能：</h4>
+            <ul class="text-sm text-gray-600 space-y-1">
+              ${cert.coreSkills.map(skill => `<li>· ${skill}</li>`).join('')}
+            </ul>
+          </div>
+          
+          <!-- 课程目标（仅当存在时显示） -->
+          ${cert.courseObjectives ? `
+          <div class="mb-5">
+            <h4 class="text-sm font-medium text-gray-700 mb-2">课程目标：</h4>
+            <ul class="text-sm text-gray-600 space-y-1">
+              ${cert.courseObjectives.map(obj => `<li>· ${obj}</li>`).join('')}
+            </ul>
+          </div>
+          ` : ''}
+          
+          <!-- 占位符，将按钮推到底部 -->
+          <div class="flex-grow"></div>
+          
+          <!-- 操作按钮 -->
+          <div class="flex gap-3 mt-4">
+            <a href="certification-detail.html" class="flex-1 px-4 py-2.5 rounded-full bg-white border border-gray-300 hover:border-[#4B8CF5] text-sm transition text-center">
+              <i class="fa fa-eye mr-1"></i>查看完整课程大纲
+            </a>
+            <button onclick="enrollCert(${cert.id}, this)" class="flex-1 px-4 py-2.5 rounded-full bg-[#4B8CF5] text-white text-sm hover:bg-[#3a6bc4] transition text-center">
+              <i class="fa fa-plus mr-1"></i>立即报名
+            </button>
+          </div>
         </div>
       `;
       
