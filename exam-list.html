@@ -306,15 +306,7 @@
                                             </a>
                                             <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
                                                 <div class="p-3">
-                                                    <h4 class="text-sm font-semibold text-gray-800 mb-2">课程分类</h4>
-                                                    <div class="grid grid-cols-2 gap-2">
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">云基础设施</a>
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">AI与数据智能</a>
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">解决方案</a>
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">安全技术</a>
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">运维管理</a>
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">开发技术</a>
-                                                    </div>
+                                                    <p class="text-sm text-gray-600 py-4">此处内容以首页导航栏为准</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -327,15 +319,7 @@
                                             </a>
                                             <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
                                                 <div class="p-3">
-                                                    <h4 class="text-sm font-semibold text-gray-800 mb-2">考试分类</h4>
-                                                    <div class="grid grid-cols-2 gap-2">
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">资格认证考试</a>
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">技能水平考试</a>
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">岗位能力考试</a>
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">产品认证考试</a>
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">在线考试</a>
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">线下考试</a>
-                                                    </div>
+                                                    <p class="text-sm text-gray-600 py-4">此处内容以首页导航栏为准</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -348,23 +332,23 @@
                                             </a>
                                             <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
                                                 <div class="p-3">
-                                                    <h4 class="text-sm font-semibold text-gray-800 mb-2">认证分类</h4>
-                                                    <div class="grid grid-cols-2 gap-2">
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">通用计算认证</a>
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">智能计算认证</a>
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">行业解决方案认证</a>
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">专业技术认证</a>
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">初级认证</a>
-                                                        <a href="#" class="text-xs text-gray-600 hover:text-[#2D874B] py-1">高级认证</a>
-                                                    </div>
+                                                    <p class="text-sm text-gray-600 py-4">此处内容以首页导航栏为准</p>
                                                 </div>
                                             </div>
                                         </div>
                                         
                                         <!-- 讲师 -->
-                                        <a href="lecturer-list.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] block">
-                                            讲师
-                                        </a>
+                                        <div class="nav-item group/item relative">
+                                            <a href="lecturer-list.html" class="text-sm font-medium text-gray-800 hover:text-[#2D874B] flex items-center justify-between">
+                                                讲师
+                                                <i class="fa fa-chevron-right text-xs opacity-0 group-hover/item:opacity-100"></i>
+                                            </a>
+                                            <div class="nav-submenu absolute left-full top-0 ml-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 z-50">
+                                                <div class="p-3">
+                                                    <p class="text-sm text-gray-600 py-4">此处内容以首页导航栏为准</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     
 
@@ -715,14 +699,14 @@
 <script>
   // ===== 模拟考试数据（后续可替换为接口返回） =====
   const allExams = [
-    { id: 1, name: "伙伴云架构工程师（P-Cloud Architect）认证考试", source: "云基础设施学院", date: "2026-01-15 09:00-11:00", role: "云架构师", difficulty: "高级", participants: 2345 },
-    { id: 2, name: "AI 与数据智能认证考试", source: "AI 与数据智能学院", date: "2026-01-12 14:00-16:00", role: "数据分析师", difficulty: "中级", participants: 1890 },
-    { id: 3, name: "解决方案售前高级认证", source: "解决方案与售前学院", date: "2026-01-10 09:00-11:00", role: "解决方案顾问", difficulty: "高级", participants: 1560 },
-    { id: 4, name: "DevOps 工具链与实践认证", source: "云基础设施学院", date: "2026-01-08 19:00-21:00", role: "DevOps 工程师", difficulty: "中级", participants: 1340 },
-    { id: 5, name: "金融行业云原生解决方案认证", source: "解决方案与售前学院", date: "2025-12-30 14:00-16:00", role: "解决方案顾问", difficulty: "高级", participants: 1120 },
-    { id: 6, name: "生态技术领袖（P-Eco Leader）认证评审", source: "生态合作中心", date: "2025-12-25 10:00-12:00", role: "技术专家", difficulty: "高级", participants: 980 },
-    { id: 7, name: "AIGC 应用开发能力认证", source: "AI 与数据智能学院", date: "2025-12-22 09:00-11:00", role: "开发者", difficulty: "中级", participants: 860 },
-    { id: 8, name: "云安全与零信任架构认证", source: "云基础设施学院", date: "2025-12-20 09:00-11:00", role: "云安全专家", difficulty: "高级", participants: 750 }
+    { id: 1, name: "海光认证CPU工程师", source: "海光认证", date: "2026-01-15 09:00-11:00", role: "工程师", difficulty: "初级", participants: 2345 },
+    { id: 2, name: "海光认证CPU高级工程师", source: "海光认证", date: "2026-01-12 14:00-16:00", role: "高级工程师", difficulty: "中级", participants: 1890 },
+    { id: 3, name: "海光认证CPU专家", source: "海光认证", date: "2026-01-10 09:00-11:00", role: "专家", difficulty: "高级", participants: 1560 },
+    { id: 4, name: "海光认证DCU工程师", source: "海光认证", date: "2026-01-08 19:00-21:00", role: "工程师", difficulty: "初级", participants: 1340 },
+    { id: 5, name: "海光认证DCU高级工程师", source: "海光认证", date: "2025-12-30 14:00-16:00", role: "高级工程师", difficulty: "中级", participants: 1120 },
+    { id: 6, name: "海光认证DCU专家", source: "海光认证", date: "2025-12-25 10:00-12:00", role: "专家", difficulty: "高级", participants: 980 },
+    { id: 7, name: "海光CPU认证销售", source: "光耀百城认证", date: "2025-12-22 09:00-11:00", role: "销售", difficulty: "中级", participants: 860 },
+    { id: 8, name: "海光CPU讲师认证", source: "光耀百城认证", date: "2025-12-20 09:00-11:00", role: "讲师", difficulty: "高级", participants: 750 }
   ];
 
   const pageSize = 8;
