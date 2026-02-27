@@ -48,6 +48,27 @@
       box-shadow: 0 2px 8px rgba(176, 31, 36, 0.12);
       font-weight: 600;
     }
+    
+    /* 分类标签样式 */
+    .category-tag {
+      transition: all 0.2s ease;
+      font-weight: 500;
+      border: 1px solid #e5e7eb;
+      background: rgba(255, 255, 255, 0.8);
+    }
+    
+    .category-tag:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    .category-tag.active {
+      color: #B01F24;
+      background: rgba(176, 31, 36, 0.1);
+      box-shadow: 0 2px 8px rgba(176, 31, 36, 0.12);
+      font-weight: 600;
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -468,28 +489,7 @@
                                         </a>
                                     </div>
                                     
-                                    <!-- 右侧：快速入口 -->
-                                    <div class="space-y-3">
-                                        <h3 class="text-sm font-semibold text-gray-800 mb-2">快速入口</h3>
-                                        <div class="space-y-2">
-                                            <a href="personal-center.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
-                                                <i class="fa fa-user text-[#2D874B] text-xs"></i>
-                                                个人中心
-                                            </a>
-                                            <a href="task-detail.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
-                                                <i class="fa fa-tasks text-[#2D874B] text-xs"></i>
-                                                我的任务
-                                            </a>
-                                            <a href="course-learning.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
-                                                <i class="fa fa-book text-[#2D874B] text-xs"></i>
-                                                继续学习
-                                            </a>
-                                            <a href="certification.html" class="text-xs text-gray-600 hover:text-[#2D874B] block py-1 flex items-center gap-2">
-                                                <i class="fa fa-certificate text-[#2D874B] text-xs"></i>
-                                                我的证书
-                                            </a>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -680,100 +680,86 @@
           <span class="inline-flex h-6 w-1 rounded-full bg-[#B01F24]"></span>
           讲师列表
         </h2>
-        <p class="text-xs text-gray-600 mt-1">
-          为您推荐 <span class="text-[#B01F24]">32</span> 位优秀讲师，涵盖云计算、人工智能、大数据、网络安全等领域
-        </p>
+
       </div>
 
 
     </div>
 
-    <!-- 讲师列表与左侧筛选 -->
+    <!-- 讲师列表 -->
     <section class="max-w-7xl mx-auto px-4 lg:px-6">
-      <div class="flex flex-col lg:flex-row gap-6">
-        <!-- 左侧筛选：专业领域 -->
-        <div class="lg:w-48 shrink-0">
-          <div class="glass-card rounded-3xl p-4 space-y-4 sticky top-24">
-            <div class="flex items-center justify-between">
-              <span class="text-sm font-semibold text-[#B01F24]">筛选条件</span>
-            </div>
-
-            <!-- 专业领域 -->
-            <div>
-              <div class="text-gray-600 mb-2 flex items-center justify-between">
-                <span class="text-sm">专业领域</span>
-              </div>
-              <div class="flex flex-col gap-1">
-                <button
-                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-[#B01F24] text-[11px] text-white text-left hover:bg-[#9a1c20] transition-colors duration-200"
-                  data-filter="field" data-value="all">
-                  全部
-                </button>
-                <button
-                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
-                  data-filter="field" data-value="云计算">
-                  云计算
-                </button>
-                <button
-                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
-                  data-filter="field" data-value="人工智能">
-                  人工智能
-                </button>
-                <button
-                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
-                  data-filter="field" data-value="大数据">
-                  大数据
-                </button>
-                <button
-                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
-                  data-filter="field" data-value="网络安全">
-                  网络安全
-                </button>
-                <button
-                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
-                  data-filter="field" data-value="架构设计">
-                  架构设计
-                </button>
-                <button
-                  class="filter-chip px-2.5 py-1.5 rounded-lg bg-white text-[11px] text-gray-800 text-left hover:bg-gray-100 transition-colors duration-200"
-                  data-filter="field" data-value="数据库">
-                  数据库
-                </button>
-              </div>
-            </div>
-
-            <span id="active-filter-text" class="text-[11px] text-gray-600 block mt-2">
-              已选条件：全部
-            </span>
+      <!-- 筛选栏 -->
+      <div class="space-y-4 mb-6">
+        <!-- 专业领域标签 -->
+        <div class="p-4">
+          <div id="field-filter-tags" class="flex flex-wrap gap-2">
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#B01F24] hover:bg-[#B01F24]/10 transition text-sm active border-[#B01F24] bg-[#B01F24]/10" data-filter="field" data-value="all">
+              全部
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#B01F24] hover:bg-[#B01F24]/10 transition text-sm" data-filter="field" data-value="人工智能">
+              人工智能
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#B01F24] hover:bg-[#B01F24]/10 transition text-sm" data-filter="field" data-value="云计算/虚拟化">
+              云计算/虚拟化
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#B01F24] hover:bg-[#B01F24]/10 transition text-sm" data-filter="field" data-value="数据库">
+              数据库
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#B01F24] hover:bg-[#B01F24]/10 transition text-sm" data-filter="field" data-value="操作系统">
+              操作系统
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#B01F24] hover:bg-[#B01F24]/10 transition text-sm" data-filter="field" data-value="大数据">
+              大数据
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#B01F24] hover:bg-[#B01F24]/10 transition text-sm" data-filter="field" data-value="网络流量">
+              网络流量
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#B01F24] hover:bg-[#B01F24]/10 transition text-sm" data-filter="field" data-value="高端计算">
+              高端计算
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#B01F24] hover:bg-[#B01F24]/10 transition text-sm" data-filter="field" data-value="存储">
+              存储
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#B01F24] hover:bg-[#B01F24]/10 transition text-sm" data-filter="field" data-value="海光内生安全">
+              海光内生安全
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#B01F24] hover:bg-[#B01F24]/10 transition text-sm" data-filter="field" data-value="基准测试">
+              基准测试
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#B01F24] hover:bg-[#B01F24]/10 transition text-sm" data-filter="field" data-value="应用套件开发">
+              应用套件开发
+            </button>
+            <button class="category-tag px-4 py-2 rounded-full border border-gray-300 hover:border-[#B01F24] hover:bg-[#B01F24]/10 transition text-sm" data-filter="field" data-value="光耀百城策略">
+              光耀百城策略
+            </button>
           </div>
         </div>
+      </div>
 
-        <!-- 右侧讲师列表 -->
-        <div class="flex-1">
-          <!-- 顶部排序和搜索 -->
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
-            <!-- 排序选项 -->
-            <div class="flex items-center gap-2 flex-wrap">
-              <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="comprehensive">
-                综合排序
-              </button>
-              <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="latest">
-                最新
-              </button>
-              <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="hottest">
-                最受欢迎
-              </button>
-            </div>
-            
-            <!-- 搜索框 -->
-            <div class="relative">
-              <i class="fa fa-search text-gray-400 absolute left-2 top-2.5 text-xs"></i>
-              <input id="search-input"
-                     type="text"
-                     placeholder="搜索讲师姓名 / 专业领域 / 机构"
-                     class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]" />
-            </div>
-          </div>
+      <!-- 顶部排序和搜索 -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+        <!-- 排序选项 -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="comprehensive">
+            综合排序
+          </button>
+          <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="latest">
+            最新
+          </button>
+          <button class="sort-btn px-4 py-2 rounded-full transition text-sm" data-sort="hottest">
+            最受欢迎
+          </button>
+        </div>
+        
+        <!-- 搜索框 -->
+        <div class="relative">
+          <i class="fa fa-search text-gray-400 absolute left-2 top-2.5 text-xs"></i>
+          <input id="search-input"
+                 type="text"
+                 placeholder="搜索讲师姓名 / 专业领域 / 机构"
+                 class="w-52 md:w-64 rounded-full bg-white/80 border border-gray-300 pl-7 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B01F24] focus:border-[#B01F24]" />
+        </div>
+      </div>
 
           <!-- 讲师列表 -->
           <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

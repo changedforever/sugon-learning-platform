@@ -1197,7 +1197,7 @@
         }
 
         // 页面切换功能
-        let currentPageType = 1; // 1: 默认页面（图标+文字）, 2: 只显示文字, 3: 只显示图标, 4: 下拉框显示
+        let currentPageType = 1; // 1: 默认页面（图标+文字）, 2: 只显示文字, 3: 只显示图标, 4: 下拉框显示, 5: 搜索框下方筛选项
         const pageToggle = document.getElementById('page-toggle');
         const courseSystemSection = document.querySelector('.course-system-section');
         const courseSystemGrid = document.querySelector('.grid.grid-cols-5');
@@ -1209,7 +1209,7 @@
 
         // 页面切换函数
         function switchPage() {
-            currentPageType = currentPageType % 4 + 1;
+            currentPageType = currentPageType % 5 + 1;
             updatePageDisplay();
         }
 
@@ -1236,6 +1236,16 @@
                 existingDropdown.remove();
             }
             
+            // 移除之前添加的筛选项容器
+            const existingFilterContainer = courseSystemSection.querySelector('.filter-dropdown-container');
+            if (existingFilterContainer) {
+                // 移除事件监听器
+                if (existingFilterContainer._closeDropdownListener) {
+                    document.removeEventListener('click', existingFilterContainer._closeDropdownListener);
+                }
+                existingFilterContainer.remove();
+            }
+            
             // 移除之前添加的系统弹窗元素
             const existingSystemOverlay = document.querySelector('.system-overlay');
             if (existingSystemOverlay) {
@@ -1257,6 +1267,9 @@
                     styleEl.remove();
                 }
             });
+            
+            // 恢复课程体系标题的显示
+            courseSystemTitle.classList.remove('hidden');
 
             switch (currentPageType) {
                 case 1:
@@ -1421,6 +1434,139 @@
                             document.body.style.overflow = 'auto';
                         }
                     });
+                    break;
+                case 5:
+                    // 第五页：搜索框下方筛选项
+                    courseSystemGrid.classList.add('hidden');
+                    
+                    // 移除标题区域
+                    courseSystemTitle.classList.add('hidden');
+                    
+                    // 创建搜索框下方的筛选项
+                    const filterContainer = document.createElement('div');
+                    filterContainer.className = 'filter-dropdown-container w-full';
+                    
+                    // 构建筛选项HTML
+                    const filterHTML = `
+                        <div class="relative w-full">
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="filter-item" data-filter="system">
+                                    <span class="text-sm font-medium">课程体系</span>
+                                </div>
+                                <div class="filter-item" data-filter="scene">
+                                    <span class="text-sm font-medium">场景</span>
+                                </div>
+                                <div class="filter-item" data-filter="domain">
+                                    <span class="text-sm font-medium">领域</span>
+                                </div>
+                            </div>
+                            <!-- 下拉框容器 -->
+                            <div class="dropdown-container hidden absolute top-full left-0 right-0 bg-white rounded-lg shadow-lg border border-gray-200 z-30 p-3">
+                                <!-- 课程体系下拉内容 -->
+                                <div class="dropdown-content system-content hidden">
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="system" data-value="all">全部</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="system" data-value="应用软件性能优化系列">应用软件性能优化</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="system" data-value="海光应用加速套件系列">海光应用加速套件</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="system" data-value="基础软件性能优化系列">基础软件性能优化</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="system" data-value="海光芯片安全系列">海光芯片安全</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="system" data-value="DCU技术基础课程">DCU技术基础</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="system" data-value="DCU-AI大模型基础课程">DCU-AI大模型基础</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="system" data-value="DCU-DeepSeek课程">DCU-DeepSeek课程</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="system" data-value="HG认证系列课程">HG认证系列课程</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="system" data-value="光耀百城系列课程">光耀百城系列课程</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="system" data-value="DCU+高性能计算课程">DCU+高性能计算</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="system" data-value="DCU+AI for Science课程">DCU+AI for Science</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="system" data-value="BenchMark工具性能优化系列">BenchMark工具性能优化</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="system" data-value="DCU优化策略与工程实践">DCU优化策略与工程实践</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="system" data-value="基于DCU加速的大模型训练与推理">基于DCU加速的大模型训练与推理</button>
+                                    </div>
+                                </div>
+                                <!-- 场景下拉内容 -->
+                                <div class="dropdown-content scene-content hidden">
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="scene" data-value="all">全部</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="scene" data-value="系统优化系列">系统优化系列</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="scene" data-value="开发者赋能">开发者赋能</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="scene" data-value="产品策略">产品策略</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="scene" data-value="认证培训">认证培训</button>
+                                    </div>
+                                </div>
+                                <!-- 领域下拉内容 -->
+                                <div class="dropdown-content domain-content hidden">
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="domain" data-value="all">全部</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="domain" data-value="操作系统">操作系统</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="domain" data-value="数据库">数据库</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="domain" data-value="虚拟化&云">虚拟化&云</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="domain" data-value="大数据">大数据</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="domain" data-value="网络流量">网络流量</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="domain" data-value="高性能计算">高性能计算</button>
+                                        <button class="filter-chip px-3 py-2 rounded-lg bg-white text-[12px] text-gray-800 text-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200" data-filter="domain" data-value="人工智能">人工智能</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    filterContainer.innerHTML = filterHTML;
+                    courseSystemSection.appendChild(filterContainer);
+                    
+                    // 添加筛选项点击事件
+                    const filterItems = filterContainer.querySelectorAll('.filter-item');
+                    const dropdownContainer = filterContainer.querySelector('.dropdown-container');
+                    const dropdownContents = filterContainer.querySelectorAll('.dropdown-content');
+                    
+                    filterItems.forEach(item => {
+                        item.addEventListener('click', () => {
+                            const filterType = item.dataset.filter;
+                            
+                            // 显示下拉框容器
+                            dropdownContainer.classList.remove('hidden');
+                            
+                            // 隐藏所有下拉内容
+                            dropdownContents.forEach(content => {
+                                content.classList.add('hidden');
+                            });
+                            
+                            // 显示对应类型的下拉内容
+                            const targetContent = filterContainer.querySelector(`.${filterType}-content`);
+                            if (targetContent) {
+                                targetContent.classList.remove('hidden');
+                            }
+                        });
+                    });
+                    
+                    // 为下拉框中的筛选按钮添加点击事件
+                    const dropdownChips = filterContainer.querySelectorAll('.dropdown-content .filter-chip');
+                    dropdownChips.forEach(chip => {
+                        chip.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            const type = this.dataset.filter;
+                            const value = this.dataset.value;
+                            
+                            // 更新筛选状态
+                            filters[type] = value;
+                            updateFilterChips(type);
+                            
+                            // 关闭下拉框
+                            dropdownContainer.classList.add('hidden');
+                            
+                            // 重新渲染课程列表
+                            applyFiltersAndRender();
+                        });
+                    });
+                    
+                    // 点击页面其他地方关闭下拉框
+                    const closeDropdown = (e) => {
+                        if (!e.target.closest('.filter-item') && !e.target.closest('.dropdown-container')) {
+                            dropdownContainer.classList.add('hidden');
+                        }
+                    };
+                    document.addEventListener('click', closeDropdown);
+                    
+                    // 保存事件监听器引用，以便在切换页面时移除
+                    filterContainer._closeDropdownListener = closeDropdown;
                     break;
             }
             
