@@ -69,8 +69,11 @@
         preStateOverlay.classList.add('hidden');
         // 确保所有内容都可见
         if (tabBtnDetail) tabBtnDetail.style.display = 'block';
-        if (panelDetail) panelDetail.style.display = 'block';
+        if (tabBtnReport) tabBtnReport.style.display = 'block';
+        if (panelDetail) panelDetail.classList.remove('hidden');
+        if (panelReport) panelReport.classList.add('hidden');
         if (btnViewDetail) btnViewDetail.style.display = 'block';
+        if (btnViewReport) btnViewReport.style.display = 'block';
       });
 
       // 选项 B：查看考试结果（不含试题）
@@ -78,11 +81,11 @@
         preStateOverlay.classList.add('hidden');
         // 隐藏答题详情相关内容
         if (tabBtnDetail) tabBtnDetail.style.display = 'none';
-        if (panelDetail) panelDetail.style.display = 'none';
+        if (panelDetail) panelDetail.classList.add('hidden');
         if (btnViewDetail) btnViewDetail.style.display = 'none';
         // 默认显示考试报告
-        document.getElementById('panel-report').classList.remove('hidden');
-        document.getElementById('tab-btn-report').classList.add('tab-btn-active');
+        if (panelReport) panelReport.classList.remove('hidden');
+        if (tabBtnReport) tabBtnReport.classList.add('tab-btn-active');
       });
 
       // 选项 C：仅提示考试结束
