@@ -671,13 +671,27 @@
                   <div id="new-exam-content" class="nav-content hidden">
                     <div class="grid grid-cols-3 gap-6">
                       <div>
-                        <a href="exam-list.html" class="block font-medium text-gray-800 mb-2 text-base hover:text-[#2D874B]">工程师认证考试</a>
+                        <a href="exam-list.html" class="block font-medium text-gray-800 mb-2 text-base hover:text-[#2D874B]">工程师认证</a>
+                        <ul class="space-y-1">
+                          <li class="text-sm text-gray-600">HCCA</li>
+                          <li class="text-sm text-gray-600">HCCP</li>
+                          <li class="text-sm text-gray-600">HCCE</li>
+                          <li class="text-sm text-gray-600">HCDA</li>
+                          <li class="text-sm text-gray-600">HCDP</li>
+                          <li class="text-sm text-gray-600">HCDE</li>
+                        </ul>
                       </div>
                       <div>
-                        <a href="exam-list.html" class="block font-medium text-gray-800 mb-2 text-base hover:text-[#2D874B]">销售认证考试</a>
+                        <a href="exam-list.html" class="block font-medium text-gray-800 mb-2 text-base hover:text-[#2D874B]">销售认证</a>
+                        <ul class="space-y-1">
+                          <li class="text-sm text-gray-600">HCSA</li>
+                        </ul>
                       </div>
                       <div>
-                        <a href="exam-list.html" class="block font-medium text-gray-800 mb-2 text-base hover:text-[#2D874B]">讲师认证考试</a>
+                        <a href="exam-list.html" class="block font-medium text-gray-800 mb-2 text-base hover:text-[#2D874B]">讲师认证</a>
+                        <ul class="space-y-1">
+                          <li class="text-sm text-gray-600">HCEA</li>
+                        </ul>
                       </div>
                     </div>
                   </div>
@@ -711,23 +725,21 @@
                   </div>
                   
                   <div id="new-lecturer-content" class="nav-content hidden">
-                    <div class="grid grid-cols-3 gap-6">
-                      <div>
-                        <h4 class="font-medium text-gray-800 mb-2 text-base">专业领域</h4>
-                        <ul class="space-y-1">
-                          <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">人工智能</a></li>
-                          <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">云计算/虚拟化</a></li>
-                          <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">数据库</a></li>
-                          <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">操作系统</a></li>
-                          <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">大数据</a></li>
-                          <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">网络流量</a></li>
-                          <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">高端计算</a></li>
-                          <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">存储</a></li>
-                          <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">海光内生安全</a></li>
-                          <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">基准测试</a></li>
-                          <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">应用套件开发</a></li>
-                          <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">光耀百城策略</a></li>
-                        </ul>
+                    <div>
+                      <h4 class="font-medium text-gray-800 mb-2 text-base">专业领域</h4>
+                      <div class="grid grid-cols-4 gap-4">
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">人工智能</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">云计算/虚拟化</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">数据库</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">操作系统</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">大数据</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">网络流量</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">高端计算</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">存储</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">海光内生安全</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">基准测试</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">应用套件开发</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">光耀百城策略</a>
                       </div>
                     </div>
                   </div>
@@ -2583,10 +2595,7 @@
       <!-- Tab标签区域 -->
       <div class="flex justify-center mb-8 lg:mb-12">
         <div class="inline-flex rounded-xl bg-gray-100 p-1">
-          <button class="resource-tab px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300 active" data-tab="domain">
-            领域
-          </button>
-          <button class="resource-tab px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300" data-tab="solution">
+          <button class="resource-tab px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300 active" data-tab="solution">
             方案
           </button>
           <button class="resource-tab px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300" data-tab="tool">
@@ -2594,9 +2603,6 @@
           </button>
           <button class="resource-tab px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300" data-tab="document">
             文档
-          </button>
-          <button class="resource-tab px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300" data-tab="case">
-            案例
           </button>
         </div>
       </div>
@@ -2609,97 +2615,10 @@
       
       <!-- 资源卡片区域 -->
       <div class="resource-content">
-        <!-- 领域资源 -->
-        <div id="domain-content" class="resource-tab-content active">
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-            <!-- 通用计算卡片 -->
-            <div class="bg-gray-100 rounded-2xl p-6 lg:p-8 border border-gray-200 hover:border-gray-200 hover:shadow-lg transition-all duration-300 relative overflow-hidden group">
-              <div class="absolute inset-0 border-2 border-transparent group-hover:border-blue-300 rounded-2xl pointer-events-none"></div>
-              <div class="flex items-center mb-4">
-                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-4">
-                  <i class="fa fa-microchip text-white text-xl"></i>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800">通用计算</h3>
-              </div>
-              <p class="text-gray-600 mb-4">
-                通用计算专家团队，为您提供处理器性能调优、架构咨询、兼容性测试等专业支持。
-              </p>
-              <div class="space-y-2">
-                <div class="flex items-center text-sm text-gray-500">
-                  <i class="fa fa-check-circle text-blue-500 mr-2"></i>
-                  <span>架构咨询</span>
-                </div>
-                <div class="flex items-center text-sm text-gray-500">
-                  <i class="fa fa-check-circle text-blue-500 mr-2"></i>
-                  <span>性能优化调优</span>
-                </div>
-                <div class="flex items-center text-sm text-gray-500">
-                  <i class="fa fa-check-circle text-blue-500 mr-2"></i>
-                  <span>兼容性测试支持</span>
-                </div>
-              </div>
-            </div>
-            
-            <!-- 智能计算卡片 -->
-            <div class="bg-gray-100 rounded-2xl p-6 lg:p-8 border border-gray-200 hover:border-gray-200 hover:shadow-lg transition-all duration-300 relative overflow-hidden group">
-              <div class="absolute inset-0 border-2 border-transparent group-hover:border-purple-300 rounded-2xl pointer-events-none"></div>
-              <div class="flex items-center mb-4">
-                <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mr-4">
-                  <i class="fa fa-brain text-white text-xl"></i>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800">智能计算</h3>
-              </div>
-              <p class="text-gray-600 mb-4">
-                智能计算专家，为您提供AI训练加速、模型优化、异构计算等领域的专业支持。
-              </p>
-              <div class="space-y-2">
-                <div class="flex items-center text-sm text-gray-500">
-                  <i class="fa fa-check-circle text-purple-500 mr-2"></i>
-                  <span>AI训练加速优化</span>
-                </div>
-                <div class="flex items-center text-sm text-gray-500">
-                  <i class="fa fa-check-circle text-purple-500 mr-2"></i>
-                  <span>深度学习模型优化</span>
-                </div>
-                <div class="flex items-center text-sm text-gray-500">
-                  <i class="fa fa-check-circle text-purple-500 mr-2"></i>
-                  <span>异构计算方案</span>
-                </div>
-              </div>
-            </div>
-            
-            <!-- 操作系统/数据库/云、通用卡片 -->
-            <div class="bg-gray-100 rounded-2xl p-6 lg:p-8 border border-gray-200 hover:border-gray-200 hover:shadow-lg transition-all duration-300 relative overflow-hidden group">
-              <div class="absolute inset-0 border-2 border-transparent group-hover:border-green-300 rounded-2xl pointer-events-none"></div>
-              <div class="flex items-center mb-4">
-                <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mr-4">
-                  <i class="fa fa-server text-white text-xl"></i>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800">操作系统/数据库/云、通用</h3>
-              </div>
-              <p class="text-gray-600 mb-4">
-                基础软件与云计算专家，为您提供操作系统优化、数据库管理、云平台部署等全方位技术支持。
-              </p>
-              <div class="space-y-2">
-                <div class="flex items-center text-sm text-gray-500">
-                  <i class="fa fa-check-circle text-green-500 mr-2"></i>
-                  <span>操作系统优化配置</span>
-                </div>
-                <div class="flex items-center text-sm text-gray-500">
-                  <i class="fa fa-check-circle text-green-500 mr-2"></i>
-                  <span>数据库性能调优</span>
-                </div>
-                <div class="flex items-center text-sm text-gray-500">
-                  <i class="fa fa-check-circle text-green-500 mr-2"></i>
-                  <span>云平台部署支持</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
         
         <!-- 方案资源 -->
-        <div id="solution-content" class="resource-tab-content hidden">
+        <div id="solution-content" class="resource-tab-content active">
           <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
             <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all duration-300 lg:col-span-2">
               <div class="flex items-center mb-4">
@@ -3031,112 +2950,7 @@
           </div>
         </div>
         
-        <!-- 案例资源 -->
-        <div id="case-content" class="resource-tab-content hidden">
-          <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
-            <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all duration-300 lg:col-span-1">
-              <div class="flex items-center mb-4">
-                <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mr-3">
-                  <i class="fa fa-building text-white text-lg"></i>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-800">某银行数字化转型</h3>
-              </div>
-              <p class="text-gray-600 text-sm mb-4">
-                帮助某大型银行实现核心系统云原生改造，提升系统稳定性
-              </p>
-              <div class="flex items-center text-xs text-gray-500">
-                <i class="fa fa-star mr-1"></i>
-                <span>成功案例</span>
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all duration-300 lg:col-span-2">
-              <div class="flex items-center mb-4">
-                <div class="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mr-3">
-                  <i class="fa fa-flask text-white text-lg"></i>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-800">科研机构AI平台</h3>
-              </div>
-              <p class="text-gray-600 text-sm mb-4">
-                为某国家级科研机构搭建AI训练平台，加速科研创新，支持多项国家级科研项目的顺利开展
-              </p>
-              <div class="flex items-center justify-between text-xs text-gray-500">
-                <div class="flex items-center">
-                  <i class="fa fa-star mr-1"></i>
-                  <span>标杆案例</span>
-                </div>
 
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all duration-300 lg:col-span-1">
-              <div class="flex items-center mb-4">
-                <div class="w-10 h-10 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center mr-3">
-                  <i class="fa fa-truck text-white text-lg"></i>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-800">物流企业大数据</h3>
-              </div>
-              <p class="text-gray-600 text-sm mb-4">
-                助力某物流企业构建大数据平台，优化物流路径和仓储管理
-              </p>
-              <div class="flex items-center text-xs text-gray-500">
-                <i class="fa fa-star mr-1"></i>
-                <span>行业典范</span>
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all duration-300 lg:col-span-1">
-              <div class="flex items-center mb-4">
-                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-3">
-                  <i class="fa fa-university text-white text-lg"></i>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-800">某大学智慧校园</h3>
-              </div>
-              <p class="text-gray-600 text-sm mb-4">
-                为某知名高校打造智慧校园解决方案，实现校园管理智能化
-              </p>
-              <div class="flex items-center text-xs text-gray-500">
-                <i class="fa fa-star mr-1"></i>
-                <span>创新案例</span>
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all duration-300 lg:col-span-1">
-              <div class="flex items-center mb-4">
-                <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mr-3">
-                  <i class="fa fa-heartbeat text-white text-lg"></i>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-800">医院AI影像诊断</h3>
-              </div>
-              <p class="text-gray-600 text-sm mb-4">
-                帮助某三甲医院部署AI影像诊断系统，提高诊断准确率
-              </p>
-              <div class="flex items-center text-xs text-gray-500">
-                <i class="fa fa-star mr-1"></i>
-                <span>医疗创新</span>
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all duration-300 lg:col-span-2">
-              <div class="flex items-center mb-4">
-                <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mr-3">
-                  <i class="fa fa-industry text-white text-lg"></i>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-800">制造企业数字化工厂</h3>
-              </div>
-              <p class="text-gray-600 text-sm mb-4">
-                为某大型制造企业构建数字化工厂解决方案，实现生产流程智能化、可视化管理，提升生产效率和产品质量
-              </p>
-              <div class="flex items-center justify-between text-xs text-gray-500">
-                <div class="flex items-center">
-                  <i class="fa fa-star mr-1"></i>
-                  <span>智能制造</span>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
       
       <!-- 底部查看更多链接 -->
@@ -3492,50 +3306,45 @@
   </section>
 </main>
 
-<footer class="bg-gray-800 text-white py-12">
+<footer class="bg-gray-900 text-white py-8">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-      <div>
-        <h3 class="text-lg font-semibold mb-4">关于我们</h3>
-        <ul class="space-y-2 text-gray-300">
-          <li><a href="#" class="hover:text-white transition">公司介绍</a></li>
-          <li><a href="#" class="hover:text-white transition">发展历程</a></li>
-          <li><a href="#" class="hover:text-white transition">企业文化</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="text-lg font-semibold mb-4">技术支持</h3>
-        <ul class="space-y-2 text-gray-300">
-          <li><a href="#" class="hover:text-white transition">技术文档</a></li>
-          <li><a href="#" class="hover:text-white transition">常见问题</a></li>
-          <li><a href="#" class="hover:text-white transition">服务协议</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="text-lg font-semibold mb-4">联系我们</h3>
-        <ul class="space-y-2 text-gray-300">
-          <li><i class="fa fa-phone mr-2"></i>400-123-4567</li>
-          <li><i class="fa fa-envelope mr-2"></i>support@hieco.com</li>
-          <li><i class="fa fa-map-marker mr-2"></i>北京市海淀区</li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="text-lg font-semibold mb-4">关注我们</h3>
-        <div class="flex space-x-4">
-          <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-[#2D874B] transition">
-            <i class="fa fa-weixin"></i>
+    <div class="flex flex-col md:flex-row items-center justify-between mb-6">
+      <div class="flex items-center mb-4 md:mb-0">
+        <div class="mr-4">
+          <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
+            <img src="images/logo2.png" alt="HIECO Logo" class="h-12 w-auto object-contain">
           </a>
-          <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-[#2D874B] transition">
-            <i class="fa fa-weibo"></i>
-          </a>
-          <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-[#2D874B] transition">
-            <i class="fa fa-github"></i>
-          </a>
+        </div>
+        <nav class="flex space-x-6">
+          <a href="#" class="text-gray-300 hover:text-white transition">光合组织</a>
+          <a href="#" class="text-gray-300 hover:text-white transition">加入组织</a>
+          <a href="#" class="text-gray-300 hover:text-white transition">申请适配</a>
+          <a href="#" class="text-gray-300 hover:text-white transition">信息查询</a>
+          <a href="#" class="text-gray-300 hover:text-white transition">新闻动态</a>
+          <a href="#" class="text-gray-300 hover:text-white transition">人才培养</a>
+        </nav>
+      </div>
+      <div class="flex items-center">
+        <div class="text-center">
+          <div class="w-24 h-24 bg-white p-2 mb-2">
+            <img src="images/wechat-qr-code.png.png" alt="官方微信公众号" class="w-full h-full object-cover">
+          </div>
+          <p class="text-xs text-gray-400">官方微信公众号</p>
         </div>
       </div>
     </div>
-    <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-      <p>&copy; 2024 光合技术支持平台. 保留所有权利.</p>
+    <hr class="border-gray-800 my-6">
+    <div class="flex flex-col md:flex-row items-center justify-center md:justify-between text-sm text-gray-400">
+      <div class="flex space-x-6 mb-4 md:mb-0">
+        <div class="flex items-center">
+          <i class="fa fa-envelope mr-2 text-[#2D874B]"></i>
+          <span>系统咨询：sys@hieco.com.cn</span>
+        </div>
+        <div class="flex items-center">
+          <i class="fa fa-envelope mr-2 text-[#2D874B]"></i>
+          <span>合作咨询：coop@hieco.com.cn</span>
+        </div>
+      </div>
     </div>
   </div>
 </footer>
@@ -4399,17 +4208,17 @@
         content.classList.remove('active');
       });
       
-      // 设置领域标签为默认选中
-      const domainTab = document.querySelector('.resource-tab[data-tab="domain"]');
-      const domainContent = document.getElementById('domain-content');
+      // 设置方案标签为默认选中
+      const solutionTab = document.querySelector('.resource-tab[data-tab="solution"]');
+      const solutionContent = document.getElementById('solution-content');
       
-      if (domainTab && domainContent) {
-        domainTab.classList.add('active');
-        domainTab.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
-        domainTab.classList.remove('text-gray-600');
+      if (solutionTab && solutionContent) {
+        solutionTab.classList.add('active');
+        solutionTab.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
+        solutionTab.classList.remove('text-gray-600');
         
-        domainContent.classList.remove('hidden');
-        domainContent.classList.add('active');
+        solutionContent.classList.remove('hidden');
+        solutionContent.classList.add('active');
       }
     }
 

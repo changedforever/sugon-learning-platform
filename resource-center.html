@@ -301,7 +301,7 @@
 <!-- 页面内容 -->
 <main class="pt-16 min-h-screen">
   <!-- 页面标题区域 bg-gradient-to-br-->
-  <section class=" from-blue-50 to-green-50 py-16 lg:py-20 top-head">
+  <section class=" from-blue-50 to-green-50 py-12 lg:py-16 top-head">
     <div class="max-w-7xl mx-auto px-4 lg:px-6">
       <div class="text-center">
         <h1 class="text-4xl lg:text-5xl font-bold text-gray-800 mb-4">资源中心</h1>
@@ -321,48 +321,7 @@
             <i class="fa fa-book mr-2"></i>技术文档
           </a>
         </div>
-      <!-- 资源库搜索区域 -->
-      <div class="mt-12">
-        <div class="max-w-4xl mx-auto">
-          <!-- 搜索框 -->
-          <div class="mb-8">
-            <div class="relative max-w-2xl mx-auto">
-              <input 
-                type="text" 
-                id="resource-search-input"
-                placeholder="搜索资源库中的方案、工具、文档..."
-                class="w-full px-6 py-4 rounded-2xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent text-lg"
-              >
-              <button id="resource-search-button" class="absolute right-3 top-1/2 transform -translate-y-1/2 bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-xl transition">
-                <i class="fa fa-search mr-2"></i>搜索
-              </button>
-            </div>
-          </div>
 
-          <!-- 搜索结果标签页 -->
-          <div id="search-results-container" class="hidden">
-            <div class="flex border-b border-gray-200 mb-6">
-              <button class="tab-btn tab-active px-6 py-3 font-medium text-gray-800 border-b-2 border-gray-500 bg-gray-100 rounded-t-lg" data-tab="all">
-                <i class="fa fa-globe mr-2"></i>全部
-              </button>
-              <button class="tab-btn px-6 py-3 font-medium text-gray-600 hover:text-gray-800" data-tab="tools">
-                <i class="fa fa-tools mr-2"></i>工具
-              </button>
-              <button class="tab-btn px-6 py-3 font-medium text-gray-600 hover:text-gray-800" data-tab="docs">
-                <i class="fa fa-book mr-2"></i>文档
-              </button>
-              <button class="tab-btn px-6 py-3 font-medium text-gray-600 hover:text-gray-800" data-tab="cases">
-                <i class="fa fa-lightbulb mr-2"></i>案例
-              </button>
-            </div>
-
-            <!-- 搜索结果内容 -->
-            <div id="search-results-content" class="resource-grid">
-              <!-- 搜索结果将在这里动态显示 -->
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
