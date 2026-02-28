@@ -848,29 +848,7 @@
           </div>
         </div>
 
-        <!-- 新增：专家服务、在学课程、通过考试、已获证书横向排列 -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4 lg:mt-0 lg:ml-4">
-          <div class="text-center lg:text-left">
-            <div class="text-gray-400 text-[11px]">专家服务</div>
-            <div class="text-[#B01F24] text-lg font-semibold">12</div>
-            <div class="text-[11px] text-gray-400">次</div>
-          </div>
-          <div class="text-center lg:text-left">
-            <div class="text-gray-400 text-[11px]">在学课程</div>
-            <div id="summary-learning-large" class="text-[#B01F24] text-lg font-semibold">0</div>
-            <div class="text-[11px] text-gray-400">门</div>
-          </div>
-          <div class="text-center lg:text-left">
-            <div class="text-gray-400 text-[11px]">通过考试</div>
-            <div id="summary-exams-large" class="text-[#B01F24] text-lg font-semibold">0</div>
-            <div class="text-[11px] text-gray-400">门</div>
-          </div>
-          <div class="text-center lg:text-left">
-            <div class="text-gray-400 text-[11px]">已获证书</div>
-            <div id="summary-cert-large" class="text-[#B01F24] text-lg font-semibold">2</div>
-            <div class="text-[11px] text-gray-400">张</div>
-          </div>
-        </div>
+
       </div>
     </section>
 
@@ -910,12 +888,11 @@
           <h2 class="text-sm md:text-base font-semibold text-gray-800 flex items-center gap-2">
             <i class="fa fa-award text-[#B01F24]"></i> 能力概览
           </h2>
-          <button id="add-target-cert-btn"
-                  class="hidden px-3 py-1.5 rounded-full bg-white border border-gray-300 hover:border-[#B01F24] text-[11px]">
-            添加目标证书
-          </button>
+          <div class="text-[11px] text-gray-600">
+            已获证书 <span class="text-[#B01F24] font-semibold">5</span> 张
+          </div>
         </div>
-        <ul id="ability-cert-list" class="text-xs text-gray-600 space-y-2">
+        <ul id="ability-cert-list" class="text-xs text-gray-600 space-y-2 max-h-40 overflow-y-auto">
           <!-- JS 注入已获得 & 目标证书 -->
         </ul>
       </article>
@@ -2203,10 +2180,16 @@
   function renderAbility(){
     const got = [
       {title:'HIECO 云架构师（Professional）', type:'已获得'},
-      {title:'HIECO AI 与数据智能（Associate）', type:'已获得'}
+      {title:'HIECO AI 与数据智能（Associate）', type:'已获得'},
+      {title:'HIECO 网络安全专家（Professional）', type:'已获得'},
+      {title:'HIECO 大数据分析师（Associate）', type:'已获得'},
+      {title:'HIECO 云计算工程师（Associate）', type:'已获得'}
     ];
     const targets = loadJSON(KEY_TARGET_CERT, []);
-    const ul = $('ability-cert-list');
+    const ul = document.getElementById('ability-cert-list');
+    if (!ul) {
+      return;
+    }
     ul.innerHTML = '';
     got.forEach(c=>{
       const li = document.createElement('li');
@@ -3061,27 +3044,38 @@
     $('assoc-modal').classList.add('hidden');
   });
 
-  $('add-target-cert-btn').addEventListener('click', ()=>{
-    renderTargetCertOptions();
-    $('target-cert-modal').classList.remove('hidden');
-  });
-  $('target-cert-close').addEventListener('click', ()=> $('target-cert-modal').classList.add('hidden'));
+  const addTargetCertBtn = document.getElementById('add-target-cert-btn');
+  const targetCertClose = document.getElementById('target-cert-close');
+  const targetCertModal = document.getElementById('target-cert-modal');
+  
+  if (addTargetCertBtn && targetCertModal) {
+    addTargetCertBtn.addEventListener('click', ()=>{
+      renderTargetCertOptions();
+      targetCertModal.classList.remove('hidden');
+    });
+  }
+  
+  if (targetCertClose && targetCertModal) {
+    targetCertClose.addEventListener('click', ()=> targetCertModal.classList.add('hidden'));
+  }
 
-  $('mark-all-read').addEventListener('click', ()=>{
-    const msgs = loadJSON(KEY_MESSAGES, []);
-    msgs.forEach(m=>m.read = true);
-    saveJSON(KEY_MESSAGES, msgs);
-    initListsAndOverview();
-  });
+  const markAllReadBtn = document.getElementById('mark-all-read-btn');
+  if (markAllReadBtn) {
+    markAllReadBtn.addEventListener('click', ()=>{
+      const msgs = loadJSON(KEY_MESSAGES, []);
+      msgs.forEach(m=>m.read = true);
+      saveJSON(KEY_MESSAGES, msgs);
+      initListsAndOverview();
+    });
+  }
 
   // =============== 初始化 ===============
-  loadProfile();
-  refreshAuthStatus();
-  renderAbility();
-  initListsAndOverview();
-  
-  // =============== 积分规则和积分来源弹框功能 ===============
   document.addEventListener('DOMContentLoaded', function() {
+    loadProfile();
+    refreshAuthStatus();
+    renderAbility();
+    initListsAndOverview();
+    
     // 绑定积分规则和积分来源的点击事件
     const infoIcons = document.querySelectorAll('[data-target]');
     infoIcons.forEach(icon => {
