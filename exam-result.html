@@ -58,8 +58,11 @@
       const optionB = document.getElementById('optionB');
       const optionC = document.getElementById('optionC');
       const tabBtnDetail = document.getElementById('tab-btn-detail');
+      const tabBtnReport = document.getElementById('tab-btn-report');
       const panelDetail = document.getElementById('panel-detail');
+      const panelReport = document.getElementById('panel-report');
       const btnViewDetail = document.getElementById('btn-view-detail');
+      const btnViewReport = document.getElementById('btn-view-report');
 
       // 选项 A：查看完整考试结果
       optionA.addEventListener('click', function() {
@@ -112,6 +115,79 @@
           window.location.href = 'personal-center.html';
         });
       });
+
+      // Tab 切换逻辑
+      if (tabBtnDetail && tabBtnReport && panelDetail && panelReport) {
+        tabBtnDetail.addEventListener('click', function() {
+          // 激活详情标签
+          tabBtnDetail.classList.add('tab-btn-active');
+          tabBtnDetail.classList.remove('tab-btn');
+          // 取消激活报告标签
+          tabBtnReport.classList.add('tab-btn');
+          tabBtnReport.classList.remove('tab-btn-active');
+          // 显示详情面板，隐藏报告面板
+          panelDetail.classList.remove('hidden');
+          panelReport.classList.add('hidden');
+        });
+
+        tabBtnReport.addEventListener('click', function() {
+          // 激活报告标签
+          tabBtnReport.classList.add('tab-btn-active');
+          tabBtnReport.classList.remove('tab-btn');
+          // 取消激活详情标签
+          tabBtnDetail.classList.add('tab-btn');
+          tabBtnDetail.classList.remove('tab-btn-active');
+          // 显示报告面板，隐藏详情面板
+          panelReport.classList.remove('hidden');
+          panelDetail.classList.add('hidden');
+        });
+      }
+
+      // 查看报告按钮点击事件
+      if (btnViewReport) {
+        btnViewReport.addEventListener('click', function() {
+          // 激活报告标签
+          if (tabBtnReport) {
+            tabBtnReport.classList.add('tab-btn-active');
+            tabBtnReport.classList.remove('tab-btn');
+          }
+          // 取消激活详情标签
+          if (tabBtnDetail) {
+            tabBtnDetail.classList.add('tab-btn');
+            tabBtnDetail.classList.remove('tab-btn-active');
+          }
+          // 显示报告面板，隐藏详情面板
+          if (panelReport) {
+            panelReport.classList.remove('hidden');
+          }
+          if (panelDetail) {
+            panelDetail.classList.add('hidden');
+          }
+        });
+      }
+
+      // 查看详情按钮点击事件
+      if (btnViewDetail) {
+        btnViewDetail.addEventListener('click', function() {
+          // 激活详情标签
+          if (tabBtnDetail) {
+            tabBtnDetail.classList.add('tab-btn-active');
+            tabBtnDetail.classList.remove('tab-btn');
+          }
+          // 取消激活报告标签
+          if (tabBtnReport) {
+            tabBtnReport.classList.add('tab-btn');
+            tabBtnReport.classList.remove('tab-btn-active');
+          }
+          // 显示详情面板，隐藏报告面板
+          if (panelDetail) {
+            panelDetail.classList.remove('hidden');
+          }
+          if (panelReport) {
+            panelReport.classList.add('hidden');
+          }
+        });
+      }
     });
   </script>
 </head>
