@@ -2395,10 +2395,16 @@
         subItems.forEach(item => {
             item.addEventListener('click', function(e) {
                 e.stopPropagation();
-                // 点击标签：只高亮当前，取消其他
-                subItems.forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-                currentDownloadTag = this.textContent.trim();
+                // 如果当前标签已经是选中状态，则取消选中
+                if (this.classList.contains('active')) {
+                    this.classList.remove('active');
+                    currentDownloadTag = '';
+                } else {
+                    // 点击标签：只高亮当前，取消其他
+                    subItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    currentDownloadTag = this.textContent.trim();
+                }
             });
         });
 
@@ -3474,26 +3480,37 @@
             sceneDomainItems.forEach(item => {
                 item.addEventListener('click', function (e) {
                     e.preventDefault();
-                    // 只作为标签选中展示
-                    sceneDomainItems.forEach(i => i.classList.remove('active'));
-                    this.classList.add('active');
-
-                    // 标签只保留 DCU / CPU / 云计算 文本，不带描述
-                    const titleEl = this.querySelector('.ability-item-title');
-                    currentSceneDomain = titleEl ? titleEl.textContent.trim() : this.textContent.trim();
-
-                    // 显示单独模式（问答或下载）
-                    showSingleMode(currentMode);
-                    
-                    // 选中相应的技能标签
-                    const skillItems = document.querySelectorAll('.skill-sub-item');
-                    skillItems.forEach(skillItem => {
-                        if (skillItem.textContent.trim() === currentSceneDomain) {
-                            skillItem.classList.add('active');
-                        } else {
+                    // 如果当前标签已经是选中状态，则取消选中
+                    if (this.classList.contains('active')) {
+                        this.classList.remove('active');
+                        currentSceneDomain = '';
+                        // 同时取消技能标签的选中状态
+                        const skillItems = document.querySelectorAll('.skill-sub-item');
+                        skillItems.forEach(skillItem => {
                             skillItem.classList.remove('active');
-                        }
-                    });
+                        });
+                    } else {
+                        // 只作为标签选中展示
+                        sceneDomainItems.forEach(i => i.classList.remove('active'));
+                        this.classList.add('active');
+
+                        // 标签只保留 DCU / CPU / 云计算 文本，不带描述
+                        const titleEl = this.querySelector('.ability-item-title');
+                        currentSceneDomain = titleEl ? titleEl.textContent.trim() : this.textContent.trim();
+
+                        // 显示单独模式（问答或下载）
+                        showSingleMode(currentMode);
+                        
+                        // 选中相应的技能标签
+                        const skillItems = document.querySelectorAll('.skill-sub-item');
+                        skillItems.forEach(skillItem => {
+                            if (skillItem.textContent.trim() === currentSceneDomain) {
+                                skillItem.classList.add('active');
+                            } else {
+                                skillItem.classList.remove('active');
+                            }
+                        });
+                    }
                 });
             });
         }
