@@ -15,56 +15,46 @@
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background-color: #f8fafc;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
     }
     
-    .glass-card {
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255, 0.5);
-    }
-    
-    .tab-active {
-      background: linear-gradient(135deg, #2D874B, #34D399);
+    /* 光圈界面样式 */
+    .aperture-interface {
+      width: 100%;
+      height: 100px;
+      background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 600;
       color: white;
-      box-shadow: 0 4px 15px rgba(45, 135, 75, 0.3);
     }
     
-    .search-box {
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    /* 弹窗容器样式 */
+    .modal-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.3);
+      z-index: 50;
     }
     
-    .expert-card {
-      transition: all 0.3s ease;
-      border: 1px solid #e5e7eb;
-    }
-    .expert-card:hover {
-      transform: translateY(-5px);
+    /* 弹窗内容样式 */
+    .modal-content {
+      background-color: white;
+      border-radius: 16px;
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      border-color: #d1d5db;
-    }
-    
-    .service-record-card {
-      transition: all 0.3s ease;
-      border-left: 4px solid #2D874B;
-    }
-    
-    .service-record-card:hover {
-      transform: translateX(5px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    }
-    
-    .pagination-button {
-      transition: all 0.2s ease;
-    }
-    
-    .pagination-button:hover {
-      background-color: #e5e7eb;
-    }
-    
-    .pagination-button.active {
-      background-color: #2D874B;
-      color: white;
+      max-width: 800px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
     }
     
     .fade-in {
@@ -76,147 +66,105 @@
       to { opacity: 1; transform: translateY(0); }
     }
     
-    .tabs {
-      border-bottom: 1px solid #e5e7eb;
+    .chat-message {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-radius: 12px;
+      background: white;
+      border: 1px solid #e5e7eb;
     }
     
-    .tab {
-      padding: 12px 24px;
+    .chat-message.user {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      margin-left: auto;
+      max-width: 80%;
+      border: 1px solid #fcd34d;
+    }
+    
+    .chat-message.expert {
+      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+      margin-right: auto;
+      max-width: 80%;
+      border: 1px solid #93c5fd;
+    }
+    
+    /* AI 分析按钮样式 - 渐变绿色 */
+    .ai-analysis-button {
+      background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 9999px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      border-bottom: 2px solid transparent;
+      box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
     }
     
-    .tab.active {
-      border-bottom: 2px solid #2D874B;
-      color: #2D874B;
+    .ai-analysis-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3);
+    }
+    
+    .ai-analysis-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    /* 提交按钮样式 - 渐变绿色 */
+    .submit-button {
+      background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+      color: white;
+      border: none;
+      padding: 12px 40px;
+      border-radius: 9999px;
       font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
     }
     
-    .domain-badge {
-      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-      color: #1e40af;
+    .submit-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3);
     }
     
-    .status-badge {
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 500;
+    .submit-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
     
-    .status-personal {
-      background-color: #dbeafe;
-      color: #1e40af;
+    /* 输入框样式 */
+    textarea {
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      background: white;
     }
     
-    .status-company {
-    background-color: #dcfce7;
-    color: #166534;
-  }
-  
-  .top-head {
-    background-image: url("images/resource-center/resource-center.webp");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-  
-  .tab-button.active {
-    background: linear-gradient(135deg, #2D874B, #34D399);
-    color: white;
-    border-color: #2D874B;
-  }
-  
-  .tab-button {
-    color: #6b7280;
-  }
-  
-  .tab-button:hover {
-    color: #374151;
-  }
-  .domain-badge2 {
-    border: 1px solid #ddd;
-    padding: 4px 8px;
-    border-radius: 20px;
-    color: #666 !important;
-    background-color: #fff !important;
-  }
-  
-  .chat-message {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
-  }
-  
-  .chat-message.user {
-    background-color: #e6f7ee;
-    margin-left: auto;
-    max-width: 80%;
-  }
-  
-  .chat-message.expert {
-    background-color: #f0f9ff;
-    margin-right: auto;
-    max-width: 80%;
-  }
-  
-  .ai-analysis-button {
-    transition: all 0.3s ease;
-  }
-  
-  .ai-analysis-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(45, 135, 75, 0.3);
-  }
-  
-  .submit-button {
-    transition: all 0.3s ease;
-  }
-  
-  .submit-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(45, 135, 75, 0.3);
-  }
-  
-  /* 光圈界面样式 */
-  .aperture-interface {
-    width: 100%;
-    height: 100px;
-    background-color: #f0f9ff;
-    border-bottom: 1px solid #e5e7eb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: 600;
-    color: #2D874B;
-  }
-  
-  /* 弹窗容器样式 */
-  .modal-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 50;
-  }
-  
-  /* 弹窗内容样式 */
-  .modal-content {
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    max-width: 800px;
-    width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
-  }
+    textarea:focus {
+      outline: none;
+      border-color: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+    
+    /* 标签样式 */
+    label {
+      font-weight: 600;
+      color: #374151;
+      font-size: 14px;
+    }
+    
+    /* 卡片样式 */
+    .info-card, .chat-card, .input-card {
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      border: 1px solid #f3f4f6;
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -228,32 +176,32 @@
 
 <!-- 工单生成弹窗 -->
 <div class="modal-container">
-  <div class="modal-content p-3">
+  <div class="modal-content p-6">
     <!-- 页面标题 -->
-    <div class="text-center mb-3 fade-in">
-      <h1 class="text-lg font-bold text-gray-800">工单生成</h1>
+    <div class="text-center mb-6 fade-in">
+      <h1 class="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">工单生成</h1>
     </div>
 
     <!-- 专家和用户信息 -->
-    <div class="bg-white rounded-xl p-2 shadow-md mb-3 fade-in">
+    <div class="info-card mb-6 fade-in">
       <div class="flex flex-col md:flex-row justify-between">
-        <div class="text-left mb-1 md:mb-0">
-          <h2 class="text-xs font-semibold text-gray-800">专家：<span class="text-[#2D874B]">陈伟 - AI专家</span></h2>
-          <h2 class="text-xs font-semibold text-gray-800 mt-0.5">用户：<span class="text-[#2D874B]">张三</span></h2>
+        <div class="text-left mb-3 md:mb-0">
+          <h2 class="text-sm font-semibold text-gray-700">专家：<span class="text-green-600 font-semibold">陈伟 - AI 专家</span></h2>
+          <h2 class="text-sm font-semibold text-gray-700 mt-2">用户：<span class="text-green-600 font-semibold">张三</span></h2>
         </div>
         <div class="flex items-end">
-          <span class="text-xs text-gray-500"><i class="fa fa-clock mr-1"></i> 2026-01-15 14:30</span>
+          <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full"><i class="fa fa-clock mr-2"></i>2026-01-15 14:30</span>
         </div>
       </div>
     </div>
 
     <!-- 聊天记录区域 -->
-    <div class="bg-white rounded-xl p-3 shadow-md mb-4 fade-in">
-      <div class="flex justify-between items-center mb-2">
-        <h3 class="text-base font-semibold text-gray-800">聊天记录</h3>
-        <span id="chat-count" class="text-gray-500 text-xs">共 <span id="message-count">0</span> 条聊天记录</span>
+    <div class="chat-card mb-6 fade-in">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold text-gray-800">聊天记录</h3>
+        <span class="text-sm text-gray-500">共 <span id="message-count" class="font-semibold text-gray-700">0</span> 条</span>
       </div>
-      <div class="max-h-48 overflow-y-auto space-y-2">
+      <div class="max-h-64 overflow-y-auto space-y-3 pr-2">
         <!-- 专家消息 -->
         <div class="chat-message expert">
           <div class="flex items-start">
@@ -321,33 +269,33 @@
       </div>
     </div>
 
-    <!-- AI分析按钮 -->
-    <div class="text-center mb-4 fade-in">
-      <button id="ai-analysis-button" class="ai-analysis-button px-5 py-1.5 bg-[#2D874B] text-white rounded-lg font-semibold hover:bg-[#256e3d] transition text-xs">
-        <i class="fa fa-robot mr-2"></i>AI分析
+    <!-- AI 分析按钮 -->
+    <div class="text-center mb-6 fade-in">
+      <button id="ai-analysis-button" class="ai-analysis-button">
+        <i class="fa fa-robot mr-2"></i>AI 分析
       </button>
     </div>
 
-    <!-- Q和A输入框 -->
-    <div class="bg-white rounded-xl p-3 shadow-md mb-4 fade-in">
-      <div class="space-y-3">
-        <!-- Q输入框 -->
+    <!-- Q 和 A 输入框 -->
+    <div class="input-card mb-6 fade-in">
+      <div class="space-y-4">
+        <!-- Q 输入框 -->
         <div>
-          <label for="question" class="block text-sm font-medium text-gray-800 mb-1">问题 (Q)</label>
-          <textarea id="question" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B] transition text-xs" rows="2" placeholder="请输入问题..."></textarea>
+          <label for="question" class="block mb-2">问题 (Q)</label>
+          <textarea id="question" class="w-full" rows="3" placeholder="请输入问题..."></textarea>
         </div>
 
-        <!-- A输入框 -->
+        <!-- A 输入框 -->
         <div>
-          <label for="answer" class="block text-sm font-medium text-gray-800 mb-1">答案 (A)</label>
-          <textarea id="answer" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B] transition text-xs" rows="3" placeholder="请输入答案..."></textarea>
+          <label for="answer" class="block mb-2">答案 (A)</label>
+          <textarea id="answer" class="w-full" rows="4" placeholder="请输入答案..."></textarea>
         </div>
       </div>
     </div>
 
     <!-- 提交工单按钮 -->
     <div class="text-center fade-in">
-      <button id="submit-ticket-button" class="submit-button px-6 py-2 bg-[#2D874B] text-white rounded-lg font-semibold hover:bg-[#256e3d] transition text-sm">
+      <button id="submit-ticket-button" class="submit-button">
         <i class="fa fa-paper-plane mr-2"></i>提交工单
       </button>
     </div>
