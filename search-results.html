@@ -594,7 +594,7 @@
               </div>
               
               <!-- 热搜推荐 -->
-              <div id="hot-search" class="mb-3">
+              <div id="hot-search" class="mb-3 hidden">
                 <div class="flex items-center justify-between mb-2">
                   <span class="text-xs font-medium text-gray-600">热搜推荐</span>
                   <button class="text-xs text-blue-500 hover:text-blue-700 transition">换一换</button>
@@ -1371,8 +1371,8 @@
       searchDropdown.classList.remove('opacity-0', 'invisible');
       searchDropdown.classList.add('opacity-100', 'visible');
       
-      // 显示当前热搜
-      updateHotSearch();
+      // 隐藏热搜推荐
+      // updateHotSearch();
     }
     
     // 隐藏搜索下拉
