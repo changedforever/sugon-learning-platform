@@ -478,6 +478,23 @@
               </button>
             </div>
 
+            <!-- 人工智能标签 -->
+            <div id="ai-platform-filter" class="flex flex-wrap items-center gap-2">
+              <span class="text-sm font-medium text-gray-700 whitespace-nowrap">人工智能：</span>
+              <button class="filter-tag software-filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-tag="DTK">
+                DTK
+              </button>
+              <button class="filter-tag software-filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-tag="DAS">
+                DAS
+              </button>
+              <button class="filter-tag software-filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-tag="DAP">
+                DAP
+              </button>
+              <button class="filter-tag software-filter-tag px-3 py-1.5 rounded-full border border-gray-300 text-xs hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-tag="DcuK8s组件">
+                DcuK8s组件
+              </button>
+            </div>
+
             <!-- 加速卡标签 -->
             <div id="accelerator-filter" class="flex flex-wrap items-center gap-2">
               <span class="text-sm font-medium text-gray-700 whitespace-nowrap">加速卡：</span>
@@ -1424,6 +1441,7 @@
   // 筛选标签元素
   const osFilter = document.getElementById('os-filter');
   const aiFilter = document.getElementById('ai-filter');
+  const aiPlatformFilter = document.getElementById('ai-platform-filter');
   const acceleratorFilter = document.getElementById('accelerator-filter');
   const imageTypeFilter = document.getElementById('image-type-filter');
   
@@ -1436,24 +1454,27 @@
   function updateFilterVisibility() {
     switch(currentFilter) {
       case 'all':
-        // 选中全部时，四个筛选项全部显示
+        // 选中全部时，所有筛选项全部显示
         osFilter.style.display = 'flex';
         aiFilter.style.display = 'flex';
+        aiPlatformFilter.style.display = 'flex';
         acceleratorFilter.style.display = 'flex';
         imageTypeFilter.style.display = 'flex';
         break;
       case 'model':
       case 'code':
-        // 选中模型和代码时，四个筛选项全部隐藏
+        // 选中模型和代码时，所有筛选项全部隐藏
         osFilter.style.display = 'none';
         aiFilter.style.display = 'none';
+        aiPlatformFilter.style.display = 'none';
         acceleratorFilter.style.display = 'none';
         imageTypeFilter.style.display = 'none';
         break;
       case 'software':
-        // 选中软件支持时，仅显示操作系统和人工智能
+        // 选中软件支持时，显示操作系统、C86-Devkit和人工智能
         osFilter.style.display = 'flex';
         aiFilter.style.display = 'flex';
+        aiPlatformFilter.style.display = 'flex';
         acceleratorFilter.style.display = 'none';
         imageTypeFilter.style.display = 'none';
         break;
@@ -1461,6 +1482,7 @@
         // 选中镜像仓库时，仅显示加速卡和镜像类型
         osFilter.style.display = 'none';
         aiFilter.style.display = 'none';
+        aiPlatformFilter.style.display = 'none';
         acceleratorFilter.style.display = 'flex';
         imageTypeFilter.style.display = 'flex';
         break;
@@ -1468,6 +1490,7 @@
         // 默认隐藏全部（因为已经删除了"全部"标签）
         osFilter.style.display = 'none';
         aiFilter.style.display = 'none';
+        aiPlatformFilter.style.display = 'none';
         acceleratorFilter.style.display = 'none';
         imageTypeFilter.style.display = 'none';
     }
