@@ -165,6 +165,45 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
       border: 1px solid #f3f4f6;
     }
+    
+    /* 单选标签样式 */
+    .radio-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      background: white;
+      color: #374151;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .radio-tag:hover {
+      border-color: #10b981;
+      color: #10b981;
+    }
+    
+    .radio-tag input[type="radio"] {
+      display: none;
+    }
+    
+    .radio-tag input[type="radio"]:checked + span {
+      color: #10b981;
+      font-weight: 600;
+    }
+    
+    .radio-tag:has(input[type="radio"]:checked) {
+      border-color: #10b981;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+    }
+    
+    .required-mark {
+      color: #ef4444;
+      margin-left: 4px;
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -279,6 +318,25 @@
     <!-- Q 和 A 输入框 -->
     <div class="input-card mb-6 fade-in">
       <div class="space-y-4">
+        <!-- 专家所属领域 -->
+        <div class="flex items-center gap-4">
+          <label class="font-semibold text-gray-700 whitespace-nowrap">专家所属领域<span class="required-mark">*</span></label>
+          <div class="flex gap-3">
+            <label class="radio-tag">
+              <input type="radio" name="expert-field" value="CPU" required>
+              <span>CPU</span>
+            </label>
+            <label class="radio-tag">
+              <input type="radio" name="expert-field" value="DCU" required>
+              <span>DCU</span>
+            </label>
+            <label class="radio-tag">
+              <input type="radio" name="expert-field" value="通用" required>
+              <span>通用</span>
+            </label>
+          </div>
+        </div>
+
         <!-- Q 输入框 -->
         <div>
           <label for="question" class="block mb-2">问题 (Q)</label>
