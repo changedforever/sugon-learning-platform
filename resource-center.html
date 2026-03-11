@@ -77,6 +77,50 @@
       background-position: center;
       background-repeat: no-repeat;
     }
+    
+    /* 自定义title属性样式，立即显示 */
+    [data-title] {
+      position: relative;
+    }
+    
+    [data-title]:hover::after {
+      content: attr(data-title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(243, 244, 246, 0.95);
+      color: #111827;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      white-space: normal;
+      width: 450px;
+      max-height: 150px;
+      overflow-y: auto;
+      z-index: 1000;
+      margin-bottom: 8px;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.1s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(209, 213, 219, 0.5);
+    }
+    
+    [data-title]:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: rgba(243, 244, 246, 0.95);
+      z-index: 1001;
+      margin-bottom: 2px;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.1s ease;
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -433,7 +477,7 @@
               <p class="text-sm text-gray-500">金融 / 银行核心交易系统</p>
             </div>
           </div>
-          <p class="text-gray-600 mb-4 text-sm">
+          <p class="text-gray-600 mb-4 text-sm" title="该方案为浦发银行信用卡核心业务提供全栈国产化算力支撑，实现了业务场景高可靠、迁移快、易扩容，读写性能提升1.5倍，500+台海光服务器已稳定运行一年。">
             该方案为浦发银行信用卡核心业务提供全栈国产化算力支撑，实现了业务场景高可靠、迁移快、易扩容，读写性能提升1.5倍，500+台海光服务器已稳定运行一年。
           </p>
           <div class="flex items-center justify-between">
@@ -477,7 +521,7 @@
               <p class="text-sm text-gray-500">央企 / 云解耦</p>
             </div>
           </div>
-          <p class="text-gray-600 mb-4 text-sm">
+          <p class="text-gray-600 mb-4 text-sm" title="该方案通过软硬件协同优化，使某云计算央企的云存储场景大数据块读写性能实现跨越式提升，读带宽提升1.5倍，写带宽提升5.6倍，全面超越竞品。">
             该方案通过软硬件协同优化，使某云计算央企的云存储场景大数据块读写性能实现跨越式提升，读带宽提升1.5倍，写带宽提升5.6倍，全面超越竞品。
           </p>
           <div class="flex items-center justify-between">
@@ -499,8 +543,8 @@
               <p class="text-sm text-gray-500">广媒 / 工作站视频编解码</p>
             </div>
           </div>
-          <p class="text-gray-600 mb-4 text-sm">
-            该方案为某央媒提供了基于海光工作站的超高清4K非编系统，实现4K HDR 50P XAVC 500M视频流9层实时剪辑，解决传媒行业国产化替换中视频编辑软件"卡脖子"问题，实现软硬件自主可控，已落地某央媒云边端CET全媒体制作平台。
+          <p class="text-gray-600 mb-4 text-sm" data-title='该方案为某央媒提供了基于海光工作站的超高清4K非编系统，实现4K HDR 50P XAVC 500M视频流9层实时剪辑，解决传媒行业国产化替换中视频编辑软件"卡脖子"问题，实现软硬件自主可控，已落地某央媒云边端CET全媒体制作平台。'>
+            该方案为某央媒提供基于海光工作站的超高清4K非编系统，实现4K HDR 50P XAVC 500M视频流9层实时剪辑，解决传媒行业国产化替换中视频编辑软件"...
           </p>
           <div class="flex items-center justify-between">
             <span class="px-2 py-1 bg-rose-100 text-rose-700 text-xs rounded-full">广媒</span>
@@ -565,8 +609,8 @@
               <p class="text-sm text-gray-500">科研 / 量化计算</p>
             </div>
           </div>
-          <p class="text-gray-600 mb-4 text-sm">
-            该方案通过对自研HML数学库与MPI通信栈的精准优化，成功解决了国际数学库在国产平台上的性能瓶颈问题，使VASP等主流科研软件在海光平台上的性能相较国际主流数学库提升6.22%，助力大规模第一性原理模拟实现高精度、高效率并行执行。
+          <p class="text-gray-600 mb-4 text-sm" data-title="该方案通过对自研HML数学库与MPI通信栈的精准优化，成功解决了国际数学库在国产平台上的性能瓶颈问题，使VASP等主流科研软件在海光平台上的性能相较国际主流数学库提升6.22%，助力大规模第一性原理模拟实现高精度、高效率并行执行。">
+            该方案通过对自研HML数学库与MPI通信栈的精准优化，成功解决国际数学库在国产平台上的性能瓶颈问题，使VASP等主流科研软件在海光平台上的性能...
           </p>
           <div class="flex items-center justify-between">
             <span class="px-2 py-1 bg-violet-100 text-violet-700 text-xs rounded-full">科研</span>
