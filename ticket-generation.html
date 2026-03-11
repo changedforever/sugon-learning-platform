@@ -339,13 +339,13 @@
 
         <!-- Q 输入框 -->
         <div>
-          <label for="question" class="block mb-2">问题 (Q)</label>
+          <label for="question" class="block mb-2">问题 (Q)<span class="required-mark">*</span></label>
           <textarea id="question" class="w-full" rows="3" placeholder="请输入问题..."></textarea>
         </div>
 
         <!-- A 输入框 -->
         <div>
-          <label for="answer" class="block mb-2">答案 (A)</label>
+          <label for="answer" class="block mb-2">答案 (A)<span class="required-mark">*</span></label>
           <textarea id="answer" class="w-full" rows="4" placeholder="请输入答案..."></textarea>
         </div>
       </div>
@@ -400,11 +400,19 @@
 
   // 提交工单按钮点击事件
   document.getElementById('submit-ticket-button').addEventListener('click', function() {
+    // 获取专家所属领域的值
+    const expertField = document.querySelector('input[name="expert-field"]:checked');
+    
     // 获取Q和A的值
     const question = document.getElementById('question').value;
     const answer = document.getElementById('answer').value;
     
     // 验证输入
+    if (!expertField) {
+      alert('请选择专家所属领域');
+      return;
+    }
+    
     if (!question || !answer) {
       alert('请确保Q和A都已填写');
       return;
