@@ -98,7 +98,7 @@
         const btnBackToList = document.getElementById('btnBackToList');
         const countdownInterval = setInterval(function() {
           seconds--;
-          btnBackToList.textContent = '返回考试中心（' + seconds + '）';
+          btnBackToList.textContent = '返回（' + seconds + '）';
           
           if (seconds <= 0) {
             clearInterval(countdownInterval);
@@ -110,12 +110,6 @@
         btnBackToList.addEventListener('click', function() {
           clearInterval(countdownInterval);
           window.location.href = 'exam-list.html';
-        });
-        
-        // 个人中心按钮
-        document.getElementById('btnToPersonal').addEventListener('click', function() {
-          clearInterval(countdownInterval);
-          window.location.href = 'personal-center.html';
         });
       });
 
@@ -224,11 +218,8 @@
       <p class="text-sm text-gray-500">系统已记录本次考试行为，考试结果为非公开信息。</p>
     </div>
     <div class="flex flex-col sm:flex-row gap-3 justify-center">
-      <button id="btnToPersonal" class="px-6 py-2 rounded-full bg-white border border-gray-300 text-gray-800 text-sm font-medium hover:border-[#B01F24] hover:text-[#B01F24] transition">
-        个人中心
-      </button>
       <button id="btnBackToList" class="px-6 py-2 rounded-full bg-[#B01F24] text-white text-sm font-medium hover:opacity-90 transition">
-        返回考试中心（5）
+        返回（5）
       </button>
     </div>
   </div>
