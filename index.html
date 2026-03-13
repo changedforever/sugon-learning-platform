@@ -85,8 +85,8 @@
     }
     
     .nav-item.selected {
-      background-color: #3B82F6 !important;
-      color: white !important;
+      background-color: rgba(45, 135, 75, 0.1) !important;
+      color: #2D874B !important;
       font-weight: 500;
     }
     
@@ -897,32 +897,81 @@
 
         <!-- 其他导航项（无下拉） -->
         
-        <!-- 资源 - 带下拉浮窗（案例库/技术工具库/技术文档库） -->
+        <!-- 资源 - 带下拉浮窗（解决方案/技术工具库/技术文档库） -->
         <div class="nav-dropdown relative group">
           <a href="resource-center.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
             资源
             <i class="fa fa-chevron-down text-sm text-gray-500"></i>
           </a>
-          <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-            <div class="p-4">
-              <div class="space-y-3">
-                <!-- 解决方案 -->
-                <a href="case-library.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
-                  <i class="fa fa-folder-open mr-3 text-[#2D874B]"></i>
-                  <span>解决方案</span>
-                </a>
-
-                <!-- 技术工具库 -->
-                <a href="tech-tool-library.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
-                  <i class="fa fa-screwdriver-wrench mr-3 text-[#2D874B]"></i>
-                  <span>技术工具库</span>
-                </a>
-
-                <!-- 技术文档库 -->
-                <a href="doc-library.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
-                  <i class="fa fa-file-lines mr-3 text-[#2D874B]"></i>
-                  <span>技术文档库</span>
-                </a>
+          <div class="full-width-dropdown fixed top-0 left-0 w-screen bg-white shadow-xl border-t border-gray-200 opacity-0 invisible transition-all duration-300 z-40" id="resource-full-dropdown">
+            <div class="container mx-auto px-4 py-16">
+              <div class="flex">
+                <!-- 左侧导航 -->
+                <div class="w-48 pr-6 border-r border-gray-200">
+                  <div class="space-y-2">
+                    <a href="case-library.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item selected" data-target="solution">解决方案</a>
+                    <a href="tech-tool-library.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="tech-tool">技术工具库</a>
+                    <a href="doc-library.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="tech-doc">技术文档库</a>
+                  </div>
+                </div>
+                
+                <!-- 分隔线 -->
+                <div class="mx-6 h-full w-px bg-gray-200"></div>
+                
+                <!-- 右侧分类内容 -->
+                <div class="flex-1 pl-6">
+                  <!-- 解决方案内容 -->
+                  <div id="solution-content" class="nav-content active-content">
+                    <div>
+                      <h4 class="font-medium text-gray-800 mb-2 text-base">行业</h4>
+                      <div class="grid grid-cols-4 gap-4">
+                        <a href="case-library.html?industry=政府" class="text-sm text-gray-600 hover:text-[#2D874B]">政府</a>
+                        <a href="case-library.html?industry=科研" class="text-sm text-gray-600 hover:text-[#2D874B]">科研</a>
+                        <a href="case-library.html?industry=通信" class="text-sm text-gray-600 hover:text-[#2D874B]">通信</a>
+                        <a href="case-library.html?industry=金融" class="text-sm text-gray-600 hover:text-[#2D874B]">金融</a>
+                        <a href="case-library.html?industry=互联网" class="text-sm text-gray-600 hover:text-[#2D874B]">互联网</a>
+                        <a href="case-library.html?industry=企业" class="text-sm text-gray-600 hover:text-[#2D874B]">企业</a>
+                        <a href="case-library.html?industry=电力" class="text-sm text-gray-600 hover:text-[#2D874B]">电力</a>
+                        <a href="case-library.html?industry=广媒" class="text-sm text-gray-600 hover:text-[#2D874B]">广媒</a>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- 技术工具库内容 -->
+                  <div id="tech-tool-content" class="nav-content hidden">
+                    <div>
+                      <h4 class="font-medium text-gray-800 mb-2 text-base">类别</h4>
+                      <div class="grid grid-cols-4 gap-4">
+                        <a href="tech-tool-library.html?category=模型" class="text-sm text-gray-600 hover:text-[#2D874B]">模型</a>
+                        <a href="tech-tool-library.html?category=代码" class="text-sm text-gray-600 hover:text-[#2D874B]">代码</a>
+                        <a href="tech-tool-library.html?category=软件支持" class="text-sm text-gray-600 hover:text-[#2D874B]">软件支持</a>
+                        <a href="tech-tool-library.html?category=镜像仓库" class="text-sm text-gray-600 hover:text-[#2D874B]">镜像仓库</a>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- 技术文档库内容 -->
+                  <div id="tech-doc-content" class="nav-content hidden">
+                    <div>
+                      <h4 class="font-medium text-gray-800 mb-2 text-base">场景</h4>
+                      <div class="grid grid-cols-4 gap-4">
+                        <a href="doc-library.html?scene=兼容性" class="text-sm text-gray-600 hover:text-[#2D874B]">兼容性</a>
+                        <a href="doc-library.html?scene=人工智能" class="text-sm text-gray-600 hover:text-[#2D874B]">人工智能</a>
+                        <a href="doc-library.html?scene=云计算/虚拟化" class="text-sm text-gray-600 hover:text-[#2D874B]">云计算/虚拟化</a>
+                        <a href="doc-library.html?scene=数据库" class="text-sm text-gray-600 hover:text-[#2D874B]">数据库</a>
+                        <a href="doc-library.html?scene=操作系统" class="text-sm text-gray-600 hover:text-[#2D874B]">操作系统</a>
+                        <a href="doc-library.html?scene=大数据" class="text-sm text-gray-600 hover:text-[#2D874B]">大数据</a>
+                        <a href="doc-library.html?scene=网络流量" class="text-sm text-gray-600 hover:text-[#2D874B]">网络流量</a>
+                        <a href="doc-library.html?scene=高端计算" class="text-sm text-gray-600 hover:text-[#2D874B]">高端计算</a>
+                        <a href="doc-library.html?scene=存储" class="text-sm text-gray-600 hover:text-[#2D874B]">存储</a>
+                        <a href="doc-library.html?scene=海光内生安全" class="text-sm text-gray-600 hover:text-[#2D874B]">海光内生安全</a>
+                        <a href="doc-library.html?scene=基准测试" class="text-sm text-gray-600 hover:text-[#2D874B]">基准测试</a>
+                        <a href="doc-library.html?scene=应用开发套件" class="text-sm text-gray-600 hover:text-[#2D874B]">应用开发套件</a>
+                        <a href="doc-library.html?scene=光耀百城政策" class="text-sm text-gray-600 hover:text-[#2D874B]">光耀百城政策</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -4633,7 +4682,7 @@
         });
       }
 
-      // 全屏宽度下拉弹窗交互功能
+      // 全屏宽度下拉弹窗交互功能 - 培训
       const trainingDropdown = document.querySelector('#training-full-dropdown').closest('.nav-dropdown');
       const trainingFullDropdown = document.getElementById('training-full-dropdown');
       
@@ -4669,6 +4718,47 @@
           setTimeout(() => {
             if (!trainingDropdown.matches(':hover')) {
               trainingFullDropdown.classList.remove('active');
+            }
+          }, 100);
+        });
+      }
+      
+      // 全屏宽度下拉弹窗交互功能 - 资源
+      const resourceDropdown = document.querySelector('#resource-full-dropdown').closest('.nav-dropdown');
+      const resourceFullDropdown = document.getElementById('resource-full-dropdown');
+      
+      if (resourceDropdown && resourceFullDropdown) {
+        // 鼠标进入资源按钮时显示下拉菜单
+        resourceDropdown.addEventListener('mouseenter', function() {
+          // 计算下拉菜单的位置
+          const rect = resourceDropdown.getBoundingClientRect();
+          // 设置下拉菜单的top位置，相对于视口，向下偏移10px避免与导航栏重叠
+          resourceFullDropdown.style.top = `${rect.bottom + window.scrollY + 10}px`;
+          
+          // 确保下拉菜单可见
+          resourceFullDropdown.classList.add('active');
+        });
+        
+        // 鼠标离开资源按钮或下拉菜单时隐藏下拉菜单
+        resourceDropdown.addEventListener('mouseleave', function(e) {
+          // 延迟隐藏，以便用户可以在下拉菜单中移动鼠标
+          setTimeout(() => {
+            if (!resourceFullDropdown.matches(':hover')) {
+              resourceFullDropdown.classList.remove('active');
+            }
+          }, 100);
+        });
+        
+        // 鼠标进入下拉菜单时保持显示
+        resourceFullDropdown.addEventListener('mouseenter', function() {
+          // 保持显示
+        });
+        
+        // 鼠标离开下拉菜单时隐藏
+        resourceFullDropdown.addEventListener('mouseleave', function() {
+          setTimeout(() => {
+            if (!resourceDropdown.matches(':hover')) {
+              resourceFullDropdown.classList.remove('active');
             }
           }, 100);
         });
@@ -4795,6 +4885,15 @@
             case 'lecturer':
             case 'new-lecturer':
               pageUrl = 'lecturer-list.html';
+              break;
+            case 'solution':
+              pageUrl = 'case-library.html';
+              break;
+            case 'tech-tool':
+              pageUrl = 'tech-tool-library.html';
+              break;
+            case 'tech-doc':
+              pageUrl = 'doc-library.html';
               break;
           }
           
