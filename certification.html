@@ -957,7 +957,13 @@
       levelText: '初级认证',
       description: '',
       coreSkills: [
-        '掌握国产化政策与海光芯片认知能力，具备行业应用洞察及客户推广落地能力。'
+        '掌握国产化政策与海光芯片认知能力',
+        '具备行业应用洞察及客户推广落地能力'
+      ],
+      courseObjectives: [
+        '熟练掌握国产化政策要点与海光 CPU 核心知识',
+        '建立标准化销售话术，能独立完成客户沟通、方案讲解与市场推广落地',
+        '达成从产品认知到业务转化的基础能力'
       ],
       duration: '2.5个月',
       points: 65,
@@ -971,9 +977,14 @@
       levelText: '高级认证',
       description: '',
       coreSkills: [
-        '具备市场活动专业演讲能力，能清晰传递产品价值与品牌优势。',
-        '结合客户场景进行内容输出。',
-        '能精准对接市场需求，有效传递方案亮点，强化现场互动与转化。'
+        '具备市场活动专业演讲能力，能清晰传递产品价值与品牌优势',
+        '结合客户场景进行内容输出',
+        '能精准对接市场需求，有效传递方案亮点，强化现场互动与转化'
+      ],
+      courseObjectives: [
+        '打造专业级讲师能力',
+        '掌握行业解决方案与演讲表达能力',
+        '精准传递产品与方案核心价值'
       ],
       duration: '3.5个月',
       points: 90,
@@ -1001,7 +1012,7 @@
             <span class="inline-flex items-center px-3 py-1.5 rounded-full border text-sm cert-level-${cert.level}">
               ${cert.levelText}
             </span>
-            <span class="text-sm text-gray-500">${cert.category === 'general' ? '通用计算' : cert.category === 'ai' ? '智能计算' : '其他'}</span>
+            <span class="text-sm text-gray-500">${cert.category === 'general' ? '通用计算' : cert.category === 'ai' ? '智能计算' : cert.category === 'city' ? '光耀百城' : '其他'}</span>
           </div>
           
           <!-- 认证标题和描述 -->
