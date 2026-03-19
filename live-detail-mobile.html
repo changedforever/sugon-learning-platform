@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>直播详情 - HIECO 光合技术支持平台</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标库 -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background: #F5F5F5;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+    .safe-top {
+      padding-top: env(safe-area-inset-top);
+    }
+    .safe-bottom {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    
+    /* 状态标签 */
+    .status-badge-upcoming {
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    .status-badge-live {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .status-badge-ended {
+      background: rgba(107, 114, 128, 0.1);
+      color: #6b7280;
+      border: 1px solid rgba(107, 114, 128, 0.3);
+    }
+
+    /* 底部弹窗 */
+    .bottom-sheet {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-radius: 1.5rem 1.5rem 0 0;
+      z-index: 1000;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+    .bottom-sheet.active {
+      transform: translateY(0);
+    }
+    .sheet-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+    .sheet-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* 星级评分 */
+    .star-rating .fa-star {
+      font-size: 2rem;
+      padding: 0.25rem;
+      transition: transform 0.15s, color 0.15s;
+    }
+    .star-rating .fa-star:active {
+      transform: scale(1.2);
+    }
+    .star-rating .fa-star.active {
+      color: #B01F24;
+    }
+    .star-rating .fa-star.inactive {
+      color: #d1d5db;
+      opacity: 0.4;
+    }
+
+    /* 评价卡片 */
+    .review-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1rem;
+      border-top: 3px solid #B01F24;
+    }
+    .review-content {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .review-content.expanded {
+      -webkit-line-clamp: unset;
+    }
+
+    /* 标签筛选 */
+    .filter-tab {
+      flex-shrink: 0;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      white-space: nowrap;
+      border: 1px solid #e5e7eb;
+      background: white;
+      color: #6b7280;
+      transition: all 0.2s;
+    }
+    .filter-tab.active {
+      background: #B01F24;
+      color: white;
+      border-color: #B01F24;
+    }
+
+    /* 浮动按钮 */
+    .fab-button {
+      position: fixed;
+      bottom: calc(1rem + env(safe-area-inset-bottom));
+      right: 1rem;
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 50%;
+      background: #B01F24;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(176, 31, 36, 0.4);
+      z-index: 50;
+      transition: transform 0.2s;
+    }
+    .fab-button:active {
+      transform: scale(0.95);
+    }
+
+    /* 顶部导航栏 */
+    .nav-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    /* Tab 切换 */
+    .tab-item {
+      position: relative;
+      padding: 0.75rem 0;
+      font-size: 0.875rem;
+      color: #6b7280;
+      transition: color 0.2s;
+    }
+    .tab-item.active {
+      color: #2D874B;
+      font-weight: 600;
+    }
+    .tab-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #2D874B;
+    }
+
+    /* 进度条 */
+    .progress-bar {
+      height: 0.375rem;
+      border-radius: 9999px;
+      background: #e5e7eb;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #B01F24, #c93a3e);
+      border-radius: 9999px;
+      transition: width 0.3s;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+<!-- 顶部导航 -->
+<header class="nav-header safe-top">
+  <div class="flex items-center justify-between px-4 h-12">
+    <a href="live-list.html" class="w-10 h-10 flex items-center justify-center -ml-2">
+      <i class="fa fa-chevron-left text-gray-700 text-lg"></i>
+    </a>
+    <h1 class="text-base font-semibold text-gray-800">直播详情</h1>
+    <button class="w-10 h-10 flex items-center justify-center -mr-2" onclick="shareLive()">
+      <i class="fa fa-share-nodes text-gray-700 text-lg"></i>
+    </button>
+  </div>
+</header>
+
+<main class="pt-12 pb-24">
+  <!-- 封面区域 -->
+  <section class="relative bg-white">
+    <div class="relative aspect-video bg-gray-900">
+      <img id="cover-img" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80"
+           class="w-full h-full object-cover opacity-90" alt="直播封面">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+      
+      <!-- 状态标签 -->
+      <div class="absolute top-3 left-3">
+        <span id="live-status-badge" class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium status-badge-upcoming">
+          <i class="fa fa-broadcast-tower mr-1.5"></i>
+          <span id="status-text">未开始</span>
+        </span>
+      </div>
+      
+      <!-- 预约人数 -->
+      <div class="absolute top-3 right-3">
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-black/50 text-white">
+          <i class="fa fa-user-group mr-1.5"></i>
+          <span id="attendees-count">12,345</span>人预约
+        </span>
+      </div>
+      
+      <!-- 播放按钮（直播中/回放） -->
+      <button id="play-btn" class="absolute inset-0 flex items-center justify-center" onclick="enterLiveRoom()">
+        <div class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+          <i class="fa fa-play text-[#B01F24] text-2xl ml-1"></i>
+        </div>
+      </button>
+      
+      <!-- 底部信息 -->
+      <div class="absolute bottom-0 left-0 right-0 p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span id="category-tag" class="px-2 py-0.5 rounded bg-[#2D874B]/20 text-[#2D874B] text-xs">云基础设施</span>
+          <span id="track-tag" class="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-600 text-xs">DevOps 赛道</span>
+        </div>
+        <h2 id="live-title" class="text-lg font-bold text-white leading-tight">云原生架构设计实战分享</h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- 直播信息 -->
+  <section class="bg-white px-4 py-4 mb-2">
+    <div class="flex items-center justify-between text-sm text-gray-600 mb-3">
+      <div class="flex items-center gap-4">
+        <span class="flex items-center">
+          <i class="fa fa-calendar text-[#2D874B] mr-1.5"></i>
+          <span id="live-date">2026-01-15</span>
+        </span>
+        <span class="flex items-center">
+          <i class="fa fa-clock text-[#2D874B] mr-1.5"></i>
+          <span id="live-time">19:00–21:00</span>
+        </span>
+      </div>
+      <span class="text-gray-400">120分钟</span>
+    </div>
+    
+    <!-- 操作按钮 -->
+    <div id="action-buttons" class="flex gap-3">
+      <button id="btn-reserve" class="flex-1 py-3 rounded-xl bg-[#2D874B] text-white text-sm font-semibold flex items-center justify-center gap-2" onclick="reserveLive()">
+        <i class="fa fa-bell"></i>
+        预约直播
+      </button>
+      <button id="btn-enter" class="hidden flex-1 py-3 rounded-xl bg-[#B01F24] text-white text-sm font-semibold flex items-center justify-center gap-2" onclick="enterLiveRoom()">
+        <i class="fa fa-circle-play"></i>
+        进入直播间
+      </button>
+      <button id="btn-playback" class="hidden flex-1 py-3 rounded-xl bg-white text-[#B01F24] text-sm font-semibold border-2 border-[#B01F24] flex items-center justify-center gap-2" onclick="watchPlayback()">
+        <i class="fa fa-play-circle"></i>
+        观看回放
+      </button>
+      <button id="btn-cancel" class="w-24 py-3 rounded-xl bg-gray-100 text-gray-600 text-sm font-medium hidden" onclick="cancelReserve()">
+        取消预约
+      </button>
+    </div>
+    
+    <p id="action-tip" class="mt-2 text-xs text-gray-500 text-center">
+      预约后将通过站内消息/邮件/APP推送提醒
+    </p>
+  </section>
+
+  <!-- 主讲人信息 -->
+  <section class="bg-white px-4 py-4 mb-2">
+    <h3 class="text-base font-semibold text-gray-800 mb-3">主讲人</h3>
+    <div class="space-y-4">
+      <!-- 讲师1 -->
+      <div class="flex items-start gap-3">
+        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80"
+             class="w-12 h-12 rounded-full object-cover border border-gray-200" alt="讲师">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="font-semibold text-gray-800">王云</span>
+              <span class="text-xs text-gray-500 ml-2">首席云架构师</span>
+            </div>
+            <button class="px-3 py-1 rounded-full bg-[#B01F24] text-white text-xs" onclick="toggleFollow(this)">
+              <i class="fa fa-plus mr-1"></i>关注
+            </button>
+          </div>
+          <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+            拥有10年云原生项目经验，主导多家头部企业云原生转型项目，对Kubernetes、服务网格和DevOps实践有深入研究。
+          </p>
+        </div>
+      </div>
+      
+      <!-- 讲师2 -->
+      <div class="flex items-start gap-3">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"
+             class="w-12 h-12 rounded-full object-cover border border-gray-200" alt="讲师">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="font-semibold text-gray-800">张立</span>
+              <span class="text-xs text-gray-500 ml-2">高级技术专家</span>
+            </div>
+            <button class="px-3 py-1 rounded-full bg-[#B01F24] text-white text-xs" onclick="toggleFollow(this)">
+              <i class="fa fa-plus mr-1"></i>关注
+            </button>
+          </div>
+          <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+            专注于微服务架构设计与治理，曾参与多个大型互联网平台的架构升级项目。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tab 内容区 -->
+  <section class="bg-white">
+    <!-- Tab 导航 -->
+    <div class="flex border-b border-gray-200 px-4">
+      <button class="tab-item active flex-1 text-center" data-tab="intro" onclick="switchTab('intro')">介绍</button>
+      <button class="tab-item flex-1 text-center" data-tab="schedule" onclick="switchTab('schedule')">日程</button>
+      <button class="tab-item flex-1 text-center" data-tab="review" onclick="switchTab('review')">
+        评价 <span class="text-xs text-gray-400">(96)</span>
+      </button>
+    </div>
+
+    <!-- 直播介绍 -->
+    <div id="tab-intro" class="tab-content p-4">
+      <div class="prose prose-sm max-w-none text-gray-700 text-sm leading-relaxed">
+        <p class="mb-3">
+          本次直播将深入讲解云原生架构设计的核心概念与实践方法，帮助技术伙伴快速掌握从单体应用向云原生架构迁移的关键技术点。
+        </p>
+        <h4 class="font-semibold text-gray-800 mb-2">你将学到：</h4>
+        <ul class="list-disc pl-5 space-y-1 mb-3">
+          <li>云原生架构设计原则与最佳实践</li>
+          <li>容器化改造与Kubernetes部署策略</li>
+          <li>微服务拆分与服务治理方案</li>
+          <li>DevOps流水线设计与CI/CD实践</li>
+        </ul>
+        <h4 class="font-semibold text-gray-800 mb-2">适合人群：</h4>
+        <p>架构师、技术负责人、后端开发工程师、运维工程师</p>
+      </div>
+      
+      <!-- 相关资源 -->
+      <div class="mt-6">
+        <h4 class="font-semibold text-gray-800 mb-3">相关资源</h4>
+        <div class="space-y-2">
+          <a href="#" class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+            <div class="flex items-center gap-3">
+              <i class="fa fa-file-code text-[#2D874B] text-lg"></i>
+              <span class="text-sm text-gray-700">演示项目源码</span>
+            </div>
+            <i class="fa fa-download text-gray-400"></i>
+          </a>
+          <a href="#" class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+            <div class="flex items-center gap-3">
+              <i class="fa fa-book text-[#2D874B] text-lg"></i>
+              <span class="text-sm text-gray-700">最佳实践手册</span>
+            </div>
+            <i class="fa fa-download text-gray-400"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 日程表 -->
+    <div id="tab-schedule" class="tab-content hidden p-4">
+      <div class="space-y-4">
+        <div class="relative pl-6 pb-4 border-l-2 border-[#2D874B]">
+          <div class="absolute -left-2 top-0 w-4 h-4 rounded-full bg-[#2D874B] border-2 border-white"></div>
+          <div class="text-xs text-gray-500 mb-1">19:00–19:15</div>
+          <h4 class="font-semibold text-gray-800 text-sm">开场介绍与云原生背景</h4>
+          <p class="text-xs text-gray-600 mt-1">云原生技术演进与行业趋势分析</p>
+        </div>
+        <div class="relative pl-6 pb-4 border-l-2 border-[#2D874B]">
+          <div class="absolute -left-2 top-0 w-4 h-4 rounded-full bg-[#2D874B] border-2 border-white"></div>
+          <div class="text-xs text-gray-500 mb-1">19:15–20:00</div>
+          <h4 class="font-semibold text-gray-800 text-sm">架构设计方法论与典型模板</h4>
+          <p class="text-xs text-gray-600 mt-1">微服务拆分策略、数据一致性方案</p>
+        </div>
+        <div class="relative pl-6 pb-4 border-l-2 border-[#2D874B]">
+          <div class="absolute -left-2 top-0 w-4 h-4 rounded-full bg-[#2D874B] border-2 border-white"></div>
+          <div class="text-xs text-gray-500 mb-1">20:00–20:40</div>
+          <h4 class="font-semibold text-gray-800 text-sm">现场 Demo：从单体到云原生</h4>
+          <p class="text-xs text-gray-600 mt-1">完整演示应用容器化改造过程</p>
+        </div>
+        <div class="relative pl-6">
+          <div class="absolute -left-2 top-0 w-4 h-4 rounded-full bg-gray-300 border-2 border-white"></div>
+          <div class="text-xs text-gray-500 mb-1">20:40–21:00</div>
+          <h4 class="font-semibold text-gray-800 text-sm">Q&A 与资料说明</h4>
+          <p class="text-xs text-gray-600 mt-1">在线答疑与后续学习路径推荐</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 直播评价 -->
+    <div id="tab-review" class="tab-content hidden">
+      <!-- 评分概览 -->
+      <div class="p-4 border-b border-gray-100">
+        <div class="flex items-center gap-4">
+          <div class="text-center">
+            <div class="text-3xl font-bold text-[#B01F24]">4.7</div>
+            <div class="flex text-[#B01F24] text-sm mt-1">
+              <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-alt"></i>
+            </div>
+            <div class="text-xs text-gray-500 mt-1">96条评价</div>
+          </div>
+          <div class="flex-1 space-y-1">
+            <div class="flex items-center gap-2 text-xs">
+              <span class="text-gray-500 w-16">内容实用</span>
+              <div class="flex-1 progress-bar">
+                <div class="progress-fill" style="width: 96%"></div>
+              </div>
+              <span class="text-[#2D874B] font-medium">4.8</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+              <span class="text-gray-500 w-16">讲师表达</span>
+              <div class="flex-1 progress-bar">
+                <div class="progress-fill" style="width: 94%"></div>
+              </div>
+              <span class="text-[#2D874B] font-medium">4.7</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+              <span class="text-gray-500 w-16">直播流畅</span>
+              <div class="flex-1 progress-bar">
+                <div class="progress-fill" style="width: 92%"></div>
+              </div>
+              <span class="text-[#2D874B] font-medium">4.6</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 筛选标签 -->
+      <div class="px-4 py-3 border-b border-gray-100">
+        <div class="flex gap-2 overflow-x-auto no-scrollbar">
+          <button class="filter-tab active" onclick="filterReviews(this, 'all')">全部</button>
+        </div>
+      </div>
+
+      <!-- 评价列表 -->
+      <div id="review-list" class="p-4 space-y-3">
+        <!-- 评价1 -->
+        <div class="review-card" data-rating="5">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=80&q=80"
+                   class="w-8 h-8 rounded-full object-cover" alt="">
+              <div>
+                <div class="text-sm font-medium text-gray-800">张合作</div>
+                <div class="flex text-[#B01F24] text-xs">
+                  <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <span class="text-xs text-gray-400">2026-01-16</span>
+          </div>
+          <p class="review-content text-sm text-gray-700">
+            直播内容非常贴近我们伙伴实际项目，案例和演示都很有价值，已经应用在最近的方案设计中。讲师讲解清晰，互动环节也很到位。
+          </p>
+          <button class="text-xs text-[#B01F24] mt-2 flex items-center gap-1" onclick="toggleExpand(this)">
+            展开 <i class="fa fa-chevron-down"></i>
+          </button>
+        </div>
+
+        <!-- 评价2 -->
+        <div class="review-card" data-rating="4">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=80&q=80"
+                   class="w-8 h-8 rounded-full object-cover" alt="">
+              <div>
+                <div class="text-sm font-medium text-gray-800">李架构师</div>
+                <div class="flex text-[#B01F24] text-xs">
+                  <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+            <span class="text-xs text-gray-400">2026-01-15</span>
+          </div>
+          <p class="review-content text-sm text-gray-700">
+            对云原生架构设计部分讲得比较深入，适合有一定基础的工程师。建议在开头增加一点基础入门说明，让新手也能跟上节奏。
+          </p>
+        </div>
+
+        <!-- 评价3 -->
+        <div class="review-card" data-rating="5">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&q=80"
+                   class="w-8 h-8 rounded-full object-cover" alt="">
+              <div>
+                <div class="text-sm font-medium text-gray-800">王工程师</div>
+                <div class="flex text-[#B01F24] text-xs">
+                  <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <span class="text-xs text-gray-400">2026-01-14</span>
+          </div>
+          <p class="review-content text-sm text-gray-700">
+            实战演示部分非常精彩，从单体应用到微服务的迁移过程讲解得很清楚。希望后续能有更多类似的实战案例分享。
+          </p>
+        </div>
+      </div>
+
+      <!-- 加载更多 -->
+      <div class="p-4 text-center">
+        <button id="load-more-btn" class="px-6 py-2 rounded-full border border-gray-300 text-sm text-gray-600" onclick="loadMoreReviews()">
+          加载更多评价
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- 底部固定栏 -->
+<footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 safe-bottom z-40">
+  <div class="flex items-center px-4 py-3 gap-3">
+    <a href="index.html" class="flex flex-col items-center justify-center w-12 text-gray-500">
+      <i class="fa fa-home text-lg"></i>
+      <span class="text-[10px] mt-0.5">首页</span>
+    </a>
+    <a href="live-list.html" class="flex flex-col items-center justify-center w-12 text-[#2D874B]">
+      <i class="fa fa-video text-lg"></i>
+      <span class="text-[10px] mt-0.5">直播</span>
+    </a>
+    <div class="flex-1">
+      <button id="bottom-action-btn" class="w-full py-3 rounded-xl bg-[#B01F24] text-white text-sm font-semibold" onclick="handleBottomAction()">
+        预约直播
+      </button>
+    </div>
+  </div>
+</footer>
+
+<!-- 写评价浮动按钮 -->
+<button class="fab-button" onclick="openReviewSheet()">
+  <i class="fa fa-pen text-xl"></i>
+</button>
+
+<!-- 遮罩层 -->
+<div id="sheet-overlay" class="sheet-overlay" onclick="closeReviewSheet()"></div>
+
+<!-- 写评价底部弹窗 -->
+<div id="review-sheet" class="bottom-sheet safe-bottom">
+  <div class="p-4">
+    <!-- 拖动条 -->
+    <div class="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-4"></div>
+    
+    <!-- 标题 -->
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-lg font-semibold text-gray-800">写评价</h3>
+      <button class="w-8 h-8 flex items-center justify-center" onclick="closeReviewSheet()">
+        <i class="fa fa-xmark text-gray-500 text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- 星级评分 -->
+    <div class="text-center mb-6">
+      <div class="text-sm text-gray-500 mb-3">点击星星评分</div>
+      <div class="star-rating flex justify-center gap-1" id="star-container">
+        <i class="fa fa-star inactive" data-rating="1" onclick="setRating(1)"></i>
+        <i class="fa fa-star inactive" data-rating="2" onclick="setRating(2)"></i>
+        <i class="fa fa-star inactive" data-rating="3" onclick="setRating(3)"></i>
+        <i class="fa fa-star inactive" data-rating="4" onclick="setRating(4)"></i>
+        <i class="fa fa-star inactive" data-rating="5" onclick="setRating(5)"></i>
+      </div>
+      <div id="rating-label" class="text-sm text-[#B01F24] mt-2 font-medium">请点击评分</div>
+    </div>
+    
+    <!-- 评价内容 -->
+    <div class="mb-4">
+      <textarea id="review-input" rows="4" maxlength="200"
+                class="w-full p-3 bg-gray-50 rounded-xl text-sm text-gray-700 placeholder-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-[#B01F24]/20"
+                placeholder="分享你在直播中的收获、建议或期待…"
+                oninput="updateCharCount()"></textarea>
+      <div class="text-right text-xs text-gray-400 mt-1">
+        <span id="char-count">0</span>/200
+      </div>
+    </div>
+    
+    <!-- 提交按钮 -->
+    <button id="submit-review-btn" class="w-full py-3.5 rounded-xl bg-gray-300 text-white text-sm font-semibold disabled:opacity-50" disabled onclick="submitReview()">
+      提交评价
+    </button>
+  </div>
+</div>
+
+<script>
+  // 直播数据
+  const liveData = {
+    id: 'live-2026-001',
+    title: '云原生架构设计实战分享',
+    category: '云基础设施',
+    track: 'DevOps 赛道',
+    status: 'upcoming', // upcoming | live | ended
+    startTime: '2026-01-15 19:00',
+    endTime: '2026-01-15 21:00',
+    attendees: 12345,
+    cover: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80'
+  };
+
+  // 状态管理
+  let isReserved = false;
+  let currentRating = 0;
+  const ratingLabels = ['', '非常不满意', '不满意', '一般', '满意', '非常满意'];
+
+  // 初始化
+  document.addEventListener('DOMContentLoaded', () => {
+    initLiveStatus();
+    updateActionButtons();
+  });
+
+  // 初始化直播状态
+  function initLiveStatus() {
+    const statusBadge = document.getElementById('live-status-badge');
+    const statusText = document.getElementById('status-text');
+    const playBtn = document.getElementById('play-btn');
+    
+    statusBadge.className = `inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium status-badge-${liveData.status}`;
+    
+    if (liveData.status === 'upcoming') {
+      statusText.textContent = '未开始';
+      playBtn.style.display = 'none';
+    } else if (liveData.status === 'live') {
+      statusText.textContent = '直播中';
+      playBtn.style.display = 'flex';
+    } else {
+      statusText.textContent = '已结束';
+      playBtn.style.display = 'flex';
+    }
+  }
+
+  // 更新操作按钮
+  function updateActionButtons() {
+    const btnReserve = document.getElementById('btn-reserve');
+    const btnEnter = document.getElementById('btn-enter');
+    const btnPlayback = document.getElementById('btn-playback');
+    const btnCancel = document.getElementById('btn-cancel');
+    const actionTip = document.getElementById('action-tip');
+    const bottomActionBtn = document.getElementById('bottom-action-btn');
+
+    if (liveData.status === 'upcoming') {
+      if (isReserved) {
+        btnReserve.classList.add('hidden');
+        btnEnter.classList.remove('hidden');
+        btnCancel.classList.remove('hidden');
+        actionTip.textContent = '已预约，开播前15分钟会提醒您';
+        bottomActionBtn.textContent = '进入直播间';
+        bottomActionBtn.onclick = enterLiveRoom;
+      } else {
+        btnReserve.classList.remove('hidden');
+        btnEnter.classList.add('hidden');
+        btnCancel.classList.add('hidden');
+        actionTip.textContent = '预约后将通过站内消息/邮件/APP推送提醒';
+        bottomActionBtn.textContent = '预约直播';
+        bottomActionBtn.onclick = reserveLive;
+      }
+      btnPlayback.classList.add('hidden');
+    } else if (liveData.status === 'live') {
+      btnReserve.classList.add('hidden');
+      btnEnter.classList.remove('hidden');
+      btnCancel.classList.add('hidden');
+      btnPlayback.classList.add('hidden');
+      actionTip.textContent = '直播进行中，点击进入直播间';
+      bottomActionBtn.textContent = '进入直播间';
+      bottomActionBtn.onclick = enterLiveRoom;
+    } else {
+      btnReserve.classList.add('hidden');
+      btnEnter.classList.add('hidden');
+      btnCancel.classList.add('hidden');
+      btnPlayback.classList.remove('hidden');
+      actionTip.textContent = '直播已结束，可观看回放';
+      bottomActionBtn.textContent = '观看回放';
+      bottomActionBtn.onclick = watchPlayback;
+    }
+  }
+
+  // 预约直播
+  function reserveLive() {
+    isReserved = true;
+    updateActionButtons();
+    showToast('预约成功！开播前15分钟将提醒您');
+  }
+
+  // 取消预约
+  function cancelReserve() {
+    if (confirm('确认取消预约吗？')) {
+      isReserved = false;
+      updateActionButtons();
+      showToast('已取消预约');
+    }
+  }
+
+  // 进入直播间
+  function enterLiveRoom() {
+    window.location.href = 'live-room.html?id=' + liveData.id;
+  }
+
+  // 观看回放
+  function watchPlayback() {
+    window.location.href = 'live-playback.html?id=' + liveData.id;
+  }
+
+  // 切换关注
+  function toggleFollow(btn) {
+    if (btn.classList.contains('bg-[#B01F24]')) {
+      btn.className = 'px-3 py-1 rounded-full bg-gray-100 text-gray-600 text-xs';
+      btn.innerHTML = '<i class="fa fa-check mr-1"></i>已关注';
+      showToast('关注成功');
+    } else {
+      btn.className = 'px-3 py-1 rounded-full bg-[#B01F24] text-white text-xs';
+      btn.innerHTML = '<i class="fa fa-plus mr-1"></i>关注';
+    }
+  }
+
+  // Tab 切换
+  function switchTab(tabName) {
+    // 更新Tab样式
+    document.querySelectorAll('.tab-item').forEach(tab => {
+      tab.classList.remove('active');
+      if (tab.dataset.tab === tabName) {
+        tab.classList.add('active');
+      }
+    });
+    
+    // 显示对应内容
+    document.querySelectorAll('.tab-content').forEach(content => {
+      content.classList.add('hidden');
+    });
+    document.getElementById('tab-' + tabName).classList.remove('hidden');
+    
+    // 切换Tab时隐藏/显示写评价按钮
+    const fabButton = document.querySelector('.fab-button');
+    if (tabName === 'review') {
+      fabButton.style.display = 'flex';
+    } else {
+      fabButton.style.display = 'none';
+    }
+  }
+
+  // 打开评价弹窗
+  function openReviewSheet() {
+    document.getElementById('review-sheet').classList.add('active');
+    document.getElementById('sheet-overlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // 关闭评价弹窗
+  function closeReviewSheet() {
+    document.getElementById('review-sheet').classList.remove('active');
+    document.getElementById('sheet-overlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // 设置评分
+  function setRating(rating) {
+    currentRating = rating;
+    const stars = document.querySelectorAll('#star-container .fa-star');
+    stars.forEach((star, index) => {
+      if (index < rating) {
+        star.classList.remove('inactive');
+        star.classList.add('active');
+      } else {
+        star.classList.remove('active');
+        star.classList.add('inactive');
+      }
+    });
+    document.getElementById('rating-label').textContent = ratingLabels[rating];
+    updateSubmitButton();
+  }
+
+  // 更新字符计数
+  function updateCharCount() {
+    const input = document.getElementById('review-input');
+    const count = input.value.length;
+    document.getElementById('char-count').textContent = count;
+    updateSubmitButton();
+  }
+
+  // 更新提交按钮状态
+  function updateSubmitButton() {
+    const btn = document.getElementById('submit-review-btn');
+    const hasText = document.getElementById('review-input').value.trim().length > 0;
+    if (currentRating > 0 && hasText) {
+      btn.disabled = false;
+      btn.classList.remove('bg-gray-300');
+      btn.classList.add('bg-[#B01F24]');
+    } else {
+      btn.disabled = true;
+      btn.classList.add('bg-gray-300');
+      btn.classList.remove('bg-[#B01F24]');
+    }
+  }
+
+  // 提交评价
+  function submitReview() {
+    const reviewText = document.getElementById('review-input').value.trim();
+    if (currentRating === 0 || !reviewText) return;
+
+    // 创建新评价元素
+    const reviewList = document.getElementById('review-list');
+    const newReview = document.createElement('div');
+    newReview.className = 'review-card';
+    newReview.dataset.rating = currentRating;
+    
+    const now = new Date();
+    const dateStr = now.toISOString().split('T')[0];
+    
+    let starsHtml = '';
+    for (let i = 0; i < 5; i++) {
+      if (i < currentRating) {
+        starsHtml += '<i class="fa fa-star"></i>';
+      } else {
+        starsHtml += '<i class="fa fa-star text-gray-300"></i>';
+      }
+    }
+    
+    newReview.innerHTML = `
+      <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center gap-2">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=80&q=80"
+               class="w-8 h-8 rounded-full object-cover" alt="">
+          <div>
+            <div class="text-sm font-medium text-gray-800">我</div>
+            <div class="flex text-[#B01F24] text-xs">${starsHtml}</div>
+          </div>
+        </div>
+        <span class="text-xs text-gray-400">${dateStr}</span>
+      </div>
+      <p class="review-content text-sm text-gray-700">${reviewText}</p>
+    `;
+    
+    reviewList.insertBefore(newReview, reviewList.firstChild);
+    
+    // 重置表单
+    document.getElementById('review-input').value = '';
+    setRating(0);
+    document.getElementById('char-count').textContent = '0';
+    closeReviewSheet();
+    showToast('评价提交成功！');
+  }
+
+  // 筛选评价
+  function filterReviews(btn, filter) {
+    document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+    btn.classList.add('active');
+    
+    const reviews = document.querySelectorAll('#review-list .review-card');
+    reviews.forEach(review => {
+      if (filter === 'all') {
+        review.style.display = 'block';
+      } else if (filter === 'latest') {
+        // 保持原有顺序，这里简化处理
+        review.style.display = 'block';
+      } else {
+        const rating = parseInt(review.dataset.rating);
+        if (filter === '5' && rating === 5) {
+          review.style.display = 'block';
+        } else if (filter === '4' && rating === 4) {
+          review.style.display = 'block';
+        } else if (filter === '3' && rating <= 3) {
+          review.style.display = 'block';
+        } else {
+          review.style.display = 'none';
+        }
+      }
+    });
+  }
+
+  // 展开/收起评价
+  function toggleExpand(btn) {
+    const content = btn.previousElementSibling;
+    if (content.classList.contains('expanded')) {
+      content.classList.remove('expanded');
+      btn.innerHTML = '展开 <i class="fa fa-chevron-down"></i>';
+    } else {
+      content.classList.add('expanded');
+      btn.innerHTML = '收起 <i class="fa fa-chevron-up"></i>';
+    }
+  }
+
+  // 加载更多评价
+  function loadMoreReviews() {
+    const btn = document.getElementById('load-more-btn');
+    btn.textContent = '加载中...';
+    setTimeout(() => {
+      btn.textContent = '没有更多评价了';
+      btn.disabled = true;
+      btn.classList.add('opacity-50');
+    }, 1000);
+  }
+
+  // 分享
+  function shareLive() {
+    if (navigator.share) {
+      navigator.share({
+        title: liveData.title,
+        text: '快来预约这场精彩直播！',
+        url: window.location.href
+      });
+    } else {
+      showToast('链接已复制，快去分享吧！');
+    }
+  }
+
+  // 底部操作按钮
+  function handleBottomAction() {
+    // 根据当前状态自动判断
+    if (liveData.status === 'upcoming') {
+      if (isReserved) {
+        enterLiveRoom();
+      } else {
+        reserveLive();
+      }
+    } else if (liveData.status === 'live') {
+      enterLiveRoom();
+    } else {
+      watchPlayback();
+    }
+  }
+
+  // Toast 提示
+  function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/80 text-white px-6 py-3 rounded-xl text-sm z-[9999]';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.remove();
+    }, 2000);
+  }
+</script>
+
+</body>
+</html>

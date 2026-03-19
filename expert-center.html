@@ -154,7 +154,7 @@
 <!-- 顶部导航 + 全站搜索 -->
 <header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
-    <div class="flex items-center justify-between h-16">
+    <div class="flex items-center justify-between h-16 relative">
       <!-- LOGO + 品牌 -->
       <div class="flex items-center space-x-2">
         <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
@@ -163,13 +163,18 @@
         <div>
           <!--div class="text-xs uppercase tracking-widest text-white">HIECO</div-->
           <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200">
-            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200">光合技术支持平台</div>
+            <div class="text-sm font-semibold text-[#2D874B] hover:text-[#256e3d] transition-colors duration-200" style="font-size: 18px;">光合技术支持平台</div>
           </a>
         </div>
       </div>
 
       <!-- 导航入口（桌面端） -->
       <nav class="hidden md:flex items-center space-x-4 text-base">
+        <!-- 首页 - 无下拉 -->
+        <a href="index.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">
+          首页
+        </a>
+
         <!-- 专家 - 无下拉 -->
         <a href="expert-center.html" class="px-4 py-2 rounded-full font-medium bg-[#2D874B] text-white transition">
           专家
@@ -186,10 +191,14 @@
                 <!-- 左侧导航 -->
                 <div class="w-48 pr-6 border-r border-gray-200">
                   <div class="space-y-2">
-                    <a href="course-list2.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 active-nav-item nav-item selected" data-target="course">课程</a>
-                    <a href="exam-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="exam">考试</a>
-                    <a href="certification.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="certification">认证</a>
-                    <a href="lecturer-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="lecturer">讲师</a>
+                    <a href="course-list2.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 active-nav-item nav-item selected" data-target="course">课程old</a>
+                    <a href="exam-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="exam">考试old</a>
+                    <a href="certification.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="certification">认证old</a>
+                    <a href="lecturer-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="lecturer">讲师old</a>
+                    <a href="course-list2.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="new-course">课程</a>
+                    <a href="exam-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="new-exam">考试</a>
+                    <a href="certification.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="new-certification">认证</a>
+                    <a href="lecturer-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="new-lecturer">讲师</a>
                   </div>
                 </div>
                 
@@ -605,6 +614,137 @@
                       </div>
                     </div>
                   </div>
+                  
+                  <div id="new-course-content" class="nav-content hidden">
+                    <div class="grid grid-cols-3 gap-6">
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2 text-base">课程体系</h4>
+                        <ul class="space-y-1">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">基础软件性能优化系列</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">基准性能优化系列</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">海光芯片安全系列</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">海光应用加速套件系列</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">DCU优化策略与工程实践</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">DCU技术基础课程</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">DCU+高端计算课程</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">DCU+Deepseek课程</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">AI大模型基础课程</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">基于DCU加速的高端计算课程</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">光耀百城系列课程</a></li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2 text-base">场景</h4>
+                        <ul class="space-y-1">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">系统优化系列</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">开发者赋能</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">产品策略</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">认证培训</a></li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2 text-base">领域</h4>
+                        <ul class="space-y-1">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">操作系统</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">数据库</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">虚拟化&云</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">大数据</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">网络流量</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">高端计算</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">人工智能</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">基准性能</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">其他</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div id="new-exam-content" class="nav-content hidden">
+                    <div class="grid grid-cols-3 gap-6">
+                      <div>
+                        <a href="exam-list.html" class="block font-medium text-gray-800 mb-2 text-base hover:text-[#2D874B]">工程师认证考试</a>
+                        <ul class="space-y-1">
+                          <li class="text-sm text-gray-600">HCCA认证</li>
+                          <li class="text-sm text-gray-600">HCCP认证</li>
+                          <li class="text-sm text-gray-600">HCCE认证</li>
+                          <li class="text-sm text-gray-600">HCDA认证</li>
+                          <li class="text-sm text-gray-600">HCDP认证</li>
+                          <li class="text-sm text-gray-600">HCDE认证</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <a href="exam-list.html" class="block font-medium text-gray-800 mb-2 text-base hover:text-[#2D874B]">销售认证考试</a>
+                        <ul class="space-y-1">
+                          <li class="text-sm text-gray-600">HCSA认证</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <a href="exam-list.html" class="block font-medium text-gray-800 mb-2 text-base hover:text-[#2D874B]">讲师认证考试</a>
+                        <ul class="space-y-1">
+                          <li class="text-sm text-gray-600">HCEA认证</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div id="new-certification-content" class="nav-content hidden">
+                    <div class="grid grid-cols-2 gap-6">
+                      <div>
+                        <a href="certification.html#general-section" class="block font-medium text-gray-800 mb-3 text-base hover:text-[#2D874B]">工程师认证</a>
+                        <div class="ml-2 mb-4">
+                          <a href="certification.html#general-section" class="block font-medium text-gray-700 mb-2 text-sm hover:text-[#2D874B]">通用计算认证</a>
+                          <ul class="space-y-1 ml-4">
+                            <li class="text-sm text-gray-600">HCCA认证</li>
+                            <li class="text-sm text-gray-600">HCCP认证</li>
+                            <li class="text-sm text-gray-600">HCCE认证</li>
+                          </ul>
+                        </div>
+                        <div class="ml-2">
+                          <a href="certification.html#general-section" class="block font-medium text-gray-700 mb-2 text-sm hover:text-[#2D874B]">智能计算认证</a>
+                          <ul class="space-y-1 ml-4">
+                            <li class="text-sm text-gray-600">HCDA认证</li>
+                            <li class="text-sm text-gray-600">HCDP认证</li>
+                            <li class="text-sm text-gray-600">HCDE认证</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div>
+                        <a href="certification.html#city-section" class="block font-medium text-gray-800 mb-3 text-base hover:text-[#2D874B]">光耀百城认证</a>
+                        <div class="ml-2 mb-4">
+                          <a href="certification.html#city-section" class="block font-medium text-gray-700 mb-2 text-sm hover:text-[#2D874B]">销售认证</a>
+                          <ul class="space-y-1 ml-4">
+                            <li class="text-sm text-gray-600">HCSA认证</li>
+                          </ul>
+                        </div>
+                        <div class="ml-2">
+                          <a href="certification.html#city-section" class="block font-medium text-gray-700 mb-2 text-sm hover:text-[#2D874B]">讲师认证</a>
+                          <ul class="space-y-1 ml-4">
+                            <li class="text-sm text-gray-600">HCEA认证</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div id="new-lecturer-content" class="nav-content hidden">
+                    <div>
+                      <h4 class="font-medium text-gray-800 mb-2 text-base">专业领域</h4>
+                      <div class="grid grid-cols-4 gap-4">
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">人工智能</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">云计算/虚拟化</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">数据库</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">操作系统</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">大数据</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">网络流量</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">高端计算</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">存储</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">海光内生安全</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">基准测试</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">应用套件开发</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-[#2D874B]">光耀百城策略</a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -622,103 +762,125 @@
               <div class="flex">
                 <!-- 直播没有左侧导航和分隔线，直接显示右侧分类内容 -->
                 <div class="flex-1">
-                  <h3 class="text-lg font-semibold mb-6">直播分类</h3>
-                  <div class="grid grid-cols-3 gap-6">
-                    <div>
-                      <h4 class="font-medium text-gray-800 mb-2 text-base">技术直播</h4>
-                      <ul class="space-y-1">
-                        <li class="mb-2">
-                          <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">云计算技术</a>
-                          <ul class="mt-1 space-y-1 pl-2">
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">Kubernetes实践</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">Docker容器化</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">微服务架构</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">Serverless技术</a></li>
-                          </ul>
-                        </li>
-                        <li class="mb-2">
-                          <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">网络安全</a>
-                          <ul class="mt-1 space-y-1 pl-2">
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">零信任架构</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">威胁检测</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">数据保护</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">合规实践</a></li>
-                          </ul>
-                        </li>
-                        <li class="mb-2">
-                          <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">人工智能</a>
-                          <ul class="mt-1 space-y-1 pl-2">
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">机器学习算法</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">深度学习框架</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">大模型应用</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">AI工程实践</a></li>
-                          </ul>
-                        </li>
-                      </ul>
+                  <!-- 直播分类标签页 -->
+                  <div class="flex mb-6 border-b border-gray-200">
+                    <button class="live-tab active px-4 py-2 text-sm font-medium border-b-2 border-[#2D874B] text-[#2D874B]" data-target="live-category-new">直播分类</button>
+                    <button class="live-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-target="live-category-old">直播分类old</button>
+                  </div>
+                  
+                  <!-- 新的直播分类内容 -->
+                  <div id="live-category-new" class="live-content active">
+                    <div class="grid grid-cols-3 gap-6">
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2 text-base">类别</h4>
+                        <ul class="space-y-1">
+                          <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">云基础设施</a></li>
+                          <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">AI 与数据智能</a></li>
+                          <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">解决方案</a></li>
+                        </ul>
+                      </div>
                     </div>
-                    <div>
-                      <h4 class="font-medium text-gray-800 mb-2 text-base">认证直播</h4>
-                      <ul class="space-y-1">
-                        <li class="mb-2">
-                          <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">曙光认证</a>
-                          <ul class="mt-1 space-y-1 pl-2">
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCIA备考指导</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCIP实验讲解</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCIE面试技巧</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">曙光认证经验分享</a></li>
-                          </ul>
-                        </li>
-                        <li class="mb-2">
-                          <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">红帽认证</a>
-                          <ul class="mt-1 space-y-1 pl-2">
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCSA实战演练</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCE考题解析</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCA专题讲座</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">红帽认证规划</a></li>
-                          </ul>
-                        </li>
-                        <li class="mb-2">
-                          <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">思科认证</a>
-                          <ul class="mt-1 space-y-1 pl-2">
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CCNA理论精讲</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CCNP实验操作</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CCIE技术研讨</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">思科认证路径</a></li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 class="font-medium text-gray-800 mb-2 text-base">专题直播</h4>
-                      <ul class="space-y-1">
-                        <li class="mb-2">
-                          <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">行业趋势</a>
-                          <ul class="mt-1 space-y-1 pl-2">
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">新技术展望</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">市场动态分析</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">技术发展路线</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">产业变革解读</a></li>
-                          </ul>
-                        </li>
-                        <li class="mb-2">
-                          <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">实战案例</a>
-                          <ul class="mt-1 space-y-1 pl-2">
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">企业实践分享</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">项目实施经验</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">故障排查实战</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">优化方案解析</a></li>
-                          </ul>
-                        </li>
-                        <li class="mb-2">
-                          <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">专家访谈</a>
-                          <ul class="mt-1 space-y-1 pl-2">
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">技术大咖对话</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">行业领袖观点</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">职业发展指导</a></li>
-                            <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">创新思维启发</a></li>
-                          </ul>
-                        </li>
-                      </ul>
+                  </div>
+                  
+                  <!-- 原来的直播分类内容 -->
+                  <div id="live-category-old" class="live-content hidden">
+                    <div class="grid grid-cols-3 gap-6">
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2 text-base">技术直播</h4>
+                        <ul class="space-y-1">
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">云计算技术</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">Kubernetes实践</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">Docker容器化</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">微服务架构</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">Serverless技术</a></li>
+                            </ul>
+                          </li>
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">网络安全</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">零信任架构</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">威胁检测</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">数据保护</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">合规实践</a></li>
+                            </ul>
+                          </li>
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">人工智能</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">机器学习算法</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">深度学习框架</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">大模型应用</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">AI工程实践</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2 text-base">认证直播</h4>
+                        <ul class="space-y-1">
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">曙光认证</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCIA备考指导</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCIP实验讲解</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">HCIE面试技巧</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">曙光认证经验分享</a></li>
+                            </ul>
+                          </li>
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">红帽认证</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCSA实战演练</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCE考题解析</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">RHCA专题讲座</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">红帽认证规划</a></li>
+                            </ul>
+                          </li>
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">思科认证</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CCNA理论精讲</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CCNP实验操作</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">CCIE技术研讨</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">思科认证路径</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2 text-base">专题直播</h4>
+                        <ul class="space-y-1">
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">行业趋势</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">新技术展望</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">市场动态分析</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">技术发展路线</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">产业变革解读</a></li>
+                            </ul>
+                          </li>
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">实战案例</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">企业实践分享</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">项目实施经验</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">故障排查实战</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">优化方案解析</a></li>
+                            </ul>
+                          </li>
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">专家访谈</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">技术大咖对话</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">行业领袖观点</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">职业发展指导</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">创新思维启发</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -728,14 +890,92 @@
         </div>
 
         <!-- 其他导航项（无下拉） -->
-        <a href="https://forum.sourcefind.cn/" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">论坛</a>
-        <a href="resource-center.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">资源</a>
+        
+        <!-- 资源 - 带下拉浮窗（解决方案/开发工具/文档中心） -->
+        <div class="nav-dropdown relative group">
+          <a href="resource-center.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            资源
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </a>
+          <div class="full-width-dropdown fixed top-0 left-0 w-screen bg-white shadow-xl border-t border-gray-200 opacity-0 invisible transition-all duration-300 z-40" id="resource-full-dropdown">
+            <div class="container mx-auto px-4 py-16">
+              <div class="flex">
+                <!-- 左侧导航 -->
+                <div class="w-48 pr-6 border-r border-gray-200">
+                  <div class="space-y-2">
+                    <a href="case-library.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item selected" data-target="solution">解决方案</a>
+                    <a href="tech-tool-library.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="tech-tool">开发工具</a>
+                    <a href="doc-library.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="tech-doc">文档中心</a>
+                  </div>
+                </div>
+                
+                <!-- 分隔线 -->
+                <div class="mx-6 h-full w-px bg-gray-200"></div>
+                
+                <!-- 右侧分类内容 -->
+                <div class="flex-1 pl-6">
+                  <!-- 解决方案内容 -->
+                  <div id="solution-content" class="nav-content active-content">
+                    <div>
+                      <h4 class="font-medium text-gray-800 mb-2 text-base">行业</h4>
+                      <div class="grid grid-cols-4 gap-4">
+                        <a href="case-library.html?industry=政府" class="text-sm text-gray-600 hover:text-[#2D874B]">政府</a>
+                        <a href="case-library.html?industry=科研" class="text-sm text-gray-600 hover:text-[#2D874B]">科研</a>
+                        <a href="case-library.html?industry=通信" class="text-sm text-gray-600 hover:text-[#2D874B]">通信</a>
+                        <a href="case-library.html?industry=金融" class="text-sm text-gray-600 hover:text-[#2D874B]">金融</a>
+                        <a href="case-library.html?industry=互联网" class="text-sm text-gray-600 hover:text-[#2D874B]">互联网</a>
+                        <a href="case-library.html?industry=企业" class="text-sm text-gray-600 hover:text-[#2D874B]">企业</a>
+                        <a href="case-library.html?industry=电力" class="text-sm text-gray-600 hover:text-[#2D874B]">电力</a>
+                        <a href="case-library.html?industry=广媒" class="text-sm text-gray-600 hover:text-[#2D874B]">广媒</a>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- 技术工具库内容 -->
+                  <div id="tech-tool-content" class="nav-content hidden">
+                    <div>
+                      <h4 class="font-medium text-gray-800 mb-2 text-base">类别</h4>
+                      <div class="grid grid-cols-4 gap-4">
+                        <a href="tech-tool-library.html?category=模型" class="text-sm text-gray-600 hover:text-[#2D874B]">模型</a>
+                        <a href="tech-tool-library.html?category=代码" class="text-sm text-gray-600 hover:text-[#2D874B]">代码</a>
+                        <a href="tech-tool-library.html?category=软件支持" class="text-sm text-gray-600 hover:text-[#2D874B]">软件支持</a>
+                        <a href="tech-tool-library.html?category=镜像仓库" class="text-sm text-gray-600 hover:text-[#2D874B]">镜像仓库</a>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- 文档中心内容 -->
+                  <div id="tech-doc-content" class="nav-content hidden">
+                    <div>
+                      <h4 class="font-medium text-gray-800 mb-2 text-base">场景</h4>
+                      <div class="grid grid-cols-4 gap-4">
+                        <a href="doc-library.html?scene=兼容性" class="text-sm text-gray-600 hover:text-[#2D874B]">兼容性</a>
+                        <a href="doc-library.html?scene=人工智能" class="text-sm text-gray-600 hover:text-[#2D874B]">人工智能</a>
+                        <a href="doc-library.html?scene=云计算/虚拟化" class="text-sm text-gray-600 hover:text-[#2D874B]">云计算/虚拟化</a>
+                        <a href="doc-library.html?scene=数据库" class="text-sm text-gray-600 hover:text-[#2D874B]">数据库</a>
+                        <a href="doc-library.html?scene=操作系统" class="text-sm text-gray-600 hover:text-[#2D874B]">操作系统</a>
+                        <a href="doc-library.html?scene=大数据" class="text-sm text-gray-600 hover:text-[#2D874B]">大数据</a>
+                        <a href="doc-library.html?scene=网络流量" class="text-sm text-gray-600 hover:text-[#2D874B]">网络流量</a>
+                        <a href="doc-library.html?scene=高端计算" class="text-sm text-gray-600 hover:text-[#2D874B]">高端计算</a>
+                        <a href="doc-library.html?scene=存储" class="text-sm text-gray-600 hover:text-[#2D874B]">存储</a>
+                        <a href="doc-library.html?scene=海光内生安全" class="text-sm text-gray-600 hover:text-[#2D874B]">海光内生安全</a>
+                        <a href="doc-library.html?scene=基准测试" class="text-sm text-gray-600 hover:text-[#2D874B]">基准测试</a>
+                        <a href="doc-library.html?scene=应用开发套件" class="text-sm text-gray-600 hover:text-[#2D874B]">应用开发套件</a>
+                        <a href="doc-library.html?scene=光耀百城政策" class="text-sm text-gray-600 hover:text-[#2D874B]">光耀百城政策</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- 资讯 - 带下拉浮窗（合并资讯、活动） -->
         <div class="nav-dropdown relative group">
-          <span class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+          <a href="news-announcement-list.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
             资讯
             <i class="fa fa-chevron-down text-sm text-gray-500"></i>
-          </span>
+          </a>
           <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
             <div class="p-4">
               <div class="space-y-3">
@@ -754,7 +994,7 @@
             </div>
           </div>
         </div>
-        
+        <a href="https://forum.sourcefind.cn/" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">论坛</a>
         <!--a href="auth.html"
            class="ml-1 px-4 py-1.5 rounded-full bg-[#2D874B] text-white text-sm font-medium hover:opacity-90 transition">
           登录
@@ -779,7 +1019,7 @@
                 <input
                   type="text"
                   id="search-input"
-                  placeholder="搜索培训、考试、认证、资讯..."
+                  placeholder="搜索课程、考试、认证、资讯..."
                   class="w-full rounded-xl bg-gray-100 border border-gray-300 px-4 py-3 pl-10 text-sm
                          placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]"
                 />
@@ -787,7 +1027,7 @@
               </div>
               
               <!-- 热搜推荐 -->
-              <div id="hot-search" class="mb-3">
+              <div id="hot-search" class="mb-3 hidden">
                 <div class="flex items-center justify-between mb-2">
                   <span class="text-xs font-medium text-gray-600">热搜推荐</span>
                   <button class="text-xs text-blue-500 hover:text-blue-700 transition">换一换</button>
@@ -819,14 +1059,140 @@
           </div>
         </div>
 
-        <!-- 用户头像 -->
-        <div class="relative">
-          <button id="user-avatar" class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
+        <!-- 用户头像（悬浮弹出个人/公司信息卡片） -->
+        <div class="relative group hidden md:block">
+          <a id="user-avatar" href="personal-center.html"
+             class="h-9 w-9 rounded-full bg-gray-200/80 hover:bg-gray-300 transition flex items-center justify-center text-gray-600">
             <i class="fa fa-user text-sm"></i>
-          </button>
+          </a>
+
+          <!-- 悬浮弹窗 -->
+          <div id="user-info-dropdown"
+               class="absolute top-full right-0 mt-2 w-[360px] glass-card rounded-3xl border border-gray-300 p-4 shadow-xl opacity-0 invisible translate-y-1 transition-all duration-200 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-50">
+            <!-- Tab标签区域 -->
+            <div class="flex space-x-2 mb-4">
+              <button id="personal-tab" class="tab-button flex-1 px-4 py-2 rounded-lg bg-[#2D874B]/10 border border-[#2D874B] text-[#2D874B] shadow-sm flex items-center justify-center text-sm font-semibold transition">
+                个人
+              </button>
+              <button id="company-tab" class="tab-button flex-1 px-4 py-2 rounded-lg bg-white/70 border border-gray-300 text-gray-700 hover:border-[#2D874B]/50 hover:text-[#2D874B] flex items-center justify-center text-sm font-medium transition">
+                公司
+              </button>
+            </div>
+
+            <!-- 头像和信息区域 -->
+            <div class="flex items-start space-x-3">
+              <div class="relative">
+                <img
+                  src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80"
+                  class="h-14 w-14 rounded-2xl object-cover border border-gray-300"
+                  alt="avatar"
+                  id="avatar-img"
+                />
+                <span class="absolute -bottom-1 -right-1 h-4 w-4 rounded-full bg-[#2D874B] border-2 border-white"></span>
+              </div>
+
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <div class="text-base font-semibold text-gray-800" id="name-display">张合作 · 技术人员</div>
+                  <div id="points-display" class="flex items-center text-xs text-yellow-600">
+                    <i class="fa fa-coins mr-1 text-yellow-500"></i>
+                    <span>1280 积分</span>
+                  </div>
+                </div>
+                <div id="company-name-line" class="text-xs text-gray-500 mt-1">联想集团</div>
+                <div class="mt-1 space-y-1 hidden" id="company-tags">
+                  <div class="flex flex-wrap gap-1">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800">
+                      整机伙伴
+                    </span>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800">
+                      技术软件伙伴
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 个人数据内容（默认显示） -->
+            <div id="personal-content" class="tab-content flex-grow">
+              <div class="grid grid-cols-2 gap-2 text-xs mt-3">
+                <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="text-gray-600">我的任务</span>
+                    <i class="fa fa-tasks text-indigo-400 text-[10px]"></i>
+                  </div>
+                  <div class="text-sm font-semibold">5</div>
+                </div>
+                <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="text-gray-600">专家服务</span>
+                    <i class="fa fa-user-shield text-sky-400 text-[10px]"></i>
+                  </div>
+                  <div class="text-sm font-semibold">3</div>
+                </div>
+                <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="text-gray-600">课程学习</span>
+                    <i class="fa fa-book-open text-amber-400 text-[10px]"></i>
+                  </div>
+                  <div class="text-sm font-semibold">18</div>
+                </div>
+                <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="text-gray-600">我的证书</span>
+                    <i class="fa fa-certificate text-[#2D874B] text-[10px]"></i>
+                  </div>
+                  <div class="text-sm font-semibold">3</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 公司数据内容（默认隐藏） -->
+            <div id="company-content" class="tab-content flex-grow hidden">
+              <div class="grid grid-cols-2 gap-2 text-xs mt-3">
+                <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="text-gray-600">公司成员</span>
+                    <i class="fa fa-users text-indigo-400 text-[10px]"></i>
+                  </div>
+                  <div class="text-sm font-semibold">86</div>
+                </div>
+                <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="text-gray-600">专家服务</span>
+                    <i class="fa fa-cog text-sky-400 text-[10px]"></i>
+                  </div>
+                  <div class="text-sm font-semibold">156</div>
+                </div>
+                <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="text-gray-600">课程学习</span>
+                    <i class="fa fa-book-open text-amber-400 text-[10px]"></i>
+                  </div>
+                  <div class="text-sm font-semibold">42</div>
+                </div>
+                <div class="rounded-xl bg-white/70 border border-gray-300 px-2 py-1.5">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="text-gray-600">认证人数</span>
+                    <i class="fa fa-certificate text-[#2D874B] text-[10px]"></i>
+                  </div>
+                  <div class="text-sm font-semibold">28</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 快捷入口 -->
+            <div class="pt-4" id="quick-access-buttons">
+              <a href="personal-center.html"
+                 class="w-full inline-flex items-center justify-center px-3 py-2 rounded-2xl bg-[#2D874B] hover:bg-[#256e3d] text-xs font-medium text-white transition">
+                <i class="fa fa-layer-group mr-1.5 text-[11px]"></i> 个人中心
+              </a>
+            </div>
+          </div>
+        </div>
           
           <!-- 用户菜单下拉（可选） -->
-          <div class="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible transition-all duration-300 z-50">
+          <!-- <div class="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible transition-all duration-300 z-50">
             <div class="p-2">
               <a href="personal-center.html" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition">
                 <i class="fa fa-user mr-2 text-[#2D874B]"></i>
@@ -842,7 +1208,7 @@
                 退出登录
               </a>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <!-- 移动端菜单按钮 -->
@@ -850,6 +1216,19 @@
                 class="md:hidden inline-flex items-center justify-center h-9 w-9 rounded-full bg-gray-300 text-gray-800">
           <i class="fa fa-bars text-lg"></i>
         </button>
+      </div>
+
+      <!-- 移动端：APP 下载 -->
+      <div class="group absolute right-[-180px]">
+        <button class="app-download-btn bg-gradient-to-r from-[#2D874B] to-[#34D399] text-white px-4 py-2 rounded-full hover:from-[#256e3d] hover:to-[#2bbd8a] transition-all duration-300 flex items-center gap-2">
+          <span>光圈下载</span>
+        </button>
+        <div class="app-qrcode absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-white p-3 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+          <div class="w-32 h-32 bg-gray-200 flex items-center justify-center">
+            <i class="fa fa-qrcode text-4xl text-gray-400"></i>
+          </div>
+          <p class="text-center text-xs text-gray-600 mt-2">扫码下载APP</p>
+        </div>
       </div>
     </div>
 
@@ -878,9 +1257,21 @@
         <a href="#" class="rounded-xl bg-gray-300/80 px-2 py-2 text-center hover:bg-gray-400 transition text-gray-800">直播</a>
         <a href="#" class="rounded-xl bg-gray-300/80 px-2 py-2 text-center hover:bg-gray-400 transition text-gray-800">活动</a>
         <a href="#" class="rounded-xl bg-gray-300/80 px-2 py-2 text-center hover:bg-gray-400 transition text-gray-800">专区</a>
-        <a href="#" class="rounded-xl bg-gray-300/80 px-2 py-2 text-center hover:bg-gray-400 transition text-gray-800">资讯</a>
+        <div class="relative group">
+          <button class="app-download-btn w-full bg-gradient-to-r from-[#2D874B] to-[#34D399] text-white px-2 py-2 rounded-xl hover:from-[#256e3d] hover:to-[#2bbd8a] transition-all duration-300 flex items-center justify-center gap-2">
+            <i class="fa fa-mobile-alt text-lg"></i>
+            <span>下载APP</span>
+          </button>
+          <div class="app-qrcode absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-white p-3 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="w-40 h-40 bg-gray-200 flex items-center justify-center">
+              <i class="fa fa-qrcode text-4xl text-gray-400"></i>
+            </div>
+            <p class="text-center text-xs text-gray-600 mt-2">扫码下载APP</p>
+          </div>
+        </div>
       </nav>
     </div>
+    
   </div>
 </header>
 <!-- 页面内容 -->
@@ -931,7 +1322,7 @@
               <input 
                 type="text" 
                 id="expert-search" 
-                placeholder="搜索专家姓名、领域..." 
+                placeholder="搜索专家 / 领域 / 场景..." 
                 class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2D874B] focus:border-transparent"
               >
               <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
@@ -944,314 +1335,264 @@
         <!-- 专家列表 -->
         <div class="mb-8">
           <!-- 专家领域分类按钮 -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div class="domain-card active bg-white rounded-xl p-4 text-center border brder-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                  <i class="fa fa-list text-gray-600"></i>
-                </div>
-                <div class="text-left">
-                  <h3 class="font-semibold text-gray-800">全部</h3>
-                  <p class="text-xs text-gray-500">35位专家</p>
-                </div>
-              </div>
-            </div>
-            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                  <i class="fa fa-microchip text-blue-600"></i>
-                </div>
-                <div class="text-left">
-                  <h3 class="font-semibold text-gray-800">CPU</h3>
-                  <p class="text-xs text-gray-500">8位专家</p>
-                </div>
-              </div>
-            </div>
-            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                  <i class="fa fa-memory text-purple-600"></i>
-                </div>
-                <div class="text-left">
-                  <h3 class="font-semibold text-gray-800">DCU</h3>
-                  <p class="text-xs text-gray-500">6位专家</p>
-                </div>
-              </div>
-            </div>
-            <div class="domain-card bg-white rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                  <i class="fa fa-globe text-yellow-600"></i>
-                </div>
-                <div class="text-left">
-                  <h3 class="font-semibold text-gray-800">通用</h3>
-                  <p class="text-xs text-gray-500">9位专家</p>
-                </div>
-              </div>
+          <div class="flex items-center gap-4 mb-6">
+            <span class="text-sm text-gray-500">专家领域</span>
+            <div class="flex gap-2">
+              <button class="domain-filter-btn active px-4 py-1.5 rounded-md text-sm font-medium bg-[#2D874B]/10 text-[#2D874B] transition">全部</button>
+              <button class="domain-filter-btn px-4 py-1.5 rounded-md text-sm font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 transition">CPU</button>
+              <button class="domain-filter-btn px-4 py-1.5 rounded-md text-sm font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 transition">DCU</button>
             </div>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="expert-list">
-            <!-- 专家卡片示例 -->
-            <div class="expert-card bg-white rounded-xl p-6 border border-gray-200 fade-in">
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h3 class="text-lg font-semibold text-gray-800">首席技术专家</h3>
-                  <span class="domain-badge px-2 py-1 rounded-full text-xs font-medium">CPU</span>
+            <!-- 领域卡片示例 -->
+            <div class="expert-card bg-white rounded-xl overflow-hidden border border-gray-200 fade-in flex flex-col">
+              <!-- 卡片图片 -->
+              <div class="relative h-48 bg-gradient-to-br from-blue-600 to-blue-800 overflow-hidden">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <i class="fa fa-database text-white/30 text-6xl"></i>
                 </div>
-                <p class="text-gray-600 text-sm mb-3">
-                  15年云计算架构经验，擅长大规模分布式系统设计和性能优化
+                <div class="absolute top-3 left-3 flex items-center gap-1 bg-black/30 px-2 py-1 rounded-full">
+                  <i class="fa fa-microchip text-white text-xs"></i>
+                  <span class="text-white text-xs">CPU</span>
+                </div>
+              </div>
+              <!-- 卡片内容 -->
+              <div class="p-5 flex flex-col flex-grow">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">大数据领域</h3>
+                <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+                  海光芯片对主流大数据产品、开源大数据组件及相关应用的通用性能优化。持续投资及生态推广海光芯片对主流大数据产品、开源大数据组件
                 </p>
-                <div class="flex flex-wrap gap-1">
-                  <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">CPU</span>
-                  <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">架构设计</span>
-                  <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">性能优化</span>
+                <div class="flex flex-wrap gap-2 mb-4 flex-grow">
+                  <span class="px-3 py-1 bg-blue-50 text-blue-600 text-xs rounded-full border border-blue-100">实时计算</span>
+                  <span class="px-3 py-1 bg-blue-50 text-blue-600 text-xs rounded-full border border-blue-100">数据分析</span>
+                  <span class="px-3 py-1 bg-blue-50 text-blue-600 text-xs rounded-full border border-blue-100">存储方案</span>
+                  <span class="px-3 py-1 bg-blue-50 text-blue-600 text-xs rounded-full border border-blue-100">优化技术</span>
                 </div>
-                <div class="mt-3 flex space-x-2">
-                  <button class="text-sm text-[#2D874B] hover:text-[#256e3d] font-medium flex items-center domain-badge2">
-                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-4 h-4 mr-1 inline-block">光圈儿咨询
+                <div class="flex items-center justify-end">
+                  <button class="text-sm text-gray-600 hover:text-[#2D874B] font-medium flex items-center transition-colors px-3 py-1.5 border border-gray-300 rounded-lg hover:border-[#2D874B]">
+                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-5 h-5 mr-2">光圈儿咨询
                   </button>
                 </div>
               </div>
             </div>
             
-            <div class="expert-card bg-white rounded-xl p-6 border border-gray-200 fade-in">
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h3 class="text-lg font-semibold text-gray-800">资深运维专家</h3>
-                  <span class="domain-badge px-2 py-1 rounded-full text-xs font-medium">操作系统/数据库/云</span>
+            <div class="expert-card bg-white rounded-xl overflow-hidden border border-gray-200 fade-in flex flex-col">
+              <!-- 卡片图片 -->
+              <div class="relative h-48 bg-gradient-to-br from-orange-500 to-orange-700 overflow-hidden">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <i class="fa fa-server text-white/30 text-6xl"></i>
                 </div>
-                <p class="text-gray-600 text-sm mb-3">
-                  12年系统运维经验，精通自动化运维和故障快速定位
+                <div class="absolute top-3 left-3 flex items-center gap-1 bg-black/30 px-2 py-1 rounded-full">
+                  <i class="fa fa-microchip text-white text-xs"></i>
+                  <span class="text-white text-xs">CPU</span>
+                </div>
+              </div>
+              <!-- 卡片内容 -->
+              <div class="p-5 flex flex-col flex-grow">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">高端计算领域</h3>
+                <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+                  海光芯片在科学研究、工业仿真、气象预报等场景、各类高端计算计算软件的适配与优化
                 </p>
-                <div class="flex flex-wrap gap-1">
-                  <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">操作系统/数据库/云</span>
-                  <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">自动化</span>
-                  <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">故障诊断</span>
+                <div class="flex flex-wrap gap-2 mb-4">
+                  <span class="px-3 py-1 bg-orange-50 text-orange-600 text-xs rounded-full border border-orange-100">高端计算</span>
                 </div>
-                <div class="mt-3 flex space-x-2">
-                  <button class="text-sm text-[#2D874B] hover:text-[#256e3d] font-medium flex items-center domain-badge2">
-                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-4 h-4 mr-1 inline-block">光圈儿咨询
+                <div class="flex items-center justify-end">
+                  <button class="text-sm text-gray-600 hover:text-[#2D874B] font-medium flex items-center transition-colors px-3 py-1.5 border border-gray-300 rounded-lg hover:border-[#2D874B]">
+                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-5 h-5 mr-2">光圈儿咨询
                   </button>
                 </div>
               </div>
             </div>
             
-            <div class="expert-card bg-white rounded-xl p-6 border border-gray-200 fade-in">
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h3 class="text-lg font-semibold text-gray-800">安全技术专家</h3>
-                  <span class="domain-badge px-2 py-1 rounded-full text-xs font-medium">通用</span>
+            <div class="expert-card bg-white rounded-xl overflow-hidden border border-gray-200 fade-in flex flex-col">
+              <!-- 卡片图片 -->
+              <div class="relative h-48 bg-gradient-to-br from-cyan-600 to-cyan-800 overflow-hidden">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <i class="fa fa-shield-alt text-white/30 text-6xl"></i>
                 </div>
-                <p class="text-gray-600 text-sm mb-3">
-                  10年网络安全经验，专注于系统安全防护和风险评估
+                <div class="absolute top-3 left-3 flex items-center gap-1 bg-black/30 px-2 py-1 rounded-full">
+                  <i class="fa fa-microchip text-white text-xs"></i>
+                  <span class="text-white text-xs">CPU</span>
+                </div>
+              </div>
+              <!-- 卡片内容 -->
+              <div class="p-5 flex flex-col flex-grow">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">海光安全领域</h3>
+                <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+                  海光芯片使用内生安全功能进行国密改造、可信计算验证和安全虚拟机适配及应用
                 </p>
-                <div class="flex flex-wrap gap-1">
-                  <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">通用</span>
-                  <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">安全防护</span>
-                  <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">风险评估</span>
+                <div class="flex flex-wrap gap-2 mb-4">
+                  <span class="px-3 py-1 bg-cyan-50 text-cyan-600 text-xs rounded-full border border-cyan-100">机密计算</span>
+                  <span class="px-3 py-1 bg-cyan-50 text-cyan-600 text-xs rounded-full border border-cyan-100">可信计算/密码技术</span>
                 </div>
-                <div class="mt-3 flex space-x-2">
-                  <button class="text-sm text-[#2D874B] hover:text-[#256e3d] font-medium flex items-center domain-badge2">
-                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-4 h-4 mr-1 inline-block">光圈儿咨询
+                <div class="flex items-center justify-end">
+                  <button class="text-sm text-gray-600 hover:text-[#2D874B] font-medium flex items-center transition-colors px-3 py-1.5 border border-gray-300 rounded-lg hover:border-[#2D874B]">
+                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-5 h-5 mr-2">光圈儿咨询
                   </button>
                 </div>
               </div>
             </div>
             
-            <div class="expert-card bg-white rounded-xl p-6 border border-gray-200 fade-in">
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h3 class="text-lg font-semibold text-gray-800">AI算法专家</h3>
-                  <span class="domain-badge px-2 py-1 rounded-full text-xs font-medium">DCU</span>
+            <!-- 存储技术领域 -->
+            <div class="expert-card bg-white rounded-xl overflow-hidden border border-gray-200 fade-in flex flex-col">
+              <div class="relative h-48 bg-gradient-to-br from-indigo-600 to-indigo-800 overflow-hidden">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <i class="fa fa-hdd text-white/30 text-6xl"></i>
                 </div>
-                <p class="text-gray-600 text-sm mb-3">
-                  8年机器学习经验，专注于深度学习模型优化和算法创新
+                <div class="absolute top-3 left-3 flex items-center gap-1 bg-black/30 px-2 py-1 rounded-full">
+                  <i class="fa fa-microchip text-white text-xs"></i>
+                  <span class="text-white text-xs">CPU</span>
+                </div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">存储技术领域</h3>
+                <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+                  存储性能基准测试FIO、vdbench等，存储技术如SPDK、NVMe-oF、分布式存储Ceph等性能优化
                 </p>
-                <div class="flex flex-wrap gap-1">
-                  <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full">DCU</span>
-                  <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full">算法优化</span>
-                  <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full">模型训练</span>
+                <div class="flex flex-wrap gap-2 mb-4 flex-grow">
+                  <span class="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs rounded-full border border-indigo-100">存储技术</span>
                 </div>
-                <div class="mt-3 flex space-x-2">
-                  <button class="text-sm text-[#2D874B] hover:text-[#256e3d] font-medium flex items-center domain-badge2">
-                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-4 h-4 mr-1 inline-block">光圈儿咨询
+                <div class="flex items-center justify-end">
+                  <button class="text-sm text-gray-600 hover:text-[#2D874B] font-medium flex items-center transition-colors px-3 py-1.5 border border-gray-300 rounded-lg hover:border-[#2D874B]">
+                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-5 h-5 mr-2">光圈儿咨询
                   </button>
                 </div>
               </div>
             </div>
             
-            <div class="expert-card bg-white rounded-xl p-6 border border-gray-200 fade-in">
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h3 class="text-lg font-semibold text-gray-800">大数据专家</h3>
-                  <span class="domain-badge px-2 py-1 rounded-full text-xs font-medium">操作系统/数据库/云</span>
+            <!-- 网络流量领域 -->
+            <div class="expert-card bg-white rounded-xl overflow-hidden border border-gray-200 fade-in flex flex-col">
+              <div class="relative h-48 bg-gradient-to-br from-purple-600 to-purple-800 overflow-hidden">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <i class="fa fa-network-wired text-white/30 text-6xl"></i>
                 </div>
-                <p class="text-gray-600 text-sm mb-3">
-                  10年大数据处理经验，精通分布式计算和实时数据处理
+                <div class="absolute top-3 left-3 flex items-center gap-1 bg-black/30 px-2 py-1 rounded-full">
+                  <i class="fa fa-microchip text-white text-xs"></i>
+                  <span class="text-white text-xs">CPU</span>
+                </div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">网络流量领域</h3>
+                <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+                  网络基准性能如perftest、IB、DPDK性能优化，以及流量处理业务如DPI、Web的性能优化
                 </p>
-                <div class="flex flex-wrap gap-1">
-                  <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full">操作系统/数据库/云</span>
-                  <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full">分布式计算</span>
-                  <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full">实时处理</span>
+                <div class="flex flex-wrap gap-2 mb-4 flex-grow">
+                  <span class="px-3 py-1 bg-purple-50 text-purple-600 text-xs rounded-full border border-purple-100">网络流量</span>
                 </div>
-                <div class="mt-3 flex space-x-2">
-                  <button class="text-sm text-[#2D874B] hover:text-[#256e3d] font-medium flex items-center domain-badge2">
-                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-4 h-4 mr-1 inline-block">光圈儿咨询
+                <div class="flex items-center justify-end">
+                  <button class="text-sm text-gray-600 hover:text-[#2D874B] font-medium flex items-center transition-colors px-3 py-1.5 border border-gray-300 rounded-lg hover:border-[#2D874B]">
+                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-5 h-5 mr-2">光圈儿咨询
                   </button>
                 </div>
               </div>
             </div>
             
-            <div class="expert-card bg-white rounded-xl p-6 border border-gray-200 fade-in">
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h3 class="text-lg font-semibold text-gray-800">智能应用专家</h3>
-                  <span class="domain-badge px-2 py-1 rounded-full text-xs font-medium">通用</span>
+            <!-- 基准性能领域 -->
+            <div class="expert-card bg-white rounded-xl overflow-hidden border border-gray-200 fade-in flex flex-col">
+              <div class="relative h-48 bg-gradient-to-br from-teal-600 to-teal-800 overflow-hidden">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <i class="fa fa-tachometer-alt text-white/30 text-6xl"></i>
                 </div>
-                <p class="text-gray-600 text-sm mb-3">
-                  6年AI应用开发经验，专注于智能应用场景落地
+                <div class="absolute top-3 left-3 flex items-center gap-1 bg-black/30 px-2 py-1 rounded-full">
+                  <i class="fa fa-microchip text-white text-xs"></i>
+                  <span class="text-white text-xs">CPU</span>
+                </div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">基准性能领域</h3>
+                <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+                  CPU基础架构、微架构及特性、基准性能测试及通用全栈业务优化方法
                 </p>
-                <div class="flex flex-wrap gap-1">
-                  <span class="px-2 py-1 bg-pink-100 text-pink-700 text-xs rounded-full">通用</span>
-                  <span class="px-2 py-1 bg-pink-100 text-pink-700 text-xs rounded-full">场景落地</span>
-                  <span class="px-2 py-1 bg-pink-100 text-pink-700 text-xs rounded-full">应用开发</span>
+                <div class="flex flex-wrap gap-2 mb-4 flex-grow">
+                  <span class="px-3 py-1 bg-teal-50 text-teal-600 text-xs rounded-full border border-teal-100">基准性能</span>
                 </div>
-                <div class="mt-3 flex space-x-2">
-                  <button class="text-sm text-[#2D874B] hover:text-[#256e3d] font-medium flex items-center domain-badge2">
-                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-4 h-4 mr-1 inline-block">光圈儿咨询
+                <div class="flex items-center justify-end">
+                  <button class="text-sm text-gray-600 hover:text-[#2D874B] font-medium flex items-center transition-colors px-3 py-1.5 border border-gray-300 rounded-lg hover:border-[#2D874B]">
+                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-5 h-5 mr-2">光圈儿咨询
                   </button>
                 </div>
               </div>
             </div>
             
-            <div class="expert-card bg-white rounded-xl p-6 border border-gray-200 fade-in">
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h3 class="text-lg font-semibold text-gray-800">存储技术专家</h3>
-                  <span class="domain-badge px-2 py-1 rounded-full text-xs font-medium">存储</span>
+            <!-- 数据库领域 -->
+            <div class="expert-card bg-white rounded-xl overflow-hidden border border-gray-200 fade-in flex flex-col">
+              <div class="relative h-48 bg-gradient-to-br from-rose-600 to-rose-800 overflow-hidden">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <i class="fa fa-table text-white/30 text-6xl"></i>
                 </div>
-                <p class="text-gray-600 text-sm mb-3">
-                  8年存储系统经验，精通分布式存储架构和数据备份恢复
+                <div class="absolute top-3 left-3 flex items-center gap-1 bg-black/30 px-2 py-1 rounded-full">
+                  <i class="fa fa-microchip text-white text-xs"></i>
+                  <span class="text-white text-xs">CPU</span>
+                </div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">数据库领域</h3>
+                <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+                  海光芯片对主流商业数据库、开源数据库的兼容适配及应用优化
                 </p>
-                <div class="flex flex-wrap gap-1">
-                  <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full">存储</span>
-                  <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full">数据备份</span>
-                  <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full">容灾方案</span>
+                <div class="flex flex-wrap gap-2 mb-4 flex-grow">
+                  <span class="px-3 py-1 bg-rose-50 text-rose-600 text-xs rounded-full border border-rose-100">数据库</span>
+                  <span class="px-3 py-1 bg-rose-50 text-rose-600 text-xs rounded-full border border-rose-100">OLTP</span>
+                  <span class="px-3 py-1 bg-rose-50 text-rose-600 text-xs rounded-full border border-rose-100">OLAP</span>
                 </div>
-                <div class="mt-3 flex space-x-2">
-                  <button class="text-sm text-[#2D874B] hover:text-[#256e3d] font-medium flex items-center domain-badge2">
-                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-4 h-4 mr-1 inline-block">光圈儿咨询
+                <div class="flex items-center justify-end">
+                  <button class="text-sm text-gray-600 hover:text-[#2D874B] font-medium flex items-center transition-colors px-3 py-1.5 border border-gray-300 rounded-lg hover:border-[#2D874B]">
+                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-5 h-5 mr-2">光圈儿咨询
                   </button>
                 </div>
               </div>
             </div>
             
-            <div class="expert-card bg-white rounded-xl p-6 border border-gray-200 fade-in">
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h3 class="text-lg font-semibold text-gray-800">网络架构专家</h3>
-                  <span class="domain-badge px-2 py-1 rounded-full text-xs font-medium">网络</span>
+            <!-- 视频编解码领域 -->
+            <div class="expert-card bg-white rounded-xl overflow-hidden border border-gray-200 fade-in flex flex-col">
+              <div class="relative h-48 bg-gradient-to-br from-pink-600 to-pink-800 overflow-hidden">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <i class="fa fa-video text-white/30 text-6xl"></i>
                 </div>
-                <p class="text-gray-600 text-sm mb-3">
-                  10年网络架构经验，专注于企业级网络设计和优化
+                <div class="absolute top-3 left-3 flex items-center gap-1 bg-black/30 px-2 py-1 rounded-full">
+                  <i class="fa fa-microchip text-white text-xs"></i>
+                  <span class="text-white text-xs">DCU</span>
+                </div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">视频编解码领域</h3>
+                <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+                  DCU视频编解码领域，涵盖底层硬件适配、软件算法优化及端到端应用调优
                 </p>
-                <div class="flex flex-wrap gap-1">
-                  <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full">网络</span>
-                  <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full">架构设计</span>
-                  <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full">性能优化</span>
+                <div class="flex flex-wrap gap-2 mb-4 flex-grow">
+                  <span class="px-3 py-1 bg-pink-50 text-pink-600 text-xs rounded-full border border-pink-100">视频编解码</span>
                 </div>
-                <div class="mt-3 flex space-x-2">
-                  <button class="text-sm text-[#2D874B] hover:text-[#256e3d] font-medium flex items-center domain-badge2">
-                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-4 h-4 mr-1 inline-block">光圈儿咨询
+                <div class="flex items-center justify-end">
+                  <button class="text-sm text-gray-600 hover:text-[#2D874B] font-medium flex items-center transition-colors px-3 py-1.5 border border-gray-300 rounded-lg hover:border-[#2D874B]">
+                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-5 h-5 mr-2">光圈儿咨询
                   </button>
                 </div>
               </div>
             </div>
             
-            <div class="expert-card bg-white rounded-xl p-6 border border-gray-200 fade-in">
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h3 class="text-lg font-semibold text-gray-800">数据库专家</h3>
-                  <span class="domain-badge px-2 py-1 rounded-full text-xs font-medium">数据库</span>
+            <!-- DCU应用开发领域 -->
+            <div class="expert-card bg-white rounded-xl overflow-hidden border border-gray-200 fade-in flex flex-col">
+              <div class="relative h-48 bg-gradient-to-br from-violet-600 to-violet-800 overflow-hidden">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <i class="fa fa-code text-white/30 text-6xl"></i>
                 </div>
-                <p class="text-gray-600 text-sm mb-3">
-                  12年数据库管理经验，精通Oracle、MySQL和PostgreSQL等主流数据库
-                </p>
-                <div class="flex flex-wrap gap-1">
-                  <span class="px-2 py-1 bg-red-100 text-red-700 text-xs rounded-full">数据库</span>
-                  <span class="px-2 py-1 bg-red-100 text-red-700 text-xs rounded-full">性能调优</span>
-                  <span class="px-2 py-1 bg-red-100 text-red-700 text-xs rounded-full">高可用</span>
-                </div>
-                <div class="mt-3 flex space-x-2">
-                  <button class="text-sm text-[#2D874B] hover:text-[#256e3d] font-medium flex items-center domain-badge2">
-                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-4 h-4 mr-1 inline-block">光圈儿咨询
-                  </button>
+                <div class="absolute top-3 left-3 flex items-center gap-1 bg-black/30 px-2 py-1 rounded-full">
+                  <i class="fa fa-microchip text-white text-xs"></i>
+                  <span class="text-white text-xs">DCU</span>
                 </div>
               </div>
-            </div>
-            
-            <div class="expert-card bg-white rounded-xl p-6 border border-gray-200 fade-in">
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h3 class="text-lg font-semibold text-gray-800">前端开发专家</h3>
-                  <span class="domain-badge px-2 py-1 rounded-full text-xs font-medium">前端</span>
-                </div>
-                <p class="text-gray-600 text-sm mb-3">
-                  8年前端开发经验，精通React、Vue和Angular等现代前端框架
+              <div class="p-5 flex flex-col flex-grow">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">DCU应用开发领域</h3>
+                <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+                  DCU平台AI/高性能计算/AI4S领域的算子迁移、工具优化及AI应用工程部署
                 </p>
-                <div class="flex flex-wrap gap-1">
-                  <span class="px-2 py-1 bg-cyan-100 text-cyan-700 text-xs rounded-full">前端</span>
-                  <span class="px-2 py-1 bg-cyan-100 text-cyan-700 text-xs rounded-full">React</span>
-                  <span class="px-2 py-1 bg-cyan-100 text-cyan-700 text-xs rounded-full">性能优化</span>
+                <div class="flex flex-wrap gap-2 mb-4 flex-grow">
+                  <span class="px-3 py-1 bg-violet-50 text-violet-600 text-xs rounded-full border border-violet-100">DCU应用开发</span>
                 </div>
-                <div class="mt-3 flex space-x-2">
-                  <button class="text-sm text-[#2D874B] hover:text-[#256e3d] font-medium flex items-center domain-badge2">
-                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-4 h-4 mr-1 inline-block">光圈儿咨询
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-            <div class="expert-card bg-white rounded-xl p-6 border border-gray-200 fade-in">
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h3 class="text-lg font-semibold text-gray-800">后端开发专家</h3>
-                  <span class="domain-badge px-2 py-1 rounded-full text-xs font-medium">后端</span>
-                </div>
-                <p class="text-gray-600 text-sm mb-3">
-                  10年后端开发经验，精通Java、Spring Boot和微服务架构
-                </p>
-                <div class="flex flex-wrap gap-1">
-                  <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">后端</span>
-                  <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">Java</span>
-                  <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">微服务</span>
-                </div>
-                <div class="mt-3 flex space-x-2">
-                  <button class="text-sm text-[#2D874B] hover:text-[#256e3d] font-medium flex items-center domain-badge2">
-                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-4 h-4 mr-1 inline-block">光圈儿咨询
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-            <div class="expert-card bg-white rounded-xl p-6 border border-gray-200 fade-in">
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h3 class="text-lg font-semibold text-gray-800">DevOps专家</h3>
-                  <span class="domain-badge px-2 py-1 rounded-full text-xs font-medium">DevOps</span>
-                </div>
-                <p class="text-gray-600 text-sm mb-3">
-                  9年DevOps经验，精通CI/CD、容器编排和自动化运维
-                </p>
-                <div class="flex flex-wrap gap-1">
-                  <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">DevOps</span>
-                  <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">CI/CD</span>
-                  <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">容器</span>
-                </div>
-                <div class="mt-3 flex space-x-2">
-                  <button class="text-sm text-[#2D874B] hover:text-[#256e3d] font-medium flex items-center domain-badge2">
-                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-4 h-4 mr-1 inline-block">光圈儿咨询
+                <div class="flex items-center justify-end">
+                  <button class="text-sm text-gray-600 hover:text-[#2D874B] font-medium flex items-center transition-colors px-3 py-1.5 border border-gray-300 rounded-lg hover:border-[#2D874B]">
+                    <img src="images/gq_icon.png" alt="光圈儿咨询" class="w-5 h-5 mr-2">光圈儿咨询
                   </button>
                 </div>
               </div>
@@ -1287,7 +1628,7 @@
                 <input 
                   type="text" 
                   id="record-search" 
-                  placeholder="搜索专家姓名、问题描述..." 
+                  placeholder="搜索专家、问题描述..." 
                   class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2D874B] focus:border-transparent"
                 >
                 <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
@@ -1332,8 +1673,7 @@
               <div class="flex flex-col md:flex-row md:items-center justify-between">
                 <div class="flex-1 mb-4 md:mb-0">
                   <div class="flex items-center flex-wrap gap-2">
-                    <h3 class="text-lg font-semibold text-gray-800">张明 - 云计算专家</h3>
-                    <span class="status-badge status-personal">个人服务</span>
+                    <h3 class="text-lg font-semibold text-gray-800">张明 - 云计算领域</h3>
                   </div>
                   <p class="text-gray-600 mt-2">Q：如何优化Kubernetes集群性能？</p>
                   <p class="text-gray-600">A：通过合理配置资源请求和限制，优化调度策略，使用节点亲和性和反亲和性，以及定期清理未使用的资源，可以显著提升Kubernetes集群性能。</p>
@@ -1358,8 +1698,7 @@
               <div class="flex flex-col md:flex-row md:items-center justify-between">
                 <div class="flex-1 mb-4 md:mb-0">
                   <div class="flex items-center flex-wrap gap-2">
-                    <h3 class="text-lg font-semibold text-gray-800">李华 - 运维专家</h3>
-                    <span class="status-badge status-company">公司服务</span>
+                    <h3 class="text-lg font-semibold text-gray-800">李华 - 运维领域</h3>
                   </div>
                   <p class="text-gray-600 mt-2">Q：服务器异常重启如何排查？</p>
                   <p class="text-gray-600">A：首先检查系统日志和应用日志，分析重启前的错误信息；其次检查硬件状态，包括内存、硬盘和电源；最后检查系统负载和进程情况，识别可能的资源耗尽问题。</p>
@@ -1384,8 +1723,7 @@
               <div class="flex flex-col md:flex-row md:items-center justify-between">
                 <div class="flex-1 mb-4 md:mb-0">
                   <div class="flex items-center flex-wrap gap-2">
-                    <h3 class="text-lg font-semibold text-gray-800">王强 - 安全专家</h3>
-                    <span class="status-badge status-personal">个人服务</span>
+                    <h3 class="text-lg font-semibold text-gray-800">王强 - 安全领域</h3>
                   </div>
                   <p class="text-gray-600 mt-2">Q：如何分析Web应用安全漏洞扫描结果？</p>
                   <p class="text-gray-600">A：首先对扫描结果进行分类和优先级排序，重点关注高危漏洞；其次验证漏洞的真实性，排除误报；最后根据漏洞类型制定相应的修复方案，包括代码修复、配置调整和安全控制措施。</p>
@@ -1411,7 +1749,6 @@
                 <div class="flex-1 mb-4 md:mb-0">
                   <div class="flex items-center flex-wrap gap-2">
                     <h3 class="text-lg font-semibold text-gray-800">陈伟 - AI专家</h3>
-                    <span class="status-badge status-company">公司服务</span>
                   </div>
                   <p class="text-gray-600 mt-2">Q：如何优化深度学习模型性能？</p>
                   <p class="text-gray-600">A：通过合理调度GPU资源，使用混合精度训练，实施模型量化和剪枝，以及优化数据加载和预处理流程，可以显著提升深度学习模型的训练和推理性能。</p>
@@ -1436,8 +1773,7 @@
               <div class="flex flex-col md:flex-row md:items-center justify-between">
                 <div class="flex-1 mb-4 md:mb-0">
                   <div class="flex items-center flex-wrap gap-2">
-                    <h3 class="text-lg font-semibold text-gray-800">刘芳 - 大数据专家</h3>
-                    <span class="status-badge status-personal">个人服务</span>
+                    <h3 class="text-lg font-semibold text-gray-800">刘芳 - 大数据领域</h3>
                   </div>
                   <p class="text-gray-600 mt-2">Q：如何分析和优化大数据处理流水线的性能瓶颈？</p>
                   <p class="text-gray-600">A：首先通过性能监控工具识别流水线中的瓶颈环节，重点关注数据读写、计算密集型操作和网络传输；其次优化数据分区和缓存策略，使用更高效的序列化格式；最后考虑使用分布式计算框架的高级特性，如数据局部性和任务并行度调整。</p>
@@ -1643,6 +1979,22 @@
       if (typeof filterExperts === 'function') {
         filterExperts();
       }
+    });
+  });
+
+  // 专家领域筛选按钮点击事件
+  document.querySelectorAll('.domain-filter-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      // 移除所有按钮的选中样式
+      document.querySelectorAll('.domain-filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+        btn.classList.remove('bg-[#2D874B]/10', 'text-[#2D874B]');
+        btn.classList.add('bg-gray-100', 'text-gray-600');
+      });
+      // 当前按钮添加选中样式
+      this.classList.add('active');
+      this.classList.remove('bg-gray-100', 'text-gray-600');
+      this.classList.add('bg-[#2D874B]/10', 'text-[#2D874B]');
     });
   });
 
