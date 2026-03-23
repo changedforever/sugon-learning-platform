@@ -15,60 +15,62 @@
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background-color: #f8fafc;
     }
     
-    .glass-card {
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255, 0.5);
-    }
-    
-    .section-title {
-      color: #2D874B;
-      border-left: 4px solid #2D874B;
-      padding-left: 16px;
-    }
-    
-    .content-card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
-    
-    .highlight-box {
-      background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-      border-left: 4px solid #2D874B;
-    }
-    
-    .warning-box {
-      background: linear-gradient(135deg, #fefce8, #fef9c3);
-      border-left: 4px solid #eab308;
-    }
-    
-    ul.custom-list li {
-      position: relative;
-      padding-left: 20px;
-      margin-bottom: 8px;
-    }
-    
-    ul.custom-list li::before {
-      content: "•";
-      color: #2D874B;
-      font-weight: bold;
-      position: absolute;
+    /* 全屏宽度下拉弹窗样式 */
+    .full-width-dropdown {
+      width: 100vw;
+      max-width: none;
+      position: fixed;
+      top: auto;
       left: 0;
+      margin-top: 0;
+      border-top: 1px solid #e5e7eb;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      z-index: 60;
     }
     
-    ul.sub-list li::before {
-      content: "○";
-      color: #6b7280;
+    /* 当前激活的下拉菜单样式 */
+    .full-width-dropdown.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* 左侧导航项目样式 */
+    .nav-item {
+      transition: all 0.2s ease;
+    }
+    
+    .nav-item.selected {
+      background-color: rgba(45, 135, 75, 0.1) !important;
+      color: #2D874B !important;
+      font-weight: 500;
+    }
+    
+    /* 右侧内容区域样式 */
+    .nav-content.hidden {
+      display: none;
+    }
+    
+    .nav-content.active-content {
+      display: block;
+    }
+    
+    /* 防止下拉浮窗闪烁 */
+    .nav-dropdown:hover .full-width-dropdown {
+      pointer-events: auto;
+    }
+    .full-width-dropdown {
+      pointer-events: none;
+    }
+    .full-width-dropdown * {
+      pointer-events: auto;
     }
   </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-white text-gray-800">
  
-<!-- 顶部导航 -->
+<!-- 顶部导航 + 全站搜索 -->
 <header class="fixed top-0 inset-x-0 z-50 bg-white backdrop-blur-xl border-b border-gray-300">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-16 relative">
@@ -86,162 +88,243 @@
 
       <!-- 导航入口（桌面端） -->
       <nav class="hidden md:flex items-center space-x-4 text-base">
+        <!-- 首页 - 无下拉 -->
         <a href="index.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">
           首页
         </a>
+
+        <!-- 专家 - 无下拉 -->
         <a href="expert-center.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">
           专家
         </a>
-        <a href="training.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 font-medium">
-          培训
-        </a>
+
+        <div class="nav-dropdown relative group">
+          <a href="training.html" class="px-4 py-2 rounded-full hover:bg-gray-300 transition text-gray-800 flex items-center gap-1 cursor-pointer font-medium">
+            培训
+            <i class="fa fa-chevron-down text-sm text-gray-500"></i>
+          </a>
+          <div class="full-width-dropdown fixed top-0 left-0 w-screen bg-white shadow-xl border-t border-gray-200 opacity-0 invisible transition-all duration-300 z-40" id="training-full-dropdown">
+            <div class="container mx-auto px-4 py-16">
+              <div class="flex">
+                <!-- 左侧导航 -->
+                <div class="w-48 pr-6 border-r border-gray-200">
+                  <div class="space-y-2">
+                    <a href="course-list2.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 active-nav-item nav-item selected" data-target="course">课程old</a>
+                    <a href="exam-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="exam">考试old</a>
+                    <a href="certification.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="certification">认证old</a>
+                    <a href="lecturer-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="lecturer">讲师old</a>
+                    <a href="course-list2.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="new-course">课程</a>
+                    <a href="exam-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="new-exam">考试</a>
+                    <a href="certification.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="new-certification">认证</a>
+                    <a href="lecturer-list.html" class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 nav-item" data-target="new-lecturer">讲师</a>
+                  </div>
+                </div>
+                
+                <!-- 分隔线 -->
+                <div class="mx-6 h-full w-px bg-gray-200"></div>
+                
+                <!-- 右侧分类内容 -->
+                <div class="flex-1 pl-6">
+                  <div id="course-content" class="nav-content active-content">
+                    <h3 class="text-lg font-semibold mb-6">课程分类</h3>
+                    <div class="grid grid-cols-3 gap-6">
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2 text-base">技术方向</h4>
+                        <ul class="space-y-1">
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">云计算</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">公有云服务</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">私有云搭建</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">混合云管理</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">容器技术</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2 text-base">行业应用</h4>
+                        <ul class="space-y-1">
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">金融科技</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">区块链技术</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">数字货币</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 class="font-medium text-gray-800 mb-2 text-base">认证体系</h4>
+                        <ul class="space-y-1">
+                          <li class="mb-2">
+                            <a href="#" class="text-base text-gray-800 font-medium hover:text-[#2D874B]">厂商认证</a>
+                            <ul class="mt-1 space-y-1 pl-2">
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">曙光认证</a></li>
+                              <li><a href="#" class="block text-sm text-gray-600 hover:text-[#2D874B]">红帽认证</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 移动端菜单按钮 -->
+        <button id="mobileMenuBtn"
+                class="md:hidden inline-flex items-center justify-center h-9 w-9 rounded-full bg-gray-300 text-gray-800">
+          <i class="fa fa-bars text-lg"></i>
+        </button>
+      </div>
+
+      <!-- 移动端：APP 下载 -->
+      <div class="group absolute right-[-180px] hidden lg:block">
+        <button class="app-download-btn bg-gradient-to-r from-[#2D874B] to-[#34D399] text-white px-4 py-2 rounded-full hover:from-[#256e3d] hover:to-[#2bbd8a] transition-all duration-300 flex items-center gap-2">
+          <span>光圈下载</span>
+        </button>
+        <div class="app-qrcode absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-white p-3 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+          <div class="w-32 h-32 bg-gray-200 flex items-center justify-center">
+            <i class="fa fa-qrcode text-4xl text-gray-400"></i>
+          </div>
+          <p class="text-center text-xs text-gray-600 mt-2">扫码下载APP</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 移动端：搜索 + 导航 -->
+    <div id="mobileMenuPanel" class="hidden md:hidden pb-3 space-y-3">
+      <!-- 搜索 -->
+      <div class="mt-2">
+        <div class="relative">
+          <input
+            type="text"
+            placeholder="搜索课程 / 考试认证 / 活动 / 资讯..."
+            class="w-full rounded-full bg-gray-300/90 border border-gray-300 px-3 py-2 pl-9 pr-10 text-xs
+                   placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B]"
+          />
+          <i class="fa fa-search text-gray-500 absolute left-3 top-2.5 text-xs"></i>
+          <button
+            class="absolute right-1 top-1 text-[11px] px-2 py-1 rounded-full bg-[#4B8CF5] hover:bg-gray-300 transition text-white">
+            搜索
+          </button>
+        </div>
+      </div>
+      <!-- 导航菜单 -->
+      <nav class="grid grid-cols-3 gap-2 text-[13px]">
+        <a href="#" class="rounded-xl bg-gray-300/80 px-2 py-2 text-center hover:bg-gray-400 transition text-gray-800">培训</a>
+        <a href="#" class="rounded-xl bg-gray-300/80 px-2 py-2 text-center hover:bg-gray-400 transition text-gray-800">考试认证</a>
+        <a href="#" class="rounded-xl bg-gray-300/80 px-2 py-2 text-center hover:bg-gray-400 transition text-gray-800">直播</a>
+        <a href="#" class="rounded-xl bg-gray-300/80 px-2 py-2 text-center hover:bg-gray-400 transition text-gray-800">活动</a>
+        <a href="#" class="rounded-xl bg-gray-300/80 px-2 py-2 text-center hover:bg-gray-400 transition text-gray-800">专区</a>
+        <div class="relative group">
+          <button class="app-download-btn w-full bg-gradient-to-r from-[#2D874B] to-[#34D399] text-white px-2 py-2 rounded-xl hover:from-[#256e3d] hover:to-[#2bbd8a] transition-all duration-300 flex items-center justify-center gap-2">
+            <i class="fa fa-mobile-alt text-lg"></i>
+            <span>下载APP</span>
+          </button>
+        </div>
       </nav>
     </div>
+    
   </div>
 </header>
 
-<!-- 页面标题区域 -->
-<section class="pt-24 pb-8 bg-gradient-to-r from-[#2D874B] to-[#34D399]">
-  <div class="max-w-5xl mx-auto px-4 lg:px-6">
-    <div class="text-center">
-      <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">在线技术支持服务 SLA 说明</h1>
-    </div>
+<!-- 页面标题 -->
+<div class="pt-24 pb-8 border-b border-gray-200">
+  <div class="max-w-4xl mx-auto px-4 lg:px-6">
+    <h1 class="text-2xl font-bold text-gray-900">在线技术支持服务 SLA 说明</h1>
   </div>
-</section>
+</div>
 
-<!-- 主要内容区域 -->
-<main class="max-w-5xl mx-auto px-4 lg:px-6 py-12">
+<!-- 主要内容 -->
+<main class="max-w-4xl mx-auto px-4 lg:px-6 py-8">
   
-  <!-- 一、服务定位 -->
-  <section class="mb-12">
-    <h2 class="text-2xl font-bold section-title mb-6">一、服务定位</h2>
-    <div class="content-card p-6 md:p-8">
-      <p class="text-gray-700 leading-relaxed mb-4">
-        面向生态合作伙伴（战略、核心级伙伴），提供以技术咨询、问题分析及性能优化为核心的在线支持服务，聚焦应用与系统层面的技术问题，助力业务稳定运行与性能提升。
-      </p>
-      <div class="highlight-box p-4 rounded-lg">
-        <p class="text-gray-700">
-          <i class="fa fa-info-circle text-[#2D874B] mr-2"></i>
-          <strong>说明：</strong>本服务不包含任何软件或硬件类售后服务（如故障维修、备件更换、RMA等）。
-        </p>
-      </div>
-    </div>
-  </section>
+  <h2 class="text-lg font-bold text-gray-900 mb-4">一、服务定位</h2>
+  <p class="text-gray-700 leading-relaxed mb-4">
+    面向生态合作伙伴（战略、核心级伙伴），提供以技术咨询、问题分析及性能优化为核心的在线支持服务，聚焦应用与系统层面的技术问题，助力业务稳定运行与性能提升。
+  </p>
+  <p class="text-gray-700 leading-relaxed mb-8">
+    <strong>说明：</strong>本服务不包含任何软件或硬件类售后服务（如故障维修、备件更换、RMA等）。
+  </p>
 
-  <!-- 二、服务内容与SLA承诺 -->
-  <section class="mb-12">
-    <h2 class="text-2xl font-bold section-title mb-6">二、服务内容与SLA承诺</h2>
-    
-    <!-- 1. 服务时间 -->
-    <div class="content-card p-6 md:p-8 mb-6">
-      <h3 class="text-xl font-semibold text-gray-800 mb-4">1. 服务时间</h3>
-      <ul class="custom-list text-gray-700">
-        <li>7 × 15 小时服务</li>
-        <li>覆盖时间：周一至周日 09:00 – 24:00</li>
+  <h2 class="text-lg font-bold text-gray-900 mb-4">二、服务内容与SLA承诺</h2>
+  
+  <h3 class="text-base font-semibold text-gray-900 mb-2">1. 服务时间</h3>
+  <ul class="list-disc list-inside text-gray-700 mb-2 ml-4">
+    <li>7 × 15 小时服务</li>
+    <li>覆盖时间：周一至周日 09:00 – 24:00</li>
+  </ul>
+  
+  <h3 class="text-base font-semibold text-gray-900 mb-2 mt-4">2. 支持方式</h3>
+  <p class="text-gray-700 mb-2">在线专家支持（远程技术服务）</p>
+  <p class="text-gray-700 mb-1">服务形式包括：</p>
+  <ul class="list-disc list-inside text-gray-700 mb-2 ml-4">
+    <li>技术咨询与方案建议</li>
+    <li>问题分析与定位指导</li>
+    <li>远程调试与优化建议输出</li>
+  </ul>
+  
+  <h3 class="text-base font-semibold text-gray-900 mb-2 mt-4">3. 响应时效</h3>
+  <ul class="list-disc list-inside text-gray-700 mb-2 ml-4">
+    <li><strong>首次响应时间：≤ 1 小时</strong></li>
+  </ul>
+  <p class="text-gray-600 text-sm mb-4 ml-4">
+    <strong>响应定义：</strong>首次响应指技术专家对问题进行确认、沟通需求，并启动分析处理流程。
+  </p>
+  
+  <h3 class="text-base font-semibold text-gray-900 mb-2 mt-4">4. 服务机制</h3>
+  <ul class="list-disc list-inside text-gray-700 mb-2 ml-4">
+    <li><strong>首问负责制</strong>
+      <ul class="list-circle list-inside text-gray-700 ml-4 mt-1">
+        <li>首位受理专家全程跟进问题</li>
+        <li>负责跨团队协同（系统、性能、生态等）</li>
+        <li>持续推进问题分析直至形成解决方案或明确结论</li>
       </ul>
-    </div>
-    
-    <!-- 2. 支持方式 -->
-    <div class="content-card p-6 md:p-8 mb-6">
-      <h3 class="text-xl font-semibold text-gray-800 mb-4">2. 支持方式</h3>
-      <p class="text-gray-700 mb-3">在线专家支持（远程技术服务）</p>
-      <p class="text-gray-600 mb-2">服务形式包括：</p>
-      <ul class="custom-list sub-list text-gray-700 ml-4">
-        <li>技术咨询与方案建议</li>
-        <li>问题分析与定位指导</li>
-        <li>远程调试与优化建议输出</li>
-      </ul>
-    </div>
-    
-    <!-- 3. 响应时效 -->
-    <div class="content-card p-6 md:p-8 mb-6">
-      <h3 class="text-xl font-semibold text-gray-800 mb-4">3. 响应时效</h3>
-      <ul class="custom-list text-gray-700">
-        <li><strong>首次响应时间：≤ 1 小时</strong></li>
-      </ul>
-      <div class="mt-4 p-4 bg-gray-50 rounded-lg">
-        <p class="text-gray-600 text-sm">
-          <strong>响应定义：</strong><br>
-          首次响应指技术专家对问题进行确认、沟通需求，并启动分析处理流程。
-        </p>
-      </div>
-    </div>
-    
-    <!-- 4. 服务机制 -->
-    <div class="content-card p-6 md:p-8 mb-6">
-      <h3 class="text-xl font-semibold text-gray-800 mb-4">4. 服务机制</h3>
-      <ul class="custom-list text-gray-700">
-        <li><strong>首问负责制</strong>
-          <ul class="custom-list sub-list ml-4 mt-2">
-            <li>首位受理专家全程跟进问题</li>
-            <li>负责跨团队协同（系统、性能、生态等）</li>
-            <li>持续推进问题分析直至形成解决方案或明确结论</li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    
-    <!-- 5. 服务覆盖范围 -->
-    <div class="content-card p-6 md:p-8">
-      <h3 class="text-xl font-semibold text-gray-800 mb-4">5. 服务覆盖范围</h3>
-      <p class="text-gray-700 mb-3">本服务聚焦技术支持与优化咨询，包括但不限于：</p>
-      <ul class="custom-list text-gray-700">
-        <li>系统与应用层问题分析与定位建议</li>
-        <li>性能调优与优化建议（CPU/DCU相关场景）</li>
-        <li>基线测试（如SPEC）调优指导</li>
-        <li>典型应用场景（数据库、大数据、虚拟化等）的优化支持</li>
-        <li>生态适配与使用指导</li>
-      </ul>
-    </div>
-  </section>
+    </li>
+  </ul>
+  
+  <h3 class="text-base font-semibold text-gray-900 mb-2 mt-4">5. 服务覆盖范围</h3>
+  <p class="text-gray-700 mb-2">本服务聚焦技术支持与优化咨询，包括但不限于：</p>
+  <ul class="list-disc list-inside text-gray-700 mb-8 ml-4">
+    <li>系统与应用层问题分析与定位建议</li>
+    <li>性能调优与优化建议（CPU/DCU相关场景）</li>
+    <li>基线测试（如SPEC）调优指导</li>
+    <li>典型应用场景（数据库、大数据、虚拟化等）的优化支持</li>
+    <li>生态适配与使用指导</li>
+  </ul>
 
-  <!-- 三、服务边界 -->
-  <section class="mb-12">
-    <h2 class="text-2xl font-bold section-title mb-6">三、服务边界</h2>
-    <div class="content-card p-6 md:p-8">
-      <p class="text-gray-700 mb-4">本服务不包含以下内容：</p>
-      <ul class="custom-list text-gray-700 mb-6">
-        <li>硬件故障维修、备件更换、RMA等售后服务</li>
-        <li>软件产品缺陷修复或版本交付（由对应产品线负责）</li>
-        <li>驻场支持或现场实施服务</li>
-        <li>7×24小时应急保障类服务</li>
-      </ul>
-      <div class="warning-box p-4 rounded-lg">
-        <p class="text-gray-700">
-          <i class="fa fa-exclamation-triangle text-yellow-600 mr-2"></i>
-          如涉及上述需求，请联系对应的售后或商务服务体系处理。
-        </p>
-      </div>
-    </div>
-  </section>
+  <h2 class="text-lg font-bold text-gray-900 mb-4">三、服务边界</h2>
+  <p class="text-gray-700 mb-2">本服务不包含以下内容：</p>
+  <ul class="list-disc list-inside text-gray-700 mb-4 ml-4">
+    <li>硬件故障维修、备件更换、RMA等售后服务</li>
+    <li>软件产品缺陷修复或版本交付（由对应产品线负责）</li>
+    <li>驻场支持或现场实施服务</li>
+    <li>7×24小时应急保障类服务</li>
+  </ul>
+  <p class="text-gray-700 mb-8">
+    如涉及上述需求，请联系对应的售后或商务服务体系处理。
+  </p>
 
-  <!-- 四、服务价值 -->
-  <section class="mb-12">
-    <h2 class="text-2xl font-bold section-title mb-6">四、服务价值</h2>
-    <div class="content-card p-6 md:p-8">
-      <ul class="custom-list text-gray-700">
-        <li><strong>标准化响应：</strong>明确SLA保障问题处理效率</li>
-        <li><strong>专家支持：</strong>直接连接技术专家，提升问题分析深度</li>
-        <li><strong>边界清晰：</strong>技术支持与售后服务解耦，职责明确</li>
-        <li><strong>持续优化：</strong>从"问题解决"升级为"性能提升与能力赋能"</li>
-      </ul>
-    </div>
-  </section>
+  <h2 class="text-lg font-bold text-gray-900 mb-4">四、服务价值</h2>
+  <ul class="list-disc list-inside text-gray-700 mb-8 ml-4">
+    <li><strong>标准化响应：</strong>明确SLA保障问题处理效率</li>
+    <li><strong>专家支持：</strong>直接连接技术专家，提升问题分析深度</li>
+    <li><strong>边界清晰：</strong>技术支持与售后服务解耦，职责明确</li>
+    <li><strong>持续优化：</strong>从"问题解决"升级为"性能提升与能力赋能"</li>
+  </ul>
 
-  <!-- 五、总结 -->
-  <section class="mb-12">
-    <h2 class="text-2xl font-bold section-title mb-6">五、总结</h2>
-    <div class="content-card p-6 md:p-8 highlight-box">
-      <p class="text-gray-700 leading-relaxed">
-        构建以"技术咨询与性能优化"为核心、边界清晰的在线支持服务体系，赋能生态伙伴高效定位问题并持续提升系统性能。
-      </p>
-    </div>
-  </section>
+  <h2 class="text-lg font-bold text-gray-900 mb-4">五、总结</h2>
+  <p class="text-gray-700 leading-relaxed">
+    构建以"技术咨询与性能优化"为核心、边界清晰的在线支持服务体系，赋能生态伙伴高效定位问题并持续提升系统性能。
+  </p>
 
 </main>
 
 <!-- 底部导航 -->
-<footer class="bg-gray-100 text-gray-800 py-8">
+<footer class="bg-gray-100 text-gray-800 py-8 mt-12">
   <div class="max-w-7xl mx-auto px-4 lg:px-6">
     <div class="flex flex-col items-center justify-center mb-6">
       <a href="index.html" class="cursor-pointer hover:opacity-80 transition-opacity duration-200 mb-4">
@@ -254,7 +337,7 @@
         <a href="#" class="text-gray-600 hover:text-gray-900 transition">信息查询</a>
         <a href="#" class="text-gray-600 hover:text-gray-900 transition">新闻动态</a>
         <a href="#" class="text-gray-600 hover:text-gray-900 transition">人才培养</a>
-        <a href="sla.html" class="text-gray-600 hover:text-gray-900 transition">在线技术支持服务SLA说明</a>
+        <a href="sla.html" class="text-gray-600 hover:text-gray-900 transition">服务SLA说明</a>
       </nav>
     </div>
     <hr class="border-gray-300 my-6">
@@ -280,6 +363,17 @@
     </div>
   </div>
 </footer>
+
+<script>
+  // 移动端菜单
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const mobilePanel = document.getElementById('mobileMenuPanel');
+  if (mobileBtn && mobilePanel) {
+    mobileBtn.addEventListener('click', () => {
+      mobilePanel.classList.toggle('hidden');
+    });
+  }
+</script>
 
 </body>
 </html>
