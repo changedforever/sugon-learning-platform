@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线技术支持服务 SLA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-color: #f7f9fc;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 30px;
+            color: #2c3e50;
+            margin-bottom: 35px;
+            font-weight: bold;
+        }
+
+        /* 布局：第一行 2张，第二行 3张 */
+        .row1 {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        .row1 .card { flex: 1; }
+
+        .row2 {
+            display: flex;
+            gap: 24px;
+        }
+        .row2 .card { flex: 1; }
+
+        /* 卡片主体样式 */
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 默认状态：无底部渐变边框 */
+        .card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #52eeb4, #02a1f8);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        /* 浮动时显示渐变边框 */
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        /* 卡片标题 */
+        .card h3 {
+            font-size: 20px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eaf0f7;
+        }
+
+        /* 内容文字 */
+        .card p {
+            font-size: 15px;
+            color: #444;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .card ul {
+            padding-left: 22px;
+            color: #444;
+            line-height: 1.9;
+            font-size: 15px;
+        }
+
+        .card li {
+            margin-bottom: 8px;
+        }
+
+        /* 重点高亮 */
+        .highlight {
+            color: #02a1f8;
+            font-weight: bold;
+        }
+
+        .red-tip {
+            color: #e53935;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="page-title">在线技术支持服务 SLA 说明</h2>
+
+    <!-- 第一行：模块1 + 模块2 -->
+    <div class="row1">
+        <div class="card">
+            <h3>一、服务定位</h3>
+            <p>面向<span class="highlight">战略、核心级生态合作伙伴</span>，提供<span class="highlight">在线技术支持服务</span>。</p>
+            <p>核心方向：<span class="highlight">技术咨询、问题分析、性能优化</span>。</p>
+            <p class="red-tip">本服务不含硬件/软件类售后、维修、更换服务。</p>
+        </div>
+
+        <div class="card">
+            <h3>二、服务内容与SLA承诺</h3>
+            <ul>
+                <li>服务时间：<span class="highlight">7×15小时（09:00–24:00）</span></li>
+                <li>支持方式：<span class="highlight">在线专家远程技术支持</span></li>
+                <li>首次响应：<span class="highlight">≤1小时</span></li>
+                <li>服务机制：<span class="highlight">首问负责制</span></li>
+                <li>服务覆盖：系统问题、性能调优、测试指导、生态适配</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 第二行：模块3 + 4 + 5 -->
+    <div class="row2">
+        <div class="card">
+            <h3>三、服务边界</h3>
+            <ul>
+                <li>不含硬件故障维修、备件更换</li>
+                <li>不含软件缺陷修复、版本交付</li>
+                <li>不含驻场、现场实施服务</li>
+                <li>不含7×24小时应急保障服务</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>四、服务价值</h3>
+            <ul>
+                <li><span class="highlight">标准化SLA</span>，响应高效可预期</li>
+                <li><span class="highlight">专家直达</span>，问题定位更深入</li>
+                <li><span class="highlight">边界清晰</span>，职责明确不推诿</li>
+                <li>从问题解决升级为<span class="highlight">性能提升+能力赋能</span></li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>五、服务总结</h3>
+            <p>构建以<span class="highlight">技术咨询+性能优化</span>为核心的在线支持体系。</p>
+            <p>边界清晰、标准规范，<span class="highlight">持续赋能生态伙伴</span>高效定位问题、提升系统性能。</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
