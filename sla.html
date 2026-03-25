@@ -234,13 +234,13 @@
 
 <!-- 页面标题 -->
 <div class="pt-24 pb-8 border-b border-gray-200">
-  <div class="max-w-4xl mx-auto px-4 lg:px-6">
+  <div class="max-w-6xl mx-auto px-4 lg:px-6">
     <h1 class="text-2xl font-bold text-gray-900">在线技术支持服务 SLA 说明</h1>
   </div>
 </div>
 
 <!-- 主要内容 -->
-<main class="max-w-4xl mx-auto px-4 lg:px-6 py-8">
+<main class="max-w-6xl mx-auto px-4 lg:px-6 py-8">
   
   <h2 class="text-lg font-bold text-gray-900 mb-4">一、服务定位</h2>
   <p class="text-gray-700 leading-relaxed mb-4">
@@ -250,76 +250,98 @@
     <strong>说明：</strong>本服务不包含任何软件或硬件类售后服务（如故障维修、备件更换、RMA等）。
   </p>
 
-  <h2 class="text-lg font-bold text-gray-900 mb-4">二、服务内容与SLA承诺</h2>
-  
-  <h3 class="text-base font-semibold text-gray-900 mb-2">1. 服务时间</h3>
-  <ul class="list-disc list-inside text-gray-700 mb-2 ml-4">
-    <li>7 × 15 小时服务</li>
-    <li>覆盖时间：周一至周日 09:00 – 24:00</li>
-  </ul>
-  
-  <h3 class="text-base font-semibold text-gray-900 mb-2 mt-4">2. 支持方式</h3>
-  <p class="text-gray-700 mb-2">在线专家支持（远程技术服务）</p>
-  <p class="text-gray-700 mb-1">服务形式包括：</p>
-  <ul class="list-disc list-inside text-gray-700 mb-2 ml-4">
-    <li>技术咨询与方案建议</li>
-    <li>问题分析与定位指导</li>
-    <li>远程调试与优化建议输出</li>
-  </ul>
-  
-  <h3 class="text-base font-semibold text-gray-900 mb-2 mt-4">3. 响应时效</h3>
-  <ul class="list-disc list-inside text-gray-700 mb-2 ml-4">
-    <li><strong>首次响应时间：≤ 1 小时</strong></li>
-  </ul>
-  <p class="text-gray-600 text-sm mb-4 ml-4">
-    <strong>响应定义：</strong>首次响应指技术专家对问题进行确认、沟通需求，并启动分析处理流程。
-  </p>
-  
-  <h3 class="text-base font-semibold text-gray-900 mb-2 mt-4">4. 服务机制</h3>
-  <ul class="list-disc list-inside text-gray-700 mb-2 ml-4">
-    <li><strong>首问负责制</strong>
-      <ul class="list-circle list-inside text-gray-700 ml-4 mt-1">
-        <li>首位受理专家全程跟进问题</li>
-        <li>负责跨团队协同（系统、性能、生态等）</li>
-        <li>持续推进问题分析直至形成解决方案或明确结论</li>
+  <h2 class="text-lg font-bold text-gray-900 mb-4">二、服务内容与 SLA 承诺</h2>
+    
+  <!-- 第一行：1. 服务时间 + 2. 支持方式 -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div class="rounded-lg p-5">
+      <h3 class="text-base font-semibold text-gray-900 mb-3">1. 服务时间</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-1 ml-2">
+        <li>7 × 15 小时服务</li>
+        <li>覆盖时间：周一至周日 09:00 – 24:00</li>
       </ul>
-    </li>
-  </ul>
-  
-  <h3 class="text-base font-semibold text-gray-900 mb-2 mt-4">5. 服务覆盖范围</h3>
-  <p class="text-gray-700 mb-2">本服务聚焦技术支持与优化咨询，包括但不限于：</p>
-  <ul class="list-disc list-inside text-gray-700 mb-8 ml-4">
-    <li>系统与应用层问题分析与定位建议</li>
-    <li>性能调优与优化建议（CPU/DCU相关场景）</li>
-    <li>基线测试（如SPEC）调优指导</li>
-    <li>典型应用场景（数据库、大数据、虚拟化等）的优化支持</li>
-    <li>生态适配与使用指导</li>
-  </ul>
+    </div>
+      
+    <div class="rounded-lg p-5">
+      <h3 class="text-base font-semibold text-gray-900 mb-3">2. 支持方式</h3>
+      <p class="text-gray-700 mb-2 font-medium">在线专家支持（远程技术服务）</p>
+      <p class="text-gray-700 mb-2 text-sm">服务形式包括：</p>
+      <ul class="list-disc list-inside text-gray-700 space-y-1 ml-2">
+        <li>技术咨询与方案建议</li>
+        <li>问题分析与定位指导</li>
+        <li>远程调试与优化建议输出</li>
+      </ul>
+    </div>
+  </div>
+    
+  <!-- 第二行：3. 响应时效 + 4. 服务机制 -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div class="rounded-lg p-5">
+      <h3 class="text-base font-semibold text-gray-900 mb-3">3. 响应时效</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-1 ml-2">
+        <li><strong>首次响应时间：≤ 1 小时</strong></li>
+      </ul>
+      <p class="text-gray-600 text-sm mt-3 ml-2">
+        <strong>响应定义：</strong>首次响应指技术专家对问题进行确认、沟通需求，并启动分析处理流程。
+      </p>
+    </div>
+      
+    <div class="rounded-lg p-5">
+      <h3 class="text-base font-semibold text-gray-900 mb-3">4. 服务机制</h3>
+      <div class="ml-2">
+        <p class="text-gray-700 font-medium mb-2"><strong>首问负责制</strong></p>
+        <ul class="list-circle list-inside text-gray-700 space-y-1 ml-4">
+          <li>首位受理专家全程跟进问题</li>
+          <li>负责跨团队协同（系统、性能、生态等）</li>
+          <li>持续推进问题分析直至形成解决方案或明确结论</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+    
+  <!-- 第三行：5. 服务覆盖范围（全宽） -->
+  <div class="rounded-lg p-5 mb-8">
+    <h3 class="text-base font-semibold text-gray-900 mb-3">5. 服务覆盖范围</h3>
+    <p class="text-gray-700 mb-3">本服务聚焦技术支持与优化咨询，包括但不限于：</p>
+    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-4">
+      <li>系统与应用层问题分析与定位建议</li>
+      <li>性能调优与优化建议（CPU/DCU 相关场景）</li>
+      <li>基线测试（如 SPEC）调优指导</li>
+      <li>典型应用场景（数据库、大数据、虚拟化等）的优化支持</li>
+      <li>生态适配与使用指导</li>
+    </ul>
+  </div>
 
   <h2 class="text-lg font-bold text-gray-900 mb-4">三、服务边界</h2>
-  <p class="text-gray-700 mb-2">本服务不包含以下内容：</p>
-  <ul class="list-disc list-inside text-gray-700 mb-4 ml-4">
-    <li>硬件故障维修、备件更换、RMA等售后服务</li>
-    <li>软件产品缺陷修复或版本交付（由对应产品线负责）</li>
-    <li>驻场支持或现场实施服务</li>
-    <li>7×24小时应急保障类服务</li>
-  </ul>
-  <p class="text-gray-700 mb-8">
-    如涉及上述需求，请联系对应的售后或商务服务体系处理。
-  </p>
+  <div class="rounded-lg p-5 mb-8">
+    <p class="text-gray-700 mb-3 font-medium">本服务不包含以下内容：</p>
+    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-4">
+      <li>硬件故障维修、备件更换、RMA 等售后服务</li>
+      <li>软件产品缺陷修复或版本交付（由对应产品线负责）</li>
+      <li>驻场支持或现场实施服务</li>
+      <li>7×24 小时应急保障类服务</li>
+    </ul>
+    <p class="text-gray-700 mt-4">
+      如涉及上述需求，请联系对应的售后或商务服务体系处理。
+    </p>
+  </div>
 
   <h2 class="text-lg font-bold text-gray-900 mb-4">四、服务价值</h2>
-  <ul class="list-disc list-inside text-gray-700 mb-8 ml-4">
-    <li><strong>标准化响应：</strong>明确SLA保障问题处理效率</li>
-    <li><strong>专家支持：</strong>直接连接技术专家，提升问题分析深度</li>
-    <li><strong>边界清晰：</strong>技术支持与售后服务解耦，职责明确</li>
-    <li><strong>持续优化：</strong>从"问题解决"升级为"性能提升与能力赋能"</li>
-  </ul>
+  <div class="rounded-lg p-5 mb-8">
+    <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
+      <li><strong>标准化响应：</strong>明确 SLA 保障问题处理效率</li>
+      <li><strong>专家支持：</strong>直接连接技术专家，提升问题分析深度</li>
+      <li><strong>边界清晰：</strong>技术支持与售后服务解耦，职责明确</li>
+      <li><strong>持续优化：</strong>从"问题解决"升级为"性能提升与能力赋能"</li>
+    </ul>
+  </div>
 
   <h2 class="text-lg font-bold text-gray-900 mb-4">五、总结</h2>
-  <p class="text-gray-700 leading-relaxed">
-    构建以"技术咨询与性能优化"为核心、边界清晰的在线支持服务体系，赋能生态伙伴高效定位问题并持续提升系统性能。
-  </p>
+  <div class="rounded-lg p-5">
+    <p class="text-gray-700 leading-relaxed">
+      构建以"技术咨询与性能优化"为核心、边界清晰的在线支持服务体系，赋能生态伙伴高效定位问题并持续提升系统性能。
+    </p>
+  </div>
 
 </main>
 
