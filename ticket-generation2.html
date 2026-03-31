@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>消息知识弹窗 - 光合技术支持平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 图标（Font Awesome） -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    }
+    
+    /* 光圈界面样式 */
+    .aperture-interface {
+      width: 100%;
+      height: 100px;
+      background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: white;
+    }
+    
+    /* 弹窗容器样式 */
+    .modal-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.3);
+      z-index: 50;
+    }
+    
+    /* 弹窗内容样式 */
+    .modal-content {
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      max-width: 800px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* AI 分析按钮样式 - 渐变绿色 */
+    .ai-analysis-button {
+      background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 9999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+    }
+    
+    .ai-analysis-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3);
+    }
+    
+    .ai-analysis-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    /* 提交按钮样式 - 渐变绿色 */
+    .submit-button {
+      background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+      color: white;
+      border: none;
+      padding: 12px 40px;
+      border-radius: 9999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+    }
+    
+    .submit-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3);
+    }
+    
+    .submit-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    /* 输入框样式 */
+    textarea {
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      background: white;
+      resize: vertical;
+    }
+    
+    textarea:focus {
+      outline: none;
+      border-color: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+    
+    /* 只读文本区域样式 */
+    textarea[readonly] {
+      background: #f9fafb;
+      cursor: default;
+    }
+    
+    /* 标签样式 */
+    label {
+      font-weight: 600;
+      color: #374151;
+      font-size: 14px;
+    }
+    
+    /* 卡片样式 */
+    .info-card, .chat-card, .input-card {
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      border: 1px solid #f3f4f6;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- 光圈界面 -->
+<div class="aperture-interface">
+  光圈界面
+</div>
+
+<!-- 消息知识弹窗 -->
+<div class="modal-container">
+  <div class="modal-content p-6">
+    <!-- 页面标题 -->
+    <div class="text-center mb-6 fade-in">
+      <h1 class="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">消息知识</h1>
+    </div>
+
+    <!-- 原始消息区域 -->
+    <div class="chat-card mb-6 fade-in">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold text-gray-800">原始消息</h3>
+      </div>
+      <textarea id="original-message" class="w-full" rows="6" readonly>用户张三咨询AI专家陈伟关于深度学习模型性能优化的问题。用户反映模型训练速度很慢，希望得到优化建议。
+
+专家陈伟给出了以下优化建议：
+1. 合理调度GPU资源，确保充分利用
+2. 使用混合精度训练，减少内存使用
+3. 实施模型量化和剪枝，减小模型大小
+4. 优化数据加载和预处理流程
+5. 考虑使用分布式训练
+
+通过上述方法可以显著提升深度学习模型的训练和推理性能。</textarea>
+    </div>
+
+    <!-- AI 分析按钮 -->
+    <div class="text-center mb-6 fade-in">
+      <button id="ai-analysis-button" class="ai-analysis-button">
+        <i class="fa fa-robot mr-2"></i>AI 分析
+      </button>
+    </div>
+
+    <!-- 消息知识编辑区域 -->
+    <div class="input-card mb-6 fade-in">
+      <div class="space-y-4">
+        <div>
+          <label for="knowledge-content" class="block mb-2">消息知识</label>
+          <textarea id="knowledge-content" class="w-full" rows="6" placeholder="请输入消息知识内容...">用户张三咨询AI专家陈伟关于深度学习模型性能优化的问题。用户反映模型训练速度很慢，希望得到优化建议。
+
+专家陈伟给出了以下优化建议：
+1. 合理调度GPU资源，确保充分利用
+2. 使用混合精度训练，减少内存使用
+3. 实施模型量化和剪枝，减小模型大小
+4. 优化数据加载和预处理流程
+5. 考虑使用分布式训练
+
+通过上述方法可以显著提升深度学习模型的训练和推理性能。</textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 发送给知识库按钮 -->
+    <div class="text-center fade-in">
+      <button id="submit-knowledge-button" class="submit-button">
+        <i class="fa fa-paper-plane mr-2"></i>发送给知识库
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 成功提示弹窗 -->
+<div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-xl p-8 max-w-md w-full">
+    <div class="text-center">
+      <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <i class="fa fa-check text-2xl text-green-600"></i>
+      </div>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">发送成功</h3>
+      <p class="text-gray-600 mb-6">消息知识已成功发送到知识库</p>
+      <button id="close-success-modal" class="px-6 py-2 bg-[#2D874B] text-white rounded-lg hover:bg-[#256e3d] transition">
+        确定
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // AI分析按钮点击事件
+  document.getElementById('ai-analysis-button').addEventListener('click', function() {
+    // 模拟AI分析过程
+    this.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>分析中...';
+    this.disabled = true;
+    
+    // 模拟分析延迟
+    setTimeout(() => {
+      // 填充消息知识内容
+      document.getElementById('knowledge-content').value = '【问题】如何优化深度学习模型性能？\n\n【解决方案】通过合理调度GPU资源，使用混合精度训练，实施模型量化和剪枝，以及优化数据加载和预处理流程，可以显著提升深度学习模型的训练和推理性能。\n\n【详细说明】\n1. GPU资源调度：确保充分利用GPU内存，避免内存溢出\n2. 混合精度训练：使用FP16和FP32混合精度，减少内存使用和计算时间\n3. 模型量化和剪枝：减小模型大小，提高推理速度\n4. 数据加载优化：使用数据预加载和多线程数据加载\n5. 考虑分布式训练：对于大型模型，使用多GPU并行训练';
+      
+      // 恢复按钮状态
+      this.innerHTML = '<i class="fa fa-robot mr-2"></i>AI分析';
+      this.disabled = false;
+      
+      // 显示成功提示
+      alert('AI分析完成，已自动生成消息知识');
+    }, 1500);
+  });
+
+  // 发送给知识库按钮点击事件
+  document.getElementById('submit-knowledge-button').addEventListener('click', function() {
+    // 获取消息知识内容
+    const knowledgeContent = document.getElementById('knowledge-content').value;
+    
+    // 验证输入
+    if (!knowledgeContent || knowledgeContent.trim() === '') {
+      alert('请输入消息知识内容');
+      return;
+    }
+    
+    // 模拟提交过程
+    this.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>发送中...';
+    this.disabled = true;
+    
+    // 模拟提交延迟
+    setTimeout(() => {
+      // 恢复按钮状态
+      this.innerHTML = '<i class="fa fa-paper-plane mr-2"></i>发送给知识库';
+      this.disabled = false;
+      
+      // 显示成功弹窗
+      document.getElementById('success-modal').classList.remove('hidden');
+    }, 1500);
+  });
+
+  // 关闭成功弹窗
+  document.getElementById('close-success-modal').addEventListener('click', function() {
+    document.getElementById('success-modal').classList.add('hidden');
+    // 跳转到专家中心页面的服务记录标签
+    window.location.href = 'expert-center.html#service-records';
+  });
+
+  // 添加动画效果
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.fade-in').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
