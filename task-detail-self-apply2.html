@@ -462,11 +462,11 @@
           </div>
           <div class="flex-1">
             <div class="flex justify-between items-center mb-2">
-              <h3 class="text-sm font-medium text-gray-800">课程（3/9）</h3>
-              <span class="text-sm font-semibold text-[#2D874B]">33%</span>
+              <h3 class="text-sm font-medium text-gray-800">课程（4/9）</h3>
+              <span class="text-sm font-semibold text-[#2D874B]">44%</span>
             </div>
             <div class="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
-              <div class="h-full bg-gradient-to-r from-blue-400 to-blue-600" style="width:33%"></div>
+              <div class="h-full bg-gradient-to-r from-blue-400 to-blue-600" style="width:44%"></div>
             </div>
           </div>
           
@@ -479,11 +479,11 @@
           </div>
           <div class="flex-1">
             <div class="flex justify-between items-center mb-2">
-              <h3 class="text-sm font-medium text-gray-800">考试（2/7）</h3>
-              <span class="text-sm font-semibold text-[#2D874B]">29%</span>
+              <h3 class="text-sm font-medium text-gray-800">考试（3/7）</h3>
+              <span class="text-sm font-semibold text-[#2D874B]">43%</span>
             </div>
             <div class="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
-              <div class="h-full bg-gradient-to-r from-green-400 to-green-600" style="width:29%"></div>
+              <div class="h-full bg-gradient-to-r from-green-400 to-green-600" style="width:43%"></div>
             </div>
           </div>
         </div>
@@ -495,11 +495,11 @@
           </div>
           <div class="flex-1">
             <div class="flex justify-between items-center mb-2">
-              <h3 class="text-sm font-medium text-gray-800">直播（0/3）</h3>
-              <span class="text-sm font-semibold text-[#2D874B]">0%</span>
+              <h3 class="text-sm font-medium text-gray-800">直播（1/3）</h3>
+              <span class="text-sm font-semibold text-[#2D874B]">33%</span>
             </div>
             <div class="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
-              <div class="h-full bg-gradient-to-r from-red-400 to-red-600" style="width:0%"></div>
+              <div class="h-full bg-gradient-to-r from-red-400 to-red-600" style="width:33%"></div>
             </div>
           </div>
         </div>
@@ -526,9 +526,21 @@
     <!-- 子任务列表（Tab 形式） -->
     <section class="glass-card rounded-3xl border border-gray-300 p-6 mb-6">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-semibold flex items-center gap-2">
-          <i class="fa fa-tasks text-[#2D874B]"></i> 子任务列表
-        </h2>
+        <!-- Tab 选项卡 -->
+        <div class="flex gap-2 mb-6">
+          <button class="tab-btn px-6 py-3 rounded-xl bg-[#2D874B] text-white text-base font-medium transition shadow-lg" data-tab="stage1">
+            <!--<i class="fa fa-star mr-2"></i>-->阶段一
+          </button>
+          <button class="tab-btn px-6 py-3 rounded-xl bg-gray-200 text-gray-700 text-base font-medium hover:bg-gray-300 transition" data-tab="stage2">
+            <!--<i class="fa fa-arrow-up mr-2"></i>-->阶段二
+          </button>
+          <button class="tab-btn px-6 py-3 rounded-xl bg-gray-200 text-gray-700 text-base font-medium hover:bg-gray-300 transition" data-tab="stage3">
+            <!--<i class="fa fa-flag mr-2"></i>-->阶段三
+          </button>
+        </div>
+       <!-- <h2 class="text-lg font-semibold flex items-center gap-2">
+          <i class="fa fa-tasks text-[#2D874B]"></i> 阶段列表
+        </h2>-->
         <div class="flex gap-2">
           <a href="https://www.miitec.cn/" 
              class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-400 to-purple-400 text-white text-sm font-medium hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 transition flex items-center gap-2"
@@ -542,71 +554,53 @@
         </div>
       </div>
 
-      <!-- Tab 选项卡 -->
-      <div class="flex gap-2 mb-6">
-        <button class="tab-btn px-6 py-3 rounded-xl bg-[#2D874B] text-white text-base font-medium transition shadow-lg" data-tab="stage1">
-          <!--<i class="fa fa-star mr-2"></i>-->阶段一
-        </button>
-        <button class="tab-btn px-6 py-3 rounded-xl bg-gray-200 text-gray-700 text-base font-medium hover:bg-gray-300 transition" data-tab="stage2">
-          <!--<i class="fa fa-arrow-up mr-2"></i>-->阶段二
-        </button>
-        <button class="tab-btn px-6 py-3 rounded-xl bg-gray-200 text-gray-700 text-base font-medium hover:bg-gray-300 transition" data-tab="stage3">
-          <!--<i class="fa fa-flag mr-2"></i>-->阶段三
-        </button>
-      </div>
+
 
       <!-- 阶段一内容 -->
       <div id="stage1-content" class="tab-content">
-        <!-- 分类切换 -->
-        <div class="flex justify-between items-center mb-4">
-          <div class="flex gap-2">
-            <button class="subtask-filter-btn px-3 py-1 rounded-full bg-[#2D874B] text-white text-sm" data-filter="all">全部（3/8）</button>
-            <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="学习">课程（2/4）</button>
-            <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="考试">考试（1/3）</button>
-            <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="直播">直播（0/1）</button>
+        <!-- 子任务列表 Tab -->
+        <div class="border-2 border-black rounded-xl p-4 mb-4">
+          <!-- Tab 选项卡按钮 -->
+          <div class="flex gap-2 mb-4 border-b border-gray-300 pb-2">
+            <button class="subtask-list-tab px-4 py-2 rounded-lg bg-[#2D874B] text-white text-sm font-medium" data-subtask-tab="list1">
+              子任务一 · 云计算基础概论
+            </button>
+            <button class="subtask-list-tab px-4 py-2 rounded-lg bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300" data-subtask-tab="list2">
+              子任务二 · 虚拟化技术入门
+            </button>
+            <button class="subtask-list-tab px-4 py-2 rounded-lg bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300" data-subtask-tab="list3">
+              子任务三 · 云基础理论考试
+            </button>
           </div>
-        </div>
-        
-        <!-- 子任务列表容器 -->
-        <div class="space-y-4" id="stage1-subtask-list">
-          <!-- 子任务卡片由 JS 注入 -->
+          
+          <!-- 子任务列表容器 -->
+          <div class="space-y-4" id="stage1-subtask-list">
+            <!-- 子任务卡片由 JS 注入 -->
+          </div>
         </div>
       </div>
 
       <!-- 阶段二内容 -->
       <div id="stage2-content" class="tab-content hidden">
-        <!-- 分类切换 -->
-        <div class="flex justify-between items-center mb-4">
-          <div class="flex gap-2">
-            <button class="subtask-filter-btn px-3 py-1 rounded-full bg-[#2D874B] text-white text-sm" data-filter="all">全部（2/6）</button>
-            <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="学习">课程（1/3）</button>
-            <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="考试">考试（1/2）</button>
-            <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="直播">直播（0/1）</button>
+        <!-- 子任务列表 -->
+        <div class="border-2 border-black rounded-xl p-4 mb-4">
+          <!-- Tab 选项卡按钮 -->
+          <div class="flex gap-2 mb-4 border-b border-gray-300 pb-2">
+            <button class="subtask-list-tab px-4 py-2 rounded-lg bg-[#2D874B] text-white text-sm font-medium" data-subtask-tab="stage2-list1">
+              任务列表 · 微服务架构设计
+            </button>
           </div>
-        </div>
-        
-        <!-- 子任务列表容器 -->
-        <div class="space-y-4" id="stage2-subtask-list">
-          <!-- 子任务卡片由 JS 注入 -->
+          
+          <!-- 子任务列表容器 -->
+          <div class="space-y-4" id="stage2-subtask-list">
+            <!-- 子任务卡片由 JS 注入 -->
+          </div>
         </div>
       </div>
 
       <!-- 阶段三内容 -->
       <div id="stage3-content" class="tab-content hidden">
-        <!-- 分类切换 -->
-        <div class="flex justify-between items-center mb-4">
-          <div class="flex gap-2">
-            <button class="subtask-filter-btn px-3 py-1 rounded-full bg-[#2D874B] text-white text-sm" data-filter="all">全部（1/5）</button>
-            <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="学习">课程（0/2）</button>
-            <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="考试">考试（1/2）</button>
-            <button class="subtask-filter-btn px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm" data-filter="直播">直播（0/1）</button>
-          </div>
-        </div>
-        
-        <!-- 子任务列表容器 -->
-        <div class="space-y-4" id="stage3-subtask-list">
-          <!-- 子任务卡片由 JS 注入 -->
-        </div>
+        <!-- 占位容器，仅保留点击事件处理 -->
       </div>
     </section>
 
@@ -626,7 +620,7 @@
 
 <!-- 交互脚本 -->
 <script>
-  // ========== 模拟各阶段子任务数据 ==========
+  // ========== 模拟各阶段子任务数据（简化版，每个阶段 3-5 个任务）==========
   const stage1Subtasks = [
     {
       id: 101,
@@ -666,62 +660,14 @@
     },
     {
       id: 104,
-      title: '网络基础配置',
-      description: '学习云平台网络配置和基础架构搭建',
-      type: '学习',
-      status: 'in-progress',
-      progress: 70,
-      deadline: '2026-02-05',
-      completeTime: null,
-      estimatedTime: '4 小时',
-      points: 30
-    },
-    {
-      id: 105,
-      title: '存储系统实践',
-      description: '了解云存储系统和分布式存储方案',
-      type: '学习',
-      status: 'upcoming',
-      progress: 0,
-      deadline: '2026-02-10',
-      completeTime: null,
-      estimatedTime: '3.5 小时',
-      points: 25
-    },
-    {
-      id: 106,
-      title: '第一阶段综合测试',
-      description: '全面检验基础阶段学习成果',
-      type: '考试',
-      status: 'upcoming',
-      progress: 0,
-      deadline: '2026-02-15',
-      completeTime: null,
-      estimatedTime: '2 小时',
-      points: 35
-    },
-    {
-      id: 107,
       title: '云平台技术直播',
       description: '参与云计算技术在线直播讲座和互动答疑',
       type: '直播',
-      status: 'upcoming',
-      progress: 0,
-      deadline: '2026-02-18',
-      completeTime: null,
+      status: 'completed',
+      progress: 100,
+      deadline: '2026-02-05',
+      completeTime: '2026-02-03',
       estimatedTime: '2 小时',
-      points: 20
-    },
-    {
-      id: 108,
-      title: '容器技术基础',
-      description: '学习 Docker 容器技术和容器编排基础',
-      type: '考试',
-      status: 'upcoming',
-      progress: 0,
-      deadline: '2026-02-20',
-      completeTime: null,
-      estimatedTime: '2.5 小时',
       points: 30
     }
   ];
@@ -729,6 +675,42 @@
   const stage2Subtasks = [
     {
       id: 201,
+      title: '架构师成长之路直播',
+      description: '资深架构师在线分享职业发展经验和技术成长路径',
+      type: '直播',
+      status: 'in-progress',
+      progress: 50,
+      deadline: '2026-03-12',
+      completeTime: null,
+      estimatedTime: '1.5 小时',
+      points: 25
+    },
+    {
+      id: 202,
+      title: '中级架构师考试',
+      description: '检验进阶阶段架构设计能力',
+      type: '考试',
+      status: 'in-progress',
+      progress: 50,
+      deadline: '2026-03-05',
+      completeTime: null,
+      estimatedTime: '3 小时',
+      points: 50
+    },
+    {
+      id: 203,
+      title: 'DevOps 实践方法',
+      description: '掌握持续集成和持续部署流程',
+      type: '学习',
+      status: 'completed',
+      progress: 100,
+      deadline: '2026-02-20',
+      completeTime: '2026-02-18',
+      estimatedTime: '5 小时',
+      points: 40
+    },
+    {
+      id: 204,
       title: '微服务架构设计',
       description: '深入学习微服务架构模式和设计原则',
       type: '学习',
@@ -738,66 +720,6 @@
       completeTime: '2026-02-08',
       estimatedTime: '4 小时',
       points: 35
-    },
-    {
-      id: 202,
-      title: 'DevOps 实践方法',
-      description: '掌握持续集成和持续部署流程',
-      type: '学习',
-      status: 'in-progress',
-      progress: 55,
-      deadline: '2026-02-20',
-      completeTime: null,
-      estimatedTime: '5 小时',
-      points: 40
-    },
-    {
-      id: 203,
-      title: '云原生应用开发',
-      description: '学习云原生应用开发和最佳实践',
-      type: '学习',
-      status: 'upcoming',
-      progress: 0,
-      deadline: '2026-02-28',
-      completeTime: null,
-      estimatedTime: '6 小时',
-      points: 45
-    },
-    {
-      id: 204,
-      title: '中级架构师考试',
-      description: '检验进阶阶段架构设计能力',
-      type: '考试',
-      status: 'upcoming',
-      progress: 0,
-      deadline: '2026-03-05',
-      completeTime: null,
-      estimatedTime: '3 小时',
-      points: 50
-    },
-    {
-      id: 205,
-      title: 'Kubernetes 集群管理',
-      description: '掌握 K8s 集群部署和运维管理',
-      type: '考试',
-      status: 'upcoming',
-      progress: 0,
-      deadline: '2026-03-10',
-      completeTime: null,
-      estimatedTime: '4 小时',
-      points: 45
-    },
-    {
-      id: 206,
-      title: '架构师成长之路直播',
-      description: '资深架构师在线分享职业发展经验和技术成长路径',
-      type: '直播',
-      status: 'upcoming',
-      progress: 0,
-      deadline: '2026-03-12',
-      completeTime: null,
-      estimatedTime: '1.5 小时',
-      points: 25
     }
   ];
   
@@ -816,20 +738,8 @@
     },
     {
       id: 302,
-      title: '多云管理平台实践',
-      description: '学习混合云和多云环境管理策略',
-      type: '学习',
-      status: 'upcoming',
-      progress: 0,
-      deadline: '2026-03-15',
-      completeTime: null,
-      estimatedTime: '4.5 小时',
-      points: 45
-    },
-    {
-      id: 303,
       title: '高级云架构师认证考试',
-      description: ' comprehensive 综合考核云架构设计和实践能力',
+      description: '综合考核云架构设计和实践能力',
       type: '考试',
       status: 'upcoming',
       progress: 0,
@@ -839,21 +749,9 @@
       points: 60
     },
     {
-      id: 304,
-      title: '云安全与合规考试',
-      description: '检验云安全架构设计和合规性知识',
-      type: '考试',
-      status: 'upcoming',
-      progress: 0,
-      deadline: '2026-03-25',
-      completeTime: null,
-      estimatedTime: '3 小时',
-      points: 55
-    },
-    {
-      id: 305,
+      id: 303,
       title: '云架构前沿技术直播峰会',
-      description: '参加行业顶尖专家主讲的云架构技术峰会直播，探讨未来发展趋势',
+      description: '参加行业顶尖专家主讲的云架构技术峰会直播',
       type: '直播',
       status: 'upcoming',
       progress: 0,
@@ -863,17 +761,27 @@
       points: 50
     }
   ];
+  
+  // 为阶段一创建三个子任务列表（随机分配任务）
+  const stage1SubtaskLists = {
+    list1: stage1Subtasks.slice(0, 3),  // 前 3 个任务
+    list2: stage1Subtasks.slice(1, 4),  // 中间 3 个任务
+    list3: [stage1Subtasks[0], stage1Subtasks[2], stage1Subtasks[3]]  // 随机组合
+  };
 
   // ========== 当前激活的 Tab ==========
   let currentTab = 'stage1';
 
-  // ========== 渲染子任务列表 ==========
-  function renderSubtasks(stage, filter = 'all') {
+  // ========== 渲染子任务列表（支持阶段一的三个子 Tab）==========
+  function renderSubtasks(stage, filter = 'all', subtaskListName = 'list1') {
     let subtaskList;
     let subtasksData;
     
-    // 根据阶段获取对应的列表容器和数据
-    if (stage === 'stage1') {
+    // 如果是阶段一且有子 Tab 参数，使用对应的子任务列表
+    if (stage === 'stage1' && subtaskListName) {
+      subtaskList = document.getElementById('stage1-subtask-list');
+      subtasksData = stage1SubtaskLists[subtaskListName] || stage1Subtasks;
+    } else if (stage === 'stage1') {
       subtaskList = document.getElementById('stage1-subtask-list');
       subtasksData = stage1Subtasks;
     } else if (stage === 'stage2') {
@@ -897,13 +805,13 @@
 
       const filteredSubtasks = filter === 'all' ? subtasksData : subtasksData.filter(subtask => subtask.type === filter);
 
-      // 按照状态排序：未完成 > 进行中 > 已完成
+      // 按照状态排序：已完成 > 进行中 > 未完成（优化显示顺序）
       filteredSubtasks.sort((a, b) => {
         const statusOrder = {
-          'upcoming': 0,      // 未完成
-          'in-progress': 1,   // 进行中
-          'completed': 2,     // 已完成
-          'overdue': 0        // 已超时也视为未完成
+          'completed': 0,     // 已完成排最前
+          'in-progress': 1,   // 进行中排中间
+          'upcoming': 2,      // 未完成排最后
+          'overdue': 2        // 已超时也视为未完成
         };
         return statusOrder[a.status] - statusOrder[b.status];
       });
@@ -930,10 +838,20 @@
           statusText = '已超时';
         }
 
+        // 根据任务类型添加前缀标注
+        let typePrefix = '';
+        if (subtask.type === '学习' || subtask.type === '课程') {
+          typePrefix = '<span class="inline-block px-2 py-0.5 rounded bg-blue-100 text-blue-600 text-xs font-medium mr-2">课程</span>';
+        } else if (subtask.type === '考试') {
+          typePrefix = '<span class="inline-block px-2 py-0.5 rounded bg-green-100 text-green-600 text-xs font-medium mr-2">考试</span>';
+        } else if (subtask.type === '直播') {
+          typePrefix = '<span class="inline-block px-2 py-0.5 rounded bg-red-100 text-red-600 text-xs font-medium mr-2">直播</span>';
+        }
+
         card.innerHTML = `
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
-              <h3 class="text-sm font-semibold text-gray-800 mb-1">${subtask.title}</h3>
+              <h3 class="text-sm font-semibold text-gray-800 mb-1">${typePrefix}${subtask.title}</h3>
               <p class="text-xs text-gray-600 mb-2">${subtask.description}</p>
             </div>
             <span class="inline-flex items-center px-2 py-1 rounded-full border text-xs ${statusClass}">
@@ -1049,21 +967,23 @@
           // 检查阶段一的完成情况
           const stage1Completed = stage1Subtasks.filter(s => s.status === 'completed').length;
           const stage1Total = stage1Subtasks.length;
-          
+              
           // 检查阶段二的完成情况
           const stage2Completed = stage2Subtasks.filter(s => s.status === 'completed').length;
           const stage2Total = stage2Subtasks.length;
-          
+              
           // 如果阶段一或阶段二没有全部完成，提示用户
           if (stage1Completed < stage1Total) {
             alert(`请先完成阶段一的所有任务`);
             return;
           }
-          
+              
           if (stage2Completed < stage2Total) {
             alert(`请先完成阶段二的所有任务`);
             return;
           }
+              
+          return;
         }
         
         // 更新所有按钮样式
@@ -1091,30 +1011,37 @@
       });
     });
     
-    // 为每个阶段的分类按钮添加点击事件
-    ['stage1', 'stage2', 'stage3'].forEach(stage => {
-      const filterButtons = document.querySelectorAll(`#${stage}-content .subtask-filter-btn`);
-      filterButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-          e.stopPropagation(); // 阻止事件冒泡
-          const filter = this.dataset.filter;
-          
-          // 更新按钮样式 - 只更新当前阶段内的按钮
-          filterButtons.forEach(btn => {
-            btn.classList.remove('bg-[#2D874B]', 'text-white');
-            btn.classList.add('bg-gray-200', 'text-gray-700');
-          });
-          this.classList.remove('bg-gray-200', 'text-gray-700');
-          this.classList.add('bg-[#2D874B]', 'text-white');
-          
-          // 渲染过滤后的子任务
-          renderSubtasks(stage, filter);
+    // 阶段一的子任务列表 Tab 切换功能
+    const subtaskListTabButtons = document.querySelectorAll('.subtask-list-tab');
+    subtaskListTabButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const selectedList = this.dataset.subtaskTab;
+        
+        // 更新所有按钮样式
+        subtaskListTabButtons.forEach(btn => {
+          btn.classList.remove('bg-[#2D874B]', 'text-white');
+          btn.classList.add('bg-gray-200', 'text-gray-700', 'hover:bg-gray-300');
         });
+        
+        // 激活当前按钮
+        this.classList.remove('bg-gray-200', 'text-gray-700', 'hover:bg-gray-300');
+        this.classList.add('bg-[#2D874B]', 'text-white');
+        
+        // 渲染对应的子任务列表
+        renderSubtasks('stage1', 'all', selectedList);
       });
     });
     
-    // 证书弹窗功能（为每个阶段绑定）
-    ['stage1', 'stage2', 'stage3'].forEach(stage => {
+    // 阶段二的子任务列表 Tab 切换功能（单个列表，无需切换）
+    const stage2TabButtons = document.querySelectorAll('#stage2-content .subtask-list-tab');
+    stage2TabButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        // 只有一个列表，不需要切换，保持激活状态即可
+      });
+    });
+    
+    // 证书弹窗功能（只为阶段一和阶段二绑定）
+    ['stage1', 'stage2'].forEach(stage => {
       const certificateBtn = document.getElementById(`certificate-btn-${stage}`);
       if (certificateBtn) {
         certificateBtn.addEventListener('click', function() {
