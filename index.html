@@ -3536,7 +3536,7 @@
     </div>
     
     <!-- 互动社区按钮 -->
-    <div class="flex items-center group hover:bg-blue-50 transition-colors duration-300">
+    <div class="flex items-center group border-b border-gray-100 hover:bg-blue-50 transition-colors duration-300">
       <span class="absolute right-16 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 text-white px-12 py-0 rounded-l-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap text-lg font-semibold h-14 flex items-center justify-center">
         互动社区
       </span>
@@ -3545,6 +3545,28 @@
         <div class="relative">
           <img src="images/comments2.png" alt="互动社区" class="w-6 h-6">
         </div>
+      </div>
+    </div>
+
+    <!-- 评价/反馈按钮（方案一：左侧全屏侧边栏） -->
+    <div class="flex items-center group border-b border-gray-100 hover:bg-blue-50 transition-colors duration-300">
+      <span class="absolute right-16 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 text-white px-12 py-0 rounded-l-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap text-lg font-semibold h-14 flex items-center justify-center">
+        反馈方案一
+      </span>
+      <div id="feedback-btn" class="w-14 h-14 text-gray-500
+              flex items-center justify-center cursor-pointer transition-all duration-300 group-hover:translate-x-[-10px] group-hover:bg-blue-50 group-hover:text-blue-600">
+        <i class="fa fa-comment-dots text-xl"></i>
+      </div>
+    </div>
+
+    <!-- 评价按钮（方案二：华为风格轻量弹窗） -->
+    <div class="flex items-center group hover:bg-blue-50 transition-colors duration-300">
+      <span class="absolute right-16 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 text-white px-12 py-0 rounded-l-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap text-lg font-semibold h-14 flex items-center justify-center">
+        评价方案二
+      </span>
+      <div id="rating-btn" class="w-14 h-14 text-gray-500
+              flex items-center justify-center cursor-pointer transition-all duration-300 group-hover:translate-x-[-10px] group-hover:bg-blue-50 group-hover:text-blue-600">
+        <i class="fa fa-smile text-xl"></i>
       </div>
     </div>
   </div>
@@ -3682,6 +3704,268 @@
     </div>
   </div>
 </div>
+
+<!-- ================== 评价/反馈侧边栏 ================== -->
+<div id="feedback-panel"
+     class="fixed left-0 top-0 w-full sm:w-[480px] h-full glass-card border-r border-gray-300 shadow-2xl
+            transform -translate-x-full transition-transform duration-300 z-50"
+     style="display:none;">
+  <div class="flex flex-col h-full bg-white/95">
+    <!-- 头部 -->
+    <div class="flex items-center justify-between bg-gradient-to-r from-[#2D874B] to-[#1A5D34] px-6 py-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+          <i class="fa fa-comment-dots text-white text-xl"></i>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-white">反馈</h3>
+          <p class="text-sm text-white/80">您的建议是我们进步的动力</p>
+        </div>
+      </div>
+      <button id="feedback-close" class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+        <i class="fa fa-times text-lg"></i>
+      </button>
+    </div>
+
+    <!-- 内容区 -->
+    <div class="flex-1 overflow-y-auto p-6 space-y-6">
+      <!-- 反馈类型选择 -->
+      <div class="space-y-3">
+        <label class="block text-sm font-medium text-gray-700">反馈类型</label>
+        <div class="grid grid-cols-2 gap-3">
+          <button type="button" class="feedback-type-btn active px-4 py-3 rounded-xl border-2 border-[#2D874B] bg-[#2D874B]/5 text-[#2D874B] font-medium transition-all" data-type="suggestion">
+            <i class="fa fa-lightbulb mr-2"></i>提建议
+          </button>
+          <button type="button" class="feedback-type-btn px-4 py-3 rounded-xl border-2 border-gray-200 text-gray-600 font-medium hover:border-[#2D874B] hover:text-[#2D874B] transition-all" data-type="question">
+            <i class="fa fa-question-circle mr-2"></i>问问题
+          </button>
+        </div>
+      </div>
+
+      <!-- 反馈内容 -->
+      <div class="space-y-3">
+        <label class="block text-sm font-medium text-gray-700">
+          <span id="feedback-label">您的建议</span>
+          <span class="text-red-500">*</span>
+        </label>
+        <textarea id="feedback-content" rows="6" placeholder="请详细描述您的建议，帮助我们做得更好..."
+                  class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder:text-gray-400 resize-none
+                         focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B] transition-all"></textarea>
+        <div class="flex justify-between text-xs text-gray-500">
+          <span>建议不少于10个字</span>
+          <span id="char-count">0/500</span>
+        </div>
+      </div>
+
+      <!-- 联系方式（可选） -->
+      <div class="space-y-3">
+        <label class="block text-sm font-medium text-gray-700">联系方式（选填）</label>
+        <div class="relative">
+          <i class="fa fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+          <input type="email" id="feedback-email" placeholder="请输入您的联系方式，方便我们回复"
+                 class="w-full pl-11 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder:text-gray-400
+                        focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B] transition-all">
+        </div>
+      </div>
+
+      <!-- 图片上传 -->
+      <div class="space-y-3">
+        <label class="block text-sm font-medium text-gray-700">上传截图（选填）</label>
+        <div class="flex flex-wrap gap-3" id="image-upload-area">
+          <div class="relative w-20 h-20 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:border-[#2D874B] hover:bg-[#2D874B]/5 transition-all" id="upload-btn">
+            <i class="fa fa-plus text-gray-400 text-xl"></i>
+            <input type="file" id="feedback-image" accept="image/*" class="hidden" multiple>
+          </div>
+        </div>
+        <p class="text-xs text-gray-500">支持 JPG、PNG 格式，最多上传 3 张图片</p>
+      </div>
+    </div>
+
+    <!-- 底部提交按钮 -->
+    <div class="border-t border-gray-200 p-6 bg-gray-50/50">
+      <button id="feedback-submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#2D874B] to-[#1A5D34] text-white font-semibold text-base hover:shadow-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+        <i class="fa fa-paper-plane mr-2"></i>提交
+      </button>
+      <p class="text-center text-xs text-gray-500 mt-3">
+        <i class="fa fa-shield-alt mr-1"></i>您的反馈将被严格保密，仅用于产品改进
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- 反馈成功提示弹窗 -->
+<div id="feedback-success-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[60] hidden">
+  <div class="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 text-center transform scale-95 opacity-0 transition-all duration-300" id="feedback-success-content">
+    <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+      <i class="fa fa-check text-green-600 text-2xl"></i>
+    </div>
+    <h3 class="text-xl font-semibold text-gray-800 mb-2">提交成功！</h3>
+    <p class="text-gray-600 mb-6">感谢您的反馈，我们会认真阅读每一条建议，持续改进产品体验。</p>
+    <button id="feedback-success-close" class="w-full py-3 rounded-xl bg-[#2D874B] text-white font-semibold hover:bg-[#256e3d] transition-colors">
+      知道了
+    </button>
+  </div>
+</div>
+
+<!-- ================== 华为风格轻量级评价弹窗（方案二） ================== -->
+<div id="huawei-rating-popup" class="fixed right-[72px] top-1/2 transform -translate-y-1/2 z-50 hidden">
+  <div class="bg-white rounded-xl shadow-xl border border-gray-100 w-[360px] max-h-[80vh] overflow-hidden animate-popup-in">
+    <!-- 头部 -->
+    <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+      <h3 class="text-sm font-semibold text-gray-800">您对光合学习平台的整体评价？</h3>
+      <button id="huawei-rating-close" class="w-6 h-6 rounded-full hover:bg-gray-100 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors">
+        <i class="fa fa-times text-xs"></i>
+      </button>
+    </div>
+
+    <!-- 内容区 -->
+    <div class="p-4 space-y-4 overflow-y-auto max-h-[calc(80vh-110px)]">
+      <!-- 评分区域 -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-center">
+          <div class="flex items-center gap-[2px]" id="rating-stars">
+            <!-- 0分 -->
+            <button class="rating-star w-7 h-7 rounded-full border border-gray-200 text-xs font-medium text-gray-500 hover:border-[#2D874B] hover:text-[#2D874B] transition-all flex items-center justify-center" data-score="0">
+              <span class="star-number">0</span>
+              <i class="fa fa-face-dizzy star-emoji hidden text-[#2D874B]"></i>
+            </button>
+            <!-- 1-2分：难过 -->
+            <button class="rating-star w-7 h-7 rounded-full border border-gray-200 text-xs font-medium text-gray-500 hover:border-[#2D874B] hover:text-[#2D874B] transition-all ml-1 flex items-center justify-center" data-score="1">
+              <span class="star-number">1</span>
+              <i class="fa fa-face-frown star-emoji hidden text-white text-xs"></i>
+            </button>
+            <button class="rating-star w-7 h-7 rounded-full border border-gray-200 text-xs font-medium text-gray-500 hover:border-[#2D874B] hover:text-[#2D874B] transition-all flex items-center justify-center" data-score="2">
+              <span class="star-number">2</span>
+              <i class="fa fa-face-frown-open star-emoji hidden text-white text-xs"></i>
+            </button>
+            <!-- 3-5分：一般 -->
+            <button class="rating-star w-7 h-7 rounded-full border border-gray-200 text-xs font-medium text-gray-500 hover:border-[#2D874B] hover:text-[#2D874B] transition-all flex items-center justify-center" data-score="3">
+              <span class="star-number">3</span>
+              <i class="fa fa-face-meh star-emoji hidden text-white text-xs"></i>
+            </button>
+            <button class="rating-star w-7 h-7 rounded-full border border-gray-200 text-xs font-medium text-gray-500 hover:border-[#2D874B] hover:text-[#2D874B] transition-all flex items-center justify-center" data-score="4">
+              <span class="star-number">4</span>
+              <i class="fa fa-face-meh star-emoji hidden text-white text-xs"></i>
+            </button>
+            <button class="rating-star w-7 h-7 rounded-full border border-gray-200 text-xs font-medium text-gray-500 hover:border-[#2D874B] hover:text-[#2D874B] transition-all flex items-center justify-center" data-score="5">
+              <span class="star-number">5</span>
+              <i class="fa fa-face-meh star-emoji hidden text-white text-xs"></i>
+            </button>
+            <!-- 6-7分：还不错 -->
+            <button class="rating-star w-7 h-7 rounded-full border border-gray-200 text-xs font-medium text-gray-500 hover:border-[#2D874B] hover:text-[#2D874B] transition-all flex items-center justify-center" data-score="6">
+              <span class="star-number">6</span>
+              <i class="fa fa-face-smile star-emoji hidden text-white text-xs"></i>
+            </button>
+            <button class="rating-star w-7 h-7 rounded-full border border-gray-200 text-xs font-medium text-gray-500 hover:border-[#2D874B] hover:text-[#2D874B] transition-all flex items-center justify-center" data-score="7">
+              <span class="star-number">7</span>
+              <i class="fa fa-face-smile star-emoji hidden text-white text-xs"></i>
+            </button>
+            <!-- 8-10分：开心 -->
+            <button class="rating-star w-7 h-7 rounded-full border border-gray-200 text-xs font-medium text-gray-500 hover:border-[#2D874B] hover:text-[#2D874B] transition-all flex items-center justify-center" data-score="8">
+              <span class="star-number">8</span>
+              <i class="fa fa-face-smile-beam star-emoji hidden text-white text-xs"></i>
+            </button>
+            <button class="rating-star w-7 h-7 rounded-full border border-gray-200 text-xs font-medium text-gray-500 hover:border-[#2D874B] hover:text-[#2D874B] transition-all flex items-center justify-center" data-score="9">
+              <span class="star-number">9</span>
+              <i class="fa fa-face-smile-beam star-emoji hidden text-white text-xs"></i>
+            </button>
+            <button class="rating-star w-7 h-7 rounded-full border border-gray-200 text-xs font-medium text-gray-500 hover:border-[#2D874B] hover:text-[#2D874B] transition-all flex items-center justify-center" data-score="10">
+              <span class="star-number">10</span>
+              <i class="fa fa-face-laugh-beam star-emoji hidden text-white text-xs"></i>
+            </button>
+          </div>
+        </div>
+        <div class="flex justify-between text-[10px] text-gray-400 px-1">
+          <span>非常不满意</span>
+          <span>非常满意</span>
+        </div>
+      </div>
+
+      <!-- 满意原因多选 -->
+      <div class="space-y-2" id="satisfaction-reasons">
+        <label class="block text-xs font-medium text-gray-700">
+          <span class="text-red-500">*</span> 您感到满意的原因是？<span class="text-gray-400 font-normal">（最多选三项）</span>
+        </label>
+        <div class="grid grid-cols-2 gap-2">
+          <label class="reason-checkbox flex items-center gap-1.5 p-2 rounded-md border border-gray-200 hover:border-[#2D874B] hover:bg-[#2D874B]/5 cursor-pointer transition-all">
+            <input type="checkbox" class="w-3.5 h-3.5 rounded border-gray-300 text-[#2D874B] focus:ring-[#2D874B]" value="content">
+            <span class="text-xs text-gray-700">内容推荐符合需求</span>
+          </label>
+          <label class="reason-checkbox flex items-center gap-1.5 p-2 rounded-md border border-gray-200 hover:border-[#2D874B] hover:bg-[#2D874B]/5 cursor-pointer transition-all">
+            <input type="checkbox" class="w-3.5 h-3.5 rounded border-gray-300 text-[#2D874B] focus:ring-[#2D874B]" value="search">
+            <span class="text-xs text-gray-700">搜的到目标内容</span>
+          </label>
+          <label class="reason-checkbox flex items-center gap-1.5 p-2 rounded-md border border-gray-200 hover:border-[#2D874B] hover:bg-[#2D874B]/5 cursor-pointer transition-all">
+            <input type="checkbox" class="w-3.5 h-3.5 rounded border-gray-300 text-[#2D874B] focus:ring-[#2D874B]" value="navigation">
+            <span class="text-xs text-gray-700">导航找的到目标入口</span>
+          </label>
+          <label class="reason-checkbox flex items-center gap-1.5 p-2 rounded-md border border-gray-200 hover:border-[#2D874B] hover:bg-[#2D874B]/5 cursor-pointer transition-all">
+            <input type="checkbox" class="w-3.5 h-3.5 rounded border-gray-300 text-[#2D874B] focus:ring-[#2D874B]" value="product">
+            <span class="text-xs text-gray-700">找的到想要的产品</span>
+          </label>
+          <label class="reason-checkbox flex items-center gap-1.5 p-2 rounded-md border border-gray-200 hover:border-[#2D874B] hover:bg-[#2D874B]/5 cursor-pointer transition-all">
+            <input type="checkbox" class="w-3.5 h-3.5 rounded border-gray-300 text-[#2D874B] focus:ring-[#2D874B]" value="brand">
+            <span class="text-xs text-gray-700">品牌辨识度高</span>
+          </label>
+          <label class="reason-checkbox flex items-center gap-1.5 p-2 rounded-md border border-gray-200 hover:border-[#2D874B] hover:bg-[#2D874B]/5 cursor-pointer transition-all">
+            <input type="checkbox" class="w-3.5 h-3.5 rounded border-gray-300 text-[#2D874B] focus:ring-[#2D874B]" value="visual">
+            <span class="text-xs text-gray-700">视觉美观/布局合理</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 具体反馈文本 -->
+      <div class="space-y-1.5">
+        <label class="block text-xs font-medium text-gray-700">请针对您所遇到的问题给出具体的反馈</label>
+        <textarea id="huawei-feedback-text" rows="3" placeholder="请输入内容"
+                  class="w-full px-3 py-2 rounded-md bg-gray-50 border border-gray-200 text-xs text-gray-800 placeholder:text-gray-400 resize-none
+                         focus:outline-none focus:ring-2 focus:ring-[#2D874B] focus:border-[#2D874B] transition-all"></textarea>
+        <div class="text-right text-[10px] text-gray-400">
+          <span id="huawei-char-count">0</span>/200
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部按钮 -->
+    <div class="flex items-center justify-end gap-2 px-4 py-3 border-t border-gray-100 bg-gray-50/50">
+      <button id="huawei-rating-cancel" class="px-4 py-1.5 rounded-md border border-gray-300 text-xs font-medium text-gray-700 hover:bg-gray-100 transition-colors">
+        取消
+      </button>
+      <button id="huawei-rating-submit" class="px-4 py-1.5 rounded-md bg-[#2D874B] text-xs font-medium text-white hover:bg-[#256e3d] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+        提交
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 华为风格弹窗动画样式 -->
+<style>
+  @keyframes popup-in {
+    from {
+      opacity: 0;
+      transform: translateX(20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+  .animate-popup-in {
+    animation: popup-in 0.25s ease-out forwards;
+  }
+  .rating-star.active {
+    background-color: #2D874B;
+    border-color: #2D874B;
+    color: white;
+  }
+  .rating-star:hover {
+    transform: scale(1.1);
+  }
+  .reason-checkbox.checked {
+    border-color: #2D874B;
+    background-color: rgba(45, 135, 75, 0.05);
+  }
+</style>
 
 <!-- ================== 交互脚本 ================== -->
 <script>
@@ -4953,6 +5237,434 @@
       });
 
     });
+
+  // ================== 华为风格轻量级评价弹窗功能（方案二） ==================
+  (function() {
+    const ratingBtn = document.getElementById('rating-btn');
+    const ratingPopup = document.getElementById('huawei-rating-popup');
+    const ratingClose = document.getElementById('huawei-rating-close');
+    const ratingCancel = document.getElementById('huawei-rating-cancel');
+    const ratingSubmit = document.getElementById('huawei-rating-submit');
+    const ratingStars = document.querySelectorAll('.rating-star');
+    const reasonCheckboxes = document.querySelectorAll('.reason-checkbox input[type="checkbox"]');
+    const feedbackText = document.getElementById('huawei-feedback-text');
+    const charCount = document.getElementById('huawei-char-count');
+
+    let currentRating = -1;
+    let selectedReasons = [];
+
+    // 打开弹窗
+    function openRatingPopup() {
+      ratingPopup.classList.remove('hidden');
+      // 重新触发动画
+      const popupContent = ratingPopup.querySelector('.animate-popup-in');
+      popupContent.style.animation = 'none';
+      requestAnimationFrame(() => {
+        popupContent.style.animation = '';
+      });
+    }
+
+    // 关闭弹窗
+    function closeRatingPopup() {
+      ratingPopup.classList.add('hidden');
+    }
+
+    // 设置评分
+    function setRating(score) {
+      currentRating = score;
+      ratingStars.forEach(star => {
+        const starScore = parseInt(star.dataset.score);
+        const starNumber = star.querySelector('.star-number');
+        const starEmoji = star.querySelector('.star-emoji');
+
+        if (starScore === score) {
+          star.classList.add('active');
+          // 选中状态：隐藏数字，显示表情
+          if (starNumber) starNumber.classList.add('hidden');
+          if (starEmoji) starEmoji.classList.remove('hidden');
+        } else {
+          star.classList.remove('active');
+          // 未选中状态：显示数字，隐藏表情
+          if (starNumber) starNumber.classList.remove('hidden');
+          if (starEmoji) starEmoji.classList.add('hidden');
+        }
+      });
+
+      validateForm();
+    }
+
+    // 处理原因选择（最多3项）
+    function handleReasonChange(e) {
+      const checkbox = e.target;
+      const value = checkbox.value;
+
+      if (checkbox.checked) {
+        if (selectedReasons.length >= 3) {
+          checkbox.checked = false;
+          alert('最多只能选择3项');
+          return;
+        }
+        selectedReasons.push(value);
+        checkbox.closest('.reason-checkbox').classList.add('checked');
+      } else {
+        selectedReasons = selectedReasons.filter(r => r !== value);
+        checkbox.closest('.reason-checkbox').classList.remove('checked');
+      }
+
+      validateForm();
+    }
+
+    // 更新字符计数
+    function updateCharCount() {
+      const count = feedbackText.value.length;
+      charCount.textContent = count;
+      if (count > 200) {
+        charCount.classList.add('text-red-500');
+        feedbackText.value = feedbackText.value.substring(0, 200);
+        charCount.textContent = 200;
+      } else {
+        charCount.classList.remove('text-red-500');
+      }
+    }
+
+    // 验证表单
+    function validateForm() {
+      // 需要评分和至少一个选择原因
+      const isValid = currentRating >= 0 && selectedReasons.length > 0;
+      ratingSubmit.disabled = !isValid;
+      return isValid;
+    }
+
+    // 重置表单
+    function resetForm() {
+      currentRating = -1;
+      selectedReasons = [];
+      ratingStars.forEach(star => {
+        star.classList.remove('active');
+        const starNumber = star.querySelector('.star-number');
+        const starEmoji = star.querySelector('.star-emoji');
+        if (starNumber) starNumber.classList.remove('hidden');
+        if (starEmoji) starEmoji.classList.add('hidden');
+      });
+      reasonCheckboxes.forEach(cb => {
+        cb.checked = false;
+        cb.closest('.reason-checkbox').classList.remove('checked');
+      });
+      feedbackText.value = '';
+      charCount.textContent = '0';
+      validateForm();
+    }
+
+    // 提交评价
+    function submitRating() {
+      if (!validateForm()) {
+        return;
+      }
+
+      const data = {
+        rating: currentRating,
+        reasons: selectedReasons,
+        feedback: feedbackText.value.trim(),
+        timestamp: new Date().toISOString()
+      };
+
+      // TODO: 调用后端API提交评价
+      console.log('提交评价:', data);
+
+      // 显示成功提示
+      closeRatingPopup();
+      setTimeout(() => {
+        // 复用方案一的成功弹窗
+        const successModal = document.getElementById('feedback-success-modal');
+        const successContent = document.getElementById('feedback-success-content');
+        if (successModal && successContent) {
+          successModal.classList.remove('hidden');
+          requestAnimationFrame(() => {
+            successContent.classList.remove('scale-95', 'opacity-0');
+            successContent.classList.add('scale-100', 'opacity-100');
+          });
+        }
+        resetForm();
+      }, 200);
+    }
+
+    // 事件绑定
+    if (ratingBtn) {
+      ratingBtn.addEventListener('click', openRatingPopup);
+    }
+
+    if (ratingClose) {
+      ratingClose.addEventListener('click', closeRatingPopup);
+    }
+
+    if (ratingCancel) {
+      ratingCancel.addEventListener('click', closeRatingPopup);
+    }
+
+    if (ratingSubmit) {
+      ratingSubmit.addEventListener('click', submitRating);
+    }
+
+    ratingStars.forEach(star => {
+      star.addEventListener('click', () => setRating(parseInt(star.dataset.score)));
+    });
+
+    reasonCheckboxes.forEach(cb => {
+      cb.addEventListener('change', handleReasonChange);
+    });
+
+    if (feedbackText) {
+      feedbackText.addEventListener('input', updateCharCount);
+    }
+
+    // 点击弹窗外部关闭
+    document.addEventListener('click', (e) => {
+      if (ratingPopup && !ratingPopup.classList.contains('hidden')) {
+        if (!ratingPopup.contains(e.target) && !ratingBtn.contains(e.target)) {
+          closeRatingPopup();
+        }
+      }
+    });
+
+    // 初始化
+    validateForm();
+  })();
+
+  // ================== 评价/反馈功能 ==================
+  (function() {
+    // 获取DOM元素
+    const feedbackBtn = document.getElementById('feedback-btn');
+    const feedbackPanel = document.getElementById('feedback-panel');
+    const feedbackClose = document.getElementById('feedback-close');
+    const feedbackContent = document.getElementById('feedback-content');
+    const feedbackLabel = document.getElementById('feedback-label');
+    const charCount = document.getElementById('char-count');
+    const feedbackSubmit = document.getElementById('feedback-submit');
+    const feedbackTypeBtns = document.querySelectorAll('.feedback-type-btn');
+    const feedbackEmail = document.getElementById('feedback-email');
+    const feedbackImage = document.getElementById('feedback-image');
+    const uploadBtn = document.getElementById('upload-btn');
+    const imageUploadArea = document.getElementById('image-upload-area');
+    const successModal = document.getElementById('feedback-success-modal');
+    const successContent = document.getElementById('feedback-success-content');
+    const successClose = document.getElementById('feedback-success-close');
+
+    let currentType = 'suggestion';
+    let uploadedImages = [];
+
+    // 打开反馈面板
+    function openFeedbackPanel() {
+      feedbackPanel.style.display = 'block';
+      requestAnimationFrame(() => {
+        feedbackPanel.style.transform = 'translateX(0)';
+      });
+    }
+
+    // 关闭反馈面板
+    function closeFeedbackPanel() {
+      feedbackPanel.style.transform = 'translateX(-100%)';
+      setTimeout(() => {
+        feedbackPanel.style.display = 'none';
+      }, 300);
+    }
+
+    // 切换反馈类型
+    function switchFeedbackType(type) {
+      currentType = type;
+      feedbackTypeBtns.forEach(btn => {
+        if (btn.dataset.type === type) {
+          btn.classList.add('active', 'border-[#2D874B]', 'bg-[#2D874B]/5', 'text-[#2D874B]');
+          btn.classList.remove('border-gray-200', 'text-gray-600');
+        } else {
+          btn.classList.remove('active', 'border-[#2D874B]', 'bg-[#2D874B]/5', 'text-[#2D874B]');
+          btn.classList.add('border-gray-200', 'text-gray-600');
+        }
+      });
+
+      // 更新标签和占位符
+      if (type === 'suggestion') {
+        feedbackLabel.textContent = '您的建议';
+        feedbackContent.placeholder = '请详细描述您的建议，帮助我们做得更好...';
+      } else {
+        feedbackLabel.textContent = '您的问题';
+        feedbackContent.placeholder = '请详细描述您遇到的问题，我们会尽快为您解答...';
+      }
+    }
+
+    // 更新字符计数
+    function updateCharCount() {
+      const count = feedbackContent.value.length;
+      charCount.textContent = `${count}/500`;
+      if (count > 500) {
+        charCount.classList.add('text-red-500');
+      } else {
+        charCount.classList.remove('text-red-500');
+      }
+    }
+
+    // 验证表单
+    function validateForm() {
+      const content = feedbackContent.value.trim();
+      if (content.length < 10) {
+        feedbackSubmit.disabled = true;
+        return false;
+      }
+      feedbackSubmit.disabled = false;
+      return true;
+    }
+
+    // 显示成功弹窗
+    function showSuccessModal() {
+      successModal.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        successContent.classList.remove('scale-95', 'opacity-0');
+        successContent.classList.add('scale-100', 'opacity-100');
+      });
+    }
+
+    // 关闭成功弹窗
+    function hideSuccessModal() {
+      successContent.classList.remove('scale-100', 'opacity-100');
+      successContent.classList.add('scale-95', 'opacity-0');
+      setTimeout(() => {
+        successModal.classList.add('hidden');
+      }, 300);
+    }
+
+    // 重置表单
+    function resetForm() {
+      feedbackContent.value = '';
+      feedbackEmail.value = '';
+      updateCharCount();
+      uploadedImages = [];
+      // 清除已上传的图片预览
+      const previews = imageUploadArea.querySelectorAll('.image-preview');
+      previews.forEach(p => p.remove());
+      validateForm();
+    }
+
+    // 处理图片上传
+    function handleImageUpload(e) {
+      const files = Array.from(e.target.files);
+      if (uploadedImages.length + files.length > 3) {
+        alert('最多只能上传3张图片');
+        return;
+      }
+
+      files.forEach(file => {
+        if (!file.type.startsWith('image/')) {
+          alert('请上传图片文件');
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          uploadedImages.push(event.target.result);
+          
+          // 创建图片预览
+          const previewDiv = document.createElement('div');
+          previewDiv.className = 'image-preview relative w-20 h-20 rounded-xl overflow-hidden border border-gray-200 group';
+          previewDiv.innerHTML = `
+            <img src="${event.target.result}" class="w-full h-full object-cover">
+            <button type="button" class="remove-image absolute top-1 right-1 w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <i class="fa fa-times text-xs"></i>
+            </button>
+          `;
+          
+          // 添加删除功能
+          previewDiv.querySelector('.remove-image').addEventListener('click', function() {
+            const index = uploadedImages.indexOf(event.target.result);
+            if (index > -1) {
+              uploadedImages.splice(index, 1);
+            }
+            previewDiv.remove();
+          });
+
+          imageUploadArea.insertBefore(previewDiv, uploadBtn);
+        };
+        reader.readAsDataURL(file);
+      });
+
+      // 清空input，允许重复选择同一文件
+      e.target.value = '';
+    }
+
+    // 提交反馈
+    function submitFeedback() {
+      if (!validateForm()) {
+        alert('请至少输入10个字的反馈内容');
+        return;
+      }
+
+      const data = {
+        type: currentType,
+        content: feedbackContent.value.trim(),
+        email: feedbackEmail.value.trim(),
+        images: uploadedImages,
+        timestamp: new Date().toISOString()
+      };
+
+      // TODO: 在这里调用后端API提交反馈
+      console.log('提交反馈:', data);
+
+      // 模拟提交成功
+      closeFeedbackPanel();
+      setTimeout(() => {
+        showSuccessModal();
+        resetForm();
+      }, 300);
+    }
+
+    // 事件绑定
+    if (feedbackBtn) {
+      feedbackBtn.addEventListener('click', openFeedbackPanel);
+    }
+
+    if (feedbackClose) {
+      feedbackClose.addEventListener('click', closeFeedbackPanel);
+    }
+
+    if (feedbackTypeBtns) {
+      feedbackTypeBtns.forEach(btn => {
+        btn.addEventListener('click', () => switchFeedbackType(btn.dataset.type));
+      });
+    }
+
+    if (feedbackContent) {
+      feedbackContent.addEventListener('input', () => {
+        updateCharCount();
+        validateForm();
+      });
+    }
+
+    if (uploadBtn) {
+      uploadBtn.addEventListener('click', () => feedbackImage.click());
+    }
+
+    if (feedbackImage) {
+      feedbackImage.addEventListener('change', handleImageUpload);
+    }
+
+    if (feedbackSubmit) {
+      feedbackSubmit.addEventListener('click', submitFeedback);
+    }
+
+    if (successClose) {
+      successClose.addEventListener('click', hideSuccessModal);
+    }
+
+    // 点击遮罩关闭成功弹窗
+    if (successModal) {
+      successModal.addEventListener('click', (e) => {
+        if (e.target === successModal) {
+          hideSuccessModal();
+        }
+      });
+    }
+
+    // 初始化
+    validateForm();
+  })();
   </script>
 </body>
 </html>
